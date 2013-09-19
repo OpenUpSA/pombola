@@ -69,12 +69,12 @@
               {% endfor %}
       {% endif %}
 
-      <h3>Constituency</h3>
+      <h3>Province</h3>
       <ul>
           {% for constituency in object.constituencies %}
               <li><a href="{{ constituency.get_absolute_url }}">{{ constituency.name }}</a></li>
           {% empty %}
-              <li>Not an MP for any constituencies</li>
+              <li>Not an MP for any provinces</li>
           {% endfor %}
       </ul>
 
