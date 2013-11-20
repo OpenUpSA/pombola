@@ -107,21 +107,20 @@
         </div>
     {% endif %}
 
-    {% if settings.POLLDADDY_WIDGET_ID %}
-    <div id="poll">
-        <h2>Survey</h2>
-        <style>
-            .pds-box { width: 100% !important; }
-            #polldaddy { margin-bottom: 30px; width: 304px; float: left; }
-        </style>
+    <div class="pd-embed" id="pd_1384877662"></div>
+    <script type="text/javascript">
+        var _polldaddy = [] || _polldaddy;
 
-        <div id="polldaddy">
-            <!-- <h2>Latest Poll</h2> -->
-            <script type="text/javascript" charset="utf-8" src="http://static.polldaddy.com/w/{{ settings.POLLDADDY_WIDGET_ID }}.js"></script>
-            <noscript><a href="http://polldaddy.com/w.php?p={{ settings.POLLDADDY_WIDGET_ID }}/">Take Our Poll</a></noscript>
-        </div>
-    </div>
-    {% endif %}
+        _polldaddy.push( {
+        type: "iframe",
+        auto: "1",
+        domain: "pombolazamanagers.polldaddy.com/s/",
+        id: "local-awareness",
+        placeholder: "pd_1384877662"
+        } );
+
+        (function(d,c,j){if(!document.getElementById(j)){var pd=d.createElement(c),s;pd.id=j;pd.src='http://i0.poll.fm/survey.js';s=document.getElementsByTagName(c)[0];s.parentNode.insertBefore(pd,s);}}(document,'script','pd-embed'));
+    </script>
 
     </div>
     {% if settings.BLOG_RSS_FEED %}
