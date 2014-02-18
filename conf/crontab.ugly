@@ -45,7 +45,7 @@ PYTHONIOENCODING=utf-8
 !!(* } elsif ($vhost eq 'za-pombola.staging.mysociety.org') { *)!!
 
 # NOTE - this should probably be removed once the live site is launched
-13 0 * * * !!(*= $user *)!! update_za_hansard.bash
+13 0 * * * !!(*= $user *)!! time update_za_hansard.bash
 
 !!(* } elsif ($vhost eq 'www.pa.org.za') { *)!!
 
