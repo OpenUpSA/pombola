@@ -380,7 +380,8 @@ HEADER
     background: url('/static/images/za-logo-mobile.png') left center no-repeat;
     text-align: left;
     @include background-size(160.5px 76.5px);
-    margin-bottom: 0.5em;
+    margin-bottom: 1em;
+    margin-top: 1em;
     @media only all and (min-width: 640px), print {
       background: url('/static/images/za-logo.png') 0 center no-repeat;
       width: 550px;
@@ -913,6 +914,8 @@ NEWS & POLL
 
 .home-news {
     float: left;
+    width: 100%;
+    max-width: 100%;
     h2 {
         a:link{
             text-decoration: none;
@@ -969,6 +972,9 @@ ul.home-news-list {
             a:focus {
                 text-decoration: underline;
             }
+        }
+        img {
+            width: 100%;
         }
     }
 }
@@ -1316,7 +1322,9 @@ FOOTER
         margin-bottom: 0.25em;
     }
     .position-parties,
-    .position-place {
+    .position-place,
+    .person-contact,
+    .position-title {
         display: inline-block;
         font-size: 0.875em;
         a:link,
@@ -1343,6 +1351,32 @@ FOOTER
             padding-left: 20px;
             margin-right: 20px;
         }
+    }
+
+    .person-contact {
+        margin-right:5px;
+
+        .contact-kind {
+            @include lato-bold;
+            color: $colour_blackish;
+            letter-spacing: 0.05em;
+            text-transform:uppercase;
+            font-size:0.9em;
+        }
+    }
+}
+
+.constituency-positions {
+    .position-parties,
+    .position-place,
+    .position-title {
+        display: block;
+    }
+
+    .position-title {
+        background: transparent url('/static/images/person-16x16.jpg') left center no-repeat;
+        padding-left: 20px;
+        margin-left:70px;
     }
 }
 
