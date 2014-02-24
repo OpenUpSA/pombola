@@ -4,11 +4,11 @@
 # command in the correct environment.
 
 # abort on any errors
-set -e
+set -ex
 
 # check that we are in the expected directory
 cd `dirname $0`/..
 
 source ../pombola-virtualenv/bin/activate
 
-./manage.py $1
+./manage.py "$@"
