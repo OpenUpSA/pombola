@@ -101,21 +101,24 @@ class SearchBaseView(TemplateView):
             return ['search/global_search.html']
 
     def get_global_context(self, context):
-        context['top_hits'] = []
-        results_without_top_hits = []
-        for data in context['results']:
-            max_for_top_hits = SearchBaseView.top_hits_under.get(data['section'], None)
-            if max_for_top_hits and data['results_count'] <= max_for_top_hits:
-                context['top_hits'] += data['results']
-            else:
-                results_without_top_hits.append(data)
-        context['results'] = results_without_top_hits
-        return context
+        # Find all the models to search over...
+        models = set(
+            self.search_sections[section]['model']
+            for section in self.search_sections
+        )
 
-    def get_section_context(self, context):
-        context['title'] = self.search_sections[self.section]['title']
-        all_results = self.get_section_data(self.section)['results']
-        paginator = Paginator(all_results, 10)
+        context['top_hits'] = []
+        for section, max_for_top_hits in SearchBaseView.top_hits_under.items():
+            data = self.get_section_data(section)
+            if data['results_count'] <= max_for_top_hits:
+                context['top_hits'] += data['results']
+
+        all_results = SearchQuerySet().models(*list(models)). \
+            exclude(hidden=True). \
+            filter(content=AutoQuery(self.query)). \
+            highlight()
+
+        paginator = Paginator(all_results, 20)
         page = self.request.GET.get('page')
         try:
             results = paginator.page(page)
@@ -124,15 +127,29 @@ class SearchBaseView(TemplateView):
         except EmptyPage:
             results = paginator.page(paginator.num_pages)
         context['results'] = results
+
+        return context
+
+    def get_section_context(self, context, section):
+
+        data = self.get_section_data(section)
+
+        paginator = Paginator(data['results'], 20)
+        page = self.request.GET.get('page')
+        try:
+            results = paginator.page(page)
+        except PageNotAnInteger:
+            results = paginator.page(1)
+        except EmptyPage:
+            results = paginator.page(paginator.num_pages)
+        context['results'] = results
+
         return context
 
     def get_context_data(self, **kwargs):
         context = super(SearchBaseView, self).get_context_data(**kwargs)
         context['query'] = self.query
         context['section'] = self.section
-        context['results'] = [
-            self.get_section_data(section) for section in self.section_ordering
-        ]
         context['form_options'] = [('global', 'All', (not self.section))]
         for section in self.section_ordering:
             context['form_options'].append(
@@ -140,8 +157,9 @@ class SearchBaseView(TemplateView):
                  self.search_sections[section]['title'],
                  section == self.section)
             )
+
         if self.section:
-            return self.get_section_context(context)
+            return self.get_section_context(context, self.section)
         else:
             return self.get_global_context(context)
 
