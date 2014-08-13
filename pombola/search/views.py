@@ -109,19 +109,29 @@ class SearchBaseView(TemplateView):
             for section in self.search_sections
         )
 
-        context['top_hits'] = []
-        for section, max_for_top_hits in SearchBaseView.top_hits_under.items():
-            data = self.get_section_data(section)
-            if data['results_count'] <= max_for_top_hits:
-                context['top_hits'] += data['results']
+        page = self.request.GET.get('page')
+        show_top_hits = (page == '1' or not page)
 
-        all_results = SearchQuerySet().models(*list(models)). \
+        top_hits_ids = []
+
+        if show_top_hits:
+            context['top_hits'] = []
+            for section, max_for_top_hits in SearchBaseView.top_hits_under.items():
+                data = self.get_section_data(section)
+                if data['results_count'] <= max_for_top_hits:
+                    context['top_hits'] += data['results']
+            top_hits_ids = set(r.id for r in context['top_hits'])
+
+        sqs = SearchQuerySet().models(*list(models))
+        # Exclude anything that will already have been shown in the top hits:
+        for top_hit_id in top_hits_ids:
+            sqs = sqs.exclude(id=top_hit_id)
+        sqs = sqs. \
             exclude(hidden=True). \
             filter(content=AutoQuery(self.query)). \
             highlight()
 
         paginator = Paginator(sqs, self.results_per_page)
-        page = self.request.GET.get('page')
         try:
             results = paginator.page(page)
         except PageNotAnInteger:
