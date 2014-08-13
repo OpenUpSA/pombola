@@ -18,7 +18,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.db.models import Q
 
 import mapit
-from haystack.query import SearchQuerySet
+from haystack.query import SearchQuerySet, SQ
 from haystack.inputs import AutoQuery
 from haystack.forms import SearchForm
 
@@ -550,15 +550,36 @@ class SASearchView(SearchBaseView):
 
     def __init__(self, *args, **kwargs):
         super(SASearchView, self).__init__(*args, **kwargs)
-        if False: # Or some option to use separate sections...
-            del self.search_sections['speeches']
-            self.search_sections['questions'] = {
-                'model': Speech,
-                'title': 'Questions',
-                'filter': {
-                    'tags': 'question'
+        del self.search_sections['speeches']
+        self.search_sections['questions'] = {
+            'model': Speech,
+            'title': 'Questions and Answers',
+            'filter': {
+                'args': [SQ(tags='question') | SQ(tags='answer')],
+            }
+        }
+        self.search_sections['committee'] = {
+            'model': Speech,
+            'title': 'Committee',
+            'filter': {
+                'kwargs': {
+                    'tags': 'committee'
                 }
             }
+        }
+        self.search_sections['hansard'] = {
+            'model': Speech,
+            'title': 'Hansard',
+            'filter': {
+                'kwargs': {
+                    'tags': 'hansard'
+                }
+            }
+        }
+        self.section_ordering.remove('speeches')
+        self.section_ordering += [
+            'questions', 'committee', 'hansard'
+        ]
 
 
 class SANewsletterPage(InfoPageView):

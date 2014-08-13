@@ -73,12 +73,20 @@ class SearchBaseView(TemplateView):
             self.search_sections['blog_posts'] = {
                 'model': InfoPage,
                 'title': 'Blog Posts',
-                'filter': {'kind': 'blog'},
+                'filter': {
+                    'kwargs': {
+                        'kind': 'blog'
+                    }
+                },
             }
             self.search_sections['info_pages'] = {
                 'model': InfoPage,
                 'title': 'Info Pages',
-                'filter': {'kind': 'page'},
+                'filter': {
+                    'kwargs': {
+                        'kind': 'page'
+                    }
+                },
             }
 
     def parse_params(self):
@@ -170,11 +178,17 @@ class SearchBaseView(TemplateView):
     def get_section_data(self, section):
         defaults = self.search_sections[section]
         extra_filter = defaults.get('filter', {})
+        filter_args = extra_filter.get('args', [])
+        filter_kwargs = extra_filter.get('kwargs', {})
         extra_exclude = defaults.get('exclude', {})
         query = SearchQuerySet().models(defaults['model'])
         if extra_exclude:
             query = query.exclude(**extra_exclude)
-        query = query.filter(content=AutoQuery(self.query), **extra_filter)
+        query = query.filter(
+            content=AutoQuery(self.query),
+            *filter_args,
+            **filter_kwargs
+        )
         result = defaults.copy()
         result['results'] = query.highlight()
         result['results_count'] = result['results'].count()
