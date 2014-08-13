@@ -87,7 +87,7 @@ class SearchBaseView(TemplateView):
         self.section = self.request.GET.get('section')
         if self.section == 'global':
             self.section = None
-        self.query = self.request.GET.get('q')
+        self.query = self.request.GET.get('q', '')
         self.page = self.request.GET.get('page')
 
     def get(self, request, *args, **kwargs):
