@@ -22,6 +22,22 @@
 
     <form method="get" action="{% url 'core_search' %}" class="global-search-form">
 
+      {% block alternative_search_section %}
+        {% if settings.COUNTRY_APP == 'south_africa' %}
+          <p>
+            Alternatively search
+
+            {% if settings.COUNTRY_APP == 'south_africa' %}
+              {% block alternative_search %}
+                <a href="{% url "core_geocoder_search" %}">for a location</a>
+              {% endblock %}
+            {% endif %}
+
+            instead.
+          </p>
+        {% endif %}
+      {% endblock %}
+
         <div class="search-section-box">
             {% block search_form %}
             <div class="inline-search-box">
