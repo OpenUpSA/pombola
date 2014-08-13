@@ -546,15 +546,6 @@ class SAPersonDetail(PersonSpeakerMappingsMixin, PersonDetail):
         return context
 
 
-search_models = (
-    models.Place,
-    models.PositionTitle,
-)
-if settings.ENABLED_FEATURES['speeches']:
-    from speeches.models import Speech
-    search_models += ( Speech, )
-
-
 class SASearchView(SearchBaseView):
 
     def __init__(self, *args, **kwargs):

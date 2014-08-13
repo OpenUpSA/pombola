@@ -9,16 +9,6 @@ from pombola.core    import models as core_models
 
 from .views import SearchBaseView, GeocoderView
 
-search_models = (
-    core_models.Person,
-    core_models.Organisation,
-    core_models.Place,
-    core_models.PositionTitle
-)
-if settings.ENABLED_FEATURES['speeches']:
-    from speeches.models import Speech
-    search_models += ( Speech, )
-
 urlpatterns = patterns('pombola.search.views',
 
     # Haystack and other searches
