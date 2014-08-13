@@ -29,6 +29,8 @@ class SearchBaseView(TemplateView):
         'blog_posts': 2,
     }
 
+    results_per_page = 20
+
     def __init__(self, *args, **kwargs):
         super(SearchBaseView, self).__init__(*args, **kwargs)
         self.section_ordering = ['persons', 'position_titles', 'organisations', 'places']
@@ -118,7 +120,7 @@ class SearchBaseView(TemplateView):
             filter(content=AutoQuery(self.query)). \
             highlight()
 
-        paginator = Paginator(all_results, 20)
+        paginator = Paginator(sqs, self.results_per_page)
         page = self.request.GET.get('page')
         try:
             results = paginator.page(page)
@@ -134,7 +136,7 @@ class SearchBaseView(TemplateView):
 
         data = self.get_section_data(section)
 
-        paginator = Paginator(data['results'], 20)
+        paginator = Paginator(data['results'], self.results_per_page)
         page = self.request.GET.get('page')
         try:
             results = paginator.page(page)
