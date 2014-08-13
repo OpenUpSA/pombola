@@ -150,8 +150,6 @@ class SearchBaseView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(SearchBaseView, self).get_context_data(**kwargs)
-        if not self.query:
-            return context
         context['query'] = self.query
         context['section'] = self.section
         context['form_options'] = [('global', 'All', (not self.section))]
@@ -161,6 +159,8 @@ class SearchBaseView(TemplateView):
                  self.search_sections[section]['title'],
                  section == self.section)
             )
+        if not self.query:
+            return context
 
         if self.section:
             return self.get_section_context(context, self.section)
