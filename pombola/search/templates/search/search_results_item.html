@@ -1,7 +1,9 @@
 {% load switch %}
 
 {% with object=result.object %}
-  <li class="{{ object.css_class }}{% if result.app_label == 'speeches' %}speech{% endif %}{% if not object.show_active %} inactive{% endif %}">
+  {% if not object.show_active %}
+    <li class="{{ object.css_class }}{% if result.app_label == 'speeches' %}speech{% endif %}{% if not object.show_active %} inactive{% endif %}">
+  {% endif %}
     {% if result.app_label == 'speeches' %}
       {% include 'search/items/speech.html' %}
     {% elif result.app_label == 'hansard' %}
@@ -22,5 +24,7 @@
             {% include 'search/items/unknown.html' %}
         {% endswitch %}
     {% endif %}
+  {% if not object.show_active %}
   </li>
+  {% endif %}
 {% endwith %}
