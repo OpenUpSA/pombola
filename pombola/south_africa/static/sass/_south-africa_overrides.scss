@@ -1439,6 +1439,11 @@ FOOTER
     margin-bottom: 1.5em;
 }
 
+.global-search-results {
+    .speech-name {
+        color: $colour_blackish;
+    }
+}
 
 /* Pagination controls */
 .step-pagination,
