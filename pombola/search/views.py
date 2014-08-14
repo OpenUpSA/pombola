@@ -97,6 +97,8 @@ class SearchBaseView(TemplateView):
             self.section = None
         self.query = self.request.GET.get('q', '')
         self.page = self.request.GET.get('page')
+        self.order = self.request.GET.get('order')
+
 
     def get(self, request, *args, **kwargs):
         self.parse_params()
@@ -189,6 +191,9 @@ class SearchBaseView(TemplateView):
             *filter_args,
             **filter_kwargs
         )
+        if self.order == 'date':
+            query = query.order_by('-start_date')
+
         result = defaults.copy()
         result['results'] = query.highlight()
         result['results_count'] = result['results'].count()
