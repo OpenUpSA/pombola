@@ -2525,3 +2525,25 @@ ul.pager {
         text-transform: none;
     }
 }
+
+.search-results-speech-item {
+    h3 {
+        font-size: 17px;
+        color: #777;
+    }
+    a {
+        text-decoration: none;
+        color: $colour-black;
+        .speech-description {
+            color: $colour-primary;
+        }
+        &:hover,
+        &:active,
+        &:focus {
+            .speech-description {
+                color: $colour-black;
+                text-decoration: underline;
+            }
+        }
+    }
+}

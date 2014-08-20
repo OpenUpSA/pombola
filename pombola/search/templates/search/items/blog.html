@@ -4,7 +4,7 @@
     <h3><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></h3>
 
     {# TODO: Style this. See https://docs.djangoproject.com/en/1.6/ref/templates/builtins/#date for date formatting options #}
-    <p>{{ object.publication_date|date:"dS F Y" }}</p>
+    <p><span class="search-type-label">Blog post</span> <span class="search-type-label--metadata">{{ object.publication_date|date:"dS F Y" }}</span></p>
 
   </section>
 
