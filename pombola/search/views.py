@@ -170,6 +170,8 @@ class SearchBaseView(TemplateView):
         context['query'] = self.query
         context['order'] = self.order
         context['section'] = self.section
+        if self.section:
+            context['section_title'] = self.search_sections[self.section]['title']
         context['form_options'] = [('global', 'All', (not self.section))]
 
         query_dict = self.request.GET.copy()
