@@ -560,7 +560,7 @@ class SASearchView(SearchBaseView):
         }
         self.search_sections['committee'] = {
             'model': Speech,
-            'title': 'Committee',
+            'title': 'Committee Appearance',
             'filter': {
                 'kwargs': {
                     'tags': 'committee'
