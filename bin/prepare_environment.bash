@@ -63,15 +63,7 @@ find . -name '*.pyc' -delete
 ./manage.py migrate
 
 # Install gems in order to compile the CSS
-mkdir -p "../gems"
-export GEM_HOME="$(cd ../gems && pwd -P)"
-export PATH="$GEM_HOME/bin:$PATH"
-
-gem install --no-ri --no-rdoc json
-gem install --no-ri --no-rdoc chunky_png -v 1.2.9
-gem install --no-ri --no-rdoc fssm -v 0.2.10
-gem install --no-ri --no-rdoc sass -v 3.2.19
-gem install --no-ri --no-rdoc compass -v 0.12.7
+bundle install --deployment --path ../gems --binstubs ../gem-bin
 
 # gather all the static files in one place
 ./manage.py collectstatic --noinput
