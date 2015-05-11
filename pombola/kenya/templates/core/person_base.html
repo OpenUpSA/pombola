@@ -2,6 +2,7 @@
 {% load thumbnail %}
 {% load url from future %}
 {% load switch %}
+{% load compressed %}
 
 {% block title %}{{ object.name }}{% endblock %}
 
@@ -121,4 +122,10 @@
   </div>
   {% endif %}
 
+  {% include "research_quant2.html" %}
+
+{% endblock %}
+
+{% block footer_extra_js_to_load %}
+    {% compressed_js 'quant2' %}
 {% endblock %}

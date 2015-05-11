@@ -87,5 +87,12 @@ COUNTRY_JS = {
             'js/survey.js',
         ),
         'output_filename': 'js/survey.js',
+    },
+    'quant2': {
+        'source_filenames': (
+            'js/easymodal.min.js',
+            'js/research-quant2.js',
+        ),
+        'output_filename': 'js/quant2.js',
     }
 }
