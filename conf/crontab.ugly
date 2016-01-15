@@ -22,6 +22,18 @@ PYTHONIOENCODING=utf-8
 # check that no bad slugs have been stored in the database
 0 23 * * * !!(*= $user *)!! run_management_command core_list_malformed_slugs
 
+!!(*
+    %dump_times = (
+        'mzalendo.mysociety.org' => 10,
+        'www.pa.org.za' => 20,
+        'www.shineyoureye.org' => 30,
+        'www.kuvakazim.com' => 40,
+    );
+    if (exists $dump_times{$vhost}) {
+        $dump_directory = "/data/vhost/$vhost/media_root/dumps";
+*)!!
+!!(*= $dump_times{$vhost} *)!! 23 * * * !!(*= $user *)!! mkdir -p !!(*= $dump_directory *)!! && pg_dump --no-owner --no-acl -t bills_* -t budgets_* -t core_* -t django_content_type -t django_site -t experiments_experiment -t file_archive_* -t hansard_* -t images_image -t info_* -t instances_instance -t interests_register_* -t mapit_* -t place_data_entry -t popit_* -t projects_project -t scorecards_* -t slug_helpers_* -t south_migrationhistory -t speeches_* -t spinner_* -t tasks_* -t votematch_* -T votematch_submission -t za_hansard_* -h !!(*= $db_config_POMBOLA_host *)!! -U !!(*= $db_config_POMBOLA_username *)!! !!(*= $db_config_POMBOLA_name *)!! | gzip -9 > !!(*= $dump_directory *)!!/pg-dump-`date --iso`.sql.gz && ln -snf pg-dump-`date --iso`.sql.gz !!(*= $dump_directory *)!!/pg-dump.sql.gz
+!!(* } *)!!
 
 # Several sites use the Pombola codebase. They don't all have the same requirements
 # or apps. Use the conditionals below to run the correct cron jobs, and make
