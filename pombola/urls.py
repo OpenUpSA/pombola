@@ -5,6 +5,8 @@ from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
+from rest_framework import routers
+
 urlpatterns = []
 
 
@@ -26,6 +28,17 @@ autocomplete_light.autodiscover()
 # Admin section
 from django.contrib import admin
 admin.autodiscover()
+
+# Add the API urls:
+api_router = routers.DefaultRouter()
+if settings.ENABLED_FEATURES['hansard']:
+    from pombola.hansard.api.views import VenueViewSet
+    api_router.register(r'hansard/venues', VenueViewSet)
+
+urlpatterns = [
+    url(r'^api/(?P<version>v0.1)/'),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+]
 
 from ajax_select import urls as ajax_select_urls
 urlpatterns += patterns('',

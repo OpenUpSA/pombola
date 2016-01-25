@@ -425,6 +425,8 @@ INSTALLED_APPS = (
 
     'pagination',
     'django_nose',
+
+    'rest_framework',
 )
 if config.get('DEBUG_TOOLBAR', True):
      INSTALLED_APPS += ('debug_toolbar',)
@@ -628,3 +630,12 @@ if config.get('EMAIL_SETTINGS', None):
     if port:
         EMAIL_PORT = port
     EMAIL_USE_TLS = config.get('EMAIL_USE_TLS', False)
+
+REST_FRAMEWORK = {
+    # Django Rest Framework settings:
+    'REST_FRAMEWORK': {
+        'DEFAULT_PERMISSION_CLASSES': ('pombola.api.permissions.ReadOnly',),
+        'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
+        'PAGE_SIZE': 10,
+    },
+}
