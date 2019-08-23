@@ -9,6 +9,7 @@ Pillow==3.2.0
 
 ### Database drivers
 psycopg2==2.8.2
+dj-database-url==0.5.0
 
 ### Django related
 Django==1.8.18
