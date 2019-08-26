@@ -27,6 +27,9 @@ services:
       - POSTGRES_PASSWORD=pombola
     volumes:
       - db-data:/var/lib/postgresql/data
+      - ./bin/postgis-legacy.sh:/docker-entrypoint-initdb.d/y-postgis-legacy.sh
+      - ./postgis-schema.sql:/docker-entrypoint-initdb.d/z-postgis-schema.sql
+
 
 volumes:
   app-data:

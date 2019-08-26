@@ -27,6 +27,8 @@ if os.environ.get("DJANGO_DEBUG", "false").lower() == "true":
 else:
     DEBUG = False
 
+STAGING = DEBUG
+
 template_loaders = [
     "django.template.loaders.app_directories.Loader",
     "django.template.loaders.filesystem.Loader",
@@ -516,8 +518,6 @@ PIPELINE_JS = {
 # PIPELINE_ENABLED = True
 
 PIPELINE_COMPILERS = ("pipeline_compass.compass.CompassCompiler",)
-PIPELINE_COMPASS_BINARY = os.path.join(data_dir, "gem-bin", "compass")
-
 
 PIPELINE_CSS_COMPRESSOR = "pipeline.compressors.yui.YUICompressor"
 PIPELINE_JS_COMPRESSOR = "pipeline.compressors.yui.YUICompressor"

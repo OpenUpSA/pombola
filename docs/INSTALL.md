@@ -18,9 +18,8 @@ The code is available via github: https://github.com/mysociety/pombola
 git clone https://github.com/mysociety/pombola.git
 ```
 
-docker-compose run --rm db psql postgres://pombola:pombola@db/pombola -f /usr/share/postgresql/9.6/contrib/postgis-2.5/legacy_minimal.sql
-
 zcat pg-dump_schema.sql.gz | docker-compose run --rm db psql postgres://pombola:pombola@db/pombola
+zcat pg-dump_data.sql.gz | docker-compose run --rm db psql postgres://pombola:pombola@db/pombola
 
 
 ## Vagrant
