@@ -15,7 +15,7 @@ RUN apt-get update && \
                        python-dev \
                        python-gdal \
                        ruby-bundler \
-                       ruby2.3-dev \
+                       ruby2.5-dev \
                        yui-compressor \
                        zlib1g-dev
 
