@@ -5,7 +5,6 @@ from .apps import *  # noqa
 
 from django.template.defaultfilters import slugify
 
-from pombola.config import config
 from pombola.core.logging_filters import skip_unreadable_post
 from pombola.hansard.constants import NAME_SET_INTERSECTION_MATCH
 
@@ -16,7 +15,7 @@ base_dir = os.path.abspath(os.path.join(os.path.split(__file__)[0], "..", ".."))
 
 # data_dir. If it's specified absolutely, respect it.
 # Otherwise assume it's relative to base_dir
-conf_data_dir = config.get("DATA_DIR", "data")
+conf_data_dir = os.environ.get("POMBOLA_DATADIR", "data")
 if os.path.isabs(conf_data_dir):
     data_dir = conf_data_dir
 else:
@@ -66,16 +65,22 @@ TEMPLATES = [
     }
 ]
 
-ADMINS = ((config.get("ERRORS_NAME"), config.get("ERRORS_EMAIL")),)
+ADMINS = ((
+    os.environ.get("ERRORS_NAME", "Pombola Developers"),
+    os.environ.get("ERRORS_EMAIL", "Pombola Managers"),
+),)
 
 SLUGGABLE_SLUGIFY_FUNCTION = slugify
 
-DEFAULT_FROM_EMAIL = config.get("FROM_EMAIL")
+DEFAULT_FROM_EMAIL = os.environ.get("FROM_EMAIL", "you@example.com")
 
 # This is the From: address used for error emails to ADMINS
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
-MANAGERS = ((config.get("MANAGERS_NAME"), config.get("MANAGERS_EMAIL")),)
+MANAGERS = ((
+    os.environ.get("MANAGERS_NAME", "Pombola Managers"),
+    os.environ.get("MANAGERS_EMAIL", "managers@example.com")
+),)
 
 import dj_database_url
 
@@ -90,7 +95,7 @@ CONN_MAX_AGE = 0 if DEBUG else 300
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = config.get("ALLOWED_HOSTS", [])
+ALLOWED_HOSTS = ['*']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -99,7 +104,7 @@ ALLOWED_HOSTS = config.get("ALLOWED_HOSTS", [])
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = config.get("TIME_ZONE")
+TIME_ZONE = os.environ.get("TIME_ZONE", 'Africa/Johannesburg')
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -157,15 +162,14 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = config.get("DJANGO_SECRET_KEY")
+SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 
 CACHES = {
     # by default use memcached locally. This is what get used by
     # django.core.cache.cache
     "default": {
-        "BACKEND": "django.core.cache.backends.memcached.MemcachedCache",
-        "LOCATION": "127.0.0.1:11211",
-        "KEY_PREFIX": config.get("POMBOLA_DB_NAME"),
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/var/tmp/django_cache',
     },
     # we also have a dummy cache that is used for all the page requests - we want
     # the cache framework to auto-add all the caching headers, but we don't actually
@@ -179,7 +183,7 @@ if DEBUG:
     CACHE_MIDDLEWARE_SECONDS = 0
 else:
     CACHE_MIDDLEWARE_SECONDS = 60 * 20  # twenty minutes
-CACHE_MIDDLEWARE_KEY_PREFIX = config.get("POMBOLA_DB_NAME")
+CACHE_MIDDLEWARE_KEY_PREFIX = "pombola"
 
 # Always use the TemporaryFileUploadHandler as it allows us to access the
 # uploaded file on disk more easily. Currently used by the CSV upload in
@@ -202,7 +206,7 @@ MIDDLEWARE_CLASSES = (
     "mapit.middleware.ViewExceptionMiddleware",
     "django.middleware.security.SecurityMiddleware",
 )
-if config.get("DEBUG_TOOLBAR", True):
+if os.environ.get("DJANGO_DEBUG_TOOLBAR", "false").lower() == "true":
     MIDDLEWARE_CLASSES += ("debug_toolbar.middleware.DebugToolbarMiddleware",)
 
 ROOT_URLCONF = "pombola.urls"
@@ -260,13 +264,12 @@ LOGGING = {
 
 # Configure the Hansard app
 HANSARD_CACHE = os.path.join(base_dir, "../hansard_cache")
-KENYA_PARSER_PDF_TO_HTML_HOST = config.get("KENYA_PARSER_PDF_TO_HTML_HOST")
 
 # The name of a Twitter account related to this website. This will be used to
 # pull in the latest tweets on the homepage and in the share on twitter links.
-TWITTER_USERNAME = config.get("TWITTER_USERNAME")
+TWITTER_USERNAME = os.environ.get("TWITTER_USERNAME", None)
 # The widget ID is used for displaying tweets on the homepage.
-TWITTER_WIDGET_ID = config.get("TWITTER_WIDGET_ID")
+TWITTER_WIDGET_ID = os.environ.get("TWITTER_WIDGET_ID", None)
 
 # pagination related settings
 PAGINATION_DEFAULT_PAGINATION = 10
@@ -284,7 +287,7 @@ HAYSTACK_CONNECTIONS = {
     "default": {
         "ENGINE": "haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine",
         "URL": "localhost:9200",
-        "INDEX_NAME": config.get("POMBOLA_DB_NAME"),
+        "INDEX_NAME": "pombola",
         "EXCLUDED_INDEXES": [],
     }
 }
@@ -301,15 +304,8 @@ AJAX_LOOKUP_CHANNELS = {
 
 # misc settings
 HTTPLIB2_CACHE_DIR = os.path.join(data_dir, "httplib2_cache")
-GOOGLE_ANALYTICS_ACCOUNT = config.get("GOOGLE_ANALYTICS_ACCOUNT")
-COUNTY_PERFORMANCE_EXPERIMENT_KEY = config.get("COUNTY_PERFORMANCE_EXPERIMENT_KEY")
-YOUTH_EMPLOYMENT_BILL_EXPERIMENT_KEY = config.get(
-    "YOUTH_EMPLOYMENT_BILL_EXPERIMENT_KEY"
-)
-GOOGLE_SITE_VERIFICATION = config.get("GOOGLE_SITE_VERIFICATION", None)
-
-IEBC_API_ID = config.get("IEBC_API_ID")
-IEBC_API_SECRET = config.get("IEBC_API_SECRET")
+GOOGLE_ANALYTICS_ACCOUNT = os.environ.get("GOOGLE_ANALYTICS_ACCOUNT", None)
+GOOGLE_SITE_VERIFICATION = os.environ.get("GOOGLE_SITE_VERIFICATION", None)
 
 # Markitup settings
 MARKITUP_FILTER = ("markdown.markdown", {"safe_mode": True, "extensions": ["tables"]})
@@ -321,23 +317,23 @@ TEST_RUNNER = "django_nose.NoseTestSuiteRunner"
 NOSE_ARGS = ["--with-doctest", "--with-yanc"]
 
 # For the disqus comments
-DISQUS_SHORTNAME = config.get("DISQUS_SHORTNAME", None)
+DISQUS_SHORTNAME = os.environ.get("DISQUS_SHORTNAME", None)
 # At some point we should deprecate this. For now it defaults to true so that
 # no entry in the config does the right thing.
-DISQUS_USE_IDENTIFIERS = config.get("DISQUS_USE_IDENTIFIERS", True)
-FACEBOOK_APP_ID = config.get("FACEBOOK_APP_ID")
+DISQUS_USE_IDENTIFIERS = os.environ.get("DISQUS_USE_IDENTIFIERS", True)
+FACEBOOK_APP_ID = os.environ.get("FACEBOOK_APP_ID", None)
 
 
 # Polldaddy widget ID - from http://polldaddy.com/
 # Use the widget rather than embedding a poll direct as it will allow the poll
 # to be changed without having to alter the settings or HTML. If left blank
 # then no poll will be shown.
-POLLDADDY_WIDGET_ID = config.get("POLLDADDY_WIDGET_ID", None)
+POLLDADDY_WIDGET_ID = os.environ.get("POLLDADDY_WIDGET_ID", None)
 
 
 # RSS feed to the blog related to this site. If present will cause the 'Latest
 # News' to appear on the homepage.
-BLOG_RSS_FEED = config.get("BLOG_RSS_FEED", None)
+BLOG_RSS_FEED = os.environ.get("BLOG_RSS_FEED", None)
 
 THUMBNAIL_DEBUG = True
 
@@ -349,9 +345,9 @@ QUESTION_CACHE = os.path.join(HANSARD_CACHE, "questions")
 ANSWER_JSON_CACHE = os.path.join(HANSARD_CACHE, "answers_json")
 QUESTION_JSON_CACHE = os.path.join(HANSARD_CACHE, "questions_json")
 
-PMG_COMMITTEE_USER = config.get("PMG_COMMITTEE_USER", "")
-PMG_COMMITTEE_PASS = config.get("PMG_COMMITTEE_PASS", "")
-PMG_API_KEY = config.get("PMG_API_KEY", "")
+PMG_COMMITTEE_USER = os.environ.get("PMG_COMMITTEE_USER", "")
+PMG_COMMITTEE_PASS = os.environ.get("PMG_COMMITTEE_PASS", "")
+PMG_API_KEY = os.environ.get("PMG_API_KEY", "")
 
 # Algorithm to use for matching names when scraping hansard
 # NAME_SUBSTRING_MATCH
@@ -364,7 +360,7 @@ PMG_API_KEY = config.get("PMG_API_KEY", "")
 HANSARD_NAME_MATCHING_ALGORITHM = NAME_SET_INTERSECTION_MATCH
 
 # Which popit instance to use
-POPIT_API_URL = config.get("POPIT_API_URL")
+POPIT_API_URL = os.environ.get("POPIT_API_URL")
 
 BREADCRUMB_URL_NAME_MAPPINGS = {
     "info": ("Information", "/info/"),
@@ -420,7 +416,7 @@ INSTALLED_APPS = (
     "django_extensions",
     "rest_framework",
 )
-if config.get("DEBUG_TOOLBAR", True):
+if os.environ.get("DJANGO_DEBUG_TOOLBAR", "true").lower() == "true":
     INSTALLED_APPS += ("debug_toolbar",)
 
 
@@ -561,15 +557,15 @@ BLEACH_STRIP_TAGS = True
 
 INFO_PAGES_ALLOW_RAW_HTML = False
 
-if config.get("EMAIL_SETTINGS", None):
-    EMAIL_HOST = config.get("EMAIL_HOST", "")
-    EMAIL_HOST_USER = config.get("EMAIL_HOST_USER", "")
-    EMAIL_HOST_PASSWORD = config.get("EMAIL_HOST_PASSWORD", "")
-    port = config.get("EMAIL_PORT", None)
+if os.environ.get("EMAIL_HOST", None):
+    EMAIL_HOST = os.environ.get("EMAIL_HOST", "")
+    EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")
+    EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
+    port = os.environ.get("EMAIL_PORT", None)
     if port:
         EMAIL_PORT = port
-    EMAIL_USE_TLS = config.get("EMAIL_USE_TLS", False)
-else:
+    EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", True)
+elif DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Django Rest Framework settings:
@@ -597,8 +593,4 @@ SHELL_PLUS_APP_PREFIXES = {
     "place_data": "place_data",
 }
 
-GOOGLE_MAPS_GEOCODING_API_KEY = config.get("GOOGLE_MAPS_GEOCODING_API_KEY", "")
-
-KENYA_SMS_API_URL = config.get("KENYA_SMS_API_URL")
-KENYA_SMS_API_SHORT_CODE = config.get("KENYA_SMS_API_SHORT_CODE")
-KENYA_SMS_API_KEY = config.get("KENYA_SMS_API_KEY")
+GOOGLE_MAPS_GEOCODING_API_KEY = os.environ.get("GOOGLE_MAPS_GEOCODING_API_KEY", "")
