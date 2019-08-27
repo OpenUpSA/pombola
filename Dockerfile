@@ -1,4 +1,4 @@
-FROM python:2
+FROM python:2-stretch
 
 ENV PYTHONUNBUFFERED 1
 ENV COUNTRY_APP=south_africa
@@ -15,7 +15,7 @@ RUN apt-get update && \
                        python-dev \
                        python-gdal \
                        ruby-bundler \
-                       ruby2.5-dev \
+                       ruby2.3-dev \
                        yui-compressor \
                        zlib1g-dev
 
