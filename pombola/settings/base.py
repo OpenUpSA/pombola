@@ -67,7 +67,7 @@ TEMPLATES = [
 
 ADMINS = ((
     os.environ.get("ERRORS_NAME", "Pombola Developers"),
-    os.environ.get("ERRORS_EMAIL", "Pombola Managers"),
+    os.environ.get("ERRORS_EMAIL", "developers@example.com"),
 ),)
 
 SLUGGABLE_SLUGIFY_FUNCTION = slugify

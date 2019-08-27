@@ -12,6 +12,8 @@ this can be modified using the `DATA_DIR` configuration variable.
 
 ## Getting the code
 
+### Development
+
 The code is available via github: https://github.com/mysociety/pombola
 
 ```
@@ -46,6 +48,31 @@ Delete the DB, media files and search index to start afresh:
 ```
 docker-compose down --volumes
 ```
+
+### Production deployment
+
+dokku config:set pombola \
+    EMAIL_HOST=smtp.sendgrid.net \
+    EMAIL_HOST_USER=apikey \
+    EMAIL_HOST_PASSWORD=... \
+    EMAIL_PORT=587 \
+    POMBOLA_DATADIR=/data \
+    DEFAULT_FROM_EMAIL=contact@pa.org.za \
+    MANAGERS_EMAIL=contact@pa.org.za \
+    ERRORS_EMAIL=webapps@openup.org.za \
+    DJANGO_SECRET_KEY=... \
+    TWITTER_USERNAME=PeoplesAssem_SA \
+    ELASTICSEARCH_URL=elasticsearch.example.com:9200 \
+    DATABASE_URL=postgres://pombola:...@db.example.com/pombola \
+    GOOGLE_ANALYTICS_ACCOUNT=UA-47810266-1 \
+    DISQUS_SHORTNAME=peoplesassembly.disqus.com \
+    PMG_COMMITTEE_USER=... \
+    PMG_COMMITTEE_PASSWORD=... \
+    PMG_API_KEY=... \
+    POPIT_API_URL=True
+
+dokku docker-options:add pombola deploy "-v /var/pombola-data:/data"
+dokku docker-options:add pombola run "-v /var/pombola-data:/data"
 
 ## Vagrant
 

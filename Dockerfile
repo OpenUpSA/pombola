@@ -19,6 +19,8 @@ RUN apt-get update && \
                        yui-compressor \
                        zlib1g-dev
 
+RUN bundle install
+
 RUN mkdir /app
 COPY requirements.txt /app/
 RUN pip install -r /app/requirements.txt
@@ -28,6 +30,6 @@ COPY . /app/
 # by development mount
 WORKDIR /app
 
-RUN bundle install
-
 ENTRYPOINT ["bin/entrypoint.sh"]
+
+CMD "gunicorn --limit-request-line 7168 --worker-class gevent pombola.wsgi:application -t 600 --log-file - -b 0.0.0.0:5000"
