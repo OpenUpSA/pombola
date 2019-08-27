@@ -19,8 +19,6 @@ RUN apt-get update && \
                        yui-compressor \
                        zlib1g-dev
 
-RUN bundle install
-
 RUN mkdir /app
 COPY requirements.txt /app/
 RUN pip install -r /app/requirements.txt
@@ -29,6 +27,8 @@ COPY . /app/
 # Set WORKDIR after installing, so that src dir isn't created then overwritten
 # by development mount
 WORKDIR /app
+
+RUN bundle install
 
 ENTRYPOINT ["bin/entrypoint.sh"]
 
