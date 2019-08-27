@@ -15,12 +15,37 @@ this can be modified using the `DATA_DIR` configuration variable.
 The code is available via github: https://github.com/mysociety/pombola
 
 ```
-git clone https://github.com/mysociety/pombola.git
+git clone https://github.com/OpenUpSA/pombola.git
 ```
 
+Start the app, DB and search index:
+
+```
+docker-compose up
+```
+
+Load the schema and data:
+
+```
 zcat pg-dump_schema.sql.gz | docker-compose run --rm db psql postgres://pombola:pombola@db/pombola
 zcat pg-dump_data.sql.gz | docker-compose run --rm db psql postgres://pombola:pombola@db/pombola
+```
 
+Build the search index:
+
+```
+docker-compose run --rm app python manage.py rebuild_index
+```
+
+Now you can visit the site at [http://localhost:8000](http://localhost:8000)
+
+-----
+
+Delete the DB, media files and search index to start afresh:
+
+```
+docker-compose down --volumes
+```
 
 ## Vagrant
 

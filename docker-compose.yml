@@ -16,9 +16,9 @@ services:
       - POMBOLA_DATADIR=/app-data
       - DJANGO_DEBUG=TRUE
       - DJANGO_SECRET_KEY=not-secret-in-dev
+      - ELASTICSEARCH_URL=elasticsearch:9200
     ports:
       - "8000:8000"
-      - "8001:8000"
     command: python manage.py runserver 0.0.0.0:8000
 
   db:
@@ -31,7 +31,15 @@ services:
       - ./bin/postgis-legacy.sh:/docker-entrypoint-initdb.d/y-postgis-legacy.sh
       - ./postgis-schema.sql:/docker-entrypoint-initdb.d/z-postgis-schema.sql
 
+  elasticsearch:
+    image: elastic
+    build:
+      context: .
+      dockerfile: Dockerfile-elasticsearch
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
 
 volumes:
   app-data:
   db-data:
+  es-data:

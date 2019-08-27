@@ -286,8 +286,8 @@ HAYSTACK_CONNECTIONS = {
     # },
     "default": {
         "ENGINE": "haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine",
-        "URL": "localhost:9200",
-        "INDEX_NAME": "pombola",
+        "URL": os.environ.get("ELASTICSEARCH_URL"),
+        "INDEX_NAME": os.environ.get("ELASTICSEARCH_INDEX", "pombola"),
         "EXCLUDED_INDEXES": [],
     }
 }
