@@ -16,6 +16,7 @@ services:
       - POMBOLA_DATADIR=/app-data
       - DJANGO_DEBUG=TRUE
       - DJANGO_SECRET_KEY=not-secret-in-dev
+      - DJANGO_WHITENOISE_AUTOREFRESH=True
       - ELASTICSEARCH_URL=elasticsearch:9200
       - GOOGLE_MAPS_GEOCODING_API_KEY=${GOOGLE_MAPS_GEOCODING_API_KEY}
     ports:
