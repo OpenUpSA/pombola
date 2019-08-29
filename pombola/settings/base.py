@@ -166,9 +166,6 @@ STATICFILES_FINDERS = (
     'pipeline.finders.CachedFileFinder',
 )
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-WHITENOISE_AUTOREFRESH = os.environ.get("DJANGO_WHITENOISE_AUTOREFRESH", "false").lower() == "true"
-
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 
@@ -205,7 +202,6 @@ FILE_UPLOAD_HANDLERS = (
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.gzip.GZipMiddleware', # first in list so it is able to act last on response
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -442,7 +438,6 @@ INSTALLED_APPS = (
     'django_extensions',
 
     'rest_framework',
-    'whitenoise.runserver_nostatic',
 )
 if os.environ.get("DJANGO_DEBUG_TOOLBAR", "true").lower() == "true":
     INSTALLED_APPS += ("debug_toolbar",)
