@@ -53,8 +53,8 @@ docker-compose down --volumes
 
 
 ```
-export POSTGRES_IMAGE="mdillon/postgis"
-export POSTGRES_IMAGE_VERSION="9.6"
+export POSTGRES_IMAGE="openup/postgres-9.6-postgis-9.3"
+export POSTGRES_IMAGE_VERSION="latest"
 dokku postgres:create pombola
 dokku postgres:link pombola pombola
 ```
@@ -68,30 +68,20 @@ create extension postgis;
 `dokku postgres:enter pombola bash`
 
 ```
-psql -U postgres -f /usr/share/postgresql/9.6/contrib/postgis-2.5/legacy_minimal.sql pombola
+psql -U postgres -f /usr/share/postgresql/9.6/contrib/postgis-2.3/legacy_minimal.sql pombola
 ```
 
 `dokku postgres:connect pombola`
 
 ```
-UPDATE pg_extension
-  SET extrelocatable = TRUE
-    WHERE extname = 'postgis';
-
-CREATE SCHEMA postgis;
-
-ALTER DATABASE pombola
-SET search_path = public,postgis;
-
-ALTER EXTENSION postgis
-  SET SCHEMA postgis;
+CREATE EXTENSION postgis;
+CREATE EXTENSION postgis_topology;
 ```
 
 Create and configure the app
 
 ```
 dokku apps:create pombola
-dokku postgres:promote pombola pombola
 dokku config:set pombola \
     EMAIL_HOST=smtp.sendgrid.net \
     EMAIL_HOST_USER=apikey \
@@ -110,7 +100,8 @@ dokku config:set pombola \
     PMG_COMMITTEE_USER=... \
     PMG_COMMITTEE_PASSWORD=... \
     PMG_API_KEY=... \
-    POPIT_API_URL=True
+    POPIT_API_URL=True \
+    GOOGLE_MAPS_GEOCODING_API_KEY=...
 
 dokku docker-options:add pombola deploy "-v /var/pombola-data:/data"
 dokku docker-options:add pombola run "-v /var/pombola-data:/data"
