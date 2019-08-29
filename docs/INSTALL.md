@@ -115,6 +115,25 @@ git remote add dokku dokku@pa.openup.org.za:pombola
 git push dokku master
 ```
 
+Configure NGINX to serve the static and media files
+
+Edit `/home/dokku/pombola/nginx.conf.d/media.conf` to look like this:
+
+```
+location /static {
+    alias /var/pombola-data/collected_static;
+}
+
+
+location /media_root {
+    alias /var/pombola-data/media_root;
+}
+```
+
+Test the config with `sudo nginx -t`
+
+Reload nginx: `sudo systemctl restart nginx`
+
 ## Vagrant
 
 The `Vagrantfile` will set up the Kenyan site by default. You can
