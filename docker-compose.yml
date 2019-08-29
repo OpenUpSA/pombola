@@ -9,7 +9,7 @@ services:
     depends_on:
       - db
     volumes:
-      - app-data:/app-data
+      - ./data:/app-data
       - .:/app
     environment:
       - DATABASE_URL=postgresql://pombola:pombola@db/pombola
@@ -42,6 +42,5 @@ services:
       - es-data:/usr/share/elasticsearch/data
 
 volumes:
-  app-data:
   db-data:
   es-data:
