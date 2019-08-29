@@ -1,6 +1,6 @@
 #!/bin/sh
 
-mkdir -p ${DATADIR}/media_root
+mkdir -p ${POMBOLA_DATADIR}/media_root
 
 postgres_ready() {
 python << END
