@@ -4,7 +4,8 @@ ENV PYTHONUNBUFFERED 1
 ENV COUNTRY_APP=south_africa
 
 RUN apt-get update && \
-    apt-get install -y binutils \
+    apt-get install -y antiword \
+                       binutils \
                        libffi-dev \
                        libjpeg-dev \
                        libpq-dev \
@@ -12,6 +13,7 @@ RUN apt-get update && \
                        libxslt1-dev \
                        libproj-dev \
                        gdal-bin \
+                       poppler-utils \
                        python-dev \
                        python-gdal \
                        ruby-bundler \
