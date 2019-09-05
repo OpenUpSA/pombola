@@ -13,6 +13,7 @@ services:
       - .:/app
     environment:
       - DATABASE_URL=postgresql://pombola:pombola@db/pombola
+      - DATABASE_NAME=pombola
       - POMBOLA_DATADIR=/app-data
       - DJANGO_DEBUG=TRUE
       - DJANGO_SECRET_KEY=not-secret-in-dev
