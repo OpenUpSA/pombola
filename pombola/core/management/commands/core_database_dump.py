@@ -220,10 +220,7 @@ publicly) add them to 'tables_to_ignore'.'''
         for dump_type in ('schema', 'data'):
             output_filename = '{}_{}.sql'.format(output_prefix, dump_type)
 
-            db_settings = connection.settings_dict
-            host = db_settings['HOST']
-            current_host = subprocess.check_output(['hostname', '--fqdn']).strip()
-            dump_over_ssh = host and (host not in ('localhost', current_host))
+            database_url = os.environ['DATABASE_URL']
 
             command = [
                 'pg_dump',
@@ -241,15 +238,7 @@ publicly) add them to 'tables_to_ignore'.'''
                 for t in self.get_tables_to_dump():
                     command += ['-t', t]
 
-            if (not dump_over_ssh) and host:
-                command += [
-                    '-h', host,
-                ]
-            if db_settings['USER']:
-                command += [
-                    '-U', db_settings['USER'],
-                ]
-            command.append(db_settings['NAME'])
+            command.append(database_url)
             if int(options['verbosity']) > 1:
                 print >> sys.stderr, "Going to run the command:", ' '.join(command)
             output_directory = dirname(realpath(output_filename))
@@ -259,13 +248,6 @@ publicly) add them to 'tables_to_ignore'.'''
             )
             with open(ntf.name, 'wb') as f:
                 shell_command = ''
-                if dump_over_ssh:
-                    if db_settings['PASSWORD']:
-                        shell_command = 'PGPASSWORD={0} '.format(
-                            shellquote(db_settings['PASSWORD']))
-                    shell_command += ' '.join(shellquote(p) for p in command)
-                    subprocess.check_call(['ssh', host, shell_command], stdout=f)
-                else:
-                    subprocess.check_call(command, stdout=f)
+                subprocess.check_call(command, stdout=f)
             os.chmod(ntf.name, 0o644)
             os.rename(ntf.name, output_filename)
