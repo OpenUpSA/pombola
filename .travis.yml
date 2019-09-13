@@ -3,13 +3,13 @@ sudo: false
 notifications:
   email: false
 
-language: python
-python: 2.7
-cache: pip
 services:
   - docker
+
 script:
+  - "docker-compose up db elasticsearch &"
   - "docker-compose run --rm app ./run-tests --coverage"
+
 # addons:
 #   postgresql: "9.6"
 #   apt:
