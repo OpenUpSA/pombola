@@ -32,6 +32,4 @@ WORKDIR /app
 
 RUN bundle install
 
-ENTRYPOINT ["bin/entrypoint.sh"]
-
 CMD gunicorn --limit-request-line 7168 --worker-class gevent pombola.wsgi:application -t 600 --log-file - -b 0.0.0.0:5000
