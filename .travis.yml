@@ -10,7 +10,6 @@ services:
   - docker
 script:
   - "docker-compose run --rm app ./run-tests --coverage"
-  - "docker-compose up -d"
 # addons:
 #   postgresql: "9.6"
 #   apt:
