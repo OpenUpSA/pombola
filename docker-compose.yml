@@ -8,6 +8,7 @@ services:
     image: pombola
     depends_on:
       - db
+      - elasticsearch
     volumes:
       - ./data:/app-data
       - .:/app
@@ -21,7 +22,7 @@ services:
       - GOOGLE_MAPS_GEOCODING_API_KEY=${GOOGLE_MAPS_GEOCODING_API_KEY}
     ports:
       - "8000:8000"
-    command: python manage.py runserver 0.0.0.0:8000
+    command: bin/wait-for-deps.sh python manage.py runserver 0.0.0.0:8000
 
   db:
     build:
