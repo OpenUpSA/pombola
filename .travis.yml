@@ -7,7 +7,7 @@ services:
   - docker
 
 script:
-  - "docker-compose -f docker-compose.yml -f docker-compose.test.yml up app"
+  - "docker-compose -f docker-compose.yml -f docker-compose.test.yml up --exit-code-from app app"
 
 # addons:
 #   postgresql: "9.6"
