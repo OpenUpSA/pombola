@@ -13,3 +13,4 @@ RUN apt-get update \
 
 RUN mkdir -p /docker-entrypoint-initdb.d
 COPY ./initdb-postgis.sh /docker-entrypoint-initdb.d/postgis.sh
+COPY ./initdb-test-database.sql /docker-entrypoint-initdb.d/initdb-test-database.sql
