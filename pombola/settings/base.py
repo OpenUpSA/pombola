@@ -301,6 +301,7 @@ HAYSTACK_CONNECTIONS = {
         'URL': os.environ.get('ELASTICSEARCH_URL'),
         'INDEX_NAME': os.environ.get('ELASTICSEARCH_INDEX', 'pombola'),
         'EXCLUDED_INDEXES': [],
+        'TIMEOUT': int(os.environ.get('ELASTICSEARCH_TIMEOUT', 10)),
     }
 }
 
