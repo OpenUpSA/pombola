@@ -107,44 +107,6 @@ urlpatterns = [
         ),
 ]
 
-# Create the two County Performance pages:
-
-for experiment_slug in ('mit-county', 'mit-county-larger'):
-    view_kwargs = {'experiment_slug': experiment_slug}
-    view_kwargs.update(EXPERIMENT_DATA[experiment_slug])
-    base_name = view_kwargs['base_view_name']
-    base_path = r'^' + base_name
-    urlpatterns.append(
-        url(base_path + r'$',
-            CountyPerformanceView.as_view(**view_kwargs),
-            name=base_name)
-    )
-
-    for name, view in (
-        ('senate', CountyPerformanceSenateSubmission),
-        ('petition', CountyPerformancePetitionSubmission)):
-
-        urlpatterns += (
-            url(base_path + r'/{0}$'.format(name),
-                view.as_view(**view_kwargs),
-                name=(base_name + '-{0}-submission'.format(name))),
-            url(base_path + r'/{0}/thanks$'.format(name),
-                ThanksTemplateView.as_view(
-                    base_view_name=base_name,
-                    template_name=('county-performance-{0}-submission.html'.format(name))
-                )),
-        )
-
-    urlpatterns += (
-        url(base_path + r'/share',
-            ExperimentShare.as_view(**view_kwargs),
-            name=(base_name + '-share')),
-        url(base_path + r'/survey',
-            ExperimentSurvey.as_view(**view_kwargs),
-            name=(base_name + '-survey')),
-    )
-
-
 # Create the Youth Employment Bill page:
 
 for experiment_slug in (

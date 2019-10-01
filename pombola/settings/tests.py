@@ -1,3 +1,5 @@
+import os
+
 from .base import *  # noqa
 
 from .tests_base import *  # noqa
@@ -10,7 +12,7 @@ if middleware_to_ensure_present not in MIDDLEWARE_CLASSES:
     MIDDLEWARE_CLASSES += (middleware_to_ensure_present,)
 
 # Use a different elasticsearch index since we're running tests:
-HAYSTACK_CONNECTIONS['default']['INDEX_NAME'] = config.get('POMBOLA_DB_NAME') + '_test'
+HAYSTACK_CONNECTIONS['default']['INDEX_NAME'] = os.environ.get('DATABASE_NAME', 'pombola') + '_test'
 
 INSTALLED_APPS += ALL_OPTIONAL_APPS + APPS_REQUIRED_BY_SPEECHES
 
