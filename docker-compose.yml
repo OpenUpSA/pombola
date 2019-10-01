@@ -17,7 +17,6 @@ services:
       - DJANGO_DEBUG=TRUE
       - DJANGO_SECRET_KEY=not-secret-in-dev
       - ELASTICSEARCH_URL=elasticsearch:9200
-      - ELASTICSEARCH_TIMEOUT=60
       - GOOGLE_MAPS_GEOCODING_API_KEY=${GOOGLE_MAPS_GEOCODING_API_KEY}
     ports:
       - "8000:8000"
