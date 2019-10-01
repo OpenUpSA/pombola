@@ -35,10 +35,7 @@ services:
       - db-data:/var/lib/postgresql/data
 
   elasticsearch:
-    build:
-      context: docker/elasticsearch
-      dockerfile: Dockerfile
-    image: elasticsearch
+    image: openup/elasticsearch-0.90
     volumes:
       - es-data:/elasticsearch/data
     environment:
