@@ -36,12 +36,12 @@ services:
       - db-data:/var/lib/postgresql/data
 
   elasticsearch:
-    image: elastic
-    build:
-      context: .
-      dockerfile: Dockerfile-elasticsearch
+    image: openup/elasticsearch-0.90
     volumes:
-      - es-data:/usr/share/elasticsearch/data
+      - es-data:/elasticsearch/data
+    environment:
+      - ES_MIN_MEM=2g
+      - ES_MAX_MEM=6g
 
 volumes:
   db-data:
