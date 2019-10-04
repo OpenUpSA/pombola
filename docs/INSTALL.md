@@ -153,4 +153,10 @@ Reload nginx: `sudo systemctl restart nginx`
 
 ### Cron jobs
 
-TBC
+Cron jobs should only output to stdout or stderr if something went wrong and
+needs an operator's attention. We use `bin/run_management_command_capture_stdout`
+to capture any output and only output it if the command exited with an error
+status.
+
+dokku run pombola bin/run_management_command_capture_stdout core_list_malformed_slugs
+dokku run pombola bin/run_management_command_capture_stdout core_database_dump /app-data/media_root/dumps/pg-dump
