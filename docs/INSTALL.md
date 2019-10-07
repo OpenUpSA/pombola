@@ -158,5 +158,10 @@ needs an operator's attention. We use `bin/run_management_command_capture_stdout
 to capture any output and only output it if the command exited with an error
 status.
 
+```
 dokku run pombola bin/run_management_command_capture_stdout core_list_malformed_slugs
 dokku run pombola bin/run_management_command_capture_stdout core_database_dump /app-data/media_root/dumps/pg-dump
+dokku run pombola gzip -9 -f /var/pombola-data/media_root/dumps/pg-dump_schema.sql /var/pombola-data/media_root/dumps/pg-dump_data.sql
+dokku run pombola bin/update_za_hansard.bash
+dokku run pombola python manage.py core_export_to_popolo_json /data/media_root/popolo_json http://www.pa.org.za
+```
