@@ -1,1 +1,3 @@
-**/data/
+# Ignore root level data directory for dev
+# but don't ignore data directories in apps.
+data
