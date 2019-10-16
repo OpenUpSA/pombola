@@ -8,7 +8,6 @@ from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 from django.db import connection
 
-
 def shellquote(s):
     return "'" + s.replace("'", "'\\''") + "'"
 
@@ -247,11 +246,7 @@ publicly) add them to 'tables_to_ignore'.'''
                 delete=False, prefix=join(output_directory, 'tmp')
             )
             with open(ntf.name, 'wb') as f:
-                shell_command = ''
-                try:
-                    subprocess.check_call(command, stdout=f)
-                except subprocess.CalledProcessError:
-                    raise CommandError('Problem trying to ssh to {}'.format(host))
+                subprocess.check_call(command, stdout=f)
 
             os.chmod(ntf.name, 0o644)
             os.rename(ntf.name, output_filename)

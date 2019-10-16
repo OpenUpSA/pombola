@@ -373,7 +373,7 @@ PMG_API_KEY = os.environ.get("PMG_API_KEY", "")
 HANSARD_NAME_MATCHING_ALGORITHM = NAME_SET_INTERSECTION_MATCH
 
 # Which popit instance to use
-POPIT_API_URL = os.environ.get("POPIT_API_URL")
+POPIT_API_URL = "/help/api"
 
 BREADCRUMB_URL_NAME_MAPPINGS = {
     'info': ('Information', '/info/'),
