@@ -39,6 +39,10 @@ USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/601.4.
 
 CODE_RE_STRING = r'R?(?P<house>[NC])(?P<answer_type>[WO])(?P<id_number>\d+)(?P<lang>[AEX])?'
 
+ANSWER_TYPES = {
+    'written': 'W'
+}
+
 
 def strip_dict(d):
     """
@@ -308,9 +312,11 @@ class Command(BaseCommand):
         house = {
             'National Assembly': 'N'
         }[data['house']['name']]
-        answer_type = {
-            'written': 'W'
-        }[data['answer_type']]
+        if data['answer_type'] not in ANSWER_TYPES:
+            print "Skipping {} because the answer type {} is not supported".format(
+                data['url'], data['answer_type'])
+            return
+        answer_type = ANSWER_TYPES[data['answer_type']]
         askedby_name = ''
         askedby_pa_url = ''
         if 'asked_by_member' in data:

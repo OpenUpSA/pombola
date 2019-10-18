@@ -20,6 +20,7 @@ from pombola.core.models import (
     PositionTitle,
 )
 
+from pombola.za_hansard.management.commands.za_hansard_q_and_a_scraper import Command
 from django.contrib.contenttypes.models import ContentType
 from django.core.management import call_command
 from django.core.management.base import CommandError
@@ -33,6 +34,7 @@ from django.test import TestCase
 def no_stdout_or_stderr():
     save_stdout = sys.stdout
     save_stderr = sys.stderr
+
     class DevNull(object):
         def write(self, _): pass
     sys.stdout = DevNull()
@@ -350,3 +352,41 @@ class MergeObjectsCommandTest(TestCase):
         Organisation.objects.get(pk=self.organisation_a.id)
         with self.assertRaises(Organisation.DoesNotExist):
             Organisation.objects.get(pk=self.organisation_b.id)
+
+
+class ZAHansardQAndAScraperTest(TestCase):
+    def setUp(self):
+        self.question = {u'code': u'NW1264', u'written_number': 1264, u'house': {
+            u'contact_details': None, u'name': u'National Assembly',
+            u'name_short': u'NA', u'sphere': u'national', u'id': 3,
+            u'speaker_id': None},
+            u'updated_at': u'2018-06-19T13:58:42.212441+02:00',
+            u'source_file': {u'description': None, u'origname': None,
+                             u'title': None, u'file_mime': u'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                             u'file_path': u'RNW1264-180605.docx', u'file_bytes': 18537,
+                             u'url': u'https://pmg.org.za/files/RNW1264-180605.docx',
+                             u'playtime': None, u'id': 115341}, u'year': 2018,
+            u'president_number': None, u'asked_by_member': {
+                u'questions_url': u'https://api.pmg.org.za/member/242/questions/',
+                u'bio': u'',
+                u'pa_link': u'https://www.pa.org.za/person/semakaleng-patricia-kopane/',
+                u'house_id': 3, u'name': u'Kopane, Ms SP',
+                u'url': u'https://api.pmg.org.za/member/242/',
+                u'attendance_url': u'https://api.pmg.org.za/member/242/attendance/',
+                u'created_at': u'2015-10-08T15:28:40.761504+02:00',
+                u'updated_at': u'2019-07-31T12:55:19.771434+02:00',
+                u'start_date': u'2013-04-09', u'current': True,
+                u'profile_pic_url': u'http://pmg-assets.s3-website-eu-west-1.amazonaws.com/Kopane_SP.jpg', u'party_id': 2, u'pa_url': u'https://www.pa.org.za/person/semakaleng-patricia-kopane/', u'party': {u'id': 2, u'name': u'DA'}, u'province_id': None, u'id': 242
+        }, u'id': 9117,
+            u'question': u'(1) (a) What is the annual budget of the SA National Aids Council (SANAC)?',
+                         u'asked_by_member_id': 242, u'source_file_id': 115341,
+                         u'answer_type': u'oral',
+                         u'answer': u'<p>The Annual budget of SANAC for the period 2017/18 was R66, 275,268</p>',
+                         u'intro': u'Ms S P Kopane (DA) to ask the Deputy President:', u'question_to_name': u'Deputy President', u'question_number': 1264, u'date': u'2018-06-05', u'asked_by_name': u'Ms S P Kopane', u'house_id': 3, u'url': u'https://api.pmg.org.za/committee-question/9117/', u'created_at': u'2018-06-19T13:57:12.892916+02:00', u'deputy_president_number': None, u'translated': False, u'oral_number': None, u'minister_id': 37}
+
+    def test_oral_question(self):
+        command = Command()
+        try:
+            command.handle_api_question_and_reply(self.question)
+        except Exception:
+            self.fail("No exception should be thrown for oral question type.")
