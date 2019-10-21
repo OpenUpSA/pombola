@@ -354,7 +354,7 @@ class MergeObjectsCommandTest(TestCase):
             Organisation.objects.get(pk=self.organisation_b.id)
 
 
-class ZAHansardQAndAScraperTest(TestCase):
+class ScraperQAOralAnswerTest(TestCase):
     def setUp(self):
         self.question = {
             u'code': u'NW1264', u'written_number': 1264,
