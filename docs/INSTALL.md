@@ -1,8 +1,18 @@
 # Install
 
-Pombola is mostly a standard Django project. There are some unusual dependencies that are noted below.
+Pombola is mostly a standard Django project.
 
-## Where to put the code
+We use docker to make development, test and production as similar as possible.
+
+In development, we use docker-compose.
+
+In production, we use dokku. Dokku manages environment variables for
+configuration and secrets, and proxies requests to the container IP.
+
+If you'd like to run this in another way, use the docker-compose.yml file as the
+entrypoint to understand the environment and dependencies of this app.
+
+## Where to put the code and data
 
 In addition to the downloaded code several other directories are needed for
 dynamic data such as the search indexes, uploaded images, various caches etc.
@@ -10,101 +20,147 @@ dynamic data such as the search indexes, uploaded images, various caches etc.
 These extra directories are by default put inside the `data/` directory, although
 this can be modified using the `DATA_DIR` configuration variable.
 
-## Getting the code
+Development
+-----------
 
-The code is available via github: https://github.com/mysociety/pombola
-
-```
-git clone https://github.com/mysociety/pombola.git
-```
-
-## Vagrant
-
-The `Vagrantfile` will set up the Kenyan site by default. You can
-override this by setting `COUNTRY_APP` in the environment, e.g.:
-```
-COUNTRY_APP=south_africa vagrant up
-```
-Or by creating/updating to relevant variable in `conf/general.yml`
-manually (otherwise this will be created the first time you run
-`vagrant up`).
-
-The provisioning script will download the public database dumps from
-the live site for the appropriate country and import this into the
-local database.
-
-It doesn't attempt to get all uploaded media, like images of
-politicians, however, so if you want them you should rsync them yourself.
-
-It is also possible to control the version of Elasticsearch installed
-in the Vagrant box using the `ES_VERSION` environment variable. The
-project uses the `django-haystack` package and this currently supports
-ES versions up to 5, so you can install 0.90, 1, 2 or 5.
-```
-ES_VERSION=5 vagrant up
-```
-
-## Manual installation
-
-### Non-python dependencies
-
-There are some dependencies that need to be installed. Please see the `conf/packages` file for details.
-
-### Databases
-
-A Postgis enabled Postgres database is required
-
-Create the database and enable the Postgis extensions - assuming here that you're calling it 'pombola'
+The code is available via github: https://github.com/OpenUpSA/pombola
 
 ```
-createdb pombola
-echo 'CREATE EXTENSION postgis; CREATE EXTENSION postgis_topology' | psql pombola
+git clone https://github.com/OpenUpSA/pombola.git
 ```
 
-### Configuration files
-
-Do to the pombola Django project:
+Start the app, DB and search index:
 
 ```
-cd pombola
+docker-compose up
 ```
 
-Copy config example and set values needed
+Load the schema and data:
 
 ```
-cp conf/general.yml-example conf/general.yml
-nano conf/general.yml
+zcat pg-dump_schema.sql.gz | docker-compose run --rm db psql postgres://pombola:pombola@db/pombola
+zcat pg-dump_data.sql.gz | docker-compose run --rm db psql postgres://pombola:pombola@db/pombola
 ```
 
-### Python dependencies and database setup
-
-Most of this is done using the `bin/prepare_environment.bash` script. This will create the virtual environment, install needed python dependencies and
-then set up the database:
+Build the search index:
 
 ```
-bin/prepare_environment.bash
+docker-compose run --rm app python manage.py rebuild_index
 ```
 
-If this step fails, please consult [TROUBLESHOOTING.md](TROUBLESHOOTING.md).
+Now you can visit the site at [http://localhost:8000](http://localhost:8000)
 
-### Virtualenv
+-----
 
-Now that the environment has been created you need to enable it:
-```
-source data/pombola-virtualenv/bin/activate
-```
-
-## Start the dev server
-
-The dev server will allow you to check that everything is working as expected.
+Delete the DB, media files and search index to start afresh:
 
 ```
-./manage.py runserver
+docker-compose down --volumes
 ```
 
-If you are running this inside a Vagrant box, you'll need to bind to all
-interfaces:
+Production deployment
+---------------------
+
+### Elasticsearch
+
+[Deploy Elasticsearch 0.90.13](https://github.com/OpenUpSA/elasticsearch-0.90)
+
+### Postgres
+
+Deploy Postgres with PostGIS
 
 ```
-./manage.py runserver 0.0.0.0:8000
+export POSTGRES_IMAGE="openup/postgres-9.6-postgis-9.3"
+export POSTGRES_IMAGE_VERSION="latest"
+dokku postgres:create pombola
+dokku postgres:link pombola pombola
+```
+
+`dokku postgres:connect pombola`
+
+```
+create extension postgis;
+```
+
+`dokku postgres:enter pombola bash`
+
+```
+psql -U postgres -f /usr/share/postgresql/9.6/contrib/postgis-2.3/legacy_minimal.sql pombola
+```
+
+`dokku postgres:connect pombola`
+
+```
+CREATE EXTENSION postgis;
+CREATE EXTENSION postgis_topology;
+```
+
+### Create and configure the app
+
+```
+dokku apps:create pombola
+dokku config:set pombola \
+    EMAIL_HOST=smtp.sendgrid.net \
+    EMAIL_HOST_USER=apikey \
+    EMAIL_HOST_PASSWORD=... \
+    EMAIL_PORT=587 \
+    POMBOLA_DATADIR=/data \
+    DEFAULT_FROM_EMAIL=contact@pa.org.za \
+    MANAGERS_EMAIL=contact@pa.org.za \
+    ERRORS_EMAIL=webapps@openup.org.za \
+    DJANGO_SECRET_KEY=... \
+    TWITTER_USERNAME=PeoplesAssem_SA \
+    ELASTICSEARCH_URL=elasticsearch.example.com:9200 \
+    DATABASE_URL=postgres://pombola:...@db.example.com/pombola \
+    GOOGLE_ANALYTICS_ACCOUNT=UA-47810266-1 \
+    DISQUS_SHORTNAME=peoplesassembly.disqus.com \
+    PMG_COMMITTEE_USER=... \
+    PMG_COMMITTEE_PASSWORD=... \
+    PMG_API_KEY=... \
+    POPIT_API_URL=True \
+    GOOGLE_MAPS_GEOCODING_API_KEY=...
+
+dokku docker-options:add pombola deploy "-v /var/pombola-data:/data"
+dokku docker-options:add pombola run "-v /var/pombola-data:/data"
+```
+
+```
+git remote add dokku dokku@pa.openup.org.za:pombola
+```
+
+```
+git push dokku master
+```
+
+Configure NGINX to serve the static and media files
+
+Edit `/home/dokku/pombola/nginx.conf.d/media.conf` to look like this:
+
+```
+location /static {
+    alias /var/pombola-data/collected_static;
+}
+
+
+location /media_root {
+    alias /var/pombola-data/media_root;
+}
+```
+
+Test the config with `sudo nginx -t`
+
+Reload nginx: `sudo systemctl restart nginx`
+
+### Cron jobs
+
+Cron jobs should only output to stdout or stderr if something went wrong and
+needs an operator's attention. We use `bin/run_management_command_capture_stdout`
+to capture any output and only output it if the command exited with an error
+status.
+
+```
+0 1 * * * dokku run pombola bin/output-on-error ./manage.py core_list_malformed_slugs
+30 1 * * * dokku run pombola bin/output-on-error ./manage.py core_database_dump /data/media_root/dumps/pg-dump && dokku run pombola bin/output-on-error gzip -9 -f /data/media_root/dumps/pg-dump_schema.sql /data/media_root/dumps/pg-dump_data.sql
+10 2 * * * dokku run pombola bin/output-on-error bin/update_za_hansard.bash
+0 5 * * * dokku run pombola bin/output-on-error python manage.py core_export_to_popolo_json /data/media_root/popolo_json http://www.pa.org.za
 ```

@@ -7,7 +7,6 @@ import json
 import math
 import sys
 
-from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.views.generic.base import View, TemplateView, RedirectView
@@ -60,7 +59,7 @@ EXPERIMENT_DATA = {
         'base_view_name': 'county-performance-2',
         'pageview_label': 'county-performance-2',
         'template_prefix': 'county',
-        'experiment_key': settings.COUNTY_PERFORMANCE_EXPERIMENT_KEY,
+        'experiment_key': '',
         'qualtrics_sid': 'SV_5hhE4mOfYG1eaOh',
         'variants': ('o', 't', 'n', 'os', 'ts', 'ns'),
         'default_variant': 'n',
@@ -79,7 +78,7 @@ EXPERIMENT_DATA = {
         'base_view_name': 'youth-employment',
         'pageview_label': 'youth-employment',
         'template_prefix': 'youth',
-        'experiment_key': settings.YOUTH_EMPLOYMENT_BILL_EXPERIMENT_KEY,
+        'experiment_key': '',
         'qualtrics_sid': 'SV_ebVXgzAevcuo2sB',
         'variants': ('y', 'n'),
         'default_variant': 'n',
@@ -100,7 +99,7 @@ EXPERIMENT_DATA = {
         'base_view_name': 'youth-employment-n',
         'pageview_label': 'youth-employment-n',
         'template_prefix': 'youth',
-        'experiment_key': settings.YOUTH_EMPLOYMENT_BILL_EXPERIMENT_KEY,
+        'experiment_key': '',
         'qualtrics_sid': 'SV_ebVXgzAevcuo2sB',
         'variants': ('n',),
         'default_variant': 'n',
