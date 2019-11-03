@@ -361,8 +361,8 @@ class GeocoderView(TemplateView):
             # search can still go ahead, but it will not be restricted to the country expected
             sys.stderr.write("Need to add country code for {0} to 'search.views.GeocoderView'".format(settings.COUNTRY_APP))
 
-        query = self.request.GET.get('q', ""
-        )
+        query = self.request.GET.get('q', "")
+
         if not ADDRESS_REGEXP.match(query):
             logger.info("Not geocoding query that doesn't look enough like an address: %r", query)
             return context
