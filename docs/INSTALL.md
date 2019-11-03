@@ -70,7 +70,7 @@ Production deployment
 Deploy Postgres with PostGIS
 
 ```
-export POSTGRES_IMAGE="openup/postgres-9.6-postgis-9.3"
+export POSTGRES_IMAGE="openup/postgres-9.6-postgis-2.3"
 export POSTGRES_IMAGE_VERSION="latest"
 dokku postgres:create pombola
 dokku postgres:link pombola pombola
