@@ -2,6 +2,7 @@ from datetime import datetime
 import re
 import sys
 import simplejson
+import logging
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, HttpResponseBadRequest
@@ -17,6 +18,13 @@ from haystack.inputs import AutoQuery, Raw
 from pygeolib import GeocoderError
 from sorl.thumbnail import get_thumbnail
 from .geocoder import geocoder
+
+
+logger = logging.getLogger(__name__)
+
+# Match reasonable ways of writing addresses humans might search for
+# Don't match fuzzers trying to do SQL injection, for example.
+ADDRESS_REGEXP = re.compile("^[\\w ,-]+$")
 
 
 class SearchBaseView(TemplateView):
@@ -353,7 +361,12 @@ class GeocoderView(TemplateView):
             # search can still go ahead, but it will not be restricted to the country expected
             sys.stderr.write("Need to add country code for {0} to 'search.views.GeocoderView'".format(settings.COUNTRY_APP))
 
-        query = self.request.GET.get('q')
+        query = self.request.GET.get('q', ""
+        )
+        if not ADDRESS_REGEXP.match(query):
+            logger.info("Not geocoding query that doesn't look enough like an address: %r", query)
+            return context
+
         if query:
             context['query'] = query
             try:
