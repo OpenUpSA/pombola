@@ -289,6 +289,7 @@ PAGINATION_DEFAULT_WINDOW          = 2
 PAGINATION_DEFAULT_ORPHANS         = 2
 PAGINATION_INVALID_PAGE_RAISES_404 = True
 
+
 # haystack config - interface to search engine
 HAYSTACK_CONNECTIONS = {
     #'default': {
@@ -302,8 +303,22 @@ HAYSTACK_CONNECTIONS = {
         'INDEX_NAME': os.environ.get('ELASTICSEARCH_INDEX', 'pombola'),
         'EXCLUDED_INDEXES': [],
         'TIMEOUT': int(os.environ.get('ELASTICSEARCH_TIMEOUT', 10)),
+        'KWARGS': {},
     }
 }
+
+if os.environ.get("ELASTICSEARCH_USERNAME") and os.environ.get("ELASTICSEARCH_PASSWORD"):
+    HAYSTACK_CONNECTIONS["default"]["KWARGS"]['http_auth'] = (
+        os.environ.get("ELASTICSEARCH_USERNAME"),
+        os.environ.get("ELASTICSEARCH_PASSWORD"),
+    )
+
+if os.environ.get("ELASTICSEARCH_PORT"):
+    HAYSTACK_CONNECTIONS["default"]["KWARGS"]['port'] = os.environ.get("ELASTICSEARCH_PORT", 9200)
+
+if os.environ.get("ELASTICSEARCH_SSL");
+    HAYSTACK_CONNECTIONS["default"]["KWARGS"]['use_ssl'] = os.environ.get("ELASTICSEARCH_SSL")
+
 
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
