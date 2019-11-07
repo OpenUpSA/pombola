@@ -316,7 +316,7 @@ if os.environ.get("ELASTICSEARCH_USERNAME") and os.environ.get("ELASTICSEARCH_PA
 if os.environ.get("ELASTICSEARCH_PORT"):
     HAYSTACK_CONNECTIONS["default"]["KWARGS"]['port'] = os.environ.get("ELASTICSEARCH_PORT", 9200)
 
-if os.environ.get("ELASTICSEARCH_SSL");
+if os.environ.get("ELASTICSEARCH_SSL"):
     HAYSTACK_CONNECTIONS["default"]["KWARGS"]['use_ssl'] = os.environ.get("ELASTICSEARCH_SSL")
 
 
