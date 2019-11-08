@@ -298,7 +298,7 @@ HAYSTACK_CONNECTIONS = {
         #'PATH': os.path.join(os.path.dirname(__file__), 'xapian_index'),
     # },
     'default': {
-        'ENGINE': 'haystack.backends.elasticsearch5_backend.Elasticsearch5SearchEngine',
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
         'URL': os.environ.get('ELASTICSEARCH_URL'),
         'INDEX_NAME': os.environ.get('ELASTICSEARCH_INDEX', 'pombola'),
         'EXCLUDED_INDEXES': [],
