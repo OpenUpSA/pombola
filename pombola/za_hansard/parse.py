@@ -293,7 +293,7 @@ class SpeechParslet(ParaParslet):
     id = None
 
     # class member
-    name_regexp = r'((?:[A-Z][a-z]+ )[A-Z -]+(?: \((?:\w|\s)+\))?):\s*(.*)'
+    name_regexp = r'\s*((?:[A-Z][a-z]+ )[A-Z -]+(?: \((?:\w|\s)+\))?):\s*(.*)'
 
     def __init__(self, **kwargs):
         self.name = kwargs.pop('name')
