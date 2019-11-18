@@ -40,6 +40,7 @@ class Command(BaseCommand):
                     'defaults':
                     {
                         'url': attached_file['url'],
+                        'pmg_id': hansard['id'],
                         'title': hansard['type'],
                         'language': 'English',
                         'house': hansard['house']['name_short'],
