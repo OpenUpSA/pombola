@@ -19,7 +19,7 @@ from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 from optparse import make_option
 
-from pombola.za_hansard.models import Source, SourceUrlCouldNotBeRetrieved
+from pombola.za_hansard.models import Source, SourceUrlCouldNotBeRetrieved, ZAHansardParsingLog
 from pombola.za_hansard.parse import ZAHansardParser, ConversionException, DateParseException
 
 
@@ -82,7 +82,9 @@ class Command(BaseCommand):
 
         sources.defer('xml')
         for s in (sources[:limit] if limit else sources):
+            parsing_log = ZAHansardParsingLog(source=s, log="Starting to parse source...\n")
             if s.language != 'English' and s.language != 'ENG':
+                parsing_log.log += "Source language is not English. Skipping source.\n"
                 continue
             s.last_processing_attempt = datetime.datetime.now().date()
             s.save()
@@ -90,16 +92,23 @@ class Command(BaseCommand):
                 try:
                     filename = s.file()
                 except SourceUrlCouldNotBeRetrieved as e:
+                    parsing_log.log += "Source url returned a 404 error. Source could not be retreived. Skipping source.\n"
                     s.is404 = True
                     s.save()
                     raise e
                 obj = ZAHansardParser.parse(filename)
                 xml = etree.tostring(obj.akomaNtoso)
+                parsing_log.log += "Source successfully parsed. Writing to parsed data to xml file...\n"
                 s.last_processing_success = datetime.datetime.now().date()
 
                 open('%s.xml' % filename, 'w').write(xml)
                 s.save()
+                parsing_log.log += "Saved parsed data in xml file at %s.xml.\n" % filename
                 self.stdout.write(u"Processed {} ({})\n".format(
                                   s.document_name, s.document_number))
             except (ConversionException, DateParseException) as e:
+                parsing_log.log += "Error '%s' occurred while parsing source.\n" % e
+                parsing_log.error = type(e)
                 self.stderr.write(u"WARN: Failed to run parsing for %s: %s" % (s.id, unicode(e)))
+
+            parsing_log.save()
