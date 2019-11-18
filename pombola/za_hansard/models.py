@@ -472,3 +472,9 @@ class Question(models.Model):
         # 1) At least one of written_number and oral_number must be non-null.
 
 # CREATE TABLE completed_documents (`url` string);
+
+class ZAHansardParsingLog(models.Model):
+    source = models.ForeignKey("Source", on_delete=models.CASCADE)
+    date = models.DateField(auto_now_add=True)
+    log = models.TextField(default="")
+    error = models.CharField(default="", max_length=300)
