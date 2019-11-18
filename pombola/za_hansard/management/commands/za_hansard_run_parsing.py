@@ -104,11 +104,13 @@ class Command(BaseCommand):
                 open('%s.xml' % filename, 'w').write(xml)
                 s.save()
                 parsing_log.log += "Saved parsed data in xml file at %s.xml.\n" % filename
+                parsing_log.success = True
                 self.stdout.write(u"Processed {} ({})\n".format(
                                   s.document_name, s.document_number))
             except (ConversionException, DateParseException) as e:
                 parsing_log.log += "Error '%s' occurred while parsing source.\n" % e
-                parsing_log.error = type(e)
+                parsing_log.error = type(e).__name__
+                parsing_log.success = False
                 self.stderr.write(u"WARN: Failed to run parsing for %s: %s" % (s.id, unicode(e)))
 
             parsing_log.save()

@@ -478,3 +478,4 @@ class ZAHansardParsingLog(models.Model):
     date = models.DateField(auto_now_add=True)
     log = models.TextField(default="")
     error = models.CharField(default="", max_length=300)
+    success = models.BooleanField(default=False)
