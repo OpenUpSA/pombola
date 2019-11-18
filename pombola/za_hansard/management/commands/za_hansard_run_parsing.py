@@ -19,7 +19,7 @@ from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 from optparse import make_option
 
-from pombola.za_hansard.models import Source, SourceUrlCouldNotBeRetrieved, ZAHansardParsingLog
+from pombola.za_hansard.models import Source, SourceUrlCouldNotBeRetrieved, SourceParsingLog
 from pombola.za_hansard.parse import ZAHansardParser, ConversionException
 
 
@@ -70,7 +70,7 @@ class Command(BaseCommand):
 
         sources.defer('xml')
         for s in (sources[:limit] if limit else sources):
-            parsing_log = ZAHansardParsingLog(source=s, log="Starting to parse source...\n")
+            parsing_log = SourceParsingLog(source=s, log="Starting to parse source...\n")
             if s.language != 'English' and s.language != 'ENG':
                 parsing_log.log += "Source language is not English. Skipping source.\n"
                 continue

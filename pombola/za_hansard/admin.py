@@ -5,8 +5,8 @@ from django.utils.safestring import mark_safe
 from pombola.za_hansard import models
 from .filters import SuccessfullyParsedFilter
 
-@admin.register(models.ZAHansardParsingLog)
-class ZAHansardParsingLogAdmin(admin.ModelAdmin):
+@admin.register(models.SourceParsingLog)
+class SourceParsingLogAdmin(admin.ModelAdmin):
     list_display = [
         'date',
         'linked_source',
