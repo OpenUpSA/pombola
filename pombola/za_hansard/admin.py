@@ -44,11 +44,22 @@ class SourceParsingLogAdmin(admin.ModelAdmin):
 class ZAHansardSourceAdmin(admin.ModelAdmin):
     list_display = [
         'date',
+        'pmg_hansard',
         'url',
         'is404',
         'last_processing_success',
         'last_processing_attempt',
         ]
 
+    readonly_fields = [
+        'pmg_hansard',
+        ]
+    date_hierarchy = 'date'
+
+    def pmg_hansard(self, obj):
+        return mark_safe('<a href="https://api.pmg.org.za/hansard/{}/">{}</a>'.format(
+            obj.pmg_id,
+            obj.pmg_id
+        ))
 
     list_filter = [SuccessfullyParsedFilter, 'is404', 'date']
