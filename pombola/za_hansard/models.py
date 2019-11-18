@@ -474,7 +474,7 @@ class Question(models.Model):
 
 # CREATE TABLE completed_documents (`url` string);
 
-class ZAHansardParsingLog(models.Model):
+class SourceParsingLog(models.Model):
     source = models.ForeignKey("Source", on_delete=models.CASCADE, null=True)
     date = models.DateField(auto_now_add=True)
     log = models.TextField(default="")
