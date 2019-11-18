@@ -64,6 +64,7 @@ class Source(models.Model):
     document_number = models.CharField(unique=True, max_length=200)
     date = models.DateField()
     url = models.URLField(max_length=1000)
+    pmg_id = models.IntegerField(null=True)
     is404 = models.BooleanField(default=False)
     house = models.CharField(max_length=200)
     language = models.CharField(max_length=200)
@@ -474,7 +475,7 @@ class Question(models.Model):
 # CREATE TABLE completed_documents (`url` string);
 
 class ZAHansardParsingLog(models.Model):
-    source = models.ForeignKey("Source", on_delete=models.CASCADE)
+    source = models.ForeignKey("Source", on_delete=models.CASCADE, null=True)
     date = models.DateField(auto_now_add=True)
     log = models.TextField(default="")
     error = models.CharField(default="", max_length=300)
