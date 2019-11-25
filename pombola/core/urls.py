@@ -4,7 +4,9 @@ from django.conf.urls import include, url
 from django.views.generic import TemplateView, ListView, RedirectView
 
 from pombola.core import models
-from pombola.core.views import (HomeView, PlaceDetailView,
+from pombola.core.views import (
+    ElasticSearchHealthView,
+    HomeView, PlaceDetailView,
     OrganisationList, OrganisationKindList, PlaceKindList, PersonDetail,
     PersonDetailSub, PlaceDetailSub, OrganisationDetailSub,
     SessionListView,
@@ -17,7 +19,7 @@ from pombola.core.views import (HomeView, PlaceDetailView,
     position_pt_ok_o,
     robots,
     VersionView,
-    )
+)
 
 
 person_patterns = [
@@ -164,4 +166,5 @@ urlpatterns += (
 urlpatterns += (
     url(r'version.json', VersionView.as_view(), name='version'),
     url(r'template-for-blog.html', TemplateView.as_view(template_name='template-for-blog.html')),
+    url(r'elasticsearch-health', ElasticSearchHealthView.as_view(), name='elasticsearch-health'),
 )

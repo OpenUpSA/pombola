@@ -39,6 +39,8 @@ from slug_helpers.views import SlugRedirectMixin, get_slug_redirect
 from pombola.core import models
 from pombola.country import override_current_session
 
+import requests
+
 
 class HomeView(TemplateView):
 
@@ -780,3 +782,15 @@ class SessionListView(ListView):
 
     def get_ordering(self):
         return ('-start_date', '-end_date', 'name')
+
+
+class ElasticSearchHealthView(View):
+
+    http_method_names = ['get']
+
+    def get(self, request, *args, **kwargs):
+        r = requests.get("http://%s/_cluster/health?pretty=true" % settings.HAYSTACK_CONNECTIONS["default"]["URL"])
+        r.raise_for_status()
+        return HttpResponse(
+            r.text, content_type='application/json'
+        )
