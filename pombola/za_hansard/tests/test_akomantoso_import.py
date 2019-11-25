@@ -38,7 +38,11 @@ class ImportZAAkomaNtosoTests(InstanceTestCase):
         for sub in section.children.all():
             self.assertFalse("Member'S" in sub.title)
 
+        print(call_command('pombola_sayit_sync_pombola_to_popolo'))
+
         speakers = Speaker.objects.all()
+
+        self.assertNotEqual(0, PombolaSayItJoin.objects.all().count())
 
         def linked_to_person(speaker):
             try:
