@@ -73,7 +73,7 @@ class ZAHansardSourceAdmin(admin.ModelAdmin):
 class PombolaSayItJoinInline(AjaxSelectAdminStackedInline):
     model = PombolaSayItJoin
     form = make_ajax_form(PombolaSayItJoin, {
-        'pombola_person': 'person_name',
+        'pombola_person': 'person_without_speaker',
         'sayit_speaker': 'speaker_name',
     })
     fk_name = 'sayit_speaker'
