@@ -1,8 +1,9 @@
-from ajax_select import LookupChannel
+from ajax_select import LookupChannel, register
 
 from .models import Person
 
 
+@register('person_name')
 class PersonLookup(LookupChannel):
 
     model = Person

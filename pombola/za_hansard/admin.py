@@ -1,6 +1,12 @@
+from ajax_select import make_ajax_form
+from ajax_select.admin import AjaxSelectAdminStackedInline
+from ajax_select.fields import AutoCompleteSelectField, AutoCompleteSelectMultipleField
 from django.contrib import admin
 from django.core import urlresolvers
 from django.utils.safestring import mark_safe  
+from speeches.models import Speaker
+from pombola_sayit.models import PombolaSayItJoin
+from pombola.core.models import Person
 
 from pombola.za_hansard import models
 from .filters import SuccessfullyParsedFilter
@@ -63,3 +69,25 @@ class ZAHansardSourceAdmin(admin.ModelAdmin):
         ))
 
     list_filter = [SuccessfullyParsedFilter, 'is404', 'date']
+
+class PombolaSayItJoinInline(AjaxSelectAdminStackedInline):
+    model = PombolaSayItJoin
+    form = make_ajax_form(PombolaSayItJoin, {
+        'pombola_person': 'person_name',
+        'sayit_speaker': 'speaker_name',
+    })
+    fk_name = 'sayit_speaker'
+    required = False
+    extra = 0
+
+admin.site.unregister(Speaker)
+@admin.register(Speaker)
+class SpeakerAdmin(admin.ModelAdmin):
+    search_fields = ['name']
+    inlines = [PombolaSayItJoinInline]
+    # person = AutoCompleteSelectField('person_name', required=False)
+
+
+    # class Meta:
+    #     model = Speaker
+    #     fields = '__all__'
