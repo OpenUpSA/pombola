@@ -231,7 +231,7 @@ This internal blog post might be interesting on planning to
 create a generically useful name-resolution component based on
 Popolo data:
 
-https://blogs.mysociety.org/internal/2016/02/16/fun-with-scraping-and-name-resolution-for-pombola/
+[Name resolution background](docs/NAME_RESOLUTION_BACKGROUND.md)
 
 This work stalled due to lack of development time and
 reprioritization.
