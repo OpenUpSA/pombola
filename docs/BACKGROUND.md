@@ -217,6 +217,10 @@ in the Pombola admin. Then it asks popolo-name-resolver to
 repopulate Elasticsearch with name variants. Then the various
 scrapers are run.
 
+![Diagram of how hansards are parsed and how people are linked within Pombola](https://docs.google.com/drawings/d/e/2PACX-1vSn7lXPRTZDbMMiPkznpuY5A6zFVnENh3Ax9yHRWphz3Hjb_8leXbtWG7Qq8vGgwIXDCkRJAOw3odyO/pub?w=1581&h=819)
+
+You can edit the above diagram [here](https://docs.google.com/drawings/d/1XL0ecBMuWvXVZxQIlfI45iPR2YKeJbhQ_jzZJNVOSwU/edit).
+
 The za-hansard app is not in a good state at the moment
 because of the following reasons:
 
