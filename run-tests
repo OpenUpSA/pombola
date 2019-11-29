@@ -11,7 +11,7 @@ cd $(dirname "$BASH_SOURCE")
 if [ "$1" = "--coverage" ]
 then
     shift
-    COVERAGE_PREFIX="coverage run -a --source=pombola,pombola_sayit,wordcloud"
+    COVERAGE_PREFIX="coverage run -a --source=pombola,pombola_sayit,wordcloud,za_hansard"
     coverage erase
 fi
 
