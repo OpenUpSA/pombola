@@ -9,6 +9,7 @@ from popolo_name_resolver.resolve import EntityName, recreate_entities
 
 from speeches.models import Speaker
 from pombola.za_hansard.importers.import_za_akomantoso import ImportZAAkomaNtoso, title_case_heading
+from pombola.za_hansard.models import Source
 from pombola_sayit.models import PombolaSayItJoin
 from pombola.core.models import Person
 from popolo.models import Person as PopoloPerson
@@ -38,18 +39,26 @@ class ImportZAAkomaNtosoTests(InstanceTestCase):
             # Ms A C MASHISHI: debateBody -> debateSection -> debateSection -> speech
             Person.objects.create(title='Ms',
                                   legal_name='Agnes Christin Mashishi',
+                                  family_name='Mashishi',
+                                  given_name='Agnes Christin',
                                   slug='agnes-christin-mashishi'),
             # Dr P J RABIE
             Person.objects.create(title='Dr',
                                   legal_name='Petrus Johannes Rabie',
+                                  family_name='Rabie',
+                                  given_name='Petrus Johannes',
                                   slug='petrus-johannes-rabie'),
             # Ms L L VAN DER MERWE
             Person.objects.create(title='Ms',
                                   legal_name='Lilian Luca van der Merwe',
+                                  family_name='van der Merwe',
+                                  given_name='Lilian Luca',
                                   slug='lilian-luca-van-der-merwe'),
             # Mr M S F DE FREITAS
             Person.objects.create(title='Mr',
                                   legal_name='Mario Steven Foster DE FREITAS',
+                                  family_name='de freita',
+                                  given_name='Mario Steven Foster',
                                   slug='mario-steven-foster-de-freitas'),
         ]
         NUM_PERSONS = len(PERSONS)
@@ -77,6 +86,10 @@ class ImportZAAkomaNtosoTests(InstanceTestCase):
         # TODO: create the below XML file as a "Source" instead
         an = ImportZAAkomaNtoso(instance=self.instance, commit=True)
         section = an.import_document(document_path)
+
+        # source = Source.objects.create()
+        # TODO: mock where XML is gotten?
+        # call_command('za_hansard_load_into_sayit', id=source.id)
 
         self.assertTrue(section is not None,
                         'Hansard should be parsed into a non-null section.')
