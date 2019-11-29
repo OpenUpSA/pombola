@@ -1,0 +1,56 @@
+<akomaNtoso xmlns="http://docs.oasis-open.org/legaldocml/ns/akn/3.0/CSD03">
+  <debate name="PROCEEDINGS OF THE NATIONAL ASSEMBLY">
+    <meta>
+      <identification source="#mysociety">
+        <FRBRWork>
+          <FRBRthis value="/za/debaterecord/2012-09-20/main"/>
+          <FRBRuri value="/za/debaterecord/2012-09-20"/>
+          <FRBRdate date="3000-01-01" name="generation"/>
+          <FRBRauthor href="#za-parliament"/>
+          <FRBRcountry value="za"/>
+        </FRBRWork>
+        <FRBRExpression>
+          <FRBRthis value="/za/debaterecord/2012-09-20/eng@/main"/>
+          <FRBRuri value="/za/debaterecord/2012-09-20/eng@"/>
+          <FRBRdate date="3000-01-01" name="markup"/>
+          <FRBRauthor href="#za-parliament"/>
+          <FRBRlanguage language="eng"/>
+        </FRBRExpression>
+        <FRBRManifestation>
+          <FRBRthis value="/za/debaterecord/2012-09-20/eng@/main.xml"/>
+          <FRBRuri value="/za/debaterecord/2012-09-20/eng@.akn"/>
+          <FRBRdate date="3000-01-01" name="markup"/>
+          <FRBRauthor href="#mysociety"/>
+        </FRBRManifestation>
+      </identification>
+      <references source="#mysociety">
+        <TLCOrganization href="http://www.parliament.gov.za/" id="za-parliament" showAs="ZA Parliament"/>
+        <TLCOrganization href="http://www.mysociety.org/" id="mysociety" showAs="MySociety"/>
+        <TLCPerson href="http://dummy/popit/path/mr-m-s-f-some-unknown-surname" id="mr-m-s-f-some-unknown-surname" showAs="Mr M S F SOME UNKNOWN SURNAME"/>
+      </references>
+    </meta>
+    <preface>
+      <p>Thursday, <docDate date="2012-09-20">20 September 2012</docDate></p>
+    </preface>
+    <debateBody>
+      <debateSection id="db0" name="proceedings-of-the-national-assembly">
+        <heading id="dbh0">PROCEEDINGS OF THE NATIONAL ASSEMBLY</heading>
+        <p>The House met at <recordedTime time="14:03:00">14:03</recordedTime></p>
+        <prayers id="prayers">
+          <p>The Speaker took the Chair and requested members to observe a moment of silence for prayers or meditation.</p>
+        </prayers>
+        <debateSection id="dbs1" name="announcements-tablings-and-committee-reports">
+          <heading id="dbsh1">ANNOUNCEMENTS, TABLINGS AND COMMITTEE REPORTS </heading>
+        </debateSection>
+        <debateSection id="dbs3" name="notices-of-motion">
+          <heading id="dbsh3">NOTICES OF MOTION</heading>
+          <speech by="#mr-m-s-f-some-unknown-surname">
+            <from>Mr M S F SOME UNKNOWN SURNAME</from>
+            <p>Mr Speaker, I hereby give notice that on the next sitting day of the House I shall move on behalf of the DA:</p>
+            <p>That the House debates the current barriers, problems and solutions to lifting visa requirements in SADC countries where currently no visa waiver exists, and the impact that this has on our economy and the creation of jobs.</p>
+          </speech>
+        </debateSection>
+      </debateSection>
+    </debateBody>
+  </debate>
+</akomaNtoso>

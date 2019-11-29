@@ -16,7 +16,7 @@ from popolo.models import Person as PopoloPerson
 from popolo_name_resolver.models import EntityName
 
 import logging
-# logging.disable(logging.WARNING)
+logging.disable(logging.WARNING)
 logger = logging.getLogger(__name__)
 
 
@@ -30,7 +30,29 @@ class ImportZAAkomaNtosoTests(InstanceTestCase):
         call_command('update_index', interactive=False, verbosity=3)
         recreate_entities()
 
-    def test_import_import_hansard_speakers(self):
+    def test_import_hansard_speakers_with_no_persons(self):
+        Person.objects.all().delete()
+        # TODO: import two hansards that contain speakers that are in both of them
+        document_path = os.path.join(self._in_fixtures, 'SMALL_HANSARD.xml')
+
+        speakers_before = Speaker.objects.count()
+
+        # Import the same document twice
+        an = ImportZAAkomaNtoso(instance=self.instance, commit=True)
+        section1 = an.import_document(document_path)
+        section2 = an.import_document(document_path)
+        self.assertNotEqual(
+            section1, section2,
+            'The document should be importec as two different sections.')
+
+        # TODO: double check that the document was actually imported twice
+        speakers_after = Speaker.objects.count()
+        self.assertEqual(
+            speakers_after, speakers_before + 1,
+            'Only one speaker should be created, but %d were created' %
+            (speakers_after - speakers_before))
+
+    def test_import_hansard_speakers(self):
         self.assertTrue(False, 'Check if this test actually runs in Travis')
         document_path = os.path.join(self._in_fixtures, 'NA200912.xml')
 
@@ -99,6 +121,9 @@ class ImportZAAkomaNtosoTests(InstanceTestCase):
         for section in section.children.all():
             for speech in section.speech_set.all():
                 detected_speakers.add(speech.speaker)
+
+        # TODO: should we check that the correct section is linked to the correct speaker?
+        # TODO: check that the speakers are linked to a Person and redirect will happen correctly?
 
         # Check that the speakers were linked correctly to the above created Persons
         for speaker in SPEAKERS:
