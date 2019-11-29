@@ -31,7 +31,7 @@ class ImportZAAkomaNtosoTests(InstanceTestCase):
         recreate_entities()
 
     def test_import_import_hansard_speakers(self):
-        logger.debug("logging.debug: XXXXXX I need to see logs")
+        self.assertTrue(False, 'Check if this test actually runs in Travis')
         document_path = os.path.join(self._in_fixtures, 'NA200912.xml')
 
         # Create Persons to identify
