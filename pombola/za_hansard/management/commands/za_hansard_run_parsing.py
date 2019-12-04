@@ -40,6 +40,9 @@ class Command(BaseCommand):
                     action='store_true',
                     help='Retry attempted (but not completed) parses',
                     ),
+        make_option('--since',
+                    help='Oldest date to parse Sources from (format must be YYYY-MM-DD).',
+                    ),
         make_option('--retry-download',
                     default=False,
                     action='store_true',
@@ -57,16 +60,25 @@ class Command(BaseCommand):
 
         if options['id']:
             sources = Source.objects.filter(id=options['id'])
-        elif options['redo']:
-            if options['retry_download']:
-                sources = Source.objects.all()
-            else:
-                sources = Source.objects.filter(is404=False)
-        elif options['retry']:
-            sources = Source.objects.all().requires_completion(
-                options['retry_download'])
         else:
-            sources = Source.objects.all().requires_processing()
+            sources = Source.objects.all()
+            if options['since']:
+                try:
+                    since_date = datetime.datetime.strptime(options['since'], "%Y-%m-%d")
+                    sources = sources.filter(date__gte=since_date)
+                except ValueError:
+                    self.stderr.write(u"Since date must be in the format YYYY-MM-DD, e.g. 2019-12-04.")
+                    sys.exit(-1)
+            if options['redo']:
+                if not options['retry_download']:
+                    sources = sources.filter(is404=False)
+                else:
+                    self.stdout.write(u"retry_download")
+            elif options['retry']:
+                sources = sources.requires_completion(
+                    options['retry_download'])
+            else:
+                sources = sources.requires_processing()
 
         sources.defer('xml')
         for s in (sources[:limit] if limit else sources):
