@@ -107,8 +107,8 @@ class Command(BaseCommand):
                 parsing_log.success = True
                 self.stdout.write(u"Processed {} ({})\n".format(
                                   s.document_name, s.document_number))
-            except (ConversionException, DateParseException) as e:
-                parsing_log.log += "Error '%s' occurred while parsing source.\n" % e
+            except Exception as e:
+                parsing_log.log += u"Error '%s' occurred while parsing source.\n" % e
                 parsing_log.error = type(e).__name__
                 parsing_log.success = False
                 self.stderr.write(u"WARN: Failed to run parsing for %s: %s" % (s.id, unicode(e)))
