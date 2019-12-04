@@ -70,7 +70,7 @@ class Command(BaseCommand):
 
         sources.defer('xml')
         for s in (sources[:limit] if limit else sources):
-            parsing_log = SourceParsingLog(source=s, log="Starting to parse source...\n")
+            parsing_log, _ = SourceParsingLog.objects.get_or_create(source=s, defaults={'log':"Starting to parse source...\n"})
             if s.language != 'English' and s.language != 'ENG':
                 parsing_log.log += "Source language is not English. Skipping source.\n"
                 continue
