@@ -476,7 +476,8 @@ class Question(models.Model):
 
 class SourceParsingLog(models.Model):
     source = models.ForeignKey("Source", on_delete=models.CASCADE, null=True)
-    date = models.DateField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True, null=True)
+    updated = models.DateTimeField(auto_now=True, null=True)
     log = models.TextField(default="")
     error = models.CharField(default="", max_length=300)
     success = models.BooleanField(default=False)

@@ -14,16 +14,16 @@ from .filters import SuccessfullyParsedFilter
 @admin.register(models.SourceParsingLog)
 class SourceParsingLogAdmin(admin.ModelAdmin):
     list_display = [
-        'date',
+        'updated',
         'linked_source',
         'source_url',
         'error',
         'success',
         ]
 
-    list_filter = ['error', 'success', 'date',]
+    list_filter = ['error', 'success', 'updated',]
     readonly_fields = [
-        'date',
+        'updated',
         'source',
         'error',
         'success', 
@@ -32,7 +32,7 @@ class SourceParsingLogAdmin(admin.ModelAdmin):
         'linked_source'
         ]
     actions = []
-    date_hierarchy = 'date'
+    date_hierarchy = 'updated'
 
     def source_url(self, obj):
         return mark_safe('<a href="{}">{}</a>'.format(
