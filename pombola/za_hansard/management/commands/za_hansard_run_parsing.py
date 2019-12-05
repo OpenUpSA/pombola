@@ -20,7 +20,7 @@ from django.core.management.base import BaseCommand, CommandError
 from optparse import make_option
 
 from pombola.za_hansard.models import Source, SourceUrlCouldNotBeRetrieved, SourceParsingLog
-from pombola.za_hansard.parse import ZAHansardParser, ConversionException
+from pombola.za_hansard.parse import ZAHansardParser, ConversionException, DateParseException
 
 
 class Command(BaseCommand):
