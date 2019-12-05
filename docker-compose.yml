@@ -41,7 +41,9 @@ services:
       - es-data:/elasticsearch/data
     environment:
       - ES_MIN_MEM=2g
-      - ES_MAX_MEM=6g
+      - ES_MAX_MEM=4g
+    ports:
+      - 9200
 
 volumes:
   db-data:

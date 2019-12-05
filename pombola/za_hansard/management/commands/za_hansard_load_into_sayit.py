@@ -36,6 +36,9 @@ class Command(BaseCommand):
                     type='int',
                     help='limit query (default 0 for none)',
                     ),
+        make_option('--since',
+                    help='Oldest date to parse Sources from (format must be YYYY-MM-DD).',
+                    ),
         make_option('--delete-existing',
                     default=False,
                     action='store_true',
@@ -61,8 +64,21 @@ class Command(BaseCommand):
         if options['id']:
             sources = sources.filter(id=options['id'])
 
+        if options['since']:
+            try:
+                since_date = datetime.datetime.strptime(options['since'], "%Y-%m-%d")
+                sources = sources.filter(date__gte=since_date)
+            except ValueError:
+                self.stderr.write(u"Since date must be in the format YYYY-MM-DD, e.g. 2019-12-04.")
+                sys.exit(-1)
+        else:
+            since_date = None
+
         if options['delete_existing']:
-            Speech.objects.filter(tags__name='hansard').delete()
+            speeches = Speech.objects.filter(tags__name='hansard')
+            if since_date is not None:
+                speeches = speeches.filter(start_date__gte=since_date)
+            speeches.delete()
 
         section_ids = []
 
