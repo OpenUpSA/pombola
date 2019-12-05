@@ -20,7 +20,7 @@ from django.core.management.base import BaseCommand, CommandError
 from optparse import make_option
 
 from pombola.za_hansard.models import Source, SourceUrlCouldNotBeRetrieved
-from pombola.za_hansard.parse import ZAHansardParser, ConversionException
+from pombola.za_hansard.parse import ZAHansardParser, ConversionException, DateParseException
 
 
 class Command(BaseCommand):
@@ -101,5 +101,5 @@ class Command(BaseCommand):
                 s.save()
                 self.stdout.write(u"Processed {} ({})\n".format(
                                   s.document_name, s.document_number))
-            except ConversionException as e:
+            except (ConversionException, DateParseException) as e:
                 self.stderr.write(u"WARN: Failed to run parsing for %s: %s" % (s.id, unicode(e)))
