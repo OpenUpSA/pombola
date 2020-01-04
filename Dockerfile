@@ -20,7 +20,8 @@ RUN apt-get update && \
                        ruby2.3-dev \
                        yui-compressor \
                        zlib1g-dev \
-                       postgresql-client
+                       postgresql-client \
+                       awscli
 
 RUN mkdir /app
 COPY requirements.txt /app/
