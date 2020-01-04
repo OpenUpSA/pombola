@@ -1,3 +1,5 @@
+#!/bin/bash
+
 set -euf -o pipefail
 
 export AWS_SECRET_ACCESS_KEY=${DATA_DIR_BACKUP_AWS_SECRET_ACCESS_KEY}

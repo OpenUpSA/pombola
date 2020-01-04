@@ -172,9 +172,9 @@ to capture any output and only output it if the command exited with an error
 status.
 
 ```
-0 0 * * 1 dokku run pombola bin/output-on-error bin/backup-data-dir.bash
-0 1 * * * dokku run pombola bin/output-on-error ./manage.py core_list_malformed_slugs
-30 1 * * * dokku run pombola bin/output-on-error ./manage.py core_database_dump /data/media_root/dumps/pg-dump && dokku run pombola bin/output-on-error gzip -9 -f /data/media_root/dumps/pg-dump_schema.sql /data/media_root/dumps/pg-dump_data.sql
-10 2 * * * dokku run pombola bin/output-on-error bin/update_za_hansard.bash
-0 5 * * * dokku run pombola bin/output-on-error python manage.py core_export_to_popolo_json /data/media_root/popolo_json http://www.pa.org.za
+0 0 * * 1 dokku --rm run pombola bin/output-on-error bin/backup-data-dir.bash
+0 1 * * * dokku --rm run pombola bin/output-on-error ./manage.py core_list_malformed_slugs
+30 1 * * * dokku --rm run pombola bin/output-on-error ./manage.py core_database_dump /data/media_root/dumps/pg-dump && dokku --rm run pombola bin/output-on-error gzip -9 -f /data/media_root/dumps/pg-dump_schema.sql /data/media_root/dumps/pg-dump_data.sql
+10 2 * * * dokku --rm run pombola bin/output-on-error bin/update_za_hansard.bash
+0 5 * * * dokku --rm run pombola bin/output-on-error python manage.py core_export_to_popolo_json /data/media_root/popolo_json http://www.pa.org.za
 ```
