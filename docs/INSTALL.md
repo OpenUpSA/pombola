@@ -95,6 +95,17 @@ CREATE EXTENSION postgis;
 CREATE EXTENSION postgis_topology;
 ```
 
+Set up backups:
+
+    dokku postgres:backup-auth pombola ...key-id... ...secret...
+    dokku postgres:backup-set-encryption pombola ...long-passphrase...
+    dokku postgres:backup-schedule  pombola "0 3 * * *" peoples-assembly-postgres-backups
+
+Do a test run:
+
+    dokku postgres:backup pombola peoples-assembly-postgres-backups
+
+
 ### Create and configure the app
 
 ```
@@ -118,7 +129,9 @@ dokku config:set pombola \
     PMG_COMMITTEE_PASSWORD=... \
     PMG_API_KEY=... \
     POPIT_API_URL=True \
-    GOOGLE_MAPS_GEOCODING_API_KEY=...
+    GOOGLE_MAPS_GEOCODING_API_KEY=... \
+    DATA_DIR_BACKUP_AWS_SECRET_ACCESS_KEY=... \
+    DATA_DIR_BACKUP_AWS_ACCESS_KEY_ID=...
 
 dokku docker-options:add pombola deploy "-v /var/pombola-data:/data"
 dokku docker-options:add pombola run "-v /var/pombola-data:/data"
@@ -159,6 +172,7 @@ to capture any output and only output it if the command exited with an error
 status.
 
 ```
+0 0 * * 1 dokku run pombola bin/output-on-error bin/backup-data-dir.bash
 0 1 * * * dokku run pombola bin/output-on-error ./manage.py core_list_malformed_slugs
 30 1 * * * dokku run pombola bin/output-on-error ./manage.py core_database_dump /data/media_root/dumps/pg-dump && dokku run pombola bin/output-on-error gzip -9 -f /data/media_root/dumps/pg-dump_schema.sql /data/media_root/dumps/pg-dump_data.sql
 10 2 * * * dokku run pombola bin/output-on-error bin/update_za_hansard.bash
