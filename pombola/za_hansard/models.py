@@ -8,6 +8,7 @@ from django.db import models
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from speeches.models import Section
+from django.core.exceptions import ValidationError
 
 HTTPLIB2_HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/601.4.4 (KHTML, like Gecko) Version/9.0.3 Safari/601.4.4'
@@ -474,9 +475,17 @@ class Question(models.Model):
 
 # CREATE TABLE completed_documents (`url` string);
 
+
 class SourceParsingLog(models.Model):
+    """Immutable log entry for an import attempt of a specific source"""
+
     source = models.ForeignKey("Source", on_delete=models.CASCADE)
-    date = models.DateField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     log = models.TextField(default="")
     error = models.CharField(default="", max_length=300)
     success = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        if self.pk:
+            raise ValidationError("you may not edit an existing %s" % self._meta.model_name)
+        super(SourceParsingLog, self).save(*args, **kwargs)

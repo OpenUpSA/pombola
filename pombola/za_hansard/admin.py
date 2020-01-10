@@ -1,44 +1,31 @@
+from ajax_select import make_ajax_form
 from django.contrib import admin
-from django.core import urlresolvers
-from django.utils.safestring import mark_safe  
+from django.utils.safestring import mark_safe
 
 from pombola.za_hansard import models
 from .filters import SuccessfullyParsedFilter
 
-@admin.register(models.SourceParsingLog)
-class SourceParsingLogAdmin(admin.ModelAdmin):
-    list_display = [
-        'date',
-        'linked_source',
-        'source_url',
+
+class SourceParsingLogInline(admin.StackedInline):
+    model = models.SourceParsingLog
+
+    readonly_fields = [
+        'created_at',
+        'source',
         'error',
         'success',
-        ]
-
-    list_filter = ['error', 'success', 'date',]
-    readonly_fields = [
-        'date',
-        'source',
-        'error',
-        'success', 
         'log',
-        'source',
-        'linked_source'
-        ]
-    actions = []
-    date_hierarchy = 'date'
+    ]
 
-    def source_url(self, obj):
-        return mark_safe('<a href="{}">{}</a>'.format(
-            obj.source.url,
-            obj.source.url
-        ))
+    def has_add_permission(self, request):
+        return False
+    #
+    # def has_change_permission(self, request, obj=None):
+    #     return False
 
-    def linked_source(self, obj):
-        return mark_safe('<a href="{}">{}</a>'.format(
-            urlresolvers.reverse("admin:za_hansard_source_change", args=(obj.source.pk,)),
-            obj.source
-        ))
+    def has_delete_permission(self, request, obj=None):
+        return False
+
 
 @admin.register(models.Source)
 class ZAHansardSourceAdmin(admin.ModelAdmin):
@@ -49,17 +36,24 @@ class ZAHansardSourceAdmin(admin.ModelAdmin):
         'is404',
         'last_processing_success',
         'last_processing_attempt',
-        ]
+    ]
 
     readonly_fields = [
         'pmg_hansard',
-        ]
+    ]
     date_hierarchy = 'date'
+    inlines = [
+        SourceParsingLogInline,
+    ]
+
+    form = make_ajax_form(models.Source, {
+        'sayit_section': 'sayit_section',
+    })
 
     def pmg_hansard(self, obj):
         return mark_safe('<a href="https://api.pmg.org.za/hansard/{}/">{}</a>'.format(
             obj.pmg_id,
             obj.pmg_id
-        ))
+        )) if obj.pmg_id is not None else None
 
     list_filter = [SuccessfullyParsedFilter, 'is404', 'date']

@@ -325,6 +325,7 @@ AJAX_LOOKUP_CHANNELS = {
     'organisation_name' : dict(model='core.organisation', search_field='name'),
     'place_name'        : dict(model='core.place', search_field='name'),
     'title_name'        : dict(model='core.positiontitle', search_field='name'),
+    'sayit_section'     : dict(model='speeches.section', search_field='heading'),
 }
 
 # misc settings
