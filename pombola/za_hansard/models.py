@@ -475,7 +475,7 @@ class Question(models.Model):
 # CREATE TABLE completed_documents (`url` string);
 
 class SourceParsingLog(models.Model):
-    source = models.ForeignKey("Source", on_delete=models.CASCADE, null=True)
+    source = models.ForeignKey("Source", on_delete=models.CASCADE)
     date = models.DateField(auto_now_add=True)
     log = models.TextField(default="")
     error = models.CharField(default="", max_length=300)
