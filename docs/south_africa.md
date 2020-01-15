@@ -100,8 +100,7 @@ Other flags are:
 
 ## Question Scraper
 
-This script runs against the Parliament website, and was originally supplied by
-Geoff Kilpin from PMG.  Again, it is presented as a single management command,
+This script runs against both the Parliament website and the PMG API. Again, it is presented as a single management command,
 with a number of steps, which can be run together as:
 
     $ python manage.py za_hansard_q_and_a_scraper --run-all-steps
@@ -116,13 +115,41 @@ Or you can run individual steps as follows:
         --save              # step 5 (as JSON)
         --import-into-sayit # step 6
 
-Yes, that is quite a lot of steps.  (NB: check Duncan's work on refactoring Q/A
-parser, in case it affects any of these steps.)
-
 Other flags are:
 
         --instance
         --limit
         --fetch-to-limit  (works like --check-all for Hansard)
 
+It is usually run by the as part of the `update_za_hansard` bash script which runs as a daily cron job.
 
+### Steps
+
+The command runs multiple steps:
+
+- `self.scrape_questions(*args, **options)`:
+  - Looks for questions on http://www.parliament.gov.za/live/content.php?Category_ID=236
+- `self.scrape_answers(self.start_url_a_na, *args, **options)`:
+  - Looks for answers on http://www.parliament.gov.za/live/content.php?Category_ID=248
+- `self.scrape_answers(self.start_url_a_ncop, *args, **options)`:
+  - Looks for answers on http://www.parliament.gov.za/live/content.php?Category_ID=249
+- All of the above urls redirect to https://www.parliament.gov.za/ so no questions are actually found.
+- `self.get_qa_from_pmg_api(*args, **options)`:
+  - For each minister and member on https://api.pmg.org.za/minister/ and https://api.pmg.org.za/member/ get their question_url
+  - Get their questions from their question_url and save them as Question objects
+  - Use the answers from the questions to create or find existing Answer objects and 
+   set their processed_code to Answer.PROCESSED_OK
+- `self.process_answers(*args, **options)`:
+  - Find all the Answers that don't have a processed_code of `PROCESSED_OK`
+  - Where would these Answers come from?
+    - Answers that were created without the `Answer.PROCESSED_OK` (i.e. by `scrape_answers`) or Answers for which their
+     url caused an HTTP error the previous time `process_answers` was run
+- `self.match_answers(*args, **options)`:
+  - Loop through Answers that aren't linked to a Question (so not Answers from PMG)
+  - Try and match them with a Question
+- `self.qa_to_json(*args, **options)`:
+  - Write all Questions as JSON to a file under the `settings.QUESTION_JSON_CACHE` directory
+  - Write all Answers as JSON to a file under the `settings.ANSWER_JSON_CACHE` directory
+- `self.import_into_sayit(*args, **options)`:
+  - Get all of the Questions that aren't yet linked to a Sayit Section
+  - Load the JSON version of the Question from the `settings.QUESTION_JSON_CACHE` directory
