@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from datetime import date
 import unittest
 
@@ -35,7 +36,7 @@ def fake_geocoder(country, q, decimal_places=3):
              'address': u'Eastern Rift Valley, Kenya'}
         ]
     else:
-        raise Exception, u"Unexpected input to fake_geocoder: {}".format(q)
+        raise Exception(u"Unexpected input to fake_geocoder: {}".format(q))
 
 # If there's no COUNTRY_APP set then the GeocodeView will fail, so use
 # kenya for testing location search:

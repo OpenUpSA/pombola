@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+from __future__ import print_function
 import csv
 import StringIO
 
@@ -96,4 +98,4 @@ class Command(BaseCommand):
         for data in rows:
             writer.writerow( data )
         
-        print csv_output.getvalue()
+        print(csv_output.getvalue())

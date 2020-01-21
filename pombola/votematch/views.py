@@ -1,8 +1,10 @@
-import models
+from __future__ import absolute_import
+from . import models
 
 from django.shortcuts  import render_to_response, get_object_or_404, redirect
 from django.template   import RequestContext
 from django.core.exceptions import ObjectDoesNotExist
+import six
 
 
 def quiz_detail (request, slug):
@@ -49,7 +51,7 @@ def quiz_detail (request, slug):
                 expected_result = expected_result
             )
             
-            for statement_id, answer in answers.iteritems():
+            for statement_id, answer in six.iteritems(answers):
                 submission.answer_set.create(
                     statement = statements[statement_id],
                     agreement = answer

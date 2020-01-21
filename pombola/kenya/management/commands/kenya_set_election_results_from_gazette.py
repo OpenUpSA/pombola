@@ -3,6 +3,8 @@
 # core_create_elected_positions once the correct aspirant has been
 # found.
 
+from __future__ import absolute_import
+from __future__ import print_function
 from collections import namedtuple
 import csv
 import difflib
@@ -65,25 +67,25 @@ def get_matching_person_from_aspirants(winner_full_name, aspirants):
                               difflib.SequenceMatcher(None, winner_full_name, o.legal_name))
                              for o in aspirants]
             best_match = max(fuzzy_matches, key=lambda x: x[1].ratio())
-            print "  best fuzzy match was:", best_match[0].legal_name
-            print "      to the gazette's:", winner_full_name
+            print("  best fuzzy match was:", best_match[0].legal_name)
+            print("      to the gazette's:", winner_full_name)
             return (True, best_match[0])
         elif len(matching_people) == 1:
             return (False, matching_people[0])
         elif len(matching_people) >= 1:
-            print "  Multiple matching aspirants found:"
+            print("  Multiple matching aspirants found:")
             for matching_person in matching_people:
-                print "    ", matching_person
-            raise Exception, "Multiple matching aspirants from alternative names found"
+                print("    ", matching_person)
+            raise Exception("Multiple matching aspirants from alternative names found")
 
     elif len(matching_place_aspirants) == 1:
         return (False, matching_place_aspirants[0])
 
     elif len(matching_place_aspirants) > 1:
-        print "  Multiple matching aspirants found:"
+        print("  Multiple matching aspirants found:")
         for wa in matching_place_aspirants:
-            print "    " + str(wa)
-        raise Exception, "Multiple matching aspirants from main name found"
+            print("    " + str(wa))
+        raise Exception("Multiple matching aspirants from main name found")
 
 PositionData = namedtuple('PositionData',
                           ['placekind',
@@ -147,7 +149,7 @@ class Command(NoArgsCommand):
                 for row in csv.DictReader(f):
 
                     # Find the place from the name in the gazette:
-                    print "==========="
+                    print("===========")
                     place_name = row[pd.place_name_column]
                     place_name = place_name_corrections.get(place_name.upper(), place_name)
                     place_name = re.sub(r'(\w) *([/-]) *(\w)', '\\1 \\2 \\3', place_name)
@@ -157,13 +159,13 @@ class Command(NoArgsCommand):
                     place_name_mangled = mangle_place_name(place_name)
                     try:
                         place = Place.objects.get(slug=place_name_slugified)
-                        print place.name.encode('utf-8')
+                        print(place.name.encode('utf-8'))
                     except Place.DoesNotExist:
                         place = mangled_place_names.get(place_name_mangled)
                         if place:
-                            print place.name.encode('utf-8')
+                            print(place.name.encode('utf-8'))
                         else:
-                            print "missing", place_name, place_name_slugified
+                            print("missing", place_name, place_name_slugified)
                             continue
 
                     # Some wards have their results still postponed,
@@ -178,7 +180,7 @@ class Command(NoArgsCommand):
                         continue
 
                     winner_full_name = pd.row_to_name(row)
-                    print "+" + winner_full_name
+                    print("+" + winner_full_name)
 
                     all_aspirants = place.get_aspirants() or []
 
@@ -189,11 +191,11 @@ class Command(NoArgsCommand):
                         current_holder = place.position_set.all().current_politician_positions().get(title__name=pd.position_title).person
                         matching_people = get_person_by_any_name(winner_full_name)
                         if not matching_people:
-                            print "  There already is a current %s for %s who didn't match:" % (pd.position_title,
-                                                                                 place)
-                            print "    current_holder.person.name:", current_holder.name
-                            print "                  gazette name:", winner_full_name
-                            print "  So adding '%s' as an alternative name for %s" % (winner_full_name, current_holder)
+                            print("  There already is a current %s for %s who didn't match:" % (pd.position_title,
+                                                                                 place))
+                            print("    current_holder.person.name:", current_holder.name)
+                            print("                  gazette name:", winner_full_name)
+                            print("  So adding '%s' as an alternative name for %s" % (winner_full_name, current_holder))
                             # Note that for all the cases in the
                             # database at the time of writing these
                             # are correct synomyms, but they have to
@@ -204,12 +206,12 @@ class Command(NoArgsCommand):
                         pass
 
                     if not (current_holder or all_aspirants):
-                        print "### There was no current holder of the position and no aspirants"
+                        print("### There was no current holder of the position and no aspirants")
                         continue
 
                     aspirants_for_place_tuples = [t for t in all_aspirants if t[0] == place]
                     if len(aspirants_for_place_tuples) > 1:
-                        raise Exception, "Multiple identical places returned by get_aspirants()"
+                        raise Exception("Multiple identical places returned by get_aspirants()")
 
                     winner_found_in_aspirants = None
                     if aspirants_for_place_tuples:
@@ -222,14 +224,14 @@ class Command(NoArgsCommand):
 
                     # Now we have either current_holder or winner_found_in_aspirants
                     if current_holder and winner_found_in_aspirants and (current_holder != winner_found_in_aspirants):
-                        print "  Found both a current holder, and a winner in the aspirants, but they weren't the same:"
-                        print "               current_holder:", current_holder
-                        print "    winner_found_in_aspirants:", winner_found_in_aspirants
-                        raise Exception, "Inconsistent winners found"
+                        print("  Found both a current holder, and a winner in the aspirants, but they weren't the same:")
+                        print("               current_holder:", current_holder)
+                        print("    winner_found_in_aspirants:", winner_found_in_aspirants)
+                        raise Exception("Inconsistent winners found")
 
                     if not (current_holder or winner_found_in_aspirants):
-                        print "  Found neither a current_holder nor a winner_found_in_aspirants"
-                        raise Exception, "Found no winner"
+                        print("  Found neither a current_holder nor a winner_found_in_aspirants")
+                        raise Exception("Found no winner")
 
                     winner = current_holder or winner_found_in_aspirants
 

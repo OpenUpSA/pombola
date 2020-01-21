@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from pombola.search.views import SearchBaseView
 
 from haystack.query import SQ

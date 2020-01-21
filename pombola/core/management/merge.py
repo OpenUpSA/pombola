@@ -2,6 +2,8 @@
 # for merging object in Pombola (e.g. Person and Organisation at the
 # moment).
 
+from __future__ import absolute_import
+from __future__ import print_function
 from optparse import make_option
 import sys
 
@@ -14,6 +16,7 @@ from slug_helpers.models import SlugRedirect
 from images.models import Image
 
 import pombola.core.models as core_models
+from six.moves import input
 
 
 def check_basic_fields(basic_fields, to_keep, to_delete):
@@ -38,11 +41,11 @@ def check_basic_fields(basic_fields, to_keep, to_delete):
             # i.e. there's some data that might be lost:
             safe_to_delete = False
             message = "Mismatch in '%s': '%s' ({%d}) and '%s' (%d)"
-            print >> sys.stderr, message % (basic_field,
+            print(message % (basic_field,
                                             keep_value,
                                             to_keep.id,
                                             delete_value,
-                                            to_delete.id)
+                                            to_delete.id), file=sys.stderr)
     return safe_to_delete
 
 
@@ -72,14 +75,11 @@ class MergeCommandBase(BaseCommand):
         try:
             return self.model_class.objects.get(slug=identifier)
         # AttributeError catches the case where there is no slug field.
-        except self.model_class.DoesNotExist, AttributeError:
+        except self.model_class.DoesNotExist as AttributeError:
             try:
                 object_id = int(identifier)
             except ValueError:
-                raise (
-                    self.model_class.DoesNotExist,
-                    "Object matching query does not exist."
-                    )
+                raise self.model_class.DoesNotExist
             return self.model_class.objects.get(pk=object_id)
 
     @transaction.atomic
@@ -100,11 +100,11 @@ class MergeCommandBase(BaseCommand):
         if to_keep.id == to_delete.id:
             raise CommandError("--keep-object and --delete-object are the same")
 
-        print "Going to keep:", to_keep, "with ID", to_keep.id
-        print "Going to delete:", to_delete, "with ID", to_delete.id
+        print("Going to keep:", to_keep, "with ID", to_keep.id)
+        print("Going to delete:", to_delete, "with ID", to_delete.id)
 
         if options['interactive']:
-            answer = raw_input('Do you wish to continue? (y/[n]): ')
+            answer = input('Do you wish to continue? (y/[n]): ')
             if answer != 'y':
                 raise CommandError("Command halted by user, no changes made")
 
@@ -143,5 +143,5 @@ class MergeCommandBase(BaseCommand):
         to_delete.delete()
 
         if not options['quiet']:
-            print "Now check the remaining object (", to_keep_admin_url, ")"
-            print "for any duplicate information."
+            print("Now check the remaining object (", to_keep_admin_url, ")")
+            print("for any duplicate information.")

@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from pombola.core.models import Place, Position, Organisation
 
 class ZAPlace(Place):

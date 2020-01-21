@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+from __future__ import print_function
 import unicodecsv
 
 from django.core.management.base import BaseCommand, CommandError
@@ -22,6 +24,6 @@ class Command(BaseCommand):
                     slug=party_slug, kind=party_kind, defaults={"name": party_name}
                 )
                 if created:
-                    print("Created new party: {}".format(party))
+                    print(("Created new party: {}".format(party)))
                 else:
-                    print("Party already exists: {}".format(party))
+                    print(("Party already exists: {}".format(party)))

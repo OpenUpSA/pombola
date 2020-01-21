@@ -12,13 +12,15 @@
 #
 #    https://github.com/mysociety/pombola/blob/ec4a44f7d7e0743426aff87b59e4bfa54250ec1c/pombola/hansard/management/commands/hansard_check_for_new_sources.py
 
+from __future__ import absolute_import
+from __future__ import print_function
 import httplib2
 import re
 import datetime
 from optparse import make_option
 import parsedatetime as pdt
 from warnings import warn
-from urlparse import urlsplit, urlunsplit
+from six.moves.urllib.parse import urlsplit, urlunsplit
 
 from BeautifulSoup import BeautifulSoup, BeautifulStoneSoup
 
@@ -108,12 +110,12 @@ class Command(NoArgsCommand):
                 ).exists():
                     if verbose:
                         message = "{0}: Skipping page with name: {1}"
-                        print message.format(list_page, name)
+                        print(message.format(list_page, name))
                     get_next_page = False
                 else:
                     if verbose:
                         message = "{0} Trying to add page with name {1} as a new source"
-                        print message.format(list_page, name)
+                        print(message.format(list_page, name))
                     get_next_page = True
 
                     self.extract_source_from_html(href, name, list_page, links, link_sections, idx, base_url)
@@ -164,7 +166,7 @@ class Command(NoArgsCommand):
             if verbose:
                 i+=1
                 message = "\nAttempting to get list page {0} for {1}"
-                print message.format(i, list_page)
+                print(message.format(i, list_page))
             response, content = h.request(next_url)
 
             # parse content

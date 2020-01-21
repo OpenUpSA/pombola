@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 
+from __future__ import absolute_import
+from __future__ import print_function
 from bs4 import BeautifulSoup
-from urlparse import urljoin
+from six.moves.urllib.parse import urljoin
 import sys
 import json
 import re
@@ -180,5 +182,5 @@ def process(filename):
 
 
 for filename in sys.argv[1:]:
-    print filename
+    print(filename)
     process( filename )

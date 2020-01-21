@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+from __future__ import print_function
 from django.core.management.base import BaseCommand
 from pombola.core import models
 
@@ -14,13 +16,13 @@ class Command(BaseCommand):
 
     def handle(self, **options):
 
-        print "Creating coalition org kind"
+        print("Creating coalition org kind")
         coalition_kind, created = models.OrganisationKind.objects.get_or_create(
             slug = "coalition",
             name = "Coalition",
         );
 
-        print "Creating the coalitions"
+        print("Creating the coalitions")
         coalitions = [
             # ( slug, name )
             ( 'amani',   'Amani (Peace) Coalition'           ),

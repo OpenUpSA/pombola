@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+from __future__ import print_function
 from collections import defaultdict
 from difflib import SequenceMatcher
 from itertools import chain
@@ -7,7 +9,7 @@ import os
 import re
 import requests
 import time
-import urllib
+import six.moves.urllib.request, six.moves.urllib.parse, six.moves.urllib.error
 
 from django.conf import settings
 from django.db.models import Q
@@ -15,6 +17,7 @@ from django.db.models import Q
 from mapit.models import Generation, Area, Code
 
 from pombola.core.models import Position
+from six.moves import range
 
 def fix_province_name(province_name):
     if province_name == 'Kwa-Zulu Natal':
@@ -75,7 +78,7 @@ def geocode(address_string, geocode_cache=None, verbose=True):
     url_template = \
         'https://maps.googleapis.com/maps/api/geocode/json?address={address}&bounds={w},{s}|{e},{n}'
     url = url_template.format(
-        address=urllib.quote(address_string.encode('UTF-8')),
+        address=six.moves.urllib.parse.quote(address_string.encode('UTF-8')),
         w=settings.MAP_BOUNDING_BOX_WEST,
         s=settings.MAP_BOUNDING_BOX_SOUTH,
         e=settings.MAP_BOUNDING_BOX_EAST,
@@ -103,7 +106,7 @@ def geocode(address_string, geocode_cache=None, verbose=True):
             message = u"Warning: disambiguating %s to %s" % (address_string,
                                                              all_results[0]['formatted_address'])
             if verbose:
-                print message.encode('UTF-8')
+                print(message.encode('UTF-8'))
         # FIXME: We should really check the accuracy information here, but
         # for the moment just use the 'location' coordinate as is:
         geometry = all_results[0]['geometry']
@@ -126,9 +129,9 @@ def get_na_member_lookup():
         try:
             message = "Tried to add '%s' => %s, but there were already '%s' => %s" % (
                 name_form, person, name_form, na_member_lookup[name_form])
-            print message
+            print(message)
         except UnicodeDecodeError:
-            print 'Duplicate name issue'
+            print('Duplicate name issue')
 
     people_done = set()
     for position in chain(Position.objects.filter(title__slug='member',
@@ -193,14 +196,14 @@ def get_mapit_municipality(municipality, province=''):
                 elif province=='Eastern Cape':
                     mapit_municipality = Code.objects.get(type__code='l', code='EC136').area
                 else:
-                    raise Exception, "Unknown Emalahleni province %s" % (province)
+                    raise Exception("Unknown Emalahleni province %s" % (province))
             elif municipality == 'Naledi':
                 if province=='Northern Cape':
                     mapit_municipality = Code.objects.get(type__code='l', code='NW392').area
                 else:
-                    raise Exception, "Unknown Naledi province %s" % (province)
+                    raise Exception("Unknown Naledi province %s" % (province))
             else:
-                raise Exception, "Ambiguous municipality name '%s'" % (municipality,)
+                raise Exception("Ambiguous municipality name '%s'" % (municipality,))
     return mapit_municipality
 
 # Given a name string, try to find a person from the Pombola database
@@ -241,7 +244,7 @@ def find_pombola_person(name_string, na_member_lookup, verbose=True):
         return scored_names[0][2]
     else:
         if verbose:
-            print "Failed to find a match for " + name_string.encode('utf-8')
+            print("Failed to find a match for " + name_string.encode('utf-8'))
         return None
 
 geocode_cache_filename = os.path.join(
@@ -278,4 +281,4 @@ def debug_location_change(location_from, location_to):
 
     d = r * c;
 
-    print "%s km https://www.google.com/maps/dir/'%s,%s'/'%s,%s'/" % (d, location_from.y, location_from.x, location_to.y, location_to.x)
+    print("%s km https://www.google.com/maps/dir/'%s,%s'/'%s,%s'/" % (d, location_from.y, location_from.x, location_to.y, location_to.x))

@@ -6,6 +6,7 @@
 # This script just extends the generation_high to generation 2 for
 # every area where it was set to generation 2.
 
+from __future__ import absolute_import
 from django.core.management.base import NoArgsCommand
 from mapit.models import Area, Generation
 

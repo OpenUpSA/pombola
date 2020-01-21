@@ -1,13 +1,16 @@
+from __future__ import absolute_import
+from __future__ import print_function
 from optparse import make_option
 
 from django.core.management.base import NoArgsCommand
 from django_date_extensions.fields import ApproximateDate
 
 from pombola.core.models import Position
+from six.moves import map
 
 
 def yyyymmdd_to_approx(yyyymmdd):
-    year, month, day = map(int, yyyymmdd.split('-'))
+    year, month, day = list(map(int, yyyymmdd.split('-')))
     return ApproximateDate(year, month, day)
 
 class Command(NoArgsCommand):
@@ -29,23 +32,23 @@ class Command(NoArgsCommand):
         positions = Position.objects
 
         if options['title']:
-            print 'Title filter: ' + options['title']
+            print('Title filter: ' + options['title'])
             positions = positions.filter(title__slug = options['title'])
 
         if options['organisation']:
-            print 'Organisation filter: ' + options['organisation']
+            print('Organisation filter: ' + options['organisation'])
             positions = positions.filter(organisation__slug = options['organisation'])
 
         if options['organisation-kind']:
-            print 'Organisation kind filter: ' + options['organisation-kind']
+            print('Organisation kind filter: ' + options['organisation-kind'])
             positions = positions.filter(organisation__kind__slug = options['organisation-kind'])
 
         end_date = yyyymmdd_to_approx(options['end-date'])
 
         for position in positions.currently_active():
-            print "  Ending %s" % position
+            print("  Ending %s" % position)
             position.end_date = end_date
             if options['commit']:
                 position.save()
 
-        print 'Ended a total of ' + str(positions.count()) + ' positions.'
+        print('Ended a total of ' + str(positions.count()) + ' positions.')

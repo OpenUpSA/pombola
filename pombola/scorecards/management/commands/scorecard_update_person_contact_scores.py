@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import datetime
 
 from django.core.management.base import NoArgsCommand
@@ -32,7 +33,7 @@ class Command(NoArgsCommand):
             for c in person.contacts.all():
                 contact_kinds[c.kind.slug] = 1
             
-            contact_count = len( contact_kinds.keys() )
+            contact_count = len( list(contact_kinds.keys()) )
         
             # turn the count into a score
             score = -1

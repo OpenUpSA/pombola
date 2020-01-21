@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from django.views.generic import ListView
 
 from pombola.core.models import Organisation, OrganisationKind

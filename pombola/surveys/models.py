@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from sorl.thumbnail import ImageField
 
 from django.db import models

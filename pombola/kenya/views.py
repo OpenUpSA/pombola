@@ -1,6 +1,7 @@
 # Create your views here.
 # -*- coding: utf-8 -*-
 
+from __future__ import absolute_import
 import logging
 import random
 import json
@@ -30,6 +31,7 @@ from pombola.kenya import shujaaz
 from pombola.sms.models import Message, Question
 
 from datetime import datetime
+from six.moves import range
 
 
 logger = logging.getLogger('django.request')
@@ -249,8 +251,8 @@ class MITExperimentView(ExperimentViewDataMixin, TemplateView):
         # session:
         if self.qualify_key('user_key') not in self.request.session:
             self.request.session[self.qualify_key('user_key')] = \
-                str(random.randint(0, sys.maxint))
-            session_keys = ['via'] + self.demographic_keys.keys()
+                str(random.randint(0, sys.maxsize))
+            session_keys = ['via'] + list(self.demographic_keys.keys())
             for k in session_keys:
                 self.set_session_value(k, data[k])
 

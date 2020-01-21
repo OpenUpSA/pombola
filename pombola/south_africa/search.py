@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from haystack.backends.elasticsearch_backend import (
     ElasticsearchSearchBackend,
     ElasticsearchSearchEngine,

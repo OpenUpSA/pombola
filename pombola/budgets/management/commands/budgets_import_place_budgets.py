@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+from __future__ import print_function
 import unicodecsv as csv
 
 from django.core.exceptions import ObjectDoesNotExist
@@ -37,7 +39,7 @@ class Command(LabelCommand):
             place = Place.objects.get(slug=slug)
 
         except ObjectDoesNotExist:
-            print 'Unable to match "%s" (%s) to a place. Please resolve in source data!' % (name, slug)
+            print('Unable to match "%s" (%s) to a place. Please resolve in source data!' % (name, slug))
             exit(1)
 
         return place
@@ -45,7 +47,7 @@ class Command(LabelCommand):
     def read_file(self, file):
         """ Deal with the business of actually iterating over a file and passing the lines to a function. """
 
-        print HEADER + 'Importing from ' + file + ENDC
+        print(HEADER + 'Importing from ' + file + ENDC)
 
         with open(file) as f:
 
@@ -75,7 +77,7 @@ class Command(LabelCommand):
             )
 
         except IntegrityError:
-            print 'Integrity Violation: Skipping "%s" for %s' % (row['Budget Name'], place.name)
+            print('Integrity Violation: Skipping "%s" for %s' % (row['Budget Name'], place.name))
 
     def handle(self, filename, budget_session, organisation, currency, *args, **options):
 
@@ -85,4 +87,4 @@ class Command(LabelCommand):
         for row in self.read_file(filename):
             self.import_budget(row, budget_session_object, organisation, currency)
 
-        print 'Done!'
+        print('Done!')

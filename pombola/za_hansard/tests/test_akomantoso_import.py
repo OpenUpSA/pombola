@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import absolute_import
 import os
 
 from django.core.management import call_command
@@ -40,7 +41,7 @@ class ImportZAAkomaNtosoTests(InstanceTestCase):
             self.assertFalse("Member'S" in sub.title)
 
         speakers = Speaker.objects.all()
-        resolved = filter(lambda s: s.person != None, speakers)
+        resolved = [s for s in speakers if s.person != None]
         THRESHOLD = 48
 
         logging.info(

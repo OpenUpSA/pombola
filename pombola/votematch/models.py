@@ -1,9 +1,11 @@
+from __future__ import absolute_import
 from django.db import models
 from model_utils.models import TimeStampedModel
 from markitup.fields import MarkupField
 from random import choice
 
 from django.core.urlresolvers import reverse
+from six.moves import range
 
 agreement_choices = (
     (-2, 'strongly disagree'),

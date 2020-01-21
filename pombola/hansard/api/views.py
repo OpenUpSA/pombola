@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from django.db.models import Prefetch
 from django.shortcuts import get_object_or_404
 

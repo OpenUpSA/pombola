@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+from __future__ import print_function
 import csv
 import os
 
@@ -185,7 +187,7 @@ class Command(NoArgsCommand):
             with open(csv_path) as csv_file:
                 for row in csv.DictReader(csv_file):
 
-                    print 'Importing {}'.format(row['name'])
+                    print('Importing {}'.format(row['name']))
 
                     # Let's sanity check some important things.
 
@@ -200,7 +202,7 @@ class Command(NoArgsCommand):
 
                     # Area?
 
-                    print '\tTrying to find {} "{}"'.format(import_type['area_type'], row['post_label'])
+                    print('\tTrying to find {} "{}"'.format(import_type['area_type'], row['post_label']))
 
                     area_slug = slugify(row['post_label']) + import_type['area_suffix']
 
@@ -211,7 +213,7 @@ class Command(NoArgsCommand):
                         )
 
                     except ObjectDoesNotExist:
-                        print '\tArea not found, creating!'
+                        print('\tArea not found, creating!')
 
                         # New areas need a parent area, which we can get from
                         # the old area... if it's a constituency
@@ -223,19 +225,19 @@ class Command(NoArgsCommand):
 
                                 new_parent_area_slug = CONSTITUENCY_PARENT_OVERRIDES[old_area_slug]
 
-                                print '\tParent area overriden to {}'.format(new_parent_area_slug)
+                                print('\tParent area overriden to {}'.format(new_parent_area_slug))
 
                             else:
 
                                 # So, find the old area based on the slug
 
-                                print '\tAttempting to find old area {}'.format(old_area_slug)
+                                print('\tAttempting to find old area {}'.format(old_area_slug))
                                 old_area = Place.objects.get(slug=old_area_slug)
 
                                 # Turn that old area's parent *name* into a new slug
                                 new_parent_area_slug = slugify(old_area.parent_place.name) + '-county-2017'
 
-                            print '\tAttempting to find new parent {}'.format(new_parent_area_slug)
+                            print('\tAttempting to find new parent {}'.format(new_parent_area_slug))
 
                             # And turn that into the new parent area
                             new_parent_area = Place.objects.get(slug=new_parent_area_slug)
@@ -273,24 +275,24 @@ class Command(NoArgsCommand):
                         person = Person.objects.get(
                             id=identifier.object_id)
 
-                        print bcolors.OKGREEN + '\tMatched on YNR ID' + bcolors.ENDC
+                        print(bcolors.OKGREEN + '\tMatched on YNR ID' + bcolors.ENDC)
 
                     except:
 
                         if row['mz_id']:
-                            print '\tHas Mzalendo ID: {}'.format(row['mz_id'])
+                            print('\tHas Mzalendo ID: {}'.format(row['mz_id']))
 
                             # Let's try get this person!
 
                             person = Person.objects.get(id=int(row['mz_id']))
 
-                            print '\tMatched with {} by Mzalendo ID'.format(person.name)
+                            print('\tMatched with {} by Mzalendo ID'.format(person.name))
 
                         # No Mzalendo ID? New person time!
 
                         else:
 
-                            print '\tNo match, creating a new person!'
+                            print('\tNo match, creating a new person!')
 
                             # Name is the only thing which doesn't get checked by a later update, so set here
                             person = Person(
@@ -315,7 +317,7 @@ class Command(NoArgsCommand):
                         )
                         identifier.save()
 
-                        print '\tAdded YNR ID to Mzalendo'
+                        print('\tAdded YNR ID to Mzalendo')
 
                     # At this point we have a person! Let's go!
 
@@ -323,19 +325,19 @@ class Command(NoArgsCommand):
                     if row['email']:
                         if person.email != row['email']:
                             person.email = row['email']
-                            print bcolors.OKBLUE + '\tUpdated email address: {}'.format(row['email']) + bcolors.ENDC
+                            print(bcolors.OKBLUE + '\tUpdated email address: {}'.format(row['email']) + bcolors.ENDC)
                         else:
-                            print '\tEmail addresses match, not changing.'
+                            print('\tEmail addresses match, not changing.')
                     else:
-                        print '\tNo email address in YNR, not attempting update.'
+                        print('\tNo email address in YNR, not attempting update.')
 
                     # Assume YNR genders have all been checked off pretty recently
                     if row['gender']:
                         if person.gender != row['gender'].lower():
                             person.gender = row['gender'].lower()
-                            print bcolors.OKBLUE + '\tUpdated gender: {}'.format(row['gender'].lower()) + bcolors.ENDC
+                            print(bcolors.OKBLUE + '\tUpdated gender: {}'.format(row['gender'].lower()) + bcolors.ENDC)
                         else:
-                            print '\tGender match, not changing.'
+                            print('\tGender match, not changing.')
 
                     # Birthday
 
@@ -351,9 +353,9 @@ class Command(NoArgsCommand):
                                 dob = ApproximateDate(int(row['birth_date']))
 
                             person.date_of_birth = dob
-                            print bcolors.OKBLUE + '\tUpdated DOB: {}'.format(row['birth_date']) + bcolors.ENDC
+                            print(bcolors.OKBLUE + '\tUpdated DOB: {}'.format(row['birth_date']) + bcolors.ENDC)
                         else:
-                            print '\tDOB match, not changing.'
+                            print('\tDOB match, not changing.')
 
                     # Save any of those changes
                     person.save()
@@ -372,11 +374,11 @@ class Command(NoArgsCommand):
                         )
 
                         if created_party_position:
-                            print '\tAdded new party position.'
+                            print('\tAdded new party position.')
                         else:
-                            print '\tAlready has party position.'
+                            print('\tAlready has party position.')
                     except MultipleObjectsReturned:
-                        print '\tMultiple party positions exist, leaving alone.'
+                        print('\tMultiple party positions exist, leaving alone.')
 
                     # Finally, the all important elected role!
 
@@ -395,6 +397,6 @@ class Command(NoArgsCommand):
                         post_position.save()
 
                     if created_post_position:
-                        print '\tAdded new post position.'
+                        print('\tAdded new post position.')
                     else:
-                        print '\tAlready has post position.'
+                        print('\tAlready has post position.')

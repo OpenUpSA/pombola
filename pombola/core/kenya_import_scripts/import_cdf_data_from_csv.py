@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 
+from __future__ import absolute_import
+from __future__ import print_function
 import os
 import sys
+from six.moves import range
 
 # Horrible boilerplate - there must be a better way :)
 sys.path.append(
@@ -72,7 +75,7 @@ class ProjectImporter(object):
             # # break
         
         if len( self.not_found_constituencies ):
-            print "The following constituencies could not be found"
+            print("The following constituencies could not be found")
             pprint.pprint( self.not_found_constituencies )
         
         
@@ -133,7 +136,7 @@ class ProjectImporter(object):
             number_regex = re.compile(r'([-\d\.]+)')
             (lat,lng) = number_regex.findall(row['Loc'])
             point = Point( float(lng), float(lat), srid='4326' )            
-            print [ point, point.x, point.y, point.srid ]
+            print([ point, point.x, point.y, point.srid ])
             data['location'] = point
         except ValueError:
             # No location found - can't add to database

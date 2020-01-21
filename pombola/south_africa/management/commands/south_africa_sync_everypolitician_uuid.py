@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from everypolitician import EveryPolitician
 
 from django.core.management.base import BaseCommand

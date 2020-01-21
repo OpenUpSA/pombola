@@ -15,7 +15,7 @@ import string
 import sys
 import subprocess
 import unicodecsv as csv
-from urlparse import urlsplit, urlunsplit, urljoin
+from six.moves.urllib.parse import urlsplit, urlunsplit, urljoin
 from os.path import dirname
 
 import django
@@ -40,6 +40,7 @@ from pombola.core import models
 from pombola.country import override_current_session
 
 import requests
+from six.moves import range
 
 
 class HomeView(TemplateView):
@@ -768,7 +769,8 @@ class VersionView(View):
                 cwd=dirname(__file__),
             ).strip()
             result['git_version'] = git_version
-        except OSError, subprocess.CalledProcessError:
+        except OSError as xxx_todo_changeme:
+            subprocess.CalledProcessError = xxx_todo_changeme
             pass
         return HttpResponse(
             json.dumps(result), content_type='application/json'

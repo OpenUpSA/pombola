@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+from __future__ import absolute_import
+from __future__ import print_function
 import os
 import sys
 
@@ -31,10 +33,10 @@ for row in mp_contacts.entries:
     matches = models.Person.objects.all().is_politician().name_matches( name )
     
     if matches.count() == 0:
-        print "  no match for '%s', '%s', '%s'" % (name, phone, email)
+        print("  no match for '%s', '%s', '%s'" % (name, phone, email))
         continue
     if matches.count() > 1:
-        print "  several matches for %s" % name
+        print("  several matches for %s" % name)
         continue
     
     mp = matches[0]

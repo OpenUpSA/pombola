@@ -20,6 +20,7 @@
 #   * Add tests
 
 
+from __future__ import absolute_import
 import csv
 
 from django.core.management.base import LabelCommand

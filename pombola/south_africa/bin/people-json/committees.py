@@ -1,15 +1,17 @@
+from __future__ import absolute_import
 import csv
 import re
 import unicodedata
 
 from utils import add_membership, data_path, idFactory
+import six
 
 
 def initialise(name):
     return re.sub('[^A-Z]', '', name)
 
 def asciify(name):
-    return unicodedata.normalize('NFKD', unicode(name)).encode('ascii', 'ignore')
+    return unicodedata.normalize('NFKD', six.text_type(name)).encode('ascii', 'ignore')
 
 def parse(data):
     orgs_by_id = dict([ (x['id'], x) for x in data['organizations'].values() ])

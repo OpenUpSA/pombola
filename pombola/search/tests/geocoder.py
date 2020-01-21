@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import json
 import os
 
@@ -28,7 +29,7 @@ def fake_geocode(q, **kwargs):
                                mocked_place_results[q])) as f:
             raw_result = json.load(f)
     else:
-        raise Exception, "Not yet faked..."
+        raise Exception("Not yet faked...")
     return Mock(raw=raw_result)
 
 class GeocoderTests(unittest.TestCase):

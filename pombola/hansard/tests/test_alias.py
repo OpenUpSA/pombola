@@ -3,6 +3,8 @@
 # 
 # from datetime import date, time
 # 
+from __future__ import absolute_import
+from __future__ import print_function
 from django.test import TestCase
 from pombola.hansard.models import Alias
 
@@ -65,7 +67,7 @@ class HansardAliasTest(TestCase):
         for name in speaker_names:
             result = Alias.can_ignore_name( name ) 
             if not result:
-                print "Got True for Alias.can_ignore_name( '%s' ), expecting False" % name
+                print("Got True for Alias.can_ignore_name( '%s' ), expecting False" % name)
                 false_count += 1
 
         self.assertEqual( false_count, 0 )

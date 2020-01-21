@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from __future__ import absolute_import
+from __future__ import print_function
 import distutils.spawn
 import hashlib
 import os
@@ -122,7 +124,7 @@ class BaseDetailIterator(object):
         try:
             r.raise_for_status()
         except requests.exceptions.RequestException:
-            print "Error while fetching", url
+            print("Error while fetching", url)
             raise
         return r.text
 
@@ -137,7 +139,7 @@ class QuestionDetailIterator(BaseDetailIterator):
     }
 
     def get_details(self):
-        print 'Questions (%s)' % self.next_list_url
+        print('Questions (%s)' % self.next_list_url)
 
         contents = self.url_get(self.next_list_url)
 

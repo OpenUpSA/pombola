@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+from __future__ import absolute_import
+from __future__ import print_function
 import sys
 import csv
 import os
@@ -38,7 +40,7 @@ for row in csv_reader:
     try:
         place = Place.objects.get(slug=place_slug, kind__slug=place_kind_slug)
     except Place.DoesNotExist:
-        print "Cannot find %s with slug %s, continuing with next place." % (place_kind_slug, place_slug)
+        print("Cannot find %s with slug %s, continuing with next place." % (place_kind_slug, place_slug))
         continue
 
     try:

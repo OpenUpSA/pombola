@@ -1,5 +1,7 @@
+from __future__ import absolute_import
+from __future__ import print_function
 from datetime import datetime
-from urlparse import urljoin
+from six.moves.urllib.parse import urljoin
 
 import requests
 from bs4 import BeautifulSoup
@@ -104,8 +106,8 @@ class Command(BaseCommand):
                 except Person.DoesNotExist:
                     pass
             if not sponsor:
-                print u"WARNING: Couldn't find a match for sponsor name '{0}'." \
-                      u" Skipping bill '{1}'".format(sponsor_name, title)
+                print(u"WARNING: Couldn't find a match for sponsor name '{0}'." \
+                      u" Skipping bill '{1}'".format(sponsor_name, title))
                 continue
             bills.append(Bill(
                 title=title,

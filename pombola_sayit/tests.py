@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from django.contrib.contenttypes.models import ContentType
 from django.core.management import call_command
 from django.test import TestCase

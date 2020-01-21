@@ -1,8 +1,10 @@
+from __future__ import absolute_import
 import csv
 import re
 import xml.etree.ElementTree as ET
 
 from utils import add_membership, data_path, idFactory, REASONS, PROVINCES
+from six.moves import zip
 
 
 def FixingDictReader(data):
@@ -113,7 +115,7 @@ def parse():
     cols_xml = [ 'id', 'person_id', 'person_first_name', 'person_last_name', 'person_paries' ]
 
     for person in people:
-        row = dict(zip(cols_xml, [ person.find(x).text for x in cols_xml ]))
+        row = dict(list(zip(cols_xml, [ person.find(x).text for x in cols_xml ])))
         if row['person_first_name'] == 'Nomaindiya Cathleen':
             row['person_first_name'] = 'NomaIndiya Cathleen'
         if row['person_first_name'] == 'Alpheus' and row['person_last_name'] == 'Mokabhe':
@@ -131,7 +133,7 @@ def parse():
     na_prev = open(data_path + 'myreps-national-assembly.html').read()
     na_prev = re.search('<div[^>]*id="past"[^>]*>.*?</div>(?s)', na_prev).group(0)
     for person in re.findall('<li><a href="/people/view/(.*?)">([^<]*) ([^<]*?)</a> until .*?</li>', na_prev):
-        row = dict(zip(cols_xml, [ '', person[0], person[1], person[2], '' ]))
+        row = dict(list(zip(cols_xml, [ '', person[0], person[1], person[2], '' ])))
         if row['person_first_name'] == 'Patricia de':
             row.update(person_first_name='Patricia', person_last_name='de Lille')
         if row['person_first_name'] == 'D van der':
@@ -146,7 +148,7 @@ def parse():
     ncop = open(data_path + 'myreps-ncop.xml').read()
     people = ET.fromstring(ncop).iter('Members')
     for person in people:
-        row = dict(zip(cols_xml, [ person.find(x).text for x in cols_xml ]))
+        row = dict(list(zip(cols_xml, [ person.find(x).text for x in cols_xml ])))
         # Change couple of names to match parliament data
         if row['person_first_name'] == 'Arthur':
             row['person_first_name'] = 'Robert Alfred'

@@ -11,6 +11,8 @@ on constituency offices to have the correct location.
 """
 
 
+from __future__ import absolute_import
+from __future__ import print_function
 import csv
 import os.path
 import re
@@ -48,7 +50,7 @@ def get_image_extension(image):
         pillow_image = PillowImage.open(image)
     except IOError as e:
         if 'cannot identify image file' in e.args[0]:
-            print("Ignoring a non-image file {0}".format(image))
+            print(("Ignoring a non-image file {0}".format(image)))
             return None
         raise
     return PILLOW_FORMAT_EXTENSIONS[pillow_image.format]
@@ -99,10 +101,10 @@ class Command(BaseCommand):
                 try:
                     org = qs.get()
                 except Organisation.MultipleObjectsReturned:
-                    print "Skipping {} as multiple orgs returned: {}".format(
+                    print("Skipping {} as multiple orgs returned: {}".format(
                         poi_ref,
                         repr(qs),
-                        )
+                        ))
                     continue
                 except Organisation.DoesNotExist:
                     # Fall back to searching for the name and the party in the
@@ -133,13 +135,13 @@ class Command(BaseCommand):
 
                 try:
                     org.images.get(source=photo_url)
-                    print (
+                    print((
                         "Skipping {} as url matches existing image."
                         .format(org.slug)
-                        )
+                        ))
                     continue
                 except Image.DoesNotExist:
-                    print "Adding new image to {}.".format(org.slug)
+                    print("Adding new image to {}.".format(org.slug))
 
                 if photo_url:
                     response = requests.get(photo_url)

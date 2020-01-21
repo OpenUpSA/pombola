@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+from __future__ import print_function
 import argparse
 
 import scraperwiki
@@ -126,7 +128,7 @@ class InterestScraper(object):
 
         for el in list(pages[page_index]):
             if el.tag == "fontspec":
-                print el.items()
+                print(list(el.items()))
 
 
 if __name__ == "__main__":

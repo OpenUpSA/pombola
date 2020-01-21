@@ -3,6 +3,8 @@ Imports ZA provincial and national election candidates using the 2014
 IEC spreadsheet format.
 '''
 
+from __future__ import absolute_import
+from __future__ import print_function
 import os
 import sys
 import unicodecsv
@@ -18,6 +20,8 @@ from django.db.models import Q
 from django_date_extensions.fields import ApproximateDate
 
 from haystack.query import SearchQuerySet
+import six
+from six.moves import range
 
 party_to_object = {}
 list_to_object = {}
@@ -28,7 +32,7 @@ COMMIT = False
 def check_or_create_positions():
     '''Checks whether positions exist, otherwise create them'''
     num_append= {'1': 'st', '2':'nd', '3':'rd', '4':'th', '5':'th', '6':'th', '7':'th', '8':'th', '9':'th', '0':'th'}
-    positions = range(1, 201)
+    positions = list(range(1, 201))
 
     for p in positions:
         position_name = str(p) + num_append[str(p)[-1]] + ' Candidate'
@@ -36,7 +40,7 @@ def check_or_create_positions():
         position_object, _ = PositionTitle.objects.get_or_create(
             slug=position_slug,
             name=position_name)
-        position_to_object[unicode(p)] = position_object
+        position_to_object[six.text_type(p)] = position_object
 
 def get_list(listname, listslug):
     '''Returns the organisation object for a list'''
@@ -87,12 +91,12 @@ def save_match(person, party_name, list_position, import_list_name, person_list_
         person.given_name = person_list_firstnames.title()
         person.family_name = person_list_surname.title()
         if COMMIT:
-            print '- updating given_name/family_name'
+            print('- updating given_name/family_name')
             person.save()
         else:
-            print '* would update blank given_name/family_name'
+            print('* would update blank given_name/family_name')
     elif person_list_firstnames.lower() != person.given_name.lower() or person_list_surname.lower() != person.family_name.lower():
-        print '- but names do not match existing given_name/family_name, ignoring'
+        print('- but names do not match existing given_name/family_name, ignoring')
         return False
 
     #get the person's current party to compare whether these have changed
@@ -111,13 +115,13 @@ def save_match(person, party_name, list_position, import_list_name, person_list_
             position = Position.objects.get(Q(person = person), Q(organisation = p), Q(title__slug = 'member'), Q(start_date__lte = now_approx), (Q(sorting_end_date_high__gte = now_approx) | Q(end_date = '')))
             position.end_date = ApproximateDate(year=2014, month=3)
             if COMMIT:
-                print '- ending %s party position' % position.organisation
+                print('- ending %s party position' % position.organisation)
                 position.save()
             else:
-                print '* would end %s party position' % position.organisation
+                print('* would end %s party position' % position.organisation)
 
     if COMMIT and not foundcorrectparty:
-        print '- creating %s party position' % party
+        print('- creating %s party position' % party)
         #get the member title
         member = PositionTitle.objects.get(name='Member')
         #add the correct membership
@@ -134,19 +138,19 @@ def save_match(person, party_name, list_position, import_list_name, person_list_
         #alternative name
         new_name = (person_list_firstnames+' '+person_list_surname).title()
         if COMMIT:
-            print '- updating person name from %s to %s' % (person.legal_name, new_name)
+            print('- updating person name from %s to %s' % (person.legal_name, new_name))
             AlternativePersonName.objects.get_or_create(person = person, alternative_name = person.name)
             person.legal_name = new_name
             person.save()
         else:
-            print '* would update person legal_name from %s to %s' % (person.legal_name, new_name)
+            print('* would update person legal_name from %s to %s' % (person.legal_name, new_name))
 
     #add the actual membership of the list organisation. Note no end date
     #is set at this point. This should probably be the date of the election
     #but it is unclear whether setting this immediately would cause issues
     #if viewed on the election date or immediately afterwards
     if COMMIT:
-        print '- creating candidate position'
+        print('- creating candidate position')
         position = Position.objects.get_or_create(
             person = person,
             organisation = list_object,
@@ -160,10 +164,10 @@ def add_new_person(party_name, list_position, import_list_name, person_list_firs
     '''Create a new person with appropriate positions'''
 
     if not COMMIT:
-        print 'would create new entry'
+        print('would create new entry')
         return
 
-    print 'creating'
+    print('creating')
     #get the list to add the person to
     import_list_name = string.replace(import_list_name, ':', '')
     party = get_party(party_name)
@@ -208,7 +212,7 @@ def process_search(firstnames, surname, party, list_position, list_name, url):
         name = (firstnames + ' ' + surname).title()
         search = [ s for s in search if s.object and s.object.legal_name == name ]
     if len(search) == 1 and search[0].object:
-        print 'match', search[0].object.name
+        print('match', search[0].object.name)
         return save_match(search[0].object, party, list_position, list_name, firstnames, surname)
     else:
         return False
@@ -268,11 +272,11 @@ def search_misspellings(firstnames, surname, party, list_position, list_name):
 
 def search(firstnames, surname, party, list_position, list_name):
     '''Attempt varius approaches to matching names'''
-    print 'Looking at %s %s:' % (firstnames, surname),
+    print('Looking at %s %s:' % (firstnames, surname), end=' ')
 
     existing = Person.objects.filter(given_name=firstnames.title(), family_name=surname.title())
     if len(existing) == 1:
-        print 'match existing', existing[0].name
+        print('match existing', existing[0].name)
         if save_match(existing[0], party, list_position, list_name, firstnames, surname):
             return True
 
@@ -308,10 +312,10 @@ class Command(NoArgsCommand):
         COMMIT = options['commit']
 
         if not options['candidates'] or not os.path.exists(options['candidates']):
-            print >> sys.stderr, "The candidates file doesn't exist"
+            print("The candidates file doesn't exist", file=sys.stderr)
             sys.exit(1)
         if not YEAR:
-            print >> sys.stderr, "You must specify a year"
+            print("You must specify a year", file=sys.stderr)
             sys.exit(1)
 
         #check all the parties exist
@@ -322,7 +326,7 @@ class Command(NoArgsCommand):
             for row in candidiates:
                 if not get_party(row[0]):
                     if row[0] != lastmissingparty:
-                        print 'Missing party:', row[0]
+                        print('Missing party:', row[0])
                         lastmissingparty = row[0]
                     missingparties = True
             if missingparties:

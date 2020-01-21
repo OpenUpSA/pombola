@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from formtools.wizard.views import NamedUrlSessionWizardView
 
 from django.views.generic import TemplateView

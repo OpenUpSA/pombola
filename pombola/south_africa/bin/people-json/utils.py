@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import os
 
 data_path = os.path.join(os.path.dirname(__file__), '..', '..', 'data') + '/'

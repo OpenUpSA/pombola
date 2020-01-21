@@ -1,15 +1,17 @@
+from __future__ import absolute_import
 import csv
 import sys
 
 from django.core.management.base import BaseCommand, CommandError
 
 from pombola.core.models import Organisation, OrganisationRelationship, Contact
+import six
 
 MAPS_URL_TEMPLATE = 'https://www.google.com/maps/place/{lat}+{lon}/@{lat},{lon},17z'
 
 def encode_row_values_to_utf8(row):
     return {
-        k: unicode(v).encode('utf-8')
+        k: six.text_type(v).encode('utf-8')
         for k, v in row.items()
     }
 

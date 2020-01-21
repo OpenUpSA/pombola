@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+from __future__ import print_function
 import re
 from optparse import make_option
 
@@ -62,11 +64,11 @@ class Command(BaseCommand):
                         if create_redirect:
                             template += "\n  (would create a redirect)"
 
-                    print template.format(**kwargs)
+                    print(template.format(**kwargs))
 
         if bad_slug_count and not options['correct']:
-            print
-            print "You can auto correct these slugs with the '--correct' flag"
+            print()
+            print("You can auto correct these slugs with the '--correct' flag")
 
     def get_list_of_models_to_check(self):
         """

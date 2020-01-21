@@ -1,8 +1,9 @@
+from __future__ import absolute_import
 from django.contrib import admin
 
 from slug_helpers.admin import StricterSlugFieldMixin
 
-import models
+from . import models
 
 
 @admin.register(models.Quiz)

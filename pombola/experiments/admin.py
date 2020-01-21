@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import csv
 from collections import defaultdict
 import json
@@ -100,9 +101,9 @@ class EventAdminForm(ModelForm):
         if extra_data.strip():
             try:
                 json.loads(extra_data)
-            except ValueError, ve:
+            except ValueError as ve:
                 message = "The extra data must be empty or valid JSON: {0}"
-                raise ValidationError, message.format(ve)
+                raise ValidationError(message.format(ve))
         return extra_data
 
 

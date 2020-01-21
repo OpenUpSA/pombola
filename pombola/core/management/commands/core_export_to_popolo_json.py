@@ -1,10 +1,11 @@
 # This command creates a new PopIt instance based on the Person,
 # Position and Organisation models in Pombola.
 
+from __future__ import absolute_import
 import json
 from optparse import make_option
 from os.path import exists, isdir, join
-import urlparse
+import six.moves.urllib.parse
 
 from pombola.core.popolo import get_popolo_data
 
@@ -27,13 +28,13 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         if len(args) != 2:
-            raise CommandError, "You must provide a filename prefix and the Pombola instance URL"
+            raise CommandError("You must provide a filename prefix and the Pombola instance URL")
 
         output_directory, pombola_url = args
         if not (exists(output_directory) and isdir(output_directory)):
             message = "'{0}' was not a directory"
             raise CommandError(message.format(output_directory))
-        parsed_url = urlparse.urlparse(pombola_url)
+        parsed_url = six.moves.urllib.parse.urlparse(pombola_url)
         if not parsed_url.netloc:
             message = "The Pombola URL must begin http:// or https://"
             raise CommandError(message)

@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from info.views import InfoBlogView, InfoPageView
 
 from pombola.core.views import CommentArchiveMixin

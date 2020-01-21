@@ -7,6 +7,8 @@
 # scraping.
 
 
+from __future__ import absolute_import
+from __future__ import print_function
 from speeches.models import Section
 from pombola.za_hansard.models import Source
 
@@ -25,7 +27,7 @@ class Command(BaseCommand):
 
         for source in sources:
             section = source.sayit_section
-            print section
+            print(section)
 
             # create the parents
             parent = Section.objects.get_or_create_with_parents(

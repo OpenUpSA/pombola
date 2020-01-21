@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import json
 
 from django.db import models
@@ -15,7 +16,7 @@ class Experiment(models.Model):
     def extra_fields(self):
         result = set()
         for event in self.event_set.all():
-            result.update(json.loads(event.extra_data).keys())
+            result.update(list(json.loads(event.extra_data).keys()))
         return result
 
 class Event(models.Model):

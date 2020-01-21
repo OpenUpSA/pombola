@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from lxml.etree import LxmlError
 from lxml.html.clean import Cleaner
 

@@ -6,6 +6,7 @@ generated.
 """
 
 
+from __future__ import absolute_import
 from pombola.core import models
 from pombola.tasks.models import Task
 

@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import absolute_import
+from __future__ import print_function
 from mock import patch
 import os
 import re
@@ -7,7 +9,7 @@ import requests
 import datetime
 import json
 import lxml.etree
-from itertools import izip
+
 from unittest import skip
 
 from django.test import TestCase
@@ -17,6 +19,7 @@ from django.utils.unittest import skipUnless
 from .. import question_scraper
 from ..management.commands.za_hansard_q_and_a_scraper import Command as QAScraperCommand
 from ..models import Question, QuestionPaper
+from six.moves import zip
 
 
 def sample_file(filename):
@@ -75,7 +78,7 @@ class ZAIteratorBaseMixin(object):
             with open(full_path) as read_from:
                 return read_from.read()
         else:
-            print "Retrieving and caching " + url
+            print("Retrieving and caching " + url)
             response = requests.get(url)
             with open(full_path, 'w') as write_to:
                 write_to.write(response.text)
@@ -267,7 +270,7 @@ class ZAQuestionParsing(TestCase):
             questions = json.loads(json.dumps(questions))
 
             self.maxDiff = None
-            for a, b in izip(questions, expected_data):
+            for a, b in zip(questions, expected_data):
                 self.assertEqual(a, b, "mismatch in %s" % expected_file)
 
     def test_page_header_removal(self):

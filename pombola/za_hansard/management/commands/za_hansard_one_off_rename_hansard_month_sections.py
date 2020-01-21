@@ -1,5 +1,7 @@
 # This is a one-off script that will rename the Hansard sections so that the month section is not '05' but rather 'May'.
 
+from __future__ import absolute_import
+from __future__ import print_function
 import calendar
 
 from speeches.models import Section
@@ -22,11 +24,11 @@ class Command(BaseCommand):
                 try:
                     month_name = calendar.month_name[int(month_section.title)]
                 except ValueError:
-                    print "skipping %s (%s)" % (
-                        month_section.title, month_section.id)
+                    print("skipping %s (%s)" % (
+                        month_section.title, month_section.id))
                     continue  # Probably already renamed.
 
-                print "renaming %s (%s) to %s" % (
-                    month_section.title, month_section.id, month_name)
+                print("renaming %s (%s) to %s" % (
+                    month_section.title, month_section.id, month_name))
                 month_section.title = month_name
                 month_section.save()

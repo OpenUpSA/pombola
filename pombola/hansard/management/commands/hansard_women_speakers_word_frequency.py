@@ -1,10 +1,12 @@
+from __future__ import absolute_import
+from __future__ import print_function
 from collections import defaultdict
 from datetime import date
 import json
 import math
 from os.path import dirname, join
 import re
-from urllib import quote
+from six.moves.urllib.parse import quote
 
 from django.core.management import BaseCommand
 
@@ -41,7 +43,7 @@ class Command(BaseCommand):
                     word_counts[word] += 1
                 all_words.append(word)
         sorted_words = sorted(
-            word_counts.items(),
+            list(word_counts.items()),
             key=lambda t: t[1],
             reverse=True,
         )
@@ -61,7 +63,7 @@ class Command(BaseCommand):
             f.write('var womenHansardWords = ')
             json.dump(words_for_json[:MAX_WORDS], f, indent=4, sort_keys=True)
         for word, count in sorted_words[:MAX_WORDS*4]:
-            print count, word
+            print(count, word)
 
 
 words_to_exclude = set([

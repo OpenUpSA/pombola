@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from ajax_select import LookupChannel
 
 from .models import Person

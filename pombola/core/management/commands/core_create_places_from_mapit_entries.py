@@ -4,6 +4,8 @@
 
 # import re
 # import sys
+from __future__ import absolute_import
+from __future__ import print_function
 from django.core.management.base import LabelCommand
 from django.utils.text import slugify
 
@@ -45,7 +47,7 @@ class Command(LabelCommand):
             if Place.objects.filter(slug=slug, mapit_area__isnull=False).exclude(mapit_area=area).exists():
                 slug = slug + '-2'
 
-            print "'%s' (%s)" % (area.name, slug)
+            print("'%s' (%s)" % (area.name, slug))
             place, created = Place.objects.get_or_create(
                 name=area.name,
                 kind=placekind,

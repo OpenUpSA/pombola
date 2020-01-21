@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+from __future__ import print_function
 from optparse import make_option
 
 from django.core.management.base import BaseCommand
@@ -32,10 +34,10 @@ class Command(BaseCommand):
             # print "looking at %s" % position
             if previous and self.are_positions_equal(previous, current):
 
-                print "###### Found Matches #################################"
+                print("###### Found Matches #################################")
                 self.pprint_position(previous)
                 self.pprint_position(current)
-                print
+                print()
 
                 if options['delete']:
                     previous.delete()
@@ -59,6 +61,6 @@ class Command(BaseCommand):
 
 
     def pprint_position(self, position):
-        print "%u: %s"       % (position.id, position)
-        print "    %s"       % (position.subtitle)
-        print "    %s to %s" % (position.start_date, position.end_date)
+        print("%u: %s"       % (position.id, position))
+        print("    %s"       % (position.subtitle))
+        print("    %s to %s" % (position.start_date, position.end_date))

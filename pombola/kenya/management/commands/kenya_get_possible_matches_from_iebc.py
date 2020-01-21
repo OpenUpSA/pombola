@@ -6,6 +6,8 @@
 # possible matches that can be uploaded to Google Spreadsheets for
 # manual correction.
 
+from __future__ import absolute_import
+from __future__ import print_function
 import csv
 import hashlib
 import hmac
@@ -21,7 +23,7 @@ from django.conf import settings
 from pombola.core.models import Place, Organisation
 from pombola.core.utils import mkdir_p
 
-from iebc_api import (
+from .iebc_api import (
     get_data,
     make_api_token_url,
     make_api_url,
@@ -30,6 +32,7 @@ from iebc_api import (
     known_race_type_mapping,
     get_person_from_names,
     )
+import six
 
 
 data_directory = os.path.join(
@@ -65,7 +68,7 @@ class Command(NoArgsCommand):
 
         # ------------------------------------------------------------------------
 
-        print "Getting (incorrect) party names mapping for matching..."
+        print("Getting (incorrect) party names mapping for matching...")
 
         parties_cache_filename = os.path.join(cache_directory, 'parties')
         party_data = get_data_with_cache(parties_cache_filename, url('/party/'))
@@ -75,12 +78,12 @@ class Command(NoArgsCommand):
 
         with open(os.path.join(data_directory, 'party-names.csv'), 'w') as fp:
             writer = csv.writer(fp)
-            for t in itertools.izip_longest(party_names_api, party_names_db):
+            for t in itertools.zip_longest(party_names_api, party_names_db):
                 writer.writerow(t)
 
         # ------------------------------------------------------------------------
 
-        print "Getting (incorrect) ward names mapping for matching..."
+        print("Getting (incorrect) ward names mapping for matching...")
 
         ward_data = get_data(url('/ward/'))
 
@@ -89,7 +92,7 @@ class Command(NoArgsCommand):
 
         with open(os.path.join(data_directory, 'wards-names.csv'), 'w') as fp:
             writer = csv.writer(fp)
-            for t in itertools.izip_longest(wards_from_api, wards_from_db):
+            for t in itertools.zip_longest(wards_from_api, wards_from_db):
                 writer.writerow(t)
 
         # ------------------------------------------------------------------------
@@ -132,7 +135,7 @@ class Command(NoArgsCommand):
                             surname = candidate['surname'] or ''
                             person = get_person_from_names(first_names, surname)
                             if person:
-                                print "Got person match to:", person
+                                print("Got person match to:", person)
                                 row = {}
                                 row['Same/Different'] = ''
                                 row['API Name'] = first_names + ' ' + surname
@@ -149,5 +152,5 @@ class Command(NoArgsCommand):
                                     row[heading] = ', '.join('%s at %s' % (p.title.name, p.place) for p in positions)
                                 row['Mz ID'] = person.id
                                 for key, value in row.items():
-                                    row[key] = unicode(value).encode('utf-8')
+                                    row[key] = six.text_type(value).encode('utf-8')
                                 writer.writerow(row)

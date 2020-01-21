@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+from __future__ import print_function
 import os
 import shutil
 
@@ -17,7 +19,7 @@ else:
 if os.path.exists( data_dir ):
     shutil.rmtree( data_dir )
 
-print("Running in test mode! (testing data_dir is '%s')" % data_dir)
+print(("Running in test mode! (testing data_dir is '%s')" % data_dir))
 
 # For tests we've change the value of data_dir, so have to reset
 # these settings variables:

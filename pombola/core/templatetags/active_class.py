@@ -1,4 +1,5 @@
 # Adapted from https://gist.github.com/mnazim/1073637
+from __future__ import absolute_import
 from django import template
 from django.core.urlresolvers import reverse
 

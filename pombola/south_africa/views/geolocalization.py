@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import mapit
 import requests
 
@@ -19,6 +20,7 @@ from pombola.core.views import (
 from pombola.search.views import GeocoderView
 
 from pombola.south_africa.models import ZAPlace
+import six
 
 # In the short term, until we have a list of constituency offices and
 # addresses from DA, let's bundle these together.
@@ -117,7 +119,7 @@ class LatLonDetailBaseView(BasePlaceDetailView):
             r.raise_for_status()
             ward_result = r.json()
         except (requests.exceptions.RequestException, ValueError) as e:
-            raise WardCouncillorAPIDown(unicode(e))
+            raise WardCouncillorAPIDown(six.text_type(e))
         councillor_data = ward_result['councillor']
 
         party = models.Organisation.objects.filter(
@@ -136,7 +138,7 @@ class LatLonDetailBaseView(BasePlaceDetailView):
                 'party': party,
                 'has_party_logo': has_party_logo,
                 'ward_data': ward_result,
-                'ward_mapit_area_id': mapit_json.values()[0]['id'],
+                'ward_mapit_area_id': list(mapit_json.values())[0]['id'],
                 'positions': [
                     {
                         'title': {'name': 'Ward Councillor'}

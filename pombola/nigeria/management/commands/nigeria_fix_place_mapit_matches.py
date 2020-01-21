@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+from __future__ import print_function
 import csv
 import os
 from optparse import make_option
@@ -46,7 +48,7 @@ class Command(NoArgsCommand):
                     kind=placekind,
                     name=row['PombolaPlaceName'])
 
-                print "got place:", place
+                print("got place:", place)
 
                 mapit_area = Area.objects.get(
                     type__code=row['MapItCodeType'],
@@ -55,19 +57,19 @@ class Command(NoArgsCommand):
                     name=row['MapItAreaName'])
 
                 if place.mapit_area == mapit_area:
-                    print "  MapIt area already correct:", mapit_area
+                    print("  MapIt area already correct:", mapit_area)
                 elif not place.mapit_area:
-                    print "  MapIt area unset, setting to:", mapit_area
+                    print("  MapIt area unset, setting to:", mapit_area)
                     place.mapit_area = mapit_area
                     if options['commit']:
-                        print "  Saving"
+                        print("  Saving")
                         place.save()
                     else:
-                        print "  Not saving, since --commit not specified"
+                        print("  Not saving, since --commit not specified")
                 else:
                     message = "There was an unexpected MapIt area already present ({0}: {1});"
                     message += " would have tried to set it to {2} {3}"
-                    raise Exception, message.format(place.mapit_area.id,
+                    raise Exception(message.format(place.mapit_area.id,
                                                     place.mapit_area,
                                                     mapit_area.id,
-                                                    mapit_area)
+                                                    mapit_area))

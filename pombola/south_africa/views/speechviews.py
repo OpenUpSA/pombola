@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import re
 
 from django.contrib.contenttypes.models import ContentType
@@ -19,6 +20,7 @@ from slug_helpers.views import SlugRedirect
 
 from speeches.models import Section, Speaker, Speech, Tag
 from speeches.views import NamespaceMixin, SpeechView, SectionView
+from six.moves import range
 
 
 class SASpeakerRedirectView(RedirectView):

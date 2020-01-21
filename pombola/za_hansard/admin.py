@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from ajax_select import make_ajax_form
 from django.contrib import admin
 from django.utils.safestring import mark_safe

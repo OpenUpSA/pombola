@@ -5,6 +5,7 @@
 #
 #    https://github.com/mysociety/mzalendo/blob/7181e30519b140229e3817786e4a7440ac08288d/mzalendo/hansard/management/commands/hansard_check_for_new_sources.py
 
+from __future__ import absolute_import
 import pprint
 import httplib2
 import re
@@ -21,6 +22,7 @@ from optparse import make_option
 
 from pombola.za_hansard.models import Source, SourceUrlCouldNotBeRetrieved, SourceParsingLog
 from pombola.za_hansard.parse import ZAHansardParser, ConversionException, DateParseException
+import six
 
 
 class Command(BaseCommand):
@@ -111,6 +113,6 @@ class Command(BaseCommand):
                 parsing_log.log += u"Error '%s' occurred while parsing source.\n" % e
                 parsing_log.error = type(e).__name__
                 parsing_log.success = False
-                self.stderr.write(u"WARN: Failed to run parsing for %s: %s" % (s.id, unicode(e)))
+                self.stderr.write(u"WARN: Failed to run parsing for %s: %s" % (s.id, six.text_type(e)))
 
             parsing_log.save()

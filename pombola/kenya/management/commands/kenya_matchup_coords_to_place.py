@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import re 
 import csv
 import sys
@@ -40,7 +41,7 @@ class Command(LabelCommand):
         line = re.sub(r'[^\d.,\-]+', '', raw_line)
 
         # The lat, lng here might be the wrong way round :)
-        lng, lat = map( lambda x: float(x), re.split(',', line) )
+        lng, lat = [float(x) for x in re.split(',', line)]
         point = Point( lat, lng, srid=4326)
 
         # print point

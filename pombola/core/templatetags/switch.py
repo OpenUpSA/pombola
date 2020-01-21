@@ -1,7 +1,9 @@
 # From http://djangosnippets.org/snippets/967/download/
 
+from __future__ import absolute_import
 from django import template
 from django.template import Library, Node, VariableDoesNotExist
+from six.moves import map
 
 register = Library()
 
@@ -65,7 +67,7 @@ def do_switch(parser, token):
         token_name, token_args = contents[0], contents[1:]
         
         if token_name == 'case':
-            tests = map(parser.compile_filter, token_args)
+            tests = list(map(parser.compile_filter, token_args))
             case = (tests, nodelist)
             got_case = True
         else:

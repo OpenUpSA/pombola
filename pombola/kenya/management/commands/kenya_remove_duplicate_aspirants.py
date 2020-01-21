@@ -2,6 +2,8 @@
 # limited circumstances.  You almost certainly don't need (or want) to
 # run this.
 
+from __future__ import absolute_import
+from __future__ import print_function
 from collections import defaultdict
 import csv
 import datetime
@@ -23,7 +25,7 @@ from slug_helpers.models import SlugRedirect
 from pombola.core.models import Place, Person, Position
 from pombola.core.utils import mkdir_p
 
-from iebc_api import (
+from .iebc_api import (
     get_data,
     get_data_with_cache,
     known_race_type_mapping,
@@ -70,9 +72,9 @@ def get_matching_place(place_name, place_kind, parliamentary_session):
                                            kind=place_kind,
                                            parliamentary_session=parliamentary_session)
     if not matching_places:
-        raise Exception, "Found no place that matched: '%s' <%s> <%s>" % (place_slug, place_kind, parliamentary_session)
+        raise Exception("Found no place that matched: '%s' <%s> <%s>" % (place_slug, place_kind, parliamentary_session))
     elif len(matching_places) > 1:
-        raise Exception, "Multiple places found that matched: '%s' <%s> <%s> - they were: %s" % (place_slug, place_kind, parliamentary_session, ",".join(str(p for p in matching_places)))
+        raise Exception("Multiple places found that matched: '%s' <%s> <%s> - they were: %s" % (place_slug, place_kind, parliamentary_session, ",".join(str(p for p in matching_places))))
     else:
         return matching_places[0]
 
@@ -126,26 +128,26 @@ def remove_duplicate_candidates_for_place(place_name,
                 real_person_to_others[current_aspirant_position].add(other_aspirant_position)
 
     if real_person_to_others:
-        print "------------------------------------------------------------------------"
-        print "Removing duplicates for %s (%s)" % (place_name, race_type)
+        print("------------------------------------------------------------------------")
+        print("Removing duplicates for %s (%s)" % (place_name, race_type))
         removed_duplicate_position_for_same_person = False
         for real_person_position, other_position_set in real_person_to_others.items():
             if removed_duplicate_position_for_same_person:
                 # We can't risk deleting both positions referring to
                 # the same person, so if we've done one just break:
                 break
-            print real_person_position
+            print(real_person_position)
             iebc_codes = set(op.external_id for op in other_position_set if op.external_id)
             for other_position in other_position_set:
-                print "  <=", other_position
+                print("  <=", other_position)
             if iebc_codes:
                 if len(iebc_codes) > 1:
-                    raise Exception, "Non-unique IEBC codes %s" % (iebc_codes,)
+                    raise Exception("Non-unique IEBC codes %s" % (iebc_codes,))
                 else:
-                    print "  IEBC codes were:", iebc_codes
-                unique_iebc_code = iter(iebc_codes).next()
+                    print("  IEBC codes were:", iebc_codes)
+                unique_iebc_code = next(iter(iebc_codes))
                 if real_person_position.external_id and (real_person_position.external_id != unique_iebc_code):
-                    raise Exception, "Would change the IEBC code, but it conflicted"
+                    raise Exception("Would change the IEBC code, but it conflicted")
                 real_person_position.external_id = unique_iebc_code
                 maybe_save(real_person_position, **options)
             for other_position in other_position_set:
@@ -159,11 +161,11 @@ def remove_duplicate_candidates_for_place(place_name,
                 else:
                     # Otherwise delete both the position and the person:
                     if other_position.created < before_import_date:
-                        print "!! Would be deleting a position %s (%d) created before our first import: %s" % (other_position, other_position.id, other_position.created)
+                        print("!! Would be deleting a position %s (%d) created before our first import: %s" % (other_position, other_position.id, other_position.created))
                     if options['commit']:
                         other_position.delete()
                     if other_person.created < before_import_date:
-                        print "!! Would be deleting a person %s (%d) created before our first import: %s" % (other_person, other_person.id, other_person.created)
+                        print("!! Would be deleting a person %s (%d) created before our first import: %s" % (other_person, other_person.id, other_person.created))
                     # Create a redirect from the old slug:
                     sr = SlugRedirect(content_type=ContentType.objects.get_for_model(Person),
                                       old_object_slug=other_person.slug,
@@ -217,8 +219,8 @@ class Command(NoArgsCommand):
                         continue
                     distinct_contest_types = set(c['contest_type'] for c in race['candidates'])
                     if len(distinct_contest_types) != 1:
-                        print "Multiple contest types found for %s: %s" % (place_name, distinct_contest_types)
-                    contest_type = iter(distinct_contest_types).next()
+                        print("Multiple contest types found for %s: %s" % (place_name, distinct_contest_types))
+                    contest_type = next(iter(distinct_contest_types))
                     place_kind, session, title, race_type = known_race_type_mapping[contest_type]
 
                     if options['place'] and options['place'].lower() != place_name.lower():

@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+from __future__ import print_function
 from collections import defaultdict
 import csv
 from dateutil import parser
@@ -84,7 +86,7 @@ class Command(BaseCommand):
             if count > 1:
                 fmt = "Multiple {0} memberships found for {1}: {2}"
                 message = fmt.format(k, speaker, v)
-                raise MultipleMembershipsException, message
+                raise MultipleMembershipsException(message)
             elif count == 1:
                 results[k] = v[0]
             else:
@@ -108,7 +110,7 @@ class Command(BaseCommand):
         date_difference = date_to - date_from
         date_midpoint = date_from + (date_difference / 2)
 
-        print "Generating all-speakers.csv"
+        print("Generating all-speakers.csv")
 
         # Issue #1875 notes that we have some sittings which have identical
         # venue_id, start_date, start_time, end_date, and end_time, and
@@ -162,7 +164,7 @@ class Command(BaseCommand):
             for speaker in representatives:
                 speech_count = speech_counts.get(speaker.id, 0)
 
-                print "speaker:", speaker, "speeches:", speech_count
+                print("speaker:", speaker, "speeches:", speech_count)
 
                 # Look for political positions occupied mid-way through
                 # the date range:
@@ -181,7 +183,7 @@ class Command(BaseCommand):
 
             vslug = venue.slug
 
-            print "Generating data for " + vslug
+            print("Generating data for " + vslug)
 
             all_speaker_entries = (
                 Entry.objects
@@ -196,7 +198,7 @@ class Command(BaseCommand):
 
             # The gender split is easy to find, so do that first:
 
-            print "  Writing gender data for " + vslug
+            print("  Writing gender data for " + vslug)
 
             gender_counts = {
                 'Male': all_speaker_entries.filter(speaker__gender__iexact='male').count(),
@@ -206,7 +208,7 @@ class Command(BaseCommand):
 
             self.write_csv(vslug + '-gender.csv', gender_counts)
 
-            print "  Writing county, party and coalition data for " + vslug
+            print("  Writing county, party and coalition data for " + vslug)
 
             # These dictionaries are for storing the position-based results:
             county_associated = defaultdict(int)
@@ -233,7 +235,7 @@ class Command(BaseCommand):
 
             if vslug == 'national_assembly':
 
-                print "  Writing women representative data"
+                print("  Writing women representative data")
 
                 with open(vslug + '-women-representatives.csv', 'w') as fp:
                     writer = csv.writer(fp)

@@ -2,6 +2,8 @@
 # individually in the admin console, which is not fun - or particularly
 # safe - when there are more than one or two of them
 
+from __future__ import absolute_import
+from __future__ import print_function
 from dateutil import parser
 
 from django.core.management.base import BaseCommand, CommandError
@@ -11,6 +13,7 @@ from optparse import make_option
 
 import pombola.core.models as core_models
 import pombola.hansard.models as hansard_models
+from six.moves import input
 
 
 class Command(BaseCommand):
@@ -72,10 +75,10 @@ class Command(BaseCommand):
             from_id=entries_from.id,
             to_name=entries_to.name,
             to_id=entries_to.id)
-        print message
+        print(message)
 
         if options['interactive']:
-            answer = raw_input('Do you wish to continue? (y/[n]): ')
+            answer = input('Do you wish to continue? (y/[n]): ')
             if answer != 'y':
                 raise Exception("Command halted by user, no changes made")
 

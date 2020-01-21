@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import datetime
 
 from django.conf.urls import patterns
@@ -10,7 +11,8 @@ from django.template   import RequestContext
 
 from slug_helpers.admin import StricterSlugFieldMixin
 
-import models
+from . import models
+import six
 
 
 def create_admin_url_for(obj):
@@ -32,7 +34,7 @@ class TaskAdmin(admin.ModelAdmin):
     fields          = [ 'priority', 'note' ]
     
     def show_foreign(self, obj):
-        return create_admin_link_for( obj.content_object, unicode(obj.content_object) )
+        return create_admin_link_for( obj.content_object, six.text_type(obj.content_object) )
     show_foreign.allow_tags = True
 
     def get_urls(self):
@@ -65,7 +67,7 @@ class TaskAdmin(admin.ModelAdmin):
             'six months':   180,            
         }
         deferral_periods = sorted(
-            deferrals.keys(),
+            list(deferrals.keys()),
             cmp=lambda x,y: cmp( deferrals[x], deferrals[y] )
         )
 

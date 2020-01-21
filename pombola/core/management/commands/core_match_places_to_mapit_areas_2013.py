@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+from __future__ import print_function
 import sys
 
 from optparse import make_option
@@ -60,16 +62,16 @@ class Command(NoArgsCommand):
                                                  parliamentary_session=session)
                 place.mapit_area = area
                 if commit:
-                    print >> sys.stderr, "Saving", place
+                    print("Saving", place, file=sys.stderr)
                     place.save()
                 else:
-                    print >> sys.stderr, "Not saving %s, since --commit wasn't specified" % (place,)
+                    print("Not saving %s, since --commit wasn't specified" % (place,), file=sys.stderr)
 
                 all_places.discard(place)
 
             except models.Place.DoesNotExist:
-                print "Could not find matching place for mapit area '%s' (%s, %s)" % ( area.name, slug, place_kind_slug )
+                print("Could not find matching place for mapit area '%s' (%s, %s)" % ( area.name, slug, place_kind_slug ))
 
         if all_places:
             for place in all_places:
-                print "Could not find the place %s in MapIt (%s)" % (place, slugify(place.name))
+                print("Could not find the place %s in MapIt (%s)" % (place, slugify(place.name)))

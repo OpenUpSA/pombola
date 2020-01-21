@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+from __future__ import print_function
 import string
 
 import unicodecsv as csv
@@ -65,7 +67,7 @@ class Command(NoArgsCommand):
     def read_file(self, file):
         """ Iterate over a file and pass the lines to a function. """
 
-        print HEADER + "Importing from " + file + ENDC
+        print(HEADER + "Importing from " + file + ENDC)
 
         with open(file) as f:
             data = csv.DictReader(f)
@@ -95,9 +97,9 @@ class Command(NoArgsCommand):
         )
 
         if created:
-            print "Created new position: {}".format(position)
+            print("Created new position: {}".format(position))
         else:
-            print "Existing position found: {}".format(position)
+            print("Existing position found: {}".format(position))
 
     def import_mpls(self, person_csv):
         """ Import data for the Provincial Legislatures """
@@ -120,9 +122,9 @@ class Command(NoArgsCommand):
         )
 
         if created:
-            print "Created new position: {}".format(position)
+            print("Created new position: {}".format(position))
         else:
-            print "Existing position found: {}".format(position)
+            print("Existing position found: {}".format(position))
 
     def handle_noargs(self, **options):
         path = "pombola/south_africa/data/elections/2019/"

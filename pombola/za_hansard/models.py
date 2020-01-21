@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+from __future__ import print_function
 import os
 import sys
 import re
@@ -108,7 +110,7 @@ class Source(models.Model):
         found = os.path.isfile(cache_file_path)
 
         if debug:
-            print >> sys.stderr, "%s (%s)" % (cache_file_path, found)
+            print("%s (%s)" % (cache_file_path, found), file=sys.stderr)
 
         # If the file exists open it, read it and return it
         if found:
@@ -120,7 +122,7 @@ class Source(models.Model):
 
         def request_url(url):
             if debug:
-                print >> sys.stderr, 'Requesting %s' % url
+                print('Requesting %s' % url, file=sys.stderr)
             (response, content) = h.request(url, headers=HTTPLIB2_HEADERS)
             if response.status != 200:
                 raise SourceUrlCouldNotBeRetrieved(

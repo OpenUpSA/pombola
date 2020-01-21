@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from django import forms
 from django.contrib import admin
 from django.contrib.admin.models import LogEntry
@@ -13,6 +14,7 @@ from slug_helpers.admin import StricterSlugFieldMixin
 
 from pombola.core import models
 from pombola.scorecards import models as scorecard_models
+import six
 
 admin.site.register(models.ParliamentarySession)
 
@@ -30,7 +32,7 @@ class ContentTypeModelAdmin(admin.ModelAdmin):
         if obj.content_object:
             return create_admin_link_for(
                 obj.content_object,
-                unicode(obj.content_object)
+                six.text_type(obj.content_object)
             )
         return ''
 

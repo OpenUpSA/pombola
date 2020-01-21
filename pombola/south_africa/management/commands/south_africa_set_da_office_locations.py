@@ -20,6 +20,8 @@
 # search for a matching entry in the database.
 
 # from collections import defaultdict, namedtuple
+from __future__ import absolute_import
+from __future__ import print_function
 import csv
 # from difflib import SequenceMatcher
 # from itertools import chain
@@ -41,6 +43,7 @@ from django.core.management.base import LabelCommand
 from django.utils.text import slugify
 #
 from pombola.core.models import OrganisationKind
+from six.moves import map
 #
 # from mapit.models import Generation, Area, Code
 
@@ -48,7 +51,7 @@ VERBOSE = False
 
 def verbose(message):
     if VERBOSE:
-        print message
+        print(message)
 
 class Command(LabelCommand):
     """Add locations to DA constituency areas"""
@@ -115,11 +118,11 @@ class Command(LabelCommand):
                 org_qs = ok_constituency_area.organisation_set.all().filter(slug=organisation_slug)
 
                 if not org_qs.exists():
-                    print "No match found for " + organisation_name
+                    print("No match found for " + organisation_name)
                     continue
 
                 org = org_qs[0]
-                print u"Found match {0} for {1}".format(org, organisation_name)
+                print(u"Found match {0} for {1}".format(org, organisation_name))
 
                 # get the place associated
                 places = org.place_set.all()
@@ -130,7 +133,7 @@ class Command(LabelCommand):
 
                 place = places[0]
 
-                lon, lat = map(float, lonlat.split(","))
+                lon, lat = list(map(float, lonlat.split(",")))
                 point = Point(x=lon, y=lat, srid=4326)
 
 

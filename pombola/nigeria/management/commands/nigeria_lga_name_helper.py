@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+from __future__ import absolute_import
+from __future__ import print_function
 import csv
 import os
 
@@ -7,6 +9,7 @@ from mapit import models
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import BaseCommand, CommandError
+from six.moves import input
 
 
 class Command(BaseCommand):
@@ -33,7 +36,7 @@ class LgaNameChecker(object):
     matched_area_ids = set() # just mapit area ids
 
     def process(self, filename):
-        print "Looking at '{0}'".format(filename)
+        print("Looking at '{0}'".format(filename))
         self.setup()
         self.load_lgas(filename)
         self.check_states_are_all_matched()
@@ -107,7 +110,7 @@ class LgaNameChecker(object):
                     )
                     self.match_up_area(lga_name=lga_name, state_name=state_name, lga_area=lga_area)
                 except ObjectDoesNotExist:
-                    print "Duplicate: LGA {0} in state {1}".format(lga_name, state_name)
+                    print("Duplicate: LGA {0} in state {1}".format(lga_name, state_name))
                     self.duplicates.add(entry)
                 continue
 
@@ -117,7 +120,7 @@ class LgaNameChecker(object):
                 lga_area = None
 
             if lga_area and lga_area.id in self.matched_area_ids:
-                print "WARNING: {0} already matched".format(lga_area)
+                print("WARNING: {0} already matched".format(lga_area))
                 lga_area = None
 
             if lga_area:
@@ -152,7 +155,7 @@ class LgaNameChecker(object):
 
                 intersection = lga_polygons.intersection(state_polygons)
                 proportion_overlap = intersection.area / lga_polygons.area
-                print "proportion overlap was %0.2f for %s in %s" % (proportion_overlap, lga_name, state_name)
+                print("proportion overlap was %0.2f for %s in %s" % (proportion_overlap, lga_name, state_name))
 
                 if proportion_overlap < 0.95:
                     raise Exception("Won't set %s as parent of %s as overlap too small (%0.2f)" % (state_name, lga_name, proportion_overlap))
@@ -183,7 +186,7 @@ class LgaNameChecker(object):
             for lga_name, state_name in self.unmatched:
                 done_count += 1
                 os.system('clear')
-                print "--- {0} in {1} ({2} of {3})---".format(lga_name, state_name, done_count, total_count)
+                print("--- {0} in {1} ({2} of {3})---".format(lga_name, state_name, done_count, total_count))
 
 
                 # get the first bit of the word and match on that, should narrow field enough for a replacement to be created.
@@ -203,11 +206,11 @@ class LgaNameChecker(object):
         counter = 1
 
         for possible in possibles:
-            print counter, possible.name
+            print(counter, possible.name)
             counter += 1
 
-        print "Choose one of above (or blank to skip):",
-        counter_chosen = raw_input()
+        print("Choose one of above (or blank to skip):", end=' ')
+        counter_chosen = input()
 
         if counter_chosen:
             choice = possibles[int(counter_chosen) - 1]
@@ -217,8 +220,8 @@ class LgaNameChecker(object):
         self.partition_lgas()
 
         for lga_name, state_name in self.unmatched:
-            print "Unmatched DUN area:", lga_name
+            print("Unmatched DUN area:", lga_name)
 
         for area in models.Area.objects.filter(type__code='LGA').order_by('name'):
             if area.id in self.matched_area_ids: continue
-            print "Unmatched mapit area:", area.name
+            print("Unmatched mapit area:", area.name)

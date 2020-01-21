@@ -1,6 +1,7 @@
 # Tests for the Django management commands (i.e. those invoked with
 # ./manage.py or django-admin.py).
 
+from __future__ import absolute_import
 import contextlib
 from mock import patch
 import sys

@@ -8,6 +8,7 @@ APC.
 This is all very hard-coded, but might be useful as the bones of
 a change party command later on.
 """
+from __future__ import absolute_import
 import datetime
 
 from django.core.management.base import NoArgsCommand

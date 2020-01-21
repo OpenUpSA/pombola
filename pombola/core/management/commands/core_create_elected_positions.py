@@ -7,16 +7,19 @@
 #
 # This script takes arguments are passed in on the command line.
 
+from __future__ import absolute_import
+from __future__ import print_function
 from optparse import make_option
 
 from django.core.management.base import NoArgsCommand
 from django_date_extensions.fields import ApproximateDate
 
 from pombola.core.models import Person, Position, PositionTitle, Place, Organisation
+from six.moves import map
 
 
 def yyyymmdd_to_approx(yyyymmdd):
-    year, month, day = map(int, yyyymmdd.split('-'))
+    year, month, day = list(map(int, yyyymmdd.split('-')))
     return ApproximateDate(year, month, day)
 
 class Command(NoArgsCommand):
@@ -38,7 +41,7 @@ class Command(NoArgsCommand):
 
     def handle_noargs(self, **options):
         
-        print "Looking at '%s' in '%s'" % (options['elected_person'], options['place'] )
+        print("Looking at '%s' in '%s'" % (options['elected_person'], options['place'] ))
 
         # load up the place, org and positions
         place                 = Place.objects.get(slug=options['place'])
@@ -70,12 +73,12 @@ class Command(NoArgsCommand):
                 }
             )
             if created:
-                print "  Created %s" % elected_pos
+                print("  Created %s" % elected_pos)
             
 
         # get all related aspirant positions
         for pos in Position.objects.filter(place=place, title=aspirant_pos_title).currently_active():
-            print "  Ending %s" % pos
+            print("  Ending %s" % pos)
             pos.end_date = aspirant_end_date
             if options['commit']:
                 pos.save()

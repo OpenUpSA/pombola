@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import re
 import calendar
 
@@ -8,6 +9,7 @@ from pombola.hansard.models import Sitting, Alias
 from pombola.hansard.models.base import HansardModelBase
 
 from pombola.hansard.constants import NAME_SUBSTRING_MATCH, NAME_SET_INTERSECTION_MATCH
+from six.moves import range
 
 
 class EntryQuerySet(models.query.QuerySet):
@@ -128,8 +130,8 @@ class Entry(HansardModelBase):
         Return a score based on the intersection of two names including titles
         minus all punctuation.
         """
-        set_one = set(filter(lambda item : len(item) > 1, re.sub('[^A-Za-z]',' ', name_one).split()))
-        set_two = set(filter(lambda item : len(item) > 1, re.sub('[^A-za-z]',' ', name_two).split()))
+        set_one = set([item for item in re.sub('[^A-Za-z]',' ', name_one).split() if len(item) > 1])
+        set_two = set([item for item in re.sub('[^A-za-z]',' ', name_two).split() if len(item) > 1])
         return len(set_one & set_two)
 
     def possible_matching_speakers(self, update_aliases=False, name_matching_algorithm=NAME_SET_INTERSECTION_MATCH):

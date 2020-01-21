@@ -27,6 +27,8 @@
 #  * There are still various unmatched names that should be found in
 #    the Pombola database.
 
+from __future__ import absolute_import
+from __future__ import print_function
 import csv
 from optparse import make_option
 import re
@@ -50,6 +52,7 @@ from ..helpers import (
     geocode, get_na_member_lookup, find_pombola_person, get_mapit_municipality,
     get_geocode_cache, write_geocode_cache
 )
+from six.moves import map
 
 # Build an list of tuples of (mangled_mp_name, person_object) for each
 # member of the National Assembly and delegate of the National Coucil
@@ -61,7 +64,7 @@ VERBOSE = False
 
 def verbose(message):
     if VERBOSE:
-        print message
+        print(message)
 
 class Command(LabelCommand):
     """Import constituency offices"""
@@ -245,7 +248,7 @@ class Command(LabelCommand):
                                 verbose("physical_address: " + physical_address.encode('UTF-8'))
                                 if manual_lonlat:
                                     verbose("using manually specified location: " + manual_lonlat)
-                                    lon, lat = map(float, manual_lonlat.split(","))
+                                    lon, lat = list(map(float, manual_lonlat.split(",")))
                                 else:
                                     lon, lat, geocode_cache = geocode(physical_address, geocode_cache, VERBOSE)
                                     verbose("maps to:")
@@ -302,7 +305,7 @@ class Command(LabelCommand):
                                         if person:
                                             people_to_add.append(person)
                                 else:
-                                    raise Exception, "Unknown party '%s'" % (party,)
+                                    raise Exception("Unknown party '%s'" % (party,))
 
                         if municipality:
                             mapit_municipality = get_mapit_municipality(
@@ -321,7 +324,7 @@ class Command(LabelCommand):
                         # At the moment it's only for DA that these
                         # Constituency Areas exist, so check that assumption:
                         if party != 'Democratic Alliance (DA)':
-                            raise Exception, "Unexpected party %s with Area" % (party)
+                            raise Exception("Unexpected party %s with Area" % (party))
                         constituency_kind = ok_constituency_area
                         province = fix_province_name(province)
                         mapit_province = Area.objects.get(
@@ -345,7 +348,7 @@ class Command(LabelCommand):
                                     people_to_add.append(person)
 
                     else:
-                        raise Exception, "Unknown type %s" % (office_or_area,)
+                        raise Exception("Unknown type %s" % (office_or_area,))
 
                     # The Administrator column might have multiple
                     # administrator contacts, separated by

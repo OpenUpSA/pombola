@@ -4,6 +4,8 @@
 # changes to add the tagging.
 
 
+from __future__ import absolute_import
+from __future__ import print_function
 import sys
 
 from speeches.models import Section, Tag
@@ -50,11 +52,11 @@ class Command(BaseCommand):
         # Poor man's pretty printing :)
         indent = " " * self.indent_depth
 
-        print indent + "looking at %s" % section
+        print(indent + "looking at %s" % section)
 
         # tag all speeches
         for speech in section.speech_set.all():
-            print indent + "  " + "Tagging '%s' with '%s" % (speech, tag)
+            print(indent + "  " + "Tagging '%s' with '%s" % (speech, tag))
             speech.tags.add(tag)
 
         # descend into subsections

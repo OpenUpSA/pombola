@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from datetime import date
 
 from BeautifulSoup import NavigableString
@@ -10,6 +11,7 @@ from django.test import TestCase
 from slug_helpers.models import SlugRedirect
 
 from pombola.core import models
+from six.moves import zip
 
 
 class HomeViewTest(TestCase):
@@ -373,12 +375,12 @@ class TestPersonView(WebTest):
         dl = self.get_next_sibling(heading, 'dl')
         terms = [dt.text.strip() for dt in dl.find_all('dt')]
         definitions = [dd.text.strip() for dd in dl.find_all('dd')]
-        return dict(zip(terms, definitions))
+        return dict(list(zip(terms, definitions)))
 
     def test_person_birth_date_no_death_date(self):
         resp = self.app.get('/person/alfred-smith/')
         personal_details = self.get_personal_details(resp.html)
-        keys = personal_details.keys()
+        keys = list(personal_details.keys())
         self.assertIn('Born', keys)
         self.assertNotIn('Died', keys)
         self.assertEqual(
@@ -389,7 +391,7 @@ class TestPersonView(WebTest):
     def test_person_birth_date_and_death_date(self):
         resp = self.app.get('/person/deceased-person/')
         personal_details = self.get_personal_details(resp.html)
-        keys = personal_details.keys()
+        keys = list(personal_details.keys())
         self.assertIn('Born', keys)
         self.assertIn('Died', keys)
         self.assertEqual(

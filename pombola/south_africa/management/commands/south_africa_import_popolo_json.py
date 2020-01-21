@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+from __future__ import print_function
 import sys
 import re
 
@@ -34,7 +36,7 @@ def parse_approximate_date(s):
             return ApproximateDate(*(int(g, 10) for g in m.groups()))
     if s == 'future':
         return ApproximateDate(future=True)
-    raise Exception, "Couldn't parse '{0}' as an ApproximateDate".format(s)
+    raise Exception("Couldn't parse '{0}' as an ApproximateDate".format(s))
 
 class Command(LabelCommand):
 
@@ -53,10 +55,10 @@ class Command(LabelCommand):
             try:
                 pombola_org = Organisation.objects.get(slug=json_org['slug'])
             except Organisation.DoesNotExist:
-                print >> sys.stderr, 'Could not match ' + json_org['name'] + ' on slug "' + json_org['slug'] + '".'
+                print('Could not match ' + json_org['name'] + ' on slug "' + json_org['slug'] + '".', file=sys.stderr)
                 sys.exit(1)
             except Organisation.MultipleObjectsReturned:
-                print >> sys.stderr, 'Multiple objects returned for slug "' + json_org['slug'] + '".'
+                print('Multiple objects returned for slug "' + json_org['slug'] + '".', file=sys.stderr)
                 sys.exit(1)
 
             if 'founding_date' in json_org:
@@ -75,10 +77,10 @@ class Command(LabelCommand):
             try:
                 pombola_person = Person.objects.get(slug=json_person['slug'])
             except Person.DoesNotExist:
-                print >> sys.stderr, 'Could not match ' + json_person['name'] + ' on slug "' + json_person['slug'] + '".'
+                print('Could not match ' + json_person['name'] + ' on slug "' + json_person['slug'] + '".', file=sys.stderr)
                 sys.exit(1)
             except Person.MultipleObjectsReturned:
-                print >> sys.stderr, 'Multiple objects returned for slug "' + json_person['slug'] + '".'
+                print('Multiple objects returned for slug "' + json_person['slug'] + '".', file=sys.stderr)
                 sys.exit(1)
 
             # Update the details. We may or may not have these things.

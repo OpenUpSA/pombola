@@ -1,15 +1,16 @@
 from __future__ import division
 
+from __future__ import absolute_import
 import dateutil
 import json
 import logging
 import re
 import requests
-import urllib
+import six.moves.urllib.request, six.moves.urllib.parse, six.moves.urllib.error
 import datetime
 
 from .constants import API_REQUESTS_TIMEOUT
-from urlparse import urlsplit
+from six.moves.urllib.parse import urlsplit
 
 from django.contrib.contenttypes.models import ContentType
 from django.core.cache import caches
@@ -20,6 +21,7 @@ from pombola.core.views import PersonDetail, PersonSpeakerMappingsMixin
 from pombola.interests_register.models import Release
 
 from speeches.models import Speech
+import six
 
 logger = logging.getLogger('django.request')
 
@@ -151,7 +153,7 @@ class SAPersonDetail(PersonSpeakerMappingsMixin, PersonDetail):
 
         if not identifier:
             # First find the id of the person
-            pa_link = urllib.quote(
+            pa_link = six.moves.urllib.parse.quote(
                 "https://www.pa.org.za/person/{}/".format(self.object.slug))
 
             url_fmt = "https://api.pmg.org.za/member/?filter[pa_link]={}"
@@ -258,10 +260,10 @@ class SAPersonDetail(PersonSpeakerMappingsMixin, PersonDetail):
 
         # Add zero minister attendance if person was active minister during a year,
         # but no reocrds was returned for that year.
-        for year, positions in minister_positions_by_year.iteritems():
+        for year, positions in six.iteritems(minister_positions_by_year):
             if positions:
                 # There were active minister positions
-                if 'minister' not in attendance_by_year[year].keys():
+                if 'minister' not in list(attendance_by_year[year].keys()):
                     # No minister attendance recorded
                     attendance_by_year[year]['minister'] = {'P': 0}
 
@@ -312,7 +314,7 @@ class SAPersonDetail(PersonSpeakerMappingsMixin, PersonDetail):
             return 'mp'
 
     def get_attendance_stats(self, attendance_by_year):
-        sorted_keys = sorted(attendance_by_year.keys(), reverse=True)
+        sorted_keys = sorted(list(attendance_by_year.keys()), reverse=True)
         return_data = []
         # year, attended, total, percentage, position
         for year in sorted_keys:

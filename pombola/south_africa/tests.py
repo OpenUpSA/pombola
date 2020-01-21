@@ -1,10 +1,12 @@
 from __future__ import division
 
+from __future__ import absolute_import
+from __future__ import print_function
 import re
 import os
 from datetime import date, time
 from StringIO import StringIO
-from urlparse import urlparse
+from six.moves.urllib.parse import urlparse
 from collections import OrderedDict
 from datetime import datetime
 
@@ -43,6 +45,7 @@ from pombola.interests_register.models import Category, Release, Entry, EntryLin
 
 from nose.plugins.attrib import attr
 from pygeolib import GeocoderError
+import six
 
 def fake_geocoder(country, q, decimal_places=3):
     if q == 'anywhere':
@@ -68,7 +71,7 @@ def fake_geocoder(country, q, decimal_places=3):
     elif q == 'place that triggers ZERO_RESULTS':
         raise GeocoderError(GeocoderError.G_GEO_ZERO_RESULTS)
     else:
-        raise Exception, u"Unexpected input to fake_geocoder: {}".format(q)
+        raise Exception(u"Unexpected input to fake_geocoder: {}".format(q))
 
 @attr(country='south_africa')
 class HomeViewTest(TestCase):
@@ -297,7 +300,7 @@ class SASearchViewTest(WebTest):
 
 
 def connection_error(x, *args, **kwargs):
-    print 'Raising connection error'
+    print('Raising connection error')
     raise requests.exceptions.ConnectionError
 
 
@@ -474,7 +477,7 @@ class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
         #self.assertEqual(context['interests'],expected)
 
         #determine key offsets as other tests may have added data to the database
-        category_offset = context['interests'][0][0]['categories'].keys()[0]
+        category_offset = list(context['interests'][0][0]['categories'].keys())[0]
 
         self.assertEqual(
             len(context['interests'][0][0]['categories'][category_offset]['headings']),
@@ -835,7 +838,7 @@ class SAAttendanceDataTest(TestCase):
         meetings_attended = person_detail.get_meetings_attended(raw_data['results'])
         meeting_keys = ['url', 'committee_name', 'summary', 'date', 'title']
         self.assertEqual(len(meetings_attended), 39)
-        self.assertTrue(bool(k in meeting_keys for k in meetings_attended[0].iterkeys()))
+        self.assertTrue(bool(k in meeting_keys for k in six.iterkeys(meetings_attended[0])))
 
 @attr(country='south_africa')
 class SAMpAttendancePageTest(TestCase):
@@ -2419,9 +2422,9 @@ class SAUrlRoutingTest(TestCase):
 
     def test_person_politicians(self):
         match = resolve('/person/politicians/')
-        self.assertIn('function RedirectView', unicode(match.func))
+        self.assertIn('function RedirectView', six.text_type(match.func))
         self.assertEqual(
-            match.func.func_closure[1].cell_contents,
+            match.func.__closure__[1].cell_contents,
             {'url': '/position/mp', 'permanent': True},
             )
 
@@ -2435,53 +2438,53 @@ class SAUrlRoutingTest(TestCase):
 
     def test_za_organisation_people(self):
         match = resolve('/organisation/foo/people/')
-        self.assertEqual(match.func.func_name, 'SAOrganisationDetailSubPeople')
+        self.assertEqual(match.func.__name__, 'SAOrganisationDetailSubPeople')
 
     def test_za_organisation_people_prefix(self):
         match = resolve('/organisation/foo/people/A')
-        self.assertEqual(match.func.func_name, 'SAOrganisationDetailSubPeople')
+        self.assertEqual(match.func.__name__, 'SAOrganisationDetailSubPeople')
 
     def test_za_organisation(self):
         match = resolve('/organisation/foo/')
-        self.assertEqual(match.func.func_name, 'SAOrganisationDetailView')
+        self.assertEqual(match.func.__name__, 'SAOrganisationDetailView')
 
     def test_za_organisation_party(self):
         match = resolve('/organisation/foo/party/bar/')
-        self.assertEqual(match.func.func_name, 'SAOrganisationDetailSubParty')
+        self.assertEqual(match.func.__name__, 'SAOrganisationDetailSubParty')
 
     def test_za_person(self):
         match = resolve('/person/foo/')
-        self.assertEqual(match.func.func_name, 'SAPersonDetail')
+        self.assertEqual(match.func.__name__, 'SAPersonDetail')
 
     def test_za_person_appearances(self):
         match = resolve('/person/foo/appearances/')
         self.assertEqual(match.url_name, 'sa-person-appearances')
-        self.assertEqual(match.func.func_name, 'RedirectView')
+        self.assertEqual(match.func.__name__, 'RedirectView')
 
         self.assertEqual(
-            match.func.func_closure[1].cell_contents,
+            match.func.__closure__[1].cell_contents,
             {'pattern_name': 'person', 'permanent': False},
             )
 
     def test_za_person_appearance(self):
         match = resolve('/person/foo/appearances/bar')
-        self.assertEqual(match.func.func_name, 'SAPersonAppearanceView')
+        self.assertEqual(match.func.__name__, 'SAPersonAppearanceView')
 
     def test_za_place(self):
         match = resolve('/place/foo/')
-        self.assertEqual(match.func.func_name, 'SAPlaceDetailView')
+        self.assertEqual(match.func.__name__, 'SAPlaceDetailView')
 
     def test_za_place_places(self):
         match = resolve('/place/foo/places/')
-        self.assertEqual(match.func.func_name, 'SAPlaceDetailSub')
+        self.assertEqual(match.func.__name__, 'SAPlaceDetailSub')
 
     def test_za_latlon(self):
         match = resolve('/place/latlon/1.2,3.4/')
-        self.assertEqual(match.func.func_name, 'LatLonDetailLocalView')
+        self.assertEqual(match.func.__name__, 'LatLonDetailLocalView')
 
     def test_za_home(self):
         match = resolve('/')
-        self.assertEqual(match.func.func_name, 'SAHomeView')
+        self.assertEqual(match.func.__name__, 'SAHomeView')
 
 
 @attr(country='south_africa')

@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import datetime
 
 from collections import defaultdict
@@ -87,7 +88,7 @@ class SAOrganisationDetailView(CommentArchiveMixin, OrganisationDetailView):
             person__in=people_in_house).currently_active(). \
                 select_related('organisation'):
             party_counts[current_party_position.organisation] += 1
-        parties = sorted(party_counts.keys(), key=lambda o: o.name)
+        parties = sorted(list(party_counts.keys()), key=lambda o: o.name)
         total_people = len(people_in_house)
 
         # Calculate the % of the house each party occupies.

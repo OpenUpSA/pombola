@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from datetime import date
 
 from django.core.exceptions import ValidationError
@@ -54,9 +55,9 @@ class PositionTestCase(TestCase):
     def testDisplayDates(self):
 
         # get the test dates
-        start_date      = ApproximateDate(year=2000, month=01, day=01)
-        future_end_date = ApproximateDate(year=2100, month=01, day=01)
-        past_end_date   = ApproximateDate(year=2000, month=01, day=02)
+        start_date      = ApproximateDate(year=2000, month=0o1, day=0o1)
+        future_end_date = ApproximateDate(year=2100, month=0o1, day=0o1)
+        past_end_date   = ApproximateDate(year=2000, month=0o1, day=0o2)
         future          = ApproximateDate(future=True)
 
 

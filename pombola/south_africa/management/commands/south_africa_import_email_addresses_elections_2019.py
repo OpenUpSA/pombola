@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+from __future__ import print_function
 import re
 
 import unicodecsv as csv
@@ -38,7 +40,7 @@ class Command(BaseCommand):
                             defaults={"source": source, "preferred": True},
                         )
                         if created:
-                            print "Added {} to".format(email),
+                            print("Added {} to".format(email), end=' ')
                             print (name)
 
         # Committees
@@ -51,7 +53,7 @@ class Command(BaseCommand):
                     name__iendswith=name, kind__slug="national-assembly-committees"
                 )
                 if not matching_committees:
-                    print ("! No matches for {}".format(name))
+                    print(("! No matches for {}".format(name)))
                 else:
                     committee = matching_committees[0]
                     _, created = committee.contacts.get_or_create(
@@ -60,4 +62,4 @@ class Command(BaseCommand):
                         defaults={"source": source, "preferred": True},
                     )
                     if created:
-                        print "Added {} to {}".format(email, name)
+                        print("Added {} to {}".format(email, name))

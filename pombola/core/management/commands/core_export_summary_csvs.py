@@ -1,5 +1,7 @@
 """Export a collection of summary CSV files for people."""
 
+from __future__ import absolute_import
+from __future__ import print_function
 import csv
 import os
 import collections
@@ -7,6 +9,7 @@ import collections
 from pombola.core.models import Person
 
 from django.core.management.base import BaseCommand, CommandError
+import six
 
 class Command(BaseCommand):
     args = 'CSV-ROOT'
@@ -84,7 +87,7 @@ CSV files in.")
 
                     # Output each basic field to the individual file
                     summary_output[field_key][person_index] =\
-                        unicode(getattr(person, field_name)).encode('utf-8')
+                        six.text_type(getattr(person, field_name)).encode('utf-8')
 
                     primary_image = person.primary_image()
 
@@ -94,7 +97,7 @@ CSV files in.")
                         image_url = ''
 
                     summary_output['H'][person_index] =\
-                        unicode(image_url).encode('utf-8')
+                        six.text_type(image_url).encode('utf-8')
 
                     contacts = person.contacts.all().order_by('kind')
 
@@ -120,7 +123,7 @@ CSV files in.")
                                 contact.kind.name + ' ' + str(contact_counter)
 
                         summary_output[contact_key][person_index] =\
-                            unicode(contact.value).encode('utf-8')
+                            six.text_type(contact.value).encode('utf-8')
 
                         contact_counter += 1
 
@@ -151,9 +154,9 @@ CSV files in.")
                         for field_key, field_title, field_name in self.position_fields:
 
                             summary_output[position_key + '-' + field_key][person_index] =\
-                                unicode(getattr(position, field_name)).encode('utf-8')
+                                six.text_type(getattr(position, field_name)).encode('utf-8')
 
-                print "Completed person " + str(person_index) + " of " + str(len(people))
+                print("Completed person " + str(person_index) + " of " + str(len(people)))
 
                 # Increment the person index counter
                 person_index += 1
@@ -165,5 +168,5 @@ CSV files in.")
             for row_title, row_content in sorted_output.items():
                 summary_writer.writerow(row_content)
 
-        print "Done! Exported CSV of " + str(len(people)) + "people."
+        print("Done! Exported CSV of " + str(len(people)) + "people.")
 

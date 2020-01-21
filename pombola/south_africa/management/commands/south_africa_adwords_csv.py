@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 
+from __future__ import absolute_import
 import csv
 import os
 import re
@@ -9,6 +10,7 @@ from optparse import make_option
 from pombola.core.models import Organisation, Place
 from pombola.south_africa.models import ZAPlace
 from django.core.management.base import NoArgsCommand
+import six
 
 
 data_directory = os.path.join(
@@ -62,7 +64,7 @@ class Command(NoArgsCommand):
 
             for row in row_generator():
                 writer.writerow({
-                    k: unicode(v).encode('utf-8') for k, v in row.items()
+                    k: six.text_type(v).encode('utf-8') for k, v in row.items()
                 })
 
 
@@ -83,7 +85,7 @@ class Command(NoArgsCommand):
                     if place.kind.slug == 'province':
                         row['Province'] = place.name
                     else:
-                        raise Exception, "Unknown place: %s" % (place)
+                        raise Exception("Unknown place: %s" % (place))
                 row['Parties'] = ", ".join(p.name.strip() for p in person.parties().filter(ended=''))
                 person_positions = person.position_set.all() \
                                        .currently_active() \

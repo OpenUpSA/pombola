@@ -1,6 +1,7 @@
 # This admin command is to save having to do a series of manual steps
 # when merging to people in Pombola.
 
+from __future__ import absolute_import
 import pombola.core.models as core_models
 
 from ..merge import MergeCommandBase

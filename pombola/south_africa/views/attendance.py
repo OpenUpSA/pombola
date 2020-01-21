@@ -1,10 +1,11 @@
 from __future__ import division
 
+from __future__ import absolute_import
 import dateutil
 import json
 import requests
 import datetime
-from urlparse import urlsplit
+from six.moves.urllib.parse import urlsplit
 from collections import defaultdict
 
 from .constants import API_REQUESTS_TIMEOUT
@@ -14,7 +15,8 @@ from django.views.generic import TemplateView
 from django.shortcuts import get_object_or_404
 
 from pombola.core.models import Position, Person
-from person import SAPersonDetail
+from .person import SAPersonDetail
+import six
 
 
 class SAMpAttendanceView(TemplateView):
@@ -142,7 +144,7 @@ class SAMpAttendanceView(TemplateView):
         for position in active_minister_positions:
             ministers[position.person.slug].append(position)
 
-        minister_slugs = ministers.keys()
+        minister_slugs = list(ministers.keys())
 
         minister_attendance = []
         mp_attendance = []
@@ -302,18 +304,18 @@ class SAMpAttendanceView(TemplateView):
                     aggregate_total = aggregate_present = 0
 
                     for summary in attendance_summary:
-                        total = sum(v for v in summary['attendance'].itervalues())
+                        total = sum(v for v in six.itervalues(summary['attendance']))
 
                         present = sum(
-                            v for k, v in summary['attendance'].iteritems()
+                            v for k, v in six.iteritems(summary['attendance'])
                             if k in present_codes)
 
                         arrive_late = sum(
-                            v for k, v in summary['attendance'].iteritems()
+                            v for k, v in six.iteritems(summary['attendance'])
                             if k in arrive_late_codes)
 
                         depart_early = sum(
-                            v for k, v in summary['attendance'].iteritems()
+                            v for k, v in six.iteritems(summary['attendance'])
                             if k in depart_early_codes)
 
                         aggregate_total += total
@@ -344,7 +346,7 @@ class SAMpAttendanceView(TemplateView):
                     # No aggregates are calculated
                     for summary in attendance_summary:
                         present = sum(
-                            v for k, v in summary['attendance'].iteritems()
+                            v for k, v in six.iteritems(summary['attendance'])
                             if k in present_codes)
                         context['attendance_data'].append({
                                 "name": summary['member']['name'],

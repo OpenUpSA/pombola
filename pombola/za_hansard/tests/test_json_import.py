@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import os
 from datetime import date
 
@@ -24,7 +25,7 @@ class ImportJsonTests(InstanceTestCase):
 
     @skip("Relies on external API")
     def test_resolve(self):
-        resolver = ResolvePopoloName(date=date(2013, 06, 21))
+        resolver = ResolvePopoloName(date=date(2013, 0o6, 21))
         person = resolver.get_person('Mrs A Steyn', None)
         self.assertTrue(person)
 
@@ -38,9 +39,9 @@ class ImportJsonTests(InstanceTestCase):
                 "section_title": "Agriculture, Forestry and Fisheries",
                 "section_parent_titles": ["Top Section", "Middle Section", "Bottom Section"],
                 "is_public": True,
-                "start_date": date(2013, 06, 21),
+                "start_date": date(2013, 0o6, 21),
                 "start_time": None,
-                "end_date": date(2013, 06, 21),
+                "end_date": date(2013, 0o6, 21),
                 "end_time": None,
             },
             {
@@ -50,9 +51,9 @@ class ImportJsonTests(InstanceTestCase):
                 "section_title": "Agriculture, Forestry and Fisheries",
                 "section_parent_titles": ["Top Section", "Middle Section", "Other Bottom Section"],
                 "is_public": False,
-                "start_date": date(2013, 06, 19),
+                "start_date": date(2013, 0o6, 19),
                 "start_time": None,
-                "end_date": date(2013, 06, 19),
+                "end_date": date(2013, 0o6, 19),
                 "end_time": None,
             },
             # {"filename": '3.json', "speech_count": 8, "resolved_count": 0},
@@ -98,7 +99,7 @@ class ImportJsonTests(InstanceTestCase):
                 self.assertEqual(speech.end_date,   expected['end_date'])
                 self.assertEqual(speech.end_time,   expected['end_time'])
 
-            resolved = filter(lambda s: s.speaker.person != None, speeches)
+            resolved = [s for s in speeches if s.speaker.person != None]
 
             self.assertEquals(len(speeches), expected["speech_count"],
                               'Speeches %d == %d (%s)' %

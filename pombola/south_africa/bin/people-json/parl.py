@@ -1,10 +1,12 @@
+from __future__ import absolute_import
 import re
 import requests
 import requests_cache
-import urllib
-import urlparse
+import six.moves.urllib.request, six.moves.urllib.parse, six.moves.urllib.error
+import six.moves.urllib.parse
 
 from utils import add_membership, idFactory, PROVINCES
+from six.moves import zip
 
 
 requests_cache.install_cache()
@@ -13,11 +15,11 @@ def fix_url(url):
     # The path component of the URLs in the current South African
     # Popolo JSON have Unicode characters that need to be UTF-8
     # encoded and percent-escaped:
-    parts = urlparse.urlsplit(url)
-    fixed_path = urllib.quote(parts.path.encode('UTF-8'))
+    parts = six.moves.urllib.parse.urlsplit(url)
+    fixed_path = six.moves.urllib.parse.quote(parts.path.encode('UTF-8'))
     parts = list(parts)
     parts[2] = fixed_path
-    url = urlparse.urlunsplit(parts)
+    url = six.moves.urllib.parse.urlunsplit(parts)
     # A hash in the URL is really actually not.
     url = url.replace('#', '%23')
     return url
@@ -145,7 +147,7 @@ class Person:
     def parse_committees(self):
         m = re.search('<td[^>]*><b[^>]*>Committees represented on: *</b></td>.*?<table[^>]*>(.*?)</table>(?s)', self.text)
         committees = dict(re.findall('<a href="content.php\?Item_ID=\d+&CommitteeID=(\d+)">(.*?)</a>', m.group(1)))
-        for id, name in reversed(committees.items()):
+        for id, name in reversed(list(committees.items())):
             if name in self.organizations:
                 assert self.organizations[name]['id'] == 'org.mysociety.za/committee/' + id
             else:
@@ -166,7 +168,7 @@ def parse(data):
     r = requests.get('http://www.parliament.gov.za/live/content.php?Category_ID=97').text
     cols = ('id', 'family_name', 'given_names', 'party_id', 'party_name', 'email')
     for row in re.findall('<tr bgcolor="#FFFFFF">\s+<td height="30" valign="middle" class="pad"><a href="content.php\?Item_ID=184&MemberID=(.*?)">(.*?)<br></a></td>\s+<td valign="middle">&nbsp;</td>\s+<td valign="middle" class="pad">(.*?)</td>\s+<td valign="middle">&nbsp;</td>\s+<td valign="middle" class="pad"><a href="content.php\?Item_ID=219&PartyID=(.*?)">(.*?)</a></td>\s+<td valign="middle">&nbsp;</td>\s+<td align="left" valign="middle" class="pad"> <a href="mailto:(.*?)">(.*?)</a></td>', r):
-        row = dict(zip(cols, row))
+        row = dict(list(zip(cols, row)))
         if row['family_name'] == 'Mokabhe' and row['given_names'] == 'Alpheus': continue # Dupe
         if row['id'] == 'id': continue # 2nd header
         if row['given_names'] == 'Ximbi':

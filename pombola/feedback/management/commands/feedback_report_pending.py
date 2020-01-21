@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+from __future__ import print_function
 from django.core.management.base import NoArgsCommand
 from django.contrib.sites.models import Site
 
@@ -22,9 +24,9 @@ class Command(NoArgsCommand):
         url = 'http://%s/admin/feedback/feedback/?status=pending' % Site.objects.get_current().domain
         
 
-        print subject
-        print
-        print message
-        print
-        print url
+        print(subject)
+        print()
+        print(message)
+        print()
+        print(url)
 

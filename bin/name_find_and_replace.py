@@ -7,6 +7,8 @@
 
 # Usage: cat input.txt | this_script replacements.csv > output.txt
 
+from __future__ import absolute_import
+from __future__ import print_function
 import sys
 import csv
 import re
@@ -18,7 +20,7 @@ for row in csv.reader( open(sys.argv[1]) ):
     
 # Try the replacements in order. Longest first. This should mean that a shorter
 # replacement does not prevent a longer (more accurate) one from occurring.
-replacement_trial_order = sorted( replacements.keys(), key=len, reverse=True )
+replacement_trial_order = sorted( list(replacements.keys()), key=len, reverse=True )
 
 # print replacement_trial_order
 
@@ -28,4 +30,4 @@ for line in sys.stdin:
     line = line.rstrip()
     for from_val in replacement_trial_order:
         line = re.sub( r'\b%s\b' % from_val, replacements[from_val], line)
-    print line
+    print(line)

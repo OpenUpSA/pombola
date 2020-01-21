@@ -1,9 +1,10 @@
+from __future__ import absolute_import
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_protect
 
-from models import Feedback
-from forms import FeedbackForm
+from .models import Feedback
+from .forms import FeedbackForm
 
 import re
 

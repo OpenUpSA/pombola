@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+from __future__ import print_function
 from optparse import make_option
 import sys
 
@@ -10,6 +12,8 @@ from pombola.core.models import (
 )
 
 from ..helpers import geocode, LocationNotFound
+import six
+from six.moves import input
 
 class Command(BaseCommand):
     help = 'Update the physical address of a constituency office'
@@ -62,7 +66,7 @@ class Command(BaseCommand):
             # Otherwise try to geocode the address:
             try:
                 lon, lat, _ = geocode(options['new_address'])
-                print "Location found"
+                print("Location found")
             except LocationNotFound:
                 raise CommandError(u"Couldn't find the location of:\n{0}".format(
                     options['new_address']
@@ -72,10 +76,10 @@ class Command(BaseCommand):
         # want:
 
         url_template = 'https://www.google.com/maps/place/{lat}+{lon}/@{lat},{lon},17z'
-        print "This would update the office address to:"
-        print ' ', url_template.format(lon=lon, lat=lat)
-        print "If this is correct, type 'y' to continue:"
-        response = raw_input('(y/n): ')
+        print("This would update the office address to:")
+        print(' ', url_template.format(lon=lon, lat=lat))
+        print("If this is correct, type 'y' to continue:")
+        response = input('(y/n): ')
         if response != 'y':
             sys.stderr.write("Aborting.\n")
             return
@@ -119,15 +123,15 @@ class Command(BaseCommand):
         # --commit was specified).
 
         if options['commit']:
-            print "Saving to the database:"
+            print("Saving to the database:")
         else:
             msg = "Not updating (--commit wasn't specified) but would save:"
             self.stdout.write(msg)
         self.stdout.write(
-            'Place: ' + unicode(position).encode('utf-8')
+            'Place: ' + six.text_type(position).encode('utf-8')
         )
         self.stdout.write(
-            'Contact: ' + unicode(contact_address).encode('utf-8')
+            'Contact: ' + six.text_type(contact_address).encode('utf-8')
         )
 
         if options['commit']:

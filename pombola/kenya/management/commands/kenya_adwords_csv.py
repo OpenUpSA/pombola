@@ -1,9 +1,11 @@
+from __future__ import absolute_import
 import csv
 import os
 from optparse import make_option
 
 from pombola.core.models import Position
 from django.core.management.base import NoArgsCommand
+import six
 
 
 data_directory = os.path.join(
@@ -51,10 +53,10 @@ class Command(NoArgsCommand):
                         elif place.kind.slug == 'county':
                             row['County'] = place.name
                         else:
-                            raise Exception, "Unknown place: %s" % (place)
+                            raise Exception("Unknown place: %s" % (place))
                         row['Parties'] = ", ".join(p.name.strip() for p in person.parties())
 
                         for key, value in row.items():
-                            row[key] = unicode(value).encode('utf-8')
+                            row[key] = six.text_type(value).encode('utf-8')
 
                         writer.writerow(row)

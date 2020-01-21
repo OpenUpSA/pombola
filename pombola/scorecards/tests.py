@@ -2,6 +2,7 @@
 Test that the scorecards works as expected
 """
 
+from __future__ import absolute_import
 from django.test import TestCase
 
 

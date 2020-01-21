@@ -19,10 +19,12 @@
 # for the intended purpose (matching LGA names in Nigeria) so development
 # stopped.
 
+from __future__ import absolute_import
 import csv
 import re
 import sys
 import fuzzy
+from six.moves import range
 dmeta = fuzzy.DMetaphone()
 
 csv_reader = csv.reader(sys.stdin)
@@ -64,10 +66,10 @@ def is_exact_match(x,y):
 # from http://mwh.geek.nz/2009/04/26/python-damerau-levenshtein-distance/
 def dameraulevenshtein(seq1, seq2):
     oneago = None
-    thisrow = range(1, len(seq2) + 1) + [0]
-    for x in xrange(len(seq1)):
+    thisrow = list(range(1, len(seq2) + 1)) + [0]
+    for x in range(len(seq1)):
         twoago, oneago, thisrow = oneago, thisrow, [0] * len(seq2) + [x + 1]
-        for y in xrange(len(seq2)):
+        for y in range(len(seq2)):
             delcost = oneago[y] + 1
             addcost = thisrow[y - 1] + 1
             subcost = oneago[y - 1] + (seq1[x] != seq2[y])

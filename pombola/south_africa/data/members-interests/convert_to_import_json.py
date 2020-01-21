@@ -4,11 +4,13 @@
 # format needed for import. Should do all cleanup of data and removal of
 # unneeded entries too.
 
+from __future__ import absolute_import
+from __future__ import print_function
 import sys
 import os
 import json
 import re
-import urllib
+import six.moves.urllib.request, six.moves.urllib.parse, six.moves.urllib.error
 
 script_dir = os.path.basename(__file__)
 base_dir = os.path.join(script_dir, "../../../../..")
@@ -320,7 +322,7 @@ class Converter(object):
         date = data['date']
 
         source_filename = re.sub(r'.*/(.*?)\.pdf', r'\1', source_url)
-        source_name = urllib.unquote(source_filename).replace('_', ' ').strip()
+        source_name = six.moves.urllib.parse.unquote(source_filename).replace('_', ' ').strip()
 
         self.release = {
             "name": "Parliament Register of Members' Interests " + year,
@@ -431,9 +433,9 @@ class Converter(object):
                     return possible_slug
 
                 for person in possible_persons:
-                    print 'perhaps: "{0}": "{1}",'.format(slug, person.slug)
+                    print('perhaps: "{0}": "{1}",'.format(slug, person.slug))
                 else:
-                    print "no possible matches for {0}".format(slug)
+                    print("no possible matches for {0}".format(slug))
 
                 raise Exception("Slug {0} not found, please find matching slug and add it to the slug_corrections".format(slug))
 
@@ -482,11 +484,11 @@ class Converter(object):
 if __name__ == "__main__":
     converter = Converter(sys.argv[1])
     output = converter.convert()
-    print output
+    print(output)
 
     if converter.finding_slug_corrections:
-        print "\n\n"
-        print "#### COPY THIS TO slug_corrections and s/null/None/ :) ####"
-        print "\n\n"
-        print json.dumps(converter.slug_corrections, indent=4, sort_keys=True)
-        print "\n\n"
+        print("\n\n")
+        print("#### COPY THIS TO slug_corrections and s/null/None/ :) ####")
+        print("\n\n")
+        print(json.dumps(converter.slug_corrections, indent=4, sort_keys=True))
+        print("\n\n")

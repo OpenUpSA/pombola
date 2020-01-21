@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import json
 from random import randint, choice
 import re
@@ -82,7 +83,7 @@ class ExperimentViewDataMixin(object):
     def get_session_data(self):
         result = {}
         session_keys = ['user_key', 'variant', 'via']
-        session_keys += self.demographic_keys.keys()
+        session_keys += list(self.demographic_keys.keys())
         for key in session_keys:
             value = self.get_session_value(key)
             if value is not None:
@@ -161,7 +162,7 @@ class ExperimentShare(ExperimentViewDataMixin, RedirectView):
             key='n',
             parameters=self.request.GET,
             allowed_values=('facebook', 'twitter'))
-        share_key = "{0:x}".format(randint(0, sys.maxint))
+        share_key = "{0:x}".format(randint(0, sys.maxsize))
         self.create_event({'category': 'share-click',
                            'action': 'click',
                            'label': social_network,
@@ -190,7 +191,7 @@ class ExperimentSurvey(ExperimentViewDataMixin, RedirectView):
         url = "http://survey.az1.qualtrics.com/SE/?SID={0}&".format(sid)
         url += "&".join(
             k + "=" + self.request.session.get(prefix + ':' + k, '?')
-            for k in ['user_key', 'variant'] + self.demographic_keys.keys()
+            for k in ['user_key', 'variant'] + list(self.demographic_keys.keys())
         )
         return url
 

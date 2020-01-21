@@ -14,6 +14,7 @@
 # better approach would just be to generate the breadcrumbs in each
 # view.
 
+from __future__ import absolute_import
 from django.template import Library
 from django.utils.html import escape
 from django.utils.http import urlquote
@@ -21,7 +22,7 @@ from django.utils.safestring import mark_safe
 from django.core.urlresolvers import resolve, Resolver404
 from django.conf import settings
 import re
-from urlparse import urlparse
+from six.moves.urllib.parse import urlparse
 
 register = Library()
 

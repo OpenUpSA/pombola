@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+from __future__ import absolute_import
+from __future__ import print_function
 import csv
 from optparse import make_option
 from os.path import dirname, join
@@ -61,7 +63,7 @@ class PollUnitImporter(object):
         self.options = options
 
     def process(self, filename):
-        print "Looking at '{0}'".format(filename)
+        print("Looking at '{0}'".format(filename))
 
         if self.options['delete_existing_pu_codes']:
             self.poll_unit_code_type.codes.all().delete()
@@ -104,7 +106,7 @@ class PollUnitImporter(object):
         if code in self.cached_states:
             return self.cached_states[code]
 
-        print "Loading %s" % name
+        print("Loading %s" % name)
 
         # Should find all of these
         state = self.get_area(names__name__iexact=name, type__code='STA')
@@ -125,7 +127,7 @@ class PollUnitImporter(object):
         if code in self.cached_lgas:
             return self.cached_lgas[code]
 
-        print "  Loading %s" % name
+        print("  Loading %s" % name)
 
         # Should find all of these
         lga = self.get_area(names__name__iexact=name, type__code='LGA', parent_area=state)
@@ -146,7 +148,7 @@ class PollUnitImporter(object):
         if code in self.cached_wards:
             return self.cached_wards[code]
 
-        print "    Loading %s" % name
+        print("    Loading %s" % name)
 
         # Create if needed, not expected to exist already
         ward, created = models.Area.objects.get_or_create(

@@ -1,11 +1,13 @@
 # coding=UTF-8
 
+from __future__ import absolute_import
 from django.http import QueryDict
 from django.template import Context, Template
 from django.test import TestCase
 
 from ..templatetags.breadcrumbs import breadcrumbs, path_element_overrides
 from ..templatetags.active_class import active_class
+import six
 
 
 class BreadcrumbTest(TestCase):
@@ -51,7 +53,7 @@ class BreadcrumbTest(TestCase):
             self.assertEqual(actual, expected)
 
     def test_breadcrumb_path_element_overrides(self):
-        for name, title_url in path_element_overrides.iteritems():
+        for name, title_url in six.iteritems(path_element_overrides):
             title, url = title_url
             actual = breadcrumbs(name + '/foo')
             self.assertTrue(title in actual, "Expected {0} to be in {1}".format(title, actual))

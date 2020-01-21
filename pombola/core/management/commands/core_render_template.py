@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+from __future__ import print_function
 from django.conf import settings
 from django.core.management.base import LabelCommand
 from django.template.loader import render_to_string
@@ -23,4 +25,4 @@ class Command(LabelCommand):
         }
         request_context = RequestContext(request)
 
-        print render_to_string(template_path, {}, request_context).encode('utf-8')
+        print(render_to_string(template_path, {}, request_context).encode('utf-8'))

@@ -1,5 +1,6 @@
 from __future__ import with_statement
 
+from __future__ import absolute_import
 from datetime import datetime, date
 import pytz
 
@@ -147,9 +148,7 @@ class ZAHansardParsingTests(TestCase):
         # TEST that references have been gathered correctly
         tlcpersons = xml.debate.meta.references.findall('{*}TLCPerson')
         self.assertEqual(len(tlcpersons), 3)
-        speeches_by_speaker = filter(
-            lambda s: s.get('by') == '#the-speaker',
-            mainSection.findall('.//{*}speech'))
+        speeches_by_speaker = [s for s in mainSection.findall('.//{*}speech') if s.get('by') == '#the-speaker']
         self.assertEqual(len(speeches_by_speaker), 2)
         for speech in speeches_by_speaker:
             self.assertEqual(speech['from'].text, 'The SPEAKER')

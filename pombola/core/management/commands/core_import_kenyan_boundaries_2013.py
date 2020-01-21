@@ -1,6 +1,8 @@
 # This script imports the boundaries for the 2013 Kenyan election into
 # MapIt - it uses the generic mapit_import script.
 
+from __future__ import absolute_import
+from __future__ import print_function
 import string
 import sys
 
@@ -43,7 +45,7 @@ class Command(NoArgsCommand):
 
         new = Generation.objects.new()
         if not new:
-            raise Exception, "There's no new inactive generation to import into"
+            raise Exception("There's no new inactive generation to import into")
 
         for required in ('constituencies_shpfile', 'counties_shpfile'):
             if not options[required]:
@@ -75,10 +77,10 @@ class Command(NoArgsCommand):
                                             generation_low__lte=new):
                 mapped_name = map_name_function(area.name)
                 if mapped_name != area.name:
-                    print >> sys.stderr, "Changed %s to %s for %s" % (area.name, mapped_name, area)
+                    print("Changed %s to %s for %s" % (area.name, mapped_name, area), file=sys.stderr)
                     area.name = mapped_name
                     if options['commit']:
-                        print >> sys.stderr, "   ... saved change"
+                        print("   ... saved change", file=sys.stderr)
                         area.save()
                     else:
-                        print >> sys.stderr, "   ... change not saved, since --commit wasn't specified"
+                        print("   ... change not saved, since --commit wasn't specified", file=sys.stderr)

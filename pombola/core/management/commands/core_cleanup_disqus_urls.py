@@ -27,11 +27,12 @@
 
 from __future__ import unicode_literals, print_function
 
+from __future__ import absolute_import
 import re
 import sys
 import csv
-from urllib import unquote
-from urlparse import urlsplit
+from six.moves.urllib.parse import unquote
+from six.moves.urllib.parse import urlsplit
 from django.core.management.base import LabelCommand
 
 class Command(LabelCommand):

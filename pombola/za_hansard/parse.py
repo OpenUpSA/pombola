@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+from __future__ import print_function
 import re
 import subprocess
 import string
@@ -5,18 +7,20 @@ import string
 import sys
 import os
 
-from itertools import imap, ifilter, groupby, chain
+from itertools import groupby, chain
 from datetime import datetime
 from lxml import etree
 from lxml import objectify
 
 from django.template.defaultfilters import slugify
+from six.moves import map
+from six.moves import filter
 
 
 def cleanLine(line):
     line = line.rstrip(' _\n')
     # NB: string.printable won't filter unicode correctly...
-    line = filter(lambda x: x in string.printable, line)
+    line = [x for x in line if x in string.printable]
     return line
 
 
@@ -36,7 +40,7 @@ class Parslet(object):
     def __init__(self, **kwargs):
         self.text = kwargs.pop('text')
         if len(kwargs):
-            raise Exception("Unknown parameters %s" % str(kwargs.keys()))
+            raise Exception("Unknown parameters %s" % str(list(kwargs.keys())))
 
     @classmethod
     def handle_match(cls, parser, p):
@@ -178,7 +182,7 @@ class ParensParslet(SingleLineParslet):
             text = self.text.lstrip()
             parser.current.append(E(tag, text))
             # This is quite possibly not a Good Thing, so outputting for info
-            print >> sys.stderr, '  ! %s' % text
+            print('  ! %s' % text, file=sys.stderr)
 
 
 class AssembledParslet(ParaParslet):
@@ -391,7 +395,7 @@ class ZAHansardParser(object):
             raise ConversionException(u"antiword error: %s" % stdoutdata.decode('utf-8').rstrip())
 
         # lines = imap(cleanLine, iter(antiword.stdout.readline, b''))
-        lines = imap(cleanLine, iter(stdoutdata.split('\n')))
+        lines = map(cleanLine, iter(stdoutdata.split('\n')))
 
         def make_break_paras(obj):
             name_regexp = SpeechParslet.name_regexp
@@ -419,14 +423,14 @@ class ZAHansardParser(object):
 
             return break_paras
 
-        def fst((a, _)): return a
-        def snd((_, b)): return b
+        def fst(xxx_todo_changeme): (a, _) = xxx_todo_changeme; return a
+        def snd(xxx_todo_changeme1): (_, b) = xxx_todo_changeme1; return b
 
         obj = ZAHansardParser()
 
         groups = groupby(lines, make_break_paras(obj))
-        nonEmpty = ifilter(fst, groups)
-        paras = imap(snd, nonEmpty)
+        nonEmpty = filter(fst, groups)
+        paras = map(snd, nonEmpty)
 
         E = obj.E
         # TODO: instead of ctime use other metadata from source document?
@@ -484,12 +488,12 @@ class ZAHansardParser(object):
 
         def match(p):
             # try:
-            m = ifilter(
+            m = next(ifilter(
                 lambda x: x != None,
-                imap(
+                map(
                     lambda cls: cls.handle_match(obj, p),
                     classes)
-            ).next()
+            ))
             return m
             # except Exception as e:
             #raise e
@@ -504,9 +508,9 @@ class ZAHansardParser(object):
                     (type(a).__name__ == 'ContinuationParslet') and
                         (not re.compile('^\s*\d+\.').match(a.text))):
                     if False:
-                        print >> sys.stderr, '   A %s' % a.text
-                        print >> sys.stderr, '   B %s' % b.text
-                        print >> sys.stderr
+                        print('   A %s' % a.text, file=sys.stderr)
+                        print('   B %s' % b.text, file=sys.stderr)
+                        print(file=sys.stderr)
                     result.append(TitleParslet(text=a.text))
                 else:
                     # TODO: perhaps should also rewrite the Parens into a ContinuationParslet?

@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from bs4 import BeautifulSoup, NavigableString
 import csv
 from datetime import datetime, timedelta
@@ -259,7 +260,7 @@ class TimezoneOffset(StaticTzInfo):
         elif offset_sign == '+':
             pass
         else:
-            raise Exception, u"Unknown sign {0}".format(offset_sign)
+            raise Exception(u"Unknown sign {0}".format(offset_sign))
         minutes = int(offset_minutes, 10)
         self._utcoffset = timedelta(hours=hours, minutes=minutes)
 

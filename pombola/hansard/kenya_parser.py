@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+from __future__ import print_function
 import os
 import re
 import subprocess
@@ -9,6 +11,7 @@ from django.db import transaction
 from BeautifulSoup import BeautifulSoup, BeautifulStoneSoup, Tag
 
 from pombola.hansard.models import Sitting, Entry, Venue
+import six
 
 
 # EXCEPTIONS
@@ -170,7 +173,7 @@ class KenyaParser():
         )
 
         if not soup.body:
-            raise Exception, "No <body> was found - output probably isn't HTML"
+            raise Exception("No <body> was found - output probably isn't HTML")
         contents = soup.body.contents
 
         # counters to use in the loops below
@@ -193,7 +196,7 @@ class KenyaParser():
 
             # skip empty lines
             if tag_name == None:
-                text_content = unicode(line)
+                text_content = six.text_type(line)
             else:
                 text_content = line.text
 
@@ -404,7 +407,7 @@ class KenyaParser():
                 break
 
         if venue is None:
-            raise Exception, "Failed to find the Venue"
+            raise Exception("Failed to find the Venue")
 
         results = {
             'venue': venue.slug,
@@ -514,7 +517,7 @@ class KenyaParser():
                     start_date=source.date,
                     start_time=data['meta'].get('start_time', None)
                 ).exists():
-            print "skipping duplicate source %s for %s" % (source.name, source.date)
+            print("skipping duplicate source %s for %s" % (source.name, source.date))
             return None
 
         sitting = Sitting(

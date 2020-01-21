@@ -2,6 +2,7 @@
 
 from __future__ import print_function, unicode_literals
 
+from __future__ import absolute_import
 from collections import defaultdict
 import csv
 from os.path import dirname, join
@@ -15,6 +16,7 @@ from django.contrib.gis.geos import GEOSGeometry
 from django.core.management import BaseCommand
 from django.db import transaction
 from django.utils.text import slugify
+import six
 
 # This script will recreate the Federal Constituency boundaries based
 # on LGA areas, which were imported from GADM.  This is needed because
@@ -426,7 +428,7 @@ class Command(BaseCommand):
                         name=fed_name
                     )
                     # Also create a Pombola Place if it's missing:
-                    place_slug = slugify(unicode(fed_name))
+                    place_slug = slugify(six.text_type(fed_name))
                     place, _ = fed_place_kind.place_set.get_or_create(
                         slug=place_slug,
                         defaults={

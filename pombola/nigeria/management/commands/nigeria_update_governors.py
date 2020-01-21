@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+from __future__ import print_function
 import unicodecsv as csv
 
 from django.core.exceptions import ObjectDoesNotExist
@@ -52,7 +54,7 @@ class Command(LabelCommand):
                 contact_object.save()
 
             if created:
-                print 'Info: Created contact object ' + contact
+                print('Info: Created contact object ' + contact)
 
     def handle_label(self, filename, **options):
 
@@ -70,9 +72,9 @@ class Command(LabelCommand):
                 person, created = Person.objects.get_or_create(slug=slug)
 
                 if created:
-                    print 'CREATED ' + slug
+                    print('CREATED ' + slug)
                 else:
-                    print 'Matched ' + slug
+                    print('Matched ' + slug)
 
                 # Update the name. Not needed for matches, but needed for new people.
                 person.legal_name = person_csv['GOVERNOR']
@@ -100,15 +102,15 @@ class Command(LabelCommand):
                         position_governor.category = 'Political'
                         position_governor.end_date = person_csv['TERM ENDS']
                     else:
-                        print 'Info: Missing end of term!'
+                        print('Info: Missing end of term!')
 
                     position_governor.save()
 
                     if created:
-                        print 'Info: Created governorship position'
+                        print('Info: Created governorship position')
 
                 except ObjectDoesNotExist:
-                    print 'Unable to match state ' + person_csv['STATE']
+                    print('Unable to match state ' + person_csv['STATE'])
                     exit(1)
 
                 # Get the party, essential to updating the party position
@@ -132,10 +134,10 @@ class Command(LabelCommand):
                     position_party.save()
 
                     if created:
-                        print 'Info: Created party position'
+                        print('Info: Created party position')
 
                 except ObjectDoesNotExist:
-                    print 'Unable to match party ' + person_csv['PARTY']
+                    print('Unable to match party ' + person_csv['PARTY'])
                     exit(1)
 
                 for column, contact_kind in (
@@ -150,4 +152,4 @@ class Command(LabelCommand):
                     if value:
                         self.save_contact_list(value, person, contact_kind)
 
-        print 'Done!'
+        print('Done!')
