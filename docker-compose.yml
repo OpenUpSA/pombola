@@ -12,6 +12,7 @@ services:
     volumes:
       - ./data:/app-data
       - .:/app
+      - ./htmlcov:/app/htmlcov
     environment:
       - DATABASE_URL=postgresql://pombola:pombola@db/pombola
       - DATABASE_NAME=pombola
