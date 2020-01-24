@@ -1,4 +1,4 @@
-FROM python:3-stretch
+FROM python:3.6-stretch
 
 ENV PYTHONUNBUFFERED 1
 ENV COUNTRY_APP=south_africa
@@ -10,7 +10,7 @@ RUN apt-get update && \
                        libjpeg-dev \
                        libpq-dev \
                        libxml2-dev \
-                       libxslt1-dev \
+                       libxslt-dev \
                        libproj-dev \
                        gdal-bin \
                        poppler-utils \
