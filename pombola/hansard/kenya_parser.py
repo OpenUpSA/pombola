@@ -8,7 +8,7 @@ import datetime
 from django.conf import settings
 from django.db import transaction
 
-from BeautifulSoup import BeautifulSoup, BeautifulStoneSoup, Tag
+from bs4 import BeautifulSoup, BeautifulStoneSoup, Tag
 
 from pombola.hansard.models import Sitting, Entry, Venue
 import six

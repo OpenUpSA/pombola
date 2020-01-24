@@ -22,7 +22,7 @@ import parsedatetime as pdt
 from warnings import warn
 from six.moves.urllib.parse import urlsplit, urlunsplit
 
-from BeautifulSoup import BeautifulSoup, BeautifulStoneSoup
+from bs4 import BeautifulSoup, BeautifulStoneSoup
 
 from django.conf import settings
 

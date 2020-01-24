@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 from datetime import date
 
-from BeautifulSoup import NavigableString
+from bs4 import NavigableString
 from contextlib import contextmanager
 from django_date_extensions.fields import ApproximateDate
 from django_webtest import WebTest
