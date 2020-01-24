@@ -56,7 +56,7 @@ django-markitup==2.3.0
 
 requests==2.6.0
 elasticsearch==0.4.5
-django-haystack==2.6.1
+django-haystack==2.8.1
 # Required (but not a declared requirement) of elasticsearch
 urllib3==1.24.2
 
@@ -73,10 +73,8 @@ selenium==2.53.6
 django-selenium==0.9.7
 
 # Hansard parsing is quite particular
-BeautifulSoup==3.2.1
 beautifulsoup4==4.3.2
 Unidecode==0.04.16
-python-memcached==1.53
 
 # django-mapit
 -e git+git://github.com/mysociety/mapit@d692d2788167516a9963563937bb8ed8a0e475e1#egg=django-mapit
@@ -138,7 +136,6 @@ sqlparse==0.1.14
 virtualenv==1.11.6
 waitress==0.8.9
 wsgi-intercept==0.8
-wsgiref==0.1.2
 
 # We cannot pin these to specific versions, because they're OS/Python version
 # dependant, and there's no single version which will work for the variety of
@@ -156,7 +153,7 @@ python-mimeparse==0.1.4
 
 
 #necessary to process unicode csv files for ZA elections data
-unicodecsv==0.9.4
+unicodecsv==0.14.1
 
 # Used to format budgetary things into local currency strings
 babel==2.6.0
