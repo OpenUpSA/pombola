@@ -171,8 +171,6 @@ STATICFILES_FINDERS = (
 SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 
 CACHES = {
-    # by default use memcached locally. This is what get used by
-    # django.core.cache.cache
     'default': {
         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
         'LOCATION': '/var/tmp/django_cache',
