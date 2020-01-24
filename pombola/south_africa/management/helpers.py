@@ -35,14 +35,14 @@ def all_initial_forms(name, squash_initials=False):
     '''Generate all initialized variants of first names
 
     >>> for name in all_initial_forms('foo Bar baz quux', squash_initials=True):
-    ...     print name
+    ...     print(name)
     foo Bar baz quux
     f Bar baz quux
     fB baz quux
     fBb quux
 
     >>> for name in all_initial_forms('foo Bar baz quux'):
-    ...     print name
+    ...     print(name)
     foo Bar baz quux
     f Bar baz quux
     f B baz quux
