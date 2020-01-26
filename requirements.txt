@@ -54,17 +54,17 @@ lxml==3.6.2
 # useful as a reference.
 django-markitup==2.3.0
 
-requests==2.6.0
+requests==2.19.1
 elasticsearch==0.4.5
 django-haystack==2.6.1
 # Required (but not a declared requirement) of elasticsearch
-urllib3==1.24.2
+urllib3==1.23
 
 # Testing helpers
 django-nose==1.4.3
 yanc==0.2.4
 httplib2==0.11.3
-WebTest==2.0.15
+WebTest==2.0.33
 django-webtest==1.7.8
 requests-mock==1.4.0
 
@@ -115,7 +115,7 @@ audioread==1.0.3
 billiard==3.3.0.19
 bleach==1.4
 celery==3.1.17
-chardet==2.3
+chardet==3.0.4
 cssselect==0.9.1
 django-bleach==0.3
 django-celery==3.1.16
@@ -136,7 +136,7 @@ six==1.10.0
 slumber==0.6.2
 sqlparse==0.1.14
 virtualenv==1.11.6
-waitress==0.8.9
+waitress==1.4.2
 wsgi-intercept==0.8
 wsgiref==0.1.2
 
@@ -163,7 +163,7 @@ babel==2.6.0
 
 # Pin certifi to a version that works with OpenSSL 1.0.1 - see
 # https://github.com/certifi/python-certifi/issues/26
-certifi==2015.04.28
+certifi==2017.4.17
 
 cffi
 
