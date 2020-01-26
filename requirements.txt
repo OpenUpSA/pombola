@@ -113,7 +113,7 @@ amqp==1.4.6
 anyjson==0.3.3
 audioread==1.0.3
 billiard==3.3.0.19
-bleach==1.4
+bleach==2.1
 celery==3.1.17
 chardet==3.0.4
 cssselect==0.9.1
