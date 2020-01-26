@@ -17,7 +17,7 @@ psycopg2==2.8.2
 dj-database-url==0.5.0
 
 ### Django related
-Django==1.8.18
+Django==1.8.19
 django-pagination==1.0.7
 django-bcrypt==0.9.2
 django-pipeline==1.5.4
