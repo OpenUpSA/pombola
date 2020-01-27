@@ -60,6 +60,9 @@ django-haystack==2.6.1
 # Required (but not a declared requirement) of elasticsearch
 urllib3==1.23
 
+# Future
+future==0.18.2
+
 # Testing helpers
 django-nose==1.4.3
 yanc==0.2.4
