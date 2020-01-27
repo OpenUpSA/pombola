@@ -1,7 +1,10 @@
+from __future__ import print_function
+from __future__ import absolute_import
 # This command is for updating the aspirants in Mzalendo from the IEBC
 # API - it relies on already-imported aspirants having the external_id
 # field of their Position set to the IEBC candidate code.
 
+from future.utils import raise_
 from collections import defaultdict
 import csv
 import datetime
@@ -22,7 +25,7 @@ from django.conf import settings
 from pombola.core.models import Place, Person, Position, PositionTitle, Organisation, OrganisationKind
 from pombola.core.utils import mkdir_p
 
-from iebc_api import (
+from .iebc_api import (
     get_data,
     maybe_save,
     normalize_name,
@@ -83,13 +86,13 @@ def get_matching_party(party_name, **options):
                                  started=ApproximateDate(datetime.date.today().year),
                                  ended=None,
                                  kind=OrganisationKind.objects.get(slug='party'))
-        print >> sys.stderr, "* Creating a new party because none matched '%s'" % (party_name_to_use,)
+        print("* Creating a new party because none matched '%s'" % (party_name_to_use,), file=sys.stderr)
         maybe_save(new_party, **options)
         return new_party
     elif len(matching_parties) == 1:
         return matching_parties[0]
     else:
-        raise Exception, "Multiple parties matched %s" % (party_name_to_use,)
+        raise_(Exception, "Multiple parties matched %s" % (party_name_to_use,))
 
 def get_matching_place(place_name, place_kind, parliamentary_session):
     place_name_to_use = place_name_corrections.get(place_name, place_name)
@@ -110,9 +113,9 @@ def get_matching_place(place_name, place_kind, parliamentary_session):
                                            kind=place_kind,
                                            parliamentary_session=parliamentary_session)
     if not matching_places:
-        raise Exception, "Found no place that matched: '%s' <%s> <%s>" % (place_slug, place_kind, parliamentary_session)
+        raise_(Exception, "Found no place that matched: '%s' <%s> <%s>" % (place_slug, place_kind, parliamentary_session))
     elif len(matching_places) > 1:
-        raise Exception, "Multiple places found that matched: '%s' <%s> <%s> - they were: %s" % (place_slug, place_kind, parliamentary_session, ",".join(str(p for p in matching_places)))
+        raise_(Exception, "Multiple places found that matched: '%s' <%s> <%s> - they were: %s" % (place_slug, place_kind, parliamentary_session, ",".join(str(p for p in matching_places))))
     else:
         return matching_places[0]
 
@@ -144,7 +147,7 @@ def update_parties(person, api_party, **options):
         # If there's a current assignment to another party, issue a warning:
         current_party_assignments = [p for p in current_party_positions if p.organisation.slug != 'independent-aspirant']
         if current_party_assignments:
-            print "Not resetting to Independent Aspirant someone who's in a party %s: %s" % (person, current_party_assignments)
+            print("Not resetting to Independent Aspirant someone who's in a party %s: %s" % (person, current_party_assignments))
             return
     # Then we should be checking that a valid party membership
     # exists, or create a new one otherwise:
@@ -155,14 +158,14 @@ def update_parties(person, api_party, **options):
         # - just make sure that the end_date is 'future':
         if party_position.end_date != future_approximate_date:
             party_position.end_date = future_approximate_date
-            print >> sys.stderr, "* Setting a party position end_date to 'future' for %s in %s" % (person, api_party)
+            print("* Setting a party position end_date to 'future' for %s in %s" % (person, api_party), file=sys.stderr)
             maybe_save(party_position, **options)
         need_to_create_party_position = False
     for party_position in (p for p in current_party_positions if p.organisation != mz_party):
         # These shouldn't be current any more - end them when we
         # got the new data:
         party_position.end_date = yesterday_approximate_date
-        print >> sys.stderr, "* Ending a party position yesterday for %s: no longer in %s" % (person, party_position.organisation)
+        print("* Ending a party position yesterday for %s: no longer in %s" % (person, party_position.organisation), file=sys.stderr)
         maybe_save(party_position, **options)
     if need_to_create_party_position:
         new_position = Position(title=PositionTitle.objects.get(name='Member'),
@@ -171,7 +174,7 @@ def update_parties(person, api_party, **options):
                                 person=person,
                                 start_date=today_approximate_date,
                                 end_date=future_approximate_date)
-        print >> sys.stderr, "* Creating a party position that needs to exist: %s should be in %s" % (person, mz_party)
+        print("* Creating a party position that needs to exist: %s should be in %s" % (person, mz_party), file=sys.stderr)
         maybe_save(new_position, **options)
 
 def update_candidates_for_place(place_name,
@@ -189,11 +192,11 @@ def update_candidates_for_place(place_name,
 
     current_aspirants = Position.objects.filter(place=place, title=title).currently_active()
 
-    print "%s %s %s %s %s" % (place_name,
+    print("%s %s %s %s %s" % (place_name,
                               place_kind,
                               parliamentary_session,
                               title,
-                              race_type)
+                              race_type))
 
     def full_name(c):
         return normalize_name(c['other_name']) + " " + normalize_name(c['surname'])
@@ -222,18 +225,18 @@ def update_candidates_for_place(place_name,
         for matching_existing_aspirant_position in current_aspirants.filter(person=person):
             if matching_existing_aspirant_position.external_id:
                 if matching_existing_aspirant_position.external_id != code:
-                    print "     original: '%s'" % (matching_existing_aspirant_position.external_id,)
-                    print "    candidate: '%s'" % (code,)
+                    print("     original: '%s'" % (matching_existing_aspirant_position.external_id,))
+                    print("    candidate: '%s'" % (code,))
                     format_tuple = (matching_existing_aspirant_position.person,
                                     matching_existing_aspirant_position.external_id,
                                     person,
                                     code)
                     message = "There was an existing candidate (%s - %s) with a name match for (%s - %s) but different codes" % format_tuple
                     # raise Exception, message
-                    print message
+                    print(message)
             else:
                 matching_existing_aspirant_position.external_id = code
-                print >> sys.stderr, "* The IEBC code was missing for %s" % (matching_existing_aspirant_position,)
+                print("* The IEBC code was missing for %s" % (matching_existing_aspirant_position,), file=sys.stderr)
                 maybe_save(matching_existing_aspirant_position, **options)
                 update_parties(person, candidate['party'], **options)
                 iebc_code_just_needed_setting = True
@@ -251,7 +254,7 @@ def update_candidates_for_place(place_name,
                 all_updates_succeeded = False
                 continue
         if not person:
-            print >> sys.stderr, "* Creating a person because none matched %s %s" % (first_names, surname)
+            print("* Creating a person because none matched %s %s" % (first_names, surname), file=sys.stderr)
             person = make_new_person(candidate, **options)
 
         assert(person)
@@ -273,7 +276,7 @@ def update_candidates_for_place(place_name,
             # external_id, and that the end_date is 'future':
             for existing_matching_aspirant_position in existing_matching_aspirant_positions:
                 if existing_matching_aspirant_position.external_id != code or existing_matching_aspirant_position.end_date != future_approximate_date:
-                    print >> sys.stderr, "* Need to set either the IEBC code or the end date (future) for %s" % (existing_matching_aspirant_position,)
+                    print("* Need to set either the IEBC code or the end date (future) for %s" % (existing_matching_aspirant_position,), file=sys.stderr)
                     existing_matching_aspirant_position.external_id = code
                     existing_matching_aspirant_position.end_date = future_approximate_date
                     maybe_save(existing_matching_aspirant_position, **options)
@@ -283,14 +286,14 @@ def update_candidates_for_place(place_name,
                                     end_date=future_approximate_date,
                                     external_id=code,
                                     **aspirant_position_properties)
-            print >> sys.stderr, "* Creating a missing position: %s" % (new_position,)
+            print("* Creating a missing position: %s" % (new_position,), file=sys.stderr)
             maybe_save(new_position, **options)
 
     # For those aspirants that are no longer current, end their aspirant position:
 
     for code in existing_aspirants_to_remove:
         existing_aspirant_to_remove = code_to_existing_aspirant[code]
-        print >> sys.stderr, "* Removing a no longer current aspirant: %s (position id: %s)" % (existing_aspirant_to_remove, existing_aspirant_to_remove.id,)
+        print("* Removing a no longer current aspirant: %s (position id: %s)" % (existing_aspirant_to_remove, existing_aspirant_to_remove.id,), file=sys.stderr)
         existing_aspirant_to_remove.end_date = yesterday_approximate_date
         maybe_save(existing_aspirant_to_remove, **options)
 
@@ -307,7 +310,7 @@ def update_candidates_for_place(place_name,
 
 def get_contest_type(candidates):
     distinct_contest_types = set(c['contest_type'] for c in candidates)
-    contest_type = iter(distinct_contest_types).next()
+    contest_type = next(iter(distinct_contest_types))
     return contest_type
 
 #     old_aspirants.sort(key=lambda x: x.lower())
@@ -404,4 +407,4 @@ class Command(NoArgsCommand):
                         update_picture_for_candidate(candidate, cache_directory, **options)
 
         if failed:
-            print "Failed: you need to update", same_person_checker.csv_filename
+            print("Failed: you need to update", same_person_checker.csv_filename)

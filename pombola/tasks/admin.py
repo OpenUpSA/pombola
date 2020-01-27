@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import datetime
 
 from django.conf.urls import patterns
@@ -10,7 +11,7 @@ from django.template   import RequestContext
 
 from slug_helpers.admin import StricterSlugFieldMixin
 
-import models
+from . import models
 
 
 def create_admin_url_for(obj):

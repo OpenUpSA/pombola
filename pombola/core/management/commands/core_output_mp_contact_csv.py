@@ -1,3 +1,4 @@
+from __future__ import print_function
 import csv
 import StringIO
 import re
@@ -70,4 +71,4 @@ class Command(BaseCommand):
         for data in politician_data:
             writer.writerow( data )
         
-        print csv_output.getvalue()
+        print(csv_output.getvalue())

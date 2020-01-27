@@ -27,7 +27,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         if len(args) != 2:
-            raise CommandError, "You must provide a filename prefix and the Pombola instance URL"
+            raise CommandError("You must provide a filename prefix and the Pombola instance URL")
 
         output_directory, pombola_url = args
         if not (exists(output_directory) and isdir(output_directory)):

@@ -15,6 +15,7 @@
 
 # Last updated: January 2015.
 
+from __future__ import print_function
 import distutils.spawn
 from subprocess import check_output
 import re
@@ -398,7 +399,7 @@ def process_anc_province(text, province):
                 add_office[previous_field] = add_office[previous_field] + ' ' + line.strip()
 
             elif line.strip() != '':
-                print 'Unmatched line:', line
+                print('Unmatched line:', line)
 
     if 'Physical Address' in add_office:
         corrected = manual_location_corrections.get(add_office['Physical Address'], None)

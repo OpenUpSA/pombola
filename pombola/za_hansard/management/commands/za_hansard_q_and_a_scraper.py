@@ -1,3 +1,5 @@
+from __future__ import print_function
+from future.utils import raise_
 import httplib
 import urllib2
 import sys
@@ -65,7 +67,7 @@ def all_from_api(start_url):
         try:
             r.raise_for_status()
         except requests.exceptions.RequestException:
-            print "Error while fetching", next_url
+            print("Error while fetching", next_url)
             raise
         data = r.json()
         for member in data['results']:
@@ -229,11 +231,11 @@ class Command(BaseCommand):
                 "{count:5} {url} ".format(count=count, url=source_url))
 
             if detail['language'] != 'English':
-                print "SKIPPING language is '{0}', not 'English'".format(
-                    detail['language'])
+                print("SKIPPING language is '{0}', not 'English'".format(
+                    detail['language']))
             elif detail['type'] != 'pdf':
-                print "SKIPPING type is '{0}', not 'pdf'".format(
-                    detail['type'])
+                print("SKIPPING type is '{0}', not 'pdf'".format(
+                    detail['type']))
             else:
                 if QuestionPaper.objects.filter(source_url=source_url).exists():
                     self.stdout.write('SKIPPING as file already handled\n')
@@ -306,15 +308,15 @@ class Command(BaseCommand):
 
     def handle_api_question_and_reply(self, data):
         if 'source_file' not in data:
-            print "Skipping {0} due to a missing source_file".format(
-                data['url'])
+            print("Skipping {0} due to a missing source_file".format(
+                data['url']))
             return
         house = {
             'National Assembly': 'N'
         }[data['house']['name']]
         if data['answer_type'] not in ANSWER_TYPES:
-            print "Skipping {} because the answer type {} is not supported".format(
-                data['url'], data['answer_type'])
+            print("Skipping {} because the answer type {} is not supported".format(
+                data['url'], data['answer_type']))
             return
         answer_type = ANSWER_TYPES[data['answer_type']]
         askedby_name = ''
@@ -351,11 +353,11 @@ class Command(BaseCommand):
             # already exists if we don't have one of these number, so
             # ignore the question and answer completely in that
             # case. (This is a rare occurence.)
-            print "Skipping {0} because no number was found".format(
-                data['url'])
+            print("Skipping {0} because no number was found".format(
+                data['url']))
             return
         try:
-            print "Found the existing question for", data['url']
+            print("Found the existing question for", data['url'])
             question = Question.objects.get(**existing_kwargs)
             # It might well be useful to add the corresponding PMG API
             # URL details (e.g. using their PA link to get the PA person)
@@ -364,7 +366,7 @@ class Command(BaseCommand):
             question.pmg_api_source_file_url = data['source_file']['url']
             question.save()
         except Question.DoesNotExist:
-            print "No existing question found; creating a new one for", data['url']
+            print("No existing question found; creating a new one for", data['url'])
             # In which case, create it:
             question = Question.objects.create(
                 # FIXME: I think this is actually the date of the
@@ -399,7 +401,7 @@ class Command(BaseCommand):
         # If there's already an answer, assume it's OK, except record
         # the PMG API URL if it hasn't got one:
         if question.answer:
-            print "  That question already had an answer, updating it with API links"
+            print("  That question already had an answer, updating it with API links")
             answer = question.answer
             existing_answer_pmg_api_url = answer.pmg_api_url
             if existing_answer_pmg_api_url:
@@ -411,11 +413,11 @@ class Command(BaseCommand):
                     msg += "was {3}.  Check that in this case they're the same "
                     msg += "question and answer, but with two API URLs and "
                     msg += "different dates and source files"
-                    print msg.format(
+                    print(msg.format(
                         question.id,
                         answer.id,
                         existing_answer_pmg_api_url,
-                        data['url'])
+                        data['url']))
             else:
                 answer.pmg_api_url = data['url']
                 answer.save()
@@ -428,12 +430,12 @@ class Command(BaseCommand):
         # will just have created (or already existed).
         existing_answer_qs = Answer.objects.filter(**existing_kwargs)
         if existing_answer_qs.exists():
-            print "  Found an existing answer for that question; linking them"
+            print("  Found an existing answer for that question; linking them")
             question.answer = existing_answer_qs.get()
             question.answer.pmg_api_url = data['url']
             question.answer.save()
         else:
-            print "  Creating a new answer for that question."
+            print("  Creating a new answer for that question.")
             # Otherwise create the answer from the API data:
             document_name, dot_extension = os.path.splitext(
                 data['source_file']['file_path'])
@@ -642,7 +644,7 @@ class Command(BaseCommand):
             source_url = question.pmg_api_source_file_url
         else:
             msg = "No source URL found for question with ID {0}"
-            raise Exception, msg.format(question.id)
+raise_(Exception, msg.format(question.id))
 
         question_as_json = {
             u'parent_section_titles': [

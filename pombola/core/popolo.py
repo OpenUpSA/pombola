@@ -1,3 +1,4 @@
+from __future__ import print_function
 import sys
 import slumber
 import json
@@ -188,8 +189,8 @@ def get_organizations(primary_id_scheme, base_url):
 
     if errors:
         for error in errors:
-            print >> sys.stderr, error
-        raise Exception, "Found organisations with multiple categories other than 'other'"
+            print(error, file=sys.stderr)
+        raise Exception("Found organisations with multiple categories other than 'other'")
 
     for o in Organisation.objects.order_by().select_related('kind').prefetch_related(
             Prefetch(
@@ -232,12 +233,12 @@ def create_organisations(popit, primary_id_scheme, base_url):
     """
 
     for organization in get_organizations(primary_id_scheme, base_url):
-        print >> sys.stderr, "creating the organisation:", organization['name']
+        print("creating the organisation:", organization['name'], file=sys.stderr)
         try:
             popit.organizations.post(organization)
         except slumber.exceptions.HttpServerError:
-            print >> sys.stderr, "Failed POSTing the organisation:"
-            print >> sys.stderr, json.dumps(organization, indent=4)
+            print("Failed POSTing the organisation:", file=sys.stderr)
+            print(json.dumps(organization, indent=4), file=sys.stderr)
             raise
 
 def get_people(primary_id_scheme, base_url, title_to_sessions, inline_memberships=True):
@@ -381,10 +382,10 @@ def create_people(popit, primary_id_scheme, base_url):
                 fmt = "creating the membership {0} => {1}"
                 message = fmt.format(properties['person_id'],
                                      properties['organization_id'])
-            print >> sys.stderr, message
+            print(message, file=sys.stderr)
             try:
                 popit_collection.post(properties)
             except slumber.exceptions.HttpServerError:
-                print >> sys.stderr, "Failed POSTing the {0}:".format(singular)
-                print >> sys.stderr, json.dumps(properties, indent=4)
+                print("Failed POSTing the {0}:".format(singular), file=sys.stderr)
+                print(json.dumps(properties, indent=4), file=sys.stderr)
                 raise

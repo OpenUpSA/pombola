@@ -1,3 +1,4 @@
+from __future__ import print_function
 import sys
 
 from django.core.management.base import BaseCommand
@@ -48,11 +49,11 @@ def get_models_to_check(model_names, available_models):
                 models_to_check.append(model_name)
             else:
                 missing_models = True
-                print "There was no model {0} with a search index".format(model_name)
+                print("There was no model {0} with a search index".format(model_name))
             if missing_models:
-                print "Some models were not found; they must be one of:"
+                print("Some models were not found; they must be one of:")
                 for model in sorted(available_models.keys()):
-                    print " ", model
+                    print(" ", model)
                 sys.exit(1)
     else:
         models_to_check = sorted(available_models.keys())
@@ -83,7 +84,7 @@ class Command(BaseCommand):
                     using=model_details['backend'].connection_alias
             ).models(model_details['model'])
             msg = "Checking {0} ({1} in the DB, {2} in the search index))"
-            print msg.format(model_name, qs.count(), sqs.count())
+            print(msg.format(model_name, qs.count(), sqs.count()))
             # Get all the primary keys from the database:
             pks_in_database = set(
                 unicode(pk) for pk in qs.values_list('pk', flat=True)
@@ -94,7 +95,7 @@ class Command(BaseCommand):
             for search_result in sqs:
                 if search_result.pk not in pks_in_database:
                     msg = "stale search entry for primary key {0} (text: {1})"
-                    print "     ", msg.format(search_result.pk, search_result.text)
+                    print("     ", msg.format(search_result.pk, search_result.text))
                     if options['delete']:
                         model_details['index'].remove_object(search_result.id)
-                        print "      removed!"
+                        print("      removed!")

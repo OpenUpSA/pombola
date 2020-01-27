@@ -1,3 +1,4 @@
+from future.utils import raise_
 import csv
 import os
 from optparse import make_option
@@ -51,7 +52,7 @@ class Command(NoArgsCommand):
                         elif place.kind.slug == 'county':
                             row['County'] = place.name
                         else:
-                            raise Exception, "Unknown place: %s" % (place)
+                            raise_(Exception, "Unknown place: %s" % (place))
                         row['Parties'] = ", ".join(p.name.strip() for p in person.parties())
 
                         for key, value in row.items():

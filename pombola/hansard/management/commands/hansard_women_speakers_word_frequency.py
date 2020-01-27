@@ -1,3 +1,4 @@
+from __future__ import print_function
 from collections import defaultdict
 from datetime import date
 import json
@@ -61,7 +62,7 @@ class Command(BaseCommand):
             f.write('var womenHansardWords = ')
             json.dump(words_for_json[:MAX_WORDS], f, indent=4, sort_keys=True)
         for word, count in sorted_words[:MAX_WORDS*4]:
-            print count, word
+            print(count, word)
 
 
 words_to_exclude = set([

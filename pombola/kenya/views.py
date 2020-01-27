@@ -249,7 +249,7 @@ class MITExperimentView(ExperimentViewDataMixin, TemplateView):
         # session:
         if self.qualify_key('user_key') not in self.request.session:
             self.request.session[self.qualify_key('user_key')] = \
-                str(random.randint(0, sys.maxint))
+                str(random.randint(0, sys.maxsize))
             session_keys = ['via'] + self.demographic_keys.keys()
             for k in session_keys:
                 self.set_session_value(k, data[k])

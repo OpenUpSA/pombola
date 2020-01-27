@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
 import os
 import sys
 
@@ -35,7 +36,7 @@ for obj in objects:
     try:
         person = models.Person.objects.get(original_id=member_id)
     except models.Person.DoesNotExist:
-        print "Could not find %s - ignoring" % person
+        print("Could not find %s - ignoring" % person)
         continue
 
     url = 'http://mzalendo.com/Images/%s' % image_link
@@ -45,10 +46,10 @@ for obj in objects:
 
     # check to see if this photo has already been used
     if Image.objects.filter(source=source_string).count():
-        print "Skipping %s - image already used" % person
+        print("Skipping %s - image already used" % person)
         continue
 
-    print "Fetching image for '%s': '%s'" % ( person, url )
+    print("Fetching image for '%s': '%s'" % ( person, url ))
     person_image = Image(
         content_object = person,
         source = source_string,

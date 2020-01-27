@@ -1,3 +1,4 @@
+from __future__ import print_function
 from optparse import make_option
 
 from django.core.management.base import NoArgsCommand
@@ -31,15 +32,15 @@ class Command(NoArgsCommand):
                 Q(title__name='Minister')
             )
             if interesting_positions:
-                print "Ignoring", possible_person, "since they have the following positions:"
+                print("Ignoring", possible_person, "since they have the following positions:")
                 for p in interesting_positions:
-                    print "  ", p
+                    print("  ", p)
             else:
                 if options['commit']:
-                    print "Hiding", possible_person, "; all their positions:"
+                    print("Hiding", possible_person, "; all their positions:")
                     possible_person.hidden = True
                     possible_person.save()
                 else:
-                    print "Would hide", possible_person, " (no --commit); all their positions:"
+                    print("Would hide", possible_person, " (no --commit); all their positions:")
                 for p in possible_person.position_set.all():
-                    print "  ", p
+                    print("  ", p)

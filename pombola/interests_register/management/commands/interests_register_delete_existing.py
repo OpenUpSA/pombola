@@ -1,3 +1,4 @@
+from __future__ import print_function
 from optparse import make_option
 from django.core.management.base import NoArgsCommand
 from ...models import Release, Category, Entry, EntryLineItem
@@ -19,14 +20,14 @@ class Command(NoArgsCommand):
         count_entries = Entry.objects.count()
         count_entrylineitems = EntryLineItem.objects.count()
 
-        print "  Deleting", count_releases, "releases"
-        print "  Deleting", count_categories, "categories"
-        print "  Deleting", count_entries, "entries"
-        print "  Deleting", count_entrylineitems, "entrylineitems\n"
+        print("  Deleting", count_releases, "releases")
+        print("  Deleting", count_categories, "categories")
+        print("  Deleting", count_entries, "entries")
+        print("  Deleting", count_entrylineitems, "entrylineitems\n")
 
         if options['commit']:
-            print "  Executing the delete"
+            print("  Executing the delete")
             Release.objects.all().delete()
             Category.objects.all().delete()
         else:
-            print "  Not executing the delete (--commit not specified)"
+            print("  Not executing the delete (--commit not specified)")

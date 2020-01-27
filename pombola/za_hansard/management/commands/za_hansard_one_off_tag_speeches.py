@@ -1,3 +1,4 @@
+from __future__ import print_function
 # This is a noe-off script to tag all speeches that are under certain top-level
 # categories with a certain tag. This tagging should be done when the speeches
 # are scraped, and this script is to update speeches created before the code
@@ -50,11 +51,11 @@ class Command(BaseCommand):
         # Poor man's pretty printing :)
         indent = " " * self.indent_depth
 
-        print indent + "looking at %s" % section
+        print(indent + "looking at %s" % section)
 
         # tag all speeches
         for speech in section.speech_set.all():
-            print indent + "  " + "Tagging '%s' with '%s" % (speech, tag)
+            print(indent + "  " + "Tagging '%s' with '%s" % (speech, tag))
             speech.tags.add(tag)
 
         # descend into subsections

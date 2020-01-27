@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
 import json
 import sys
 import re
@@ -34,7 +35,7 @@ email_kind, created       = models.ContactKind.objects.get_or_create(slug='email
 def process(filename):
     data = json.loads( open(filename, 'r').read() )
     # pprint.pprint( data )
-    print "%s (%s) - %s" % (data['name'], data['slug'], filename)
+    print("%s (%s) - %s" % (data['name'], data['slug'], filename))
 
     slug = data['slug']
     
@@ -81,7 +82,7 @@ def process(filename):
 
         if created:
 
-            print "  Fetching " + image_url
+            print("  Fetching " + image_url)
             try:
                 img_temp = NamedTemporaryFile(delete=True)
                 img_temp.write( urllib2.urlopen(image_url).read() )
@@ -90,7 +91,7 @@ def process(filename):
                 photo.image.save( person.slug, File(img_temp) )
                 photo.save()
             except urllib2.HTTPError:
-                print "  ...failed!"
+                print("  ...failed!")
 
 
 for filename in sys.argv[1:]:

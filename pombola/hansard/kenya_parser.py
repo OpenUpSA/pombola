@@ -1,3 +1,4 @@
+from __future__ import print_function
 import os
 import re
 import subprocess
@@ -170,7 +171,7 @@ class KenyaParser():
         )
 
         if not soup.body:
-            raise Exception, "No <body> was found - output probably isn't HTML"
+            raise Exception("No <body> was found - output probably isn't HTML")
         contents = soup.body.contents
 
         # counters to use in the loops below
@@ -404,7 +405,7 @@ class KenyaParser():
                 break
 
         if venue is None:
-            raise Exception, "Failed to find the Venue"
+            raise Exception("Failed to find the Venue")
 
         results = {
             'venue': venue.slug,
@@ -514,7 +515,7 @@ class KenyaParser():
                     start_date=source.date,
                     start_time=data['meta'].get('start_time', None)
                 ).exists():
-            print "skipping duplicate source %s for %s" % (source.name, source.date)
+            print("skipping duplicate source %s for %s" % (source.name, source.date))
             return None
 
         sitting = Sitting(

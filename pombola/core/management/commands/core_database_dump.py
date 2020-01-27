@@ -1,3 +1,4 @@
+from __future__ import print_function
 import os
 from os.path import dirname, join, realpath
 import subprocess
@@ -198,14 +199,14 @@ class Command(BaseCommand):
             ]
         unexpected = set(tables_to_dump) - set(expected_tables)
         if unexpected:
-            print '''The following tables were found which weren't expected
+            print('''The following tables were found which weren't expected
 and which hadn't been explicitly excluded.  If these are safe to make
 available in a public database dump (in particular check that they
 contain no personal information of site users) then add them to
 'expected_table'. Otherwise (i.e. they should *not* be made available
-publicly) add them to 'tables_to_ignore'.'''
+publicly) add them to 'tables_to_ignore'.''')
             for t in sorted(unexpected):
-                print " ", t
+                print(" ", t)
             sys.exit(2)
 
         return tables_to_dump
@@ -239,7 +240,7 @@ publicly) add them to 'tables_to_ignore'.'''
 
             command.append(database_url)
             if int(options['verbosity']) > 1:
-                print >> sys.stderr, "Going to run the command:", ' '.join(command)
+                print("Going to run the command:", ' '.join(command), file=sys.stderr)
             output_directory = dirname(realpath(output_filename))
 
             ntf = NamedTemporaryFile(

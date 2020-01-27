@@ -1,3 +1,4 @@
+from __future__ import print_function
 # This should only be used as a one-off script to import constituency
 # offices from the CSV file 'all constituencies2.csv'.  This is messy
 # data - columns have different formats and structures, the names of
@@ -27,6 +28,7 @@
 #  * There are still various unmatched names that should be found in
 #    the Pombola database.
 
+from future.utils import raise_
 import csv
 from optparse import make_option
 import re
@@ -61,7 +63,7 @@ VERBOSE = False
 
 def verbose(message):
     if VERBOSE:
-        print message
+        print(message)
 
 class Command(LabelCommand):
     """Import constituency offices"""
@@ -302,7 +304,7 @@ class Command(LabelCommand):
                                         if person:
                                             people_to_add.append(person)
                                 else:
-                                    raise Exception, "Unknown party '%s'" % (party,)
+                                    raise_(Exception, "Unknown party '%s'" % (party,))
 
                         if municipality:
                             mapit_municipality = get_mapit_municipality(
@@ -321,7 +323,7 @@ class Command(LabelCommand):
                         # At the moment it's only for DA that these
                         # Constituency Areas exist, so check that assumption:
                         if party != 'Democratic Alliance (DA)':
-                            raise Exception, "Unexpected party %s with Area" % (party)
+                            raise_(Exception, "Unexpected party %s with Area" % (party))
                         constituency_kind = ok_constituency_area
                         province = fix_province_name(province)
                         mapit_province = Area.objects.get(
@@ -345,7 +347,7 @@ class Command(LabelCommand):
                                     people_to_add.append(person)
 
                     else:
-                        raise Exception, "Unknown type %s" % (office_or_area,)
+                        raise_(Exception, "Unknown type %s" % (office_or_area,))
 
                     # The Administrator column might have multiple
                     # administrator contacts, separated by

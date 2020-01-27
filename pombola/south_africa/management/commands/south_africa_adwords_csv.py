@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 
+from future.utils import raise_
 import csv
 import os
 import re
@@ -83,7 +84,7 @@ class Command(NoArgsCommand):
                     if place.kind.slug == 'province':
                         row['Province'] = place.name
                     else:
-                        raise Exception, "Unknown place: %s" % (place)
+                        raise_(Exception, "Unknown place: %s" % (place))
                 row['Parties'] = ", ".join(p.name.strip() for p in person.parties().filter(ended=''))
                 person_positions = person.position_set.all() \
                                        .currently_active() \

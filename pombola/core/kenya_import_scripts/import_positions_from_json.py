@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
 import os
 import sys
 import re
@@ -46,7 +47,7 @@ for key in sorted(objects['organisations'].keys()):
 
     defaults['kind'] = models.OrganisationKind.objects.get(name='Educational')
 
-    print key
+    print(key)
     org_lookup[ key ], created = models.Organisation.objects.get_or_create(
         slug = obj['slug'],
         defaults = defaults,
@@ -60,7 +61,7 @@ for key in sorted(objects['titles'].keys()):
         'name': key,
     }
 
-    print key
+    print(key)
     title_lookup[ key ], created = models.PositionTitle.objects.get_or_create(
         slug = obj['slug'],
         defaults = defaults,
@@ -74,7 +75,7 @@ for key in sorted(objects['places'].keys()):
         'kind': models.PlaceKind.objects.get(name='Unknown'),
     }
 
-    print key
+    print(key)
     title_lookup[ key ], created = models.Place.objects.get_or_create(
         slug = obj['slug'],
         defaults = defaults,
@@ -142,7 +143,7 @@ for obj in objects['positions']:
             month, year = month_year.groups()
             return ApproximateDate(month=int(month), year=int(year))
 
-        print 'bad date: %s' % date
+        print('bad date: %s' % date)
 
 
     start_date = tidy_date( obj['start'])
@@ -151,7 +152,7 @@ for obj in objects['positions']:
     try:
         person = models.Person.objects.get( original_id=obj['person_id'] )
     except models.Person.DoesNotExist:
-        print "Could not find %s" % obj['person_id']
+        print("Could not find %s" % obj['person_id'])
         continue
 
     # continue

@@ -1,3 +1,5 @@
+from __future__ import print_function
+from future.utils import raise_
 import csv
 import datetime
 import os
@@ -36,7 +38,7 @@ def parse_approximate_date(s):
             return ApproximateDate(*(int(g, 10) for g in m.groups()))
     if s == 'future':
         return ApproximateDate(future=True)
-    raise Exception, "Couldn't parse '{0}' as an ApproximateDate".format(s)
+    raise_(Exception, "Couldn't parse '{0}' as an ApproximateDate".format(s))
 
 def adjust_approximate_date(ad, by_days):
     """Return an ApproximateDate offset from another by some days
@@ -60,7 +62,7 @@ def adjust_approximate_date(ad, by_days):
     """
 
     if ad.future:
-        raise Exception, "You can't adjust a future date"
+        raise Exception("You can't adjust a future date")
     day = ad.day or 1
     month = ad.month or 1
     d = datetime.date(ad.year, month, day)
@@ -82,17 +84,17 @@ def get_or_create(model, **kwargs):
     lookup = kwargs.copy()
     try:
         result = model.objects.get(**lookup)
-        print "  Found {0} with params {1}".format(model.__name__, lookup)
+        print("  Found {0} with params {1}".format(model.__name__, lookup))
         return result
     except model.DoesNotExist:
         params = dict([(k, v) for k, v in kwargs.items() if '__' not in k])
         params.update(defaults)
         o = model(**params)
         if commit:
-            print "  Saving {0} with params {1}".format(model.__name__, kwargs)
+            print("  Saving {0} with params {1}".format(model.__name__, kwargs))
             o.save()
         else:
-            print "  Not saving {0} (no --commit) with params {1}".format(model.__name__, kwargs)
+            print("  Not saving {0} (no --commit) with params {1}".format(model.__name__, kwargs))
         return o
     raise Exception("Failed get_or_create")
 
@@ -176,7 +178,7 @@ class Command(NoArgsCommand):
                                   party_details)
 
                     if not m:
-                        raise Exception, "Unknown format of party '{0}'".format(party_details)
+                        raise_(Exception, "Unknown format of party '{0}'".format(party_details))
 
                     party_a, party_b, b_onward_date, b_onward_year, b_onward_month, b_onward_day = m.groups()
 

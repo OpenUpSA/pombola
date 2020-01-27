@@ -1,5 +1,6 @@
+from __future__ import absolute_import
 from django.contrib import admin
-import models
+from . import models
 
 @admin.register(models.Project)
 class ProjectAdmin(admin.ModelAdmin):

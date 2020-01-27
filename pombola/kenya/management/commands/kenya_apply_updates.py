@@ -1,3 +1,5 @@
+from __future__ import print_function
+from __future__ import absolute_import
 import csv
 import os
 from optparse import make_option
@@ -6,7 +8,7 @@ from django.core.management.base import NoArgsCommand
 
 from pombola.core.models import Person, Position
 
-from iebc_api import maybe_save, yesterday_approximate_date
+from .iebc_api import maybe_save, yesterday_approximate_date
 
 data_directory = os.path.join(
     os.path.dirname(__file__), '..', '..', '2013-election-data'
@@ -59,8 +61,8 @@ class Command(NoArgsCommand):
                     if options['commit']:
                         position.delete()
                 else:
-                    print "------------------------------------------------------------------------"
-                    print alternative_names_to_add
+                    print("------------------------------------------------------------------------")
+                    print(alternative_names_to_add)
                     names_to_add = [an.title().strip() for an in alternative_names_to_add.split(', ')]
                     for n in names_to_add:
                         person = Person.objects.get(pk=row['Existing Aspirant Person ID'])

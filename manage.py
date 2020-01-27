@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from __future__ import print_function
 import os
 import sys
 import yaml
@@ -34,7 +35,7 @@ if __name__ == "__main__":
 
     if run_default_tests(sys.argv):
         settings_module = 'pombola.settings.tests'
-        print "Warning: we recommend running tests with ./run-tests instead"
+        print("Warning: we recommend running tests with ./run-tests instead")
     else:
         settings_module = "pombola.settings.south_africa"
 

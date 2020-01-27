@@ -1,3 +1,4 @@
+from __future__ import print_function
 # This script is intended to patch the data originally loaded in using the
 # south_africa_import_constituency_offices command. When this was originally run
 # the DA offices (or constituency areas) had not been geolocated. This script
@@ -48,7 +49,7 @@ VERBOSE = False
 
 def verbose(message):
     if VERBOSE:
-        print message
+        print(message)
 
 class Command(LabelCommand):
     """Add locations to DA constituency areas"""
@@ -115,11 +116,11 @@ class Command(LabelCommand):
                 org_qs = ok_constituency_area.organisation_set.all().filter(slug=organisation_slug)
 
                 if not org_qs.exists():
-                    print "No match found for " + organisation_name
+                    print("No match found for " + organisation_name)
                     continue
 
                 org = org_qs[0]
-                print u"Found match {0} for {1}".format(org, organisation_name)
+                print(u"Found match {0} for {1}".format(org, organisation_name))
 
                 # get the place associated
                 places = org.place_set.all()

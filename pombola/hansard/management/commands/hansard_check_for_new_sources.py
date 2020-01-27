@@ -1,3 +1,4 @@
+from __future__ import print_function
 # This script was first changed extensively when the Kenyan Parliament website
 # changed after the 2013 Election.
 #
@@ -108,12 +109,12 @@ class Command(NoArgsCommand):
                 ).exists():
                     if verbose:
                         message = "{0}: Skipping page with name: {1}"
-                        print message.format(list_page, name)
+                        print(message.format(list_page, name))
                     get_next_page = False
                 else:
                     if verbose:
                         message = "{0} Trying to add page with name {1} as a new source"
-                        print message.format(list_page, name)
+                        print(message.format(list_page, name))
                     get_next_page = True
 
                     self.extract_source_from_html(href, name, list_page, links, link_sections, idx, base_url)
@@ -164,7 +165,7 @@ class Command(NoArgsCommand):
             if verbose:
                 i+=1
                 message = "\nAttempting to get list page {0} for {1}"
-                print message.format(i, list_page)
+                print(message.format(i, list_page))
             response, content = h.request(next_url)
 
             # parse content

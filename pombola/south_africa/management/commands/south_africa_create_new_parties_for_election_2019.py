@@ -1,3 +1,4 @@
+from __future__ import print_function
 import unicodecsv
 
 from django.core.management.base import BaseCommand, CommandError

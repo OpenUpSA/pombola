@@ -1,3 +1,5 @@
+from __future__ import print_function
+from future.utils import raise_
 import csv
 import datetime
 import hmac
@@ -63,14 +65,14 @@ def get_data(url):
     try:
         data = json.loads(r.text)
     except ValueError:
-        print >> sys.stderr, "No valid JSON was found, the response was:"
-        print >> sys.stderr, r.text
+        print("No valid JSON was found, the response was:", file=sys.stderr)
+        print(r.text, file=sys.stderr)
         raise
     if data['status'] != 'SUCCESS':
-        print >> sys.stderr, '  ', data['status']
-        print >> sys.stderr, '  ', data['message']
-        print >> sys.stderr, '  The URL was:', url
-        raise CommandError, "Getting data from the API failed"
+        print('  ', data['status'], file=sys.stderr)
+        print('  ', data['message'], file=sys.stderr)
+        print('  The URL was:', url, file=sys.stderr)
+        raise CommandError("Getting data from the API failed")
     return data
 
 def get_data_with_cache(cache_filename, *args, **kwargs):
@@ -79,7 +81,7 @@ def get_data_with_cache(cache_filename, *args, **kwargs):
             result = json.load(fp)
     else:
         if kwargs.get('only_from_cache', False):
-            raise CommandError, "There was no cached data for %s" % (args[0],)
+            raise_(CommandError, "There was no cached data for %s" % (args[0],))
         else:
             result = get_data(*args, **kwargs)
             with open(cache_filename, 'w') as fp:
@@ -103,9 +105,9 @@ def update_picture_for_candidate(candidate_data, cache_directory, **options):
         # Find the position from the candidate code, so we can get the right person:
         positions = Position.objects.filter(external_id=candidate_code).currently_active()
         if not positions:
-            print "#### Missing position for:", candidate_code
+            print("#### Missing position for:", candidate_code)
         elif len(positions) > 1:
-            print "#### Multiple positions for:", candidate_code
+            print("#### Multiple positions for:", candidate_code)
         else:
             person = positions[0].person
             if options['commit']:
@@ -161,7 +163,7 @@ def parse_race_name(race_name):
     types_alternation = "|".join(re.escape(krt) for krt in known_race_types)
     m = re.search('^((%s) - )(.*?)\s+\(\d+\)$' % (types_alternation,), race_name)
     if not m:
-        raise Exception, "Couldn't parse race:" + race_name
+        raise_(Exception, "Couldn't parse race:" + race_name)
     return (m.group(2), m.group(3))
 
 #------------------------------------------------------------------------
@@ -175,7 +177,7 @@ def get_person_from_names(first_names, surname):
             matches = Person.objects.filter(**kwargs)
             if len(matches) > 1:
                 message = "  Multiple Person matches for %s against %s" % (version, field)
-                print >> sys.stderr, message
+                print(message, file=sys.stderr)
                 # raise Exception, message
             elif len(matches) == 1:
                 return matches[0]
@@ -196,9 +198,9 @@ def normalize_name(name):
 def maybe_save(o, **options):
     if options['commit']:
         o.save()
-        print >> sys.stderr, 'Saving %s' % (o,)
+        print('Saving %s' % (o,), file=sys.stderr)
     else:
-        print >> sys.stderr, 'Not saving %s because --commit was not specified' % (o,)
+        print('Not saving %s because --commit was not specified' % (o,), file=sys.stderr)
 
 def match_lists(a_list, a_key_function, b_list, b_key_function):
     """Match up identical elements from two list of different lengths
@@ -284,7 +286,7 @@ class SamePersonChecker(object):
                 elif re.search('(?i)^Different', classification):
                     self.same_people_lookup[key] = False
                 else:
-                    raise Exception, "Bad 'Same/Different' value in the line: %s" % (row,)
+                    raise_(Exception, "Bad 'Same/Different' value in the line: %s" % (row,))
 
     def add_possible_match(self,
                            candidate_data,

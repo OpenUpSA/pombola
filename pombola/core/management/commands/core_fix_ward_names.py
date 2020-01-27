@@ -1,3 +1,4 @@
+from __future__ import print_function
 import re
 
 from django.core.management.base import NoArgsCommand
@@ -27,10 +28,10 @@ class Command(NoArgsCommand):
             new_version_slug = slugify_place_name(new_version)
             if (new_version != ward.name) or (new_version_slug != ward.slug):
                 if options['commit']:
-                    print "changing:", ward.name, "to", new_version
+                    print("changing:", ward.name, "to", new_version)
                     ward.name = new_version
                     ward.slug = new_version_slug
                     ward.save()
                 else:
-                    print "would change:", ward.name, "to", new_version, "if --commit were specified"
+                    print("would change:", ward.name, "to", new_version, "if --commit were specified")
 

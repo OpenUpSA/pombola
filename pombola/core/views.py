@@ -768,7 +768,8 @@ class VersionView(View):
                 cwd=dirname(__file__),
             ).strip()
             result['git_version'] = git_version
-        except OSError, subprocess.CalledProcessError:
+        except OSError as xxx_todo_changeme:
+            subprocess.CalledProcessError = xxx_todo_changeme
             pass
         return HttpResponse(
             json.dumps(result), content_type='application/json'

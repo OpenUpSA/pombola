@@ -1,3 +1,4 @@
+from __future__ import print_function
 # This admin command is to save having to do a series of manual steps
 # when merging to people in Pombola.
 
@@ -33,7 +34,7 @@ class Command(PersonSpeakerMappingsMixin, MergeCommandBase):
         if 'speeches' in settings.INSTALLED_APPS:
 
             if not options['quiet']:
-                print "Moving SayIt speeches"
+                print("Moving SayIt speeches")
 
             from speeches.models import Speech
 
@@ -51,8 +52,8 @@ class Command(PersonSpeakerMappingsMixin, MergeCommandBase):
                 )
             else:
                 if not options['quiet']:
-                    print "One or both of the people does not have a SayIt " \
-                        "speaker. Not moving speeches."
+                    print("One or both of the people does not have a SayIt " \
+                        "speaker. Not moving speeches.")
 
         core_models.Position.objects.filter(person=to_delete).update(person=to_keep)
 
@@ -63,7 +64,7 @@ class Command(PersonSpeakerMappingsMixin, MergeCommandBase):
             import pombola.hansard.models as hansard_models
 
             if not options['quiet']:
-                print "Moving Hansard entries"
+                print("Moving Hansard entries")
 
             hansard_models.Alias.objects.filter(person=to_delete).update(person=to_keep)
 
@@ -78,6 +79,6 @@ class Command(PersonSpeakerMappingsMixin, MergeCommandBase):
             import pombola.interests_register.models as interests_register_models
 
             if not options['quiet']:
-                print "Moving interests register entries"
+                print("Moving interests register entries")
 
             interests_register_models.Entry.objects.filter(person=to_delete).update(person=to_keep)

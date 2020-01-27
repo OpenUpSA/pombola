@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from future.utils import raise_
 import datetime
 
 from django.core.management.base import BaseCommand
@@ -277,7 +278,7 @@ class Command(BaseCommand):
                                            'category': 'political'}
                     positions = models.Position.objects.all().currently_active().filter(**position_parameters)
                     if len(positions) > 1:
-                        raise Exception, "Multiple positions matched %s" % (position_parameters,)
+                        raise_(Exception, "Multiple positions matched %s" % (position_parameters,))
                     elif len(positions) == 1:
                         # There's still a current position that represents this:
                         existing_position = positions[0]

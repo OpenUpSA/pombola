@@ -1,10 +1,11 @@
 """
 Test the tasks
 """
+from __future__ import absolute_import
 
 from django.test import TestCase
 from django.contrib.sites.models import Site
-from models import TaskCategory, Task
+from .models import TaskCategory, Task
 
 
 class TaskTest(TestCase):

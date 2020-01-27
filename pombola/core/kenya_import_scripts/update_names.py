@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
 import os
 import sys
 
@@ -35,7 +36,7 @@ for from_to in constituency_renames:
     except models.Place.DoesNotExist:
         continue
 
-    print "Renaming '%s' to '%s'" % (from_name, to_name)
+    print("Renaming '%s' to '%s'" % (from_name, to_name))
     place.name = to_name
     place.save()
 
@@ -484,7 +485,7 @@ for rename in renames:
 for obj in models.Place.objects.all():
     slug = slugify( obj.name )
     if slug != obj.slug:
-        print "changing place slug from '%s' to '%s'" % (obj.slug, slug)
+        print("changing place slug from '%s' to '%s'" % (obj.slug, slug))
         obj.slug = slug
         obj.save()
 
@@ -492,7 +493,7 @@ for obj in models.Place.objects.all():
 for obj in models.Person.objects.all():
     slug = slugify( obj.name )
     if slug != obj.slug:
-        print "changing person slug from '%s' to '%s'" % (obj.slug, slug)
+        print("changing person slug from '%s' to '%s'" % (obj.slug, slug))
         obj.slug = slug
         obj.save()
 

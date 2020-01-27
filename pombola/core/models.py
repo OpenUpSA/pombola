@@ -1,5 +1,6 @@
 from __future__ import division
 
+from future.utils import raise_
 import calendar
 import datetime
 from functools import partial
@@ -41,6 +42,7 @@ from pombola.budgets.models import BudgetsMixin
 from mapit import models as mapit_models
 
 from pombola.country import significant_positions_filter
+from functools import reduce
 
 date_help_text = "Format: '2011-12-31', '31 Jan 2011', 'Jan 2011' or '2011' or 'future'"
 
@@ -361,7 +363,7 @@ class PersonManager(ManagerBase):
             try:
                 person_id = int(identifier)
             except ValueError:
-                raise self.model.DoesNotExist, "Person matching query does not exist."
+                raise self.model.DoesNotExist("Person matching query does not exist.")
             return self.get(pk=person_id)
 
     def get_featured(self):
@@ -1708,7 +1710,7 @@ def raw_query_with_prefetch(query_model, query, params, fields_prefetches):
     }
     for f in fields:
         if f not in name_to_field:
-            raise Exception, "{0} was not a ForeignKey field".format(f)
+            raise_(Exception, "{0} was not a ForeignKey field".format(f))
     # Find all IDs for each field:
     field_ids = defaultdict(set)
     for o in objects:

@@ -1,3 +1,4 @@
+from __future__ import print_function
 # This command is intended to help with these issues:
 #
 #   https://github.com/mysociety/pombola/issues/599
@@ -38,7 +39,7 @@ class Command(NoArgsCommand):
 
     def handle_noargs(self, **options):
         
-        print "Looking at '%s' in '%s'" % (options['elected_person'], options['place'] )
+        print("Looking at '%s' in '%s'" % (options['elected_person'], options['place'] ))
 
         # load up the place, org and positions
         place                 = Place.objects.get(slug=options['place'])
@@ -70,12 +71,12 @@ class Command(NoArgsCommand):
                 }
             )
             if created:
-                print "  Created %s" % elected_pos
+                print("  Created %s" % elected_pos)
             
 
         # get all related aspirant positions
         for pos in Position.objects.filter(place=place, title=aspirant_pos_title).currently_active():
-            print "  Ending %s" % pos
+            print("  Ending %s" % pos)
             pos.end_date = aspirant_end_date
             if options['commit']:
                 pos.save()

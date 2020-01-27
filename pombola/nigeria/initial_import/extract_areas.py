@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
 import json
 import sys
 import re
@@ -29,5 +30,5 @@ for filename in sys.argv[1:]:
 
 
 for p in sorted(areas_found):
-    print p
+    print(p)
 

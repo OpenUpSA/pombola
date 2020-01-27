@@ -1,3 +1,4 @@
+from __future__ import print_function
 from django.core.management.base import NoArgsCommand
 from django.utils.text import slugify
 
@@ -37,5 +38,5 @@ class Command(NoArgsCommand):
                 place.mapit_area = area
                 place.save()
             except models.Place.DoesNotExist:
-                print "Could not find matching place for mapit area '%s' (%s, %s)" % ( area.name, slug, place_kind_slug )
+                print("Could not find matching place for mapit area '%s' (%s, %s)" % ( area.name, slug, place_kind_slug ))
 

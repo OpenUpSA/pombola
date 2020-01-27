@@ -1,3 +1,4 @@
+from __future__ import print_function
 from datetime import date
 from optparse import make_option
 
@@ -32,7 +33,7 @@ class Command(NoArgsCommand):
 
             person = old_position.person
 
-            print "Considering", old_position
+            print("Considering", old_position)
 
             active_positions = person.position_set.all().currently_active()
 
@@ -53,11 +54,11 @@ class Command(NoArgsCommand):
             restart = False
 
             if na_memberships:
-                print "  Restarting because", person, "is currently a Member of the National Assembly"
+                print("  Restarting because", person, "is currently a Member of the National Assembly")
                 restart = True
 
             if pl_memberships or pl_memberships2:
-                print "  Restarting because", person, "is currently a Member of a Provincial Legislature"
+                print("  Restarting because", person, "is currently a Member of a Provincial Legislature")
                 restart = True
 
             if restart:
@@ -70,7 +71,7 @@ class Command(NoArgsCommand):
                 old_position.end_date = ApproximateDate(future=True)
 
                 if options['commit']:
-                    print "  Saving the new position"
+                    print("  Saving the new position")
                     old_position.save()
                 else:
-                    print "  Not saving the new position (--commit not specified)"
+                    print("  Not saving the new position (--commit not specified)")

@@ -1,3 +1,4 @@
+from __future__ import print_function
 # This command is intended to fix issue 550:
 #
 #   https://github.com/mysociety/pombola/issues/550
@@ -42,6 +43,6 @@ class Command(NoArgsCommand):
                 message = "2012 end_date to future for %s" % (most_recent_party_position,)
                 if options['commit']:
                     most_recent_party_position.save()
-                    print >> sys.stderr, "Changing " + message
+                    print("Changing " + message, file=sys.stderr)
                 else:
-                    print >> sys.stderr, "Not changing " + message + "because --commit wasn't specified"
+                    print("Not changing " + message + "because --commit wasn't specified", file=sys.stderr)

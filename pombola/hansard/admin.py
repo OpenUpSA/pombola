@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from ajax_select import make_ajax_form
 
 from django.contrib import admin, messages
@@ -7,7 +8,7 @@ from django.conf.urls import patterns
 from django.template import RequestContext
 from django.utils.decorators import method_decorator
 
-import models
+from . import models
 
 # from django.contrib.gis import db
 # from django.core.urlresolvers import reverse

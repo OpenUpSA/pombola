@@ -1,3 +1,4 @@
+from __future__ import print_function
 import csv
 from optparse import make_option
 from os.path import join, dirname
@@ -46,9 +47,9 @@ class Command(BaseCommand):
                 state_name_to_mapit_area[atlas_state_name] = mapit_state
             except Exception as e:
                 all_states_found = False
-                print u"Error trying to find {0}: {1}".format(
+                print(u"Error trying to find {0}: {1}".format(
                     atlas_state_name, unicode(e)
-                )
+                ))
                 continue
         if not all_states_found:
             return
@@ -72,32 +73,32 @@ class Command(BaseCommand):
                 existing_name = pu_name_type.names.get(area=lga_area)
                 if new_name == existing_name.name:
                     add_name = False
-                    print "'{area}' already had the correct name ('{existing_name}')".format(
+                    print("'{area}' already had the correct name ('{existing_name}')".format(
                         area=lga_area, existing_name=existing_name.name
-                    )
+                    ))
                 else:
-                    print "'{area}' already had a name ('{existing_name}')".format(
+                    print("'{area}' already had a name ('{existing_name}')".format(
                         area=lga_area, existing_name=existing_name.name
-                    ),
+                    ), end=' ')
                     if options['replace']:
                         if options['commit']:
                             msg = "- deleting it to replace it with '{new_name}'"
-                            print msg.format(new_name=new_name)
+                            print(msg.format(new_name=new_name))
                             existing_name.delete()
                         else:
                             msg = "- would delete it, to replace with '{new_name}', but --commit wasn't specified"
-                            print msg.format(new_name=new_name)
+                            print(msg.format(new_name=new_name))
                     else:
                         add_name = False
-                        print "- not replacing it since --replace wasn't specified"
+                        print("- not replacing it since --replace wasn't specified")
             except Name.DoesNotExist:
                 pass
             if add_name:
                 if options['commit']:
-                    print "Adding the new name ('{new_name}') for area '{area}'".format(
+                    print("Adding the new name ('{new_name}') for area '{area}'".format(
                         new_name=new_name, area=lga_area
-                    )
+                    ))
                     pu_name_type.names.create(area=lga_area, name=new_name)
                 else:
                     msg = "Would add the new name '{new_name}' for area '{area}', but --commit wasn't specified"
-                    print msg.format(new_name=new_name, area=lga_area)
+                    print(msg.format(new_name=new_name, area=lga_area))

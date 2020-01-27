@@ -7,6 +7,7 @@
 # "convert -deskew '40%'" and then "unpaper" to remove scanning
 # artefacts.  (ImageMagick does better than unpaper on large skews.)
 
+from __future__ import print_function
 import os, re
 from subprocess import check_call
 
@@ -26,7 +27,7 @@ for root, dirs, files in os.walk('.'):
         if not m:
             continue
 
-        print "====", full(filename)
+        print("====", full(filename))
 
         filename_to_use = filename
         basename = m.group(1)
@@ -37,7 +38,7 @@ for root, dirs, files in os.walk('.'):
 
         deskewed_filename = "%s-deskewed.png" % (basename,)
         if not exists(deskewed_filename):
-            print "converting", filename_to_use, "to", deskewed_filename
+            print("converting", filename_to_use, "to", deskewed_filename)
             check_call(["convert",
                         "-deskew",
                         "40%",
@@ -49,20 +50,20 @@ for root, dirs, files in os.walk('.'):
         unpapered_filename = "%s-deskewed-unpapered.png" % (basename,)
 
         if not exists(pnm_version):
-            print "converting", deskewed_filename, "to", pnm_version
+            print("converting", deskewed_filename, "to", pnm_version)
             with open(full(pnm_version), "w") as fp:
                 check_call(["pngtopnm",
                             full(deskewed_filename)],
                            stdout=fp)
 
         if not exists(unpapered_pnm_version):
-            print "unpapering", pnm_version, "to", unpapered_pnm_version
+            print("unpapering", pnm_version, "to", unpapered_pnm_version)
             check_call(["unpaper",
                         full(pnm_version),
                         full(unpapered_pnm_version)])
 
         if not exists(unpapered_filename):
-            print "converting", unpapered_pnm_version, "to", unpapered_filename
+            print("converting", unpapered_pnm_version, "to", unpapered_filename)
             with open(full(unpapered_filename), "w") as fp:
                 check_call(["pnmtopng",
                             full(unpapered_pnm_version)],

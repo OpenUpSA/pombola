@@ -1,3 +1,4 @@
+from __future__ import print_function
 import json
 from optparse import make_option
 import re
@@ -22,7 +23,7 @@ class Command(NoArgsCommand):
         )
 
     def handle_noargs(self, **options):
-        print "in the command..."
+        print("in the command...")
 
         comment_keys = ('user_key', 'g', 'agroup', 'user_key', 'experiment_slug', 'variant', 'via')
 

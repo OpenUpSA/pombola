@@ -1,3 +1,4 @@
+from __future__ import print_function
 from django.contrib.gis.gdal import DataSource
 from django.core.management import BaseCommand
 from django.db import transaction
@@ -33,7 +34,7 @@ class Command(BaseCommand):
         if not geos_g.valid:
             geos_g = fix_invalid_geos_geometry(geos_g)
             if geos_g is None:
-                print "The geometry was invalid and couldn't be fixed"
+                print("The geometry was invalid and couldn't be fixed")
                 g = None
             else:
                 g = geos_g.ogr
@@ -47,9 +48,9 @@ class Command(BaseCommand):
             for feature in layer:
                 lga_name = unicode(feature['NAME_2'])
                 state_name = unicode(feature['NAME_1'])
-                print "Updating LGA {0} in state {1}".format(
+                print("Updating LGA {0} in state {1}".format(
                     lga_name, state_name
-                )
+                ))
                 area = self.get_lga_area(lga_name, state_name)
                 g = feature.geom.transform('4326', clone=True)
                 g = self.fix_geometry(g)

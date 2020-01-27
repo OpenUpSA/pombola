@@ -1,3 +1,5 @@
+from __future__ import print_function
+from __future__ import absolute_import
 # This script generates mappings for parties, places and people
 # between the IEBC API's names and those currently in Mzalendo.  The
 # idea is to generate incorrect mappings for parties and places, and
@@ -21,7 +23,7 @@ from django.conf import settings
 from pombola.core.models import Place, Organisation
 from pombola.core.utils import mkdir_p
 
-from iebc_api import (
+from .iebc_api import (
     get_data,
     make_api_token_url,
     make_api_url,
@@ -65,7 +67,7 @@ class Command(NoArgsCommand):
 
         # ------------------------------------------------------------------------
 
-        print "Getting (incorrect) party names mapping for matching..."
+        print("Getting (incorrect) party names mapping for matching...")
 
         parties_cache_filename = os.path.join(cache_directory, 'parties')
         party_data = get_data_with_cache(parties_cache_filename, url('/party/'))
@@ -80,7 +82,7 @@ class Command(NoArgsCommand):
 
         # ------------------------------------------------------------------------
 
-        print "Getting (incorrect) ward names mapping for matching..."
+        print("Getting (incorrect) ward names mapping for matching...")
 
         ward_data = get_data(url('/ward/'))
 
@@ -132,7 +134,7 @@ class Command(NoArgsCommand):
                             surname = candidate['surname'] or ''
                             person = get_person_from_names(first_names, surname)
                             if person:
-                                print "Got person match to:", person
+                                print("Got person match to:", person)
                                 row = {}
                                 row['Same/Different'] = ''
                                 row['API Name'] = first_names + ' ' + surname

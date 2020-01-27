@@ -1,4 +1,5 @@
 """ Loop through images in a directory and attempt to match them to a person."""
+from __future__ import print_function
 
 import re
 import os
@@ -40,7 +41,7 @@ def match_person(name):
                 return None
 
     except MultipleObjectsReturned:
-        print 'Multiple people returned for ' + name + ' (' + slug + '). Cannot continue.'
+        print('Multiple people returned for ' + name + ' (' + slug + '). Cannot continue.')
         exit(1)
 
     return person
@@ -82,10 +83,10 @@ class Command(LabelCommand):
                 person = match_person(name[1] + ' ' + name[0])
 
                 if person is None:
-                    print BRIGHT + 'Unable to match "' + filename + '" to a person!'+ ENDC
+                    print(BRIGHT + 'Unable to match "' + filename + '" to a person!'+ ENDC)
                     unmatched += 1
                 else:
-                    print 'Matched ' + person.name.encode('utf-8')
+                    print('Matched ' + person.name.encode('utf-8'))
 
                     Image.objects.create(
                         object_id=person.id,
@@ -100,7 +101,7 @@ class Command(LabelCommand):
             else:
 
                 # This name doesn't have two bits, complain.
-                print BRIGHT + '"' + filename + '" does not parse to a first and last name.'+ ENDC
+                print(BRIGHT + '"' + filename + '" does not parse to a first and last name.'+ ENDC)
                 unmatched += 1
 
-        print 'Done! Matched ' + str(matched) + ', failed to match ' + str(unmatched)
+        print('Done! Matched ' + str(matched) + ', failed to match ' + str(unmatched))

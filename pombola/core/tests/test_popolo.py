@@ -105,7 +105,7 @@ class PopoloTest(TestCase):
         self.position = models.Position.objects.create(
             person=self.person,
             organisation=self.organisation,
-            end_date=ApproximateDate(2013, 06),
+            end_date=ApproximateDate(2013, 0o6),
             title=self.position_title,
         )
 

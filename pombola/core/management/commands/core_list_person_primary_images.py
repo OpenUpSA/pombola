@@ -1,3 +1,4 @@
+from __future__ import print_function
 from django.core.management.base import BaseCommand
 
 from pombola.core.models import Person
@@ -11,4 +12,4 @@ class Command(BaseCommand):
             image_file_field = p.primary_image()
             if not image_file_field:
                 continue
-            print image_file_field.name
+            print(image_file_field.name)

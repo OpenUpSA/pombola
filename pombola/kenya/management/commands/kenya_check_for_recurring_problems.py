@@ -1,3 +1,4 @@
+from __future__ import print_function
 import sys
 
 from urlparse import urljoin
@@ -66,7 +67,7 @@ class ParliamentPositionProblem(ProblemFromQuerySet):
         fixed = 0
         member_pt = PositionTitle.objects.get(name='Member')
         for p in self.qs:
-            print "  Fixing position", p
+            print("  Fixing position", p)
             # There are really two cases here; one where the position
             # just represents the membership of parliament, and one
             # where it represents the party that they were a member of
@@ -85,7 +86,7 @@ class ParliamentPositionProblem(ProblemFromQuerySet):
                         start_date=p.start_date,
                         end_date=p.end_date,
                         title=member_pt)
-                    print "    Creating a party position for the same period:", new_position
+                    print("    Creating a party position for the same period:", new_position)
             elif org.name in ('REPUBLIC OF KENYA', 'National Assembly'):
                 # This is fine, we're just going to change the
                 # organisation.
@@ -137,16 +138,16 @@ class Command(BaseCommand):
                 problem_count = problem_type.count()
                 if problem_count:
                     msg = "The following {0} instances of {1} were broken:"
-                    print msg.format(problem_count, problem_type.model.__name__)
+                    print(msg.format(problem_count, problem_type.model.__name__))
                     for o in problem_type.itermodels():
-                        print "  {0}: {1} {2}".format(o.id, o, admin_url(o))
+                        print("  {0}: {1} {2}".format(o.id, o, admin_url(o)))
                     number_fixed = problem_type.fix_problems()
-                    print "Fixed {0} rows".format(number_fixed)
+                    print("Fixed {0} rows".format(number_fixed))
                 problems_found += problem_count
         finally:
             if options['fix']:
                 commit()
             elif problems_found > 0:
-                print "No changes committed, since --fix wasn't specified"
+                print("No changes committed, since --fix wasn't specified")
         if problems_found > 0:
             sys.exit(1)

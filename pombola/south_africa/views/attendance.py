@@ -1,4 +1,5 @@
 from __future__ import division
+from __future__ import absolute_import
 
 import dateutil
 import json
@@ -14,7 +15,7 @@ from django.views.generic import TemplateView
 from django.shortcuts import get_object_or_404
 
 from pombola.core.models import Position, Person
-from person import SAPersonDetail
+from .person import SAPersonDetail
 
 
 class SAMpAttendanceView(TemplateView):

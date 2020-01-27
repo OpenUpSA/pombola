@@ -1,3 +1,4 @@
+from __future__ import print_function
 from django.core.management.base import NoArgsCommand
 
 from pombola.core.models import ParliamentarySession, Person
@@ -15,17 +16,17 @@ class Command(NoArgsCommand):
             aspirant_mp_positions = [ap for ap in person.aspirant_positions() if ap.title.slug == 'aspirant-mp']
             if not aspirant_mp_positions:
                 continue
-            print person
+            print(person)
             if len(aspirant_mp_positions) > 1:
-                print "  Warning: more than one Aspirant MP position:"
+                print("  Warning: more than one Aspirant MP position:")
                 for amp in aspirant_mp_positions:
-                    print "    ", amp
+                    print("    ", amp)
                 continue
             amp = aspirant_mp_positions[0]
             if amp.place.parliamentary_session != next_session:
-                print """  Warning: the place associated with this Aspirant MP position
+                print("""  Warning: the place associated with this Aspirant MP position
   %s - %s
   is for the wrong parliamentary session.  It should be a
   place associated with the parliamentary session: %s""" % (amp.place,
                                                             amp.place.parliamentary_session,
-                                                            next_session)
+                                                            next_session))

@@ -1,4 +1,5 @@
 """Export a CSV listing National Assembly members with term dates."""
+from __future__ import print_function
 
 import unicodecsv as csv
 import os
@@ -60,7 +61,7 @@ class Command(BaseCommand):
 
             # Write all the outputs
             for position in positions:
-                print position
+                print(position)
                 person = position.person
 
                 parties = []
@@ -79,4 +80,4 @@ class Command(BaseCommand):
                 }
                 writer.writerow(position_output)
 
-        print "Done! Exported CSV of " + str(len(positions)) + " positions."
+        print("Done! Exported CSV of " + str(len(positions)) + " positions.")

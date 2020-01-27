@@ -9,6 +9,7 @@ https://app.m4jam.com/app/campaigns/2298/export/
 This script parses the resulting CSV file and updates our data
 on constituency offices to have the correct location.
 """
+from __future__ import print_function
 
 
 import csv
@@ -99,10 +100,10 @@ class Command(BaseCommand):
                 try:
                     org = qs.get()
                 except Organisation.MultipleObjectsReturned:
-                    print "Skipping {} as multiple orgs returned: {}".format(
+                    print("Skipping {} as multiple orgs returned: {}".format(
                         poi_ref,
                         repr(qs),
-                        )
+                        ))
                     continue
                 except Organisation.DoesNotExist:
                     # Fall back to searching for the name and the party in the
@@ -139,7 +140,7 @@ class Command(BaseCommand):
                         )
                     continue
                 except Image.DoesNotExist:
-                    print "Adding new image to {}.".format(org.slug)
+                    print("Adding new image to {}.".format(org.slug))
 
                 if photo_url:
                     response = requests.get(photo_url)

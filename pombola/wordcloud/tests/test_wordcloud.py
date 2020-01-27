@@ -1,4 +1,5 @@
 # coding=UTF-8
+from __future__ import print_function
 from mock import patch, Mock
 
 from django.test import TestCase
@@ -7,7 +8,7 @@ from pombola.wordcloud.wordcloud import popular_words
 
 
 def debug_print():
-    print 'DEBUGGING'
+    print('DEBUGGING')
 
 
 @patch('pombola.wordcloud.wordcloud.recent_entries')

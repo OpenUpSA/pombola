@@ -1,3 +1,4 @@
+from __future__ import print_function
 # This admin command is to save having to move Hansard Entries
 # individually in the admin console, which is not fun - or particularly
 # safe - when there are more than one or two of them
@@ -72,7 +73,7 @@ class Command(BaseCommand):
             from_id=entries_from.id,
             to_name=entries_to.name,
             to_id=entries_to.id)
-        print message
+        print(message)
 
         if options['interactive']:
             answer = raw_input('Do you wish to continue? (y/[n]): ')

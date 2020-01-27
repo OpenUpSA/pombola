@@ -1,3 +1,4 @@
+from __future__ import print_function
 # Takes Paul's Excel file of constituencies to counties and
 # imports this into the db.
 
@@ -38,7 +39,7 @@ for item in csv_reader:
         county = models.Place.objects.get(
             slug=county_slug, kind__slug='county')
     except models.Place.DoesNotExist:
-        print "Can't find county %s" % county_slug
+        print("Can't find county %s" % county_slug)
         break
 
     constituency_slug = slugify(item['Constituency'])
@@ -47,7 +48,7 @@ for item in csv_reader:
         constituency = models.Place.objects.get(
             slug=constituency_slug, kind__slug='constituency')
     except models.Place.DoesNotExist:
-        print "Can't find constituency %s" % constituency_slug
+        print("Can't find constituency %s" % constituency_slug)
         continue
 
     all_constituencies.remove(constituency_slug)
@@ -55,4 +56,4 @@ for item in csv_reader:
     constituency.parent_place = county
     constituency.save()
 
-print "%d leftover constituencies" % len(all_constituencies), all_constituencies
+print("%d leftover constituencies" % len(all_constituencies), all_constituencies)

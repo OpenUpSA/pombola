@@ -1,3 +1,4 @@
+from __future__ import print_function
 # This is a one-off script that will search for any sections that appear to be
 # from Hansard and that are not a sub-section of something else. This will
 # change the database to match what would have been the case had the changes in
@@ -25,7 +26,7 @@ class Command(BaseCommand):
 
         for source in sources:
             section = source.sayit_section
-            print section
+            print(section)
 
             # create the parents
             parent = Section.objects.get_or_create_with_parents(

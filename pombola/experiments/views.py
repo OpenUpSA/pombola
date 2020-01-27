@@ -161,7 +161,7 @@ class ExperimentShare(ExperimentViewDataMixin, RedirectView):
             key='n',
             parameters=self.request.GET,
             allowed_values=('facebook', 'twitter'))
-        share_key = "{0:x}".format(randint(0, sys.maxint))
+        share_key = "{0:x}".format(randint(0, sys.maxsize))
         self.create_event({'category': 'share-click',
                            'action': 'click',
                            'label': social_network,

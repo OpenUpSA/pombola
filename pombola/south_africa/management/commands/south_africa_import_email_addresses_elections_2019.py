@@ -1,3 +1,4 @@
+from __future__ import print_function
 import re
 
 import unicodecsv as csv
@@ -38,7 +39,7 @@ class Command(BaseCommand):
                             defaults={"source": source, "preferred": True},
                         )
                         if created:
-                            print "Added {} to".format(email),
+                            print("Added {} to".format(email), end=' ')
                             print (name)
 
         # Committees
@@ -60,4 +61,4 @@ class Command(BaseCommand):
                         defaults={"source": source, "preferred": True},
                     )
                     if created:
-                        print "Added {} to {}".format(email, name)
+                        print("Added {} to {}".format(email, name))

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import print_function
 from mock import patch
 import os
 import re
@@ -75,7 +76,7 @@ class ZAIteratorBaseMixin(object):
             with open(full_path) as read_from:
                 return read_from.read()
         else:
-            print "Retrieving and caching " + url
+            print("Retrieving and caching " + url)
             response = requests.get(url)
             with open(full_path, 'w') as write_to:
                 write_to.write(response.text)

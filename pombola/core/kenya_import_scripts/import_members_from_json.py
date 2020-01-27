@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
 import os
 import sys
 import re
@@ -62,7 +63,7 @@ for obj in objects:
     try:
         (last, first, middle) = name_to_first_last.conversions[obj['Fullnames']]
     except:
-        print obj['Fullnames']
+        print(obj['Fullnames'])
         continue
 
     slug = slugify(first + ' ' + last)

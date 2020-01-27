@@ -1,3 +1,5 @@
+from __future__ import print_function
+from future.utils import raise_
 import re
 
 import unicodecsv as csv
@@ -42,7 +44,7 @@ def parse_approximate_date(s):
             return ApproximateDate(*(int(g, 10) for g in m.groups()))
     if s == 'future':
         return ApproximateDate(future=True)
-    raise Exception, "Couldn't parse '{0}' as an ApproximateDate".format(s)
+    raise_(Exception, "Couldn't parse '{0}' as an ApproximateDate".format(s))
 
 class Command(LabelCommand):
 
@@ -67,15 +69,15 @@ class Command(LabelCommand):
         try:
             person = Person.objects.get(legal_name__iexact=name)
         except ObjectDoesNotExist:
-            print 'Unable to match ' + name + ' by name, trying by slug'
+            print('Unable to match ' + name + ' by name, trying by slug')
             try:
                 person = Person.objects.get(slug=slug)
             except ObjectDoesNotExist:
-                print 'Unable to match ' + name + ' by slug, creating a new person'
+                print('Unable to match ' + name + ' by slug, creating a new person')
                 person = Person.objects.create(legal_name=name, slug=slug)
 
         except MultipleObjectsReturned:
-            print 'Multiple people returned for ' + name + ' (' + slug + '). Cannot continue.'
+            print('Multiple people returned for ' + name + ' (' + slug + '). Cannot continue.')
             exit(1)
 
         return person
@@ -90,7 +92,7 @@ class Command(LabelCommand):
         if created:
             position.name = title
             position.save()
-            print 'Created new position ' + slug + " as " + title
+            print('Created new position ' + slug + " as " + title)
 
         return position
 
@@ -108,7 +110,7 @@ class Command(LabelCommand):
         if created:
             organisation.name = name
             organisation.save()
-            print 'Created new organisation' + slug + " as " + name
+            print('Created new organisation' + slug + " as " + name)
 
         return organisation
 
@@ -122,7 +124,7 @@ class Command(LabelCommand):
         if created:
             place.name = name
             place.save()
-            print 'Created new place ' + slug + " as " + name
+            print('Created new place ' + slug + " as " + name)
 
         return place
 
@@ -141,7 +143,7 @@ class Command(LabelCommand):
     def read_file(self, file):
         """ Deal with the business of actually iterating over a file and passing the lines to a function. """
 
-        print HEADER + 'Importing from ' + file + ENDC
+        print(HEADER + 'Importing from ' + file + ENDC)
 
         with open(self.path + file) as f:
 
@@ -348,4 +350,4 @@ class Command(LabelCommand):
         for person_row in self.read_file('iec_seat_assignment.csv'):
             self.import_iec_assignment(person_row)
 
-        print 'Done!'
+        print('Done!')

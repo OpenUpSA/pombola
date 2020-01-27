@@ -1,3 +1,4 @@
+from __future__ import print_function
 import os, sys
 import csv
 import re
@@ -30,7 +31,7 @@ for row in reader:
         person = Person.objects.loose_match_name(name)
 
     if not person:
-        print "Can't find person for '%s' (line %s)" % (row['name'], reader.line_num )
+        print("Can't find person for '%s' (line %s)" % (row['name'], reader.line_num ))
         continue
 
     # Find or create the committe

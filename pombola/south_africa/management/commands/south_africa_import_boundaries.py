@@ -1,3 +1,4 @@
+from __future__ import print_function
 # Create boundaries in MapIt for South Africa.  You need four
 # shapefiles for these from:
 #
@@ -63,10 +64,10 @@ class Command(NoArgsCommand):
                   'locals'):
             if options[k]:
                 if not os.path.exists(options[k]):
-                    print >> sys.stderr, "The file %s didn't exist" % (options[k],)
+                    print("The file %s didn't exist" % (options[k],), file=sys.stderr)
                     stop = True
             else:
-                print >> sys.stderr, "You must specify --" + re.sub(r'_', '-', k)
+                print("You must specify --" + re.sub(r'_', '-', k), file=sys.stderr)
                 stop = True
         if stop:
             sys.exit(1)
@@ -74,7 +75,7 @@ class Command(NoArgsCommand):
         current_generation = Generation.objects.current()
         new_generation     = Generation.objects.new()
         if not new_generation:
-            raise Exception, "There's no inactive generation for the import"
+            raise Exception("There's no inactive generation for the import")
 
         country = Country.objects.get(code='Z')
 

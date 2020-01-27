@@ -1,4 +1,5 @@
 """Export a collection of summary CSV files for people."""
+from __future__ import print_function
 
 import csv
 import os
@@ -153,7 +154,7 @@ CSV files in.")
                             summary_output[position_key + '-' + field_key][person_index] =\
                                 unicode(getattr(position, field_name)).encode('utf-8')
 
-                print "Completed person " + str(person_index) + " of " + str(len(people))
+                print("Completed person " + str(person_index) + " of " + str(len(people)))
 
                 # Increment the person index counter
                 person_index += 1
@@ -165,5 +166,5 @@ CSV files in.")
             for row_title, row_content in sorted_output.items():
                 summary_writer.writerow(row_content)
 
-        print "Done! Exported CSV of " + str(len(people)) + "people."
+        print("Done! Exported CSV of " + str(len(people)) + "people.")
 

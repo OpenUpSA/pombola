@@ -1,3 +1,4 @@
+from __future__ import print_function
 import re
 import subprocess
 import string
@@ -178,7 +179,7 @@ class ParensParslet(SingleLineParslet):
             text = self.text.lstrip()
             parser.current.append(E(tag, text))
             # This is quite possibly not a Good Thing, so outputting for info
-            print >> sys.stderr, '  ! %s' % text
+            print('  ! %s' % text, file=sys.stderr)
 
 
 class AssembledParslet(ParaParslet):
@@ -419,8 +420,8 @@ class ZAHansardParser(object):
 
             return break_paras
 
-        def fst((a, _)): return a
-        def snd((_, b)): return b
+        def fst(xxx_todo_changeme): (a, _) = xxx_todo_changeme; return a
+        def snd(xxx_todo_changeme1): (_, b) = xxx_todo_changeme1; return b
 
         obj = ZAHansardParser()
 
@@ -484,12 +485,12 @@ class ZAHansardParser(object):
 
         def match(p):
             # try:
-            m = ifilter(
+            m = next(ifilter(
                 lambda x: x != None,
                 imap(
                     lambda cls: cls.handle_match(obj, p),
                     classes)
-            ).next()
+            ))
             return m
             # except Exception as e:
             #raise e
@@ -504,9 +505,9 @@ class ZAHansardParser(object):
                     (type(a).__name__ == 'ContinuationParslet') and
                         (not re.compile('^\s*\d+\.').match(a.text))):
                     if False:
-                        print >> sys.stderr, '   A %s' % a.text
-                        print >> sys.stderr, '   B %s' % b.text
-                        print >> sys.stderr
+                        print('   A %s' % a.text, file=sys.stderr)
+                        print('   B %s' % b.text, file=sys.stderr)
+                        print(file=sys.stderr)
                     result.append(TitleParslet(text=a.text))
                 else:
                     # TODO: perhaps should also rewrite the Parens into a ContinuationParslet?

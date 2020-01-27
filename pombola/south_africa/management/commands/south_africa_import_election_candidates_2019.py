@@ -2,6 +2,7 @@
 Imports ZA provincial and national election candidates using the 2019
 IEC spreadsheet format.
 """
+from __future__ import print_function
 
 import re
 import sys
@@ -159,16 +160,16 @@ def save_match(
         person.given_name = person_list_firstnames.title()
         person.family_name = person_list_surname.title()
         if COMMIT:
-            print "- updating given_name/family_name"
+            print("- updating given_name/family_name")
             person.save()
         else:
-            print "* would update blank given_name/family_name"
+            print("* would update blank given_name/family_name")
     elif string.replace(person_list_firstnames.lower(), "-", " ") != string.replace(
         person.given_name.lower(), "-", " "
     ) or string.replace(person_list_surname.lower(), "-", " ") != string.replace(
         person.family_name.lower(), "-", " "
     ):
-        print "- but names do not match existing given_name/family_name, ignoring"
+        print("- but names do not match existing given_name/family_name, ignoring")
         return False
 
     # get the person's current party to compare whether these have changed
@@ -193,13 +194,13 @@ def save_match(
             )
             position.end_date = month_before_final_list_date
             if COMMIT:
-                print "- ending %s party position" % position.organisation
+                print("- ending %s party position" % position.organisation)
                 position.save()
             else:
-                print "* would end %s party position" % position.organisation
+                print("* would end %s party position" % position.organisation)
 
     if COMMIT and not foundcorrectparty:
-        print "- creating %s party position" % party
+        print("- creating %s party position" % party)
         # get the member title
         member = PositionTitle.objects.get(name="Member")
         # add the correct membership
@@ -219,17 +220,17 @@ def save_match(
         # alternative name
         new_name = (person_list_firstnames + " " + person_list_surname).title()
         if COMMIT:
-            print "- updating person name from %s to %s" % (person.legal_name, new_name)
+            print("- updating person name from %s to %s" % (person.legal_name, new_name))
             AlternativePersonName.objects.get_or_create(
                 person=person, alternative_name=person.name
             )
             person.legal_name = new_name
             person.save()
         else:
-            print "* would update person legal_name from %s to %s" % (
+            print("* would update person legal_name from %s to %s" % (
                 person.legal_name,
                 new_name,
-            )
+            ))
 
     if COMMIT:
         person.identifiers.get_or_create(scheme='elections_2019', identifier=id_number)
@@ -239,7 +240,7 @@ def save_match(
     # but it is unclear whether setting this immediately would cause issues
     # if viewed on the election date or immediately afterwards
     if COMMIT:
-        print "- creating candidate position"
+        print("- creating candidate position")
         position = Position.objects.get_or_create(
             person=person,
             organisation=list_object,
@@ -262,10 +263,10 @@ def add_new_person(
     """Create a new person with appropriate positions"""
 
     if not COMMIT:
-        print "would create new entry"
+        print("would create new entry")
         return
 
-    print "creating"
+    print("creating")
     # get the list to add the person to
     import_list_name = string.replace(import_list_name, ":", "")
     party = get_party(party_name)
@@ -325,7 +326,7 @@ def process_search(firstnames, surname, party, list_position, list_name, url, id
         name = (firstnames + " " + surname).title()
         search = [s for s in search if s.object and s.object.legal_name == name]
     if len(search) == 1 and search[0].object:
-        print "match", search[0].object.name
+        print("match", search[0].object.name)
         return save_match(
             search[0].object, party, list_position, list_name, firstnames, surname, id_number
         )
@@ -410,13 +411,13 @@ def search_misspellings(firstnames, surname, party, list_position, list_name, id
 
 def search(firstnames, surname, party, list_position, list_name, id_number):
     """Attempt varius approaches to matching names"""
-    print "Looking at %s %s:" % (firstnames, surname),
+    print("Looking at %s %s:" % (firstnames, surname), end=' ')
 
     existing = Person.objects.filter(
         given_name__iexact=firstnames, family_name__iexact=surname
     )
     if len(existing) == 1:
-        print "match existing", existing[0].name
+        print("match existing", existing[0].name)
         if save_match(
             existing[0], party, list_position, list_name, firstnames, surname, id_number
         ):
@@ -464,7 +465,7 @@ class Command(NoArgsCommand):
                 missingparties.add(party_name)
         if missingparties:
             for party in sorted(missingparties):
-                print "Missing party:", party
+                print("Missing party:", party)
             sys.exit(1)
 
         # check whether the positions exist, otherwise create them

@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
 import os
 import sys
 
@@ -31,7 +32,7 @@ for old_comment in comments:
     try:
         member = Person.objects.get(original_id=old_comment['MemberID'])
     except Person.DoesNotExist:
-        print "'%s' not found in db" % old_comment['MemberID']
+        print("'%s' not found in db" % old_comment['MemberID'])
         continue
 
     comment_title   = old_comment['Subject'] or ''

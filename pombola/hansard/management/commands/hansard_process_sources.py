@@ -1,3 +1,4 @@
+from __future__ import print_function
 import datetime
 
 from django.core.management.base import NoArgsCommand
@@ -17,7 +18,7 @@ class Command(NoArgsCommand):
 
             if verbose:
                 message = "{0}: Looking at {1}"
-                print message.format(source.list_page, source)
+                print(message.format(source.list_page, source))
 
             pdf = source.file()
 
@@ -29,5 +30,5 @@ class Command(NoArgsCommand):
                 data = KenyaParser.convert_html_to_data( html )
                 KenyaParser.create_entries_from_data_and_source( data, source )
             except Exception as e:
-                print "There was an exception when parsing {0}".format(pdf)
+                print("There was an exception when parsing {0}".format(pdf))
                 raise
