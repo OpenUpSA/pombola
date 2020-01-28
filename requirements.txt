@@ -171,3 +171,6 @@ cffi
 # everypolitician packages
 everypolitician==0.0.13
 everypolitician-popolo==0.0.11
+
+# Captcha
+django-simple-captcha==0.5.12

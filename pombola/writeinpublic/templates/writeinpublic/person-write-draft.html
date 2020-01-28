@@ -49,6 +49,10 @@
         </div>
     </div>
 
+    <p class="form-group captcha">
+        {{form.captcha}}
+    </p>
+
     <a class="button secondary-button" href="{% url 'writeinpublic:writeinpublic-new-message-step' step='recipients' %}">Change recipients</a>
     <input type="submit" value="Preview message" class="button pull-right">
 </form>

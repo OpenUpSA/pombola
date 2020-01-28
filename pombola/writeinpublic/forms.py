@@ -1,5 +1,6 @@
 from django import forms
 from django.forms import SelectMultiple, ModelMultipleChoiceField, ModelChoiceField
+from captcha.fields import CaptchaField
 
 from pombola.core.models import Person
 
@@ -21,6 +22,7 @@ class RecipientForm(forms.Form):
 
 
 class DraftForm(forms.Form):
+    captcha = CaptchaField()
     author_name = forms.CharField()
     author_email = forms.EmailField()
     subject = forms.CharField()

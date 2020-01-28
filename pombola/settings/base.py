@@ -452,6 +452,7 @@ INSTALLED_APPS = (
     'django_extensions',
 
     'rest_framework',
+    'captcha'
 )
 if os.environ.get("DJANGO_DEBUG_TOOLBAR", "true").lower() == "true":
     INSTALLED_APPS += ("debug_toolbar",)
