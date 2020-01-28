@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from formtools.wizard.views import NamedUrlSessionWizardView
 
 from django.views.generic import TemplateView
@@ -196,6 +197,44 @@ class WriteInPublicNewMessage(WriteInPublicMixin, NamedUrlSessionWizardView):
         if recipients is not None:
             context['persons'] = recipients.get('persons')
         return context
+
+    def render_done(self, form, **kwargs):
+        """
+        This method gets called when all forms passed. The method should also
+        re-validate all steps to prevent manipulation. If any form fails to
+        validate, `render_revalidation_failure` should get called.
+        If everything is fine call `done`.
+
+        Method copied from https://github.com/jazzband/django-formtools/pull/34 
+        because the last step was revalidated (https://github.com/jazzband/django-formtools/issues/21)
+        which caused Captcha to fail.
+        """
+        final_forms = OrderedDict()
+        form_list = self.get_form_list()
+        last_index = len(form_list) - 1
+        # walk through the previous forms and ensure they still validate.
+        for index, form_key in enumerate(form_list):
+            # bind our previously validated final form
+            if index == last_index:
+                form_obj = form
+            else:
+                form_obj = self.get_form(step=form_key,
+                    data=self.storage.get_step_data(form_key),
+                    files=self.storage.get_step_files(form_key))
+            if not form_obj.is_valid():
+                return self.render_revalidation_failure(form_key,
+                                                        form_obj,
+                                                        **kwargs)
+            final_forms[form_key] = form_obj
+
+        # render the done view and reset the wizard before returning the
+        # response. This is needed to prevent from rendering done with the
+        # same data twice.
+        done_response = self.done(final_forms.values(),
+                                  form_dict=final_forms,
+                                  **kwargs)
+        self.storage.reset()
+        return done_response
 
     def done(self, form_list, form_dict, **kwargs):
         persons = form_dict['recipients'].cleaned_data['persons']
