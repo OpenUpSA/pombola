@@ -124,7 +124,8 @@ dokku config:set pombola \
     ELASTICSEARCH_URL=elasticsearch.example.com:9200 \
     DATABASE_URL=postgres://pombola:...@db.example.com/pombola \
     GOOGLE_ANALYTICS_ACCOUNT=UA-47810266-1 \
-    DISQUS_SHORTNAME=peoplesassembly.disqus.com \
+    DISQUS_SHORTNAME=peoplesassembly \
+    FACEBOOK_APP_ID=... \
     PMG_COMMITTEE_USER=... \
     PMG_COMMITTEE_PASSWORD=... \
     PMG_API_KEY=... \
