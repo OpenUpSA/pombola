@@ -22,7 +22,6 @@ class RecipientForm(forms.Form):
 
 
 class DraftForm(forms.Form):
-    captcha = CaptchaField()
     author_name = forms.CharField()
     author_email = forms.EmailField()
     subject = forms.CharField()
@@ -30,4 +29,4 @@ class DraftForm(forms.Form):
 
 
 class PreviewForm(forms.Form):
-    pass
+    captcha = CaptchaField()
