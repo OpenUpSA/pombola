@@ -499,7 +499,7 @@ class ZAHansardParser(object):
             #raise Exception("Parsing failed at '%s'" % p[:50])
         nodes = [match(list(p)) for p in paras]
         if not obj.hasDate:
-            raise DateNotFoundException("Hansard date not found in document.")
+            raise DateNotFoundException("Hansard date not found in document at path %s." % document_path)
 
         def transformParens(nodes):
             result = []
