@@ -79,7 +79,7 @@ class DateParslet(SingleLineParslet):
         if parser.hasDate:
             return None
 
-        match = re.compile(r'(\d+)[ ,]+(\w+)[ ,]+(\d+)$').search(line)
+        match = re.compile(r'(\d+)[ ,]+(\w+)[ ,]+(\d+)\s*$').search(line)
         if not match:
             return None
 
