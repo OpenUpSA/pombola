@@ -209,6 +209,9 @@ class WriteInPublicNewMessage(WriteInPublicMixin, NamedUrlSessionWizardView):
         because the last step was revalidated (https://github.com/jazzband/django-formtools/issues/21)
         which caused Captcha to fail.
         """
+        # From https://github.com/jazzband/django-formtools/blob/14756c8f481c24519d25a85e8970d2e853f5d3db/formtools/wizard/views.py#L735
+        if kwargs.get('step', None) != self.done_step_name:
+            return redirect(self.get_step_url(self.done_step_name))
         final_forms = OrderedDict()
         form_list = self.get_form_list()
         last_index = len(form_list) - 1
