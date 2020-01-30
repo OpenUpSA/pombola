@@ -7,7 +7,7 @@ services:
   - docker
 
 script:
-  - "docker-compose run web bin/wait-for-deps.sh coverage run -a --source=pombola,pombola_sayit,wordcloud ./manage.py test --settings=pombola.settings.tests_south_africa"
+  - "docker-compose run app bin/wait-for-deps.sh coverage run -a --source=pombola,pombola_sayit,wordcloud ./manage.py test --settings=pombola.settings.tests_south_africa"
 
 after_script:
   # Log output in case issues occurred where this can help us debug quicly
