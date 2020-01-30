@@ -25,7 +25,7 @@ django-pipeline-compass-rubygem==0.1.8
 django-formtools==2.1
 
 ### API related
-djangorestframework==3.3.2
+djangorestframework==3.9.1
 
 ### Django related registration
 # The registration app is a little out of date - get it from the repo direct....
