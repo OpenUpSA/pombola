@@ -513,6 +513,10 @@ class ZAHansardParser(object):
                         print >> sys.stderr, '   B %s' % b.text
                         print >> sys.stderr
                     result.append(TitleParslet(text=a.text))
+                elif (type(a).__name__ == 'DateParslet'):
+                    # Ensure that the date is the first element
+                    # so that it will be added to the preface
+                    result.insert(0, a)
                 else:
                     # TODO: perhaps should also rewrite the Parens into a ContinuationParslet?
                     result.append(a)
