@@ -302,6 +302,71 @@ def connection_error(x, *args, **kwargs):
 
 
 @attr(country='south_africa')
+class PersonAttendancesTestCase(WebTest):
+    def setUp(self):
+        # Create the top level SayIt sections, so that there's no
+        # warning when getting the person page:
+        create_sections([{'heading': u"Hansard"},
+                         {'heading': u"Committee Minutes"},
+                         {'heading': u"Questions"}])
+
+        self.moomin_finn = models.Person.objects.create(legal_name='Moomin Finn',
+                                                   slug='moomin-finn')
+        # Give moomin-finn a fake ID for the PMG API
+        models.Identifier.objects.create(
+            scheme='za.org.pmg.api/member',
+            identifier=self.moomin_finn.slug,
+            content_object=self.moomin_finn,
+            )
+
+        # Make sure there are SayIt speakers for all Pombola
+        call_command('pombola_sayit_sync_pombola_to_popolo')
+
+        # Put blank attendance data in the cache to stop us fetching from
+        # the live PMG API
+        pmg_api_cache = caches['pmg_api']
+        pmg_api_cache.set(
+            "https://api.pmg.org.za/member/moomin-finn/attendance/",
+            [],
+            )
+        self._setup_party_for_attendance(True)
+        self._setup_attendance_data()
+
+    def _setup_party_for_attendance(self, show_attendance):
+        self.org_kind_party = models.OrganisationKind.objects.create(name='Party', slug='party')
+        self.party = models.Organisation.objects.create(name='Party', slug='party', kind=self.org_kind_party, show_attendance=show_attendance)
+        self.person = models.Person.objects.get(slug='moomin-finn')
+        self.positiontitle = models.PositionTitle.objects.create(name='Member', slug='member')
+        self.position = models.Position.objects.create(person=self.person, organisation=self.party, title=self.positiontitle)
+
+    def _setup_attendance_data(self):
+        test_data_path = os.path.join(
+            os.path.dirname(os.path.realpath(__file__)),
+            'data/test/attendance_587.json',
+            )
+        with open(test_data_path) as f:
+            raw_data = json.load(f)
+
+        pmg_api_cache = caches['pmg_api']
+        pmg_api_cache.set(
+            "https://api.pmg.org.za/member/moomin-finn/attendance/",
+            raw_data['results'],
+            )
+    
+    def tearDown(self):
+        self.org_kind_party.delete()
+        self.party.delete()
+        self.person.delete()
+        self.positiontitle.delete()
+        self.position.delete()
+        self.moomin_finn.delete()
+
+    def test_person_attendances_page(self):
+        response = self.app.get('/person/%s/attendances/' % 'moomin-finn')
+
+        assert resp.status_int == 200
+
+@attr(country='south_africa')
 class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
     def setUp(self):
         # Create the top level SayIt sections, so that there's no
