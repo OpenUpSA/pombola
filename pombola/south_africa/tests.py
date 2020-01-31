@@ -364,7 +364,7 @@ class PersonAttendancesTestCase(WebTest):
     def test_person_attendances_page(self):
         response = self.app.get('/person/%s/attendances/' % 'moomin-finn')
 
-        assert resp.status_int == 200
+        assert response.status_int == 200
 
 @attr(country='south_africa')
 class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
