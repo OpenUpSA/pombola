@@ -22,7 +22,9 @@
         <span class="meeting-date">{{ meeting.date }}</span>
       </p>
       <div class="meeting-summary">
+        {% if meeting.summary %}
           {{ meeting.summary|bleach|truncatewords_html:50 }}
+        {% endif %}
       </div>
     </li>
 
