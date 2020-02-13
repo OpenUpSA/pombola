@@ -287,6 +287,7 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
                         content_type=organisation_content_type,
                         kind=contact_kinds[field],
                         value=office[field],
+                        preferred=False,
                         source=source_url)
 
         else:
@@ -667,14 +668,40 @@ class Command(LabelCommand):
             '--commit',
             action='store_true',
             dest='commit',
-            help='Actually update the database'),)
+            help='Actually update the database'),
+        make_option(
+            '--end-old-offices',
+            action='store_true',
+            help='Set the end_date of the old offices for the party'),
+        make_option(
+            '--party',
+            help='Party name, e.g. EFF, DA',
+            type=str,
+        ),)
 
 
     def handle_label(self, input_filename, **options):
 
         commit = False
+        end_old_offices = False
+        party_name = None
+        party = None
         if options['commit']:
             commit = True
+        if options['party']:
+            party_name = options['party']
+            try:
+                party = Organisation.objects.get(slug=party_name.lower())
+            except ObjectDoesNotExist:
+                print("Party does not exist.")
+                return
+        if options['commit']:
+            commit = True
+        if options['end_old_offices']:
+            end_old_offices = True
+            if not party:
+                print("You need to set a party if you want to end all of a party's old offices")
+                return
 
         global VERBOSE
         VERBOSE = options['verbose']
@@ -707,34 +734,38 @@ class Command(LabelCommand):
             write_geocode_cache(geocode_cache)
 
         #find the organisations to end
-        organisations_to_end = Organisation.objects.filter(
-            kind__slug__in=['constituency-area', 'constituency-office']).exclude(
-            id__in=organisations_to_keep)
+        if end_old_offices:
+            organisations_to_end = Organisation.objects.filter(
+                kind__slug__in=['constituency-area', 'constituency-office'])\
+                .filter(org_rels_as_b__organisation_a=party)\
+                .exclude(
+                id__in=organisations_to_keep)
+            print("Number to end")
+            print(organisations_to_end.count())
 
-        # Uncomment when you want all of the offices and positions to end that 
-        # are not present in the JSON file.
-        # print "\nNot ending offices starting with:"
-        # for exclude in data.get('exclude', []):
-        #     print exclude
-        #     organisations_to_end = organisations_to_end.exclude(name__startswith=exclude)
+            print "\nNot ending offices starting with:"
+            for exclude in data.get('exclude', []):
+                print exclude
+                organisations_to_end = organisations_to_end.exclude(name__startswith=exclude)
 
-        # print "\nOffices to end"
-        # for organisation in organisations_to_end:
-        #     if organisation.is_ongoing():
-        #         print 'Ending %s' % (organisation)
+            print "\nOffices to end"
+            for organisation in organisations_to_end:
+                print(organisation.name)
+                if organisation.is_ongoing():
+                    print 'Ending %s' % (organisation)
 
-        #         if commit:
-        #             organisation.ended = data['end_date']
-        #             organisation.save()
+                    if commit:
+                        organisation.ended = data['end_date']
+                        organisation.save()
 
-        #         positions = Position.objects.filter(organisation=organisation).currently_active()
+                    positions = Position.objects.filter(organisation=organisation).currently_active()
 
-        #         for position in positions:
-        #             print 'Ending %s' % (position)
+                    for position in positions:
+                        print 'Ending %s' % (position)
 
-        #             if commit:
-        #                 position.end_date = data['end_date']
-        #                 position.save()
+                        if commit:
+                            position.end_date = data['end_date']
+                            position.save()
 
         #print people and locations not found for checking
         print 'People not found'
