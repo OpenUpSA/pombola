@@ -750,7 +750,6 @@ class Command(LabelCommand):
 
             print "\nOffices to end"
             for organisation in organisations_to_end:
-                print(organisation.name)
                 if organisation.is_ongoing():
                     print 'Ending %s' % (organisation)
 
