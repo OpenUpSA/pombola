@@ -44,6 +44,7 @@ nonexistent_phone_number = '000 000 0000'
 VERBOSE = False
 
 def process_office(office, commit, start_date, end_date, na_member_lookup, geocode_cache):
+    print("Processing office %s" % office['Title'])
     global locationsnotfound, personnotfound
 
     # Ensure that all the required kinds and other objects exist:
@@ -438,7 +439,7 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
 
             #check person currently holds office
             accept_person = True
-            if pombola_person and person['Position']=='Constituency Contact':
+            if pombola_person and person.get('Position')=='Constituency Contact':
                 position_check = Position.objects.filter(
                     person=pombola_person,
                     organisation__kind__slug__in=['parliament', 'provincial-legislature'])
@@ -450,23 +451,31 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
                 #check if the position already exists
                 positions = Position.objects.filter(
                     person=pombola_person,
-                    organisation=organisation,
-                    title=position_titles[person['Position']]
-                    ).currently_active()
+                    organisation=organisation
+                )
+                if person.get('Position'):
+                    positions = positions.filter(
+                        title=position_titles[person.get('Position')]
+                    )
 
+                positions = positions.currently_active()
                 if not positions:
-                    print 'Creating position (%s) for %s' % (person['Position'], pombola_person)
+                    print 'Creating position (%s) for %s' % (person.get('Position'), pombola_person)
 
                     if commit:
-                        positiontitle, _ = PositionTitle.objects.get_or_create(
-                            name=person['Position'])
+                        if person.get('Position'):
+                            positiontitle, _ = PositionTitle.objects.get_or_create(
+                                name=person.get('Position'))
 
                         position = Position.objects.create(
                             person=pombola_person,
                             organisation=organisation,
-                            title=positiontitle,
                             start_date=start_date,
                             end_date='future')
+
+                        if person.get('Position'):
+                            position.title=positiontitle
+                            position.save()
 
                         people_to_keep.append(position.id)
 
@@ -587,7 +596,7 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
                                 alternative_name=person['Alternative Name'])
 
             if not pombola_person:
-                if person['Position'] == 'Constituency Contact':
+                if person.get('Position') == 'Constituency Contact':
                     personnotfound.append([office['Title'], person['Name']])
                     print 'Failed to match representative', person['Name']
                 else:
@@ -670,7 +679,7 @@ class Command(LabelCommand):
         global VERBOSE
         VERBOSE = options['verbose']
 
-        contact_source_2013 = "Data from the party (2013)"
+        contact_source_2013 = "Data from the party (2019)"
 
         organisations_to_keep = []
 
@@ -686,13 +695,13 @@ class Command(LabelCommand):
                         office,
                         commit,
                         data['start_date'],
-                        data['end_date'],
+                        None,
                         na_member_lookup,
                         geocode_cache
                     )
-
                     if organisation:
                         organisations_to_keep.append(organisation.id)
+
 
         finally:
             write_geocode_cache(geocode_cache)
@@ -702,43 +711,30 @@ class Command(LabelCommand):
             kind__slug__in=['constituency-area', 'constituency-office']).exclude(
             id__in=organisations_to_keep)
 
-        print "\nNot ending offices starting with:"
-        for exclude in data['exclude']:
-            print exclude
-            organisations_to_end = organisations_to_end.exclude(name__startswith=exclude)
+        # Uncomment when you want all of the offices and positions to end that 
+        # are not present in the JSON file.
+        # print "\nNot ending offices starting with:"
+        # for exclude in data.get('exclude', []):
+        #     print exclude
+        #     organisations_to_end = organisations_to_end.exclude(name__startswith=exclude)
 
-        print "\nOffices to end"
-        for organisation in organisations_to_end:
-            if organisation.is_ongoing():
-                print 'Ending %s' % (organisation)
+        # print "\nOffices to end"
+        # for organisation in organisations_to_end:
+        #     if organisation.is_ongoing():
+        #         print 'Ending %s' % (organisation)
 
-                if commit:
-                    organisation.ended = data['end_date']
-                    organisation.save()
+        #         if commit:
+        #             organisation.ended = data['end_date']
+        #             organisation.save()
 
-                positions = Position.objects.filter(organisation=organisation).currently_active()
+        #         positions = Position.objects.filter(organisation=organisation).currently_active()
 
-                for position in positions:
-                    print 'Ending %s' % (position)
+        #         for position in positions:
+        #             print 'Ending %s' % (position)
 
-                    if commit:
-                        position.end_date = data['end_date']
-                        position.save()
-
-        contacts_correct = Contact.objects.filter(source='Data from the party via Geoffrey Kilpin')
-
-        if contacts_correct:
-            print "\nCorrecting contact sources"
-
-            for contact in contacts_correct:
-                try:
-                    print 'Changing source for %s from %s to %s' % (contact, contact.source, contact_source_2013)
-                except UnicodeDecodeError:
-                    print 'Changing contact source'
-
-                if commit:
-                    contact.source = contact_source_2013
-                    contact.save()
+        #             if commit:
+        #                 position.end_date = data['end_date']
+        #                 position.save()
 
         #print people and locations not found for checking
         print 'People not found'
