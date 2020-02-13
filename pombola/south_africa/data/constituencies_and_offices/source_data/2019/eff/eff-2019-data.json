@@ -23,7 +23,7 @@
     {
       "Province": "KwaZulu Natal", 
       "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true", 
-      "Title": "EFF Constituency Office: Durban", 
+      "Title": "EFF Constituency Office: Durban Pixley", 
       "Party": "EFF", 
       "Physical Address": "Office 27027, 320 Pixley, Durban, KwaZulu Natal", 
       "Type": "office", 
@@ -43,7 +43,7 @@
     {
       "Province": "Free State", 
       "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true", 
-      "Title": "EFF Constituency Office: Bloemfontein", 
+      "Title": "EFF Constituency Office: Bloemfontein Fontein Str", 
       "Party": "EFF", 
       "Physical Address": "Andrew Drukkey Bld, 14 Fontein Str, Bloemfontein, Free State.", 
       "Type": "office", 
@@ -51,14 +51,14 @@
       "Postal Address": "Andrew Drukkey Bld, 14 Fontein Str, Bloemfontein, Free State."
     }, 
     {
-      "Province": "NorthernCape", 
+      "Province": "Northern Cape", 
       "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true", 
       "Title": "EFF Constituency Office: Kuruman", 
       "Party": "EFF", 
-      "Physical Address": "E197, Steward Str, Kuruman, NorthernCape.", 
+      "Physical Address": "E197, Steward Str, Kuruman, Northern Cape.", 
       "Type": "office", 
       "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019", 
-      "Postal Address": "E197, Steward Str, Kuruman, NorthernCape."
+      "Postal Address": "E197, Steward Str, Kuruman, Northern Cape."
     }, 
     {
       "Province": "Limpopo", 
@@ -73,7 +73,7 @@
     {
       "Province": "Free State", 
       "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true", 
-      "Title": "EFF Constituency Office: Bloemfontein", 
+      "Title": "EFF Constituency Office: Bloemfontein Charlotte Maxeke Street", 
       "Party": "EFF", 
       "Physical Address": "39 Charlotte Maxeke Street, 9300 Bloemfontein, Free State", 
       "Type": "office", 
@@ -103,7 +103,7 @@
     {
       "Province": "KwaZulu Natal", 
       "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true", 
-      "Title": "EFF Constituency Office: Durban", 
+      "Title": "EFF Constituency Office: Durban Glendwood", 
       "Party": "EFF", 
       "Physical Address": "86 Bulwer Rd, Glendwood, Durban,KwaZulu Natal.", 
       "Type": "office", 
@@ -139,16 +139,6 @@
       "Type": "office", 
       "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019", 
       "Postal Address": "608 Mkholo Bld, 26 Brown Str, Nelspruit, Mpumalanga."
-    }, 
-    {
-      "Province": "North West", 
-      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true", 
-      "Title": "EFF Constituency Office: Rustenburg", 
-      "Party": "EFF", 
-      "Physical Address": "112 Beyers Naudee Drive, Rustenburg, North West.", 
-      "Type": "office", 
-      "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019", 
-      "Postal Address": "112 Beyers Naudee Drive, Rustenburg, North West."
     }, 
     {
       "Province": "Mpumalanga", 
@@ -201,16 +191,6 @@
       "Postal Address": "18 Murray Street, Stutterheim, Eastern Cape."
     }, 
     {
-      "Province": "Western Cape", 
-      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true", 
-      "Title": "EFF Constituency Office: George", 
-      "Party": "EFF", 
-      "Physical Address": "S48 Ngcakana Road, Thembalethu, George, Western Cape", 
-      "Type": "office", 
-      "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019", 
-      "Postal Address": "S48 Ngcakana Road, Thembalethu, George, Western Cape"
-    }, 
-    {
       "Province": "Gauteng", 
       "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true", 
       "Title": "EFF Constituency Office: Braamfontein", 
@@ -241,46 +221,6 @@
       "Postal Address": "Office 130-131, Setsing 1, Mamponi Str, Phuthaditjhaba, Free State."
     },
     {
-      "Province": "Eastern Cape",
-      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true",
-      "Title": "EFF Constituency Office: Stutterheim",
-      "Party": "EFF",
-      "Physical Address": "18 Murray Street, Stutterheim, Eastern Cape.",
-      "Type": "office",
-      "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019",
-      "Postal Address": "18 Murray Street, Stutterheim, Eastern Cape."
-    },
-    {
-      "Province": "Gauteng",
-      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true",
-      "Title": "EFF Constituency Office: Braamfontein",
-      "Party": "EFF",
-      "Physical Address": "78 Corner De Korte & De Beer Streets, Mineralia Bld, 3rd Floor, Braamfontein, Gauteng.",
-      "Type": "office",
-      "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019",
-      "Postal Address": "78 Corner De Korte & De Beer Streets, Mineralia Bld, 3rd Floor, Braamfontein, Gauteng."
-    },
-    {
-      "Province": "Mpumalanga",
-      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true",
-      "Title": "EFF Constituency Office: Bushbuckridge",
-      "Party": "EFF",
-      "Physical Address": "Thokoza Building, Bushbuckridge, Mpumalanga.",
-      "Type": "office",
-      "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019",
-      "Postal Address": "Thokoza Building, Bushbuckridge, Mpumalanga."
-    },
-    {
-      "Province": "KwaZulu Natal",
-      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true",
-      "Title": "EFF Constituency Office: Stanger",
-      "Party": "EFF",
-      "Physical Address": "Gideza Str, Stanger, KwaZulu Natal.",
-      "Type": "office",
-      "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019",
-      "Postal Address": "Gideza Str, Stanger, KwaZulu Natal."
-    },
-    {
       "Province": "North West",
       "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true",
       "Title": "EFF Constituency Office: Klerksdorp",
@@ -301,34 +241,14 @@
       "Postal Address": "Office 603, 47 Strand Str, Strand Bld, Cape Town, Western Cape."
     },
     {
-      "Province": "Welkom. Free State",
+      "Province": "Free State",
       "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true",
-      "Title": "EFF Constituency Office: De Kaap Str",
+      "Title": "EFF Constituency Office: Welkom",
       "Party": "EFF",
-      "Physical Address": "Domitec Bld, Shop 8, De Kaap Str, Welkom. Free State.",
+      "Physical Address": "Domitec Bld, Shop 8, De Kaap Str, Welkom, Free State.",
       "Type": "office",
       "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019",
-      "Postal Address": "Domitec Bld, Shop 8, De Kaap Str, Welkom. Free State."
-    },
-    {
-      "Province": "Limpopo",
-      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true",
-      "Title": "EFF Constituency Office: Polokwane",
-      "Party": "EFF",
-      "Physical Address": "26 Thabo Mbeki Str, 5A 1 Smit Bld, 1st Floor, Polokwane, Limpopo.",
-      "Type": "office",
-      "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019",
-      "Postal Address": "26 Thabo Mbeki Str, 5A 1 Smit Bld, 1st Floor, Polokwane, Limpopo."
-    },
-    {
-      "Province": "Eastern Cape",
-      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true",
-      "Title": "EFF Constituency Office: Queenstown",
-      "Party": "EFF",
-      "Physical Address": "18 Campbell Str, Queenstown, Eastern Cape",
-      "Type": "office",
-      "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019",
-      "Postal Address": "18 Campbell Str, Queenstown, Eastern Cape"
+      "Postal Address": "Domitec Bld, Shop 8, De Kaap Str, Welkom, Free State."
     }
   ],
   "start_date": "2019-06-01"
