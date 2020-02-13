@@ -67,6 +67,7 @@ httplib2==0.11.3
 WebTest==2.0.15
 django-webtest==1.7.8
 requests-mock==1.4.0
+codecov==2.0.15
 
 git+git://github.com/nathforge/django-mechanize.git@d9537ccf8cc66bc7913df0c95fd532699ec88fdc
 selenium==2.53.6
