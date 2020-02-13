@@ -740,8 +740,6 @@ class Command(LabelCommand):
                 .filter(org_rels_as_b__organisation_a=party)\
                 .exclude(
                 id__in=organisations_to_keep)
-            print("Number to end")
-            print(organisations_to_end.count())
 
             print "\nNot ending offices starting with:"
             for exclude in data.get('exclude', []):
