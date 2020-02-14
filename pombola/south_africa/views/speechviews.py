@@ -74,7 +74,7 @@ class SASpeechesIndex(NamespaceMixin, TemplateView):
         all_parent_section_headings = Section \
             .objects \
             .filter(**section_filter) \
-            .values('heading') \
+            .values('id') \
             .distinct() \
             .annotate(latest_start_date=Max('children__speech__start_date')) \
             .order_by('-latest_start_date')
@@ -89,14 +89,9 @@ class SASpeechesIndex(NamespaceMixin, TemplateView):
             parent_section_headings = paginator.page(paginator.num_pages)
 
         # get the sections for the current page in date order
-        headings = list(section['heading'] for section in parent_section_headings)
-        section_filter['heading__in'] = headings
-        parent_sections = Section \
-            .objects \
-            .values('id', 'heading') \
-            .filter(**section_filter) \
-            .annotate(latest_start_date=Max('children__speech__start_date')) \
-            .order_by('-latest_start_date', 'heading')
+        headings = list(section['id'] for section in parent_section_headings)
+        section_filter['id__in'] = headings
+        parent_sections = parent_section_headings.object_list
 
         # get the subsections based on the relevant section ids
         # exclude those with blank headings as we have no way of linking to them
@@ -116,6 +111,15 @@ class SASpeechesIndex(NamespaceMixin, TemplateView):
                 'parent__parent__parent__parent__slug',
                 ) \
             .order_by('-speech_start_date', 'parent__heading', 'start_order')
+        
+        for debate_section in debate_sections:
+            debate_section.path = '/'.join([
+                debate_section.slug,
+                debate_section.parent.slug,
+                debate_section.parent.parent.slug,
+                debate_section.parent.parent.parent.slug,
+            ])
+
         
         context['entries'] = debate_sections
         context['page_obj'] = parent_section_headings
