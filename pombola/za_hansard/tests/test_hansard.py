@@ -14,7 +14,7 @@ from nose.plugins.attrib import attr
 
 from pombola.za_hansard.models import Source
 
-from pombola.za_hansard.parse import ZAHansardParser
+from pombola.za_hansard.parse import ZAHansardParser, DateNotFoundException
 from lxml import etree
 
 import os
@@ -47,6 +47,14 @@ class ZAHansardParsingTests(TestCase):
             return (docname, (xml, xml_string))
 
         cls.xml = dict([process(dn) for dn in cls.docnames])
+
+    def test_no_date_found(self):
+        docname = 'NO_DATE'
+        tests_dir = os.path.dirname(os.path.abspath(__file__))
+        _in_fixtures = os.path.join(tests_dir, 'test_inputs', 'hansard')
+        filename = os.path.join(
+            _in_fixtures, '%s.%s' % (docname, 'doc'))
+        self.assertRaises(DateNotFoundException, ZAHansardParser.parse, filename)
 
     def test_basic_parse(self):
         for docname in iter(self.xml):
