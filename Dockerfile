@@ -21,7 +21,8 @@ RUN apt-get update && \
                        yui-compressor \
                        zlib1g-dev \
                        postgresql-client \
-                       awscli
+                       awscli \
+                       flite
 
 RUN mkdir /app
 COPY requirements.txt /app/

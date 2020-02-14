@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from formtools.wizard.views import NamedUrlSessionWizardView
 
 from django.views.generic import TemplateView
@@ -137,6 +138,32 @@ class WriteInPublicMixin(object):
         self.request.current_app = self.request.resolver_match.namespace
         return super(WriteInPublicMixin, self).render_to_response(context, **response_kwargs)
 
+class PreventRevalidationMixin(object):
+    """
+    Mixin to prevent the revalidation of specific fields.
+
+    From https://github.com/jazzband/django-formtools/issues/21.
+
+    Added because the Captcha field can't be validated more than once.
+
+    Add the mixin and an array of NO_REVALIDATION_FIELD_NAMES that you don't 
+    want to be revalidated at the end of the wizard.
+    """
+    def process_step(self, form):
+        for name in self.NO_REVALIDATION_FIELD_NAMES:
+           if name in form.fields:
+               self.storage.extra_data['skip_validation_%s' % name] = True
+        return super(PreventRevalidationMixin, self).process_step(form)
+
+    def get_form(self, step=None, *args, **kwargs):
+        # From https://github.com/jazzband/django-formtools/issues/21
+        form = super(PreventRevalidationMixin, self).get_form(step=step, *args, **kwargs)
+        for name in self.NO_REVALIDATION_FIELD_NAMES:
+           if name in form.fields and self.storage.extra_data.get('skip_validation_%s' % name):
+                del form.fields[name]
+        return form
+
+
 
 FORMS = [
     ("recipients", RecipientForm),
@@ -145,7 +172,8 @@ FORMS = [
 ]
 
 
-class WriteInPublicNewMessage(WriteInPublicMixin, NamedUrlSessionWizardView):
+class WriteInPublicNewMessage(WriteInPublicMixin, PreventRevalidationMixin, NamedUrlSessionWizardView):
+    NO_REVALIDATION_FIELD_NAMES = ['captcha']
     form_list = FORMS
 
     def get_form_kwargs(self, step=None):
