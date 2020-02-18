@@ -356,6 +356,7 @@ class Command(BaseCommand):
                 number_q_kwargs[filter_key] = data[api_key]
         existing_kwargs = {'date__year': year, 'house': house}
         existing_kwargs.update(number_q_kwargs)
+        question = None
         if not number_found:
             # We won't be able to accurately tell whether a question
             # already exists if we don't have one of these number, so
