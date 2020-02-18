@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 
-from datetime import date
+from datetime import date, datetime
 from mock import patch
 
 from django.core.management import call_command
 from django.test import TestCase
 
 from pombola.za_hansard.models import Answer, Question
+from pombola.za_hansard.management.commands.za_hansard_q_and_a_scraper import (
+    get_term_from_date
+)
 from nose.plugins.attrib import attr
 
 EXAMPLE_QUESTION = {
@@ -322,3 +325,33 @@ class PMGAPITests(TestCase):
         self.assertEqual(answer.date, date(2016, 9, 1))
         self.assertEqual(answer.pmg_api_url,
                          'http://api.pmg.org.za/example-question/5678/')
+
+@attr(country='south_africa')
+class UnitTests(TestCase):
+    def test_get_term_from_date(self):
+        examples = [
+            [
+                datetime(2009, 6, 31),
+                '25th'
+            ],
+            [
+                datetime(2018, 6, 31),
+                '26th'
+            ],
+            [
+                datetime(2019, 5, 31),
+                '26th'
+            ],
+            [
+                datetime(2019, 1, 1),
+                '27th'
+            ],
+            [
+                datetime(2020, 1, 1),
+                '27th'
+            ],
+        ]
+        for example in examples:
+            self.assertEqual(get_term_from_date(example[0]), example[1])
+            
+

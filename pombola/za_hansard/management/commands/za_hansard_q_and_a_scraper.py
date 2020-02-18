@@ -89,6 +89,16 @@ def get_identifier_for_title(question_or_answer):
         number = 'd' + str(question_or_answer.dp_number)
     return "{0}-{1}".format(question_or_answer.year, number)
 
+TERMS = (
+    ('25th', datetime(2009, 6, 1)),
+    ('26th', datetime(2014, 6, 1)),
+    ('27th', datetime(2019, 6, 1)),
+)
+
+def get_term_from_date(date):
+    for i in range(len(TERMS)-1, 0, -1):
+        if date >= TERMS[i][1]:
+            return TERMS[i][0]
 
 def convert_url_to_https(url):
     return re.sub(r'^http:', 'https:', url)
@@ -355,15 +365,22 @@ class Command(BaseCommand):
                 data['url'])
             return
         try:
-            print "Found the existing question for", data['url']
             question = Question.objects.get(**existing_kwargs)
-            # It might well be useful to add the corresponding PMG API
-            # URL details (e.g. using their PA link to get the PA person)
-            question.pmg_api_url = data['url']
-            question.pmg_api_member_pa_url = askedby_pa_url
-            question.pmg_api_source_file_url = data['source_file']['url']
-            question.save()
+            # If we find questions with the same numbers and year, 
+            # check if their parliamentary term is also the same
+            new_date = datetime.strptime(data['date'], "%Y-%m-%d").date()
+            if get_term_from_date(new_date) == get_term_from_date(question.date):
+                print "Found the existing question for", data['url']
+                # It might well be useful to add the corresponding PMG API
+                # URL details (e.g. using their PA link to get the PA person)
+                question.pmg_api_url = data['url']
+                question.pmg_api_member_pa_url = askedby_pa_url
+                question.pmg_api_source_file_url = data['source_file']['url']
+                question.save()
         except Question.DoesNotExist:
+            pass
+
+        if not question:
             print "No existing question found; creating a new one for", data['url']
             # In which case, create it:
             question = Question.objects.create(
@@ -396,6 +413,7 @@ class Command(BaseCommand):
                 pmg_api_member_pa_url=askedby_pa_url,
                 pmg_api_source_file_url=data['source_file']['url'],
             )
+
         # If there's already an answer, assume it's OK, except record
         # the PMG API URL if it hasn't got one:
         if question.answer:
