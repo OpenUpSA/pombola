@@ -11,10 +11,14 @@ from pombola.za_hansard.models import Question
 def forwards_func(apps, schema_editor):
     # For every Question, calculate it's term
     for question in Question.objects.all():
-        term = ParliamentaryTerm.get_term_from_date(question.date)
-        if term:
+        try:
+            term = ParliamentaryTerm.get_term_from_date(question.date)
             question.term = term
             question.save()
+        except ParliamentaryTerm.DoesNotExist: 
+            raise Exception(
+                "Unable to calculate term for Question with ID %d. Please that a ParliamentaryTerm exists that includes this date."
+                % question.id)
 
 
 def reverse_func(apps, schema_editor):
