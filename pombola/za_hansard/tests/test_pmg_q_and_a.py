@@ -343,7 +343,7 @@ class UnitTests(TestCase):
                 '26th'
             ],
             [
-                date(2019, 1, 1),
+                date(2019, 6, 1),
                 '27th'
             ],
             [
@@ -352,6 +352,7 @@ class UnitTests(TestCase):
             ],
         ]
         for example in examples:
-            self.assertEqual(get_term_from_date(example[0]), example[1])
+            self.assertEqual(get_term_from_date(example[0]), example[1], 
+            "%s must have term %s" % (str(example[0]), example[1]))
             
 

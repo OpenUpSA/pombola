@@ -96,7 +96,7 @@ TERMS = (
 )
 
 def get_term_from_date(date):
-    for i in range(len(TERMS)-1, 0, -1):
+    for i in range(len(TERMS)-1, -1, -1):
         if date >= TERMS[i][1]:
             return TERMS[i][0]
 
