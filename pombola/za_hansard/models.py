@@ -286,7 +286,7 @@ class Answer (models.Model):
     # the PMG API.
     pmg_api_url = models.URLField(max_length=1000, blank=True, null=True)
 
-    term = models.ForeignKey(ParliamentaryTerm, null=True)
+    term = models.ForeignKey(ParliamentaryTerm, null=False)
 
     class Meta:
         unique_together = (
