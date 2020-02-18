@@ -42,3 +42,9 @@ class ParliamentaryTerm(models.Model):
     def __str__(self):
         return "%sth Parliament (%s - %s)" % (self.number, self.start_date, self.end_date)
     
+    @classmethod
+    def get_term_from_date(cls, d):
+        return cls.objects.\
+            filter(start_date__lte=d).filter(end_date__gte=d).first()
+
+    
