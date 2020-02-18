@@ -8,6 +8,7 @@ from django.db import models
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from speeches.models import Section
+from pombola.south_africa.models import ParliamentaryTerm
 from django.core.exceptions import ValidationError
 
 HTTPLIB2_HEADERS = {
@@ -455,6 +456,9 @@ class Question(models.Model):
         max_length=1000, blank=True, null=True)
     pmg_api_source_file_url = models.URLField(
         max_length=1000, blank=True, null=True)
+
+    term = models.ForeignKey(ParliamentaryTerm, null=True)
+
 
     class Meta:
         unique_together = (
