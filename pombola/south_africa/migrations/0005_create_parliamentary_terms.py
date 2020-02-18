@@ -7,6 +7,7 @@ from django.db import migrations, models
 from pombola.south_africa.models import ParliamentaryTerm
 
 TERMS = [
+    ParliamentaryTerm(number=24, start_date=date(2004, 6, 1), end_date=date(2009, 5, 31)),
     ParliamentaryTerm(number=25, start_date=date(2009, 6, 1), end_date=date(2014, 5, 31)),
     ParliamentaryTerm(number=26, start_date=date(2014, 6, 1), end_date=date(2019, 5, 31)),
     ParliamentaryTerm(number=27, start_date=date(2019, 6, 1), end_date=date(2024, 5, 31)),
