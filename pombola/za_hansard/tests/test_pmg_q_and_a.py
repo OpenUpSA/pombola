@@ -7,6 +7,7 @@ from django.core.management import call_command
 from django.test import TestCase
 
 from pombola.za_hansard.models import Answer, Question
+from nose.plugins.attrib import attr
 
 EXAMPLE_QUESTION = {
     'question': 'Why did the chicken cross the road?',

@@ -17,6 +17,7 @@ from django.utils.unittest import skipUnless
 from .. import question_scraper
 from ..management.commands.za_hansard_q_and_a_scraper import Command as QAScraperCommand
 from ..models import Question, QuestionPaper
+from nose.plugins.attrib import attr
 
 
 def sample_file(filename):
