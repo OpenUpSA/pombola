@@ -2633,3 +2633,10 @@ class SAParliamentaryTerm(TestCase):
             )
             
 
+    def test_get_term_from_date_for_invalid_parliament(self):
+        d = date(2001, 6, 30)
+        self.assertRaises(
+            ParliamentaryTerm.DoesNotExist, 
+            ParliamentaryTerm.get_term_from_date, d)
+            
+

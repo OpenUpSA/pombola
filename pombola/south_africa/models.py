@@ -45,6 +45,6 @@ class ParliamentaryTerm(models.Model):
     @classmethod
     def get_term_from_date(cls, d):
         return cls.objects.\
-            filter(start_date__lte=d).filter(end_date__gte=d).first()
+            filter(start_date__lte=d).filter(end_date__gte=d).get()
 
     
