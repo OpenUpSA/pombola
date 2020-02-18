@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
             name='ParliamentaryTerm',
             fields=[
                 ('number', models.IntegerField(serialize=False, primary_key=True)),
-                ('start_date', models.DateTimeField()),
+                ('start_date', models.DateField()),
                 ('end_date', models.DateField()),
             ],
         ),
