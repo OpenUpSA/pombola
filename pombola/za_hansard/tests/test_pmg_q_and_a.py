@@ -36,6 +36,7 @@ EXAMPLE_QUESTION = {
 }
 
 
+@attr(country='south_africa')
 class PMGAPITests(TestCase):
 
     @patch('pombola.za_hansard.management.commands.za_hansard_q_and_a_scraper.all_from_api')

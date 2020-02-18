@@ -24,6 +24,7 @@ def sample_file(filename):
     return os.path.join(tests_dir, 'test_inputs', 'questions', filename)
 
 
+@attr(country='south_africa')
 class ZAAnswerTests(TestCase):
 
     def test_answer_parsing(self):
@@ -125,6 +126,7 @@ class ZAIteratorBaseMixin(object):
                          self.penultimate_expected_number)
 
 
+@attr(country='south_africa')
 class ZAQuestionIteratorTests(ZAIteratorBaseMixin, TestCase):
 
     cache_dir_name = 'questions_cache'
@@ -147,6 +149,7 @@ class ZAQuestionIteratorTests(ZAIteratorBaseMixin, TestCase):
     penultimate_expected_number = 19
 
 
+@attr(country='south_africa')
 class ZAAnswerIteratorTests(ZAIteratorBaseMixin, TestCase):
 
     cache_dir_name = 'answers_cache'
