@@ -90,9 +90,9 @@ def get_identifier_for_title(question_or_answer):
     return "{0}-{1}".format(question_or_answer.year, number)
 
 TERMS = (
-    ('25th', datetime(2009, 6, 1)),
-    ('26th', datetime(2014, 6, 1)),
-    ('27th', datetime(2019, 6, 1)),
+    ('25th', date(2009, 6, 1)),
+    ('26th', date(2014, 6, 1)),
+    ('27th', date(2019, 6, 1)),
 )
 
 def get_term_from_date(date):

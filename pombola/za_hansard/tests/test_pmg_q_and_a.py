@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from datetime import date, datetime
+from datetime import date
 from mock import patch
 
 from django.core.management import call_command
@@ -331,23 +331,23 @@ class UnitTests(TestCase):
     def test_get_term_from_date(self):
         examples = [
             [
-                datetime(2009, 6, 31),
+                date(2009, 6, 30),
                 '25th'
             ],
             [
-                datetime(2018, 6, 31),
+                date(2018, 6, 30),
                 '26th'
             ],
             [
-                datetime(2019, 5, 31),
+                date(2019, 5, 31),
                 '26th'
             ],
             [
-                datetime(2019, 1, 1),
+                date(2019, 1, 1),
                 '27th'
             ],
             [
-                datetime(2020, 1, 1),
+                date(2020, 1, 1),
                 '27th'
             ],
         ]
