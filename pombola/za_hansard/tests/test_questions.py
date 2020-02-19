@@ -176,6 +176,7 @@ class ZAAnswerIteratorTests(ZAIteratorBaseMixin, TestCase):
     penultimate_expected_number = 6
 
 
+@attr(country='south_africa')
 class ZAQuestionParsing(TestCase):
     test_data = (
         ('559662_1', 'http://www.parliament.gov.za/live/commonrepository/Processed/20140113/559662_1.pdf',

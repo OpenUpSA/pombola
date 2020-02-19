@@ -2,11 +2,13 @@ from datetime import date, time
 
 from django.test import TestCase
 from django.core.management import call_command
+from nose.plugins.attrib import attr
 
 from speeches.tests.helpers import create_sections
 from speeches.models import Speech, Tag
 
 
+@attr(country='south_africa')
 class OneOffTagSpeechesTests(TestCase):
 
     def setUp(self):

@@ -17,6 +17,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.conf import settings
 
 from pombola.za_hansard.models import Question, QuestionPaper
+from pombola.south_africa.models import ParliamentaryTerm
 
 # from https://github.com/scraperwiki/scraperwiki-python/blob/a96582f6c20cc1897f410d522e2a5bf37d301220/scraperwiki/utils.py#L38-L54
 # Copied rather than included as the scraperwiki __init__.py was having trouble
@@ -581,6 +582,7 @@ class QuestionPaperParser(object):
 
             match_dict[u'date'] = date
             match_dict[u'year'] = date.year
+            match_dict[u'term'] = ParliamentaryTerm.get_term_from_date(date)
 
             # Party isn't actually stored in the question, so drop it before saving
             # Perhaps we can eventually use it to make sure we have the right person.

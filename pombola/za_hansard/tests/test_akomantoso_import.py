@@ -4,6 +4,7 @@ import os
 
 from django.core.management import call_command
 from django.utils.unittest import skip
+from nose.plugins.attrib import attr
 
 from instances.tests import InstanceTestCase
 from popolo_name_resolver.resolve import EntityName, recreate_entities
@@ -15,6 +16,7 @@ import logging
 logging.disable(logging.WARNING)
 
 
+@attr(country='south_africa')
 class ImportZAAkomaNtosoTests(InstanceTestCase):
 
     @classmethod
@@ -25,7 +27,6 @@ class ImportZAAkomaNtosoTests(InstanceTestCase):
         call_command('update_index', interactive=False, verbosity=0)
         recreate_entities()
 
-    @skip("Depends on external API data")
     def test_import(self):
         return
         document_path = os.path.join(self._in_fixtures, 'NA200912.xml')
