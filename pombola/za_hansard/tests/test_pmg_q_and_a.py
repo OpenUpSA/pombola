@@ -8,6 +8,7 @@ from django.core.management import call_command
 from django.test import TestCase
 
 from pombola.za_hansard.models import Answer, Question
+from pombola.south_africa.models import ParliamentaryTerm
 from nose.plugins.attrib import attr
 
 EXAMPLE_QUESTION = {
@@ -131,7 +132,7 @@ class PMGAPITests(TestCase):
             date=date(2016, 1, 27),
             house='N',
             answer_type='W',
-            term=ParliamentaryTerm.objects.get(number=25),
+            term=ParliamentaryTerm.objects.get(number=26),
             year=2016,
             identifier='NW9876543E',
             id_number='9876543',
@@ -196,7 +197,7 @@ class PMGAPITests(TestCase):
         # Create an existing question with the same year and written_number,
         # but in a different term.
 
-        Question.objects.create(
+        question = Question.objects.create(
             question=u'Forsooth, why hath the chicken crossèd the road?',
             written_number=12345,
             date=date(2019, 1, 27), # 26th term
@@ -209,6 +210,19 @@ class PMGAPITests(TestCase):
             askedby='G Marx',
             translated=False,
         )
+        answer = Answer.objects.create(
+            written_number=12345,
+            date=date(2019, 1, 27), # 26th term
+            date_published=date(2019, 1, 27),
+            term=ParliamentaryTerm.objects.get(number=26),
+            house='N',
+            type='W',
+            year=2019,
+            language='English',
+            text='It is true.'
+        )
+        question.answer = answer
+
 
         # Run the command:
         call_command('za_hansard_q_and_a_scraper', scrape_from_pmg=True)
@@ -217,8 +231,8 @@ class PMGAPITests(TestCase):
         # written_number is the same.
 
         # Check that what we expect has been created:
-        self.assertEqual(Answer.objects.count(), 2)
         self.assertEqual(Question.objects.count(), 2)
+        self.assertEqual(Answer.objects.count(), 2)
 
 
     @patch('pombola.za_hansard.management.commands.za_hansard_q_and_a_scraper.all_from_api')
