@@ -44,6 +44,11 @@ from pombola.interests_register.models import Category, Release, Entry, EntryLin
 from nose.plugins.attrib import attr
 from pygeolib import GeocoderError
 
+def fake_constituency_office_geocode(address_string, geocode_cache=None, verbose=True):
+    print("Mocker")
+    # return lon, lat, geocode_cache
+    return 18.424, -33.925, {}
+
 def fake_geocoder(country, q, decimal_places=3):
     if q == 'anywhere':
         return []
@@ -72,11 +77,37 @@ def fake_geocoder(country, q, decimal_places=3):
 
 @attr(country='south_africa')
 class HomeViewTest(TestCase):
-
     def test_homepage_context(self):
         response = self.client.get('/')
         self.assertIn('featured_mp', response.context)
         self.assertIn('news_articles', response.context)
+
+
+@attr(country='south_africa')
+class ConstituencyOfficesImportTestCase(WebTest):
+    def setUp(self):
+        # Geocode needs to return
+        # return lon, lat, geocode_cache
+        kind = models.OrganisationKind.objects.create(
+            slug='party',
+            name='Party'
+        )
+        party = models.Organisation.objects.create(
+            kind=kind,
+            name='EFF',
+            started='2019-06-01',
+            ended='future',
+            slug='eff',
+            summary='EFF',
+            )
+
+    @patch('pombola.south_africa.management.commands.south_africa_update_constituency_offices.geocode', side_effect=fake_constituency_office_geocode)
+    def test_import_eff_offices(self, geocode_mock):
+        call_command(
+            'south_africa_update_constituency_offices', 
+            'pombola/south_africa/fixtures/test_eff_constituency_offices.json', 
+            '--verbose', '--end-old-offices', '--party', 'eff', '--commit')
+        # TODO: test that the correct offices were created
 
 @attr(country='south_africa')
 class ConstituencyOfficesTestCase(WebTest):

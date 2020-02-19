@@ -228,7 +228,11 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
     #relationship to party
     try:
         party = Organisation.objects.get(slug=office['Party'].lower())
+    except (ObjectDoesNotExist, AttributeError):
+        # TODO: handle error
+        raise Exception('Party does not exist')
 
+    try:
         OrganisationRelationship.objects.get(
             organisation_a=party,
             organisation_b=organisation,
