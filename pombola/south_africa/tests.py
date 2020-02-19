@@ -90,7 +90,7 @@ class ConstituencyOfficesImportTestCase(WebTest):
             slug='party',
             name='Party'
         )
-        party = models.Organisation.objects.create(
+        self.party = models.Organisation.objects.create(
             kind=kind,
             name='EFF',
             started='2019-06-01',
@@ -98,6 +98,11 @@ class ConstituencyOfficesImportTestCase(WebTest):
             slug='eff',
             summary='EFF',
             )
+        self.office_kind = models.OrganisationKind.objects.create(
+                slug='constituency-office',
+                name='Constituency Office')
+        self.relationship_kind = models.OrganisationRelationshipKind.objects.create(
+            name='has_office')
 
     @patch('pombola.south_africa.management.commands.south_africa_update_constituency_offices.geocode', side_effect=fake_constituency_office_geocode)
     def test_import_eff_offices(self, geocode_mock):
@@ -108,8 +113,25 @@ class ConstituencyOfficesImportTestCase(WebTest):
             end_old_offices=True, party='eff', commit=True
             )
 
-        self.assertTrue(models.Organisation.objects.\
-            filter(name="EFF Constituency Office: Cape Town").exists())
+        self.assertTrue(models.Organisation.objects.filter(
+                name="EFF Constituency Office: Cape Town", 
+                kind=self.office_kind,
+                started="2019-06-01", ended="future"
+            ).exists())
+        organisation = models.Organisation.objects.\
+            get(name="EFF Constituency Office: Cape Town")
+        # Check if lat lon is the same as in the mocker
+
+        self.assertTrue(models.OrganisationRelationship.objects.filter(
+            organisation_a=self.party,
+            organisation_b=organisation,
+            kind=self.relationship_kind
+        ).exists())
+        location = Point(18.424, -33.925)
+        self.assertTrue(models.Place.objects.filter(
+            name__startswith=u'Approximate position of ',
+            location=location,
+            organisation=organisation).exists())
 
 @attr(country='south_africa')
 class ConstituencyOfficesTestCase(WebTest):
