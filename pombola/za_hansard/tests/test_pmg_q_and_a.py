@@ -2,14 +2,12 @@
 
 from datetime import date
 from mock import patch
+import copy
 
 from django.core.management import call_command
 from django.test import TestCase
 
 from pombola.za_hansard.models import Answer, Question
-from pombola.za_hansard.management.commands.za_hansard_q_and_a_scraper import (
-    get_term_from_date
-)
 from nose.plugins.attrib import attr
 
 EXAMPLE_QUESTION = {
@@ -133,6 +131,7 @@ class PMGAPITests(TestCase):
             date=date(2016, 1, 27),
             house='N',
             answer_type='W',
+            number=25,
             year=2016,
             identifier='NW9876543E',
             id_number='9876543',
@@ -176,6 +175,53 @@ class PMGAPITests(TestCase):
                          'http://example.org/chicken-joke.docx')
 
     @patch('pombola.za_hansard.management.commands.za_hansard_q_and_a_scraper.all_from_api')
+    def test_create_question_if_questions_have_different_terms(self, fake_all_from_api):
+        new_term_question = copy.deepcopy(EXAMPLE_QUESTION)
+        new_term_question['year'] = '2019'
+        new_term_question['date'] = '2019-06-03' # 27th term
+        def api_one_question_and_answer(url):
+            if url == 'https://api.pmg.org.za/minister/':
+                yield {
+                    'questions_url': "http://api.pmg.org.za/minister/2/questions/",
+                }
+                return
+            elif url == 'https://api.pmg.org.za/member/':
+                return
+            elif url == 'http://api.pmg.org.za/minister/2/questions/':
+                yield new_term_question
+            else:
+                raise Exception("Unfaked URL '{0}'".format(url))
+        fake_all_from_api.side_effect = api_one_question_and_answer
+
+        # Create an existing question with the same year and written_number,
+        # but in a different term.
+
+        Question.objects.create(
+            question=u'Forsooth, why hath the chicken crossèd the road?',
+            written_number=12345,
+            date=date(2019, 1, 27), # 26th term
+            number=26,
+            house='N',
+            answer_type='W',
+            year=2019,
+            identifier='NW9876543E',
+            id_number='9876543',
+            askedby='G Marx',
+            translated=False,
+        )
+
+        # Run the command:
+        call_command('za_hansard_q_and_a_scraper', scrape_from_pmg=True)
+
+        # Check that a new question was created even though the year and 
+        # written_number is the same.
+
+        # Check that what we expect has been created:
+        self.assertEqual(Answer.objects.count(), 2)
+        self.assertEqual(Question.objects.count(), 2)
+
+
+    @patch('pombola.za_hansard.management.commands.za_hansard_q_and_a_scraper.all_from_api')
     def test_nothing_created_if_both_exist(self, fake_all_from_api):
         def api_one_question_and_answer(url):
             if url == 'https://api.pmg.org.za/minister/':
@@ -197,6 +243,7 @@ class PMGAPITests(TestCase):
             text='For to arrive unto the other side',
             written_number=12345,
             date=date(2016, 9, 1),
+            number=26,
             date_published=date(2016, 9, 6),
             year=2016,
             house='N',
@@ -207,6 +254,7 @@ class PMGAPITests(TestCase):
             answer=existing_answer,
             written_number=12345,
             date=date(2016, 1, 27),
+            number=26,
             house='N',
             answer_type='W',
             year=2016,
@@ -279,6 +327,7 @@ class PMGAPITests(TestCase):
             text='For to arrive unto the other side',
             written_number=12345,
             date=date(2016, 9, 1),
+            number=26,
             date_published=date(2016, 9, 6),
             year=2016,
             house='N',
@@ -325,34 +374,3 @@ class PMGAPITests(TestCase):
         self.assertEqual(answer.date, date(2016, 9, 1))
         self.assertEqual(answer.pmg_api_url,
                          'http://api.pmg.org.za/example-question/5678/')
-
-@attr(country='south_africa')
-class UnitTests(TestCase):
-    def test_get_term_from_date(self):
-        examples = [
-            [
-                date(2009, 6, 30),
-                '25th'
-            ],
-            [
-                date(2018, 6, 30),
-                '26th'
-            ],
-            [
-                date(2019, 5, 31),
-                '26th'
-            ],
-            [
-                date(2019, 6, 1),
-                '27th'
-            ],
-            [
-                date(2020, 1, 1),
-                '27th'
-            ],
-        ]
-        for example in examples:
-            self.assertEqual(get_term_from_date(example[0]), example[1], 
-            "%s must have term %s" % (str(example[0]), example[1]))
-            
-

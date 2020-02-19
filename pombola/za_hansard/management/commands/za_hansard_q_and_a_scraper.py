@@ -23,6 +23,7 @@ from django.core.exceptions import MultipleObjectsReturned
 
 import requests
 
+from pombola.south_africa.models import ParliamentaryTerm
 from pombola.za_hansard.models import Question, Answer, QuestionPaper
 from pombola.za_hansard.importers.import_json import ImportJson
 from instances.models import Instance
@@ -89,16 +90,6 @@ def get_identifier_for_title(question_or_answer):
         number = 'd' + str(question_or_answer.dp_number)
     return "{0}-{1}".format(question_or_answer.year, number)
 
-TERMS = (
-    ('25th', date(2009, 6, 1)),
-    ('26th', date(2014, 6, 1)),
-    ('27th', date(2019, 6, 1)),
-)
-
-def get_term_from_date(date):
-    for i in range(len(TERMS)-1, -1, -1):
-        if date >= TERMS[i][1]:
-            return TERMS[i][0]
 
 def convert_url_to_https(url):
     return re.sub(r'^http:', 'https:', url)
@@ -354,7 +345,24 @@ class Command(BaseCommand):
             if data[api_key]:
                 number_found = True
                 number_q_kwargs[filter_key] = data[api_key]
-        existing_kwargs = {'date__year': year, 'house': house}
+
+        try:
+            question_date = datetime.strptime(data['date'], "%Y-%m-%d").date()
+        except Exception:
+            self.stderr.write(
+                'Could not parse the date for question {}. Skipping.'.\
+                    format(data['url']))
+            return
+
+        try:
+            term = ParliamentaryTerm.get_term_from_date(question_date)
+        except Exception:
+            self.stderr.write(
+                'Could not determine the parliamentary term for question {}. Skipping.'.\
+                    format(data['url']))
+            return
+
+        existing_kwargs = {'date__year': year, 'house': house, 'term': term}
         existing_kwargs.update(number_q_kwargs)
         question = None
         if not number_found:
@@ -367,21 +375,14 @@ class Command(BaseCommand):
             return
         try:
             question = Question.objects.get(**existing_kwargs)
-            # If we find questions with the same numbers and year, 
-            # check if their parliamentary term is also the same
-            new_date = datetime.strptime(data['date'], "%Y-%m-%d").date()
-            if get_term_from_date(new_date) == get_term_from_date(question.date):
-                print "Found the existing question for", data['url']
-                # It might well be useful to add the corresponding PMG API
-                # URL details (e.g. using their PA link to get the PA person)
-                question.pmg_api_url = data['url']
-                question.pmg_api_member_pa_url = askedby_pa_url
-                question.pmg_api_source_file_url = data['source_file']['url']
-                question.save()
+            print "Found the existing question for", data['url']
+            # It might well be useful to add the corresponding PMG API
+            # URL details (e.g. using their PA link to get the PA person)
+            question.pmg_api_url = data['url']
+            question.pmg_api_member_pa_url = askedby_pa_url
+            question.pmg_api_source_file_url = data['source_file']['url']
+            question.save()
         except Question.DoesNotExist:
-            pass
-
-        if not question:
             print "No existing question found; creating a new one for", data['url']
             # In which case, create it:
             question = Question.objects.create(
@@ -413,6 +414,7 @@ class Command(BaseCommand):
                 pmg_api_url=data['url'],
                 pmg_api_member_pa_url=askedby_pa_url,
                 pmg_api_source_file_url=data['source_file']['url'],
+                term=term
             )
 
         # If there's already an answer, assume it's OK, except record
@@ -478,7 +480,8 @@ class Command(BaseCommand):
                 url=data['source_file']['url'],
                 date_published=data['date'],
                 type=dot_extension[1:],
-                pmg_api_url=data['url']
+                pmg_api_url=data['url'],
+                term=term
             )
             question.answer = answer
         question.save()
