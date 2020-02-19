@@ -290,17 +290,11 @@ class Answer (models.Model):
 
     class Meta:
         unique_together = (
-            ('oral_number', 'house', 'year'),
-            ('written_number', 'house', 'year'),
-            ('president_number', 'house', 'year'),
-            ('dp_number', 'house', 'year'),
+            ('oral_number', 'house', 'year', 'term'),
+            ('written_number', 'house', 'year', 'term'),
+            ('president_number', 'house', 'year', 'term'),
+            ('dp_number', 'house', 'year', 'term'),
         )
-
-        # FIXME - When we have Django 1.5 we can have these indices...
-        # index_together = (
-        #     ('oral_number', 'house', 'year'),
-        #     ('written_number', 'house', 'year'),
-        #     )
 
 
 class QuestionPaper(models.Model):
@@ -464,20 +458,11 @@ class Question(models.Model):
 
     class Meta:
         unique_together = (
-            ('written_number', 'house', 'year'),
-            ('oral_number', 'house', 'year'),
-            ('president_number', 'house', 'year'),
-            ('dp_number', 'house', 'year'),
+            ('oral_number', 'house', 'year', 'term'),
+            ('written_number', 'house', 'year', 'term'),
+            ('president_number', 'house', 'year', 'term'),
+            ('dp_number', 'house', 'year', 'term'),
         )
-        # index_together(
-        #     ('written_number', 'house', 'year'),
-        #     ('oral_number', 'house', 'year'),
-        #     ('id_number', 'house', 'year'),
-        #     )
-
-        # FIXME - Other things it would be nice to constrain that will have to
-        # be done in postgres directly, I think.
-        # 1) At least one of written_number and oral_number must be non-null.
 
 # CREATE TABLE completed_documents (`url` string);
 
