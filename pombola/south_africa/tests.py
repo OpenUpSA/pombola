@@ -45,8 +45,6 @@ from nose.plugins.attrib import attr
 from pygeolib import GeocoderError
 
 def fake_constituency_office_geocode(address_string, geocode_cache=None, verbose=True):
-    print("Mocker")
-    # return lon, lat, geocode_cache
     return 18.424, -33.925, {}
 
 def fake_geocoder(country, q, decimal_places=3):
@@ -106,8 +104,12 @@ class ConstituencyOfficesImportTestCase(WebTest):
         call_command(
             'south_africa_update_constituency_offices', 
             'pombola/south_africa/fixtures/test_eff_constituency_offices.json', 
-            '--verbose', '--end-old-offices', '--party', 'eff', '--commit')
-        # TODO: test that the correct offices were created
+            verbose=True,
+            end_old_offices=True, party='eff', commit=True
+            )
+
+        self.assertTrue(models.Organisation.objects.\
+            filter(name="EFF Constituency Office: Cape Town").exists())
 
 @attr(country='south_africa')
 class ConstituencyOfficesTestCase(WebTest):
