@@ -138,6 +138,7 @@ class Command(BaseCommand):
             'popolo_person',
             'popolo_post',
             'popolo_source',
+            'south_africa_parliamentaryterm',
             'scorecards_category',
             'scorecards_entry',
             'slug_helpers_slugredirect',
