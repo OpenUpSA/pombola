@@ -105,6 +105,12 @@ Do a test run:
 
     dokku postgres:backup pombola peoples-assembly-postgres-backups
 
+#### `PMG_API_KEY`
+
+You need to get a PMG API key for a user that is confirmed (`user.confirmed_at` needs to be set) and has either the `editor` role or is subscribed to all of the premium committees. You can get the authentication key from https://api.pmg.org.za/user/ after you have logged in.
+
+This key is needed by the [`za_hansard_pmg_api_scraper` command](https://github.com/OpenUpSA/pombola/blob/efcfaf05916ca2cb838a6b570109cae91545905a/pombola/za_hansard/management/commands/za_hansard_pmg_api_scraper.py#L82) that imports committee meetings appearances.
+
 
 ### Create and configure the app
 
