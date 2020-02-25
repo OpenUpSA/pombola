@@ -45,7 +45,7 @@ nonexistent_phone_number = '000 000 0000'
 
 VERBOSE = False
 
-def process_office(office, commit, start_date, end_date, na_member_lookup, geocode_cache):
+def process_office(office, commit, start_date, end_date, na_member_lookup, geocode_cache, search_office):
     print("Processing office %s" % office['Title'])
     global locationsnotfound, personnotfound
 
@@ -204,7 +204,7 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
         except ObjectDoesNotExist:
             pass
     
-    if not organisation: # Search for a similar name
+    if search_office and not organisation: # Search for a similar name
         search = SearchQuerySet().models(Organisation).\
             filter(content=office['Title'])
         for search_result in search:
@@ -722,6 +722,11 @@ class Command(LabelCommand):
             '--party',
             help='Party name, e.g. EFF, DA',
             type=str,
+        ),
+        make_option(
+            '--search-office',
+            help='Find similar office names by searching for them',
+            type=str,
         ),)
 
 
@@ -731,6 +736,7 @@ class Command(LabelCommand):
         end_old_offices = False
         party_name = None
         party = None
+        search_office = False
         if options['commit']:
             commit = True
         if options['party']:
@@ -740,6 +746,8 @@ class Command(LabelCommand):
             except ObjectDoesNotExist:
                 print("Party does not exist.")
                 return
+        if options['search_office']:
+            search_office = True
         if options['commit']:
             commit = True
         if options['end_old_offices']:
@@ -769,7 +777,8 @@ class Command(LabelCommand):
                         data['start_date'],
                         None,
                         na_member_lookup,
-                        geocode_cache
+                        geocode_cache,
+                        search_office
                     )
                     if organisation:
                         organisations_to_keep.append(organisation.id)

@@ -162,7 +162,7 @@ class ConstituencyOfficesImportTestCase(WebTest):
             'south_africa_update_constituency_offices', 
             'pombola/south_africa/fixtures/test_da_constituency_offices.json', 
             verbose=True,
-            end_old_offices=True, party='da', commit=True
+            end_old_offices=True, party='da', commit=True, search_office=True
             )
         
          # Test one organisation was created
