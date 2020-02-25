@@ -117,6 +117,9 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
     pt_constituency_head, _ = PositionTitle.objects.get_or_create(
         slug='constituency-head',
         name='Constituency Head')
+    pt_constituency_leader, _ = PositionTitle.objects.get_or_create(
+        slug='constituency-leader',
+        name='Constituency Leader')
 
 
     position_titles = {
@@ -128,6 +131,7 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
         'Community Development Field Worker': pt_community_development_field_worker,
         'Constituency Chair': pt_constituency_chair,
         'Constituency Head': pt_constituency_head,
+        'Constituency Leader': pt_constituency_leader,
     }
 
     ork_has_office, _ = OrganisationRelationshipKind.objects.get_or_create(
@@ -582,7 +586,7 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
 
                     #if only one email exists replace
                     if len(contacts)==1:
-                        print 'Updating email for %s from %s to %s' % (pombola_person, contacts[0].value, person['Email'])
+                        print 'Updating email for', pombola_person, 'from', contacts[0].value, 'to', person['Email']
 
                         if commit:
                             contacts[0].value = person['Email']
