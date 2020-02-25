@@ -589,7 +589,7 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
                                 add = False
 
                         if add:
-                            print 'Adding email for %s: %s' % (pombola_person, person['Email'])
+                            print 'Adding email for', pombola_person, ': ', person['Email']
 
                             if commit:
                                 Contact.objects.create(
@@ -597,6 +597,7 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
                                     content_type=person_content_type,
                                     kind=ck_email,
                                     value=person['Email'],
+                                    preferred=True,
                                     source=source_url)
 
                     print 'Updating contact source to %s' % (source_url)
