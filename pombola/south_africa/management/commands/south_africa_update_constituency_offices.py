@@ -633,6 +633,7 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
                                 content_type=person_content_type,
                                 kind=ck_telephone,
                                 value=person['Cell'],
+                                preferred=True,
                                 source=source_url)
 
                     if 'Alternative Name' in person:
