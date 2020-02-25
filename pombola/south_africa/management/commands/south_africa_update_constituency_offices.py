@@ -114,6 +114,10 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
     pt_constituency_chair, _ = PositionTitle.objects.get_or_create(
         slug='constituency-chair',
         name='Constituency Chair')
+    pt_constituency_head, _ = PositionTitle.objects.get_or_create(
+        slug='constituency-head',
+        name='Constituency Head')
+
 
     position_titles = {
         'Constituency Contact': pt_constituency_contact,
@@ -123,6 +127,7 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
         'Coordinator': pt_coordinator,
         'Community Development Field Worker': pt_community_development_field_worker,
         'Constituency Chair': pt_constituency_chair,
+        'Constituency Head': pt_constituency_head,
     }
 
     ork_has_office, _ = OrganisationRelationshipKind.objects.get_or_create(
