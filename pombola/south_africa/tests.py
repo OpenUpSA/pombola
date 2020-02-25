@@ -12,6 +12,7 @@ import requests
 
 from mock import patch, MagicMock
 
+from django.db.models import Q
 from django.contrib.gis.geos import Polygon, Point
 from django.test import TestCase
 from django.test.client import Client
@@ -90,7 +91,15 @@ class ConstituencyOfficesImportTestCase(WebTest):
             slug='party',
             name='Party'
         )
-        self.party = models.Organisation.objects.create(
+        self.da_party = models.Organisation.objects.create(
+            kind=kind,
+            name='DA',
+            started='2019-06-01',
+            ended='future',
+            slug='da',
+            summary='DA',
+            )
+        self.eff_party = models.Organisation.objects.create(
             kind=kind,
             name='EFF',
             started='2019-06-01',
@@ -101,6 +110,9 @@ class ConstituencyOfficesImportTestCase(WebTest):
         self.office_kind = models.OrganisationKind.objects.create(
                 slug='constituency-office',
                 name='Constituency Office')
+        self.area_kind = models.OrganisationKind.objects.create(
+            slug='constituency-area',
+            name='Constituency Area')
         self.relationship_kind = models.OrganisationRelationshipKind.objects.create(
             name='has_office')
 
@@ -120,10 +132,9 @@ class ConstituencyOfficesImportTestCase(WebTest):
             ).exists())
         organisation = models.Organisation.objects.\
             get(name="EFF Constituency Office: Cape Town")
-        # Check if lat lon is the same as in the mocker
 
         self.assertTrue(models.OrganisationRelationship.objects.filter(
-            organisation_a=self.party,
+            organisation_a=self.eff_party,
             organisation_b=organisation,
             kind=self.relationship_kind
         ).exists())
@@ -132,6 +143,38 @@ class ConstituencyOfficesImportTestCase(WebTest):
             name__startswith=u'Approximate position of ',
             location=location,
             organisation=organisation).exists())
+
+    @patch('pombola.south_africa.management.commands.south_africa_update_constituency_offices.geocode', side_effect=fake_constituency_office_geocode)
+    def test_import_da_offices(self, geocode_mock):
+        call_command(
+            'south_africa_update_constituency_offices', 
+            'pombola/south_africa/fixtures/test_da_constituency_offices.json', 
+            verbose=True,
+            end_old_offices=True, party='da', commit=True
+            )
+        
+        # Test organisation was created
+        self.assertTrue(models.Organisation.objects.filter(
+                name__iexact="DA Constituency Area: eMalahleni", 
+                kind=self.area_kind,
+                started="2019-06-01", ended="future"
+            ).exists())
+        organisation = models.Organisation.objects.\
+            get(name__iexact="DA Constituency Area: eMalahleni")
+
+        # Test place was created
+        self.assertTrue(models.OrganisationRelationship.objects.filter(
+            organisation_a=self.da_party,
+            organisation_b=organisation,
+            kind=self.relationship_kind
+        ).exists())
+        self.assertTrue(models.Place.objects.filter(
+            name__startswith=u'Unknown sub-area of Mpumalanga ',
+            organisation=organisation).exists())
+        
+        # Test Person was created
+        self.assertTrue(models.Person.objects.filter(Q(legal_name="Sonja Boshoff")).exists())
+
 
 @attr(country='south_africa')
 class ConstituencyOfficesTestCase(WebTest):
