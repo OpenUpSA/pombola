@@ -2,21 +2,25 @@
     "offices": [
         {
             "Province": "Mpumalanga", 
+            "Source URL": "https://docs.google.com/spreadsheets/d/1jG2PjfhGhATJn8d0ImtikEp-Etv0uH87/edit#gid=1535567072", 
+            "Location": "Lekwa", 
             "Title": "DA Constituency Area: Lekwa", 
+            "Party": "DA", 
             "People": [
                 {
                     "Cell": "610429926", 
                     "Name": "Angel Khanyile"
                 }
             ], 
-            "Source URL": "https://docs.google.com/spreadsheets/d/1jG2PjfhGhATJn8d0ImtikEp-Etv0uH87/edit#gid=1535567072", 
-            "Party": "DA", 
             "Type": "area", 
             "Source Note": "DA Parliamentary Caucus 2019"
         }, 
         {
             "Province": "Mpumalanga", 
+            "Source URL": "https://docs.google.com/spreadsheets/d/1jG2PjfhGhATJn8d0ImtikEp-Etv0uH87/edit#gid=1535567072", 
+            "Location": "eMalahleni", 
             "Title": "DA Constituency Area: eMalahleni", 
+            "Party": "DA", 
             "People": [
                 {
                     "Cell": "828549711", 
@@ -27,50 +31,51 @@
                     "Name": "Sonja Boshoff"
                 }
             ], 
-            "Source URL": "https://docs.google.com/spreadsheets/d/1jG2PjfhGhATJn8d0ImtikEp-Etv0uH87/edit#gid=1535567072", 
-            "Party": "DA", 
             "Type": "area", 
             "Source Note": "DA Parliamentary Caucus 2019"
         }, 
         {
             "Province": "Mpumalanga", 
+            "Source URL": "https://docs.google.com/spreadsheets/d/1jG2PjfhGhATJn8d0ImtikEp-Etv0uH87/edit#gid=1535567072", 
+            "Location": "Thaba Chweu", 
             "Title": "DA Constituency Area: Thaba Chweu", 
+            "Party": "DA", 
             "People": [
                 {
                     "Cell": "834145060", 
                     "Name": "Trudie Grove-Morgan"
                 }
             ], 
-            "Source URL": "https://docs.google.com/spreadsheets/d/1jG2PjfhGhATJn8d0ImtikEp-Etv0uH87/edit#gid=1535567072", 
-            "Party": "DA", 
             "Type": "area", 
             "Source Note": "DA Parliamentary Caucus 2019"
         }, 
         {
             "Province": "Mpumalanga", 
+            "Source URL": "https://docs.google.com/spreadsheets/d/1jG2PjfhGhATJn8d0ImtikEp-Etv0uH87/edit#gid=1535567072", 
+            "Location": "Steve Tshwete", 
             "Title": "DA Constituency Area: Steve Tshwete", 
+            "Party": "DA", 
             "People": [
                 {
                     "Cell": "798936823", 
                     "Name": "Annerie Weber"
                 }
             ], 
-            "Source URL": "https://docs.google.com/spreadsheets/d/1jG2PjfhGhATJn8d0ImtikEp-Etv0uH87/edit#gid=1535567072", 
-            "Party": "DA", 
             "Type": "area", 
             "Source Note": "DA Parliamentary Caucus 2019"
         }, 
         {
             "Province": "Mpumalanga", 
+            "Source URL": "https://docs.google.com/spreadsheets/d/1jG2PjfhGhATJn8d0ImtikEp-Etv0uH87/edit#gid=1535567072", 
+            "Location": "Mbombela", 
             "Title": "DA Constituency Area: Mbombela", 
+            "Party": "DA", 
             "People": [
                 {
                     "Cell": "836970747", 
                     "Name": "Bosman Grobler"
                 }
             ], 
-            "Source URL": "https://docs.google.com/spreadsheets/d/1jG2PjfhGhATJn8d0ImtikEp-Etv0uH87/edit#gid=1535567072", 
-            "Party": "DA", 
             "Type": "area", 
             "Source Note": "DA Parliamentary Caucus 2019"
         }

@@ -21,6 +21,7 @@ for title, office in offices.items():
         "Source Note": "DA Parliamentary Caucus 2019",
         "Province": "Mpumalanga",
         "People": [],
+        'Location': title.strip(),
     }
     for person in office:
         json_office['People'].append({
