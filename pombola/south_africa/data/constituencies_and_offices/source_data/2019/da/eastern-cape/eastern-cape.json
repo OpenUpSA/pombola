@@ -1,0 +1,367 @@
+{
+    "offices": [
+        {
+            "Province": "Eastern Cape", 
+            "Source URL": "https://docs.google.com/spreadsheets/d/1YjXPpSCZSl7LzxuqjlMHRKiwKsCA38dM", 
+            "Location": "PE Southwest", 
+            "Title": "DA Constituency Area: PE Southwest", 
+            "Party": "DA", 
+            "People": [
+                {
+                    "Position": "Constituency Leader", 
+                    "Name": "Bobby Stevenson"
+                }, 
+                {
+                    "Position": "Administrator", 
+                    "Name": "Karla Terblanche"
+                }
+            ], 
+            "Type": "area", 
+            "Source Note": "DA Parliamentary Caucus 2019"
+        }, 
+        {
+            "Province": "Eastern Cape", 
+            "Source URL": "https://docs.google.com/spreadsheets/d/1YjXPpSCZSl7LzxuqjlMHRKiwKsCA38dM", 
+            "Location": "PE Northern Areas", 
+            "Title": "DA Constituency Area: PE Northern Areas", 
+            "Party": "DA", 
+            "People": [
+                {
+                    "Position": "Constituency Leader", 
+                    "Name": "Athol Trollip"
+                }, 
+                {
+                    "Position": "Administrator", 
+                    "Name": "Dominic Prince"
+                }
+            ], 
+            "Type": "area", 
+            "Source Note": "DA Parliamentary Caucus 2019"
+        }, 
+        {
+            "Province": "Eastern Cape", 
+            "Source URL": "https://docs.google.com/spreadsheets/d/1YjXPpSCZSl7LzxuqjlMHRKiwKsCA38dM", 
+            "Location": "Ngqurha", 
+            "Title": "DA Constituency Area: Ngqurha", 
+            "Party": "DA", 
+            "People": [
+                {
+                    "Position": "Constituency Leader", 
+                    "Name": "Yusuf Cassim"
+                }, 
+                {
+                    "Position": "Administrator", 
+                    "Name": "Karla Terblanche"
+                }
+            ], 
+            "Type": "area", 
+            "Source Note": "DA Parliamentary Caucus 2019"
+        }, 
+        {
+            "Province": "Eastern Cape", 
+            "Source URL": "https://docs.google.com/spreadsheets/d/1YjXPpSCZSl7LzxuqjlMHRKiwKsCA38dM", 
+            "Location": "Winterhoek", 
+            "Title": "DA Constituency Area: Winterhoek", 
+            "Party": "DA", 
+            "People": [
+                {
+                    "Position": "Constituency Leader", 
+                    "Name": "Marshall von Buchenroder"
+                }, 
+                {
+                    "Position": "Administrator", 
+                    "Name": "Karla Terblanche"
+                }
+            ], 
+            "Type": "area", 
+            "Source Note": "DA Parliamentary Caucus 2019"
+        }, 
+        {
+            "Province": "Eastern Cape", 
+            "Source URL": "https://docs.google.com/spreadsheets/d/1YjXPpSCZSl7LzxuqjlMHRKiwKsCA38dM", 
+            "Location": "Tsitsi-Kouga", 
+            "Title": "DA Constituency Area: Tsitsi-Kouga", 
+            "Party": "DA", 
+            "People": [
+                {
+                    "Position": "Constituency Leader", 
+                    "Name": "Andrew Whitfiedl"
+                }, 
+                {
+                    "Position": "Administrator", 
+                    "Name": "Carla Schoeman"
+                }
+            ], 
+            "Type": "area", 
+            "Source Note": "DA Parliamentary Caucus 2019"
+        }, 
+        {
+            "Province": "Eastern Cape", 
+            "Source URL": "https://docs.google.com/spreadsheets/d/1YjXPpSCZSl7LzxuqjlMHRKiwKsCA38dM", 
+            "Location": "Dr. Beyers Naude", 
+            "Title": "DA Constituency Area: Dr. Beyers Naude", 
+            "Party": "DA", 
+            "People": [
+                {
+                    "Position": "Constituency Leader", 
+                    "Name": "Samantha Graham-Mare"
+                }, 
+                {
+                    "Position": "Administrator", 
+                    "Name": "Carla Schoeman"
+                }
+            ], 
+            "Type": "area", 
+            "Source Note": "DA Parliamentary Caucus 2019"
+        }, 
+        {
+            "Province": "Eastern Cape", 
+            "Source URL": "https://docs.google.com/spreadsheets/d/1YjXPpSCZSl7LzxuqjlMHRKiwKsCA38dM", 
+            "Location": "EC Midlands", 
+            "Title": "DA Constituency Area: EC Midlands", 
+            "Party": "DA", 
+            "People": [
+                {
+                    "Position": "Constituency Leader", 
+                    "Name": "Retief Odendaal"
+                }, 
+                {
+                    "Position": "Administrator", 
+                    "Name": "Noxolo Bebeza"
+                }
+            ], 
+            "Type": "area", 
+            "Source Note": "DA Parliamentary Caucus 2019"
+        }, 
+        {
+            "Province": "Eastern Cape", 
+            "Source URL": "https://docs.google.com/spreadsheets/d/1YjXPpSCZSl7LzxuqjlMHRKiwKsCA38dM", 
+            "Location": "BCM Coastal", 
+            "Title": "DA Constituency Area: BCM Coastal", 
+            "Party": "DA", 
+            "People": [
+                {
+                    "Position": "Constituency Leader", 
+                    "Name": "Nqaba Bhanga"
+                }, 
+                {
+                    "Position": "Administrator", 
+                    "Name": "Tenille Booth"
+                }
+            ], 
+            "Type": "area", 
+            "Source Note": "DA Parliamentary Caucus 2019"
+        }, 
+        {
+            "Province": "Eastern Cape", 
+            "Source URL": "https://docs.google.com/spreadsheets/d/1YjXPpSCZSl7LzxuqjlMHRKiwKsCA38dM", 
+            "Location": "SB Farrow", 
+            "Title": "DA Constituency Area: SB Farrow", 
+            "Party": "DA", 
+            "People": [
+                {
+                    "Position": "Constituency Leader", 
+                    "Name": "Thandeka Mbabama"
+                }, 
+                {
+                    "Position": "Administrator", 
+                    "Name": "Tenille Booth"
+                }
+            ], 
+            "Type": "area", 
+            "Source Note": "DA Parliamentary Caucus 2019"
+        }, 
+        {
+            "Province": "Eastern Cape", 
+            "Source URL": "https://docs.google.com/spreadsheets/d/1YjXPpSCZSl7LzxuqjlMHRKiwKsCA38dM", 
+            "Location": "Enoch Mgijima", 
+            "Title": "DA Constituency Area: Enoch Mgijima", 
+            "Party": "DA", 
+            "People": [
+                {
+                    "Position": "Constituency Leader", 
+                    "Name": "Jane Cowley"
+                }, 
+                {
+                    "Position": "Administrator", 
+                    "Name": "Noxolo Bebeza"
+                }
+            ], 
+            "Type": "area", 
+            "Source Note": "DA Parliamentary Caucus 2019"
+        }, 
+        {
+            "Province": "Eastern Cape", 
+            "Source URL": "https://docs.google.com/spreadsheets/d/1YjXPpSCZSl7LzxuqjlMHRKiwKsCA38dM", 
+            "Location": "Zuurberg", 
+            "Title": "DA Constituency Area: Zuurberg", 
+            "Party": "DA", 
+            "People": [
+                {
+                    "Position": "Constituency Leader", 
+                    "Name": "Edmund van Vuuren"
+                }, 
+                {
+                    "Position": "Administrator", 
+                    "Name": "Carla Schoeman"
+                }
+            ], 
+            "Type": "area", 
+            "Source Note": "DA Parliamentary Caucus 2019"
+        }, 
+        {
+            "Province": "Eastern Cape", 
+            "Source URL": "https://docs.google.com/spreadsheets/d/1YjXPpSCZSl7LzxuqjlMHRKiwKsCA38dM", 
+            "Location": "New Horizon", 
+            "Title": "DA Constituency Area: New Horizon", 
+            "Party": "DA", 
+            "People": [
+                {
+                    "Position": "Constituency Leader", 
+                    "Name": "Annette Steyn"
+                }, 
+                {
+                    "Position": "Administrator", 
+                    "Name": "Noxolo Bebeza"
+                }
+            ], 
+            "Type": "area", 
+            "Source Note": "DA Parliamentary Caucus 2019"
+        }, 
+        {
+            "Province": "Eastern Cape", 
+            "Source URL": "https://docs.google.com/spreadsheets/d/1YjXPpSCZSl7LzxuqjlMHRKiwKsCA38dM", 
+            "Location": "Chris Hani", 
+            "Title": "DA Constituency Area: Chris Hani", 
+            "Party": "DA", 
+            "People": [
+                {
+                    "Position": "Constituency Leader", 
+                    "Name": "Sanele Magaqa"
+                }, 
+                {
+                    "Position": "Administrator", 
+                    "Name": "Noxolo Bebeza"
+                }
+            ], 
+            "Type": "area", 
+            "Source Note": "DA Parliamentary Caucus 2019"
+        }, 
+        {
+            "Province": "Eastern Cape", 
+            "Source URL": "https://docs.google.com/spreadsheets/d/1YjXPpSCZSl7LzxuqjlMHRKiwKsCA38dM", 
+            "Location": "Alfred Nzo", 
+            "Title": "DA Constituency Area: Alfred Nzo", 
+            "Party": "DA", 
+            "People": [
+                {
+                    "Position": "Constituency Leader", 
+                    "Name": "Baxolile Nodada"
+                }, 
+                {
+                    "Position": "Administrator", 
+                    "Name": "Noxolo Bebeza"
+                }
+            ], 
+            "Type": "area", 
+            "Source Note": "DA Parliamentary Caucus 2019"
+        }, 
+        {
+            "Province": "Eastern Cape", 
+            "Source URL": "https://docs.google.com/spreadsheets/d/1YjXPpSCZSl7LzxuqjlMHRKiwKsCA38dM", 
+            "Location": "Raymond Mhlaba", 
+            "Title": "DA Constituency Area: Raymond Mhlaba", 
+            "Party": "DA", 
+            "People": [
+                {
+                    "Position": "Constituency Leader", 
+                    "Name": "Nomvano Zibonda"
+                }, 
+                {
+                    "Position": "Administrator", 
+                    "Name": "Nolwazi Dolo"
+                }
+            ], 
+            "Type": "area", 
+            "Source Note": "DA Parliamentary Caucus 2019"
+        }, 
+        {
+            "Province": "Eastern Cape", 
+            "Source URL": "https://docs.google.com/spreadsheets/d/1YjXPpSCZSl7LzxuqjlMHRKiwKsCA38dM", 
+            "Location": "Frontier", 
+            "Title": "DA Constituency Area: Frontier", 
+            "Party": "DA", 
+            "People": [
+                {
+                    "Position": "Constituency Leader", 
+                    "Name": "Kevin Mileham"
+                }, 
+                {
+                    "Position": "Administrator", 
+                    "Name": "Karla Terblanche"
+                }
+            ], 
+            "Type": "area", 
+            "Source Note": "DA Parliamentary Caucus 2019"
+        }, 
+        {
+            "Province": "Eastern Cape", 
+            "Source URL": "https://docs.google.com/spreadsheets/d/1YjXPpSCZSl7LzxuqjlMHRKiwKsCA38dM", 
+            "Location": "Blue Crane", 
+            "Title": "DA Constituency Area: Blue Crane", 
+            "Party": "DA", 
+            "People": [
+                {
+                    "Position": "Constituency Leader", 
+                    "Name": "Vicky Knoetze"
+                }, 
+                {
+                    "Position": "Administrator", 
+                    "Name": "Nolwazi Dolo"
+                }
+            ], 
+            "Type": "area", 
+            "Source Note": "DA Parliamentary Caucus 2019"
+        }, 
+        {
+            "Province": "Eastern Cape", 
+            "Source URL": "https://docs.google.com/spreadsheets/d/1YjXPpSCZSl7LzxuqjlMHRKiwKsCA38dM", 
+            "Location": "Phesheya Kwenciba 1", 
+            "Title": "DA Constituency Area: Phesheya Kwenciba 1", 
+            "Party": "DA", 
+            "People": [
+                {
+                    "Position": "Constituency Leader", 
+                    "Name": "Chantel King"
+                }, 
+                {
+                    "Position": "Administrator", 
+                    "Name": "Nolwazi Dolo"
+                }
+            ], 
+            "Type": "area", 
+            "Source Note": "DA Parliamentary Caucus 2019"
+        }, 
+        {
+            "Province": "Eastern Cape", 
+            "Source URL": "https://docs.google.com/spreadsheets/d/1YjXPpSCZSl7LzxuqjlMHRKiwKsCA38dM", 
+            "Location": "Phesheya Kwenciba 2", 
+            "Title": "DA Constituency Area: Phesheya Kwenciba 2", 
+            "Party": "DA", 
+            "People": [
+                {
+                    "Position": "Constituency Leader", 
+                    "Name": "Mlindi Nhanha"
+                }, 
+                {
+                    "Position": "Administrator", 
+                    "Name": "Nolwazi Dolo"
+                }
+            ], 
+            "Type": "area", 
+            "Source Note": "DA Parliamentary Caucus 2019"
+        }
+    ], 
+    "start_date": "2019-06-01", 
+    "end_date": "2019-05-31"
+}
