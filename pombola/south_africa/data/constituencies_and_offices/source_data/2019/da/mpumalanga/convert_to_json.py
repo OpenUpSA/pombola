@@ -19,6 +19,7 @@ for title, office in offices.items():
         "Party": "DA",
         "Type": "area",
         "Source Note": "DA Parliamentary Caucus 2019",
+        "Province": "Mpumalanga",
         "People": [],
     }
     for person in office:
