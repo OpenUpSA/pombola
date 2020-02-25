@@ -115,6 +115,18 @@ class ConstituencyOfficesImportTestCase(WebTest):
             name='Constituency Area')
         self.relationship_kind = models.OrganisationRelationshipKind.objects.create(
             name='has_office')
+            
+        self.da_organisation = models.Organisation.objects.create(
+            name="DA Constituency Area: Rustenburg [Rustenburg] / Kgetlengrivier [Koster]",
+            kind=self.area_kind,
+        )
+        models.OrganisationRelationship.objects.create(
+                organisation_a=self.da_party,
+                organisation_b=self.da_organisation,
+                kind=self.relationship_kind
+        )
+        call_command('rebuild_index', verbosity=0, interactive=False)
+            
 
     @patch('pombola.south_africa.management.commands.south_africa_update_constituency_offices.geocode', side_effect=fake_constituency_office_geocode)
     def test_import_eff_offices(self, geocode_mock):
@@ -153,12 +165,12 @@ class ConstituencyOfficesImportTestCase(WebTest):
             end_old_offices=True, party='da', commit=True
             )
         
-        # Test organisation was created
+         # Test one organisation was created
         self.assertTrue(models.Organisation.objects.filter(
                 name__iexact="DA Constituency Area: eMalahleni", 
                 kind=self.area_kind,
                 started="2019-06-01", ended="future"
-            ).exists())
+             ).exists())
         organisation = models.Organisation.objects.\
             get(name__iexact="DA Constituency Area: eMalahleni")
 
@@ -170,6 +182,28 @@ class ConstituencyOfficesImportTestCase(WebTest):
         ).exists())
         self.assertTrue(models.Place.objects.filter(
             name__startswith=u'Unknown sub-area of Mpumalanga ',
+            organisation=organisation).exists())
+
+        # Test the other organisation was reused
+        self.assertTrue(models.Organisation.objects.filter(
+                name__iexact="DA Constituency Area: Rustenburg - Kgetlengrivier", 
+                kind=self.area_kind,
+                ended="future"
+            ).exists())
+        organisation = models.Organisation.objects.\
+            get(name__iexact="DA Constituency Area: Rustenburg - Kgetlengrivier")
+
+        self.da_organisation.refresh_from_db()
+        self.assertEquals(self.da_organisation.name, "DA Constituency Area: Rustenburg - Kgetlengrivier")
+
+        # Test place was created
+        self.assertTrue(models.OrganisationRelationship.objects.filter(
+            organisation_a=self.da_party,
+            organisation_b=organisation,
+            kind=self.relationship_kind
+        ).exists())
+        self.assertTrue(models.Place.objects.filter(
+            name__startswith=u'Unknown sub-area of North West ',
             organisation=organisation).exists())
         
         # Test Person was created
