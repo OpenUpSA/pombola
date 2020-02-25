@@ -33,7 +33,7 @@ for title, office in offices.items():
             % (person["First names"].strip(), person["Last name"].strip()),
         }
         if person["Head of constituency"].strip():
-            position["Position"] = "Administrator"
+            position["Position"] = "Constituency Chair"
         json_office["People"].append(position)
     json_output["offices"].append(json_office)
 
