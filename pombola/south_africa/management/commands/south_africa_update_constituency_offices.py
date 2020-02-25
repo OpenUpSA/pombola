@@ -16,6 +16,8 @@ from django.core.management.base import LabelCommand
 from django.db.models import Q
 from django.utils.text import slugify
 
+from haystack.query import SearchQuerySet
+
 from pombola.core.models import (OrganisationKind, Organisation, Place, PlaceKind,
                          ContactKind, Contact, OrganisationRelationshipKind,
                          OrganisationRelationship, Identifier, Position,
@@ -187,6 +189,24 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
                     organisation = identifier.content_object
         except ObjectDoesNotExist:
             pass
+    
+    if not organisation: # Search for a similar name
+        search = SearchQuerySet().models(Organisation).\
+            filter(content=office['Title'])
+        for search_result in search:
+            found_organisation = search_result.object
+            # Check that it is a constituency office
+            if found_organisation.kind == constituency_kinds[office['Type']]:
+                # Check that it belongs to the same party
+                party = Organisation.objects.get(slug=office['Party'].lower())
+                OrganisationRelationship.objects.filter(
+                    organisation_a=party,
+                    organisation_b=found_organisation,
+                    kind=ork_has_office
+                ).exists()
+                organisation = found_organisation
+                break
+
 
     if organisation:  #existing office
         if organisation.name != office['Title']:
