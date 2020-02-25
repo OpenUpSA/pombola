@@ -174,7 +174,7 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
     organisation = None
     try:
         organisation = Organisation.objects.get(
-            name=office['Title']
+            name__iexact=office['Title']
         )
     except ObjectDoesNotExist:
         #check identifiers
@@ -533,6 +533,7 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
                                     content_type=person_content_type,
                                     kind=ck_telephone,
                                     value=person['Cell'],
+                                    preferred=True,
                                     source=source_url)
 
                     print 'Updating contact source to %s' % (source_url)
@@ -604,19 +605,24 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
                     personnotfound.append([office['Title'], person['Name']])
                     print 'Failed to match representative', person['Name']
                 else:
-                    print 'Creating person (%s) with position (%s)' % (person['Name'], person['Position'])
+                    print 'Creating person (%s) with position (%s)' % (person['Name'], person.get('Position'))
 
                     if commit:
                         create_person = Person.objects.create(
                             legal_name=person['Name'],
                             slug=slugify(person['Name']))
 
-                        Position.objects.create(
+                        position = Position.objects.create(
                             person=create_person,
                             organisation=organisation,
-                            title=position_titles[person['Position']],
                             start_date=start_date,
                             end_date='future')
+                        
+                        # Allow positions to be created without titles because we
+                        # don't always have the data.
+                        if person.get('Position') and position_titles.get(person.get('Position')):
+                            position.title = position_titles[person.get('Position')]
+                            position.save()
 
                     if 'Cell' in person:
                         print 'Adding cell number %s' % (person['Cell'])
@@ -768,11 +774,13 @@ class Command(LabelCommand):
                             position.save()
 
         #print people and locations not found for checking
-        print 'People not found'
-        for person in personnotfound:
-            print person[0], "\t", person[1]
+        if len(personnotfound):
+            print 'People not found:'
+            for person in personnotfound:
+                print person[0], "\t", person[1]
 
-        print 'Locations not found'
-        for location in locationsnotfound:
-            print location[0], "\t", location[1]
-            print ''
+        if len(locationsnotfound):
+            print 'Locations not found:'
+            for location in locationsnotfound:
+                print location[0], "\t", location[1]
+                print ''
