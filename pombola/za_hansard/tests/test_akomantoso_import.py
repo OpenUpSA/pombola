@@ -55,7 +55,6 @@ class ImportZAAkomaNtosoTests(InstanceTestCase):
             (speakers_after - speakers_before))
 
     def test_import_hansard_speakers(self):
-        self.assertTrue(False, 'Check if this test actually runs in Travis')
         document_path = os.path.join(self._in_fixtures, 'NA200912.xml')
 
         # Create Persons to identify
