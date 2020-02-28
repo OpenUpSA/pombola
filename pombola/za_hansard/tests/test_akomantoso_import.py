@@ -32,9 +32,8 @@ class ImportZAAkomaNtosoTests(InstanceTestCase):
         call_command('update_index', interactive=False, verbosity=3)
         recreate_entities()
 
-    def test_import_hansard_speakers_with_no_persons(self):
+    def test_import_hansard_twice(self):
         Person.objects.all().delete()
-        # TODO: import two hansards that contain speakers that are in both of them
         document_path = os.path.join(self._in_fixtures, 'SMALL_HANSARD.xml')
 
         speakers_before = Speaker.objects.count()
@@ -45,14 +44,16 @@ class ImportZAAkomaNtosoTests(InstanceTestCase):
         section2 = an.import_document(document_path)
         self.assertNotEqual(
             section1, section2,
-            'The document should be importec as two different sections.')
+            'The document should be imported as two different sections.')
 
-        # TODO: double check that the document was actually imported twice
+        speaker_name = "Mr M S F Some Unknown Surname"
+        speaker_count = Speaker.objects.filter(name=speaker_name).count()
+
         speakers_after = Speaker.objects.count()
         self.assertEqual(
-            speakers_after, speakers_before + 1,
-            'Only one speaker should be created, but %d were created' %
-            (speakers_after - speakers_before))
+            1, speaker_count,
+            'Only one speaker should be created for %s, but %d were created' %
+            (speaker_name, speaker_count))
 
     def test_import_hansard_speakers(self):
         document_path = os.path.join(self._in_fixtures, 'NA200912.xml')
