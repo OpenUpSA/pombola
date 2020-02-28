@@ -1,14 +1,22 @@
 # -*- coding: utf-8 -*-
 
 import os
+from django.conf import settings
+import requests
 
+import socket
+from contextlib import closing
 from django.core.management import call_command
+from io import BytesIO
+from datetime import date
+from mock import patch
 from nose.plugins.attrib import attr
+from instances.models import Instance
 
 from instances.tests import InstanceTestCase
 from popolo_name_resolver.resolve import EntityName, recreate_entities
 
-from speeches.models import Speaker
+from speeches.models import Speaker, Section
 from pombola.za_hansard.importers.import_za_akomantoso import ImportZAAkomaNtoso, title_case_heading
 from pombola.za_hansard.models import Source
 from pombola_sayit.models import PombolaSayItJoin
@@ -56,7 +64,11 @@ class ImportZAAkomaNtosoTests(InstanceTestCase):
             (speaker_name, speaker_count))
 
     def test_import_hansard_speakers(self):
-        document_path = os.path.join(self._in_fixtures, 'NA200912.xml')
+        # Delete test index
+        requests.delete('http://elasticsearch:9200/pombola_test')
+
+        document_name = 'NA200912.xml'
+        document_path = os.path.join(self._in_fixtures, document_name)
 
         # Create Persons to identify
         PERSONS = [
@@ -107,13 +119,34 @@ class ImportZAAkomaNtosoTests(InstanceTestCase):
             'More than %d EntityNames should be created for speakers, but only %d were created.'
             % (NUM_PERSONS, EntityName.objects.count()))
 
-        # TODO: create the below XML file as a "Source" instead
-        an = ImportZAAkomaNtoso(instance=self.instance, commit=True)
-        section = an.import_document(document_path)
+        # Create Source
+        source = Source.objects.create(
+            title="Test hansard",
+            document_name=document_name,
+            document_number="001",
+            url='api.pmg.org.za/test-hansard',
+            language='English',
+            last_processing_success=date.today(),
+            house='NA',
+            date=date.today(),
+        )
 
-        # source = Source.objects.create()
-        # TODO: mock where XML is gotten?
-        # call_command('za_hansard_load_into_sayit', id=source.id)
+        # an = ImportZAAkomaNtoso(instance=self.instance, commit=True)
+        # section = an.import_document(document_path)
+
+        instance = Instance.objects.create(label='default')
+        with patch.object(Source, 'xml_file_path', return_value=document_path):
+            out = BytesIO()
+            call_command('za_hansard_load_into_sayit', id=source.id, stdout=out)
+            output = out.getvalue()
+            self.assertIn('Imported 1 / 1 sections', output)
+            lines = output.split('\n')
+            # Get the section id of the section that was created
+            for i in range(len(lines)-1, -1, -1):
+                if lines[i].strip():
+                    section_id = lines[i].strip("[]")
+                    break
+            section = Section.objects.get(id=int(section_id))
 
         self.assertTrue(section is not None,
                         'Hansard should be parsed into a non-null section.')
@@ -123,9 +156,6 @@ class ImportZAAkomaNtosoTests(InstanceTestCase):
         for section in section.children.all():
             for speech in section.speech_set.all():
                 detected_speakers.add(speech.speaker)
-
-        # TODO: should we check that the correct section is linked to the correct speaker?
-        # TODO: check that the speakers are linked to a Person and redirect will happen correctly?
 
         # Check that the speakers were linked correctly to the above created Persons
         for speaker in SPEAKERS:
