@@ -92,7 +92,7 @@ class ImportZAAkomaNtosoTests(InstanceTestCase):
                                   slug='lilian-luca-van-der-merwe'),
             # Mr M S F DE FREITAS
             Person.objects.create(title='Mr',
-                                  legal_name='Mario Steven Foster DE FREITAS',
+                                  legal_name='Mario Steven Foster De Freitas',
                                   family_name='de freita',
                                   given_name='Mario Steven Foster',
                                   slug='mario-steven-foster-de-freitas'),
@@ -156,8 +156,8 @@ class ImportZAAkomaNtosoTests(InstanceTestCase):
             for speech in section.speech_set.all():
                 detected_speakers.add(speech.speaker)
 
-        print(detected_speakers)
-        self.assertFalse(True)
+        # print(detected_speakers)
+        # self.assertFalse(True)
         # Check that the speakers were linked correctly to the above created Persons
         for speaker in SPEAKERS:
             self.assertIn(
