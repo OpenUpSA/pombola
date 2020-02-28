@@ -131,9 +131,7 @@ class ImportZAAkomaNtosoTests(InstanceTestCase):
             date=date.today(),
         )
 
-        # an = ImportZAAkomaNtoso(instance=self.instance, commit=True)
-        # section = an.import_document(document_path)
-
+        # Run the za_hansard_load_into_sayit command
         instance = Instance.objects.create(label='default')
         with patch.object(Source, 'xml_file_path', return_value=document_path):
             out = BytesIO()
@@ -146,7 +144,8 @@ class ImportZAAkomaNtosoTests(InstanceTestCase):
                 if lines[i].strip():
                     section_id = lines[i].strip("[]")
                     break
-            section = Section.objects.get(id=int(section_id))
+
+        section = Section.objects.get(id=int(section_id))
 
         self.assertTrue(section is not None,
                         'Hansard should be parsed into a non-null section.')
@@ -157,6 +156,8 @@ class ImportZAAkomaNtosoTests(InstanceTestCase):
             for speech in section.speech_set.all():
                 detected_speakers.add(speech.speaker)
 
+        print(detected_speakers)
+        self.assertFalse(True)
         # Check that the speakers were linked correctly to the above created Persons
         for speaker in SPEAKERS:
             self.assertIn(
