@@ -90,12 +90,12 @@ class ImportZAAkomaNtosoTests(InstanceTestCase):
                                   family_name='van der Merwe',
                                   given_name='Lilian Luca',
                                   slug='lilian-luca-van-der-merwe'),
-            # # Mr M S F DE FREITAS
-            # Person.objects.create(title='Mr',
-            #                       legal_name='Mario Steven Foster De Freitas',
-            #                       family_name='de freita',
-            #                       given_name='Mario Steven Foster',
-            #                       slug='mario-steven-foster-de-freitas'),
+            # Mr M S F DE FREITAS
+            Person.objects.create(title='Mr',
+                                  legal_name='Mario Steven Foster De Freitas',
+                                  family_name='de freitas',
+                                  given_name='Mario Steven Foster',
+                                  slug='mario-steven-foster-de-freitas'),
         ]
         NUM_PERSONS = len(PERSONS)
 
