@@ -37,6 +37,9 @@ class ImportZAAkomaNtosoTests(InstanceTestCase):
             os.path.abspath(os.path.dirname(__file__)), 'test_inputs',
             'hansard')
         super(ImportZAAkomaNtosoTests, cls).setUpClass()
+
+        # Delete test index
+        requests.delete('http://elasticsearch:9200/pombola_test')
         call_command('update_index', interactive=False, verbosity=3)
         recreate_entities()
 
@@ -64,9 +67,6 @@ class ImportZAAkomaNtosoTests(InstanceTestCase):
             (speaker_name, speaker_count))
 
     def test_import_hansard_speakers(self):
-        # Delete test index
-        requests.delete('http://elasticsearch:9200/pombola_test')
-
         document_name = 'NA200912.xml'
         document_path = os.path.join(self._in_fixtures, document_name)
 
@@ -156,8 +156,6 @@ class ImportZAAkomaNtosoTests(InstanceTestCase):
             for speech in section.speech_set.all():
                 detected_speakers.add(speech.speaker)
 
-        # print(detected_speakers)
-        # self.assertFalse(True)
         # Check that the speakers were linked correctly to the above created Persons
         for speaker in SPEAKERS:
             self.assertIn(
