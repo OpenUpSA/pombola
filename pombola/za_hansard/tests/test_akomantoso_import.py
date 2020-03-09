@@ -43,7 +43,7 @@ class ImportZAAkomaNtosoTests(InstanceTestCase):
         super(ImportZAAkomaNtosoTests, cls).setUpClass()
 
         # Delete test index
-        requests.delete("http://elasticsearch:9200/pombola_test")
+        call_command("rebuild_index", interactive=False, verbosity=3)
         call_command("update_index", interactive=False, verbosity=3)
         recreate_entities()
 
