@@ -35,7 +35,7 @@ class AttendanceForOrganisationToggle(Organisation):
 
 
 class ParliamentaryTerm(models.Model):
-    number = models.IntegerField(primary_key=True, help_text="e.g. 25 for the 25th parliament")
+    number = models.IntegerField(help_text="e.g. 25 for the 25th parliament")
     start_date = models.DateField(null=False)
     end_date = models.DateField(null=False)
 
