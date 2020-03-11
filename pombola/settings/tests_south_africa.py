@@ -8,6 +8,9 @@ HAYSTACK_CONNECTIONS['default']['EXCLUDED_INDEXES'] = [
     'speeches.search_indexes.SpeechIndex',
 ]
 
+# Set test index name
+HAYSTACK_CONNECTIONS['default']['INDEX_NAME'] = os.environ.get('DATABASE_NAME', 'pombola') + '_test'
+
 INSTALLED_APPS = insert_after(INSTALLED_APPS,
                               'markitup',
                               'pombola.' + COUNTRY_APP)
