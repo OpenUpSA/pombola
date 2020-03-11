@@ -34,6 +34,7 @@ class Command(BaseCommand):
             'feedback_feedback',
             'popit_resolver_entityname',
             'thumbnail_kvstore',
+            'captcha_captchastore',
             # Older tables that might still be present:
             'comments2_comment',
             'comments2_commentflag',

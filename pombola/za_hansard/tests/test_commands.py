@@ -4,6 +4,8 @@ from django.test import TestCase
 from django.core.management import call_command
 from nose.plugins.attrib import attr
 
+from nose.plugins.attrib import attr
+
 from speeches.tests.helpers import create_sections
 from speeches.models import Speech, Tag
 
