@@ -2,255 +2,464 @@
   "offices": [
     {
       "Province": "Mpumalanga", 
-      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true", 
+      "Source URL": "TBT", 
+      "Postal Address": "Office No 6, Pavillion Bld, Witbank, Mpumalanga.", 
       "Title": "EFF Constituency Office: Witbank", 
       "Party": "EFF", 
-      "Physical Address": "Office No 6, Pavillion Bld, Witbank, Mpumalanga.", 
+      "People": [
+        {
+          "Name": "Ceza Khanya"
+        }
+      ], 
       "Type": "office", 
       "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019", 
-      "Postal Address": "Office No 6, Pavillion Bld, Witbank, Mpumalanga."
+      "Physical Address": "Office No 6, Pavillion Bld, Witbank, Mpumalanga."
     }, 
     {
       "Province": "Eastern Cape", 
-      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true", 
+      "Source URL": "TBT", 
+      "Postal Address": "18 Campbell Str, Queenstown, Eastern Cape", 
       "Title": "EFF Constituency Office: Queenstown", 
       "Party": "EFF", 
-      "Physical Address": "18 Campbell Str, Queenstown, Eastern Cape.", 
+      "People": [
+        {
+          "Name": "Nkagisang Poppy Koni"
+		},
+		{
+          "Name": "Nokulunga Primrose Sonti"
+        }
+      ], 
       "Type": "office", 
       "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019", 
-      "Postal Address": "18 Campbell Str, Queenstown, Eastern Cape."
+      "Physical Address": "18 Campbell Str, Queenstown, Eastern Cape"
     }, 
-    {
-      "Province": "KwaZulu Natal", 
-      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true", 
-      "Title": "EFF Constituency Office: Durban Pixley", 
+	{
+      "Province": "Durban", 
+      "Source URL": "TBT", 
+      "Postal Address": "Office 27027, 320 Pixley, Durban", 
+      "Title": "EFF Constituency Office: Durban Pixley Road", 
       "Party": "EFF", 
-      "Physical Address": "Office 27027, 320 Pixley, Durban, KwaZulu Natal", 
+      "People": [
+        {
+          "Name": "Makoti Sibongile Khawula"
+        }
+      ], 
       "Type": "office", 
       "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019", 
-      "Postal Address": "Office 27027, 320 Pixley, Durban, KwaZulu Natal"
+      "Physical Address": "Office 27027, 320 Pixley, Durban"
     }, 
     {
       "Province": "Mpumalanga", 
-      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true", 
+      "Source URL": "TBT", 
+      "Postal Address": "Thokoza Building, Bushbuckridge, Mpumalanga.", 
       "Title": "EFF Constituency Office: Bushbuckridge", 
       "Party": "EFF", 
-      "Physical Address": "Thokoza Building, Bushbuckridge, Mpumalanga.", 
+      "People": [
+        {
+          "Name": "Sam Zandamela"
+        }, 
+        {
+          "Name": "Dumisani Fannie Mthenjane"
+        }
+      ], 
       "Type": "office", 
       "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019", 
-      "Postal Address": "Thokoza Building, Bushbuckridge, Mpumalanga."
+      "Physical Address": "Thokoza Building, Bushbuckridge, Mpumalanga."
     }, 
     {
       "Province": "Free State", 
-      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true", 
-      "Title": "EFF Constituency Office: Bloemfontein Fontein Str", 
+      "Source URL": "TBT", 
+      "Postal Address": "Andrew Drukkey Bld, 14 Fontein Str, Bloemfontein, Free State.", 
+      "Title": "EFF Constituency Office: Bloemfontein", 
       "Party": "EFF", 
-      "Physical Address": "Andrew Drukkey Bld, 14 Fontein Str, Bloemfontein, Free State.", 
+      "People": [
+        {
+          "Name": "Mmabatho Olive Mokause"
+        }
+      ], 
       "Type": "office", 
       "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019", 
-      "Postal Address": "Andrew Drukkey Bld, 14 Fontein Str, Bloemfontein, Free State."
+      "Physical Address": "Andrew Drukkey Bld, 14 Fontein Str, Bloemfontein, Free State."
     }, 
     {
       "Province": "Northern Cape", 
-      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true", 
+      "Source URL": "TBT", 
+      "Postal Address": "E197, Steward Str, Kuruman, Northerncape.", 
       "Title": "EFF Constituency Office: Kuruman", 
       "Party": "EFF", 
-      "Physical Address": "E197, Steward Str, Kuruman, Northern Cape.", 
+      "People": [
+        {
+          "Name": "Pebane George Moteka"
+        }
+      ], 
       "Type": "office", 
       "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019", 
-      "Postal Address": "E197, Steward Str, Kuruman, Northern Cape."
+      "Physical Address": "E197, Steward Str, Kuruman, Northerncape."
     }, 
     {
       "Province": "Limpopo", 
-      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true", 
+      "Source URL": "TBT", 
+      "Postal Address": "26 Thabo Mbeki Str, 5A 1 Smit Bld, 1St Floor, Polokwane, Limpopo.", 
       "Title": "EFF Constituency Office: Polokwane", 
       "Party": "EFF", 
-      "Physical Address": "26 Thabo Mbeki Str, 5A 1 Smit Bld, 1st Floor, Polokwane, Limpopo.", 
+      "People": [
+        {
+          "Name": "Brenda Mathevula"
+        }, 
+        {
+          "Name": "Lehlohonolo Mokoena"
+        }, 
+        {
+          "Name": "Delisile Blessing Ngwenya"
+        }, 
+        {
+          "Name": "Khonziwe Ntokozo Hlonyana"
+        }, 
+        {
+          "Name": "Nthako Sam Matiase"
+        }
+      ], 
       "Type": "office", 
       "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019", 
-      "Postal Address": "26 Thabo Mbeki Str, 5A 1 Smit Bld, 1st Floor, Polokwane, Limpopo."
+      "Physical Address": "26 Thabo Mbeki Str, 5A 1 Smit Bld, 1St Floor, Polokwane, Limpopo."
     }, 
     {
       "Province": "Free State", 
-      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true", 
-      "Title": "EFF Constituency Office: Bloemfontein Charlotte Maxeke Street", 
+      "Source URL": "TBT", 
+      "Postal Address": "39 Charlotte Maxeke Street, Trompsburg, Free State", 
+      "Title": "EFF Constituency Office: Trompsburg", 
       "Party": "EFF", 
-      "Physical Address": "39 Charlotte Maxeke Street, 9300 Bloemfontein, Free State", 
+      "People": [
+        {
+          "Name": "Shirley Motshegoane Mokgotho"
+        }
+      ], 
       "Type": "office", 
       "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019", 
-      "Postal Address": "39 Charlotte Maxeke Street, 9300 Bloemfontein, Free State"
+      "Physical Address": "39 Charlotte Maxeke Street, Trompsburg, Free State"
     }, 
     {
       "Province": "Northern Cape", 
-      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true", 
+      "Source URL": "TBT", 
+      "Postal Address": "Masonic Hotel Bld. 2 Van Riebeeck Str, Springbok, Northern Cape.", 
       "Title": "EFF Constituency Office: Springbok", 
       "Party": "EFF", 
-      "Physical Address": "Masonic Hotel Bld. 2 Van Riebeeck Str, Springbok, Northern Cape.", 
+      "People": [
+        {
+          "Name": "Thilivhali Elphus Mulaudzi"
+        }
+      ], 
       "Type": "office", 
       "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019", 
-      "Postal Address": "Masonic Hotel Bld. 2 Van Riebeeck Str, Springbok, Northern Cape."
+      "Physical Address": "Masonic Hotel Bld. 2 Van Riebeeck Str, Springbok, Northern Cape."
     }, 
     {
-      "Province": "KwaZulu Natal", 
-      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true", 
+      "Province": "North West", 
+      "Source URL": "TBT", 
+      "Postal Address": "Office 207, Leasik Str, Klerksdorp, North West.", 
+      "Title": "EFF Constituency Office: Klerksdorp", 
+      "Party": "EFF", 
+      "People": [
+        {
+          "Name": "Nonky Lehihi"
+        }
+      ], 
+      "Type": "office", 
+      "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019", 
+      "Physical Address": "Office 207, Leasik Str, Klerksdorp, North West."
+    }, 
+    {
+      "Province": "Kwazulu Natal", 
+      "Source URL": "TBT", 
+      "Postal Address": "Office 7, Mivaness Bld, Corner Old Main & Turnbull Streets, Empangeni, Kwazulu Natal.", 
       "Title": "EFF Constituency Office: Empangeni", 
       "Party": "EFF", 
-      "Physical Address": "Office 7, Mivaness Bld, Corner Old Main & Turnbull Streets, Empangeni, KwaZulu Natal.", 
+      "People": [
+        {
+          "Name": "Thokozani Makhosonke Langa"
+        }
+      ], 
       "Type": "office", 
       "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019", 
-      "Postal Address": "Office 7, Mivaness Bld, Corner Old Main & Turnbull Streets, Empangeni, KwaZulu Natal."
+      "Physical Address": "Office 7, Mivaness Bld, Corner Old Main & Turnbull Streets, Empangeni, Kwazulu Natal."
     }, 
     {
-      "Province": "KwaZulu Natal", 
-      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true", 
+      "Province": "Kwazulu Natal", 
+      "Source URL": "TBT", 
+      "Postal Address": "86 Bulwer Rd, Glendwood, Durban, Kwazulu Natal.", 
       "Title": "EFF Constituency Office: Durban Glendwood", 
       "Party": "EFF", 
-      "Physical Address": "86 Bulwer Rd, Glendwood, Durban,KwaZulu Natal.", 
+      "People": [
+        {
+          "Name": "Marshall Mzingisi Dlamini"
+        }
+      ], 
       "Type": "office", 
       "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019", 
-      "Postal Address": "86 Bulwer Rd, Glendwood, Durban,KwaZulu Natal."
+      "Physical Address": "86 Bulwer Rd, Glendwood, Durban, Kwazulu Natal."
     }, 
     {
       "Province": "North West", 
-      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true", 
+      "Source URL": "TBT", 
+      "Postal Address": "70 Market Street, Vryburg, North West.", 
       "Title": "EFF Constituency Office: Vryburg", 
       "Party": "EFF", 
-      "Physical Address": "70 Market Street, Vryburg, North West.", 
+      "People": [
+        {
+          "Name": "Mogamad Nazier Paulsen"
+        }, 
+        {
+          "Name": "Ntshetsana Rosina Komane"
+        }
+      ], 
       "Type": "office", 
       "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019", 
-      "Postal Address": "70 Market Street, Vryburg, North West."
+      "Physical Address": "70 Market Street, Vryburg, North West."
     }, 
     {
       "Province": "North West", 
-      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true", 
+      "Source URL": "TBT", 
+      "Postal Address": "112 Beyers Naudee Drive, Rustenburg, North West.", 
       "Title": "EFF Constituency Office: Rustenburg", 
       "Party": "EFF", 
-      "Physical Address": "112 Beyers Naudee Drive,Rustenburg, North West.", 
+      "People": [
+        {
+          "Name": "Mothusi Kenneth Montwedi"
+		},
+		{
+          "Name": "Nontando Judith Nolutshungu"
+        }
+      ], 
       "Type": "office", 
       "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019", 
-      "Postal Address": "112 Beyers Naudee Drive,Rustenburg, North West."
+      "Physical Address": "112 Beyers Naudee Drive, Rustenburg, North West."
     }, 
     {
       "Province": "Mpumalanga", 
-      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true", 
+      "Source URL": "TBT", 
+      "Postal Address": "608 Mkholo Bld, 26 Brown Str, Nelspruit, Mpumalanga.", 
       "Title": "EFF Constituency Office: Nelspruit", 
       "Party": "EFF", 
-      "Physical Address": "608 Mkholo Bld, 26 Brown Str, Nelspruit, Mpumalanga.", 
+      "People": [
+        {
+          "Name": "Henry Andries Shembeni"
+        }, 
+        {
+          "Name": "Ntombovuyo Veronica Mente"
+        }
+      ], 
       "Type": "office", 
       "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019", 
-      "Postal Address": "608 Mkholo Bld, 26 Brown Str, Nelspruit, Mpumalanga."
+      "Physical Address": "608 Mkholo Bld, 26 Brown Str, Nelspruit, Mpumalanga."
     }, 
     {
       "Province": "Mpumalanga", 
-      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true", 
+      "Source URL": "TBT", 
+      "Postal Address": "Office 8, 9 & 10, Kerk Str, No 105, Ermelo, Mpumalanga.", 
       "Title": "EFF Constituency Office: Ermelo", 
       "Party": "EFF", 
-      "Physical Address": "Office 8, 9 & 10, Kerk Str, No 105,Ermelo, Mpumalanga.", 
+      "People": [
+        {
+          "Name": "Reneiloe Mashabela"
+        }
+      ], 
       "Type": "office", 
       "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019", 
-      "Postal Address": "Office 8, 9 & 10, Kerk Str, No 105,Ermelo, Mpumalanga."
+      "Physical Address": "Office 8, 9 & 10, Kerk Str, No 105, Ermelo, Mpumalanga."
     }, 
     {
-      "Province": "KwaZulu Natal", 
-      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true", 
+      "Province": "Kwazulu Natal", 
+      "Source URL": "TBT", 
+      "Postal Address": "Gideza Str, Stanger, Kwazulu Natal.", 
       "Title": "EFF Constituency Office: Stanger", 
       "Party": "EFF", 
-      "Physical Address": "Gideza Str, Stanger, KwaZulu Natal.", 
+      "People": [
+        {
+          "Name": "Slindile Ann Luthuli"
+        }, 
+        {
+          "Name": "Anna-Cleta Mathapelo Siwisa"
+        }
+      ], 
       "Type": "office", 
       "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019", 
-      "Postal Address": "Gideza Str, Stanger, KwaZulu Natal."
+      "Physical Address": "Gideza Str, Stanger, Kwazulu Natal."
     }, 
     {
       "Province": "North West", 
-      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true", 
+      "Source URL": "TBT", 
+      "Postal Address": "Shop 22 Mandela Drive, Mafikeng, North West.", 
       "Title": "EFF Constituency Office: Mafikeng", 
       "Party": "EFF", 
-      "Physical Address": "Shop 22 Mandela Drive, Mafikeng,North West.", 
+      "People": [
+        {
+          "Name": "Sophie Suzan Thembekwayo"
+        }
+      ], 
       "Type": "office", 
       "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019", 
-      "Postal Address": "Shop 22 Mandela Drive, Mafikeng,North West."
+      "Physical Address": "Shop 22 Mandela Drive, Mafikeng, North West."
     }, 
     {
       "Province": "Western Cape", 
-      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true", 
-      "Title": "EFF Constituency Office: George", 
+      "Source URL": "TBT", 
+      "Postal Address": "Office 603, 47 Strand Str, Strand Bld, Cape Town, Western Cape.", 
+      "Title": "EFF Constituency Office: Cape Town", 
       "Party": "EFF", 
-      "Physical Address": "S48 Ngcakana Road, Thembalethu,George, Western Cape", 
+      "People": [
+        {
+          "Name": "Andrew Arnolds"
+        }
+      ], 
       "Type": "office", 
       "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019", 
-      "Postal Address": "S48 Ngcakana Road, Thembalethu,George, Western Cape"
-    }, 
-    {
-      "Province": "Eastern Cape", 
-      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true", 
-      "Title": "EFF Constituency Office: Stutterheim", 
-      "Party": "EFF", 
-      "Physical Address": "18 Murray Street, Stutterheim, Eastern Cape.", 
-      "Type": "office", 
-      "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019", 
-      "Postal Address": "18 Murray Street, Stutterheim, Eastern Cape."
-    }, 
-    {
-      "Province": "Gauteng", 
-      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true", 
-      "Title": "EFF Constituency Office: Braamfontein", 
-      "Party": "EFF", 
-      "Physical Address": "78 Corner De Korte & De Beer Streets, Mineralia Bld, 3rd Floor, Braamfontein, Gauteng.", 
-      "Type": "office", 
-      "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019", 
-      "Postal Address": "78 Corner De Korte & De Beer Streets, Mineralia Bld, 3rd Floor, Braamfontein, Gauteng."
-    }, 
-    {
-      "Province": "KwaZulu Natal", 
-      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true", 
-      "Title": "EFF Constituency Office: Newcastle", 
-      "Party": "EFF", 
-      "Physical Address": "61 Allen Str, Newcastle, KwaZulu Natal.", 
-      "Type": "office", 
-      "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019", 
-      "Postal Address": "61 Allen Str, Newcastle, KwaZulu Natal."
+      "Physical Address": "Office 603, 47 Strand Str, Strand Bld, Cape Town, Western Cape."
     }, 
     {
       "Province": "Free State", 
-      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true", 
-      "Title": "EFF Constituency Office: Phuthaditjhaba", 
+      "Source URL": "TBT", 
+      "Postal Address": "Domitec Bld, Shop 8, De Kaap Str, Welkom, Free State.", 
+      "Title": "EFF Constituency Office: Welkom", 
       "Party": "EFF", 
-      "Physical Address": "Office 130-131, Setsing 1, Mamponi Str, Phuthaditjhaba, Free State.", 
+      "People": [
+        {
+          "Name": "Moletsane Moletsane"
+        }
+      ], 
       "Type": "office", 
       "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019", 
-      "Postal Address": "Office 130-131, Setsing 1, Mamponi Str, Phuthaditjhaba, Free State."
-    },
+      "Physical Address": "Domitec Bld, Shop 8, De Kaap Str, Welkom, Free State."
+    }, 
     {
-      "Province": "North West",
-      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true",
-      "Title": "EFF Constituency Office: Klerksdorp",
-      "Party": "EFF",
-      "Physical Address": "Office 207, Leasik Str, Klerksdorp, North West.",
-      "Type": "office",
-      "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019",
-      "Postal Address": "Office 207, Leasik Str, Klerksdorp, North West."
-    },
+      "Province": "Western Cape", 
+      "Source URL": "TBT", 
+      "Postal Address": "S48 Ngcakana Road, Thembalethu, George, Western Cape", 
+      "Title": "EFF Constituency Office: George", 
+      "Party": "EFF", 
+      "People": [
+        {
+          "Name": "Ciliesta Catherine Shoana Motsepe"
+        },
+        {
+          "Name": "Lorato Florence Tito"
+        }, 
+        {
+          "Name": "Arries Laetitia"
+        }
+      ], 
+      "Type": "office", 
+      "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019", 
+      "Physical Address": "S48 Ngcakana Road, Thembalethu, George, Western Cape"
+    }, 
     {
-      "Province": "Western Cape",
-      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true",
-      "Title": "EFF Constituency Office: Cape Town",
-      "Party": "EFF",
-      "Physical Address": "Office 603, 47 Strand Str, Strand Bld, Cape Town, Western Cape.",
-      "Type": "office",
-      "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019",
-      "Postal Address": "Office 603, 47 Strand Str, Strand Bld, Cape Town, Western Cape."
-    },
+      "Province": "Eastern Cape", 
+      "Source URL": "TBT", 
+      "Postal Address": "18 Murray Street, Stutterheim, Eastern Cape.", 
+      "Title": "EFF Constituency Office: Stutterheim", 
+      "Party": "EFF", 
+      "People": [
+        {
+          "Name": "Thembinkosi Tevin Apleni"
+        }, 
+        {
+          "Name": "Yoliswa Yako"
+        }
+      ], 
+      "Type": "office", 
+      "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019", 
+      "Physical Address": "18 Murray Street, Stutterheim, Eastern Cape."
+    }, 
     {
-      "Province": "Free State",
-      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true",
-      "Title": "EFF Constituency Office: Welkom",
-      "Party": "EFF",
-      "Physical Address": "Domitec Bld, Shop 8, De Kaap Str, Welkom, Free State.",
-      "Type": "office",
-      "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019",
-      "Postal Address": "Domitec Bld, Shop 8, De Kaap Str, Welkom, Free State."
+      "Province": "Gauteng", 
+      "Source URL": "TBT", 
+      "Postal Address": "78 Corner De Korte & De Beer Streets, Mineralia Bld, 3Rd Floor, Braamfontein, Gauteng.", 
+      "Title": "EFF Constituency Office: Braamfontein", 
+      "Party": "EFF", 
+      "People": [
+        {
+          "Name": "Kenny Motsamai"
+        }, 
+        {
+          "Name": "Washington Tseko Isaac Mafanya"
+        }, 
+        {
+          "Name": "Elsabe Natasha Ntlangwini"
+        }, 
+        {
+          "Name": "Patrick Sindane"
+        }, 
+        {
+          "Name": "Naledi Nokukhanya Chirwa"
+        }, 
+        {
+          "Name": "Phuti Peter Keetse"
+        }, 
+        {
+          "Name": "Vuyani Pambo"
+        }, 
+        {
+          "Name": "Brian Sindile Madlingozi"
+        }, 
+        {
+          "Name": "Mgcini Tshwaku"
+        },
+        {
+          "Name": "Julius Sello Malema"
+        }, 
+        {
+          "Name": "Nyiko Floyd Shivambu"
+        }, 
+        {
+          "Name": "Godrich Ahmed Gardee"
+        }, 
+        {
+          "Name": "Hlengiwe Octavia Mkhaliphi"
+        }, 
+        {
+          "Name": "Mbuyiseni Quintin Ndlozi"
+        }, 
+        {
+          "Name": "Tebogo Josephine Mokwele"
+        }, 
+        {
+          "Name": "Thembi Portia Msane"
+        }
+      ], 
+      "Type": "office", 
+      "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019", 
+      "Physical Address": "78 Corner De Korte & De Beer Streets, Mineralia Bld, 3Rd Floor, Braamfontein, Gauteng."
+    }, 
+    {
+      "Province": "Kwazulu Natal", 
+      "Source URL": "TBT", 
+      "Postal Address": "61 Allen Str, Newcastle, Kwazulu Natal.", 
+      "Title": "EFF Constituency Office: Newcastle", 
+      "Party": "EFF", 
+      "People": [
+        {
+          "Name": "Mathibe Rebecca Mohlala"
+        }
+      ], 
+      "Type": "office", 
+      "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019", 
+      "Physical Address": "61 Allen Str, Newcastle, Kwazulu Natal."
+    }, 
+    {
+      "Province": "Free State", 
+      "Source URL": "TBT", 
+      "Postal Address": "Office 130-131, Setsing 1, Mamponi Str, Phuthaditjhaba, Free State.", 
+      "Title": "EFF Constituency Office: Phuthaditjhaba", 
+      "Party": "EFF", 
+      "People": [
+        {
+          "Name": "Mishack Makosini Chabangu"
+        }
+      ], 
+      "Type": "office", 
+      "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019", 
+      "Physical Address": "Office 130-131, Setsing 1, Mamponi Str, Phuthaditjhaba, Free State."
     }
-  ],
-  "start_date": "2019-06-01",
+  ], 
+  "start_date": "2019-06-01", 
   "end_date": "2019-05-31"
 }
