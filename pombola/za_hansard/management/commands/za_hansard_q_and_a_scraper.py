@@ -97,7 +97,7 @@ def convert_url_to_https(url):
 
 class Command(BaseCommand):
 
-    help = 'Check for new sources'
+    help = 'Scrape questions and answers'
     option_list = BaseCommand.option_list + (
         make_option('--scrape-questions',
                     default=False,

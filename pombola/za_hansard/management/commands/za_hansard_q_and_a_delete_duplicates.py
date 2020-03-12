@@ -101,27 +101,30 @@ class Command(BaseCommand):
             # case. (This is a rare occurence.)
             print "Skipping {0} because no number was found".format(data["url"])
             return
-        try:
-            question = Question.objects.get(**existing_kwargs)
-            print "Found the existing question for", data["url"]
-        except Question.DoesNotExist:
+        question_query =  Question.objects.filter(**existing_kwargs)
+        if question_query.exists():
+            print("Found the existing question for %s" % data["url"])
+        else:
             return
 
-        # Check if there is an existing answer
-        if question.answer:
-            print "That question already had an answer. Checking if it's the same one."
-            answer = question.answer
-            existing_answer_pmg_api_url = answer.pmg_api_url
-            if existing_answer_pmg_api_url and convert_url_to_https(
-                existing_answer_pmg_api_url
-            ) != convert_url_to_https(data["url"]):
-                msg = "An existing answer's pmg_api_url conflicted "
-                msg += "with another one from the API. In the database, "
-                msg += "the question ID was {0}, the answer ID was {1}, "
-                msg += "and the PMG API URL was {2}. The new PMG API URL "
-                msg += "was {3}. Deleting question and answer."
-                print msg.format(
-                    question.id, answer.id, existing_answer_pmg_api_url, data["url"]
-                )
-                answer.delete()
-                question.delete()
+        for question in question_query:
+            # Check if there is an existing answer
+            if question.answer:
+                print "That question already had an answer. Checking if it's the same one."
+                answer = question.answer
+                existing_answer_pmg_api_url = answer.pmg_api_url
+                if existing_answer_pmg_api_url and convert_url_to_https(
+                    existing_answer_pmg_api_url
+                ) != convert_url_to_https(data["url"]):
+                    msg = "An existing answer's pmg_api_url conflicted "
+                    msg += "with another one from the API. In the database, "
+                    msg += "the question ID was {0}, the answer ID was {1}, "
+                    msg += "and the PMG API URL was {2}. The new PMG API URL "
+                    msg += "was {3}. Deleting question and answer."
+                    print msg.format(
+                        question.id, answer.id, existing_answer_pmg_api_url, data["url"]
+                    )
+                    answer.delete()
+                    question.delete()
+                else:
+                    print "Answer is the same."
