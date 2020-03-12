@@ -759,8 +759,6 @@ class Command(LabelCommand):
         global VERBOSE
         VERBOSE = options['verbose']
 
-        contact_source_2013 = "Data from the party (2019)"
-
         organisations_to_keep = []
 
         na_member_lookup = get_na_member_lookup()
