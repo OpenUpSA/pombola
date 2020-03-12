@@ -16,6 +16,8 @@ from django.core.management.base import LabelCommand
 from django.db.models import Q
 from django.utils.text import slugify
 
+from haystack.query import SearchQuerySet
+
 from pombola.core.models import (OrganisationKind, Organisation, Place, PlaceKind,
                          ContactKind, Contact, OrganisationRelationshipKind,
                          OrganisationRelationship, Identifier, Position,
@@ -43,7 +45,7 @@ nonexistent_phone_number = '000 000 0000'
 
 VERBOSE = False
 
-def process_office(office, commit, start_date, end_date, na_member_lookup, geocode_cache):
+def process_office(office, commit, start_date, end_date, na_member_lookup, geocode_cache, search_office):
     print("Processing office %s" % office['Title'])
     global locationsnotfound, personnotfound
 
@@ -109,6 +111,16 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
     pt_community_development_field_worker, _ = PositionTitle.objects.get_or_create(
         slug='community-development-field-worker',
         name='Community Development Field Worker')
+    pt_constituency_chair, _ = PositionTitle.objects.get_or_create(
+        slug='constituency-chair',
+        name='Constituency Chair')
+    pt_constituency_head, _ = PositionTitle.objects.get_or_create(
+        slug='constituency-head',
+        name='Constituency Head')
+    pt_constituency_leader, _ = PositionTitle.objects.get_or_create(
+        slug='constituency-leader',
+        name='Constituency Leader')
+
 
     position_titles = {
         'Constituency Contact': pt_constituency_contact,
@@ -116,7 +128,11 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
         'Administrator (volunteer)': pt_administrator_volunteer,
         'Volunteer': pt_volunteer,
         'Coordinator': pt_coordinator,
-        'Community Development Field Worker': pt_community_development_field_worker}
+        'Community Development Field Worker': pt_community_development_field_worker,
+        'Constituency Chair': pt_constituency_chair,
+        'Constituency Head': pt_constituency_head,
+        'Constituency Leader': pt_constituency_leader,
+    }
 
     ork_has_office, _ = OrganisationRelationshipKind.objects.get_or_create(
         name='has_office')
@@ -174,7 +190,7 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
     organisation = None
     try:
         organisation = Organisation.objects.get(
-            name=office['Title']
+            name__iexact=office['Title']
         )
     except ObjectDoesNotExist:
         #check identifiers
@@ -187,6 +203,24 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
                     organisation = identifier.content_object
         except ObjectDoesNotExist:
             pass
+    
+    if search_office and not organisation: # Search for a similar name
+        search = SearchQuerySet().models(Organisation).\
+            filter(content=office['Title'])
+        for search_result in search:
+            found_organisation = search_result.object
+            # Check that it is a constituency office
+            if found_organisation.kind == constituency_kinds[office['Type']]:
+                # Check that it belongs to the same party
+                party = Organisation.objects.get(slug=office['Party'].lower())
+                OrganisationRelationship.objects.filter(
+                    organisation_a=party,
+                    organisation_b=found_organisation,
+                    kind=ork_has_office
+                ).exists()
+                organisation = found_organisation
+                break
+
 
     if organisation:  #existing office
         if organisation.name != office['Title']:
@@ -533,6 +567,7 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
                                     content_type=person_content_type,
                                     kind=ck_telephone,
                                     value=person['Cell'],
+                                    preferred=True,
                                     source=source_url)
 
                     print 'Updating contact source to %s' % (source_url)
@@ -551,7 +586,7 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
 
                     #if only one email exists replace
                     if len(contacts)==1:
-                        print 'Updating email for %s from %s to %s' % (pombola_person, contacts[0].value, person['Email'])
+                        print 'Updating email for', pombola_person, 'from', contacts[0].value, 'to', person['Email']
 
                         if commit:
                             contacts[0].value = person['Email']
@@ -568,7 +603,7 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
                                 add = False
 
                         if add:
-                            print 'Adding email for %s: %s' % (pombola_person, person['Email'])
+                            print 'Adding email for', pombola_person, ': ', person['Email']
 
                             if commit:
                                 Contact.objects.create(
@@ -576,6 +611,7 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
                                     content_type=person_content_type,
                                     kind=ck_email,
                                     value=person['Email'],
+                                    preferred=True,
                                     source=source_url)
 
                     print 'Updating contact source to %s' % (source_url)
@@ -604,19 +640,24 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
                     personnotfound.append([office['Title'], person['Name']])
                     print 'Failed to match representative', person['Name']
                 else:
-                    print 'Creating person (%s) with position (%s)' % (person['Name'], person['Position'])
+                    print 'Creating person (%s) with position (%s)' % (person['Name'], person.get('Position'))
 
                     if commit:
                         create_person = Person.objects.create(
                             legal_name=person['Name'],
                             slug=slugify(person['Name']))
 
-                        Position.objects.create(
+                        position = Position.objects.create(
                             person=create_person,
                             organisation=organisation,
-                            title=position_titles[person['Position']],
                             start_date=start_date,
                             end_date='future')
+                        
+                        # Allow positions to be created without titles because we
+                        # don't always have the data.
+                        if person.get('Position') and position_titles.get(person.get('Position')):
+                            position.title = position_titles[person.get('Position')]
+                            position.save()
 
                     if 'Cell' in person:
                         print 'Adding cell number %s' % (person['Cell'])
@@ -627,6 +668,7 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
                                 content_type=person_content_type,
                                 kind=ck_telephone,
                                 value=person['Cell'],
+                                preferred=True,
                                 source=source_url)
 
                     if 'Alternative Name' in person:
@@ -680,6 +722,11 @@ class Command(LabelCommand):
             '--party',
             help='Party name, e.g. EFF, DA',
             type=str,
+        ),
+        make_option(
+            '--search-office',
+            help='Find similar office names by searching for them',
+            type=str,
         ),)
 
 
@@ -689,6 +736,7 @@ class Command(LabelCommand):
         end_old_offices = False
         party_name = None
         party = None
+        search_office = False
         if options['commit']:
             commit = True
         if options['party']:
@@ -698,6 +746,8 @@ class Command(LabelCommand):
             except ObjectDoesNotExist:
                 print("Party does not exist.")
                 return
+        if options['search_office']:
+            search_office = True
         if options['commit']:
             commit = True
         if options['end_old_offices']:
@@ -727,7 +777,8 @@ class Command(LabelCommand):
                         data['start_date'],
                         None,
                         na_member_lookup,
-                        geocode_cache
+                        geocode_cache,
+                        search_office
                     )
                     if organisation:
                         organisations_to_keep.append(organisation.id)
@@ -768,11 +819,13 @@ class Command(LabelCommand):
                             position.save()
 
         #print people and locations not found for checking
-        print 'People not found'
-        for person in personnotfound:
-            print person[0], "\t", person[1]
+        if len(personnotfound):
+            print 'People not found:'
+            for person in personnotfound:
+                print person[0], "\t", person[1]
 
-        print 'Locations not found'
-        for location in locationsnotfound:
-            print location[0], "\t", location[1]
-            print ''
+        if len(locationsnotfound):
+            print 'Locations not found:'
+            for location in locationsnotfound:
+                print location[0], "\t", location[1]
+                print ''

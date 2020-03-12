@@ -238,7 +238,7 @@ def find_pombola_person(name_string, na_member_lookup, verbose=True):
     # same person with the current set of MPs - this leave a
     # number of false negatives from misspellings in the CSV file,
     # though.
-    if scored_names[0][0] >= 0.9:
+    if len(scored_names) and len(scored_names[0]) and scored_names[0][0] >= 0.9:
         return scored_names[0][2]
     else:
         if verbose:
