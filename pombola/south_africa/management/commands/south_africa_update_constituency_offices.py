@@ -469,7 +469,9 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
                 #rows being returned
                 pombola_person = Person.objects.filter(
                     Q(legal_name=person['Name']) |
-                    Q(alternative_names__alternative_name=person['Name'])).distinct()
+                    Q(alternative_names__alternative_name=person['Name']) |
+                    Q(slug=slugify(person['Name']))
+                    ).distinct()
                 if len(pombola_person)==0:
                     pombola_person = None
                 else:
