@@ -167,7 +167,7 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
                 continue
 
             source_url += ' and ' + source['Source URL']
-    else:
+    elif 'Source URL' in office:
         source_url = office['Source URL']
         source_note = office['Source Note']
         infosources.append({
