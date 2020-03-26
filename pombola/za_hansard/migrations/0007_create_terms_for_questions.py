@@ -17,8 +17,10 @@ def forwards_func(apps, schema_editor):
             question.save()
         except ParliamentaryTerm.DoesNotExist: 
             raise Exception(
-                "Unable to calculate term for Question with ID %d. Please that a ParliamentaryTerm exists that includes this date."
-                % question.id)
+                "Unable to calculate term for Question with ID %d. Please "
+                "check that a ParliamentaryTerm exists that includes this date: "
+                "%s."
+                % (question.id, question.date))
 
 
 def reverse_func(apps, schema_editor):
