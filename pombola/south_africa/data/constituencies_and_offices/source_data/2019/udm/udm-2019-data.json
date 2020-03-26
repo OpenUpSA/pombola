@@ -1,0 +1,16 @@
+{
+  "offices": [
+    {
+      "Province": "Gauteng", 
+      "Postal Address": "1st Floor, CPA House, 101 Du Toit Street, Pretoria", 
+      "Title": "UDM Constituency Office: Pretoria", 
+      "Party": "UDM", 
+      "Type": "office", 
+      "Physical Address": "1st Floor, CPA House, 101 Du Toit Street, Pretoria",
+      "Source URL": "https://www.pa.org.za/media_root/file_archive/UDM_CONSTITUENCY_DETAILS.docx", 
+      "Source Note": "UDM Constituency Data 2019"
+    } 
+  ],
+  "start_date": "2019-06-01", 
+  "end_date": "2019-05-31"
+}

@@ -1,0 +1,16 @@
+{
+  "offices": [
+    {
+      "Province": "Western Cape",
+      "Source URL": "https://www.pivotaltracker.com/file_attachments/100155939/download?inline=true",
+      "Title": "EFF Constituency Office: Cape Town",
+      "Party": "EFF",
+      "Physical Address": "Office 603, 47 Strand Str, Strand Bld, Cape Town, Western Cape.",
+      "Type": "office",
+      "Source Note": "Economic Freedom Fighters Parliamentary Caucus 2019",
+      "Postal Address": "Office 603, 47 Strand Str, Strand Bld, Cape Town, Western Cape."
+    }
+  ],
+  "start_date": "2019-06-01",
+  "end_date": "2019-05-31"
+}

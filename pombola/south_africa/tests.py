@@ -12,6 +12,7 @@ import requests
 
 from mock import patch, MagicMock
 
+from django.db.models import Q
 from django.contrib.gis.geos import Polygon, Point
 from django.test import TestCase
 from django.test.client import Client
@@ -44,6 +45,9 @@ from pombola.interests_register.models import Category, Release, Entry, EntryLin
 from nose.plugins.attrib import attr
 from pygeolib import GeocoderError
 
+def fake_constituency_office_geocode(address_string, geocode_cache=None, verbose=True):
+    return 18.424, -33.925, {}
+
 def fake_geocoder(country, q, decimal_places=3):
     if q == 'anywhere':
         return []
@@ -72,11 +76,139 @@ def fake_geocoder(country, q, decimal_places=3):
 
 @attr(country='south_africa')
 class HomeViewTest(TestCase):
-
     def test_homepage_context(self):
         response = self.client.get('/')
         self.assertIn('featured_mp', response.context)
         self.assertIn('news_articles', response.context)
+
+
+@attr(country='south_africa')
+class ConstituencyOfficesImportTestCase(WebTest):
+    def setUp(self):
+        # Geocode needs to return
+        # return lon, lat, geocode_cache
+        kind = models.OrganisationKind.objects.create(
+            slug='party',
+            name='Party'
+        )
+        self.da_party = models.Organisation.objects.create(
+            kind=kind,
+            name='DA',
+            started='2019-06-01',
+            ended='future',
+            slug='da',
+            summary='DA',
+            )
+        self.eff_party = models.Organisation.objects.create(
+            kind=kind,
+            name='EFF',
+            started='2019-06-01',
+            ended='future',
+            slug='eff',
+            summary='EFF',
+            )
+        self.office_kind = models.OrganisationKind.objects.create(
+                slug='constituency-office',
+                name='Constituency Office')
+        self.area_kind = models.OrganisationKind.objects.create(
+            slug='constituency-area',
+            name='Constituency Area')
+        self.relationship_kind = models.OrganisationRelationshipKind.objects.create(
+            name='has_office')
+            
+        self.da_organisation = models.Organisation.objects.create(
+            name="DA Constituency Area: Rustenburg [Rustenburg] / Kgetlengrivier [Koster]",
+            kind=self.area_kind,
+        )
+        models.OrganisationRelationship.objects.create(
+                organisation_a=self.da_party,
+                organisation_b=self.da_organisation,
+                kind=self.relationship_kind
+        )
+        call_command('rebuild_index', verbosity=0, interactive=False)
+            
+
+    @patch('pombola.south_africa.management.commands.south_africa_update_constituency_offices.geocode', side_effect=fake_constituency_office_geocode)
+    def test_import_eff_offices(self, geocode_mock):
+        call_command(
+            'south_africa_update_constituency_offices', 
+            'pombola/south_africa/fixtures/test_eff_constituency_offices.json', 
+            verbose=True,
+            end_old_offices=True, party='eff', commit=True
+            )
+
+        self.assertTrue(models.Organisation.objects.filter(
+                name="EFF Constituency Office: Cape Town", 
+                kind=self.office_kind,
+                started="2019-06-01", ended="future"
+            ).exists())
+        organisation = models.Organisation.objects.\
+            get(name="EFF Constituency Office: Cape Town")
+
+        self.assertTrue(models.OrganisationRelationship.objects.filter(
+            organisation_a=self.eff_party,
+            organisation_b=organisation,
+            kind=self.relationship_kind
+        ).exists())
+        location = Point(18.424, -33.925)
+        self.assertTrue(models.Place.objects.filter(
+            name__startswith=u'Approximate position of ',
+            location=location,
+            organisation=organisation).exists())
+
+    @patch('pombola.south_africa.management.commands.south_africa_update_constituency_offices.geocode', side_effect=fake_constituency_office_geocode)
+    def test_import_da_offices(self, geocode_mock):
+        call_command(
+            'south_africa_update_constituency_offices', 
+            'pombola/south_africa/fixtures/test_da_constituency_offices.json', 
+            verbose=True,
+            end_old_offices=True, party='da', commit=True, search_office=True
+            )
+        
+         # Test one organisation was created
+        self.assertTrue(models.Organisation.objects.filter(
+                name__iexact="DA Constituency Area: eMalahleni", 
+                kind=self.area_kind,
+                started="2019-06-01", ended="future"
+             ).exists())
+        organisation = models.Organisation.objects.\
+            get(name__iexact="DA Constituency Area: eMalahleni")
+
+        # Test place was created
+        self.assertTrue(models.OrganisationRelationship.objects.filter(
+            organisation_a=self.da_party,
+            organisation_b=organisation,
+            kind=self.relationship_kind
+        ).exists())
+        self.assertTrue(models.Place.objects.filter(
+            name__startswith=u'Unknown sub-area of Mpumalanga ',
+            organisation=organisation).exists())
+
+        # Test the other organisation was reused
+        self.assertTrue(models.Organisation.objects.filter(
+                name__iexact="DA Constituency Area: Rustenburg - Kgetlengrivier", 
+                kind=self.area_kind,
+                ended="future"
+            ).exists())
+        organisation = models.Organisation.objects.\
+            get(name__iexact="DA Constituency Area: Rustenburg - Kgetlengrivier")
+
+        self.da_organisation.refresh_from_db()
+        self.assertEquals(self.da_organisation.name, "DA Constituency Area: Rustenburg - Kgetlengrivier")
+
+        # Test place was created
+        self.assertTrue(models.OrganisationRelationship.objects.filter(
+            organisation_a=self.da_party,
+            organisation_b=organisation,
+            kind=self.relationship_kind
+        ).exists())
+        self.assertTrue(models.Place.objects.filter(
+            name__startswith=u'Unknown sub-area of North West ',
+            organisation=organisation).exists())
+        
+        # Test Person was created
+        self.assertTrue(models.Person.objects.filter(Q(legal_name="Sonja Boshoff")).exists())
+
 
 @attr(country='south_africa')
 class ConstituencyOfficesTestCase(WebTest):
