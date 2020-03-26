@@ -1,3 +1,14 @@
+"""
+Once-off command to delete all of the questions and answers that were incorrectly
+identified as duplicates. This would probably only ever need to be run once and 
+never again.
+
+Previously we didn't take the term into account when identifying questions that 
+we scrape from PMG. Then questions that are in the same year and that have the
+same number, but in different terms were identified as duplicates. We now use 
+the same logic to find all of those questions and delete them before running
+the scraper again to fetch them again from PMG.
+"""
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 from django.db.models import Q
