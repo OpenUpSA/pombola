@@ -73,13 +73,14 @@ def geocode(address_string, geocode_cache=None, verbose=True):
     # Try using Google's geocoder:
     geocode_cache.setdefault('google', {})
     url_template = \
-        'https://maps.googleapis.com/maps/api/geocode/json?address={address}&bounds={w},{s}|{e},{n}'
+        'https://maps.googleapis.com/maps/api/geocode/json?address={address}&bounds={w},{s}|{e},{n}&key={key}'
     url = url_template.format(
         address=urllib.quote(address_string.encode('UTF-8')),
         w=settings.MAP_BOUNDING_BOX_WEST,
         s=settings.MAP_BOUNDING_BOX_SOUTH,
         e=settings.MAP_BOUNDING_BOX_EAST,
         n=settings.MAP_BOUNDING_BOX_NORTH,
+        key=settings.GOOGLE_MAPS_GEOCODING_API_KEY
     )
     if url in geocode_cache['google']:
         result = geocode_cache['google'][url]
@@ -237,7 +238,7 @@ def find_pombola_person(name_string, na_member_lookup, verbose=True):
     # same person with the current set of MPs - this leave a
     # number of false negatives from misspellings in the CSV file,
     # though.
-    if scored_names[0][0] >= 0.9:
+    if len(scored_names) and len(scored_names[0]) and scored_names[0][0] >= 0.9:
         return scored_names[0][2]
     else:
         if verbose:

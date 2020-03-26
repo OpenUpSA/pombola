@@ -1,0 +1,17 @@
+{
+  "offices": [
+    {
+      "Province": "Western Cape", 
+      "Postal Address": "51 Station Rd, Belmont Park, Kraaifontein, 7570", 
+      "Title": "Good Constituency Office: Kraaifontein", 
+      "Party": "Good", 
+      "Type": "office", 
+      "Physical Address": "51 Station Rd, Belmont Park, Kraaifontein",
+      "Source URL": "https://www.pa.org.za/media_root/file_archive/GOOD_CONSTITUENCY_OFFICE.docx", 
+      "Source Note": "Good Constituency Data 2019",
+      "Tel": "021 518 0890"
+    } 
+  ],
+  "start_date": "2019-06-01", 
+  "end_date": "2019-05-31"
+}

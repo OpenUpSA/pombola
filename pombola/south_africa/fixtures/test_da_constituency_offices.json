@@ -1,0 +1,34 @@
+{
+  "offices": [
+    {
+      "People": [
+        {
+          "Cell": "828549711",
+          "Name": "Jane Sithole"
+        },
+        {
+          "Cell": "824290280",
+          "Name": "Sonja Boshoff"
+        }
+      ],
+      "Title": "DA Constituency Area: eMalahleni",
+      "Location": "eMalahleni",
+      "Source URL": "https://docs.google.com/spreadsheets/d/1jG2PjfhGhATJn8d0ImtikEp-Etv0uH87/edit#gid=1535567072",
+      "Party": "DA",
+      "Type": "area",
+      "Source Note": "DA Parliamentary Caucus 2019",
+      "Province": "Mpumalanga"
+    },
+    {
+      "Location": "Rustenburg - Kgetlengrivier", 
+      "Title": "DA Constituency Area: Rustenburg - Kgetlengrivier",
+      "Source URL": "https://docs.google.com/spreadsheets/d/1jG2PjfhGhATJn8d0ImtikEp-Etv0uH87/edit#gid=1535567072",
+      "Party": "DA",
+      "Type": "area",
+      "Source Note": "DA Parliamentary Caucus 2019",
+      "Province": "North West"
+    }
+  ],
+  "start_date": "2019-06-01",
+  "end_date": "2019-05-31"
+}
