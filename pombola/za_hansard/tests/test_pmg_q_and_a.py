@@ -7,7 +7,7 @@ import copy
 from django.core.management import call_command
 from django.test import TestCase
 
-from pombola.za_hansard.models import Answer, Question
+from pombola.za_hansard.models import Answer, Question, QuestionParsingError
 from pombola.south_africa.models import ParliamentaryTerm
 from nose.plugins.attrib import attr
 
@@ -388,3 +388,43 @@ class PMGAPITests(TestCase):
         self.assertEqual(answer.date, date(2016, 9, 1))
         self.assertEqual(answer.pmg_api_url,
                          'http://api.pmg.org.za/example-question/5678/')
+
+    @patch('pombola.za_hansard.management.commands.za_hansard_q_and_a_scraper.all_from_api')
+    @patch('pombola.za_hansard.management.commands.za_hansard_q_and_a_scraper.sys.exit')
+    def test_errors_logged_to_model(self, fake_all_from_api, fake_sys_exit):
+        question_with_invalid_date = copy.deepcopy(EXAMPLE_QUESTION)
+        question_with_invalid_date['date'] = '2012319-06-03' # invalid date
+        question_with_invalid_parliamentary_term = copy.deepcopy(EXAMPLE_QUESTION)
+        question_with_invalid_parliamentary_term['date'] = '2035-06-03'
+        question_without_number = copy.deepcopy(EXAMPLE_QUESTION)
+        del question_without_number['written_number']
+        def api_one_question_and_answer(url):
+            if url == 'https://api.pmg.org.za/minister/':
+                yield {
+                    'questions_url': "http://api.pmg.org.za/minister/2/questions/",
+                }
+                return
+            elif url == 'https://api.pmg.org.za/member/':
+                return
+            elif url == 'http://api.pmg.org.za/minister/2/questions/':
+                yield question_with_invalid_date
+                yield question_with_invalid_parliamentary_term
+                yield question_without_number
+            else:
+                raise Exception("Unfaked URL '{0}'".format(url))
+        fake_all_from_api.side_effect = api_one_question_and_answer
+
+        # Run the command:
+        call_command('za_hansard_q_and_a_scraper', scrape_from_pmg=True)
+
+        # Check that no new questions or answers were created
+        self.assertEqual(Question.objects.count(), 0)
+        self.assertEqual(Answer.objects.count(), 0)
+
+        # Check that QuestionParsingErrors were created
+        self.assertEqual(QuestionParsingError.objects.count(), 3)
+        self.assertTrue(QuestionParsingError.objects.filter(error_type='date-format-error').exists())
+        self.assertTrue(QuestionParsingError.objects.filter(error_type='parliamentary-term-not-found').exists())
+        self.assertTrue(QuestionParsingError.objects.filter(error_type='question-number-not-found').exists())
+
+        fake_sys_exit.assert_called_with(1)
