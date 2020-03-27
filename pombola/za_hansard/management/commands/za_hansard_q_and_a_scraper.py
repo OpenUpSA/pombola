@@ -24,7 +24,7 @@ from django.core.exceptions import MultipleObjectsReturned
 import requests
 
 from pombola.south_africa.models import ParliamentaryTerm
-from pombola.za_hansard.models import Question, Answer, QuestionPaper, QuestionParsingError
+from pombola.za_hansard.models import Question, Answer, QuestionParsingError
 from pombola.za_hansard.importers.import_json import ImportJson
 from instances.models import Instance
 
@@ -167,22 +167,10 @@ class Command(BaseCommand):
                     ),
     )
 
-    start_url_q = ('http://www.parliament.gov.za/live/',
-                   'content.php?Category_ID=236')
-    start_url_a_na = ('http://www.parliament.gov.za/live/',
-                      'content.php?Category_ID=248')
-    start_url_a_ncop = ('http://www.parliament.gov.za/live/',
-                        'content.php?Category_ID=249')
-
     def handle(self, *args, **options):
         self.new_errors_count = 0
 
-        if options['scrape_questions']:
-            self.scrape_questions(*args, **options)
-        elif options['scrape_answers']:
-            self.scrape_answers(self.art_url_a_na, *args, **options)
-            self.scrape_answers(self.start_url_a_ncop, *args, **options)
-        elif options['scrape_from_pmg']:
+        if options['scrape_from_pmg']:
             self.get_qa_from_pmg_api(*args, **options)
         elif options['process_answers']:
             self.process_answers(*args, **options)
@@ -193,9 +181,6 @@ class Command(BaseCommand):
         elif options['import_into_sayit']:
             self.import_into_sayit(*args, **options)
         elif options['run_all_steps']:
-            self.scrape_questions(*args, **options)
-            self.scrape_answers(self.start_url_a_na, *args, **options)
-            self.scrape_answers(self.start_url_a_ncop, *args, **options)
             self.get_qa_from_pmg_api(*args, **options)
             self.process_answers(*args, **options)
             self.match_answers(*args, **options)
@@ -211,107 +196,6 @@ class Command(BaseCommand):
                 "Some errors occurred while scraping questions and answers."
             )
             sys.exit(1)
-
-    def scrape_questions(self, *args, **options):
-
-        start_url = self.start_url_q[0] + self.start_url_q[1]
-        details = question_scraper.QuestionDetailIterator(start_url)
-
-        count = 0
-        errors = 0
-
-        # detail here is a dictionary of the form:
-        # {
-        # "name":     row['cell'][0]['contents'],
-        # "language": row['cell'][6]['contents'],
-        # "url":      self.base_url + url,
-        # "house":    row['cell'][4]['contents'],
-        # "date":     row['cell'][2]['contents'],
-        # "type":     types[2]
-        # }
-
-        for detail in details:
-            count += 1
-
-            source_url = detail['url']
-            sys.stdout.write(
-                "{count:5} {url} ".format(count=count, url=source_url))
-
-            if detail['language'] != 'English':
-                print "SKIPPING language is '{0}', not 'English'".format(
-                    detail['language'])
-            elif detail['type'] != 'pdf':
-                print "SKIPPING type is '{0}', not 'pdf'".format(
-                    detail['type'])
-            else:
-                if QuestionPaper.objects.filter(source_url=source_url).exists():
-                    self.stdout.write('SKIPPING as file already handled\n')
-                    if not options['fetch_to_limit']:
-                        self.stdout.write(
-                            "Stopping as '--fetch-to-limit' not given\n")
-                        break
-                else:
-                    try:
-                        self.stdout.write('PROCESSING')
-                        question_scraper.QuestionPaperParser(
-                            **detail).get_questions()
-                    except Exception as e:
-                        self.stdout.write(
-                            'ERROR handling {0}: {1}\n'.format(source_url, str(e)))
-                        errors += 1
-                        pass
-
-            if options['limit'] and count >= options['limit']:
-                break
-
-        self.stdout.write(
-            "Processed %d documents (%d errors)\n" % (count, errors))
-
-    def scrape_answers(self, start_url_a, *args, **options):
-        start_url = start_url_a[0] + start_url_a[1]
-        details = question_scraper.AnswerDetailIterator(start_url)
-
-        count = 0
-
-        for detail in details:
-            count += 1
-            detail = strip_dict(detail)
-
-            url = detail['url']
-            if Answer.objects.filter(url=url).exists():
-                self.stdout.write('Answer {0} already exists\n'.format(url))
-                if not options['fetch_to_limit']:
-                    self.stdout.write(
-                        "Stopping as '--fetch-to-limit' not given\n")
-                    break
-            else:
-                existing_answers = Answer.objects.filter(
-                    house=detail['house'],
-                    year=detail['year'],
-                )
-
-                if detail['oral_number']:
-                    existing_answers = existing_answers.filter(
-                        oral_number=detail['oral_number'])
-                if detail['written_number']:
-                    existing_answers = existing_answers.filter(
-                        written_number=detail['written_number'])
-
-                if existing_answers.exists():
-                    # import pdb;pdb.set_trace()
-                    # FIXME - We should work out which answer to keep rather than
-                    # just keeping what we already have.
-                    self.stdout.write(
-                        'DUPLICATE: answer for {0} O{1} W{2} {3} already exists\n'.format(
-                            detail['house'], detail['oral_number'], detail['written_number'], detail['year'],
-                        )
-                    )
-                else:
-                    # self.stdout.write('Adding answer for {0}\n'.format(url))
-                    answer = Answer.objects.create(**detail)
-
-            if options['limit'] and count >= options['limit']:
-                break
 
     def handle_api_question_and_reply(self, data):
         if 'source_file' not in data:
