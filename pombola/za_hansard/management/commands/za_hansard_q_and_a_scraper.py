@@ -24,7 +24,7 @@ from django.core.exceptions import MultipleObjectsReturned
 import requests
 
 from pombola.south_africa.models import ParliamentaryTerm
-from pombola.za_hansard.models import Question, Answer, QuestionPaper
+from pombola.za_hansard.models import Question, Answer, QuestionPaper, QuestionParsingError
 from pombola.za_hansard.importers.import_json import ImportJson
 from instances.models import Instance
 
@@ -175,7 +175,7 @@ class Command(BaseCommand):
                         'content.php?Category_ID=249')
 
     def handle(self, *args, **options):
-        self.error_messages = []
+        self.new_errors_count = 0
 
         if options['scrape_questions']:
             self.scrape_questions(*args, **options)
@@ -206,7 +206,7 @@ class Command(BaseCommand):
         else:
             raise CommandError("Please supply a valid option")
             
-        if len(self.error_messages) > 0:
+        if self.new_errors_count > 0:
             self.stderr.write(
                 "Some errors occurred while scraping questions and answers."
             )
@@ -363,8 +363,11 @@ class Command(BaseCommand):
                     'Skipping question import.'
                 )\
                 .format(data['url'], data['date'])
-            self.stderr.write(msg)
-            self.error_messages.append(msg)
+            self.log_question_parsing_error(
+                data['url'], 
+                'date-format-error', 
+                msg
+            )
             return
 
         try:
@@ -377,8 +380,11 @@ class Command(BaseCommand):
                     'Skipping question import.'
                 )\
                 .format(data['url'], data['date'])
-            self.stderr.write(msg)
-            self.error_messages.append(msg)
+            self.log_question_parsing_error(
+                data['url'], 
+                'parliamentary-term-not-found', 
+                msg
+            )
             return
 
         existing_kwargs = {'date__year': year, 'house': house, 'term': term}
@@ -395,8 +401,11 @@ class Command(BaseCommand):
                     'president_number or dp_number. '
                 )\
                 .format(data['url'])
-            self.stderr.write(msg)
-            self.error_messages.append(msg)
+            self.log_question_parsing_error(
+                data['url'], 
+                'question-number-not-found', 
+                msg
+            )
             return
         try:
             question = Question.objects.get(**existing_kwargs)
@@ -462,8 +471,11 @@ class Command(BaseCommand):
                             answer.id,
                             existing_answer_pmg_api_url,
                             data['url'])
-                    self.stderr.write(msg)
-                    self.error_messages.append(msg)
+                    self.log_question_parsing_error(
+                        data['url'], 
+                        'existing-question-url-conflicted', 
+                        msg
+                    )
             else:
                 answer.pmg_api_url = data['url']
                 answer.save()
@@ -1122,3 +1134,22 @@ class Command(BaseCommand):
         minister_title = corrections.get(minister_title, minister_title)
 
         return minister_title
+
+    def log_question_parsing_error(self, question_url, error_type, error_message):
+        """
+        Updates or creates a QuestionParsingError instance for the error and 
+        writes the error message to stderr if the message is new 
+        (i.e. was created).
+        """
+        question_parsing_error, created = QuestionParsingError.objects\
+                .update_or_create(
+                    pmg_url=question_url,
+                    error_type=error_type,
+                    defaults={
+                        'error_message': error_message,
+                        'last_seen': datetime.now()
+                    }
+                )
+        if created:
+            self.stderr.write(error_message)
+            self.new_errors_count += 1
