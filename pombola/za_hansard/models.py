@@ -342,7 +342,7 @@ int_to_text = {
 class Question(models.Model):
     paper = models.ForeignKey(
         QuestionPaper,
-        null=True,  # FIXME - eventually, this should not be nullable.
+        null=True,
         on_delete=models.SET_NULL,
     )
     answer = models.ForeignKey(
