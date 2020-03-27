@@ -350,7 +350,7 @@ class Command(BaseCommand):
                 ('president_number', 'president_number'),
                 ('dp_number', 'deputy_president_number'),
         ):
-            if data[api_key]:
+            if data.get(api_key):
                 number_found = True
                 number_q_kwargs[filter_key] = data[api_key]
 
@@ -382,7 +382,7 @@ class Command(BaseCommand):
                 .format(data['url'], data['date'])
             self.log_question_parsing_error(
                 data['url'], 
-                'parliamentary-term-not-found', 
+                'term-not-found', 
                 msg
             )
             return
@@ -403,7 +403,7 @@ class Command(BaseCommand):
                 .format(data['url'])
             self.log_question_parsing_error(
                 data['url'], 
-                'question-number-not-found', 
+                'number-not-found', 
                 msg
             )
             return
@@ -473,7 +473,7 @@ class Command(BaseCommand):
                             data['url'])
                     self.log_question_parsing_error(
                         data['url'], 
-                        'existing-question-url-conflicted', 
+                        'url-conflicted', 
                         msg
                     )
             else:

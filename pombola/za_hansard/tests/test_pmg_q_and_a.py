@@ -391,7 +391,7 @@ class PMGAPITests(TestCase):
 
     @patch('pombola.za_hansard.management.commands.za_hansard_q_and_a_scraper.all_from_api')
     @patch('pombola.za_hansard.management.commands.za_hansard_q_and_a_scraper.sys.exit')
-    def test_errors_logged_to_model(self, fake_all_from_api, fake_sys_exit):
+    def test_errors_logged_to_model(self, fake_sys_exit, fake_all_from_api):
         question_with_invalid_date = copy.deepcopy(EXAMPLE_QUESTION)
         question_with_invalid_date['date'] = '2012319-06-03' # invalid date
         question_with_invalid_parliamentary_term = copy.deepcopy(EXAMPLE_QUESTION)
@@ -424,7 +424,7 @@ class PMGAPITests(TestCase):
         # Check that QuestionParsingErrors were created
         self.assertEqual(QuestionParsingError.objects.count(), 3)
         self.assertTrue(QuestionParsingError.objects.filter(error_type='date-format-error').exists())
-        self.assertTrue(QuestionParsingError.objects.filter(error_type='parliamentary-term-not-found').exists())
-        self.assertTrue(QuestionParsingError.objects.filter(error_type='question-number-not-found').exists())
+        self.assertTrue(QuestionParsingError.objects.filter(error_type='term-not-found').exists())
+        self.assertTrue(QuestionParsingError.objects.filter(error_type='number-not-found').exists())
 
         fake_sys_exit.assert_called_with(1)
