@@ -175,6 +175,8 @@ class Command(BaseCommand):
                         'content.php?Category_ID=249')
 
     def handle(self, *args, **options):
+        self.error_messages = []
+
         if options['scrape_questions']:
             self.scrape_questions(*args, **options)
         elif options['scrape_answers']:
@@ -203,6 +205,12 @@ class Command(BaseCommand):
             self.correct_existing_sayit_import(*args, **options)
         else:
             raise CommandError("Please supply a valid option")
+            
+        if len(self.error_messages) > 0:
+            self.stderr.write(
+                "Some errors occurred while scraping questions and answers."
+            )
+            sys.exit(1)
 
     def scrape_questions(self, *args, **options):
 
@@ -349,17 +357,28 @@ class Command(BaseCommand):
         try:
             question_date = datetime.strptime(data['date'], "%Y-%m-%d").date()
         except Exception:
-            self.stderr.write(
-                'Could not parse the date for question {}. Skipping.'.\
-                    format(data['url']))
+            msg = (
+                    'Could not parse the date for question {}. '
+                    'Date must be in the format YYYY-mm-dd, but it is {}. '
+                    'Skipping question import.'
+                )\
+                .format(data['url'], data['date'])
+            self.stderr.write(msg)
+            self.error_messages.append(msg)
             return
 
         try:
             term = ParliamentaryTerm.get_term_from_date(question_date)
         except Exception:
-            self.stderr.write(
-                'Could not determine the parliamentary term for question {}. Skipping.'.\
-                    format(data['url']))
+            msg = (
+                    'Could not determine the parliamentary term for question {}. '
+                    'Question date is {}. Please ensure there existing a '
+                    'ParliamentaryTerm that includes this date. '
+                    'Skipping question import.'
+                )\
+                .format(data['url'], data['date'])
+            self.stderr.write(msg)
+            self.error_messages.append(msg)
             return
 
         existing_kwargs = {'date__year': year, 'house': house, 'term': term}
@@ -370,8 +389,14 @@ class Command(BaseCommand):
             # already exists if we don't have one of these number, so
             # ignore the question and answer completely in that
             # case. (This is a rare occurence.)
-            print "Skipping {0} because no number was found".format(
-                data['url'])
+            msg = (
+                    'Question at {} could not be imported because it has no '
+                    'number (i.e. no written_number, oral_number, '
+                    'president_number or dp_number. '
+                )\
+                .format(data['url'])
+            self.stderr.write(msg)
+            self.error_messages.append(msg)
             return
         try:
             question = Question.objects.get(**existing_kwargs)
@@ -432,11 +457,13 @@ class Command(BaseCommand):
                     msg += "was {3}.  Check that in this case they're the same "
                     msg += "question and answer, but with two API URLs and "
                     msg += "different dates and source files"
-                    print msg.format(
-                        question.id,
-                        answer.id,
-                        existing_answer_pmg_api_url,
-                        data['url'])
+                    msg = msg.format(
+                            question.id,
+                            answer.id,
+                            existing_answer_pmg_api_url,
+                            data['url'])
+                    self.stderr.write(msg)
+                    self.error_messages.append(msg)
             else:
                 answer.pmg_api_url = data['url']
                 answer.save()
