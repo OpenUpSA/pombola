@@ -467,6 +467,20 @@ class Question(models.Model):
 # CREATE TABLE completed_documents (`url` string);
 
 
+class QuestionParsingError(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    pmg_url = models.URLField(null=False)
+    last_seen = models.DateTimeField(null=False)
+    error_type = models.CharField(max_length=20, null=False)
+    error_message = models.CharField(max_length=300, null=False)
+
+    def __unicode__(self):
+        return u'%s' % (self.error_message)
+
+    class Meta():
+        unique_together = ('pmg_url', 'error_type')
+
+
 class SourceParsingLog(models.Model):
     """Immutable log entry for an import attempt of a specific source"""
 
