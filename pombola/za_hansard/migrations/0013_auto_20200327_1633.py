@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 ('pmg_url', models.URLField()),
                 ('last_seen', models.DateTimeField()),
                 ('error_type', models.CharField(max_length=20)),
-                ('error_message', models.CharField(max_length=300)),
+                ('error_message', models.TextField()),
             ],
         ),
         migrations.AlterUniqueTogether(

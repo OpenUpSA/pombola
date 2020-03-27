@@ -472,7 +472,7 @@ class QuestionParsingError(models.Model):
     pmg_url = models.URLField(null=False)
     last_seen = models.DateTimeField(null=False)
     error_type = models.CharField(max_length=20, null=False)
-    error_message = models.CharField(max_length=300, null=False)
+    error_message = models.TextField(null=False)
 
     def __unicode__(self):
         return u'%s' % (self.error_message)
