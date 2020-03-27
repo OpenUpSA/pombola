@@ -50,7 +50,8 @@ class Command(BaseCommand):
             # the popolo_name_resolver_init management command.
             'popolo_name_resolver_entityname',
             'writeinpublic_configuration',
-            'za_hansard_sourceparsinglog'
+            'za_hansard_sourceparsinglog',
+            'za_hansard_questionparsingerror'
         ])
         if settings.COUNTRY_APP in ('nigeria',):
             # In the past I think the hansard application was in use
