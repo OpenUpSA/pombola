@@ -23,6 +23,9 @@ def cleanLine(line):
 class DateParseException(Exception):
     pass
 
+class DateNotFoundException(Exception):
+    pass
+
 
 class ConversionException(Exception):
     pass
@@ -76,15 +79,15 @@ class DateParslet(SingleLineParslet):
         if parser.hasDate:
             return None
 
-        match = re.compile(r'(\d+)[ ,]+(\w+)[ ,]+(\d+)$').search(line)
+        match = re.compile(r'\s*(\d+)[ ,]+(\w+)[ ,]+(\d+)\s*$').search(line)
         if not match:
-            # we are assuming that *every* document has a date as first
-            # thing, and throw an exception instead of simply returning
-            # None.  This assumption seems good for now.  (Note that
-            # later steps require the presence of a date)
+            return None
+
+        try:
+            date = datetime.strptime(' '.join(match.groups()), '%d %B %Y')
+        except ValueError:
             raise DateParseException("Couldn't match date in %s" % line)
 
-        date = datetime.strptime(' '.join(match.groups()), '%d %B %Y')
         date_xml = date.strftime('%Y-%m-%d')
 
         parser.hasDate = True
@@ -495,6 +498,8 @@ class ZAHansardParser(object):
             #raise e
             #raise Exception("Parsing failed at '%s'" % p[:50])
         nodes = [match(list(p)) for p in paras]
+        if not obj.hasDate:
+            raise DateNotFoundException("Hansard date not found in document at path %s." % document_path)
 
         def transformParens(nodes):
             result = []
@@ -508,6 +513,10 @@ class ZAHansardParser(object):
                         print >> sys.stderr, '   B %s' % b.text
                         print >> sys.stderr
                     result.append(TitleParslet(text=a.text))
+                elif (type(a).__name__ == 'DateParslet'):
+                    # Ensure that the date is the first element
+                    # so that it will be added to the preface
+                    result.insert(0, a)
                 else:
                     # TODO: perhaps should also rewrite the Parens into a ContinuationParslet?
                     result.append(a)

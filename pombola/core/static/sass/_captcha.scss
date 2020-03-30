@@ -1,0 +1,8 @@
+.captcha-group {
+  display: flex;
+
+  input[type="text"] {
+    width: 50% !important;
+    margin-left: 0.5em;
+  }
+}

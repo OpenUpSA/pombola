@@ -167,7 +167,7 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
                 continue
 
             source_url += ' and ' + source['Source URL']
-    else:
+    elif 'Source URL' in office:
         source_url = office['Source URL']
         source_note = office['Source Note']
         infosources.append({
@@ -469,7 +469,9 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
                 #rows being returned
                 pombola_person = Person.objects.filter(
                     Q(legal_name=person['Name']) |
-                    Q(alternative_names__alternative_name=person['Name'])).distinct()
+                    Q(alternative_names__alternative_name=person['Name']) |
+                    Q(slug=slugify(person['Name']))
+                    ).distinct()
                 if len(pombola_person)==0:
                     pombola_person = None
                 else:
@@ -758,8 +760,6 @@ class Command(LabelCommand):
 
         global VERBOSE
         VERBOSE = options['verbose']
-
-        contact_source_2013 = "Data from the party (2019)"
 
         organisations_to_keep = []
 
