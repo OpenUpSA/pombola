@@ -579,7 +579,7 @@ class Person(ModelBase, HasImageMixin, ScorecardMixin, IdentifierMixin):
 
         This is specific to the South African site (ZA).
         """
-        contacts = self.position_set.filter(title__slug="constituency-contact").currently_active()
+        contacts = self.position_set.filter(organisation__kind__slug__in=['constituency-area', 'constituency-office']).currently_active()
         return Organisation.objects.filter(position__in=contacts)
 
     def aspirant_constituencies(self):
