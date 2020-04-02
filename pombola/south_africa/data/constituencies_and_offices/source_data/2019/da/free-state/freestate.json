@@ -11,6 +11,12 @@
                     "Position": "Constituency Chair",
                     "Email": "xgrafies@gmail.com",  
                     "Cell": "722260222"
+                },
+                {
+                    "Name": "Werner Horn",
+                    "Position": "Constituency Head",
+                    "Email": "wernerh@da.org.za",  
+                    "Cell": "832622846"
                 }
             ], 
             "Type": "area", 
@@ -27,6 +33,12 @@
                     "Position": "Constituency Chair",
                     "Email": "tdmasoeu@gmail.com",  
                     "Cell": "833030381"
+                },
+                {
+                    "Name": "Patricia Kopane",
+                    "Position": "Constituency Head",
+                    "Email": "skopane@parliament.gov.za",  
+                    "Cell": "823037683"
                 }
             ], 
             "Type": "area", 
@@ -43,6 +55,12 @@
                     "Position": "Constituency Chair",
                     "Email": "carsef@compuking.co.za",  
                     "Cell": "836352851"
+                },
+                {
+                    "Name": "Mariette Pittaway",
+                    "Position": "Constituency Head",
+                    "Email": "mariettep@da.org.za",  
+                    "Cell": "829081242"
                 }
             ], 
             "Type": "area", 
@@ -59,6 +77,12 @@
                     "Position": "Constituency Chair",
                     "Email": "letlhakethabiso@gmail.com",  
                     "Cell": "787566754"
+                },
+                {
+                    "Name": "Annelie Lotriet",
+                    "Position": "Constituency Head",
+                    "Email": "anneliel@da.org.za",  
+                    "Cell": "848105907"
                 }
             ], 
             "Type": "area", 
@@ -75,6 +99,12 @@
                     "Position": "Constituency Chair",
                     "Email": "info@dankeschon.co.za",  
                     "Cell": "824604762"
+                },
+                {
+                    "Name": "George Michalakis",
+                    "Position": "Constituency Head",
+                    "Email": "georgem@da.org.za",  
+                    "Cell": "827936071"
                 }
             ], 
             "Type": "area", 
@@ -89,6 +119,12 @@
                 {
                     "Name": "Johnatan Barnes",
                     "Position": "Constituency Chair"
+                },
+                {
+                    "Name": "James Letuka",
+                    "Position": "Constituency Head",
+                    "Email": "jamesl@da.org.za",
+                    "Cell": "731067334"
                 }
             ], 
             "Type": "area", 
@@ -96,8 +132,8 @@
         },
         {
             "Province": "Free State", 
-            "Location": "Moqala", 
-            "Title": "DA Constituency Area: Moqala", 
+            "Location": "Moqhaka/Nala", 
+            "Title": "DA Constituency Area: Moqhaka/Nala", 
             "Party": "DA", 
             "People": [
                 {
@@ -105,6 +141,12 @@
                     "Position": "Constituency Chair",
                     "Email": "chrid@act.co.za",  
                     "Cell": "825525471"
+                },
+                {
+                    "Name": "Nomsa Marchesi",
+                    "Position": "Constituency Head",
+                    "Email": "nomsam@da.org.za",  
+                    "Cell": "828240601"
                 }
             ], 
             "Type": "area", 
@@ -121,6 +163,12 @@
                     "Position": "Constituency Chair",
                     "Email": "jacques@zipplink.co.za",  
                     "Cell": "825649370"
+                },
+                {
+                    "Name": "Karabo Khakhau",
+                    "Position": "Constituency Head",
+                    "Email": "karabok@da.org.za",  
+                    "Cell": "607536522"
                 }
             ], 
             "Type": "area", 
@@ -137,6 +185,12 @@
                     "Position": "Constituency Chair",
                     "Email": "damantsopa@gmail.com",  
                     "Cell": "762629790"
+                },
+                {
+                    "Name": "David Janse van Vuuren",
+                    "Position": "Constituency Head",
+                    "Email": "davidv@da.org.za",  
+                    "Cell": "829281355"
                 }
             ], 
             "Type": "area", 
@@ -153,6 +207,12 @@
                     "Position": "Constituency Chair",
                     "Email": "rogernhlapo1@gmail.com",  
                     "Cell": "608571753"
+                },
+                {
+                    "Name": "Roy Jankielsohn",
+                    "Position": "Constituency Head",
+                    "Email": "royj@da.org.za",  
+                    "Cell": "825624120"
                 }
             ], 
             "Type": "area", 
@@ -169,6 +229,12 @@
                     "Position": "Constituency Chair",
                     "Email": "oatesdale@yahoo.com",  
                     "Cell": "845880411"
+                },
+                {
+                    "Name": "Leona Kleynhans",
+                    "Position": "Constituency Head",
+                    "Email": "leonak@da.org.za",  
+                    "Cell": "828221101"
                 }
             ], 
             "Type": "area", 
