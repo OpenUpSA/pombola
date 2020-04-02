@@ -1,0 +1,180 @@
+{
+    "offices": [
+        {
+            "Province": "Free State", 
+            "Location": "Mangaung West", 
+            "Title": "DA Constituency Area: Mangaung West", 
+            "Party": "DA", 
+            "People": [
+                {
+                    "Name": "Johan Pretorius",
+                    "Position": "Constituency Chair",
+                    "Email": "xgrafies@gmail.com",  
+                    "Cell": "722260222"
+                }
+            ], 
+            "Type": "area", 
+            "Source Note": "DA Parliamentary Caucus 2019"
+        },
+        {
+            "Province": "Free State", 
+            "Location": "Mangaung East", 
+            "Title": "DA Constituency Area: Mangaung East", 
+            "Party": "DA", 
+            "People": [
+                {
+                    "Name": "David Masoeu",
+                    "Position": "Constituency Chair",
+                    "Email": "tdmasoeu@gmail.com",  
+                    "Cell": "833030381"
+                }
+            ], 
+            "Type": "area", 
+            "Source Note": "DA Parliamentary Caucus 2019"
+        },
+        {
+            "Province": "Free State", 
+            "Location": "Ngwathe, Mafube, Metsimaholo", 
+            "Title": "DA Constituency Area: Ngwathe, Mafube, Metsimaholo", 
+            "Party": "DA", 
+            "People": [
+                {
+                    "Name": "Carina Serfontein",
+                    "Position": "Constituency Chair",
+                    "Email": "carsef@compuking.co.za",  
+                    "Cell": "836352851"
+                }
+            ], 
+            "Type": "area", 
+            "Source Note": "DA Parliamentary Caucus 2019"
+        },
+        {
+            "Province": "Free State", 
+            "Location": "Matjhabeng", 
+            "Title": "DA Constituency Area: Matjhabeng", 
+            "Party": "DA", 
+            "People": [
+                {
+                    "Name": "Thabiso Letlake",
+                    "Position": "Constituency Chair",
+                    "Email": "letlhakethabiso@gmail.com",  
+                    "Cell": "787566754"
+                }
+            ], 
+            "Type": "area", 
+            "Source Note": "DA Parliamentary Caucus 2019"
+        },
+        {
+            "Province": "Free State", 
+            "Location": "Vetrivier", 
+            "Title": "DA Constituency Area: Vetrivier", 
+            "Party": "DA", 
+            "People": [
+                {
+                    "Name": "Brunhilde Rossouw",
+                    "Position": "Constituency Chair",
+                    "Email": "info@dankeschon.co.za",  
+                    "Cell": "824604762"
+                }
+            ], 
+            "Type": "area", 
+            "Source Note": "DA Parliamentary Caucus 2019"
+        },
+        {
+            "Province": "Free State", 
+            "Location": "Letsemeng, Tokologo", 
+            "Title": "DA Constituency Area: Letsemeng, Tokologo", 
+            "Party": "DA", 
+            "People": [
+                {
+                    "Name": "Johnatan Barnes",
+                    "Position": "Constituency Chair"
+                }
+            ], 
+            "Type": "area", 
+            "Source Note": "DA Parliamentary Caucus 2019"
+        },
+        {
+            "Province": "Free State", 
+            "Location": "Moqala", 
+            "Title": "DA Constituency Area: Moqala", 
+            "Party": "DA", 
+            "People": [
+                {
+                    "Name": "Chris Dalton",
+                    "Position": "Constituency Chair",
+                    "Email": "chrid@act.co.za",  
+                    "Cell": "825525471"
+                }
+            ], 
+            "Type": "area", 
+            "Source Note": "DA Parliamentary Caucus 2019"
+        },
+        {
+            "Province": "Free State", 
+            "Location": "Mohokare, Kopanong", 
+            "Title": "DA Constituency Area: Mohokare, Kopanong", 
+            "Party": "DA", 
+            "People": [
+                {
+                    "Name": "Jacques van Rensburg",
+                    "Position": "Constituency Chair",
+                    "Email": "jacques@zipplink.co.za",  
+                    "Cell": "825649370"
+                }
+            ], 
+            "Type": "area", 
+            "Source Note": "DA Parliamentary Caucus 2019"
+        },
+        {
+            "Province": "Free State", 
+            "Location": "Koranna", 
+            "Title": "DA Constituency Area: Koranna", 
+            "Party": "DA", 
+            "People": [
+                {
+                    "Name": "Tania Halse",
+                    "Position": "Constituency Chair",
+                    "Email": "damantsopa@gmail.com",  
+                    "Cell": "762629790"
+                }
+            ], 
+            "Type": "area", 
+            "Source Note": "DA Parliamentary Caucus 2019"
+        },
+        {
+            "Province": "Free State", 
+            "Location": "Maluti", 
+            "Title": "DA Constituency Area: Maluti", 
+            "Party": "DA", 
+            "People": [
+                {
+                    "Name": "Nhlapo Roger",
+                    "Position": "Constituency Chair",
+                    "Email": "rogernhlapo1@gmail.com",  
+                    "Cell": "608571753"
+                }
+            ], 
+            "Type": "area", 
+            "Source Note": "DA Parliamentary Caucus 2019"
+        },
+        {
+            "Province": "Free State", 
+            "Location": "Drakensberg FS", 
+            "Title": "DA Constituency Area: Drakensberg FS", 
+            "Party": "DA", 
+            "People": [
+                {
+                    "Name": "Alison Oates",
+                    "Position": "Constituency Chair",
+                    "Email": "oatesdale@yahoo.com",  
+                    "Cell": "845880411"
+                }
+            ], 
+            "Type": "area", 
+            "Source Note": "DA Parliamentary Caucus 2019"
+        },
+    ], 
+    "start_date": "2019-06-01", 
+    "end_date": "2019-05-31"
+}
