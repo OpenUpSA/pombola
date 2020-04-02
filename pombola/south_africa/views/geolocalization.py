@@ -27,6 +27,14 @@ CONSTITUENCY_OFFICE_PLACE_KIND_SLUGS = (
     'constituency-area',  # specific to DA party
 )
 
+# People who are linked to a constituency office with any of these roles
+# will be shown in the RepLocator.
+CONSTITUENCY_CONTACT_ROLES = [
+    'constituency-contact',
+    'constituency-chair',
+    'constituency-head'
+]
+
 
 class WardCouncillorAPIDown(Exception):
     pass
@@ -192,7 +200,7 @@ class LatLonDetailBaseView(BasePlaceDetailView):
 
             # Find all the constituency contacts:
             for i, position in enumerate(organisation.position_set.filter(
-                title__slug='constituency-contact'
+                title__slug__in=CONSTITUENCY_CONTACT_ROLES
             ).currently_active()):
                 person = position.person
                 element_id = 'constituency-contact-{office_id}-{i}'.format(
