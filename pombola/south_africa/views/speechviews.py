@@ -106,6 +106,7 @@ class SASpeechesIndex(NamespaceMixin, TemplateView):
         
         context['entries'] = debate_sections
         context['page_obj'] = parent_section_headings
+        context['top_section_name'] = self.top_section_name
         return context
 
 
