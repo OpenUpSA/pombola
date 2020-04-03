@@ -107,19 +107,22 @@ class SASpeechesIndex(NamespaceMixin, TemplateView):
                 speech_count=Count('speech__id')) \
             .exclude(heading='') \
             .select_related(
-                'parent__heading', 'parent__num', 'parent__subheading', 'parent__slug',
+                'parent__slug',
                 'parent__parent__slug',
                 'parent__parent__parent__slug',
                 'parent__parent__parent__parent__slug',
+                'parent__parent__parent__parent__parent__slug',
                 ) \
             .order_by('-speech_start_date', 'parent__heading', 'start_order')
         
         for debate_section in debate_sections:
             debate_section.path = '/'.join([
-                debate_section.slug,
-                debate_section.parent.slug,
-                debate_section.parent.parent.slug,
+                'hansard',
+                debate_section.parent.parent.parent.parent.slug,
                 debate_section.parent.parent.parent.slug,
+                debate_section.parent.parent.slug,
+                debate_section.parent.slug,
+                debate_section.slug,
             ])
 
         
