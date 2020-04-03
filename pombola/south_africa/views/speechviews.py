@@ -41,15 +41,19 @@ class SASpeechesIndex(NamespaceMixin, TemplateView):
     template_name = 'south_africa/hansard_index.html'
     top_section_name = 'Hansard'
     sections_to_show = 25
-    section_parent_field = 'parent__parent__parent__parent'
+    section_ids = Source.objects.values('sayit_section_id')
+    section_filter = {
+        'id__in': section_ids,
+        # exclude sections without subsections
+        'children__speech__id__isnull': False,
+        # and with subsections that have no speeches
+        'children__id__isnull': False
+    }
 
     def get_context_data(self, **kwargs):
         context = super(SASpeechesIndex, self).get_context_data(**kwargs)
         self.page = self.request.GET.get('page')
 
-        # Get the top level section, or 404
-        top_section = get_object_or_404(
-            Section, heading=self.top_section_name, parent=None)
         context['show_lateness_warning'] = (self.top_section_name == 'Hansard')
 
         # As we know that the hansard section structure is
@@ -65,19 +69,11 @@ class SASpeechesIndex(NamespaceMixin, TemplateView):
 
         # Use the ZAHansard Source objects to find all of the hansards' 
         # top-level sections
-        section_ids = Source.objects.values('sayit_section_id')
-        section_filter = {
-            'id__in': section_ids,
-            # exclude sections without subsections
-            'children__speech__id__isnull': False,
-            # and with subsections that have no speeches
-            'children__id__isnull': False
-        }
 
         # get a list of all the section headings
         all_parent_section_headings = Section \
             .objects \
-            .filter(**section_filter) \
+            .filter(**self.section_filter) \
             .values('id') \
             .distinct() \
             .annotate(latest_start_date=Max('children__speech__start_date')) \
@@ -116,14 +112,20 @@ class SASpeechesIndex(NamespaceMixin, TemplateView):
 class SAHansardIndex(SASpeechesIndex):
     template_name = 'south_africa/hansard_index.html'
     top_section_name = 'Hansard'
-    section_parent_field = 'parent__parent__parent__parent'
     sections_to_show = 15
 
 
 class SACommitteeIndex(SASpeechesIndex):
     template_name = 'south_africa/hansard_index.html'
     top_section_name = 'Committee Minutes'
-    section_parent_field = 'parent__parent'
+    top_section = get_object_or_404(Section, heading=top_section_name, parent=None)
+    section_filter = {
+        'parent__parent': top_section,
+        # exclude sections without subsections
+        'children__speech__id__isnull': False,
+        # and with subsections that have no speeches
+        'children__id__isnull': False
+    }
     sections_to_show = 25
 
 
