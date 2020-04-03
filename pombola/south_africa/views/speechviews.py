@@ -14,6 +14,7 @@ from haystack.inputs import AutoQuery
 
 from pombola.core import models
 from pombola.core.views import PersonSpeakerMappingsMixin
+from pombola.za_hansard.models import Source
 
 from slug_helpers.views import SlugRedirect
 
@@ -64,8 +65,9 @@ class SASpeechesIndex(NamespaceMixin, TemplateView):
 
         # exclude sections without subsections and
         # with subsections that have no speeches
+        section_ids = Source.objects.values('sayit_section_id')
         section_filter = {
-            self.section_parent_field: top_section,
+            'id__in': section_ids,
             'children__speech__id__isnull': False,
             'children__id__isnull': False
         }
