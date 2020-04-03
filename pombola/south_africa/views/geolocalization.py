@@ -191,9 +191,7 @@ class LatLonDetailBaseView(BasePlaceDetailView):
                         has_party_logo = True
 
             # Find all the constituency contacts:
-            for i, position in enumerate(organisation.position_set.filter(
-                title__slug='constituency-contact'
-            ).currently_active()):
+            for i, position in enumerate(organisation.position_set.currently_active()):
                 person = position.person
                 element_id = 'constituency-contact-{office_id}-{i}'.format(
                     office_id=position.organisation.id, i=i
