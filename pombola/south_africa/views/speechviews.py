@@ -92,14 +92,9 @@ class SASpeechesIndex(NamespaceMixin, TemplateView):
         except EmptyPage:
             parent_section_headings = paginator.page(paginator.num_pages)
 
-        # get the sections for the current page in date order
-        headings = list(section['id'] for section in parent_section_headings)
-        section_filter['id__in'] = headings
-        parent_sections = parent_section_headings.object_list
-
         # get the subsections based on the relevant section ids
         # exclude those with blank headings as we have no way of linking to them
-        parent_ids = list(section['id'] for section in parent_sections)
+        parent_ids = list(section['id'] for section in parent_section_headings)
         debate_sections = Section \
             .objects \
             .filter(parent_id__in=parent_ids, speech__id__isnull=False) \
