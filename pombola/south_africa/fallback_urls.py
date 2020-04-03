@@ -24,7 +24,7 @@ from pombola.south_africa.views import (
 urlpatterns = [
     url(r'^committee/(?P<pk>\d+)$', OldSectionRedirect.as_view()),
     url(r'^question/(?P<pk>\d+)$', OldSectionRedirect.as_view()),
-    url(r'^hansard/(?P<pk>\d+)$', OldSectionRedirect.as_view()),
+    url(r'^hansard/(?P<pk>\d+)$', OldSectionRedirect.as_view(), name='hansard-view'),
 
     url(r'^committee/speech/(?P<pk>\d+)$', OldSpeechRedirect.as_view()),
     url(r'^question/speech/(?P<pk>\d+)$', OldSpeechRedirect.as_view()),
