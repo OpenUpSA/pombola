@@ -8,6 +8,8 @@ from django.template.defaultfilters import slugify
 from pombola.core.logging_filters import skip_unreadable_post
 from pombola.hansard.constants import NAME_SET_INTERSECTION_MATCH
 
+import socket
+
 IN_TEST_MODE = False
 
 # Work out where we are to set up the paths correctly and load config
@@ -202,6 +204,12 @@ FILE_UPLOAD_HANDLERS = (
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.gzip.GZipMiddleware', # first in list so it is able to act last on response
+)
+
+if os.environ.get("DJANGO_DEBUG_TOOLBAR", "false").lower() == "true":
+    MIDDLEWARE_CLASSES += ("debug_toolbar.middleware.DebugToolbarMiddleware",)
+
+MIDDLEWARE_CLASSES += (
     'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -213,8 +221,6 @@ MIDDLEWARE_CLASSES = (
     'mapit.middleware.ViewExceptionMiddleware',
     'django.middleware.security.SecurityMiddleware',
 )
-if os.environ.get("DJANGO_DEBUG_TOOLBAR", "false").lower() == "true":
-    MIDDLEWARE_CLASSES += ("debug_toolbar.middleware.DebugToolbarMiddleware",)
 
 ROOT_URLCONF = 'pombola.urls'
 
@@ -652,3 +658,9 @@ SHELL_PLUS_APP_PREFIXES = {
 GOOGLE_MAPS_GEOCODING_API_KEY = os.environ.get("GOOGLE_MAPS_GEOCODING_API_KEY", "")
 
 CAPTCHA_FLITE_PATH = "/usr/bin/flite"
+
+
+if os.environ.get("DJANGO_DEBUG_TOOLBAR", "false").lower() == "true":
+    # Trick to get Docker internal IP for Django Debug Toolbar
+    ip = socket.gethostbyname(socket.gethostname())
+    INTERNAL_IPS = ["127.0.0.1", ip[:-1] + '1']
