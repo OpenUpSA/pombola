@@ -63,12 +63,14 @@ class SASpeechesIndex(NamespaceMixin, TemplateView):
         # FIXME ideally we'd have start_date for sections rather than
         # having to get MAX('start_date') from the speeches table
 
-        # exclude sections without subsections and
-        # with subsections that have no speeches
+        # Use the ZAHansard Source objects to find all of the hansards' 
+        # top-level sections
         section_ids = Source.objects.values('sayit_section_id')
         section_filter = {
             'id__in': section_ids,
+            # exclude sections without subsections
             'children__speech__id__isnull': False,
+            # and with subsections that have no speeches
             'children__id__isnull': False
         }
 
