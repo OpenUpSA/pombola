@@ -1,0 +1,139 @@
+{
+  "offices": [
+    {
+      "Province": "Free State", 
+      "Postal Address": "Shop 40, Veresa Building, Botshabelo, 9781, Free State", 
+      "Physical Address": "Shop 40, Veresa Building, Botshabelo, 9781, Free State",
+      "Title": "ACDP Constituency Office: Free State", 
+      "Party": "acdp", 
+      "Type": "office", 
+      "Source URL": "https://www.pa.org.za/media_root/file_archive/ACDP_CONSTITUENCY_ADDRESSES_2019_2020.doc", 
+      "Source Note": "ACDP Constituency Offices 2019",
+      "Tel": "051 5344499",
+      "People": [
+          {
+              "Cell": "083 285 6290",
+              "Tel": "021 403 3536",
+              "Name": "Steve Swart", 
+              "Position": "Constituency Contact"
+          },
+          {
+              "Tel": "051 5344499",
+              "Cell": "073 399 2517",
+              "Name": "Gladys Rampai", 
+              "Position": "Administrator"
+          }
+      ] 
+    }, 
+    {
+      "Province": "Gauteng", 
+      "Postal Address": "Office 4, Maponya, Soweto, 1862", 
+      "Physical Address": "Office 4, Maponya, Soweto, 1862",
+      "Title": "ACDP Constituency Office: Gauteng", 
+      "Party": "acdp", 
+      "Type": "office", 
+      "Source URL": "https://www.pa.org.za/media_root/file_archive/ACDP_CONSTITUENCY_ADDRESSES_2019_2020.doc", 
+      "Source Note": "ACDP Constituency Offices 2019",
+      "Tel": "083 682 8571",
+      "People": [
+          {
+              "Cell": "082 962 5884",
+              "Name": "Kenneth Meshoe", 
+              "Position": "Constituency Contact"
+          },
+          {
+              "Cell": "083 682 8571",
+              "Name": "Absalom Sithole", 
+              "Position": "Administrator"
+          }
+      ] 
+    }, 
+    {
+      "Province": "Limpopo", 
+      "Postal Address": "Mimosa 113, 58 Market Street, Polokwane", 
+      "Physical Address": "Mimosa 113, 58 Market Street, Polokwane", 
+      "Title": "ACDP Constituency Office: Limpopo", 
+      "Party": "acdp", 
+      "Type": "office", 
+      "Source URL": "https://www.pa.org.za/media_root/file_archive/ACDP_CONSTITUENCY_ADDRESSES_2019_2020.doc", 
+      "Source Note": "ACDP Constituency Offices 2019",
+      "People": [
+          {
+              "Tel": "021 403 3977",
+              "Name": "Audra Bouwer", 
+              "Email": "abouwer@parliament.gov.za",
+              "Position": "Constituency Contact"
+          }
+      ] 
+    }, 
+    {
+      "Province": "Mpumalanga", 
+      "Postal Address": "Stand 1676, Zone C6, Msholozi Trust, 1240", 
+      "Physical Address": "Stand 1676, Zone C6, Msholozi Trust, 1240",
+      "Title": "ACDP Constituency Office: Mpumalanga", 
+      "Party": "acdp", 
+      "Type": "office", 
+      "Source URL": "https://www.pa.org.za/media_root/file_archive/ACDP_CONSTITUENCY_ADDRESSES_2019_2020.doc", 
+      "Source Note": "ACDP Constituency Offices 2019",
+      "People": [
+          {
+              "Name": "Wayne Thring", 
+              "Cell": "083 623 1240",
+              "Position": "Constituency Contact"
+          },
+          {
+              "Name": "Jeff Anderson", 
+              "Cell": "082 338 9533",
+              "Position": "Administrator"
+          }
+      ] 
+    }, 
+    {
+      "Province": "Kwazulu-Natal", 
+      "Postal Address": "Ferris Centre, 54 Pegasus Road, Marianridge, Pinetown", 
+      "Physical Address": "Ferris Centre, 54 Pegasus Road, Marianridge, Pinetown",
+      "Title": "ACDP Constituency Office: Kwazulu-Natal", 
+      "Party": "acdp", 
+      "Type": "office", 
+      "Source URL": "https://www.pa.org.za/media_root/file_archive/ACDP_CONSTITUENCY_ADDRESSES_2019_2020.doc", 
+      "Source Note": "ACDP Constituency Offices 2019",
+      "People": [
+          {
+              "Name": "Mongezi Mabungane", 
+              "Tel": "021 403 3536",
+              "Email": "mmabungane@parliament.gov.za",
+              "Position": "Constituency Contact"
+          },
+          {
+              "Name": "Simone Gilden", 
+              "Cell": "067 074 9128",
+              "Position": "Administrator"
+          }
+      ] 
+    }, 
+    {
+      "Province": "Western Cape", 
+      "Postal Address": "Cnr Milary & Gumtree Roads, Steenberg, 7945", 
+      "Physical Address": "Cnr Milary & Gumtree Roads, Steenberg, 7945",
+      "Title": "ACDP Constituency Office: Western Cape", 
+      "Party": "acdp", 
+      "Type": "office", 
+      "Source URL": "https://www.pa.org.za/media_root/file_archive/ACDP_CONSTITUENCY_ADDRESSES_2019_2020.doc", 
+      "Source Note": "ACDP Constituency Offices 2019",
+      "People": [
+          {
+              "Name": "Marie Suikers", 
+              "Cell": "062 338 1156",
+              "Position": "Constituency Contact"
+          },
+          {
+              "Name": "Julian Walker", 
+              "Cell": "073 347 7669",
+              "Position": "Administrator"
+          }
+      ] 
+    }
+  ],
+  "start_date": "2019-06-01", 
+  "end_date": "2019-05-31"
+}
