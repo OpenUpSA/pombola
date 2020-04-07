@@ -4,7 +4,7 @@ from collections import defaultdict
 
 PROVINCE = "KwaZulu-Natal"
 PROVINCE_SLUG = "kwazulu-natal"
-SOURCE_URL = "https://docs.google.com/spreadsheets/d/1nGO_kx1sa3UWG4nB1cOD5ppu7dOXBpQK/edit#gid=1842508354"
+SOURCE_URL = "https://www.pa.org.za/media_root/file_archive/Copy_of_KZN_PCL_updated.xls"
 PARTY = "DA"
 
 json_output = {"offices": [], "start_date": "2019-06-01", "end_date": "2019-05-31"}
