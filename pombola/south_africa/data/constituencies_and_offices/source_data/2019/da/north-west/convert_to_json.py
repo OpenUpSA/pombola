@@ -17,7 +17,7 @@ with open("north-west-raw.csv") as csvfile:
 for title, office in offices.items():
     json_office = {
         "Title": "DA Constituency Area: %s" % title.strip(),
-        "Source URL": "https://docs.google.com/spreadsheets/d/1oVK7Y4vzmZLgF1wXnu-KuQA1o3VAsg0u/edit#gid=1959046116",
+        "Source URL": "https://www.pa.org.za/media_root/file_archive/Copy_of_NW_MP-L_Dermacation_List.xlsx",
         "Party": "DA",
         "Type": "area",
         "Source Note": "DA Parliamentary Caucus 2019",
