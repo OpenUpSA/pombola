@@ -4,7 +4,7 @@ from collections import defaultdict
 
 PROVINCE = "Gauteng"
 PROVINCE_SLUG = "gauteng"
-SOURCE_URL = "https://docs.google.com/spreadsheets/d/1hKuSYZkabY41YbrvRpP3sGpN3RwtTf99"
+SOURCE_URL = "https://www.pa.org.za/media_root/file_archive/Copy_of_GP_public_reps_2020-01-29_3.xlsx"
 PARTY = "DA"
 
 json_output = {"offices": [], "start_date": "2019-06-01", "end_date": "2019-05-31"}
