@@ -14,6 +14,12 @@
               "Cell": "074 372 5354", 
               "Name": "Qaasim Hendricks", 
               "Email": "hendricksq@gmail.com",
+              "Position": "Administrator"
+          },
+          {
+              "Cell": "082 780 2537", 
+              "Name": "Mogamad Ganief Ebrahim Hendricks", 
+              "Email": "hendricksq@gmail.com",
               "Position": "Constituency Contact"
           }
       ] 
@@ -32,7 +38,7 @@
               "Cell": "076 203 8865", 
               "Name": "Shams Tabrez Sayed", 
               "Email": "tabrez.aljamaah0121@gmail.com",
-              "Position": "Constituency Contact"
+              "Position": "Administrator"
           }
       ] 
     },
@@ -47,27 +53,14 @@
       "Source Note": "Al Jama-Ah Constituency Offices 2019",
       "People": [
           {
-              "Cell": "074 755 3105", 
+              "Cell": "0214871769", 
               "Name": "Mumienah Gamieldien", 
               "Email": "munigamieldien@gmail.com",
-              "Position": "Constituency Contact"
-          }
-      ] 
-    }, 
-    {
-      "Province": "Kwazulu Natal", 
-      "Postal Address": "27 Theunissen Street, Illembe District, KwaDukuza", 
-      "Physical Address": "27 Theunissen Street, Illembe District, KwaDukuza",
-      "Title": "Al Jama-Ah Constituency Office: KwaDukuza", 
-      "Party": "al-jama-ah", 
-      "Type": "office", 
-      "Source URL": "https://www.pa.org.za/media_root/file_archive/AL_JAMA-AH_Constituency_Offices_2.docx", 
-      "Source Note": "Al Jama-Ah Constituency Offices 2019",
-      "People": [
+              "Position": "Administrator"
+          },
           {
-              "Cell": "078 258 1735", 
-              "Name": "Abdool Kader Dawood", 
-              "Email": "akdawood@gmail.com",
+              "Cell": "082 772 9757", 
+              "Name": "Izgak De Jager", 
               "Position": "Constituency Contact"
           }
       ] 
