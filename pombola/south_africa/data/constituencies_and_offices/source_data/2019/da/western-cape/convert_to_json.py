@@ -4,7 +4,7 @@ from collections import defaultdict
 
 PROVINCE = "Western Cape"
 PROVINCE_SLUG = "western-cape"
-SOURCE_URL = "https://docs.google.com/spreadsheets/d/1_sVOXFAE_nyiPergJrxdQbIWbR223nai"
+SOURCE_URL = "https://www.pa.org.za/media_root/file_archive/DA_Western_Cape_ConstituencyHeads.xlsx"
 PARTY = "DA"
 
 json_output = {"offices": [], "start_date": "2019-06-01", "end_date": "2019-05-31"}
