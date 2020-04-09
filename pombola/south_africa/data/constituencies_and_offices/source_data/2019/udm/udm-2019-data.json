@@ -1,14 +1,95 @@
 {
   "offices": [
     {
-      "Province": "Gauteng", 
-      "Postal Address": "1st Floor, CPA House, 101 Du Toit Street, Pretoria", 
-      "Title": "UDM Constituency Office: Pretoria", 
       "Party": "UDM", 
       "Type": "office", 
+      "Province": "Gauteng", 
+      "Title": "UDM Constituency Office: Pretoria", 
+      "Postal Address": "1st Floor, CPA House, 101 Du Toit Street, Pretoria", 
       "Physical Address": "1st Floor, CPA House, 101 Du Toit Street, Pretoria",
-      "Source URL": "https://www.pa.org.za/media_root/file_archive/UDM_CONSTITUENCY_DETAILS.docx", 
-      "Source Note": "UDM Constituency Data 2019"
+      "Source URL": "https://www.pa.org.za/media_root/file_archive/UDM_2019_Constituency_Data.xlsx", 
+      "Source Note": "UDM Constituency Data 2019",
+      "E-mail": "info@udm.org.za",
+      "Tel": "0123210010",
+      "People": [
+          {
+              "Name": "Bantu Holomisa",
+              "Position": "Constituency Contact"
+          },
+          {
+              "Name": "Bongani Msomi",
+              "Position": "Administrator", 
+              "Tel": "0123210010"
+          }
+        ]
+    },
+    {
+      "Party": "UDM", 
+      "Type": "office", 
+      "Province": "Eastern Cape", 
+      "Title": "UDM Constituency Office: Mthata", 
+      "Postal Address": "Office 106, LCM Ludidi Building, 63 Madeira Street, Mthata", 
+      "Physical Address": "Office 106, LCM Ludidi Building, 63 Madeira Street, Mthata",
+      "Source URL": "https://www.pa.org.za/media_root/file_archive/UDM_2019_Constituency_Data.xlsx", 
+      "Source Note": "UDM Constituency Data 2019",
+      "E-mail": "udmmthatha@gmail.com",
+      "People": [
+          {
+              "Name": "Nqabayomzi Lawrence Saziso Kwankwa",
+              "Position": "Constituency Contact",
+              "Email": "kwankwayomzi@gmail.com",
+              "Cell": "0814212841"
+          },
+          {
+              "Name": "Zoleka Gwija",
+              "Position": "Administrator", 
+              "Tel": "0478740562"
+          }
+        ]
+    }, 
+    {
+      "Party": "UDM", 
+      "Type": "office", 
+      "Province": "Eastern Cape", 
+      "Title": "UDM Constituency Office: Cofimvaba", 
+      "Postal Address": "Mashibi Moyo Residence, Main Street, Cofimvaba, 5380", 
+      "Physical Address": "Mashibi Moyo Residence, Main Street, Cofimvaba, 5380",
+      "Source URL": "https://www.pa.org.za/media_root/file_archive/UDM_2019_Constituency_Data.xlsx", 
+      "Source Note": "UDM Constituency Data 2019",
+      "People": [
+          {
+              "Name": "Mncedisi Lutando Wellington Filtane",
+              "Position": "Constituency Contact",
+              "Cell": "0827806400"
+          },
+          {
+              "Name": "Ziyanda Joyi",
+              "Position": "Administrator", 
+              "Tel": "0475323831"
+          }
+        ]
+    },
+    {
+      "Party": "UDM", 
+      "Type": "office", 
+      "Province": "Eastern Cape", 
+      "Title": "UDM Constituency Office: Lusikisiki", 
+      "Postal Address": "Office 4, Metro Building, 44 Main Street, Lusikisiki, 4820", 
+      "Physical Address": "Office 4, Metro Building, 44 Main Street, Lusikisiki, 4820",
+      "Source URL": "https://www.pa.org.za/media_root/file_archive/UDM_2019_Constituency_Data.xlsx", 
+      "Source Note": "UDM Constituency Data 2019",
+      "People": [
+          {
+              "Name": "Felix Lulama Bongani Mahlati",
+              "Position": "Constituency Contact"
+          },
+          {
+              "Name": "Ntombekhaya Madyaka",
+              "Position": "Administrator", 
+              "Tel": "0789482975",
+              "Cell": "0783093261"
+          }
+        ]
     } 
   ],
   "start_date": "2019-06-01", 
