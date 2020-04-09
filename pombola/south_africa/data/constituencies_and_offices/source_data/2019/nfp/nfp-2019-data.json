@@ -1,0 +1,76 @@
+{
+    "offices": [
+        {
+            "Party": "NFP", 
+            "Type": "office", 
+            "Province": "KwaZulu-Natal", 
+            "Postal Address": "136 Havenside drive, Chatsworth", 
+            "Physical Address": "136 Havenside drive, Chatsworth",
+            "Title": "NFP Constituency Office: Chatsworth", 
+            "People": [
+                {
+                    "Name": "Ahmed Munzoor Shaik-Emam",
+                    "Position": "Constituency Contact", 
+                    "Email": "mshaik-emam@parliament.gov.za",
+                    "Cell": "0814394700"
+                }, 
+                {
+                    "Name": "Suraya Hamid",
+                    "Position": "Administrator", 
+                    "Tel": "0214033055"
+                } 
+            ], 
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/NFP_Constituency_Offices_2019.xlsx", 
+            "Source Note": "NFP Constituency Offices 2019"
+        }, 
+        {
+            "Party": "NFP", 
+            "Type": "office", 
+            "Province": "KwaZulu-Natal", 
+            "Postal Address": "1st Floor, Office, No1, 84 Murchison Street, Ladysmith, 3370", 
+            "Physical Address": "1st Floor, Office, No1, 84 Murchison Street, Ladysmith, 3370",
+            "Title": "NFP Constituency Office: Ladysmith", 
+            "People": [
+                {
+                    "Name": "Christopher HM Sibisi",
+                    "Position": "Constituency Contact", 
+                    "Email": "mzwakhehlase@gmail.com",
+                    "Cell": "0680285874"
+                }, 
+                {
+                    "Name": "Nontokozo Radebe",
+                    "Position": "Administrator", 
+                    "Tel": "0640262701",
+                    "Email": "nontokozoradebe123@gmail.com"
+                } 
+            ], 
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/NFP_Constituency_Offices_2019.xlsx", 
+            "Source Note": "NFP Constituency Offices 2019"
+        }, 
+        {
+            "Party": "NFP", 
+            "Type": "office", 
+            "Province": "KwaZulu-Natal", 
+            "Postal Address": "95 Sharrett Street, Bergville, 3350", 
+            "Physical Address": "95 Sharrett Street, Bergville, 3350",
+            "Title": "NFP Constituency Office: Okuhlamba", 
+            "People": [
+                {
+                    "Name": "Vikizitha Richard Mlotshwa",
+                    "Position": "Constituency Contact", 
+                    "Cell": "0605602943"
+                }, 
+                {
+                    "Name": "Teddy Twala",
+                    "Position": "Administrator", 
+                    "Tel": "0827103065",
+                    "Email": "teddyt@webmail.co.za"
+                } 
+            ], 
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/NFP_Constituency_Offices_2019.xlsx", 
+            "Source Note": "NFP Constituency Offices 2019"
+        }
+    ], 
+    "start_date": "2019-06-01", 
+    "end_date": "2019-05-31"
+}

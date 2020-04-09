@@ -1,15 +1,60 @@
 {
   "offices": [
     {
+      "Source Note": "Good Constituency Data 2019",
       "Province": "Western Cape", 
-      "Postal Address": "51 Station Rd, Belmont Park, Kraaifontein, 7570", 
       "Title": "Good Constituency Office: Kraaifontein", 
       "Party": "Good", 
       "Type": "office", 
-      "Physical Address": "51 Station Rd, Belmont Park, Kraaifontein",
-      "Source URL": "https://www.pa.org.za/media_root/file_archive/GOOD_CONSTITUENCY_OFFICE.docx", 
+      "Postal Address": "49 Station Road, Belmont Park, Kraaifontein, 7570", 
+      "Physical Address": "49 Station Road, Belmont Park, Kraaifontein, 7570",
+      "Source URL": "https://www.pa.org.za/media_root/file_archive/GOOD_2019_Constituency_Data.xlsx", 
+      "Tel": "0215180890",
+      "E-mail": "info@forgood.org.za",
+      "People": [
+          {
+              "Name": "Patricia De Lille",
+              "Position": "Constituency Contact", 
+              "Email": "patricidal@dpw.gov.za",
+              "Cell": "0847772065"
+          }, 
+          {
+              "Name": "Cynthia Jeffereys",
+              "Position": "Administrator", 
+              "Tel": "0215180890",
+              "Email": "info@forgood.org.za"
+          },
+          {
+              "Name": "Shaun Nigel August",
+              "Position": "Administrator", 
+              "Tel": "0747467378",
+              "Email": "shauna@forgood.org.za"
+          }
+      ]
+    },
+    {
       "Source Note": "Good Constituency Data 2019",
-      "Tel": "021 518 0890"
+      "Province": "Western Cape", 
+      "Title": "Good Constituency Office: George", 
+      "Party": "Good", 
+      "Type": "office", 
+      "Postal Address": "84 York Street, JJ Watson, George, 6530", 
+      "Physical Address": "84 York Street, JJ Watson, George, 6530",
+      "Source URL": "https://www.pa.org.za/media_root/file_archive/GOOD_2019_Constituency_Data.xlsx", 
+      "People": [
+          {
+              "Name": "Brett Herron",
+              "Position": "Constituency Contact", 
+              "Email": "bretth@forgood.org.za",
+              "Cell": "0825183264"
+          }, 
+          {
+              "Name": "Vern Jeffreys",
+              "Position": "Administrator", 
+              "Tel": "0790801938",
+              "Email": "vernj@forgood.org.za"
+          }
+      ]
     } 
   ],
   "start_date": "2019-06-01", 
