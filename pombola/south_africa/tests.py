@@ -38,6 +38,7 @@ from info.models import InfoPage
 from pombola.core import models
 from pombola import south_africa
 from pombola.south_africa.views import SAPersonDetail
+from pombola.south_africa.models import ParliamentaryTerm
 from pombola.core.views import PersonSpeakerMappingsMixin
 from instances.models import Instance
 from pombola.interests_register.models import Category, Release, Entry, EntryLineItem
@@ -2726,3 +2727,48 @@ class SACommitteesPopoloJSONTest(TestCase):
             ]
         }
         self.assertJSONEqual(response.content, expected_json)
+
+@attr(country='south_africa')
+class SAParliamentaryTerm(TestCase):
+    def test_get_term_from_date(self):
+        examples = [
+            [
+                date(2009, 6, 30),
+                25
+            ],
+            [
+                date(2014, 7, 1),
+                26
+            ],
+            [
+                date(2019, 5, 31),
+                26
+            ],
+            [
+                date(2019, 6, 1),
+                27
+            ],
+            [
+                date(2020, 1, 1),
+                27
+            ],
+            [
+                date(2025, 1, 1),
+                28
+            ],
+        ]
+        for example in examples:
+            self.assertEqual(
+                ParliamentaryTerm.get_term_from_date(example[0]).number, 
+                example[1],
+                'Term should be %d for %s' % (example[1], str(example[0]))
+            )
+            
+
+    def test_get_term_from_date_for_invalid_parliament(self):
+        d = date(2001, 6, 30)
+        self.assertRaises(
+            ParliamentaryTerm.DoesNotExist, 
+            ParliamentaryTerm.get_term_from_date, d)
+            
+

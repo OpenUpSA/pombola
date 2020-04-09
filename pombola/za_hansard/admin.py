@@ -54,3 +54,13 @@ class ZAHansardSourceAdmin(admin.ModelAdmin):
         )) if obj.pmg_id is not None else None
 
     list_filter = [SuccessfullyParsedFilter, 'is404', 'date']
+
+@admin.register(models.QuestionParsingError)
+class QuestionParsingErrorAdmin(admin.ModelAdmin):
+    list_display = ['pmg_url', 'error_type', 'last_seen']
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False

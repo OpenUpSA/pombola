@@ -1,3 +1,5 @@
+from django.db import models
+
 from pombola.core.models import Place, Position, Organisation
 
 class ZAPlace(Place):
@@ -30,3 +32,19 @@ class AttendanceForOrganisationToggle(Organisation):
         proxy = True
         verbose_name = 'Toggle attendance for party'
         verbose_name_plural = 'Toggle attendance for parties'
+
+
+class ParliamentaryTerm(models.Model):
+    number = models.IntegerField(help_text="e.g. 25 for the 25th parliament")
+    start_date = models.DateField(null=False)
+    end_date = models.DateField(null=False)
+
+    def __str__(self):
+        return "%sth Parliament (%s - %s)" % (self.number, self.start_date, self.end_date)
+    
+    @classmethod
+    def get_term_from_date(cls, d):
+        return cls.objects.\
+            filter(start_date__lte=d).filter(end_date__gte=d).get()
+
+    

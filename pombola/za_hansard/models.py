@@ -8,6 +8,7 @@ from django.db import models
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from speeches.models import Section
+from pombola.south_africa.models import ParliamentaryTerm
 from django.core.exceptions import ValidationError
 
 HTTPLIB2_HEADERS = {
@@ -285,19 +286,15 @@ class Answer (models.Model):
     # the PMG API.
     pmg_api_url = models.URLField(max_length=1000, blank=True, null=True)
 
+    term = models.ForeignKey(ParliamentaryTerm, null=False)
+
     class Meta:
         unique_together = (
-            ('oral_number', 'house', 'year'),
-            ('written_number', 'house', 'year'),
-            ('president_number', 'house', 'year'),
-            ('dp_number', 'house', 'year'),
+            ('oral_number', 'house', 'year', 'term'),
+            ('written_number', 'house', 'year', 'term'),
+            ('president_number', 'house', 'year', 'term'),
+            ('dp_number', 'house', 'year', 'term'),
         )
-
-        # FIXME - When we have Django 1.5 we can have these indices...
-        # index_together = (
-        #     ('oral_number', 'house', 'year'),
-        #     ('written_number', 'house', 'year'),
-        #     )
 
 
 class QuestionPaper(models.Model):
@@ -345,7 +342,7 @@ int_to_text = {
 class Question(models.Model):
     paper = models.ForeignKey(
         QuestionPaper,
-        null=True,  # FIXME - eventually, this should not be nullable.
+        null=True,
         on_delete=models.SET_NULL,
     )
     answer = models.ForeignKey(
@@ -456,24 +453,32 @@ class Question(models.Model):
     pmg_api_source_file_url = models.URLField(
         max_length=1000, blank=True, null=True)
 
+    term = models.ForeignKey(ParliamentaryTerm, null=False)
+
+
     class Meta:
         unique_together = (
-            ('written_number', 'house', 'year'),
-            ('oral_number', 'house', 'year'),
-            ('president_number', 'house', 'year'),
-            ('dp_number', 'house', 'year'),
+            ('oral_number', 'house', 'year', 'term'),
+            ('written_number', 'house', 'year', 'term'),
+            ('president_number', 'house', 'year', 'term'),
+            ('dp_number', 'house', 'year', 'term'),
         )
-        # index_together(
-        #     ('written_number', 'house', 'year'),
-        #     ('oral_number', 'house', 'year'),
-        #     ('id_number', 'house', 'year'),
-        #     )
-
-        # FIXME - Other things it would be nice to constrain that will have to
-        # be done in postgres directly, I think.
-        # 1) At least one of written_number and oral_number must be non-null.
 
 # CREATE TABLE completed_documents (`url` string);
+
+
+class QuestionParsingError(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    pmg_url = models.URLField(null=False)
+    last_seen = models.DateTimeField(null=False)
+    error_type = models.CharField(max_length=20, null=False)
+    error_message = models.TextField(null=False)
+
+    def __unicode__(self):
+        return u'%s' % (self.error_message)
+
+    class Meta():
+        unique_together = ('pmg_url', 'error_type')
 
 
 class SourceParsingLog(models.Model):
