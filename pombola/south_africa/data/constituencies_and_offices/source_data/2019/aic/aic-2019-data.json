@@ -1,0 +1,52 @@
+{
+  "offices": [
+    {
+      "Party": "AIC", 
+      "Type": "office", 
+      "Province": "Eastern Cape", 
+      "Title": "AIC Constituency Office: Matatiele", 
+      "Postal Address": "127 High Street, Elegant Main Building, AIC Constituency Office, Matatiele 4730", 
+      "Physical Address": "127 High Street, Elegant Main Building, AIC Constituency Office, Matatiele 4730",
+      "Source URL": "https://www.pa.org.za/media_root/file_archive/AIC_Constituency_Data_2019.xlsx", 
+      "Source Note": "AIC Constituency Data 2019 collected by PMG",
+      "Tel": "0397374095",
+      "People": [
+          {
+              "Name": "Mandlenkosi Phillip Galo",
+              "Position": "Constituency Contact",
+              "Email": "mgalo@parliament.org.za",
+              "Cell": "0825598440"
+          },
+          {
+              "Name": "Nonzwakazi Nyamakazi",
+              "Position": "Administrator", 
+              "Cell": "0731755959"
+          }
+        ]
+    },
+    {
+      "Party": "AIC", 
+      "Type": "office", 
+      "Province": "Gauteng", 
+      "Title": "AIC Constituency Office: Johannesburg", 
+      "Postal Address": "7th Floor, Ghandi Square, Johannesburg", 
+      "Physical Address": "7th Floor, Ghandi Square, Johannesburg",
+      "Source URL": "https://www.pa.org.za/media_root/file_archive/AIC_Constituency_Data_2019.xlsx", 
+      "Source Note": "AIC Constituency Data 2019 collected by PMG",
+      "People": [
+          {
+              "Name": "Lulama Ntshayisa",
+              "Position": "Constituency Contact",
+              "Email": "lntshayisa@parliament.gov.za"
+          },
+          {
+              "Name": "Wendy Manuel",
+              "Position": "Administrator", 
+              "Cell": "0744791577"
+          }
+        ]
+    }
+  ],
+  "start_date": "2019-06-01", 
+  "end_date": "2019-05-31"
+}
