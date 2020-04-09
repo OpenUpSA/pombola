@@ -14,7 +14,9 @@
         <span class="name">{{ position.person.name }}</span>
     </a>
 
-    <div class="position-title">{{ position.title }}</div>
+    {% if position.title %}
+      <div class="position-title">{{ position.title }}</div>
+    {% endif %}
 
     {% if position.person.parties %}
       <div class="position-parties">

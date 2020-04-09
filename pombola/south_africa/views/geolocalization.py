@@ -15,7 +15,7 @@ from haystack.forms import SearchForm
 
 from pombola.core import models
 from pombola.core.views import (
-    BasePlaceDetailView, PlaceDetailView, PlaceDetailSub)
+    BasePlaceDetailView, BaseDetailView, PlaceDetailView, PlaceDetailSub)
 from pombola.search.views import GeocoderView
 
 from pombola.south_africa.models import ZAPlace
@@ -54,7 +54,8 @@ class LocationSearchForm(SearchForm):
         widget=forms.TextInput(attrs={'placeholder': 'Your address'}))
 
 
-class LatLonDetailBaseView(BasePlaceDetailView):
+class LatLonDetailBaseView(BaseDetailView):
+    model = models.Place
     # Using 25km as the default, as that's what's used on MyReps.
     constituency_office_search_radius = 25
 
@@ -191,9 +192,7 @@ class LatLonDetailBaseView(BasePlaceDetailView):
                         has_party_logo = True
 
             # Find all the constituency contacts:
-            for i, position in enumerate(organisation.position_set.filter(
-                title__slug='constituency-contact'
-            ).currently_active()):
+            for i, position in enumerate(organisation.position_set.currently_active()):
                 person = position.person
                 element_id = 'constituency-contact-{office_id}-{i}'.format(
                     office_id=position.organisation.id, i=i
