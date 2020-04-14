@@ -1,6 +1,7 @@
 from ajax_select import make_ajax_form
 from django.contrib import admin
 from django.utils.safestring import mark_safe
+from django.utils.html import format_html
 
 from pombola.za_hansard import models
 from .filters import SuccessfullyParsedFilter
@@ -57,7 +58,14 @@ class ZAHansardSourceAdmin(admin.ModelAdmin):
 
 @admin.register(models.QuestionParsingError)
 class QuestionParsingErrorAdmin(admin.ModelAdmin):
-    list_display = ['pmg_url', 'error_type', 'last_seen']
+    search_fields = ('pmg_url', )
+    list_display = ['error_type', 'pmg_api_url_link', 'last_seen']
+    list_filter = ['error_type',]
+    actions = None
+
+    def pmg_api_url_link(self, obj):
+        return format_html("<a href='{url}'>{url}</a>", url=obj.pmg_url)
+    pmg_api_url_link.short_description = "PMG API URL"
 
     def has_add_permission(self, request):
         return False
