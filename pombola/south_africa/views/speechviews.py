@@ -42,7 +42,7 @@ class SASpeechesIndex(NamespaceMixin, TemplateView):
     top_section_name = 'Hansard'
     sections_to_show = 25
 
-    def get_section_filter():
+    def get_section_filter(self):
         section_ids = Source.objects.values('sayit_section_id')
         return {
             'id__in': section_ids,
@@ -126,7 +126,7 @@ class SACommitteeIndex(SASpeechesIndex):
     top_section_name = 'Committee Minutes'
     sections_to_show = 25
 
-    def get_section_filter():
+    def get_section_filter(self):
         top_section = get_object_or_404(
             Section, heading=self.top_section_name, parent=None)
         return {
