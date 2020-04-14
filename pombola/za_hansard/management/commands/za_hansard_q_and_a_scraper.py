@@ -20,6 +20,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 from django.db.models import Q
 from django.core.exceptions import MultipleObjectsReturned
+from django.db.utils import DataError
 
 import requests
 
@@ -700,16 +701,37 @@ class Command(BaseCommand):
                 continue
 
             importer = ImportJson(instance=instance)
-            # try:
             self.stderr.write("TRYING %s\n" % path)
-            section = importer.import_document(path)
+            try:
+                section = importer.import_document(path)
+            except DataError as e:
+                msg = (
+                        'Could not import question {}. '
+                        'Database error: "{}". '
+                    )\
+                .format(question.pmg_api_url, str(e))
+                self.log_question_parsing_error(
+                    question.pmg_api_url, 
+                    'question-db-error', 
+                    msg
+                )
+                continue
+            except Exception as e:
+                msg = (
+                        'Could not import question {}. '
+                        'Unknown import error with message: "{}". '
+                    )\
+                .format(question.pmg_api_url, str(e))
+                self.log_question_parsing_error(
+                    question.pmg_api_url, 
+                    'import-error', 
+                    msg
+                )
+                continue
             section_ids.append(section)
             question.sayit_section = section
             question.last_sayit_import = datetime.now().date()
             question.save()
-            # except Exception as e:
-            # self.stderr.write('WARN: failed to import %d: %s' %
-            # (question.id, str(e)))
 
         self.stdout.write('Questions:\n')
         self.stdout.write(str(section_ids))
@@ -731,10 +753,36 @@ class Command(BaseCommand):
                 continue
 
             importer = ImportJson(instance=instance)
-            self.stderr.write("TRYING %s\n" % path)
-            # limit to 2 speeches per section to avoid duplicating speeches
-            # added prior to the addition of the answer sayit_section field
-            section = importer.import_document(path, 2)
+            self.stdout.write("TRYING %s\n" % path)
+            try:
+                # limit to 2 speeches per section to avoid duplicating speeches
+                # added prior to the addition of the answer sayit_section field
+                section = importer.import_document(path, 2)
+            except DataError as e:
+                msg = (
+                        'Could not import answer for question {}. '
+                        'Database error: "{}". '
+                    )\
+                .format(answer.pmg_api_url, str(e))
+                self.log_question_parsing_error(
+                    answer.pmg_api_url, 
+                    'answer-db-error', 
+                    msg
+                )
+                continue
+            except Exception as e:
+                msg = (
+                        'Could not import answer for question {}. '
+                        'Unknown import error with message: "{}". '
+                    )\
+                .format(answer.pmg_api_url, str(e))
+                self.log_question_parsing_error(
+                    answer.pmg_api_url, 
+                    'answer-import-error', 
+                    msg
+                )
+                continue
+
             section_ids.append(section.id)
             answer.sayit_section = section
             answer.last_sayit_import = datetime.now().date()
