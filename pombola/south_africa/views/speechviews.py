@@ -41,14 +41,17 @@ class SASpeechesIndex(NamespaceMixin, TemplateView):
     template_name = 'south_africa/hansard_index.html'
     top_section_name = 'Hansard'
     sections_to_show = 25
-    section_ids = Source.objects.values('sayit_section_id')
-    section_filter = {
-        'id__in': section_ids,
-        # exclude sections without subsections
-        'children__speech__id__isnull': False,
-        # and with subsections that have no speeches
-        'children__id__isnull': False
-    }
+
+    def get_section_filter():
+        section_ids = Source.objects.values('sayit_section_id')
+        return {
+            'id__in': section_ids,
+            # exclude sections without subsections
+            'children__speech__id__isnull': False,
+            # and with subsections that have no speeches
+            'children__id__isnull': False
+        }
+
 
     def get_context_data(self, **kwargs):
         context = super(SASpeechesIndex, self).get_context_data(**kwargs)
@@ -71,9 +74,11 @@ class SASpeechesIndex(NamespaceMixin, TemplateView):
         # top-level sections
 
         # get a list of all the section headings
+        section_filter = self.get_section_filter()
+
         all_parent_section_headings = Section \
             .objects \
-            .filter(**self.section_filter) \
+            .filter(**section_filter) \
             .values('id') \
             .distinct() \
             .annotate(latest_start_date=Max('children__speech__start_date')) \
@@ -119,15 +124,18 @@ class SAHansardIndex(SASpeechesIndex):
 class SACommitteeIndex(SASpeechesIndex):
     template_name = 'south_africa/hansard_index.html'
     top_section_name = 'Committee Minutes'
-    top_section = get_object_or_404(Section, heading=top_section_name, parent=None)
-    section_filter = {
-        'parent__parent': top_section,
-        # exclude sections without subsections
-        'children__speech__id__isnull': False,
-        # and with subsections that have no speeches
-        'children__id__isnull': False
-    }
     sections_to_show = 25
+
+    def get_section_filter():
+        top_section = get_object_or_404(
+            Section, heading=self.top_section_name, parent=None)
+        return {
+            'parent__parent': top_section,
+            # exclude sections without subsections
+            'children__speech__id__isnull': False,
+            # and with subsections that have no speeches
+            'children__id__isnull': False
+        }
 
 
 def questions_section_sort_key(section):
