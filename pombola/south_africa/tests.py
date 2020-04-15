@@ -387,6 +387,7 @@ class SASearchViewTest(WebTest):
         self.assertEquals("", date_start["value"])
         self.assertEquals("2015-05-01", date_end["value"])
 
+    @override_settings(GOOGLE_RECAPTCHA_SECRET_KEY='')
     def get_search_result_list_items(self, query_string):
         response = self.app.get(
             "{0}?q={1}".format(self.search_location_url, query_string))
