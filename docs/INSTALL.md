@@ -179,15 +179,11 @@ Location searches in the RepLocator is protected by an invisible Google ReCAPTCH
 (to save geocoding costs). To enable the ReCAPTCHA, you need to create a new
 Google ReCAPTCHA [here](https://www.google.com/recaptcha/admin/create).
 
-Select "ReCAPTCHA v2" and "Invisible reCAPTCHA badge". Add 127.0.0.1 to the domains 
+Select "ReCAPTCHA v2" and "Invisible reCAPTCHA badge". Add `localhost` to the domains 
 if you're running PA locally.
 
-Set the following environment variables to Docker or dokku:
-
-```
-GOOGLE_RECAPTCHA_SITE_KEY=
-GOOGLE_RECAPTCHA_SECRET_KEY=
-```
+Use the keys that you get to set the `GOOGLE_RECAPTCHA_SITE_KEY`
+and `GOOGLE_RECAPTCHA_SECRET_KEY` environment variables.
 
 ### Cron jobs
 
