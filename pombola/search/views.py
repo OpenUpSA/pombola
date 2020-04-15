@@ -18,6 +18,7 @@ from haystack.inputs import AutoQuery, Raw
 from pygeolib import GeocoderError
 from sorl.thumbnail import get_thumbnail
 from .geocoder import geocoder
+from .recaptcha import ReCaptchaMixin
 
 
 logger = logging.getLogger(__name__)
@@ -339,7 +340,7 @@ if settings.ENABLED_FEATURES['hansard']:
             return context
 
 
-class GeocoderView(TemplateView):
+class GeocoderView(ReCaptchaMixin, TemplateView):
     template_name = "search/location.html"
 
     # This should really be set somewhere is the app's config.
