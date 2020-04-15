@@ -28,7 +28,7 @@ class ReCaptchaClient(object):
 recaptcha_client = ReCaptchaClient(settings.GOOGLE_RECAPTCHA_SECRET_KEY)
 
 
-def recaptcha_is_valid(function):
+def check_recaptcha_is_valid(function):
     @wraps(function)
     def wrap(request, *args, **kwargs):
         if settings.GOOGLE_RECAPTCHA_SECRET_KEY:
@@ -44,4 +44,4 @@ class ReCaptchaMixin(object):
     @classmethod
     def as_view(cls, **initkwargs):
         view = super(ReCaptchaMixin, cls).as_view(**initkwargs)
-        return recaptcha_is_valid(view)
+        return check_recaptcha_is_valid(view)
