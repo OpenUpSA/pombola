@@ -28,20 +28,14 @@ class ReCaptchaClient(object):
 recaptcha_client = ReCaptchaClient(settings.GOOGLE_RECAPTCHA_SECRET_KEY)
 
 
-def check_recaptcha_is_valid(function):
+def check_recaptcha_is_valid_if_query_param_present(function, query_param):
     @wraps(function)
     def wrap(request, *args, **kwargs):
-        if settings.GOOGLE_RECAPTCHA_SECRET_KEY:
-            recaptcha_response = request.GET.get("g-recaptcha-response", "")
-            if not recaptcha_client.verify(recaptcha_response):
-                return HttpResponse(status=403)
+        if request.GET.get(query_param, False):
+            if settings.GOOGLE_RECAPTCHA_SECRET_KEY:
+                recaptcha_response = request.GET.get("g-recaptcha-response", "")
+                if not recaptcha_client.verify(recaptcha_response):
+                    return HttpResponse(status=403)
         return function(request, *args, **kwargs)
 
     return wrap
-
-
-class ReCaptchaMixin(object):
-    @classmethod
-    def as_view(cls, **initkwargs):
-        view = super(ReCaptchaMixin, cls).as_view(**initkwargs)
-        return check_recaptcha_is_valid(view)
