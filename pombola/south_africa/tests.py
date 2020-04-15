@@ -388,6 +388,7 @@ class SASearchViewTest(WebTest):
         results_div = response.html.find('div', class_='geocoded_results')
         return results_div.find('ul').findAll('li')
 
+    @override_settings(GOOGLE_RECAPTCHA_SECRET_KEY='')
     @patch('pombola.search.views.geocoder', side_effect=fake_geocoder)
     def test_unknown_place(self, mocked_geocoder):
         response = self.app.get(
@@ -398,6 +399,7 @@ class SASearchViewTest(WebTest):
         self.assertIn("No results for the location 'anywhere'", response)
         mocked_geocoder.assert_called_once_with(q='anywhere', country='za')
 
+    @override_settings(GOOGLE_RECAPTCHA_SECRET_KEY='')
     @patch('pombola.search.views.geocoder', side_effect=fake_geocoder)
     def test_zero_results_place(self, mocked_geocoder):
         response = self.app.get(
@@ -408,6 +410,7 @@ class SASearchViewTest(WebTest):
         self.assertIsNone(results_div)
         mocked_geocoder.assert_called_once_with(q='place that triggers ZERO_RESULTS', country='za')
 
+    @override_settings(GOOGLE_RECAPTCHA_SECRET_KEY='')
     @patch('pombola.search.views.geocoder', side_effect=fake_geocoder)
     def test_single_result_place(self, mocked_geocoder):
         response = self.app.get(
@@ -419,6 +422,7 @@ class SASearchViewTest(WebTest):
         self.assertEqual(path, '/place/latlon/-33.925,18.424/')
         mocked_geocoder.assert_called_once_with(q='Cape Town', country='za')
 
+    @override_settings(GOOGLE_RECAPTCHA_SECRET_KEY='')
     @patch('pombola.search.views.geocoder', side_effect=fake_geocoder)
     def test_multiple_result_place(self, mocked_geocoder):
         lis = self.get_search_result_list_items('Trafford Road')
