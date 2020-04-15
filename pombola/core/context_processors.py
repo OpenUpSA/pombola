@@ -23,6 +23,8 @@ def add_settings( request ):
             'POPIT_API_URL':                settings.POPIT_API_URL,
             'FACEBOOK_APP_ID':              settings.FACEBOOK_APP_ID,
             'GOOGLE_SITE_VERIFICATION':     settings.GOOGLE_SITE_VERIFICATION,
+            'GOOGLE_RECAPTCHA_SITE_KEY':    settings.GOOGLE_RECAPTCHA_SITE_KEY,
+            'GOOGLE_RECAPTCHA_SECRET_KEY':  settings.GOOGLE_ANALYTICS_ACCOUNT,
         }
     }
 

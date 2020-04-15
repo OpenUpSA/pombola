@@ -48,6 +48,9 @@
           })
       });
   </script>
+  {% if settings.GOOGLE_RECAPTCHA_SITE_KEY %}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  {% endif %}
 {% endblock %}
 
 {% block body_attributes %} class="home" {% endblock %}
@@ -86,7 +89,11 @@
                     <label for="geocoder-search">Enter your address to see your constituency office and representatives</label>
                     <div class="inline-search-box">
                         <input id="geocoder-search" type="text" name="q" value="" placeholder="e.g. Plein Street, Cape Town">
-                        <button type="submit" class="button">Find</button>
+                        {% if settings.GOOGLE_RECAPTCHA_SITE_KEY %}
+                          <button type="submit" class="g-recaptcha button" data-sitekey="{{ settings.GOOGLE_RECAPTCHA_SITE_KEY }}">Find</button>
+                        {% else %}
+                          <button type="submit" class="button">Find</button>
+                        {% endif %}
                     </div>
                 </div>
             </form>
