@@ -349,6 +349,11 @@ class SASearchViewTest(WebTest):
         res = self.app.get(reverse('core_search'))
         self.assertEquals(200, res.status_code)
 
+    @override_settings(GOOGLE_RECAPTCHA_SECRET_KEY='test-key')
+    def test_replocator_page_returns_success(self):
+        res = self.app.get(reverse('core_geocoder_search'))
+        self.assertEquals(200, res.status_code)
+
     def test_invalid_date_range_params(self):
         response = self.app.get(
             "{0}?q=qwerty&start=invalid".format(self.search_url))
