@@ -89,8 +89,7 @@
             <div class="home__reps__heading">
                 <h2 class="home__reps__heading__title">Who represents you?</h2>
             </div>
-            <form id="location-search" action="{% url "core_geocoder_search" %}" method="POST">
-                {% csrf_token %}
+            <form id="location-search" action="{% url "core_geocoder_search" %}" method="GET">
                 <div class="">
                     <label for="geocoder-search">Enter your address to see your constituency office and representatives</label>
                     <div class="inline-search-box">
