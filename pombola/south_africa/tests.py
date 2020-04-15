@@ -347,7 +347,6 @@ class SASearchViewTest(WebTest):
 
     def test_search_page_returns_success(self):
         res = self.app.get(reverse('core_search'))
-        self.assertTrue(False)
         self.assertEquals(200, res.status_code)
 
     def test_invalid_date_range_params(self):
