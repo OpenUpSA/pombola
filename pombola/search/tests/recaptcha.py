@@ -15,15 +15,20 @@ class MockResponse:
         return self.json_data
 
 
-
 @attr(country="south_africa")
 class RecaptchaTests(unittest.TestCase):
-    @patch("pombola.search.recaptcha.requests.get", return_value=MockResponse({"success": True}, 200))
+    @patch(
+        "pombola.search.recaptcha.requests.get",
+        return_value=MockResponse({"success": True}, 200),
+    )
     def test_verify_success(self, requests_mock):
         result = recaptcha_client.verify("test-response")
         self.assertTrue(result)
 
-    @patch("pombola.search.recaptcha.requests.get", return_value=MockResponse({"success": False}, 200))
+    @patch(
+        "pombola.search.recaptcha.requests.get",
+        return_value=MockResponse({"success": False}, 200),
+    )
     def test_verify_fail(self, requests_mock):
         result = recaptcha_client.verify("test-response")
         self.assertFalse(result)

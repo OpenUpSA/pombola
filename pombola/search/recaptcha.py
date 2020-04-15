@@ -8,6 +8,7 @@ class ReCaptchaClient(object):
     """
     Client to verify Google ReCAPTCHA responses. 
     """
+
     endpoint = "https://www.google.com/recaptcha/api/siteverify"
 
     def __init__(self, secret):
@@ -38,6 +39,7 @@ def check_recaptcha_is_valid_if_query_param_present(function, query_param):
 
     If the query parameter isn't present, return the function as normally.
     """
+
     @wraps(function)
     def wrap(request, *args, **kwargs):
         if request.GET.get(query_param, False):
