@@ -177,7 +177,7 @@ Reload nginx: `sudo systemctl restart nginx`
 
 Location searches in the RepLocator is protected by an invisible Google ReCAPTCHA 
 (to save geocoding costs). To enable the ReCAPTCHA, you need to create a new
-Google ReCAPTCHA at https://www.google.com/recaptcha/admin/create.
+Google ReCAPTCHA [here](https://www.google.com/recaptcha/admin/create).
 
 Select "ReCAPTCHA v2" and "Invisible reCAPTCHA badge". Add 127.0.0.1 to the domains 
 if you're running PA locally.
