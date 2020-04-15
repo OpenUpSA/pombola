@@ -50,6 +50,11 @@
   </script>
   {% if settings.GOOGLE_RECAPTCHA_SITE_KEY %}
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script>
+       function onSubmitLocationSearch(token) {
+         document.getElementById("location-search").submit();
+       }
+     </script>
   {% endif %}
 {% endblock %}
 
@@ -84,13 +89,14 @@
             <div class="home__reps__heading">
                 <h2 class="home__reps__heading__title">Who represents you?</h2>
             </div>
-            <form action="{% url "core_geocoder_search" %}">
+            <form id="location-search" action="{% url "core_geocoder_search" %}" method="POST">
+                {% csrf_token %}
                 <div class="">
                     <label for="geocoder-search">Enter your address to see your constituency office and representatives</label>
                     <div class="inline-search-box">
                         <input id="geocoder-search" type="text" name="q" value="" placeholder="e.g. Plein Street, Cape Town">
                         {% if settings.GOOGLE_RECAPTCHA_SITE_KEY %}
-                          <button type="submit" class="g-recaptcha button" data-sitekey="{{ settings.GOOGLE_RECAPTCHA_SITE_KEY }}">Find</button>
+                          <button type="submit" class="g-recaptcha button" data-sitekey="{{ settings.GOOGLE_RECAPTCHA_SITE_KEY }}" data-callback='onSubmitLocationSearch'>Find</button>
                         {% else %}
                           <button type="submit" class="button">Find</button>
                         {% endif %}

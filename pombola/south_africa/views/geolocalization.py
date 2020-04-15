@@ -33,7 +33,7 @@ class WardCouncillorAPIDown(Exception):
 
 
 class SAGeocoderView(GeocoderView):
-    def get(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
         results = context.get('geocoder_results')
         if results is not None and len(results) == 1:
@@ -41,7 +41,7 @@ class SAGeocoderView(GeocoderView):
             redirect_url = reverse('latlon', kwargs={
                 'lat': result['latitude'],
                 'lon': result['longitude']})
-            redirect_url += '?q=' + urlquote(request.GET['q'])
+            redirect_url += '?q=' + urlquote(request.POST['q'])
             return redirect(redirect_url)
         else:
             return self.render_to_response(context)
