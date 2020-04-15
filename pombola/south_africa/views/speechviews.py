@@ -76,10 +76,13 @@ class SASpeechesIndex(NamespaceMixin, TemplateView):
         # get a list of all the section headings
         section_filter = self.get_section_filter()
 
+        # Select distinct parent sections headings 
+        # (in the case of committee meetings, multiple sections might have the 
+        # same heading)
         all_parent_section_headings = Section \
             .objects \
             .filter(**section_filter) \
-            .values('id') \
+            .values('heading') \
             .distinct() \
             .annotate(latest_start_date=Max('children__speech__start_date')) \
             .order_by('-latest_start_date')
@@ -92,10 +95,20 @@ class SASpeechesIndex(NamespaceMixin, TemplateView):
             parent_section_headings = paginator.page(1)
         except EmptyPage:
             parent_section_headings = paginator.page(paginator.num_pages)
+        
+        headings = list(section['heading'] for section in parent_section_headings)
+        section_filter['heading__in'] = headings
+        # Get all of the sections for the headings
+        parent_sections = Section \
+            .objects \
+            .values('id', 'heading') \
+            .filter(**section_filter) \
+            .annotate(latest_start_date=Max('children__speech__start_date')) \
+            .order_by('-latest_start_date', 'heading')
 
         # get the subsections based on the relevant section ids
         # exclude those with blank headings as we have no way of linking to them
-        parent_ids = list(section['id'] for section in parent_section_headings)
+        parent_ids = list(section['id'] for section in parent_sections)
         debate_sections = Section \
             .objects \
             .filter(parent_id__in=parent_ids, speech__id__isnull=False) \
