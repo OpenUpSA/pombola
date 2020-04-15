@@ -43,6 +43,7 @@ class SASpeechesIndex(NamespaceMixin, TemplateView):
     sections_to_show = 25
 
     def get_section_filter(self):
+        # Get the hansard sections using the ZAHansard Source model.
         section_ids = Source.objects.values('sayit_section_id')
         return {
             'id__in': section_ids,
@@ -73,7 +74,6 @@ class SASpeechesIndex(NamespaceMixin, TemplateView):
         # Use the ZAHansard Source objects to find all of the hansards' 
         # top-level sections
 
-        # get a list of all the section headings
         section_filter = self.get_section_filter()
 
         # Select distinct parent sections headings 
@@ -96,9 +96,9 @@ class SASpeechesIndex(NamespaceMixin, TemplateView):
         except EmptyPage:
             parent_section_headings = paginator.page(paginator.num_pages)
         
+        # get the sections for the current page in date order
         headings = list(section['heading'] for section in parent_section_headings)
         section_filter['heading__in'] = headings
-        # Get all of the sections for the headings
         parent_sections = Section \
             .objects \
             .values('id', 'heading') \
