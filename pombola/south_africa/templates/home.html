@@ -52,7 +52,7 @@
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script>
        function onSubmitLocationSearch(token) {
-         document.getElementById("location-search").submit();
+         document.getElementById("rep-locator-search").submit();
        }
      </script>
   {% endif %}
@@ -89,7 +89,7 @@
             <div class="home__reps__heading">
                 <h2 class="home__reps__heading__title">Who represents you?</h2>
             </div>
-            <form id="location-search" action="{% url "core_geocoder_search" %}" method="GET">
+            <form id="rep-locator-search" action="{% url "core_geocoder_search" %}" method="GET">
                 <div class="">
                     <label for="geocoder-search">Enter your address to see your constituency office and representatives</label>
                     <div class="inline-search-box">
