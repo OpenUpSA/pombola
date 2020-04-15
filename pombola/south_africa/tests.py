@@ -432,6 +432,18 @@ class SASearchViewTest(WebTest):
         self.assertEqual(lis[2].a['href'], '/place/latlon/-32.982,27.868/')
         mocked_geocoder.assert_called_once_with(q='Trafford Road', country='za')
 
+    @override_settings(GOOGLE_RECAPTCHA_SECRET_KEY='test-key')
+    @patch('pombola.search.recaptcha.recaptcha_client')
+    @patch('pombola.search.views.geocoder', side_effect=fake_geocoder)
+    def test_multiple_result_place_with_recaptcha(self, mocked_geocoder, mocked_recaptcha_client):
+        mocked_recaptcha_client.verify.return_value = True
+        lis = self.get_search_result_list_items('Trafford Road')
+        self.assertEqual(len(lis), 3)
+        self.assertEqual(lis[0].a['href'], '/place/latlon/-29.814,30.839/')
+        self.assertEqual(lis[1].a['href'], '/place/latlon/-33.969,18.703/')
+        self.assertEqual(lis[2].a['href'], '/place/latlon/-32.982,27.868/')
+        mocked_geocoder.assert_called_once_with(q='Trafford Road', country='za')
+
 
 def connection_error(x, *args, **kwargs):
     print 'Raising connection error'
