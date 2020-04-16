@@ -1,0 +1,53 @@
+{
+  "offices": [
+    {
+      "Province": "Gauteng", 
+      "Postal Address": "14 Central Avenue, Kempton Park, Johannesburg", 
+      "Physical Address": "14 Central Avenue, Kempton Park, Johannesburg", 
+      "Title": "COPE Constituency Office: Johannesburg", 
+      "Party": "cope", 
+      "Type": "office", 
+      "Source URL": "https://www.pa.org.za/media_root/file_archive/COPE_Constituency_Offices_.xlsx", 
+      "Source Note": "COPE Constituency Offices 2019",
+      "People": [
+          {
+              "Name": "Mosiuoa Lekota", 
+              "Email": "tmosia@gmail.com",
+              "Cell": "0829999944", 
+              "Position": "Constituency Contact"
+          },
+          {
+              "Name": "Papi Kganare", 
+              "Cell": "0612673303", 
+              "Position": "Administrator"
+          }
+      ] 
+    }, 
+    {
+      "Province": "Western Cape", 
+      "Postal Address": "V380 Old Assembly Building, 90 Plein Street, Cape Town", 
+      "Physical Address": "V380 Old Assembly Building, 90 Plein Street, Cape Town", 
+      "Title": "COPE Constituency Office: Athlone", 
+      "Party": "cope", 
+      "Type": "office", 
+      "Source URL": "https://www.pa.org.za/media_root/file_archive/COPE_Constituency_Offices_.xlsx", 
+      "Source Note": "COPE Constituency Offices 2019",
+      "Tel": "0214032898",
+      "People": [
+          {
+              "Name": "William Mothipa Madisha", 
+              "Email": "wmadisha@parliament.gov.za",
+              "Cell": "0795655636", 
+              "Position": "Constituency Contact"
+          },
+          {
+              "Name": "Primrose Mzilikazi", 
+              "Cell": "0726370733", 
+              "Position": "Administrator"
+          }
+      ] 
+    }
+  ],
+  "start_date": "2019-06-01", 
+  "end_date": "2019-05-31"
+}
