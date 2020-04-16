@@ -62,8 +62,9 @@ class LatLonDetailBaseView(BaseDetailView):
     # The codes used here should match the party slugs, and the names of the
     # icon files in .../static/images/party-map-icons/
     party_slugs_that_have_logos = set((
-        'adcp', 'anc', 'apc', 'azapo', 'cope', 'da', 'ff', 'id', 'ifp', 'mf',
-        'pac', 'sacp', 'ucdp', 'udm', 'agang', 'aic', 'eff'
+        'acdp', 'adcp', 'al-jama-ah', 'anc', 'apc', 'azapo', 'cope', 'da', 'ff', 
+        'good', 'id', 'ifp', 'mf', 'nfp', 'pac', 'sacp', 'ucdp', 'udm', 
+        'agang', 'aic', 'eff'
     ))
 
     def get_object(self):
