@@ -1,6 +1,6 @@
 from django.conf import settings
-from django.http import HttpResponse
 from functools import wraps
+from django.core.exceptions import PermissionDenied
 import requests
 
 
@@ -46,7 +46,7 @@ def check_recaptcha_is_valid_if_query_param_present(function, query_param):
             if settings.GOOGLE_RECAPTCHA_SECRET_KEY:
                 recaptcha_response = request.GET.get("g-recaptcha-response", "")
                 if not recaptcha_client.verify(recaptcha_response):
-                    return HttpResponse(status=403)
+                    raise PermissionDenied("Recaptcha invalid")
         return function(request, *args, **kwargs)
 
     return wrap

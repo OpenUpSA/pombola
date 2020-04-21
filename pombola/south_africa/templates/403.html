@@ -1,0 +1,16 @@
+{% extends 'error_base.html' %}
+
+{% block title %}Request Forbidden{% endblock %}
+
+{% block error_content %}
+
+    <h1>403 &mdash; Request Forbidden</h1>
+
+    <p>We're sorry, the request you made is not allowed.</p>
+
+    <p>Try going back to the <a href="/">home page</a> or the 
+    <a href="{% url "core_geocoder_search" %}">Rep Locator</a>
+    or use the search to find what you are looking for.</p>
+
+{% endblock %}
+
