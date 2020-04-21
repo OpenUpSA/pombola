@@ -1,5 +1,4 @@
 from django.core.urlresolvers import reverse
-from pombola.testing.selenium import PombolaSeleniumTestCase
 from django.test.utils import override_settings
 from nose.plugins.attrib import attr
 from django_webtest import WebTest
