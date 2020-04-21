@@ -1,4 +1,8 @@
 <div class="search-box">
     {{ form.q }}
-    <input type="submit" value="Search" class="button">
+    {% if settings.GOOGLE_RECAPTCHA_SITE_KEY %}
+      <input type="submit" value="search" class="g-recaptcha button" data-sitekey="{{ settings.GOOGLE_RECAPTCHA_SITE_KEY }}" data-callback='onSubmitLocationSearch'>
+    {% else %}
+      <input type="submit" value="search" class="button">
+    {% endif %}
 </div>

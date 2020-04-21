@@ -137,6 +137,8 @@ dokku config:set pombola \
     PMG_API_KEY=... \
     POPIT_API_URL=True \
     GOOGLE_MAPS_GEOCODING_API_KEY=... \
+    GOOGLE_RECAPTCHA_SITE_KEY=... \
+    GOOGLE_RECAPTCHA_SECRET_KEY=... \
     DATA_DIR_BACKUP_AWS_SECRET_ACCESS_KEY=... \
     DATA_DIR_BACKUP_AWS_ACCESS_KEY_ID=...
 
@@ -170,6 +172,18 @@ location /media_root {
 Test the config with `sudo nginx -t`
 
 Reload nginx: `sudo systemctl restart nginx`
+
+### Google ReCAPTCHA
+
+Location searches in the RepLocator is protected by an invisible Google ReCAPTCHA 
+(to save geocoding costs). To enable the ReCAPTCHA, you need to create a new
+Google ReCAPTCHA [here](https://www.google.com/recaptcha/admin/create).
+
+Select "ReCAPTCHA v2" and "Invisible reCAPTCHA badge". Add `localhost` to the domains 
+if you're running PA locally.
+
+Use the keys that you get to set the `GOOGLE_RECAPTCHA_SITE_KEY`
+and `GOOGLE_RECAPTCHA_SECRET_KEY` environment variables.
 
 ### Cron jobs
 

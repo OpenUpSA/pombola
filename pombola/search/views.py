@@ -18,6 +18,7 @@ from haystack.inputs import AutoQuery, Raw
 from pygeolib import GeocoderError
 from sorl.thumbnail import get_thumbnail
 from .geocoder import geocoder
+from .recaptcha import check_recaptcha_is_valid_if_query_param_present
 
 
 logger = logging.getLogger(__name__)
@@ -350,6 +351,11 @@ class GeocoderView(TemplateView):
         "kenya":        "ke",
         "nigeria":      "ng",
     }
+
+    @classmethod
+    def as_view(cls, **initkwargs):
+        view = super(GeocoderView, cls).as_view(**initkwargs)
+        return check_recaptcha_is_valid_if_query_param_present(view, 'q')
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
