@@ -41,5 +41,3 @@ class CoreTestCase(WebTest):
         response = self.app.get("/")
 
         self.assertTrue(response.context["user"].is_anonymous())
-        # self.assertEqual( self.get_current_user_id(), None )
-        # self.assertEqual( self.get_current_user(), None )
