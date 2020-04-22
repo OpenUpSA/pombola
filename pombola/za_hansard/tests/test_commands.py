@@ -144,5 +144,3 @@ class ZaHansardCheckForNewSourcesFromPMGTests(TestCase):
 
         first_source = Source.objects.get(document_number=1)
         self.assertIsNotNone(first_source)
-
-        # Test some weren't imported twice
