@@ -36,9 +36,9 @@ services:
       - db-data:/var/lib/postgresql/data
 
   elasticsearch:
-    image: openup/elasticsearch-0.90
+    image: elasticsearch:1
     volumes:
-      - es-data:/elasticsearch/data
+      - es-data:/usr/share/elasticsearch/data
     environment:
       - ES_MIN_MEM=2g
       - ES_MAX_MEM=4g

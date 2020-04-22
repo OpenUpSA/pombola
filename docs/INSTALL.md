@@ -64,6 +64,7 @@ Production deployment
 ### Elasticsearch
 
 Deploy Elasticsearch 1 based on the [0.90 in dokku instructions](https://github.com/OpenUpSA/elasticsearch-0.90)
+and data in `/usr/share/elasticsearch/data` in the container.
 
 ### Postgres
 
