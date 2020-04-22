@@ -1,7 +1,7 @@
 {
     "offices": [
         {
-            "Title": "Wynand Johannes Boshoff",
+            "Title": "FF+ Constituency Office: Northern Cape",
             "Source URL": "https://www.pa.org.za/media_root/file_archive/FF_Constituency_Data_2019.xlsx",
             "Party": "FF",
             "Type": "office",
@@ -13,39 +13,13 @@
                     "Cell": "0741665540",
                     "Email": "wynand.boshoff@vfplus.org.za",
                     "Position": "Constituency Contact"
-                }
-            ],
-            "Postal Address": "Robyn Street, 113 Orania",
-            "Physical Address": "Robyn Street, 113 Orania",
-            "Tel": ""
-        },
-        {
-            "Title": "Marietjie Coetzee",
-            "Source URL": "https://www.pa.org.za/media_root/file_archive/FF_Constituency_Data_2019.xlsx",
-            "Party": "FF",
-            "Type": "office",
-            "Source Note": "FF+ Constituency Data 2019",
-            "Province": "Northern Cape",
-            "People": [
+                },
                 {
                     "Name": "Marietjie Coetzee",
                     "Cell": "0827716747",
                     "Email": "coetzeem@vfplus.org.za",
                     "Position": "Administrator"
-                }
-            ],
-            "Postal Address": "Robyn Street, 113 Orania",
-            "Physical Address": "Robyn Street, 113 Orania",
-            "Tel": ""
-        },
-        {
-            "Title": "Danie Johannes Coetzee",
-            "Source URL": "https://www.pa.org.za/media_root/file_archive/FF_Constituency_Data_2019.xlsx",
-            "Party": "FF",
-            "Type": "office",
-            "Source Note": "FF+ Constituency Data 2019",
-            "Province": "Northern Cape",
-            "People": [
+                },
                 {
                     "Name": "Danie Johannes Coetzee",
                     "Cell": "0825614668",
@@ -58,7 +32,7 @@
             "Tel": ""
         },
         {
-            "Title": "Tamarin Breedt",
+            "Title": "FF+ Constituency Office: Bloemfontein 1",
             "Source URL": "https://www.pa.org.za/media_root/file_archive/FF_Constituency_Data_2019.xlsx",
             "Party": "FF",
             "Type": "office",
@@ -70,96 +44,7 @@
                     "Cell": "0824906663",
                     "Email": "tammy@vfplus.org.za",
                     "Position": "Constituency Contact"
-                }
-            ],
-            "Postal Address": "41 Charlotte Maxeke Street, Southern Life Plaa Building, 4th Floor, Bloemfontein",
-            "Physical Address": "41 Charlotte Maxeke Street, Southern Life Plaa Building, 4th Floor, Bloemfontein",
-            "Tel": ""
-        },
-        {
-            "Title": "Petrus Johannes Groenewald",
-            "Source URL": "https://www.pa.org.za/media_root/file_archive/FF_Constituency_Data_2019.xlsx",
-            "Party": "FF",
-            "Type": "office",
-            "Source Note": "FF+ Constituency Data 2019",
-            "Province": "Western Cape",
-            "People": [
-                {
-                    "Name": "Petrus Johannes Groenewald",
-                    "Cell": "0836274397",
-                    "Email": "PJGR@VODAMAIL.CO.ZA",
-                    "Position": "Constituency Contact"
-                }
-            ],
-            "Postal Address": "Good Hope Building, Parliament Street, Parliament, Cape Town",
-            "Physical Address": "Good Hope Building, Parliament Street, Parliament, Cape Town",
-            "Tel": "0214038652"
-        },
-        {
-            "Title": "Wanda Marais",
-            "Source URL": "https://www.pa.org.za/media_root/file_archive/FF_Constituency_Data_2019.xlsx",
-            "Party": "FF",
-            "Type": "office",
-            "Source Note": "FF+ Constituency Data 2019",
-            "Province": "Western Cape",
-            "People": [
-                {
-                    "Name": "Wanda Marais",
-                    "Cell": "",
-                    "Email": "wanda@vfplus.org.za",
-                    "Position": "Administrator"
-                }
-            ],
-            "Postal Address": "Good Hope Building, Parliament Street, Parliament, Cape Town",
-            "Physical Address": "Good Hope Building, Parliament Street, Parliament, Cape Town",
-            "Tel": "0214038653"
-        },
-        {
-            "Title": "Ignatius Michael Groenewald",
-            "Source URL": "https://www.pa.org.za/media_root/file_archive/FF_Constituency_Data_2019.xlsx",
-            "Party": "FF",
-            "Type": "office",
-            "Source Note": "FF+ Constituency Data 2019",
-            "Province": "North West",
-            "People": [
-                {
-                    "Name": "Ignatius Michael Groenewald",
-                    "Cell": "0794098342",
-                    "Email": "groenewaldm@vfplus.org.za",
-                    "Position": "Constituency Contact"
-                }
-            ],
-            "Postal Address": "",
-            "Physical Address": "",
-            "Tel": "0184841086"
-        },
-        {
-            "Title": "Hedwig Groenewald",
-            "Source URL": "https://www.pa.org.za/media_root/file_archive/FF_Constituency_Data_2019.xlsx",
-            "Party": "FF",
-            "Type": "office",
-            "Source Note": "FF+ Constituency Data 2019",
-            "Province": "North West",
-            "People": [
-                {
-                    "Name": "Hedwig Groenewald",
-                    "Cell": "",
-                    "Email": "vfnnw@mwebbiz.co.za",
-                    "Position": "Administrator"
-                }
-            ],
-            "Postal Address": "",
-            "Physical Address": "",
-            "Tel": "0184841087"
-        },
-        {
-            "Title": "Heloise Denner",
-            "Source URL": "https://www.pa.org.za/media_root/file_archive/FF_Constituency_Data_2019.xlsx",
-            "Party": "FF",
-            "Type": "office",
-            "Source Note": "FF+ Constituency Data 2019",
-            "Province": "Free State",
-            "People": [
+                },
                 {
                     "Name": "Heloise Denner",
                     "Cell": "0729978315",
@@ -172,13 +57,25 @@
             "Tel": ""
         },
         {
-            "Title": "Dr Cornelius Petrus Mulder",
+            "Title": "FF+ Constituency Office: Cape Town",
             "Source URL": "https://www.pa.org.za/media_root/file_archive/FF_Constituency_Data_2019.xlsx",
             "Party": "FF",
             "Type": "office",
             "Source Note": "FF+ Constituency Data 2019",
             "Province": "Western Cape",
             "People": [
+                {
+                    "Name": "Petrus Johannes Groenewald",
+                    "Cell": "0836274397",
+                    "Email": "PJGR@VODAMAIL.CO.ZA",
+                    "Position": "Constituency Contact"
+                },
+                {
+                    "Name": "Wanda Marais",
+                    "Cell": "",
+                    "Email": "wanda@vfplus.org.za",
+                    "Position": "Administrator"
+                },
                 {
                     "Name": "Dr Cornelius Petrus Mulder",
                     "Cell": "0836261497",
@@ -188,10 +85,35 @@
             ],
             "Postal Address": "Good Hope Building, Parliament Street, Parliament, Cape Town",
             "Physical Address": "Good Hope Building, Parliament Street, Parliament, Cape Town",
-            "Tel": ""
+            "Tel": "0214038652"
         },
         {
-            "Title": "Frederik Jacobus Mulder",
+            "Title": "FF+ Constituency Office: North West",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/FF_Constituency_Data_2019.xlsx",
+            "Party": "FF",
+            "Type": "office",
+            "Source Note": "FF+ Constituency Data 2019",
+            "Province": "North West",
+            "People": [
+                {
+                    "Name": "Ignatius Michael Groenewald",
+                    "Cell": "0794098342",
+                    "Email": "groenewaldm@vfplus.org.za",
+                    "Position": "Constituency Contact"
+                },
+                {
+                    "Name": "Hedwig Groenewald",
+                    "Cell": "",
+                    "Email": "vfnnw@mwebbiz.co.za",
+                    "Position": "Administrator"
+                }
+            ],
+            "Postal Address": "",
+            "Physical Address": "",
+            "Tel": "0184841086"
+        },
+        {
+            "Title": "FF+ Constituency Office: Pretoria/Johannesburg",
             "Source URL": "https://www.pa.org.za/media_root/file_archive/FF_Constituency_Data_2019.xlsx",
             "Party": "FF",
             "Type": "office",
@@ -203,39 +125,13 @@
                     "Cell": "0824663786",
                     "Email": "FJM@LANTIC.NET",
                     "Position": "Constituency Contact"
-                }
-            ],
-            "Postal Address": "Highveld Office Park, Block 8, 11 Charles de Gaulle Crescent, Highveld, Centurion",
-            "Physical Address": "Highveld Office Park, Block 8, 11 Charles de Gaulle Crescent, Highveld, Centurion",
-            "Tel": ""
-        },
-        {
-            "Title": "Neels Hattingh",
-            "Source URL": "https://www.pa.org.za/media_root/file_archive/FF_Constituency_Data_2019.xlsx",
-            "Party": "FF",
-            "Type": "office",
-            "Source Note": "FF+ Constituency Data 2019",
-            "Province": "Gauteng",
-            "People": [
+                },
                 {
                     "Name": "Neels Hattingh",
                     "Cell": "",
                     "Email": "neels@vfplus.org.za",
                     "Position": "Administrator"
-                }
-            ],
-            "Postal Address": "Highveld Office Park, Block 8, 11 Charles de Gaulle Crescent, Highveld, Centurion",
-            "Physical Address": "Highveld Office Park, Block 8, 11 Charles de Gaulle Crescent, Highveld, Centurion",
-            "Tel": "0127706041"
-        },
-        {
-            "Title": "Philippus Van Staden",
-            "Source URL": "https://www.pa.org.za/media_root/file_archive/FF_Constituency_Data_2019.xlsx",
-            "Party": "FF",
-            "Type": "office",
-            "Source Note": "FF+ Constituency Data 2019",
-            "Province": "Gauteng",
-            "People": [
+                },
                 {
                     "Name": "Philippus Van Staden",
                     "Cell": "0605564347",
@@ -245,10 +141,10 @@
             ],
             "Postal Address": "Highveld Office Park, Block 8, 11 Charles de Gaulle Crescent, Highveld, Centurion",
             "Physical Address": "Highveld Office Park, Block 8, 11 Charles de Gaulle Crescent, Highveld, Centurion",
-            "Tel": "0127706042"
+            "Tel": ""
         },
         {
-            "Title": "Wouter Wynand Wessels",
+            "Title": "FF+ Constituency Office: Bloemfontein 2",
             "Source URL": "https://www.pa.org.za/media_root/file_archive/FF_Constituency_Data_2019.xlsx",
             "Party": "FF",
             "Type": "office",
@@ -267,7 +163,7 @@
             "Tel": ""
         },
         {
-            "Title": "Armand Benjamin Cloete",
+            "Title": "FF+ Constituency Office: Bloemfontein 3",
             "Source URL": "https://www.pa.org.za/media_root/file_archive/FF_Constituency_Data_2019.xlsx",
             "Party": "FF",
             "Type": "office",
@@ -286,7 +182,7 @@
             "Tel": ""
         },
         {
-            "Title": "Stephanus Franszouis Du Toit",
+            "Title": "FF+ Constituency Office: Bloemfontein 4",
             "Source URL": "https://www.pa.org.za/media_root/file_archive/FF_Constituency_Data_2019.xlsx",
             "Party": "FF",
             "Type": "office",
@@ -305,7 +201,7 @@
             "Tel": ""
         },
         {
-            "Title": "Lorraine Venter",
+            "Title": "FF+ Constituency Office: Bloemfontein 5",
             "Source URL": "https://www.pa.org.za/media_root/file_archive/FF_Constituency_Data_2019.xlsx",
             "Party": "FF",
             "Type": "office",
@@ -324,7 +220,7 @@
             "Tel": "05143016885"
         },
         {
-            "Title": "Anton De Waal Alberts",
+            "Title": "FF+ Constituency Office: Vereeniging",
             "Source URL": "https://www.pa.org.za/media_root/file_archive/FF_Constituency_Data_2019.xlsx",
             "Party": "FF",
             "Type": "office",
@@ -336,58 +232,19 @@
                     "Cell": "0823913117",
                     "Email": "aalberts@parliament.gov.za",
                     "Position": "Constituency Contact"
-                }
-            ],
-            "Postal Address": "47 Boet Kruger Street, Meyerton, Vereeniging ",
-            "Physical Address": "47 Boet Kruger Street, Meyerton, Vereeniging ",
-            "Tel": ""
-        },
-        {
-            "Title": "Karien de Bruyn",
-            "Source URL": "https://www.pa.org.za/media_root/file_archive/FF_Constituency_Data_2019.xlsx",
-            "Party": "FF",
-            "Type": "office",
-            "Source Note": "FF+ Constituency Data 2019",
-            "Province": "Gauteng",
-            "People": [
+                },
                 {
                     "Name": "Karien de Bruyn",
                     "Cell": "0163620186",
                     "Email": "vaaldriehoek@vfplus.org.za",
                     "Position": "Administrator"
-                }
-            ],
-            "Postal Address": "48 Boet Kruger Street, Meyerton, Vereeniging",
-            "Physical Address": "48 Boet Kruger Street, Meyerton, Vereeniging",
-            "Tel": ""
-        },
-        {
-            "Title": "Jacobus Johannes Hoffman",
-            "Source URL": "https://www.pa.org.za/media_root/file_archive/FF_Constituency_Data_2019.xlsx",
-            "Party": "FF",
-            "Type": "office",
-            "Source Note": "FF+ Constituency Data 2019",
-            "Province": "Gauteng",
-            "People": [
+                },
                 {
                     "Name": "Jacobus Johannes Hoffman",
                     "Cell": "",
                     "Email": "",
                     "Position": "Constituency Contact"
-                }
-            ],
-            "Postal Address": "49 Boet Kruger Street, Meyerton, Vereeniging",
-            "Physical Address": "49 Boet Kruger Street, Meyerton, Vereeniging",
-            "Tel": ""
-        },
-        {
-            "Title": "Amanda De Lange",
-            "Source URL": "https://www.pa.org.za/media_root/file_archive/FF_Constituency_Data_2019.xlsx",
-            "Party": "FF",
-            "Type": "office",
-            "Source Note": "FF+ Constituency Data 2019",
-            "Province": "Gauteng",
-            "People": [
+                },
                 {
                     "Name": "Amanda De Lange",
                     "Cell": "",
@@ -395,12 +252,12 @@
                     "Position": "Constituency Contact"
                 }
             ],
-            "Postal Address": "50 Boet Kruger Street, Meyerton, Vereeniging",
-            "Physical Address": "50 Boet Kruger Street, Meyerton, Vereeniging",
+            "Postal Address": "47 Boet Kruger Street, Meyerton, Vereeniging ",
+            "Physical Address": "47 Boet Kruger Street, Meyerton, Vereeniging ",
             "Tel": ""
         },
         {
-            "Title": "Marcelle Frieda Maritz",
+            "Title": "FF+ Constituency Office: Limpopo",
             "Source URL": "https://www.pa.org.za/media_root/file_archive/FF_Constituency_Data_2019.xlsx",
             "Party": "FF",
             "Type": "office",
@@ -412,20 +269,7 @@
                     "Cell": "0786178682",
                     "Email": "marcelle.maritz@vfplus.org.za",
                     "Position": "Constituency Contact"
-                }
-            ],
-            "Postal Address": "Silverfern Office Park, 124 Thabo Mbeki Drive, Potgietersrus, 0601",
-            "Physical Address": "Silverfern Office Park, 124 Thabo Mbeki Drive, Potgietersrus, 0601",
-            "Tel": "0150650170"
-        },
-        {
-            "Title": "Jana Pullen",
-            "Source URL": "https://www.pa.org.za/media_root/file_archive/FF_Constituency_Data_2019.xlsx",
-            "Party": "FF",
-            "Type": "office",
-            "Source Note": "FF+ Constituency Data 2019",
-            "Province": "Limpopo",
-            "People": [
+                },
                 {
                     "Name": "Jana Pullen",
                     "Cell": "0150650170",
@@ -433,12 +277,12 @@
                     "Position": "Administrator"
                 }
             ],
-            "Postal Address": "Silverfern Office Park, 124 Thabo Mbeki Drive, Potgietersrus, 0602",
-            "Physical Address": "Silverfern Office Park, 124 Thabo Mbeki Drive, Potgietersrus, 0602",
+            "Postal Address": "Silverfern Office Park, 124 Thabo Mbeki Drive, Potgietersrus, 0601",
+            "Physical Address": "Silverfern Office Park, 124 Thabo Mbeki Drive, Potgietersrus, 0601",
             "Tel": "0150650170"
         },
         {
-            "Title": "Werner Weber",
+            "Title": "FF+ Constituency Office: Mpumalanga",
             "Source URL": "https://www.pa.org.za/media_root/file_archive/FF_Constituency_Data_2019.xlsx",
             "Party": "FF",
             "Type": "office",
@@ -450,20 +294,7 @@
                     "Cell": "0846529164",
                     "Email": "wlw@lantic.net",
                     "Position": "Constituency Contact"
-                }
-            ],
-            "Postal Address": "Mpumalanga",
-            "Physical Address": "Mpumalanga",
-            "Tel": "0178263849"
-        },
-        {
-            "Title": "Karl Weber",
-            "Source URL": "https://www.pa.org.za/media_root/file_archive/FF_Constituency_Data_2019.xlsx",
-            "Party": "FF",
-            "Type": "office",
-            "Source Note": "FF+ Constituency Data 2019",
-            "Province": "Mpumalanga",
-            "People": [
+                },
                 {
                     "Name": "Karl Weber",
                     "Cell": "0178263850",
@@ -473,10 +304,10 @@
             ],
             "Postal Address": "Mpumalanga",
             "Physical Address": "Mpumalanga",
-            "Tel": "0178263850"
+            "Tel": "0178263849"
         },
         {
-            "Title": "Pieter Mey",
+            "Title": "FF+ Constituency Office: Eastern Cape",
             "Source URL": "https://www.pa.org.za/media_root/file_archive/FF_Constituency_Data_2019.xlsx",
             "Party": "FF",
             "Type": "office",
@@ -488,20 +319,7 @@
                     "Cell": "0724286103",
                     "Email": "pietmey1948@gmail.com",
                     "Position": "Constituency Contact"
-                }
-            ],
-            "Postal Address": "Eastern Cape",
-            "Physical Address": "Eastern Cape",
-            "Tel": ""
-        },
-        {
-            "Title": "Theo Willem Coetzee",
-            "Source URL": "https://www.pa.org.za/media_root/file_archive/FF_Constituency_Data_2019.xlsx",
-            "Party": "FF",
-            "Type": "office",
-            "Source Note": "FF+ Constituency Data 2019",
-            "Province": "Eastern Cape",
-            "People": [
+                },
                 {
                     "Name": "Theo Willem Coetzee",
                     "Cell": "0828223414",
