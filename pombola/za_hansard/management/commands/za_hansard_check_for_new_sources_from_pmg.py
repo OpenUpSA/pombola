@@ -35,10 +35,10 @@ class Command(BaseCommand):
                 attached_file = hansard['files'][0]
                 title = attached_file['title'] or ''
                 db_source, created = Source.objects.get_or_create(**{
-                    'document_name': title[:200],
                     'document_number': str(attached_file['id']),
                     'defaults':
                     {
+                        'document_name': title[:200],
                         'url': attached_file['url'],
                         'pmg_id': hansard['id'],
                         'title': hansard['type'],
