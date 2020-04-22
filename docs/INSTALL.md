@@ -63,7 +63,8 @@ Production deployment
 
 ### Elasticsearch
 
-[Deploy Elasticsearch 0.90.13](https://github.com/OpenUpSA/elasticsearch-0.90)
+Deploy Elasticsearch 1 based on the [0.90 in dokku instructions](https://github.com/OpenUpSA/elasticsearch-0.90)
+and data in `/usr/share/elasticsearch/data` in the container.
 
 ### Postgres
 
@@ -175,11 +176,11 @@ Reload nginx: `sudo systemctl restart nginx`
 
 ### Google ReCAPTCHA
 
-Location searches in the RepLocator is protected by an invisible Google ReCAPTCHA 
+Location searches in the RepLocator is protected by an invisible Google ReCAPTCHA
 (to save geocoding costs). To enable the ReCAPTCHA, you need to create a new
 Google ReCAPTCHA [here](https://www.google.com/recaptcha/admin/create).
 
-Select "ReCAPTCHA v2" and "Invisible reCAPTCHA badge". Add `localhost` to the domains 
+Select "ReCAPTCHA v2" and "Invisible reCAPTCHA badge". Add `localhost` to the domains
 if you're running PA locally.
 
 Use the keys that you get to set the `GOOGLE_RECAPTCHA_SITE_KEY`
