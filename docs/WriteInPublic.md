@@ -14,6 +14,9 @@ MPs and Committees are configured in two WriteInPublic _instances_ with the resp
 
 ## Installation
 
+### Configuring People's Assembly to use its WriteInPublic instances
+
+
 
 ### DNS
 
