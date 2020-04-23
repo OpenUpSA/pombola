@@ -2,7 +2,10 @@ People's Assembly uses the WriteInPublic API to provide functionality to email M
 
 The WriteInPublic service is at http://writeinpublic.pa.org.za.
 
-MPs and Committees are configured in two WriteInPublic _instances_ with the **slugs** `south-africa-assembly` and `south-africa-committees` respectively. 
+MPs and Committees are configured in two WriteInPublic _instances_ with the respective **slugs** 
+
+- `south-africa-assembly`
+- `south-africa-committees`.
 
 [Edit diagram](https://docs.google.com/drawings/d/1-Gvynn2s62mIn1hZemxf3cESYyVfObt18supQ5sU0nw/edit)
 
