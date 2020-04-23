@@ -13,13 +13,12 @@ class SADownloadMembersIndex(TemplateView):
     def get_context_data(self, **kwargs):
         context = {}
 
-        context["house"] = "all"
-        context["houses"] = models.Organisation.objects.filter(
-            slug__in=["ncop", "national-assembly"]
-        )
-
-        # organisation__kind__slug='provincial-legislature',
-        # TODO is 'ncop' provincial or 'provincial-legislature'?
+        context["selected_house"] = "all"
+        context["houses"] = [
+            {name: "All", slug: "all"},
+            {name: "NCOP", slug: "ncop"},
+            {name: "National Assembly", slug: "national-assembly"},
+        ]
 
         return context
 
@@ -36,19 +35,31 @@ class Echo(object):
 
 def download_members_csv(request):
     """A view that streams a large CSV file."""
+    #  TODO: check that request is GET
     # Generate a sequence of rows. The range is based on the maximum number of
     # rows that can be handled by a single sheet in most spreadsheet
     # applications.
     headers = ["Name", "Party", "Cell", "Email"]
     headers = ["Name"]
     fieldnames = ["legal_name"]
+    house_query = None
+    house_param = request.GET("house", "all")
+    ncop_query = Q(position__organisation__kind__slug="provincial-legislature")
+    na_query = Q(position__organisation__slug="national-assembly")
+    if house_param == "ncop":
+        house_query = ncop_query
+    elif house_param == "national-assembly":
+        house_query = na_query
+    else:
+        house_query = ncop_query | na_query
+    
+    # TODO: filter by currently_active
+    # TODO: get the persons' party
+    # {'kind__slug': u'party' 
+
     # Get persons
     rows = (
-        models.Person.objects.filter(
-            Q(position__organisation__slug="national-assembly")
-            | Q(position__organisation__kind__slug="provincial-legislature"),
-            position__title__slug="member",
-        )
+        models.Person.objects.filter(house_query, position__title__slug="member",)
         .distinct()
         .values("legal_name")  # TODO: remove limit
     )

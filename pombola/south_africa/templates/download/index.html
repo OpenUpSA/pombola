@@ -13,15 +13,14 @@
     </div>
 </div>
 
-<form action="{% url 'sa-interests-index' %}" method="get">
+<form action="{% url 'sa-download-members-index' %}" method="post">
   <h3>Filter members data by:</h3>
   <div class="filter-option">
     <label for="house">House:</label>
     <select name="house" id="house">
-      <option value="all" {% if house == "all" %} selected="selected" {% endif %}>All</option>
-      {% for o in houses %}
-      <option value="{{ o.slug }}" {% if house == o.slug %} selected="selected" {% endif %}>
-        {{ o.name }}
+      {% for house in houses %}
+      <option value="{{ house.slug }}" {% if selected_house == house.slug %} selected="selected" {% endif %}>
+        {{ house.name }}
       </option>
       {% endfor %}
     </select>
