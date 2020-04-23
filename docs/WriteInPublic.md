@@ -22,7 +22,7 @@ MPs and Committees are configured in two WriteInPublic _instances_ with the resp
 
 `writeinpublic.pa.org.za` and `*.writeinpublic.pa.org.za` should point to the server and be served by the WriteInPublic django app.
 
-`writeinpublic.pa.org.za` seems to be used by the write_in_public django app.
+`writeinpublic.pa.org.za` seems to be used by the write_in_public django app pombola for API calls to WriteInPublic and also for superuser admin tasks.
 
 `*.writeinpublic.pa.org.za` seems to provide instance-specific interfaces for managing templates and getting API details,e.g. http://south-africa-assembly.writeinpublic.pa.org.za 
 
