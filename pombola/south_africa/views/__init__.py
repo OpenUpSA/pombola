@@ -12,3 +12,4 @@ from .positions import *
 from .search import *
 from .speechviews import *
 from .api import *
+from .download import *

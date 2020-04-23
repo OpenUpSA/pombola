@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% load pipeline %}
+
+{% block title %}Download Members Data{% endblock %}
+
+{% block body_attributes %} class="download-data" {% endblock %}
+
+{% block content %}
+<div>
+    <div class="wrapper">
+        <h1>Download Members Data</h1>
+    </div>
+</div>
+
+<form action="{% url 'sa-interests-index' %}" method="get">
+  <h3>Filter members data by:</h3>
+  <div class="filter-option">
+    <label for="house">House:</label>
+    <select name="house" id="house">
+      <option value="all" {% if house == "all" %} selected="selected" {% endif %}>All</option>
+      {% for o in houses %}
+      <option value="{{ o.slug }}" {% if house == o.slug %} selected="selected" {% endif %}>
+        {{ o.name }}
+      </option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <input type="submit" value="Download" class="button">
+</form>
+
+{% endblock %}

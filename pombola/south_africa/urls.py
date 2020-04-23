@@ -268,6 +268,20 @@ urlpatterns += (
     ),
 )
 
+# Download members' data
+urlpatterns += (
+    url(
+        r'^members/download/$',
+        views.SADownloadMembersIndex.as_view(),
+        name='sa-download-members-index'
+    ),
+    url(
+        r'^members/download-csv/$',
+        views.download_members_csv,
+        name='sa-download-members-index'
+    ),
+)
+
 # WriteInPublic
 urlpatterns += (
     url(
