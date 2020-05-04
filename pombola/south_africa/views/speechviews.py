@@ -335,10 +335,8 @@ class OldSpeechRedirect(RedirectView):
             raise Http404
 
 
-class OldSectionRedirect(RedirectView):
-    """Redirects from an old section URL to the current one"""
-
-    permanent = True
+class SectionRedirect(RedirectView):
+    """Redirects from an section URL with an ID to one with the full slug."""
 
     def get_redirect_url(self, *args, **kwargs):
         try:
