@@ -337,6 +337,7 @@ class OldSpeechRedirect(RedirectView):
 
 class SectionRedirect(RedirectView):
     """Redirects from an section URL with an ID to one with the full slug."""
+    permanent = False
 
     def get_redirect_url(self, *args, **kwargs):
         try:
