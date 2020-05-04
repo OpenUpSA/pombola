@@ -1573,6 +1573,17 @@ class SAHansardIndexViewTest(TestCase):
         self.assertContains(response, '<a href="/hansard/%s">%s</a>' % (section.id, section_name), html=True)
         self.assertNotContains(response, "Empty section")
 
+    def test_hansard_redirect(self):
+        client = Client()
+        section_name = "Proceedings of Foo"
+        section = Section.objects.get(heading=section_name)
+        response = client.get('/hansard/%s' % section.id)
+        self.assertRedirects(
+            response,
+            reverse('speeches:section-view', args=[section.get_path])
+        )
+
+
 @attr(country='south_africa')
 class SACommitteeIndexViewTest(WebTest):
 
