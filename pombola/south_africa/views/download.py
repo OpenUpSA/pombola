@@ -28,18 +28,7 @@ class SADownloadMembersIndex(TemplateView):
         return context
 
 
-class Echo(object):
-    """An object that implements just the write method of the file-like
-    interface.
-    """
-
-    def write(self, value):
-        """Write the value by returning it, instead of storing in a buffer."""
-        return value
-
-
 def download_members_xlsx(request):
-    #  TODO: check that request is GET
     # Generate a sequence of rows. The range is based on the maximum number of
     # rows that can be handled by a single sheet in most spreadsheet
     # applications.
@@ -86,15 +75,23 @@ def download_members_xlsx(request):
         .prefetch_related("contacts__kind")
     )
 
-    # TODO: get the person's parties
+    def get_person_email(person):
+        if person.email:
+            return person.email
+        contact_email = person.contacts.filter(kind__slug="email").first()
+        if contact_email:
+            return contact_email.value
+        return ""
+    
     def yield_people():
         for person in persons:
             cell = person.contacts.filter(kind__slug="cell").first()
-            email = person.contacts.filter(kind__slug="email").first()
+            email = get_person_email(person)
             yield (
-                person.legal_name,
+                person.name,
                 cell.value if cell else "",
-                email.value if email else "",
+                get_person_email(person),
+                ','.join(party.name for party in person.parties())
             )
 
     # TODO: move template to different directory
