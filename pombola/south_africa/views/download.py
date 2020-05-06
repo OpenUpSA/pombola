@@ -54,20 +54,19 @@ def download_members_xlsx(request):
     else:
         house_query = ncop_query | na_query
 
-    # TODO: filter by currently_active
-    # TODO: get the persons' party
-    # {'kind__slug': u'party'
-
     # First get the currently_active positions
     when = datetime.date.today()
     now_approx = repr(ApproximateDate(year=when.year, month=when.month, day=when.day))
     positions = (
-        models.Position.objects.filter(sorting_start_date__lte=now_approx)
+        Position.objects.filter(
+            sorting_start_date__lte=now_approx
+        )  # TODO: move to model
         .filter(Q(sorting_end_date_high__gte=now_approx) | Q(end_date=""))
         .filter(house_query)
         .values("id")
     )
 
+    # TODO: check person not hidden
     # Get the persons from the positions
     persons = (
         models.Person.objects.filter(position__id__in=positions)

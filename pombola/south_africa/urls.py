@@ -268,17 +268,17 @@ urlpatterns += (
     ),
 )
 
-# Download members' data
+# Download MP contact list
 urlpatterns += (
     url(
         r'^members/download/$',
         views.SADownloadMembersIndex.as_view(),
-        name='sa-download-members-index'
+        name='sa-download-members'
     ),
     url(
-        r'^members/download-csv/$',
+        r'^members/download-xlsx/$',
         views.download_members_xlsx,
-        name='sa-download-members-index'
+        name='sa-download-members-xlsx'
     ),
 )
 

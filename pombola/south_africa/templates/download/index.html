@@ -2,18 +2,18 @@
 
 {% load pipeline %}
 
-{% block title %}Download Members Data{% endblock %}
+{% block title %}Download MPs{% endblock %}
 
 {% block body_attributes %} class="download-data" {% endblock %}
 
 {% block content %}
 <div>
     <div class="wrapper">
-        <h1>Download Members Data</h1>
+        <h1>Download MPs</h1>
     </div>
 </div>
 
-<form action="{% url 'sa-download-members-index' %}" method="get">
+<form action="{% url 'sa-download-members-xlsx' %}" method="get">
   <h3>Filter members data by:</h3>
   <div class="filter-option">
     <label for="house">House:</label>
