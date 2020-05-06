@@ -277,7 +277,7 @@ urlpatterns += (
     ),
     url(
         r'^members/download-csv/$',
-        views.download_members_csv,
+        views.download_members_xlsx,
         name='sa-download-members-index'
     ),
 )
