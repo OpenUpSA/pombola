@@ -82,7 +82,7 @@ def download_members_xlsx(request):
         if contact_email:
             return contact_email.value
         return ""
-    
+
     def yield_people():
         for person in persons:
             cell = person.contacts.filter(kind__slug="cell").first()
@@ -91,7 +91,7 @@ def download_members_xlsx(request):
                 person.name,
                 cell.value if cell else "",
                 get_person_email(person),
-                ','.join(party.name for party in person.parties())
+                ",".join(party.name for party in person.parties()),
             )
 
     # TODO: move template to different directory
