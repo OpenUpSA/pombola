@@ -29,24 +29,11 @@ class SADownloadMembersIndex(TemplateView):
 
 
 def download_members_xlsx(request):
-    # Generate a sequence of rows. The range is based on the maximum number of
-    # rows that can be handled by a single sheet in most spreadsheet
-    # applications.
-    headers = ["Name", "Party", "Cell", "Email"]
-    headers = ["Name", "Cell", "Email"]
-    fieldnames = ["legal_name", "cell", "email"]
-    house_query = None
     house_param = request.GET.get("house", "all")
-
-    # Get their first cell
-    #  person.contacts.all()[1].kind.slug = 'cell'
-    # Get their first email
-    #  person.contacts.all()[1].kind.slug = 'email'
-    # could also be
-    # person.email
 
     ncop_query = Q(organisation__kind__slug="provincial-legislature")
     na_query = Q(organisation__slug="national-assembly")
+    house_query = None
     if house_param == "ncop":
         house_query = ncop_query
     elif house_param == "national-assembly":
@@ -74,6 +61,7 @@ def download_members_xlsx(request):
         .prefetch_related("contacts__kind")
     )
 
+    # TODO: move to model
     def get_person_email(person):
         if person.email:
             return person.email
@@ -93,7 +81,7 @@ def download_members_xlsx(request):
                 ",".join(party.name for party in person.parties()),
             )
 
-    # TODO: move template to different directory
+    # TODO: move template to different directory?
     with open("People.xlsx", "rb") as template:
         stream = xlsx_streaming.stream_queryset_as_xlsx(
             yield_people(), template, batch_size=50
@@ -103,5 +91,5 @@ def download_members_xlsx(request):
         stream,
         content_type="application/vnd.xlsxformats-officedocument.spreadsheetml.sheet",
     )
-    response["Content-Disposition"] = "attachment; filename=test.xlsx"
+    response["Content-Disposition"] = "attachment; filename=mps.xlsx"
     return response
