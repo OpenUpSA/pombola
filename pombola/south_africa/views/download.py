@@ -45,18 +45,16 @@ def download_members_xlsx(request):
     when = datetime.date.today()
     now_approx = repr(ApproximateDate(year=when.year, month=when.month, day=when.day))
     positions = (
-        Position.objects.filter(
-            sorting_start_date__lte=now_approx
-        )  # TODO: move to model
-        .filter(Q(sorting_end_date_high__gte=now_approx) | Q(end_date=""))
+        Position.objects.currently_active()
         .filter(house_query)
         .values("id")
     )
 
-    # TODO: check person not hidden
     # Get the persons from the positions
     persons = (
-        models.Person.objects.filter(position__id__in=positions)
+        models.Person.objects
+        .filter(hidden=False)
+        .filter(position__id__in=positions)
         .distinct()
         .prefetch_related("contacts__kind")
     )
