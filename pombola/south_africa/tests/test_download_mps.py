@@ -34,6 +34,10 @@ class DownloadMPsTest(TestCase):
         self.ncop = Organisation.objects.create(
             name="NCOP", kind=provincial_legislature, slug="ncop",
         )
+
+        email_kind = ContactKind.objects.get_or_create(slug="email")
+        cell_kind = ContactKind.objects.get_or_create(slug="cell")
+
         self.mp_a = Person.objects.create(
             legal_name="Jimmy Stewart", slug="jimmy-stewart", email="jimmy@steward.com"
         )
@@ -43,15 +47,30 @@ class DownloadMPsTest(TestCase):
             start_date=ApproximateDate(past=True),
             end_date=ApproximateDate(future=True),
         )
+        self.inactive_mp_a = Person.objects.create(
+            legal_name="Stefan Terblanche", slug="stefan-terblanche"
+        )
+        Position.objects.create(
+            person=self.mp_a,
+            organisation=self.na,
+            start_date=ApproximateDate(past=True),
+            end_date=ApproximateDate(year=2009),
+        )
         self.mpl_a = Person.objects.create(
             legal_name="Jonathan Brink", slug="jonathan-brink"
         )
-        email_kind = ContactKind.objects.create(slug="email")
         Contact.objects.create(
             content_type=ContentType.objects.get_for_model(self.mpl_a),
             object_id=self.mpl_a.id,
             kind=email_kind,
             value="jonathan@brink.com",
+            preferred=True,
+        )
+        Contact.objects.create(
+            content_type=ContentType.objects.get_for_model(self.mpl_a),
+            object_id=self.mpl_a.id,
+            kind=cell_kind,
+            value="0123456789",
             preferred=True,
         )
         Position.objects.create(
@@ -63,7 +82,6 @@ class DownloadMPsTest(TestCase):
         self.mps = [self.mp_a]
         self.mpls = [self.mpl_a]
         self.all = self.mps + self.mpls
-        # TODO: add inactive MP
 
     def test_download_all_mps(self):
         response = self.client.get(reverse("sa-download-members-xlsx"))
@@ -86,6 +104,11 @@ class DownloadMPsTest(TestCase):
             self.assertIn(person.name, names)
             if person.first_email:
                 self.assertIn(person.first_email, emails)
+            if person.first_cell:
+                self.assertIn(person.first_cell, mobiles)
+
+        # Sheet should not contain inactive members
+        self.assertNotIn(self.inactive_mp_a.name, names)
 
     def stream_xlsx_file(self, response):
         f = tempfile.NamedTemporaryFile(suffix=".xlsx", delete=False)
