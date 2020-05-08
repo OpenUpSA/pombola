@@ -4,17 +4,20 @@ import tempfile
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.test import TestCase
-from django_date_extensions.fields import ApproximateDate
 from nose.plugins.attrib import attr
 
 import xlrd
+from django_date_extensions.fields import ApproximateDate
 from pombola.core.models import (Contact, ContactKind, Organisation,
                                  OrganisationKind, Person, Position)
+
+COLUMN_INDICES = {"name": 0, "mobile": 1, "email": 2, "parties": 3}
 
 
 @attr(country="south_africa")
 class DownloadMPsTest(TestCase):
     def setUp(self):
+        party = OrganisationKind.objects.create(name="Party", slug="party",)
         parliament = OrganisationKind.objects.create(
             name="Parliament", slug="parliament",
         )
@@ -28,6 +31,8 @@ class DownloadMPsTest(TestCase):
         self.ncop = Organisation.objects.create(
             name="NCOP", kind=provincial_legislature, slug="ncop",
         )
+        self.da = Organisation.objects.create(name="DA", kind=party, slug="da")
+        self.anc = Organisation.objects.create(name="ANC", kind=party, slug="anc")
 
         email_kind = ContactKind.objects.create(slug="email", name="Email")
         cell_kind = ContactKind.objects.create(slug="cell", name="Cell")
@@ -41,12 +46,30 @@ class DownloadMPsTest(TestCase):
             start_date=ApproximateDate(past=True),
             end_date=ApproximateDate(future=True),
         )
+        Position.objects.create(
+            person=self.mp_a,
+            organisation=self.da,
+            start_date=ApproximateDate(past=True),
+            end_date=ApproximateDate(future=True),
+        )
         self.inactive_mp_a = Person.objects.create(
             legal_name="Stefan Terblanche", slug="stefan-terblanche"
         )
         Position.objects.create(
             person=self.mp_a,
             organisation=self.na,
+            start_date=ApproximateDate(past=True),
+            end_date=ApproximateDate(year=2009),
+        )
+        Position.objects.create(
+            person=self.mp_a,
+            organisation=self.da,
+            start_date=ApproximateDate(past=True),
+            end_date=ApproximateDate(year=2009),
+        )
+        Position.objects.create(
+            person=self.mp_a,
+            organisation=self.anc,
             start_date=ApproximateDate(past=True),
             end_date=ApproximateDate(year=2009),
         )
@@ -93,11 +116,14 @@ class DownloadMPsTest(TestCase):
 
         for person in self.all:
             self.assertIn(person.name, columns["names"])
+            # Get the row
+            row_num = columns["names"].index(person.name)
+            row = sheet.row_values(row_num)
             if person.first_email:
-                self.assertIn(person.first_email, columns["emails"])
+                self.assertEqual(person.first_email, row[COLUMN_INDICES["email"]])
             if person.first_cell:
-                self.assertIn(person.first_cell, columns["mobiles"])
-            # TODO: test parties
+                self.assertEqual(person.first_cell, row[COLUMN_INDICES["mobile"]])
+            self.assertEqual(",".join(person.parties()), row[COLUMN_INDICES["parties"]])
 
         # Sheet should not contain inactive members
         self.assertNotIn(self.inactive_mp_a.name, columns["names"])
@@ -136,15 +162,15 @@ class DownloadMPsTest(TestCase):
         return f
 
     def check_headings(self, sheet):
-        self.assertEqual(sheet.cell_value(0, 0), u"Name")
-        self.assertEqual(sheet.cell_value(0, 1), u"Cell")
-        self.assertEqual(sheet.cell_value(0, 2), u"Email")
-        self.assertEqual(sheet.cell_value(0, 3), u"Parties")
+        self.assertEqual(sheet.cell_value(0, COLUMN_INDICES["name"]), u"Name")
+        self.assertEqual(sheet.cell_value(0, COLUMN_INDICES["mobile"]), u"Cell")
+        self.assertEqual(sheet.cell_value(0, COLUMN_INDICES["email"]), u"Email")
+        self.assertEqual(sheet.cell_value(0, COLUMN_INDICES["parties"]), u"Parties")
 
     def get_columns(self, sheet):
         return {
-            "names": sheet.col_values(0),
-            "mobiles": sheet.col_values(1),
-            "emails": sheet.col_values(2),
-            "parties": sheet.col_values(3),
+            "names": sheet.col_values(COLUMN_INDICES["name"]),
+            "mobiles": sheet.col_values(COLUMN_INDICES["mobile"]),
+            "emails": sheet.col_values(COLUMN_INDICES["email"]),
+            "parties": sheet.col_values(COLUMN_INDICES["parties"]),
         }
