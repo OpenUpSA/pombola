@@ -1,21 +1,15 @@
 import datetime
 import tempfile
 
-from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
+from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django_date_extensions.fields import ApproximateDate
 from nose.plugins.attrib import attr
 
 import xlrd
-from pombola.core.models import (
-    Organisation,
-    OrganisationKind,
-    Person,
-    Position,
-    Contact,
-    ContactKind,
-)
+from pombola.core.models import (Contact, ContactKind, Organisation,
+                                 OrganisationKind, Person, Position)
 
 
 @attr(country="south_africa")
@@ -89,26 +83,50 @@ class DownloadMPsTest(TestCase):
         book = xlrd.open_workbook(filename=xlsx_file.name)
         self.assertEquals(1, book.nsheets)
 
-        sheet = self.sheet = book.sheet_by_index(0)
+        sheet = book.sheet_by_index(0)
 
         # Test headings
-        self.check_headings()
+        self.check_headings(sheet)
 
         # Test values
-        names = sheet.col_values(0)
-        mobiles = sheet.col_values(1)
-        emails = sheet.col_values(2)
-        parties = sheet.col_values(3)
+        columns = self.get_columns(sheet)
 
         for person in self.all:
-            self.assertIn(person.name, names)
+            self.assertIn(person.name, columns["names"])
             if person.first_email:
-                self.assertIn(person.first_email, emails)
+                self.assertIn(person.first_email, columns["emails"])
             if person.first_cell:
-                self.assertIn(person.first_cell, mobiles)
+                self.assertIn(person.first_cell, columns["mobiles"])
+            # TODO: test parties
 
         # Sheet should not contain inactive members
-        self.assertNotIn(self.inactive_mp_a.name, names)
+        self.assertNotIn(self.inactive_mp_a.name, columns["names"])
+
+    def test_download_mps(self):
+        response = self.client.get(
+            reverse("sa-download-members-xlsx") + "?house=national-assembly"
+        )
+        xlsx_file = self.stream_xlsx_file(response)
+        book = xlrd.open_workbook(filename=xlsx_file.name)
+        sheet = self.sheet = book.sheet_by_index(0)
+        self.check_headings(sheet)
+        columns = self.get_columns(sheet)
+        for person in self.mps:
+            self.assertIn(person.name, columns["names"])
+        for person in self.mpls:
+            self.assertNotIn(person.name, columns["names"])
+
+    def test_download_mpls(self):
+        response = self.client.get(reverse("sa-download-members-xlsx") + "?house=ncop")
+        xlsx_file = self.stream_xlsx_file(response)
+        book = xlrd.open_workbook(filename=xlsx_file.name)
+        sheet = self.sheet = book.sheet_by_index(0)
+        self.check_headings(sheet)
+        columns = self.get_columns(sheet)
+        for person in self.mpls:
+            self.assertIn(person.name, columns["names"])
+        for person in self.mps:
+            self.assertNotIn(person.name, columns["names"])
 
     def stream_xlsx_file(self, response):
         f = tempfile.NamedTemporaryFile(suffix=".xlsx", delete=False)
@@ -117,8 +135,16 @@ class DownloadMPsTest(TestCase):
         f.close()
         return f
 
-    def check_headings(self):
-        self.assertEqual(self.sheet.cell_value(0, 0), u"Name")
-        self.assertEqual(self.sheet.cell_value(0, 1), u"Cell")
-        self.assertEqual(self.sheet.cell_value(0, 2), u"Email")
-        self.assertEqual(self.sheet.cell_value(0, 3), u"Parties")
+    def check_headings(self, sheet):
+        self.assertEqual(sheet.cell_value(0, 0), u"Name")
+        self.assertEqual(sheet.cell_value(0, 1), u"Cell")
+        self.assertEqual(sheet.cell_value(0, 2), u"Email")
+        self.assertEqual(sheet.cell_value(0, 3), u"Parties")
+
+    def get_columns(self, sheet):
+        return {
+            "names": sheet.col_values(0),
+            "mobiles": sheet.col_values(1),
+            "emails": sheet.col_values(2),
+            "parties": sheet.col_values(3),
+        }
