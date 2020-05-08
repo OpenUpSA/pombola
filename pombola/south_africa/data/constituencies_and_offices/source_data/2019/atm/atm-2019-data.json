@@ -1,0 +1,125 @@
+{
+  "offices": [
+    {
+      "Source Note": "ATM Constituency Data 2019",
+      "Province": "Free State", 
+      "Title": "ATM Constituency Office: Bloemfontein", 
+      "Party": "ATM",
+      "Type": "office", 
+      "Postal Address": "21 Reahola Shopping Complex, Botshabelo, 9781", 
+      "Physical Address": "21 Reahola Shopping Complex, Botshabelo, 9781", 
+      "Source URL": "https://www.pa.org.za/media_root/file_archive/ATM_Constituency_Data_2019.xlsx", 
+      "People": [
+          {
+              "Name": "Thandiswa Linnen Marawu",
+              "Position": "Constituency Contact", 
+              "Email": "tmarawu@parliament.gov.za"
+          }, 
+          {
+              "Name": "British Novas",
+              "Position": "Administrator", 
+              "Email": "novasbritish4@gmail.com",
+              "Cell": "0681524667"
+          }
+        ]
+    },
+    {
+      "Source Note": "ATM Constituency Data 2019",
+      "Province": "Eastern Cape", 
+      "Title": "ATM Constituency Office: East London", 
+      "Party": "ATM",
+      "Type": "office", 
+      "Postal Address": "No 9 King Street, Southernwood, East London, 5200", 
+      "Physical Address": "No 9 King Street, Southernwood, East London, 5200", 
+      "Source URL": "https://www.pa.org.za/media_root/file_archive/ATM_Constituency_Data_2019.xlsx", 
+      "People": [
+          {
+              "Name": "Thandiswa Linnen Marawu",
+              "Position": "Constituency Contact", 
+              "Email": "tmarawu@parliament.gov.za",
+              "Cell": "0711368668"
+          }, 
+          {
+              "Name": "Zikhona Mnyani",
+              "Position": "Administrator", 
+              "Email": "zeekhona1@gmail.com",
+              "Cell": "0606685282"
+          }
+        ]
+    },
+    {
+      "Source Note": "ATM Constituency Data 2019",
+      "Province": "Eastern Cape", 
+      "Title": "ATM Constituency Office: Butterworth", 
+      "Party": "ATM",
+      "Type": "office", 
+      "Postal Address": "24 Scalen Street, Extension 2, Butterworth, 4960", 
+      "Physical Address": "24 Scalen Street, Extension 2, Butterworth, 4960", 
+      "Source URL": "https://www.pa.org.za/media_root/file_archive/ATM_Constituency_Data_2019.xlsx", 
+      "People": [
+          {
+              "Name": "Veliswa Mvenya",
+              "Position": "Constituency Contact", 
+              "Email": "vmvenya@gmail.com",
+              "Cell": "0812794386"
+          }, 
+          {
+              "Name": "Salatiso Mbanga",
+              "Position": "Administrator", 
+              "Email": "mbangasalat@gmail.com",
+              "Cell": "0731481180"
+          }
+        ]
+    },
+    {
+      "Source Note": "ATM Constituency Data 2019",
+      "Province": "Limpopo", 
+      "Title": "ATM Constituency Office: Lepella Nkumpi, Leboakgomo", 
+      "Party": "ATM",
+      "Type": "office", 
+      "Postal Address": "Office 21, Zone A, Lebowakgomo Complex, Limpopo Province, 0737", 
+      "Physical Address": "Office 21, Zone A, Lebowakgomo Complex, Limpopo Province, 0737", 
+      "Source URL": "https://www.pa.org.za/media_root/file_archive/ATM_Constituency_Data_2019.xlsx", 
+      "People": [
+          {
+              "Name": "Vuyolwethu Zungula",
+              "Position": "Constituency Contact", 
+              "Email": "vuyo340@gmail.com",
+              "Cell": "0798222874"
+          }, 
+          {
+              "Name": "Evodia Hlalele",
+              "Position": "Administrator", 
+              "Email": "hlalelehotle@gmail.com",
+              "Cell": "0829772366"
+          }
+        ]
+    },
+    {
+      "Source Note": "ATM Constituency Data 2019",
+      "Province": "Kwazulu-Natal", 
+      "Title": "ATM Constituency Office: Durban", 
+      "Party": "ATM",
+      "Type": "office", 
+      "Postal Address": "No 75, Crompton Road, Charter house, G2 Pinetown, 3600", 
+      "Physical Address": "No 75, Crompton Road, Charter house, G2 Pinetown, 3600", 
+      "Source URL": "https://www.pa.org.za/media_root/file_archive/ATM_Constituency_Data_2019.xlsx", 
+      "People": [
+          {
+              "Name": "Mxolisi Ewart Phakathi",
+              "Position": "Constituency Contact", 
+              "Email": "phakathime@kznleg.gov.za",
+              "Cell": "0793347762"
+          }, 
+          {
+              "Name": "Nqoba Zindela",
+              "Position": "Administrator", 
+              "Email": "nqobazindela@gmail.com",
+              "Cell": "0834951200"
+          }
+        ]
+    }
+  ],
+  "start_date": "2019-06-01", 
+  "end_date": "2019-05-31"
+}
