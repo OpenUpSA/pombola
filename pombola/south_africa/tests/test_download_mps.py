@@ -7,8 +7,7 @@ from django_date_extensions.fields import ApproximateDate
 from nose.plugins.attrib import attr
 
 import xlrd
-from pombola.core.models import (Organisation, OrganisationKind, Person,
-                                 Position)
+from pombola.core.models import Organisation, OrganisationKind, Person, Position
 
 
 @attr(country="south_africa")
@@ -28,7 +27,7 @@ class DownloadMPsTest(TestCase):
             name="NCOP", kind=provincial_legislature, slug="ncop",
         )
         self.mp_a = Person.objects.create(
-            legal_name="Jimmy Stewart", slug="jimmy-stewart"
+            legal_name="Jimmy Stewart", slug="jimmy-stewart", email="jimmy@steward.com"
         )
         Position.objects.create(
             person=self.mp_a,
@@ -47,17 +46,40 @@ class DownloadMPsTest(TestCase):
         )
         self.mps = [self.mp_a]
         self.mpls = [self.mpl_a]
+        self.all = self.mps + self.mpls
+        # TODO: add inactive MP
 
     def test_download_all_mps(self):
         response = self.client.get(reverse("sa-download-members-xlsx"))
+        xlsx_file = self.stream_xlsx_file(response)
+        book = xlrd.open_workbook(filename=xlsx_file.name)
+        self.assertEquals(1, book.nsheets)
+
+        sheet = self.sheet = book.sheet_by_index(0)
+
+        # Test headings
+        self.check_headings()
+
+        # Test values
+        names = sheet.col_values(0)
+        mobiles = sheet.col_values(1)
+        emails = sheet.col_values(2)
+        parties = sheet.col_values(3)
+
+        for person in self.all:
+            self.assertIn(person.name, names)
+            if person.first_email:
+                self.assertIn(person.first_email, emails)
+
+    def stream_xlsx_file(self, response):
         f = tempfile.NamedTemporaryFile(suffix=".xlsx", delete=False)
         for chunk in response.streaming_content:
             f.write(chunk)
         f.close()
-        book = xlrd.open_workbook(filename=f.name)
-        self.assertEquals(1, book.nsheets)
-        sheet = book.sheet_by_index(0)
-        names = [cell.value for cell in sheet.col(0)]
-        self.assertEqual(names[0], u"Name")
-        for mp in self.mps:
-            self.assertIn(mp.name, names)
+        return f
+
+    def check_headings(self):
+        self.assertEqual(self.sheet.cell_value(0, 0), u"Name")
+        self.assertEqual(self.sheet.cell_value(0, 1), u"Cell")
+        self.assertEqual(self.sheet.cell_value(0, 2), u"Email")
+        self.assertEqual(self.sheet.cell_value(0, 3), u"Parties")
