@@ -1,14 +1,8 @@
-import datetime
-
-import unicodecsv as csv
-from django.db.models import Q
-from django.http import HttpResponse, StreamingHttpResponse
-from django.utils.six.moves import range
-from django.views.generic import TemplateView, View
-from django_date_extensions.fields import ApproximateDate, ApproximateDateField
-
 import xlsx_streaming
-from pombola.core import models
+from django.db.models import Q
+from django.http import StreamingHttpResponse
+from django.views.generic import TemplateView
+
 from pombola.core.models import Person, Position
 
 
@@ -42,13 +36,11 @@ def download_members_xlsx(request):
         house_query = ncop_query | na_query
 
     # First get the currently_active positions
-    when = datetime.date.today()
-    now_approx = repr(ApproximateDate(year=when.year, month=when.month, day=when.day))
     positions = Position.objects.currently_active().filter(house_query).values("id")
 
     # Get the persons from the positions
     persons = (
-        models.Person.objects.filter(hidden=False)
+        Person.objects.filter(hidden=False)
         .filter(position__id__in=positions)
         .distinct()
         .prefetch_related("contacts__kind")
