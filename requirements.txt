@@ -178,9 +178,7 @@ django-simple-captcha==0.5.12
 xlsx-streaming==0.4.1
 zipstream==1.1.4
 
-# Reading and writing Excel files (OpenPyxl)
-et-xmlfile==1.0.1
-jdcal==1.4.1
-openpyxl==2.6.4
+# Reading Excel files for contast list download test
+xlrd==1.2.0
 
 
