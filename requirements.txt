@@ -177,3 +177,10 @@ django-simple-captcha==0.5.12
 # Streaming Excel files for contact list download
 xlsx-streaming==0.4.1
 zipstream==1.1.4
+
+# Reading and writing Excel files (OpenPyxl)
+et-xmlfile==1.0.1
+jdcal==1.4.1
+openpyxl==2.6.4
+
+
