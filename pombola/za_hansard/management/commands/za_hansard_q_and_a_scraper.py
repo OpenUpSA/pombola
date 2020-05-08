@@ -20,10 +20,12 @@ from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 from django.db.models import Q
 from django.core.exceptions import MultipleObjectsReturned
+from django.db.utils import DataError
 
 import requests
 
-from pombola.za_hansard.models import Question, Answer, QuestionPaper
+from pombola.south_africa.models import ParliamentaryTerm
+from pombola.za_hansard.models import Question, Answer, QuestionParsingError
 from pombola.za_hansard.importers.import_json import ImportJson
 from instances.models import Instance
 
@@ -96,7 +98,7 @@ def convert_url_to_https(url):
 
 class Command(BaseCommand):
 
-    help = 'Check for new sources'
+    help = 'Scrape questions and answers'
     option_list = BaseCommand.option_list + (
         make_option('--scrape-questions',
                     default=False,
@@ -166,20 +168,10 @@ class Command(BaseCommand):
                     ),
     )
 
-    start_url_q = ('http://www.parliament.gov.za/live/',
-                   'content.php?Category_ID=236')
-    start_url_a_na = ('http://www.parliament.gov.za/live/',
-                      'content.php?Category_ID=248')
-    start_url_a_ncop = ('http://www.parliament.gov.za/live/',
-                        'content.php?Category_ID=249')
-
     def handle(self, *args, **options):
-        if options['scrape_questions']:
-            self.scrape_questions(*args, **options)
-        elif options['scrape_answers']:
-            self.scrape_answers(self.art_url_a_na, *args, **options)
-            self.scrape_answers(self.start_url_a_ncop, *args, **options)
-        elif options['scrape_from_pmg']:
+        self.new_errors_count = 0
+
+        if options['scrape_from_pmg']:
             self.get_qa_from_pmg_api(*args, **options)
         elif options['process_answers']:
             self.process_answers(*args, **options)
@@ -190,9 +182,6 @@ class Command(BaseCommand):
         elif options['import_into_sayit']:
             self.import_into_sayit(*args, **options)
         elif options['run_all_steps']:
-            self.scrape_questions(*args, **options)
-            self.scrape_answers(self.start_url_a_na, *args, **options)
-            self.scrape_answers(self.start_url_a_ncop, *args, **options)
             self.get_qa_from_pmg_api(*args, **options)
             self.process_answers(*args, **options)
             self.match_answers(*args, **options)
@@ -202,107 +191,12 @@ class Command(BaseCommand):
             self.correct_existing_sayit_import(*args, **options)
         else:
             raise CommandError("Please supply a valid option")
-
-    def scrape_questions(self, *args, **options):
-
-        start_url = self.start_url_q[0] + self.start_url_q[1]
-        details = question_scraper.QuestionDetailIterator(start_url)
-
-        count = 0
-        errors = 0
-
-        # detail here is a dictionary of the form:
-        # {
-        # "name":     row['cell'][0]['contents'],
-        # "language": row['cell'][6]['contents'],
-        # "url":      self.base_url + url,
-        # "house":    row['cell'][4]['contents'],
-        # "date":     row['cell'][2]['contents'],
-        # "type":     types[2]
-        # }
-
-        for detail in details:
-            count += 1
-
-            source_url = detail['url']
-            sys.stdout.write(
-                "{count:5} {url} ".format(count=count, url=source_url))
-
-            if detail['language'] != 'English':
-                print "SKIPPING language is '{0}', not 'English'".format(
-                    detail['language'])
-            elif detail['type'] != 'pdf':
-                print "SKIPPING type is '{0}', not 'pdf'".format(
-                    detail['type'])
-            else:
-                if QuestionPaper.objects.filter(source_url=source_url).exists():
-                    self.stdout.write('SKIPPING as file already handled\n')
-                    if not options['fetch_to_limit']:
-                        self.stdout.write(
-                            "Stopping as '--fetch-to-limit' not given\n")
-                        break
-                else:
-                    try:
-                        self.stdout.write('PROCESSING')
-                        question_scraper.QuestionPaperParser(
-                            **detail).get_questions()
-                    except Exception as e:
-                        self.stdout.write(
-                            'ERROR handling {0}: {1}\n'.format(source_url, str(e)))
-                        errors += 1
-                        pass
-
-            if options['limit'] and count >= options['limit']:
-                break
-
-        self.stdout.write(
-            "Processed %d documents (%d errors)\n" % (count, errors))
-
-    def scrape_answers(self, start_url_a, *args, **options):
-        start_url = start_url_a[0] + start_url_a[1]
-        details = question_scraper.AnswerDetailIterator(start_url)
-
-        count = 0
-
-        for detail in details:
-            count += 1
-            detail = strip_dict(detail)
-
-            url = detail['url']
-            if Answer.objects.filter(url=url).exists():
-                self.stdout.write('Answer {0} already exists\n'.format(url))
-                if not options['fetch_to_limit']:
-                    self.stdout.write(
-                        "Stopping as '--fetch-to-limit' not given\n")
-                    break
-            else:
-                existing_answers = Answer.objects.filter(
-                    house=detail['house'],
-                    year=detail['year'],
-                )
-
-                if detail['oral_number']:
-                    existing_answers = existing_answers.filter(
-                        oral_number=detail['oral_number'])
-                if detail['written_number']:
-                    existing_answers = existing_answers.filter(
-                        written_number=detail['written_number'])
-
-                if existing_answers.exists():
-                    # import pdb;pdb.set_trace()
-                    # FIXME - We should work out which answer to keep rather than
-                    # just keeping what we already have.
-                    self.stdout.write(
-                        'DUPLICATE: answer for {0} O{1} W{2} {3} already exists\n'.format(
-                            detail['house'], detail['oral_number'], detail['written_number'], detail['year'],
-                        )
-                    )
-                else:
-                    # self.stdout.write('Adding answer for {0}\n'.format(url))
-                    answer = Answer.objects.create(**detail)
-
-            if options['limit'] and count >= options['limit']:
-                break
+            
+        if self.new_errors_count > 0:
+            self.stderr.write(
+                "Some errors occurred while scraping questions and answers."
+            )
+            sys.exit(1)
 
     def handle_api_question_and_reply(self, data):
         if 'source_file' not in data:
@@ -311,7 +205,11 @@ class Command(BaseCommand):
             return
         house = {
             'National Assembly': 'N'
-        }[data['house']['name']]
+        }.get(data['house']['name'])
+        if not house:
+            print "Skipping {} because the house {} is not supported.".format(
+                data['url'], data['house']['name'])
+            return
         if data['answer_type'] not in ANSWER_TYPES:
             print "Skipping {} because the answer type {} is not supported".format(
                 data['url'], data['answer_type'])
@@ -341,22 +239,66 @@ class Command(BaseCommand):
                 ('president_number', 'president_number'),
                 ('dp_number', 'deputy_president_number'),
         ):
-            if data[api_key]:
+            if data.get(api_key):
                 number_found = True
                 number_q_kwargs[filter_key] = data[api_key]
-        existing_kwargs = {'date__year': year, 'house': house}
+
+        try:
+            question_date = datetime.strptime(data['date'], "%Y-%m-%d").date()
+        except Exception:
+            msg = (
+                    'Could not parse the date for question {}. '
+                    'Date must be in the format YYYY-mm-dd, but it is {}. '
+                    'Skipping question import.'
+                )\
+                .format(data['url'], data['date'])
+            self.log_question_parsing_error(
+                data['url'], 
+                'date-format-error', 
+                msg
+            )
+            return
+
+        try:
+            term = ParliamentaryTerm.get_term_from_date(question_date)
+        except Exception:
+            msg = (
+                    'Could not determine the parliamentary term for question {}. '
+                    'Question date is {}. Please ensure there existing a '
+                    'ParliamentaryTerm that includes this date. '
+                    'Skipping question import.'
+                )\
+                .format(data['url'], data['date'])
+            self.log_question_parsing_error(
+                data['url'], 
+                'term-not-found', 
+                msg
+            )
+            return
+
+        existing_kwargs = {'date__year': year, 'house': house, 'term': term}
         existing_kwargs.update(number_q_kwargs)
+        question = None
         if not number_found:
             # We won't be able to accurately tell whether a question
             # already exists if we don't have one of these number, so
             # ignore the question and answer completely in that
             # case. (This is a rare occurence.)
-            print "Skipping {0} because no number was found".format(
-                data['url'])
+            msg = (
+                    'Question at {} could not be imported because it has no '
+                    'number (i.e. no written_number, oral_number, '
+                    'president_number or dp_number. '
+                )\
+                .format(data['url'])
+            self.log_question_parsing_error(
+                data['url'], 
+                'number-not-found', 
+                msg
+            )
             return
         try:
-            print "Found the existing question for", data['url']
             question = Question.objects.get(**existing_kwargs)
+            print "Found the existing question for", data['url']
             # It might well be useful to add the corresponding PMG API
             # URL details (e.g. using their PA link to get the PA person)
             question.pmg_api_url = data['url']
@@ -395,7 +337,9 @@ class Command(BaseCommand):
                 pmg_api_url=data['url'],
                 pmg_api_member_pa_url=askedby_pa_url,
                 pmg_api_source_file_url=data['source_file']['url'],
+                term=term
             )
+
         # If there's already an answer, assume it's OK, except record
         # the PMG API URL if it hasn't got one:
         if question.answer:
@@ -411,11 +355,16 @@ class Command(BaseCommand):
                     msg += "was {3}.  Check that in this case they're the same "
                     msg += "question and answer, but with two API URLs and "
                     msg += "different dates and source files"
-                    print msg.format(
-                        question.id,
-                        answer.id,
-                        existing_answer_pmg_api_url,
-                        data['url'])
+                    msg = msg.format(
+                            question.id,
+                            answer.id,
+                            existing_answer_pmg_api_url,
+                            data['url'])
+                    self.log_question_parsing_error(
+                        data['url'], 
+                        'url-conflicted', 
+                        msg
+                    )
             else:
                 answer.pmg_api_url = data['url']
                 answer.save()
@@ -459,7 +408,8 @@ class Command(BaseCommand):
                 url=data['source_file']['url'],
                 date_published=data['date'],
                 type=dot_extension[1:],
-                pmg_api_url=data['url']
+                pmg_api_url=data['url'],
+                term=term
             )
             question.answer = answer
         question.save()
@@ -755,16 +705,37 @@ class Command(BaseCommand):
                 continue
 
             importer = ImportJson(instance=instance)
-            # try:
             self.stderr.write("TRYING %s\n" % path)
-            section = importer.import_document(path)
+            try:
+                section = importer.import_document(path)
+            except DataError as e:
+                msg = (
+                        'Could not import question {}. '
+                        'Database error: "{}". '
+                    )\
+                .format(question.pmg_api_url, str(e))
+                self.log_question_parsing_error(
+                    question.pmg_api_url, 
+                    'question-db-error', 
+                    msg
+                )
+                continue
+            except Exception as e:
+                msg = (
+                        'Could not import question {}. '
+                        'Unknown import error with message: "{}". '
+                    )\
+                .format(question.pmg_api_url, str(e))
+                self.log_question_parsing_error(
+                    question.pmg_api_url, 
+                    'import-error', 
+                    msg
+                )
+                continue
             section_ids.append(section)
             question.sayit_section = section
             question.last_sayit_import = datetime.now().date()
             question.save()
-            # except Exception as e:
-            # self.stderr.write('WARN: failed to import %d: %s' %
-            # (question.id, str(e)))
 
         self.stdout.write('Questions:\n')
         self.stdout.write(str(section_ids))
@@ -786,10 +757,36 @@ class Command(BaseCommand):
                 continue
 
             importer = ImportJson(instance=instance)
-            self.stderr.write("TRYING %s\n" % path)
-            # limit to 2 speeches per section to avoid duplicating speeches
-            # added prior to the addition of the answer sayit_section field
-            section = importer.import_document(path, 2)
+            self.stdout.write("TRYING %s\n" % path)
+            try:
+                # limit to 2 speeches per section to avoid duplicating speeches
+                # added prior to the addition of the answer sayit_section field
+                section = importer.import_document(path, 2)
+            except DataError as e:
+                msg = (
+                        'Could not import answer for question {}. '
+                        'Database error: "{}". '
+                    )\
+                .format(answer.pmg_api_url, str(e))
+                self.log_question_parsing_error(
+                    answer.pmg_api_url, 
+                    'answer-db-error', 
+                    msg
+                )
+                continue
+            except Exception as e:
+                msg = (
+                        'Could not import answer for question {}. '
+                        'Unknown import error with message: "{}". '
+                    )\
+                .format(answer.pmg_api_url, str(e))
+                self.log_question_parsing_error(
+                    answer.pmg_api_url, 
+                    'answer-import-error', 
+                    msg
+                )
+                continue
+
             section_ids.append(section.id)
             answer.sayit_section = section
             answer.last_sayit_import = datetime.now().date()
@@ -1073,3 +1070,22 @@ class Command(BaseCommand):
         minister_title = corrections.get(minister_title, minister_title)
 
         return minister_title
+
+    def log_question_parsing_error(self, question_url, error_type, error_message):
+        """
+        Updates or creates a QuestionParsingError instance for the error and 
+        writes the error message to stderr if the message is new 
+        (i.e. was created).
+        """
+        question_parsing_error, created = QuestionParsingError.objects\
+                .update_or_create(
+                    pmg_url=question_url,
+                    error_type=error_type,
+                    defaults={
+                        'error_message': error_message,
+                        'last_seen': datetime.now()
+                    }
+                )
+        if created:
+            self.stderr.write(error_message)
+            self.new_errors_count += 1

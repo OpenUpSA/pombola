@@ -1,12 +1,24 @@
 {% extends 'base.html' %}
 
+{% block js_end_of_body %}
+  {{ block.super }}
+  {% if settings.GOOGLE_RECAPTCHA_SITE_KEY %}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script>
+       function onSubmitLocationSearch(token) {
+         document.getElementById("rep-locator-search").submit();
+       }
+     </script>
+  {% endif %}
+{% endblock %}
+
 {% block breadcrumbs %}
 {% include 'core/override_breadcrumb.html' with override_path='/places/' %}
 {% endblock %}
 
 {% block content %}
 
-  <form action="{% url "core_geocoder_search" %}" class="rep-locator-search">
+  <form action="{% url "core_geocoder_search" %}" class="rep-locator-search" id="rep-locator-search" method="GET">
     <label for="id_q" class="rep-locator-search__label">Show representatives for:</label>
     <div class="rep-locator-search__inputs">
       {% include "south_africa/_search_box.html" %}

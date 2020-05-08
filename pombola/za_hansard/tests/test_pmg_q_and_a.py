@@ -2,11 +2,14 @@
 
 from datetime import date
 from mock import patch
+import copy
 
 from django.core.management import call_command
 from django.test import TestCase
 
-from pombola.za_hansard.models import Answer, Question
+from pombola.za_hansard.models import Answer, Question, QuestionParsingError
+from pombola.south_africa.models import ParliamentaryTerm
+from nose.plugins.attrib import attr
 
 EXAMPLE_QUESTION = {
     'question': 'Why did the chicken cross the road?',
@@ -36,6 +39,7 @@ EXAMPLE_QUESTION = {
 }
 
 
+@attr(country='south_africa')
 class PMGAPITests(TestCase):
 
     @patch('pombola.za_hansard.management.commands.za_hansard_q_and_a_scraper.all_from_api')
@@ -128,6 +132,7 @@ class PMGAPITests(TestCase):
             date=date(2016, 1, 27),
             house='N',
             answer_type='W',
+            term=ParliamentaryTerm.objects.get(number=26),
             year=2016,
             identifier='NW9876543E',
             id_number='9876543',
@@ -171,6 +176,66 @@ class PMGAPITests(TestCase):
                          'http://example.org/chicken-joke.docx')
 
     @patch('pombola.za_hansard.management.commands.za_hansard_q_and_a_scraper.all_from_api')
+    def test_create_question_if_questions_have_different_terms(self, fake_all_from_api):
+        new_term_question = copy.deepcopy(EXAMPLE_QUESTION)
+        new_term_question['year'] = '2019'
+        new_term_question['date'] = '2019-06-03' # 27th term
+        def api_one_question_and_answer(url):
+            if url == 'https://api.pmg.org.za/minister/':
+                yield {
+                    'questions_url': "http://api.pmg.org.za/minister/2/questions/",
+                }
+                return
+            elif url == 'https://api.pmg.org.za/member/':
+                return
+            elif url == 'http://api.pmg.org.za/minister/2/questions/':
+                yield new_term_question
+            else:
+                raise Exception("Unfaked URL '{0}'".format(url))
+        fake_all_from_api.side_effect = api_one_question_and_answer
+
+        # Create an existing question with the same year and written_number,
+        # but in a different term.
+
+        question = Question.objects.create(
+            question=u'Forsooth, why hath the chicken crossèd the road?',
+            written_number=12345,
+            date=date(2019, 1, 27), # 26th term
+            term=ParliamentaryTerm.objects.get(number=26),
+            house='N',
+            answer_type='W',
+            year=2019,
+            identifier='NW9876543E',
+            id_number='9876543',
+            askedby='G Marx',
+            translated=False,
+        )
+        answer = Answer.objects.create(
+            written_number=12345,
+            date=date(2019, 1, 27), # 26th term
+            date_published=date(2019, 1, 27),
+            term=ParliamentaryTerm.objects.get(number=26),
+            house='N',
+            type='W',
+            year=2019,
+            language='English',
+            text='It is true.'
+        )
+        question.answer = answer
+
+
+        # Run the command:
+        call_command('za_hansard_q_and_a_scraper', scrape_from_pmg=True)
+
+        # Check that a new question was created even though the year and 
+        # written_number is the same.
+
+        # Check that what we expect has been created:
+        self.assertEqual(Question.objects.count(), 2)
+        self.assertEqual(Answer.objects.count(), 2)
+
+
+    @patch('pombola.za_hansard.management.commands.za_hansard_q_and_a_scraper.all_from_api')
     def test_nothing_created_if_both_exist(self, fake_all_from_api):
         def api_one_question_and_answer(url):
             if url == 'https://api.pmg.org.za/minister/':
@@ -192,6 +257,7 @@ class PMGAPITests(TestCase):
             text='For to arrive unto the other side',
             written_number=12345,
             date=date(2016, 9, 1),
+            term=ParliamentaryTerm.objects.get(number=26),
             date_published=date(2016, 9, 6),
             year=2016,
             house='N',
@@ -202,6 +268,7 @@ class PMGAPITests(TestCase):
             answer=existing_answer,
             written_number=12345,
             date=date(2016, 1, 27),
+            term=ParliamentaryTerm.objects.get(number=26),
             house='N',
             answer_type='W',
             year=2016,
@@ -274,6 +341,7 @@ class PMGAPITests(TestCase):
             text='For to arrive unto the other side',
             written_number=12345,
             date=date(2016, 9, 1),
+            term=ParliamentaryTerm.objects.get(number=26),
             date_published=date(2016, 9, 6),
             year=2016,
             house='N',
@@ -320,3 +388,68 @@ class PMGAPITests(TestCase):
         self.assertEqual(answer.date, date(2016, 9, 1))
         self.assertEqual(answer.pmg_api_url,
                          'http://api.pmg.org.za/example-question/5678/')
+
+    @patch('pombola.za_hansard.management.commands.za_hansard_q_and_a_scraper.all_from_api')
+    @patch('pombola.za_hansard.management.commands.za_hansard_q_and_a_scraper.sys.exit')
+    def test_errors_logged_to_model(self, fake_sys_exit, fake_all_from_api):
+        question_with_invalid_date = copy.deepcopy(EXAMPLE_QUESTION)
+        question_with_invalid_date['date'] = '2012319-06-03' # invalid date
+        question_with_invalid_parliamentary_term = copy.deepcopy(EXAMPLE_QUESTION)
+        question_with_invalid_parliamentary_term['date'] = '2035-06-03'
+        question_without_number = copy.deepcopy(EXAMPLE_QUESTION)
+        del question_without_number['written_number']
+        def api_one_question_and_answer(url):
+            if url == 'https://api.pmg.org.za/minister/':
+                yield {
+                    'questions_url': "http://api.pmg.org.za/minister/2/questions/",
+                }
+                return
+            elif url == 'https://api.pmg.org.za/member/':
+                return
+            elif url == 'http://api.pmg.org.za/minister/2/questions/':
+                yield question_with_invalid_date
+                yield question_with_invalid_parliamentary_term
+                yield question_without_number
+            else:
+                raise Exception("Unfaked URL '{0}'".format(url))
+        fake_all_from_api.side_effect = api_one_question_and_answer
+
+        # Run the command:
+        call_command('za_hansard_q_and_a_scraper', scrape_from_pmg=True)
+
+        # Check that no new questions or answers were created
+        self.assertEqual(Question.objects.count(), 0)
+        self.assertEqual(Answer.objects.count(), 0)
+
+        # Check that QuestionParsingErrors were created
+        self.assertEqual(QuestionParsingError.objects.count(), 3)
+        self.assertTrue(QuestionParsingError.objects.filter(error_type='date-format-error').exists())
+        self.assertTrue(QuestionParsingError.objects.filter(error_type='term-not-found').exists())
+        self.assertTrue(QuestionParsingError.objects.filter(error_type='number-not-found').exists())
+
+        fake_sys_exit.assert_called_with(1)
+
+    @patch('pombola.za_hansard.management.commands.za_hansard_q_and_a_scraper.all_from_api')
+    def test_unsupported_house(self, fake_all_from_api):
+        question_with_invalid_house = copy.deepcopy(EXAMPLE_QUESTION)
+        question_with_invalid_house['house']['name'] = u'National Council of Provinces'
+        def api_one_question_and_answer(url):
+            if url == 'https://api.pmg.org.za/minister/':
+                yield {
+                    'questions_url': "http://api.pmg.org.za/minister/2/questions/",
+                }
+                return
+            elif url == 'https://api.pmg.org.za/member/':
+                return
+            elif url == 'http://api.pmg.org.za/minister/2/questions/':
+                yield question_with_invalid_house
+            else:
+                raise Exception("Unfaked URL '{0}'".format(url))
+        fake_all_from_api.side_effect = api_one_question_and_answer
+
+        # Run the command:
+        call_command('za_hansard_q_and_a_scraper', scrape_from_pmg=True)
+
+        # Check that no new questions or answers were created
+        self.assertEqual(Question.objects.count(), 0)
+        self.assertEqual(Answer.objects.count(), 0)

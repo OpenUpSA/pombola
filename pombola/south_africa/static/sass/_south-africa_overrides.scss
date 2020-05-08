@@ -3281,6 +3281,7 @@ ul.attendance__notes {
 
     .button {
         width: 33%;
+        margin-left: 4px;
 
         @media only all and (min-width: 640px) {
             width: auto;
@@ -3289,6 +3290,7 @@ ul.attendance__notes {
 
     .search-box {
         margin-bottom: 0;
+        display: flex;
     }
 }
 

@@ -8,6 +8,14 @@
 {% block js_end_of_body %}
   {{ block.super }}
   {% javascript 'google-map' %}
+  {% if settings.GOOGLE_RECAPTCHA_SITE_KEY %}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script>
+       function onSubmitLocationSearch(token) {
+         document.getElementsByClassName("global-search-form")[0].submit();
+       }
+     </script>
+  {% endif %}
 {% endblock %}
 
 {% block search_title %}
@@ -25,7 +33,11 @@
 {% block search_form %}
   <div class="inline-search-box">
     <input type="text" name="q" value="{{ query }}" id="id_q" placeholder="Enter your address&hellip;"/>
-    <input type="submit" value="Search" class="button">
+    {% if settings.GOOGLE_RECAPTCHA_SITE_KEY %}
+      <input type="submit" value="Search" class="button g-recaptcha button" data-sitekey="{{ settings.GOOGLE_RECAPTCHA_SITE_KEY }}" data-callback='onSubmitLocationSearch'>
+    {% else %}
+      <input type="submit" value="Search" class="button">
+    {% endif %}
   </div>
 {% endblock %}
 

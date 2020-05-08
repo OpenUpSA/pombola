@@ -54,8 +54,8 @@ lxml==3.6.2
 # useful as a reference.
 django-markitup==2.3.0
 
-requests==2.6.0
-elasticsearch==0.4.5
+requests==2.20.0
+elasticsearch>=1.0.0,<2.0.0
 django-haystack==2.6.1
 # Required (but not a declared requirement) of elasticsearch
 urllib3==1.24.2
@@ -137,7 +137,6 @@ six==1.10.0
 slumber==0.6.2
 sqlparse==0.1.14
 virtualenv==1.11.6
-waitress==0.8.9
 wsgi-intercept==0.8
 wsgiref==0.1.2
 

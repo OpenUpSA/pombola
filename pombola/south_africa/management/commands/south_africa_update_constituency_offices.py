@@ -148,6 +148,7 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
     print "\n", office['Title']
 
     infosources = []
+    source_url = ''
     if 'Sources' in office:
         source_url = office['Sources'][0]['Source URL']
         first = True

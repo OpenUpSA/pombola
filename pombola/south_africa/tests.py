@@ -38,6 +38,7 @@ from info.models import InfoPage
 from pombola.core import models
 from pombola import south_africa
 from pombola.south_africa.views import SAPersonDetail
+from pombola.south_africa.models import ParliamentaryTerm
 from pombola.core.views import PersonSpeakerMappingsMixin
 from instances.models import Instance
 from pombola.interests_register.models import Category, Release, Entry, EntryLineItem
@@ -348,6 +349,11 @@ class SASearchViewTest(WebTest):
         res = self.app.get(reverse('core_search'))
         self.assertEquals(200, res.status_code)
 
+    @override_settings(GOOGLE_RECAPTCHA_SECRET_KEY='test-key')
+    def test_replocator_page_returns_success(self):
+        res = self.app.get(reverse('core_geocoder_search'))
+        self.assertEquals(200, res.status_code)
+
     def test_invalid_date_range_params(self):
         response = self.app.get(
             "{0}?q=qwerty&start=invalid".format(self.search_url))
@@ -381,12 +387,14 @@ class SASearchViewTest(WebTest):
         self.assertEquals("", date_start["value"])
         self.assertEquals("2015-05-01", date_end["value"])
 
+    @override_settings(GOOGLE_RECAPTCHA_SECRET_KEY='')
     def get_search_result_list_items(self, query_string):
         response = self.app.get(
             "{0}?q={1}".format(self.search_location_url, query_string))
         results_div = response.html.find('div', class_='geocoded_results')
         return results_div.find('ul').findAll('li')
 
+    @override_settings(GOOGLE_RECAPTCHA_SECRET_KEY='')
     @patch('pombola.search.views.geocoder', side_effect=fake_geocoder)
     def test_unknown_place(self, mocked_geocoder):
         response = self.app.get(
@@ -397,6 +405,7 @@ class SASearchViewTest(WebTest):
         self.assertIn("No results for the location 'anywhere'", response)
         mocked_geocoder.assert_called_once_with(q='anywhere', country='za')
 
+    @override_settings(GOOGLE_RECAPTCHA_SECRET_KEY='')
     @patch('pombola.search.views.geocoder', side_effect=fake_geocoder)
     def test_zero_results_place(self, mocked_geocoder):
         response = self.app.get(
@@ -407,6 +416,7 @@ class SASearchViewTest(WebTest):
         self.assertIsNone(results_div)
         mocked_geocoder.assert_called_once_with(q='place that triggers ZERO_RESULTS', country='za')
 
+    @override_settings(GOOGLE_RECAPTCHA_SECRET_KEY='')
     @patch('pombola.search.views.geocoder', side_effect=fake_geocoder)
     def test_single_result_place(self, mocked_geocoder):
         response = self.app.get(
@@ -418,8 +428,21 @@ class SASearchViewTest(WebTest):
         self.assertEqual(path, '/place/latlon/-33.925,18.424/')
         mocked_geocoder.assert_called_once_with(q='Cape Town', country='za')
 
+    @override_settings(GOOGLE_RECAPTCHA_SECRET_KEY='')
     @patch('pombola.search.views.geocoder', side_effect=fake_geocoder)
     def test_multiple_result_place(self, mocked_geocoder):
+        lis = self.get_search_result_list_items('Trafford Road')
+        self.assertEqual(len(lis), 3)
+        self.assertEqual(lis[0].a['href'], '/place/latlon/-29.814,30.839/')
+        self.assertEqual(lis[1].a['href'], '/place/latlon/-33.969,18.703/')
+        self.assertEqual(lis[2].a['href'], '/place/latlon/-32.982,27.868/')
+        mocked_geocoder.assert_called_once_with(q='Trafford Road', country='za')
+
+    @override_settings(GOOGLE_RECAPTCHA_SECRET_KEY='test-key')
+    @patch('pombola.search.recaptcha.recaptcha_client')
+    @patch('pombola.search.views.geocoder', side_effect=fake_geocoder)
+    def test_multiple_result_place_with_recaptcha(self, mocked_geocoder, mocked_recaptcha_client):
+        mocked_recaptcha_client.verify.return_value = True
         lis = self.get_search_result_list_items('Trafford Road')
         self.assertEqual(len(lis), 3)
         self.assertEqual(lis[0].a['href'], '/place/latlon/-29.814,30.839/')
@@ -2726,3 +2749,48 @@ class SACommitteesPopoloJSONTest(TestCase):
             ]
         }
         self.assertJSONEqual(response.content, expected_json)
+
+@attr(country='south_africa')
+class SAParliamentaryTerm(TestCase):
+    def test_get_term_from_date(self):
+        examples = [
+            [
+                date(2009, 6, 30),
+                25
+            ],
+            [
+                date(2014, 7, 1),
+                26
+            ],
+            [
+                date(2019, 5, 31),
+                26
+            ],
+            [
+                date(2019, 6, 1),
+                27
+            ],
+            [
+                date(2020, 1, 1),
+                27
+            ],
+            [
+                date(2025, 1, 1),
+                28
+            ],
+        ]
+        for example in examples:
+            self.assertEqual(
+                ParliamentaryTerm.get_term_from_date(example[0]).number, 
+                example[1],
+                'Term should be %d for %s' % (example[1], str(example[0]))
+            )
+            
+
+    def test_get_term_from_date_for_invalid_parliament(self):
+        d = date(2001, 6, 30)
+        self.assertRaises(
+            ParliamentaryTerm.DoesNotExist, 
+            ParliamentaryTerm.get_term_from_date, d)
+            
+

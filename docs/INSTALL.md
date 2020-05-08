@@ -70,7 +70,8 @@ Production deployment
 
 ### Elasticsearch
 
-[Deploy Elasticsearch 0.90.13](https://github.com/OpenUpSA/elasticsearch-0.90)
+Deploy Elasticsearch 1 based on the [0.90 in dokku instructions](https://github.com/OpenUpSA/elasticsearch-0.90)
+and data in `/usr/share/elasticsearch/data` in the container.
 
 ### Postgres
 
@@ -144,6 +145,8 @@ dokku config:set pombola \
     PMG_API_KEY=... \
     POPIT_API_URL=True \
     GOOGLE_MAPS_GEOCODING_API_KEY=... \
+    GOOGLE_RECAPTCHA_SITE_KEY=... \
+    GOOGLE_RECAPTCHA_SECRET_KEY=... \
     DATA_DIR_BACKUP_AWS_SECRET_ACCESS_KEY=... \
     DATA_DIR_BACKUP_AWS_ACCESS_KEY_ID=...
 
@@ -178,6 +181,18 @@ Test the config with `sudo nginx -t`
 
 Reload nginx: `sudo systemctl restart nginx`
 
+### Google ReCAPTCHA
+
+Location searches in the RepLocator is protected by an invisible Google ReCAPTCHA
+(to save geocoding costs). To enable the ReCAPTCHA, you need to create a new
+Google ReCAPTCHA [here](https://www.google.com/recaptcha/admin/create).
+
+Select "ReCAPTCHA v2" and "Invisible reCAPTCHA badge". Add `localhost` to the domains
+if you're running PA locally.
+
+Use the keys that you get to set the `GOOGLE_RECAPTCHA_SITE_KEY`
+and `GOOGLE_RECAPTCHA_SECRET_KEY` environment variables.
+
 ### Cron jobs
 
 Cron jobs should only output to stdout or stderr if something went wrong and
@@ -191,4 +206,5 @@ status.
 30 1 * * * dokku --rm run pombola bin/output-on-error ./manage.py core_database_dump /data/media_root/dumps/pg-dump && dokku --rm run pombola bin/output-on-error gzip -9 -f /data/media_root/dumps/pg-dump_schema.sql /data/media_root/dumps/pg-dump_data.sql
 10 2 * * * dokku --rm run pombola bin/output-on-error bin/update_za_hansard.bash
 0 5 * * * dokku --rm run pombola bin/output-on-error python manage.py core_export_to_popolo_json /data/media_root/popolo_json http://www.pa.org.za
+30 5 * * * dokku --rm run pombola bin/output-on-error python manage.py core_export_to_popolo_json --pombola /data/media_root/popolo_json http://www.pa.org.za
 ```

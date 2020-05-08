@@ -659,6 +659,8 @@ GOOGLE_MAPS_GEOCODING_API_KEY = os.environ.get("GOOGLE_MAPS_GEOCODING_API_KEY", 
 
 CAPTCHA_FLITE_PATH = "/usr/bin/flite"
 
+GOOGLE_RECAPTCHA_SITE_KEY = os.environ.get("GOOGLE_RECAPTCHA_SITE_KEY", "")
+GOOGLE_RECAPTCHA_SECRET_KEY = os.environ.get("GOOGLE_RECAPTCHA_SECRET_KEY", "")
 
 if os.environ.get("DJANGO_DEBUG_TOOLBAR", "false").lower() == "true":
     # Trick to get Docker internal IP for Django Debug Toolbar
