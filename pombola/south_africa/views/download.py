@@ -48,7 +48,7 @@ def download_members_xlsx(request):
 
     def yield_people():
         for person in persons:
-            cell = person.first_cell
+            cell = person.first_contact_number
             email = person.first_email
             yield (
                 person.name,
@@ -67,5 +67,13 @@ def download_members_xlsx(request):
         stream,
         content_type="application/vnd.xlsxformats-officedocument.spreadsheetml.sheet",
     )
-    response["Content-Disposition"] = "attachment; filename=mps.xlsx"
+    response[
+        "Content-Disposition"
+    ] = "attachment; filename=%s.xlsx" % generate_sheet_name(house_param)
     return response
+
+
+def generate_sheet_name(house=None):
+    if house and house != "all":
+        return house + "-members"
+    return "members-of-parliament"

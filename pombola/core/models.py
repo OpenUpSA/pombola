@@ -494,13 +494,13 @@ class Person(ModelBase, HasImageMixin, ScorecardMixin, IdentifierMixin):
         return None
 
     @property
-    def first_cell(self):
+    def first_contact_number(self):
         """
-        Get the first non-null cellphone number from the person's contacts.
+        Get the first contact number from the person's contacts.
 
-        Returns None if no cell phone numbers were found.
+        Returns None if no phone numbers were found.
         """
-        cell = self.contacts.filter(kind__slug="cell").first()
+        cell = self.contacts.filter(kind__slug__in=["cell", "phone"]).first()
         if cell:
             return cell.value
         return None

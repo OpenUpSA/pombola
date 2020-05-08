@@ -8,8 +8,14 @@ from nose.plugins.attrib import attr
 
 import xlrd
 from django_date_extensions.fields import ApproximateDate
-from pombola.core.models import (Contact, ContactKind, Organisation,
-                                 OrganisationKind, Person, Position)
+from pombola.core.models import (
+    Contact,
+    ContactKind,
+    Organisation,
+    OrganisationKind,
+    Person,
+    Position,
+)
 
 COLUMN_INDICES = {"name": 0, "mobile": 1, "email": 2, "parties": 3}
 
@@ -36,6 +42,7 @@ class DownloadMPsTest(TestCase):
 
         email_kind = ContactKind.objects.create(slug="email", name="Email")
         cell_kind = ContactKind.objects.create(slug="cell", name="Cell")
+        phone_kind = ContactKind.objects.create(slug="phone", name="Phone")
 
         self.mp_a = Person.objects.create(
             legal_name="Jimmy Stewart", slug="jimmy-stewart", email="jimmy@steward.com"
@@ -51,6 +58,13 @@ class DownloadMPsTest(TestCase):
             organisation=self.da,
             start_date=ApproximateDate(past=True),
             end_date=ApproximateDate(future=True),
+        )
+        Contact.objects.create(
+            content_type=ContentType.objects.get_for_model(self.mp_a),
+            object_id=self.mp_a.id,
+            kind=phone_kind,
+            value="987654321",
+            preferred=True,
         )
         self.inactive_mp_a = Person.objects.create(
             legal_name="Stefan Terblanche", slug="stefan-terblanche"
@@ -121,8 +135,10 @@ class DownloadMPsTest(TestCase):
             row = sheet.row_values(row_num)
             if person.first_email:
                 self.assertEqual(person.first_email, row[COLUMN_INDICES["email"]])
-            if person.first_cell:
-                self.assertEqual(person.first_cell, row[COLUMN_INDICES["mobile"]])
+            if person.first_contact_number:
+                self.assertEqual(
+                    person.first_contact_number, row[COLUMN_INDICES["mobile"]]
+                )
             self.assertEqual(",".join(person.parties()), row[COLUMN_INDICES["parties"]])
 
         # Sheet should not contain inactive members
