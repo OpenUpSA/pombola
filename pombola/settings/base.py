@@ -8,6 +8,8 @@ from django.template.defaultfilters import slugify
 from pombola.core.logging_filters import skip_unreadable_post
 from pombola.hansard.constants import NAME_SET_INTERSECTION_MATCH
 
+import socket
+
 IN_TEST_MODE = False
 
 # Work out where we are to set up the paths correctly and load config
@@ -202,6 +204,12 @@ FILE_UPLOAD_HANDLERS = (
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.gzip.GZipMiddleware', # first in list so it is able to act last on response
+)
+
+if os.environ.get("DJANGO_DEBUG_TOOLBAR", "false").lower() == "true":
+    MIDDLEWARE_CLASSES += ("debug_toolbar.middleware.DebugToolbarMiddleware",)
+
+MIDDLEWARE_CLASSES += (
     'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -213,8 +221,6 @@ MIDDLEWARE_CLASSES = (
     'mapit.middleware.ViewExceptionMiddleware',
     'django.middleware.security.SecurityMiddleware',
 )
-if os.environ.get("DJANGO_DEBUG_TOOLBAR", "false").lower() == "true":
-    MIDDLEWARE_CLASSES += ("debug_toolbar.middleware.DebugToolbarMiddleware",)
 
 ROOT_URLCONF = 'pombola.urls'
 
@@ -655,3 +661,10 @@ CAPTCHA_FLITE_PATH = "/usr/bin/flite"
 
 GOOGLE_RECAPTCHA_SITE_KEY = os.environ.get("GOOGLE_RECAPTCHA_SITE_KEY", "")
 GOOGLE_RECAPTCHA_SECRET_KEY = os.environ.get("GOOGLE_RECAPTCHA_SECRET_KEY", "")
+
+def show_toolbar(request):
+    return os.environ.get("DJANGO_DEBUG_TOOLBAR", "false").lower() == "true"
+
+DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_TOOLBAR_CALLBACK': show_toolbar,
+}

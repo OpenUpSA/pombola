@@ -58,6 +58,12 @@ Delete the DB, media files and search index to start afresh:
 docker-compose down --volumes
 ```
 
+To enable [Django debug toolbar](https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#getting-the-code), set the `DJANGO_DEBUG_TOOLBAR` environment variable to `true`. For example, run `docker-compose` with:
+
+```
+DJANGO_DEBUG_TOOLBAR=true docker-compose up
+```
+
 Production deployment
 ---------------------
 
