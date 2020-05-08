@@ -26,6 +26,8 @@ from django.core.management import call_command
 from django.core.management.base import CommandError
 from django.test import TestCase
 
+from nose.plugins.attrib import attr
+
 
 # A context manager to suppress standard output, as suggested in:
 # http://stackoverflow.com/a/1810086/223092
@@ -46,6 +48,7 @@ def no_stdout_or_stderr():
         sys.stderr = save_stderr
 
 
+@attr(country="south_africa")
 class MergeObjectsCommandTest(TestCase):
     def setUp(self):
         self.person_a = Person.objects.create(
@@ -354,6 +357,7 @@ class MergeObjectsCommandTest(TestCase):
             Organisation.objects.get(pk=self.organisation_b.id)
 
 
+@attr(country="south_africa")
 class ScraperQAOralAnswerTest(TestCase):
     def setUp(self):
         self.question = {
