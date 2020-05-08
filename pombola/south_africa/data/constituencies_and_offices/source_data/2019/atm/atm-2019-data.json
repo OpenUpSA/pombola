@@ -1,0 +1,133 @@
+{
+  "offices": [
+    {
+      "Source Note": "ATM Constituency Data 2019",
+      "Province": "Free State", 
+      "Title": "ATM Constituency Office: Bloemfontein", 
+      "Party": "ATM",
+      "Type": "office", 
+      "Postal Address": "21 Reahola Shopping Complex, Botshabelo, 9781", 
+      "Physical Address": "21 Reahola Shopping Complex, Botshabelo, 9781", 
+      "Source URL": "https://www.pa.org.za/media_root/file_archive/ATM_Constituency_Data_2019.xlsx", 
+      "People": [
+          {
+              "Name": "Thandiswa Linnen Marawu",
+              "Position": "Constituency Contact", 
+              "Email": "tmarawu@parliament.gov.za",
+          }, 
+          {
+              "Name": "British Novas",
+              "Position": "Administrator", 
+              "Email": "novasbritish4@gmail.com",
+              "Cell": "0681524667"
+          }
+        ]
+    },
+    {
+      "Source Note": "ATM Constituency Data 2019",
+      "Province": "Eastern Cape", 
+      "Title": "ATM Constituency Office: East London", 
+      "Party": "ATM",
+      "Type": "office", 
+      "Postal Address": "No 9 King Street, Southernwood, East London, 5200", 
+      "Physical Address": "No 9 King Street, Southernwood, East London, 5200", 
+      "Source URL": "https://www.pa.org.za/media_root/file_archive/ATM_Constituency_Data_2019.xlsx", 
+      // "Tel": "0215180890",
+      // "E-mail": "info@forgood.org.za",
+      "People": [
+          {
+              // "Name": "Patricia De Lille",
+              // "Position": "Constituency Contact", 
+              // "Email": "patricidal@dpw.gov.za",
+              // "Cell": "0847772065"
+          }, 
+          {
+              // "Name": "Patricia De Lille",
+              // "Position": "Administrator", 
+              // "Email": "patricidal@dpw.gov.za",
+              // "Cell": "0847772065"
+          }, 
+        ]
+    },
+    {
+      "Source Note": "ATM Constituency Data 2019",
+      // "Province": "Western Cape", 
+      // "Title": "ATM Constituency Office: Kraaifontein", 
+      "Party": "ATM",
+      "Type": "office", 
+      // "Postal Address": "49 Station Road, Belmont Park, Kraaifontein, 7570", 
+      // "Physical Address": "49 Station Road, Belmont Park, Kraaifontein, 7570",
+      "Source URL": "https://www.pa.org.za/media_root/file_archive/ATM_Constituency_Data_2019.xlsx", 
+      // "Tel": "0215180890",
+      // "E-mail": "info@forgood.org.za",
+      "People": [
+          {
+              // "Name": "Patricia De Lille",
+              // "Position": "Constituency Contact", 
+              // "Email": "patricidal@dpw.gov.za",
+              // "Cell": "0847772065"
+          }, 
+          {
+              // "Name": "Patricia De Lille",
+              // "Position": "Administrator", 
+              // "Email": "patricidal@dpw.gov.za",
+              // "Cell": "0847772065"
+          }, 
+        ]
+    },
+    {
+      "Source Note": "ATM Constituency Data 2019",
+      // "Province": "Western Cape", 
+      // "Title": "ATM Constituency Office: Kraaifontein", 
+      "Party": "ATM",
+      "Type": "office", 
+      // "Postal Address": "49 Station Road, Belmont Park, Kraaifontein, 7570", 
+      // "Physical Address": "49 Station Road, Belmont Park, Kraaifontein, 7570",
+      "Source URL": "https://www.pa.org.za/media_root/file_archive/ATM_Constituency_Data_2019.xlsx", 
+      // "Tel": "0215180890",
+      // "E-mail": "info@forgood.org.za",
+      "People": [
+          {
+              // "Name": "Patricia De Lille",
+              // "Position": "Constituency Contact", 
+              // "Email": "patricidal@dpw.gov.za",
+              // "Cell": "0847772065"
+          }, 
+          {
+              // "Name": "Patricia De Lille",
+              // "Position": "Administrator", 
+              // "Email": "patricidal@dpw.gov.za",
+              // "Cell": "0847772065"
+          }, 
+        ]
+    },
+    {
+      "Source Note": "ATM Constituency Data 2019",
+      // "Province": "Western Cape", 
+      // "Title": "ATM Constituency Office: Kraaifontein", 
+      "Party": "ATM",
+      "Type": "office", 
+      // "Postal Address": "49 Station Road, Belmont Park, Kraaifontein, 7570", 
+      // "Physical Address": "49 Station Road, Belmont Park, Kraaifontein, 7570",
+      "Source URL": "https://www.pa.org.za/media_root/file_archive/ATM_Constituency_Data_2019.xlsx", 
+      // "Tel": "0215180890",
+      // "E-mail": "info@forgood.org.za",
+      "People": [
+          {
+              // "Name": "Patricia De Lille",
+              // "Position": "Constituency Contact", 
+              // "Email": "patricidal@dpw.gov.za",
+              // "Cell": "0847772065"
+          }, 
+          {
+              // "Name": "Patricia De Lille",
+              // "Position": "Administrator", 
+              // "Email": "patricidal@dpw.gov.za",
+              // "Cell": "0847772065"
+          }, 
+        ]
+    },
+  ],
+  "start_date": "2019-06-01", 
+  "end_date": "2019-05-31"
+}
