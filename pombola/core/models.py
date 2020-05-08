@@ -482,6 +482,30 @@ class Person(ModelBase, HasImageMixin, ScorecardMixin, IdentifierMixin):
             return self.legal_name
 
     @property
+    def first_email(self):
+        """
+        Get the first non-null email address for the person.
+        """
+        if self.email:
+            return self.email
+        contact_email = self.contacts.filter(kind__slug="email").first()
+        if contact_email:
+            return contact_email.value
+        return None
+
+    @property
+    def first_cell(self):
+        """
+        Get the first non-null cellphone number from the person's contacts.
+
+        Returns None if no cell phone numbers were found.
+        """
+        cell = self.contacts.filter(kind__slug="cell").first()
+        if cell:
+            return cell.value
+        return None
+
+    @property
     def everypolitician_uuid(self):
         return self.get_identifier('everypolitician')
 

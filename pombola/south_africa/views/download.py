@@ -56,11 +56,11 @@ def download_members_xlsx(request):
 
     def yield_people():
         for person in persons:
-            cell = person.contacts.filter(kind__slug="cell").first()
+            cell = person.first_cell
             email = person.first_email
             yield (
                 person.name,
-                cell.value if cell else "",
+                cell if cell else "",
                 email if email else "",
                 ",".join(party.name for party in person.parties()),
             )

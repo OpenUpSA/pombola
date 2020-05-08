@@ -35,8 +35,8 @@ class DownloadMPsTest(TestCase):
             name="NCOP", kind=provincial_legislature, slug="ncop",
         )
 
-        email_kind = ContactKind.objects.get_or_create(slug="email")
-        cell_kind = ContactKind.objects.get_or_create(slug="cell")
+        email_kind = ContactKind.objects.create(slug="email", name="Email")
+        cell_kind = ContactKind.objects.create(slug="cell", name="Cell")
 
         self.mp_a = Person.objects.create(
             legal_name="Jimmy Stewart", slug="jimmy-stewart", email="jimmy@steward.com"
