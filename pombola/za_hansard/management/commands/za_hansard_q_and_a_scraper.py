@@ -207,7 +207,7 @@ class Command(BaseCommand):
             'National Assembly': 'N'
         }.get(data['house']['name'])
         if not house:
-            print "Skipping {} because the house {} is not supported".format(
+            print "Skipping {} because the house {} is not supported.".format(
                 data['url'], data['house']['name'])
             return
         if data['answer_type'] not in ANSWER_TYPES:
