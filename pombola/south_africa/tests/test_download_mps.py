@@ -2,12 +2,20 @@ import datetime
 import tempfile
 
 from django.core.urlresolvers import reverse
+from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
 from django_date_extensions.fields import ApproximateDate
 from nose.plugins.attrib import attr
 
 import xlrd
-from pombola.core.models import Organisation, OrganisationKind, Person, Position
+from pombola.core.models import (
+    Organisation,
+    OrganisationKind,
+    Person,
+    Position,
+    Contact,
+    ContactKind,
+)
 
 
 @attr(country="south_africa")
@@ -37,6 +45,14 @@ class DownloadMPsTest(TestCase):
         )
         self.mpl_a = Person.objects.create(
             legal_name="Jonathan Brink", slug="jonathan-brink"
+        )
+        email_kind = ContactKind.objects.create(slug="email")
+        Contact.objects.create(
+            content_type=ContentType.objects.get_for_model(self.mpl_a),
+            object_id=self.mpl_a.id,
+            kind=email_kind,
+            value="jonathan@brink.com",
+            preferred=True,
         )
         Position.objects.create(
             person=self.mpl_a,

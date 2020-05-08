@@ -54,23 +54,14 @@ def download_members_xlsx(request):
         .prefetch_related("contacts__kind")
     )
 
-    # TODO: move to model
-    def get_person_email(person):
-        if person.email:
-            return person.email
-        contact_email = person.contacts.filter(kind__slug="email").first()
-        if contact_email:
-            return contact_email.value
-        return ""
-
     def yield_people():
         for person in persons:
             cell = person.contacts.filter(kind__slug="cell").first()
-            email = get_person_email(person)
+            email = person.first_email
             yield (
                 person.name,
                 cell.value if cell else "",
-                get_person_email(person),
+                email if email else "",
                 ",".join(party.name for party in person.parties()),
             )
 
