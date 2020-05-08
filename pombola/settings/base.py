@@ -662,7 +662,9 @@ CAPTCHA_FLITE_PATH = "/usr/bin/flite"
 GOOGLE_RECAPTCHA_SITE_KEY = os.environ.get("GOOGLE_RECAPTCHA_SITE_KEY", "")
 GOOGLE_RECAPTCHA_SECRET_KEY = os.environ.get("GOOGLE_RECAPTCHA_SECRET_KEY", "")
 
-if os.environ.get("DJANGO_DEBUG_TOOLBAR", "false").lower() == "true":
-    # Trick to get Docker internal IP for Django Debug Toolbar
-    ip = socket.gethostbyname(socket.gethostname())
-    INTERNAL_IPS = ["127.0.0.1", ip[:-1] + '1']
+def show_toolbar(request):
+    return os.environ.get("DJANGO_DEBUG_TOOLBAR", "false").lower() == "true"
+
+DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_TOOLBAR_CALLBACK': show_toolbar,
+}
