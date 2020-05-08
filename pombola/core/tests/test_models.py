@@ -258,6 +258,123 @@ class PersonGetSlugOrIdTest(TestCase):
 
 
 @attr(country="south_africa")
+class PersonFirstEmailTest(TestCase):
+    def setUp(self):
+        self.person = models.Person.objects.create(
+            legal_name = "Test Person",
+            slug       = 'test-person'
+        )
+        self.phone_kind = models.ContactKind.objects.create(
+            slug='phone', name='Phone',
+        )
+        self.cell_kind = models.ContactKind.objects.create(
+            slug='cell', name='Cell',
+        )
+        self.email_kind = models.ContactKind.objects.create(
+            slug="email", name="Email"
+        )
+    
+    def tearDown(self):
+        self.person.delete()
+
+    def test_email_none(self):
+        result = self.person.first_email
+        self.assertEqual(result, None)
+
+    def test_email_column(self):
+        self.person.email = 'test@email.com'
+        self.person.save()
+        result = self.person.first_email
+        self.assertEqual(result, 'test@email.com')
+
+    def test_email_contact(self):
+        contact = models.Contact.objects.create(
+            content_type = ContentType.objects.get_for_model(self.person),
+            object_id    = self.person.id,
+            kind         = self.email_kind,
+            value        = 'test@example.com',
+            preferred    = False,
+        )
+        result = self.person.first_email
+        self.assertEqual(result, 'test@example.com')
+
+    def test_email_column_or_contact(self):
+        self.person.email = 'test@email.com'
+        self.person.save()
+        contact = models.Contact.objects.create(
+            content_type = ContentType.objects.get_for_model(self.person),
+            object_id    = self.person.id,
+            kind         = self.email_kind,
+            value        = 'test@example.com',
+            preferred    = False,
+        )
+        result = self.person.first_email
+        self.assertEqual(result, 'test@email.com')
+
+
+@attr(country="south_africa")
+class PersonFirstContactNumberTest(TestCase):
+    def setUp(self):
+        self.person = models.Person.objects.create(
+            legal_name = "Test Person",
+            slug       = 'test-person'
+        )
+        self.phone_kind = models.ContactKind.objects.create(
+            slug='phone', name='Phone',
+        )
+        self.cell_kind = models.ContactKind.objects.create(
+            slug='cell', name='Cell',
+        )
+
+    def tearDown(self):
+        self.person.delete()
+
+    def test_get_no_contact_number(self):
+        result = self.person.first_contact_number
+        self.assertEqual(result, None)
+
+    def test_get_cell_number(self):
+        contact = models.Contact.objects.create(
+            content_type = ContentType.objects.get_for_model(self.person),
+            object_id    = self.person.id,
+            kind         = self.cell_kind,
+            value        = '078 234 2567',
+            preferred    = False,
+        )
+        result = self.person.first_contact_number
+        self.assertEqual(result, '078 234 2567')
+
+    def test_get_phone_number(self):
+        contact = models.Contact.objects.create(
+            content_type = ContentType.objects.get_for_model(self.person),
+            object_id    = self.person.id,
+            kind         = self.phone_kind,
+            value        = '021 234 2567',
+            preferred    = False,
+        )
+        result = self.person.first_contact_number
+        self.assertEqual(result, '021 234 2567')
+
+    def test_get_phone_or_cell_number(self):
+        contact = models.Contact.objects.create(
+            content_type = ContentType.objects.get_for_model(self.person),
+            object_id    = self.person.id,
+            kind         = self.cell_kind,
+            value        = '078 234 2567',
+            preferred    = False,
+        )
+        contact = models.Contact.objects.create(
+            content_type = ContentType.objects.get_for_model(self.person),
+            object_id    = self.person.id,
+            kind         = self.phone_kind,
+            value        = '021 234 2567',
+            preferred    = False,
+        )
+        result = self.person.first_contact_number
+        self.assertEqual(result, '078 234 2567')
+        
+
+@attr(country="south_africa")
 class PersonAndContactTasksTest(TestCase):
     def setUp(self):
         self.person = models.Person(
