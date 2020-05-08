@@ -20,7 +20,7 @@ services:
       - DJANGO_SECRET_KEY=not-secret-in-dev
       - ELASTICSEARCH_URL=elasticsearch:9200
       - GOOGLE_MAPS_GEOCODING_API_KEY=${GOOGLE_MAPS_GEOCODING_API_KEY}
-      - DJANGO_DEBUG_TOOLBAR=true
+      - DJANGO_DEBUG_TOOLBAR
     ports:
       - "8000:8000"
     command: bin/wait-for-deps.sh python manage.py runserver 0.0.0.0:8000
