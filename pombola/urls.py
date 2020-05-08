@@ -1,3 +1,4 @@
+import os
 import re
 
 from django.conf import settings
@@ -10,6 +11,12 @@ from django.views.static import serve
 from rest_framework import routers
 
 urlpatterns = []
+
+if os.environ.get("DJANGO_DEBUG_TOOLBAR", "false").lower() == "true":
+    import debug_toolbar
+    urlpatterns += (
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    )
 
 
 # Country app. In order to let the country app inject its own pages we list it
