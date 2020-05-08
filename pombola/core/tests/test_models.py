@@ -10,7 +10,10 @@ from slug_helpers.models import SlugRedirect
 from pombola.core import models
 from pombola.tasks.models import Task
 
+from nose.plugins.attrib import attr
 
+
+@attr(country="south_africa")
 class PositionTestCase(TestCase):
     def setUp(self):
         self.person       = models.Person.objects.create(legal_name="Bob Smith", slug="bob-smith")
@@ -91,6 +94,7 @@ class PositionTestCase(TestCase):
         self.assertFalse( pos.is_ongoing() )
 
 
+@attr(country="south_africa")
 class PositionCurrencyTest(TestCase):
 
     def setUp(self):
@@ -219,6 +223,7 @@ class PositionCurrencyTest(TestCase):
         self.assertEqual([position], list(current_positions))
 
 
+@attr(country="south_africa")
 class PersonGetSlugOrIdTest(TestCase):
     def setUp(self):
         self.person = models.Person(
@@ -252,6 +257,7 @@ class PersonGetSlugOrIdTest(TestCase):
             models.Person.objects.get_by_slug_or_id('not-in-db')
 
 
+@attr(country="south_africa")
 class PersonAndContactTasksTest(TestCase):
     def setUp(self):
         self.person = models.Person(
@@ -288,6 +294,7 @@ class PersonAndContactTasksTest(TestCase):
         )
 
 
+@attr(country="south_africa")
 class PersonNamesTest(TestCase):
 
     def setUp(self):
@@ -307,6 +314,7 @@ class PersonNamesTest(TestCase):
                          set(("John Q. Public", "John Doe", "John Smith")))
 
 
+@attr(country="south_africa")
 class PersonRedirectUniquenessTest(TestCase):
 
     def test_redirect_uniqueness_validation(self):
@@ -328,6 +336,7 @@ class PersonRedirectUniquenessTest(TestCase):
             other_person.clean_fields()
 
 
+@attr(country="south_africa")
 class PlaceRedirectUniquenessTest(TestCase):
 
     def test_redirect_uniqueness_validation(self):
@@ -355,6 +364,7 @@ class PlaceRedirectUniquenessTest(TestCase):
             other_place.clean_fields()
 
 
+@attr(country="south_africa")
 class OrganisationRedirectUniquenessTest(TestCase):
 
     def test_redirect_uniqueness_validation(self):
@@ -382,6 +392,7 @@ class OrganisationRedirectUniquenessTest(TestCase):
             other_organisation.clean_fields()
 
 
+@attr(country="south_africa")
 class PersonPlaceTest(TestCase):
 
     def setUp(self):
@@ -532,6 +543,7 @@ class PersonPlaceTest(TestCase):
                          set([self.position_a]))
 
 
+@attr(country="south_africa")
 class SummaryTest(TestCase):
 
     def setUp(self):
@@ -548,6 +560,7 @@ class SummaryTest(TestCase):
         self.assertEqual( len(self.person.summary), 0 )
 
 
+@attr(country="south_africa")
 class RelatedOrganisationTest(TestCase):
     def test_creation(self):
         """Check that it's possible to relate organisations
@@ -577,6 +590,7 @@ class RelatedOrganisationTest(TestCase):
             kind=rel_kind)
 
 
+@attr(country="south_africa")
 class NormalizeWhitespaceTest(TestCase):
     def test_normalizing_person_legal_name_whitespace(self):
         person = models.Person.objects.create(
@@ -584,6 +598,7 @@ class NormalizeWhitespaceTest(TestCase):
         self.assertEqual('Alice Smith', person.legal_name)
 
 
+@attr(country="south_africa")
 class OverlappingPositionsTests(TestCase):
 
     def test_overlaps(self):
@@ -722,6 +737,7 @@ class OverlappingPositionsTests(TestCase):
             i += 1
 
 
+@attr(country="south_africa")
 class PersonEveryPoliticianUUIDTest(TestCase):
     def setUp(self):
         self.person = models.Person.objects.create(legal_name="Bob Smith", slug="bob-smith")
