@@ -428,3 +428,28 @@ class PMGAPITests(TestCase):
         self.assertTrue(QuestionParsingError.objects.filter(error_type='number-not-found').exists())
 
         fake_sys_exit.assert_called_with(1)
+
+    @patch('pombola.za_hansard.management.commands.za_hansard_q_and_a_scraper.all_from_api')
+    def test_unsupported_house(self, fake_all_from_api):
+        question_with_invalid_house = copy.deepcopy(EXAMPLE_QUESTION)
+        question_with_invalid_house['house']['name'] = u'National Council of Provinces'
+        def api_one_question_and_answer(url):
+            if url == 'https://api.pmg.org.za/minister/':
+                yield {
+                    'questions_url': "http://api.pmg.org.za/minister/2/questions/",
+                }
+                return
+            elif url == 'https://api.pmg.org.za/member/':
+                return
+            elif url == 'http://api.pmg.org.za/minister/2/questions/':
+                yield question_with_invalid_house
+            else:
+                raise Exception("Unfaked URL '{0}'".format(url))
+        fake_all_from_api.side_effect = api_one_question_and_answer
+
+        # Run the command:
+        call_command('za_hansard_q_and_a_scraper', scrape_from_pmg=True)
+
+        # Check that no new questions or answers were created
+        self.assertEqual(Question.objects.count(), 0)
+        self.assertEqual(Answer.objects.count(), 0)
