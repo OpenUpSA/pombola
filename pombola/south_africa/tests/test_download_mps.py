@@ -108,6 +108,10 @@ class DownloadMPsTest(TestCase):
         self.mpls = [self.mpl_a]
         self.all = self.mps + self.mpls
 
+    def test_download_mps_index_page(self):
+        response = self.client.get(reverse("sa-download-members-index"))
+        self.assertIn("Download MPs in an Excel file", response.content)
+
     def test_download_all_mps(self):
         response = self.client.get(reverse("sa-download-members-xlsx"))
         xlsx_file = self.stream_xlsx_file(response)

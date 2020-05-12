@@ -273,7 +273,7 @@ urlpatterns += (
     url(
         r'^members/download/$',
         views.SADownloadMembersIndex.as_view(),
-        name='sa-download-members'
+        name='sa-download-members-index'
     ),
     url(
         r'^members/download-xlsx/$',
