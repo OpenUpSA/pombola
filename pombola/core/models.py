@@ -299,6 +299,14 @@ class Contact(ModelBase):
         Task.call_generate_tasks_on_if_possible(self.content_object)
         return []
 
+    @classmethod
+    def email_contacts(cls):
+        return cls.objects.filter(kind__slug__in=["email"])
+
+    @classmethod
+    def contact_number_contacts(cls):
+        return cls.objects.filter(kind__slug__in=["cell", "phone"])
+
     class Meta:
        ordering = ["content_type", "-preferred", "object_id", "kind"]
 
@@ -480,30 +488,6 @@ class Person(ModelBase, HasImageMixin, ScorecardMixin, IdentifierMixin):
             return alternative_names_to_use[0].alternative_name
         else:
             return self.legal_name
-
-    @property
-    def first_email(self):
-        """
-        Get the first non-null email address for the person.
-        """
-        if self.email:
-            return self.email
-        contact_email = self.contacts.filter(kind__slug="email").first()
-        if contact_email:
-            return contact_email.value
-        return None
-
-    @property
-    def first_contact_number(self):
-        """
-        Get the first contact number from the person's contacts.
-
-        Returns None if no phone numbers were found.
-        """
-        cell = self.contacts.filter(kind__slug__in=["cell", "phone"]).first()
-        if cell:
-            return cell.value
-        return None
 
     @property
     def everypolitician_uuid(self):
