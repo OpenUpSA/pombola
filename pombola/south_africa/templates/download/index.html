@@ -29,8 +29,13 @@
   <br>
 
   <div>
-    <input type="submit" value="Download" class="button">
+    <input type="submit" value="Download" class="button download-mps-link">
   </div>
 </form>
 
+{% endblock %}
+
+{% block js_end_of_body %}
+  {{ block.super }}
+  {% javascript 'mps-download-tracking' %}
 {% endblock %}
