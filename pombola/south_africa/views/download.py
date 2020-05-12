@@ -7,6 +7,10 @@ from django.views.generic import TemplateView
 import xlsx_streaming
 from pombola.core.models import Contact, Organisation, Person, Position
 
+MP_DOWNLOAD_TEMPLATE_SHEET = os.path.join(
+    os.path.dirname(os.path.realpath(__file__)), "mp-download-template.xlsx"
+)
+
 
 class SADownloadMembersIndex(TemplateView):
     template_name = "download/index.html"
@@ -24,41 +28,60 @@ class SADownloadMembersIndex(TemplateView):
         return context
 
 
-def download_members_xlsx(request):
-    house_param = request.GET.get("house", "all")
+def generate_sheet_name(house=None):
+    """
+    Generate the sheet name of the file that will be downloaded using the house.
+    """
+    if house and house != "all":
+        return house + "-members"
+    return "members-of-parliament"
 
+
+def get_organisation_query_filter_for_house(house="all"):
+    """
+    Get the query to filter the organisations by given the house.
+    """
     ncop_query = Q(organisation__kind__slug="provincial-legislature")
     na_query = Q(organisation__slug="national-assembly")
-    house_query = None
-    if house_param == "ncop":
-        house_query = ncop_query
-    elif house_param == "national-assembly":
-        house_query = na_query
+
+    if house == "ncop":
+        return ncop_query
+    elif house == "national-assembly":
+        return na_query
     else:
-        house_query = ncop_query | na_query
+        return ncop_query | na_query
 
-    # First get the currently_active positions
-    positions = Position.objects.currently_active().filter(house_query).values("id")
 
-    parties = (
+def download_members_xlsx(request):
+    house_param = request.GET.get("house", "all")
+    house_query = get_organisation_query_filter_for_house(house_param)
+
+    # Get all of the currently_active positions at the houses
+    house_positions = (
+        Position.objects.currently_active().filter(house_query).values("id")
+    )
+
+    party_positions = (
         Position.objects.currently_active()
         .filter(title__slug="member")
         .filter(organisation__kind__slug="party")
         .select_related("organisation")
     )
 
-    cell_phone_contacts = Contact.objects.filter(kind__slug__in=["cell", "phone"])
-    email_contacts = Contact.objects.filter(kind__slug__in=["email"])
+    cell_phone_contacts = Contact.contact_number_contacts()
+    email_contacts = Contact.email_contacts()
 
     # Get the persons from the positions
     persons = (
         Person.objects.filter(hidden=False)
-        .filter(position__id__in=positions)
+        .filter(position__id__in=house_positions)
         .distinct()
         .prefetch_related(
             "alternative_names",
             Prefetch(
-                "position_set", queryset=parties, to_attr="active_party_positions"
+                "position_set",
+                queryset=party_positions,
+                to_attr="active_party_positions",
             ),
             Prefetch("contacts", queryset=cell_phone_contacts, to_attr="cell_numbers"),
             Prefetch("contacts", queryset=email_contacts, to_attr="email_addresses"),
@@ -74,15 +97,7 @@ def download_members_xlsx(request):
 
     def yield_people():
         for person in persons:
-            email = (
-                person.email
-                if person.email
-                else (
-                    person.email_addresses[0].value
-                    if len(person.email_addresses) > 0
-                    else ""
-                )
-            )
+            email = get_email_address_for_person(person)
             yield (
                 person.name,
                 person.cell_numbers[0].value if len(person.cell_numbers) > 0 else "",
@@ -93,15 +108,8 @@ def download_members_xlsx(request):
                 ),
             )
 
-    with open(
-        os.path.join(
-            os.path.dirname(os.path.realpath(__file__)), "mp-download-template.xlsx"
-        ),
-        "rb",
-    ) as template:
-        stream = xlsx_streaming.stream_queryset_as_xlsx(
-            yield_people(), template, batch_size=50
-        )
+    with open(MP_DOWNLOAD_TEMPLATE_SHEET, "rb") as template:
+        stream = xlsx_streaming.stream_queryset_as_xlsx(yield_people(), template)
 
     response = StreamingHttpResponse(
         stream,
@@ -111,9 +119,3 @@ def download_members_xlsx(request):
         "Content-Disposition"
     ] = "attachment; filename=%s.xlsx" % generate_sheet_name(house_param)
     return response
-
-
-def generate_sheet_name(house=None):
-    if house and house != "all":
-        return house + "-members"
-    return "members-of-parliament"
