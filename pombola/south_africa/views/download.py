@@ -1,3 +1,5 @@
+import os
+
 from django.db.models import Prefetch, Q
 from django.http import StreamingHttpResponse
 from django.views.generic import TemplateView
@@ -91,8 +93,12 @@ def download_members_xlsx(request):
                 ),
             )
 
-    # TODO: move template to different directory?
-    with open("People.xlsx", "rb") as template:
+    with open(
+        os.path.join(
+            os.path.dirname(os.path.realpath(__file__)), "mp-download-template.xlsx"
+        ),
+        "rb",
+    ) as template:
         stream = xlsx_streaming.stream_queryset_as_xlsx(
             yield_people(), template, batch_size=50
         )
