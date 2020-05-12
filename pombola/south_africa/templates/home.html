@@ -73,7 +73,6 @@
             <div class="home__reps__heading">
                 <h2 class="home__reps__heading__title">Meet your MPs</h2>
                 <a href="{% url 'sa-members-view' %}" class="home__reps__heading__more">Show more MPs</a>
-                <a href="{% url 'sa-download-members' %}" class="home__reps__heading__more">Download MPs</a>
             </div>
             {% thumbnail featured_mp.primary_image "82x123" crop="center" as sm %}
               <img src="{{ sm.url }}" class="featured-mp__thumb" />
