@@ -9,9 +9,15 @@ from nose.plugins.attrib import attr
 import xlrd
 from django_date_extensions.fields import ApproximateDate
 from pombola.core.models import (Contact, ContactKind, Organisation,
-                                 OrganisationKind, Person, Position)
+                                 OrganisationKind, Person, Position,
+                                 PositionTitle)
 
 COLUMN_INDICES = {"name": 0, "mobile": 1, "email": 2, "parties": 3}
+
+
+def get_row_from_name(sheet, columns, name):
+    row_num = columns["names"].index(name)
+    return sheet.row_values(row_num)
 
 
 @attr(country="south_africa")
@@ -33,6 +39,7 @@ class DownloadMPsTest(TestCase):
         )
         self.da = Organisation.objects.create(name="DA", kind=party, slug="da")
         self.anc = Organisation.objects.create(name="ANC", kind=party, slug="anc")
+        self.member = PositionTitle.objects.create(name="Member", slug="member")
 
         email_kind = ContactKind.objects.create(slug="email", name="Email")
         cell_kind = ContactKind.objects.create(slug="cell", name="Cell")
@@ -41,18 +48,30 @@ class DownloadMPsTest(TestCase):
         self.mp_a = Person.objects.create(
             legal_name="Jimmy Stewart", slug="jimmy-stewart", email="jimmy@steward.com"
         )
+        # Create MP position at the National Assembly
         Position.objects.create(
             person=self.mp_a,
             organisation=self.na,
             start_date=ApproximateDate(past=True),
             end_date=ApproximateDate(future=True),
+            title=self.member,
         )
+        # MP currently active position at the DA
         Position.objects.create(
             person=self.mp_a,
             organisation=self.da,
             start_date=ApproximateDate(past=True),
             end_date=ApproximateDate(future=True),
+            title=self.member,
         )
+        # MP inactive position at the ANC
+        Position.objects.create(
+            person=self.mp_a,
+            organisation=self.anc,
+            start_date=ApproximateDate(past=True),
+            end_date=ApproximateDate(year=2009),
+        )
+        # MP contact number
         Contact.objects.create(
             content_type=ContentType.objects.get_for_model(self.mp_a),
             object_id=self.mp_a.id,
@@ -63,27 +82,18 @@ class DownloadMPsTest(TestCase):
         self.inactive_mp_a = Person.objects.create(
             legal_name="Stefan Terblanche", slug="stefan-terblanche"
         )
+        # Create an inactive position at the NA for the inactive MP
         Position.objects.create(
-            person=self.mp_a,
+            person=self.inactive_mp_a,
             organisation=self.na,
             start_date=ApproximateDate(past=True),
             end_date=ApproximateDate(year=2009),
         )
-        Position.objects.create(
-            person=self.mp_a,
-            organisation=self.da,
-            start_date=ApproximateDate(past=True),
-            end_date=ApproximateDate(year=2009),
-        )
-        Position.objects.create(
-            person=self.mp_a,
-            organisation=self.anc,
-            start_date=ApproximateDate(past=True),
-            end_date=ApproximateDate(year=2009),
-        )
+        # Create an MPL member
         self.mpl_a = Person.objects.create(
             legal_name="Jonathan Brink", slug="jonathan-brink"
         )
+        # MPL email address
         Contact.objects.create(
             content_type=ContentType.objects.get_for_model(self.mpl_a),
             object_id=self.mpl_a.id,
@@ -91,6 +101,7 @@ class DownloadMPsTest(TestCase):
             value="jonathan@brink.com",
             preferred=True,
         )
+        # MPL contact number
         Contact.objects.create(
             content_type=ContentType.objects.get_for_model(self.mpl_a),
             object_id=self.mpl_a.id,
@@ -98,6 +109,7 @@ class DownloadMPsTest(TestCase):
             value="0123456789",
             preferred=True,
         )
+        # MPL position at the NCOP
         Position.objects.create(
             person=self.mpl_a,
             organisation=self.ncop,
@@ -126,18 +138,19 @@ class DownloadMPsTest(TestCase):
         # Test values
         columns = self.get_columns(sheet)
 
-        for person in self.all:
-            self.assertIn(person.name, columns["names"])
-            # Get the row
-            row_num = columns["names"].index(person.name)
-            row = sheet.row_values(row_num)
-            if person.first_email:
-                self.assertEqual(person.first_email, row[COLUMN_INDICES["email"]])
-            if person.first_contact_number:
-                self.assertEqual(
-                    person.first_contact_number, row[COLUMN_INDICES["mobile"]]
-                )
-            self.assertEqual(",".join(person.parties()), row[COLUMN_INDICES["parties"]])
+        # MP
+        self.assertIn(self.mp_a.name, columns["names"])
+        mp_a_row = get_row_from_name(sheet, columns, self.mp_a.name)
+        self.assertEqual("jimmy@steward.com", mp_a_row[COLUMN_INDICES["email"]])
+        self.assertEqual("987654321", mp_a_row[COLUMN_INDICES["mobile"]])
+        self.assertEqual(self.da.name, mp_a_row[COLUMN_INDICES["parties"]])
+
+        # MPL
+        self.assertIn(self.mpl_a.name, columns["names"])
+        mpl_a_row = get_row_from_name(sheet, columns, self.mpl_a.name)
+        self.assertEqual("jonathan@brink.com", mpl_a_row[COLUMN_INDICES["email"]])
+        self.assertEqual("0123456789", mpl_a_row[COLUMN_INDICES["mobile"]])
+        self.assertEqual("", mpl_a_row[COLUMN_INDICES["parties"]])
 
         # Sheet should not contain inactive members
         self.assertNotIn(self.inactive_mp_a.name, columns["names"])
