@@ -8,14 +8,8 @@ from nose.plugins.attrib import attr
 
 import xlrd
 from django_date_extensions.fields import ApproximateDate
-from pombola.core.models import (
-    Contact,
-    ContactKind,
-    Organisation,
-    OrganisationKind,
-    Person,
-    Position,
-)
+from pombola.core.models import (Contact, ContactKind, Organisation,
+                                 OrganisationKind, Person, Position)
 
 COLUMN_INDICES = {"name": 0, "mobile": 1, "email": 2, "parties": 3}
 

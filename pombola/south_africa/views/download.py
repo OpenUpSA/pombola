@@ -1,10 +1,9 @@
-import xlsx_streaming
-from django.db.models import Q
+from django.db.models import Prefetch, Q
 from django.http import StreamingHttpResponse
 from django.views.generic import TemplateView
 
-from django.db.models import Prefetch
-from pombola.core.models import Person, Position, Organisation, Position, Contact
+import xlsx_streaming
+from pombola.core.models import Contact, Organisation, Person, Position
 
 
 class SADownloadMembersIndex(TemplateView):
