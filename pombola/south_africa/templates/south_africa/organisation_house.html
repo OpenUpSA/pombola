@@ -30,7 +30,7 @@ the organisation detail page.
     <input type="hidden" name="section" value="persons">
     <input type="submit" value="Search" class="button">
     <a href="{% url 'organisation_people' slug=object.slug %}">Or browse an A-Z list of all members</a>
-    <a href="{% url 'sa-download-members-xlsx' %}?house={{ object.slug }}">Or download an Excel sheet of all members</a>
+    <a class="download-mps-link" href="{% url 'sa-download-members-xlsx' %}?house={{ object.slug }}">Or download an Excel sheet of all members</a>
   </form>
 
 
@@ -50,3 +50,10 @@ the organisation detail page.
   </div>
 
 {% endblock content %}
+
+{% load pipeline %}
+
+{% block js_end_of_body %}
+  {{ block.super }}
+  {% javascript 'mps-download-tracking' %}
+{% endblock %}
