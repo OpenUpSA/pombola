@@ -3,7 +3,8 @@ from django.db.models import Q
 from django.http import StreamingHttpResponse
 from django.views.generic import TemplateView
 
-from pombola.core.models import Person, Position
+from django.db.models import Prefetch
+from pombola.core.models import Person, Position, Organisation, Position, Contact
 
 
 class SADownloadMembersIndex(TemplateView):
@@ -38,23 +39,57 @@ def download_members_xlsx(request):
     # First get the currently_active positions
     positions = Position.objects.currently_active().filter(house_query).values("id")
 
+    parties = (
+        Position.objects.currently_active()
+        .filter(title__slug="member")
+        .filter(organisation__kind__slug="party")
+        .select_related("organisation")
+    )
+
+    cell_phone_contacts = Contact.objects.filter(kind__slug__in=["cell", "phone"])
+    email_contacts = Contact.objects.filter(kind__slug__in=["email"])
+
     # Get the persons from the positions
     persons = (
         Person.objects.filter(hidden=False)
         .filter(position__id__in=positions)
         .distinct()
-        .prefetch_related("contacts__kind")
+        .prefetch_related(
+            "alternative_names",
+            Prefetch(
+                "position_set", queryset=parties, to_attr="active_party_positions"
+            ),
+            Prefetch("contacts", queryset=cell_phone_contacts, to_attr="cell_numbers"),
+            Prefetch("contacts", queryset=email_contacts, to_attr="email_addresses"),
+        )
     )
+
+    def get_email_address_for_person(person):
+        if person.email:
+            return person.email
+        if len(person.email_addresses) > 0:
+            return person.email_addresses[0].value
+        return ""
 
     def yield_people():
         for person in persons:
-            cell = person.first_contact_number
-            email = person.first_email
+            email = (
+                person.email
+                if person.email
+                else (
+                    person.email_addresses[0].value
+                    if len(person.email_addresses) > 0
+                    else ""
+                )
+            )
             yield (
                 person.name,
-                cell if cell else "",
-                email if email else "",
-                ",".join(party.name for party in person.parties()),
+                person.cell_numbers[0].value if len(person.cell_numbers) > 0 else "",
+                get_email_address_for_person(person),
+                ",".join(
+                    position.organisation.name
+                    for position in person.active_party_positions
+                ),
             )
 
     # TODO: move template to different directory?
