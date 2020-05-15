@@ -43,6 +43,8 @@ from pombola.core.views import PersonSpeakerMappingsMixin
 from instances.models import Instance
 from pombola.interests_register.models import Category, Release, Entry, EntryLineItem
 
+from pombola.za_hansard.models import Source
+
 from nose.plugins.attrib import attr
 from pygeolib import GeocoderError
 
@@ -1566,6 +1568,19 @@ class SAHansardIndexViewTest(TestCase):
                 ],
             },
         ])
+        section_name = "Proceedings of the National Assembly (2012/2/16)"
+        section = Section.objects.get(heading=section_name)
+        source = Source.objects.create(
+            title='Test source',
+            document_name='NA: Unrevised hansard',
+            document_number='1234',
+            date=date(2013, 2, 18),
+            url='https://api.pmg.org.za/committee-meeting/29935/',
+            house='NA',
+            language='English',
+            is404=False,
+            sayit_section=section
+        )
 
     def test_index_page(self):
         c = Client()
@@ -1577,8 +1592,20 @@ class SAHansardIndexViewTest(TestCase):
 
         # Check that we can see the headings of sections containing speeches only
         self.assertContains(response, section_name)
-        self.assertContains(response, '<a href="/%s">%s</a>' % (section.get_path, section_name), html=True)
+        self.assertContains(response, '<a href="/hansard/%s">%s</a>' % (section.id, section_name), html=True)
         self.assertNotContains(response, "Empty section")
+
+    def test_hansard_redirect(self):
+        client = Client()
+        section_name = "Proceedings of Foo"
+        section = Section.objects.get(heading=section_name)
+        response = client.get('/hansard/%s' % section.id)
+        self.assertRedirects(
+            response,
+            reverse('speeches:section-view', args=[section.get_path]),
+            fetch_redirect_response=False
+        )
+
 
 @attr(country='south_africa')
 class SACommitteeIndexViewTest(WebTest):
@@ -1643,8 +1670,7 @@ class SACommitteeIndexViewTest(WebTest):
         self.assertContains(response, "16 November 2012")
         self.assertContains(response, self.fish_section_heading)
         self.assertContains(response,
-                            '<a href="/%s">%s</a>' % (section.get_path,
-                                                      self.fish_section_heading),
+                            '<a href="/hansard/%s">%s</a>' % (section.id, self.fish_section_heading),
                             html=True)
         self.assertNotContains(response, "Empty section")
 
