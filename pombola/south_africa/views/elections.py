@@ -311,9 +311,15 @@ class SAElectionProvinceCandidatesView(TemplateView):
             # Get the candidates data for that list
             candidate_list = election_list.position_set.select_related('title').all()
 
+            def get_candidate_ranking(candidate):
+                match = re.match('\d+', candidate.title.name)
+                if match:
+                    return int(match.group())
+                return ''
+
             candidates = sorted(
                 candidate_list,
-                key=lambda x: int(re.match('\d+', x.title.name).group())
+                key=get_candidate_ranking
             )
 
             context['province_election_lists'].append({
