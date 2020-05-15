@@ -170,6 +170,10 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         self.new_errors_count = 0
+        self.verbose = False
+
+        if options['verbosity'] > 1:
+            self.verbose = True
 
         if options['scrape_from_pmg']:
             self.get_qa_from_pmg_api(*args, **options)
@@ -200,8 +204,9 @@ class Command(BaseCommand):
 
     def handle_api_question_and_reply(self, data):
         if 'source_file' not in data:
-            print "Skipping {0} due to a missing source_file".format(
-                data['url'])
+            if self.verbose:
+                print "Skipping {0} due to a missing source_file".format(
+                    data['url'])
             return
         house = {
             'National Assembly': 'N'
@@ -211,8 +216,9 @@ class Command(BaseCommand):
                 data['url'], data['house']['name'])
             return
         if data['answer_type'] not in ANSWER_TYPES:
-            print "Skipping {} because the answer type {} is not supported".format(
-                data['url'], data['answer_type'])
+            if self.verbose:
+                print "Skipping {} because the answer type {} is not supported".format(
+                    data['url'], data['answer_type'])
             return
         answer_type = ANSWER_TYPES[data['answer_type']]
         askedby_name = ''
@@ -298,7 +304,8 @@ class Command(BaseCommand):
             return
         try:
             question = Question.objects.get(**existing_kwargs)
-            print "Found the existing question for", data['url']
+            if self.verbose:
+                print "Found the existing question for", data['url']
             # It might well be useful to add the corresponding PMG API
             # URL details (e.g. using their PA link to get the PA person)
             question.pmg_api_url = data['url']
@@ -306,7 +313,8 @@ class Command(BaseCommand):
             question.pmg_api_source_file_url = data['source_file']['url']
             question.save()
         except Question.DoesNotExist:
-            print "No existing question found; creating a new one for", data['url']
+            if self.verbose:
+                print "No existing question found; creating a new one for", data['url']
             # In which case, create it:
             question = Question.objects.create(
                 # FIXME: I think this is actually the date of the
@@ -343,7 +351,8 @@ class Command(BaseCommand):
         # If there's already an answer, assume it's OK, except record
         # the PMG API URL if it hasn't got one:
         if question.answer:
-            print "  That question already had an answer, updating it with API links"
+            if self.verbose:
+                print "  That question already had an answer, updating it with API links"
             answer = question.answer
             existing_answer_pmg_api_url = answer.pmg_api_url
             if existing_answer_pmg_api_url:
@@ -377,12 +386,14 @@ class Command(BaseCommand):
         # will just have created (or already existed).
         existing_answer_qs = Answer.objects.filter(**existing_kwargs)
         if existing_answer_qs.exists():
-            print "  Found an existing answer for that question; linking them"
+            if self.verbose:
+                print "  Found an existing answer for that question; linking them"
             question.answer = existing_answer_qs.get()
             question.answer.pmg_api_url = data['url']
             question.answer.save()
         else:
-            print "  Creating a new answer for that question."
+            if self.verbose:
+                print "  Creating a new answer for that question."
             # Otherwise create the answer from the API data:
             document_name, dot_extension = os.path.splitext(
                 data['source_file']['file_path'])
@@ -431,7 +442,8 @@ class Command(BaseCommand):
         answers = Answer.objects.exclude(url=None)
         unprocessed = answers.exclude(processed_code=Answer.PROCESSED_OK)
 
-        self.stdout.write("Processing %d records" % len(unprocessed))
+        if self.verbose:
+            self.stdout.write("Processing %d records" % len(unprocessed))
 
         for row in unprocessed:
             filename = os.path.join(
@@ -439,9 +451,11 @@ class Command(BaseCommand):
                 '%d.%s' % (row.id, row.type))
 
             if os.path.exists(filename):
-                self.stdout.write('-')
+                if self.verbose:
+                    self.stdout.write('-')
             else:
-                self.stdout.write('.')
+                if self.verbose:
+                    self.stdout.write('.')
 
                 try:
                     request = urllib2.Request(
@@ -479,9 +493,10 @@ class Command(BaseCommand):
                 row.text = text
                 row.save()
             except subprocess.CalledProcessError:
-                self.stdout.write('ERROR in antiword processing %d\n' % row.id)
+                self.stderr.write(
+                    'ERROR in antiword processing %d\n' % row.id)
             except UnicodeDecodeError:
-                self.stdout.write(
+                self.stderr.write(
                     'ERROR in antiword processing (UnicodeDecodeError) %d\n' % row.id)
 
     def match_answers(self, *args, **options):
@@ -500,10 +515,11 @@ class Command(BaseCommand):
             elif answer.oral_number:
                 query = oral_q
             else:
-                sys.stdout.write(
-                    "Answer {0} {1} has no written or oral number - SKIPPING\n"
-                    .format(answer.id, answer.document_name)
-                )
+                if self.verbose:
+                    sys.stdout.write(
+                        "Answer {0} {1} has no written or oral number - SKIPPING\n"
+                        .format(answer.id, answer.document_name)
+                    )
                 continue
 
             try:
@@ -513,10 +529,11 @@ class Command(BaseCommand):
                     house=answer.house,
                 )
             except Question.DoesNotExist:
-                sys.stdout.write(
-                    "No question found for {0} {1}\n"
-                    .format(answer.id, answer.document_name)
-                )
+                if self.verbose:
+                    sys.stdout.write(
+                        "No question found for {0} {1}\n"
+                        .format(answer.id, answer.document_name)
+                    )
                 continue
 
             question.answer = answer
@@ -533,7 +550,8 @@ class Command(BaseCommand):
                 "%d.json" % question.id)
             with open(filename, 'w') as outfile:
                 outfile.write(question_as_json)
-            self.stdout.write('Wrote question %s\n' % filename)
+            if self.verbose:
+                self.stdout.write('Wrote question %s\n' % filename)
 
             if (question.answer and
                     question.answer.processed_code == Answer.PROCESSED_OK):
@@ -545,7 +563,8 @@ class Command(BaseCommand):
                     "%d.json" % question.answer.id)
                 with open(filename, 'w') as outfile:
                     outfile.write(answer_as_json)
-                self.stdout.write('Wrote answer %s\n' % filename)
+                if self.verbose:
+                    self.stdout.write('Wrote answer %s\n' % filename)
 
     def question_to_json(self, question):
         question_as_json_data = self.question_to_json_data(question)
@@ -737,11 +756,12 @@ class Command(BaseCommand):
             question.last_sayit_import = datetime.now().date()
             question.save()
 
-        self.stdout.write('Questions:\n')
-        self.stdout.write(str(section_ids))
-        self.stdout.write('\n')
-        self.stdout.write('Questions: Imported %d / %d sections\n' %
-                          (len(section_ids), len(questions)))
+        if self.verbose:
+            self.stdout.write('Questions:\n')
+            self.stdout.write(str(section_ids))
+            self.stdout.write('\n')
+            self.stdout.write('Questions: Imported %d / %d sections\n' %
+                            (len(section_ids), len(questions)))
 
         answers = (Answer.objects
                    .filter(sayit_section=None)  # not already imported
@@ -757,7 +777,8 @@ class Command(BaseCommand):
                 continue
 
             importer = ImportJson(instance=instance)
-            self.stdout.write("TRYING %s\n" % path)
+            if self.verbose:
+                self.stdout.write("TRYING %s\n" % path)
             try:
                 # limit to 2 speeches per section to avoid duplicating speeches
                 # added prior to the addition of the answer sayit_section field
@@ -792,12 +813,13 @@ class Command(BaseCommand):
             answer.last_sayit_import = datetime.now().date()
             answer.save()
 
-        self.stdout.write('\n')
-        self.stdout.write('Answers:\n')
-        self.stdout.write(str(section_ids))
-        self.stdout.write('\n')
-        self.stdout.write('Answers: Imported %d / %d sections\n' %
-                          (len(section_ids), len(answers)))
+        if self.verbose:
+            self.stdout.write('\n')
+            self.stdout.write('Answers:\n')
+            self.stdout.write(str(section_ids))
+            self.stdout.write('\n')
+            self.stdout.write('Answers: Imported %d / %d sections\n' %
+                            (len(section_ids), len(answers)))
 
     def correct_existing_sayit_import(self, *args, **options):
         from pombola.slug_helpers.models import SlugRedirect
@@ -855,8 +877,9 @@ class Command(BaseCommand):
 
                     section.delete()
                 else:
-                    self.stdout.write('Correcting %s to %s' %
-                                      (minister, new_minister))
+                    if self.verbose:
+                        self.stdout.write('Correcting %s to %s' %
+                                        (minister, new_minister))
 
         # check that answer dates and source urls are correct (previously,
         # answer dates were set to those of their question and source_urls
@@ -872,12 +895,13 @@ class Command(BaseCommand):
                 speech_start_date = answer.date_published
 
                 if speech.start_date != speech_start_date:
-                    self.stdout.write(
-                        'Correcting %s: %s to %s' % (
-                            answer.document_name,
-                            speech.start_date,
-                            speech_start_date
-                        ))
+                    if self.verbose:
+                        self.stdout.write(
+                            'Correcting %s: %s to %s' % (
+                                answer.document_name,
+                                speech.start_date,
+                                speech_start_date
+                            ))
 
                     if options['commit']:
                         speech.start_date = speech_start_date
@@ -885,12 +909,13 @@ class Command(BaseCommand):
                         speech.save()
 
                 if speech.source_url != answer.url:
-                    self.stdout.write(
-                        'Correcting %s: %s to %s' % (
-                            answer.document_name,
-                            speech.source_url,
-                            answer.url
-                        ))
+                    if self.verbose:
+                        self.stdout.write(
+                            'Correcting %s: %s to %s' % (
+                                answer.document_name,
+                                speech.source_url,
+                                answer.url
+                            ))
 
                     if options['commit']:
                         speech.source_url = answer.url
@@ -898,11 +923,12 @@ class Command(BaseCommand):
 
             except MultipleObjectsReturned:
                 # only one answer should be returned - requires investigation
-                self.stdout.write(
-                    'MultipleObjectsReturned %s - id %s' % (
-                        answer.document_name,
-                        answer.id
-                    ))
+                if self.verbose:
+                    self.stdout.write(
+                        'MultipleObjectsReturned %s - id %s' % (
+                            answer.document_name,
+                            answer.id
+                        ))
 
         # check that question source_urls are correct
         questions = Question.objects.exclude(sayit_section=None)
@@ -914,12 +940,13 @@ class Command(BaseCommand):
                     tags__name='question')
 
                 if speech.source_url != question.paper.source_url:
-                    self.stdout.write(
-                        'Correcting question %s: %s to %s' % (
-                            question.identifier,
-                            speech.source_url,
-                            question.paper.source_url
-                        ))
+                    if self.verbose:
+                        self.stdout.write(
+                            'Correcting question %s: %s to %s' % (
+                                question.identifier,
+                                speech.source_url,
+                                question.paper.source_url
+                            ))
 
                     if options['commit']:
                         speech.source_url = question.paper.source_url
@@ -927,14 +954,16 @@ class Command(BaseCommand):
 
             except MultipleObjectsReturned:
                 # only one answer should be returned - requires investigation
-                self.stdout.write(
-                    'MultipleObjectsReturned question %s - id %s' % (
-                        question.identifier,
-                        question.id
-                    ))
+                if self.verbose:
+                    self.stdout.write(
+                        'MultipleObjectsReturned question %s - id %s' % (
+                            question.identifier,
+                            question.id
+                        ))
 
         if not options['commit']:
-            self.stdout.write('Corrections not saved. Use --commit.')
+            if self.verbose:
+                self.stdout.write('Corrections not saved. Use --commit.')
 
     def correct_minister_title(self, minister_title):
         corrections = {
