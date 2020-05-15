@@ -4,15 +4,8 @@ from nose.plugins.attrib import attr
 
 from django_date_extensions.fields import ApproximateDate, ApproximateDateField
 from info.models import InfoPage
-from pombola.core.models import (
-    Organisation,
-    OrganisationKind,
-    Person,
-    Place,
-    PlaceKind,
-    Position,
-    PositionTitle,
-)
+from pombola.core.models import (Organisation, OrganisationKind, Person, Place,
+                                 PlaceKind, Position, PositionTitle)
 
 
 @attr(country="south_africa")
@@ -79,3 +72,20 @@ class ProvincialElectionViewTest(TestCase):
         response = self.client.get(url)
         self.assertIn(self.candidate_a.name, response.content)
         self.assertIn(self.candidate_b.name, response.content)
+
+    def test_sa_election_province_party_candidates_view(self):
+        url = reverse(
+            "sa-election-candidates-provincial-party",
+            args=[2019, self.province_name, "da"],
+        )
+        response = self.client.get(url)
+        self.assertIn(self.candidate_a.name, response.content)
+        self.assertNotIn(self.candidate_b.name, response.content)
+
+        url = reverse(
+            "sa-election-candidates-provincial-party",
+            args=[2019, self.province_name, "anc"],
+        )
+        response = self.client.get(url)
+        self.assertIn(self.candidate_b.name, response.content)
+        self.assertNotIn(self.candidate_a.name, response.content)
