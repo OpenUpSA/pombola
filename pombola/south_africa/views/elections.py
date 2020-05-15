@@ -6,6 +6,12 @@ from django.shortcuts import get_object_or_404
 
 from pombola.core import models
 
+def get_candidate_ranking(candidate):
+    match = re.match('\d+', candidate.title.name)
+    if match:
+        return int(match.group())
+    return ''
+
 
 class SAElectionOverviewMixin(TemplateView):
     election_type = ''
@@ -222,7 +228,7 @@ class SAElectionPartyCandidatesView(TemplateView):
 
         context['party_election_list'] = sorted(
             candidates,
-            key=lambda x: int(re.match('\d+', x.title.name).group())
+            key=get_candidate_ranking
         )
 
         # Grab a list of provinces in which the party is actually running
@@ -310,12 +316,6 @@ class SAElectionProvinceCandidatesView(TemplateView):
 
             # Get the candidates data for that list
             candidate_list = election_list.position_set.select_related('title').all()
-
-            def get_candidate_ranking(candidate):
-                match = re.match('\d+', candidate.title.name)
-                if match:
-                    return int(match.group())
-                return ''
 
             candidates = sorted(
                 candidate_list,
