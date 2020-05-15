@@ -4,12 +4,19 @@ from nose.plugins.attrib import attr
 
 from django_date_extensions.fields import ApproximateDate, ApproximateDateField
 from info.models import InfoPage
-from pombola.core.models import (Organisation, OrganisationKind, Person, Place,
-                                 PlaceKind, Position, PositionTitle)
+from pombola.core.models import (
+    Organisation,
+    OrganisationKind,
+    Person,
+    Place,
+    PlaceKind,
+    Position,
+    PositionTitle,
+)
 
 
 @attr(country="south_africa")
-class ElectionViewsTest(TestCase):
+class ProvincialElectionViewTest(TestCase):
     def setUp(self):
         self.province_name = "north-west"
         provincial_list_slug = "-provincial-%s-election-list-2019" % self.province_name
@@ -62,9 +69,7 @@ class ElectionViewsTest(TestCase):
             organisation=self.election_list_anc,
             start_date=ApproximateDate(2016),
             end_date=ApproximateDate(2020),
-            title=PositionTitle.objects.create(
-                name="2nd Candidate", slug="2nd-candidate"
-            ),
+            title=PositionTitle.objects.create(name="Member", slug="member"),
         )
 
     def test_sa_election_province_candidates_view(self):
