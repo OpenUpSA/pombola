@@ -209,7 +209,8 @@ class Command(BaseCommand):
                     data['url'])
             return
         house = {
-            'National Assembly': 'N'
+            'National Assembly': 'N',
+            'National Council of Provinces': 'C'
         }.get(data['house']['name'])
         if not house:
             print "Skipping {} because the house {} is not supported.".format(
