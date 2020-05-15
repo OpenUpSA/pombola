@@ -1580,7 +1580,8 @@ class SAHansardIndexViewTest(TestCase):
         response = client.get('/hansard/%s' % section.id)
         self.assertRedirects(
             response,
-            reverse('speeches:section-view', args=[section.get_path])
+            reverse('speeches:section-view', args=[section.get_path]),
+            fetch_redirect_response=False
         )
 
 
