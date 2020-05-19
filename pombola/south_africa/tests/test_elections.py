@@ -4,8 +4,10 @@ from nose.plugins.attrib import attr
 
 from django_date_extensions.fields import ApproximateDate, ApproximateDateField
 from info.models import InfoPage
+from mock import Mock
 from pombola.core.models import (Organisation, OrganisationKind, Person, Place,
                                  PlaceKind, Position, PositionTitle)
+from pombola.south_africa.views.elections import get_candidate_ranking_sort_key
 
 
 @attr(country="south_africa")
@@ -89,3 +91,22 @@ class ProvincialElectionViewTest(TestCase):
         response = self.client.get(url)
         self.assertIn(self.candidate_b.name, response.content)
         self.assertNotIn(self.candidate_a.name, response.content)
+
+
+@attr(country="south_africa")
+class TestGetCandidateRankingSortKey(TestCase):
+    def test_get_ranking_from_number(self):
+        candidate_a = Mock()
+        candidate_a.title.name = "1st Candidate"
+        candidate_b = Mock()
+        candidate_b.title.name = "2st Candidate"
+        self.assertEqual(1, get_candidate_ranking_sort_key(candidate_a))
+        self.assertEqual(2, get_candidate_ranking_sort_key(candidate_b))
+
+    def test_get_ranking_when_no_number_present(self):
+        candidate_a = Mock()
+        candidate_a.title.name = "Member"
+        candidate_b = Mock()
+        candidate_b.title.name = ""
+        self.assertEqual("", get_candidate_ranking_sort_key(candidate_a))
+        self.assertEqual("", get_candidate_ranking_sort_key(candidate_b))
