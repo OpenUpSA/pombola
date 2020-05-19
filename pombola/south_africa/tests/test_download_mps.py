@@ -8,9 +8,15 @@ from nose.plugins.attrib import attr
 
 import xlrd
 from django_date_extensions.fields import ApproximateDate
-from pombola.core.models import (Contact, ContactKind, Organisation,
-                                 OrganisationKind, Person, Position,
-                                 PositionTitle)
+from pombola.core.models import (
+    Contact,
+    ContactKind,
+    Organisation,
+    OrganisationKind,
+    Person,
+    Position,
+    PositionTitle,
+)
 
 COLUMN_INDICES = {"name": 0, "mobile": 1, "email": 2, "parties": 3}
 
@@ -119,10 +125,6 @@ class DownloadMPsTest(TestCase):
         self.mps = [self.mp_a]
         self.mpls = [self.mpl_a]
         self.all = self.mps + self.mpls
-
-    def test_download_mps_index_page(self):
-        response = self.client.get(reverse("sa-download-members-index"))
-        self.assertIn("Download MPs in an Excel file", response.content)
 
     def test_download_all_mps(self):
         response = self.client.get(reverse("sa-download-members-xlsx"))

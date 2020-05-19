@@ -271,11 +271,6 @@ urlpatterns += (
 # Download MP contact list
 urlpatterns += (
     url(
-        r'^members/download/$',
-        views.SADownloadMembersIndex.as_view(),
-        name='sa-download-members-index'
-    ),
-    url(
         r'^members/download-xlsx/$',
         views.download_members_xlsx,
         name='sa-download-members-xlsx'

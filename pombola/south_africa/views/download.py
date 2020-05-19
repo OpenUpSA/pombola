@@ -12,22 +12,6 @@ MP_DOWNLOAD_TEMPLATE_SHEET = os.path.join(
 )
 
 
-class SADownloadMembersIndex(TemplateView):
-    template_name = "download/index.html"
-
-    def get_context_data(self, **kwargs):
-        context = {}
-
-        context["selected_house"] = "all"
-        context["houses"] = [
-            {"name": "All", "slug": "all"},
-            {"name": "NCOP", "slug": "ncop"},
-            {"name": "National Assembly", "slug": "national-assembly"},
-        ]
-
-        return context
-
-
 def generate_sheet_name(house=None):
     """
     Generate the sheet name of the file that will be downloaded using the house.
