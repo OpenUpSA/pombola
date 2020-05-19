@@ -79,7 +79,7 @@ def download_members_xlsx(request):
             return person.email_addresses[0].value
         return ""
 
-    def yield_people():
+    def person_row_generator():
         for person in persons:
             email = get_email_address_for_person(person)
             yield (
@@ -93,7 +93,7 @@ def download_members_xlsx(request):
             )
 
     with open(MP_DOWNLOAD_TEMPLATE_SHEET, "rb") as template:
-        stream = xlsx_streaming.stream_queryset_as_xlsx(yield_people(), template)
+        stream = xlsx_streaming.stream_queryset_as_xlsx(person_row_generator(), template)
 
     response = StreamingHttpResponse(
         stream,
