@@ -1,7 +1,7 @@
 import os
 
 from django.db.models import Prefetch, Q
-from django.http import StreamingHttpResponse
+from django.http import Http404, StreamingHttpResponse
 from django.views.generic import TemplateView
 
 import xlsx_streaming
@@ -10,6 +10,8 @@ from pombola.core.models import Contact, Organisation, Person, Position
 MP_DOWNLOAD_TEMPLATE_SHEET = os.path.join(
     os.path.dirname(os.path.realpath(__file__)), "mp-download-template.xlsx"
 )
+
+SUPPORTED_HOUSES = ["all", "ncop", "national-assembly"]
 
 
 def generate_sheet_name(house=None):
@@ -36,9 +38,10 @@ def get_organisation_query_filter_for_house(house="all"):
         return ncop_query | na_query
 
 
-def download_members_xlsx(request):
-    house_param = request.GET.get("house", "all")
-    house_query = get_organisation_query_filter_for_house(house_param)
+def download_members_xlsx(request, slug):
+    if slug not in SUPPORTED_HOUSES:
+        raise Http404
+    house_query = get_organisation_query_filter_for_house(slug)
 
     # Get all of the currently_active positions at the houses
     house_positions = (
@@ -93,7 +96,9 @@ def download_members_xlsx(request):
             )
 
     with open(MP_DOWNLOAD_TEMPLATE_SHEET, "rb") as template:
-        stream = xlsx_streaming.stream_queryset_as_xlsx(person_row_generator(), template)
+        stream = xlsx_streaming.stream_queryset_as_xlsx(
+            person_row_generator(), template
+        )
 
     response = StreamingHttpResponse(
         stream,
@@ -101,5 +106,5 @@ def download_members_xlsx(request):
     )
     response[
         "Content-Disposition"
-    ] = "attachment; filename=%s.xlsx" % generate_sheet_name(house_param)
+    ] = "attachment; filename=%s.xlsx" % generate_sheet_name(slug)
     return response

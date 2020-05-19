@@ -51,6 +51,15 @@ organisation_patterns.append(
         )
     )
 
+# Add organisation download MP contact list
+organisation_patterns.insert(
+    0,
+    url(r'^(?P<slug>[-\w]+)/people/download-xlsx/$',
+        views.download_members_xlsx,
+        name='sa-download-members-xlsx'
+    )
+)
+
 # Add view for people with names starting with a prefix
 organisation_patterns.insert(
     0,
@@ -265,15 +274,6 @@ urlpatterns += (
         r'^interests/source/$',
         views.SAMembersInterestsSource.as_view(),
         name='sa-interests-source'
-    ),
-)
-
-# Download MP contact list
-urlpatterns += (
-    url(
-        r'^members/download-xlsx/$',
-        views.download_members_xlsx,
-        name='sa-download-members-xlsx'
     ),
 )
 

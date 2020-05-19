@@ -8,15 +8,9 @@ from nose.plugins.attrib import attr
 
 import xlrd
 from django_date_extensions.fields import ApproximateDate
-from pombola.core.models import (
-    Contact,
-    ContactKind,
-    Organisation,
-    OrganisationKind,
-    Person,
-    Position,
-    PositionTitle,
-)
+from pombola.core.models import (Contact, ContactKind, Organisation,
+                                 OrganisationKind, Person, Position,
+                                 PositionTitle)
 
 COLUMN_INDICES = {"name": 0, "mobile": 1, "email": 2, "parties": 3}
 
@@ -127,7 +121,7 @@ class DownloadMPsTest(TestCase):
         self.all = self.mps + self.mpls
 
     def test_download_all_mps(self):
-        response = self.client.get(reverse("sa-download-members-xlsx"))
+        response = self.client.get(reverse("sa-download-members-xlsx", args=("all",)))
         xlsx_file = self.stream_xlsx_file(response)
         book = xlrd.open_workbook(filename=xlsx_file.name)
         self.assertEquals(1, book.nsheets)
@@ -159,7 +153,7 @@ class DownloadMPsTest(TestCase):
 
     def test_download_mps(self):
         response = self.client.get(
-            reverse("sa-download-members-xlsx") + "?house=national-assembly"
+            reverse("sa-download-members-xlsx", args=("national-assembly",))
         )
         xlsx_file = self.stream_xlsx_file(response)
         book = xlrd.open_workbook(filename=xlsx_file.name)
@@ -172,7 +166,7 @@ class DownloadMPsTest(TestCase):
             self.assertNotIn(person.name, columns["names"])
 
     def test_download_mpls(self):
-        response = self.client.get(reverse("sa-download-members-xlsx") + "?house=ncop")
+        response = self.client.get(reverse("sa-download-members-xlsx", args=("ncop",)))
         xlsx_file = self.stream_xlsx_file(response)
         book = xlrd.open_workbook(filename=xlsx_file.name)
         sheet = self.sheet = book.sheet_by_index(0)
