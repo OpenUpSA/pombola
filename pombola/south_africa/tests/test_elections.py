@@ -27,26 +27,15 @@ class ProvincialElectionViewTest(TestCase):
         self.party_da = Organisation.objects.create(
             slug="da", name="DA", kind=self.party_kind
         )
-        self.party_anc = Organisation.objects.create(
-            slug="anc", name="ANC", kind=self.party_kind
-        )
 
         self.election_list_da = Organisation.objects.create(
             slug=(self.party_da.slug + provincial_list_slug),
             name="DA Election List",
             kind=self.election_list_kind,
         )
-        self.election_list_anc = Organisation.objects.create(
-            slug=(self.party_anc.slug + provincial_list_slug),
-            name="ANC Election List",
-            kind=self.election_list_kind,
-        )
 
         self.candidate_a = Person.objects.create(
             legal_name="Tom Jones", slug="tom-jones"
-        )
-        self.candidate_b = Person.objects.create(
-            legal_name="Sarah Jones", slug="sarah-jones"
         )
 
         position = Position.objects.create(
@@ -59,21 +48,12 @@ class ProvincialElectionViewTest(TestCase):
             ),
         )
 
-        position = Position.objects.create(
-            person=self.candidate_b,
-            organisation=self.election_list_anc,
-            start_date=ApproximateDate(2016),
-            end_date=ApproximateDate(2020),
-            title=PositionTitle.objects.create(name="Member", slug="member"),
-        )
-
     def test_sa_election_province_candidates_view(self):
         url = reverse(
             "sa-election-candidates-provincial", args=[2019, self.province_name]
         )
         response = self.client.get(url)
         self.assertIn(self.candidate_a.name, response.content)
-        self.assertIn(self.candidate_b.name, response.content)
 
     def test_sa_election_province_party_candidates_view(self):
         url = reverse(
@@ -82,15 +62,6 @@ class ProvincialElectionViewTest(TestCase):
         )
         response = self.client.get(url)
         self.assertIn(self.candidate_a.name, response.content)
-        self.assertNotIn(self.candidate_b.name, response.content)
-
-        url = reverse(
-            "sa-election-candidates-provincial-party",
-            args=[2019, self.province_name, "anc"],
-        )
-        response = self.client.get(url)
-        self.assertIn(self.candidate_b.name, response.content)
-        self.assertNotIn(self.candidate_a.name, response.content)
 
 
 @attr(country="south_africa")
