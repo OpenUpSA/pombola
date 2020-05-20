@@ -27,15 +27,12 @@ class DownloadMPsTest(TestCase):
         parliament = OrganisationKind.objects.create(
             name="Parliament", slug="parliament",
         )
-        provincial_legislature = OrganisationKind.objects.create(
-            name="Provincial Legislature", slug="provincial-legislature",
-        )
 
         self.na = Organisation.objects.create(
             name="National Assembly", kind=parliament, slug="national-assembly",
         )
         self.ncop = Organisation.objects.create(
-            name="NCOP", kind=provincial_legislature, slug="ncop",
+            name="NCOP", kind=parliament, slug="ncop",
         )
         self.da = Organisation.objects.create(name="DA", kind=party, slug="da")
         self.anc = Organisation.objects.create(name="ANC", kind=party, slug="anc")
@@ -120,37 +117,6 @@ class DownloadMPsTest(TestCase):
         self.mpls = [self.mpl_a]
         self.all = self.mps + self.mpls
 
-    def test_download_all_mps(self):
-        response = self.client.get(reverse("sa-download-members-xlsx", args=("all",)))
-        xlsx_file = self.stream_xlsx_file(response)
-        book = xlrd.open_workbook(filename=xlsx_file.name)
-        self.assertEquals(1, book.nsheets)
-
-        sheet = book.sheet_by_index(0)
-
-        # Test headings
-        self.check_headings(sheet)
-
-        # Test values
-        columns = self.get_columns(sheet)
-
-        # MP
-        self.assertIn(self.mp_a.name, columns["names"])
-        mp_a_row = get_row_from_name(sheet, columns, self.mp_a.name)
-        self.assertEqual("jimmy@steward.com", mp_a_row[COLUMN_INDICES["email"]])
-        self.assertEqual("987654321", mp_a_row[COLUMN_INDICES["mobile"]])
-        self.assertEqual(self.da.name, mp_a_row[COLUMN_INDICES["parties"]])
-
-        # MPL
-        self.assertIn(self.mpl_a.name, columns["names"])
-        mpl_a_row = get_row_from_name(sheet, columns, self.mpl_a.name)
-        self.assertEqual("jonathan@brink.com", mpl_a_row[COLUMN_INDICES["email"]])
-        self.assertEqual("0123456789", mpl_a_row[COLUMN_INDICES["mobile"]])
-        self.assertEqual("", mpl_a_row[COLUMN_INDICES["parties"]])
-
-        # Sheet should not contain inactive members
-        self.assertNotIn(self.inactive_mp_a.name, columns["names"])
-
     def test_download_mps(self):
         response = self.client.get(
             reverse("sa-download-members-xlsx", args=("national-assembly",))
@@ -162,8 +128,17 @@ class DownloadMPsTest(TestCase):
         columns = self.get_columns(sheet)
         for person in self.mps:
             self.assertIn(person.name, columns["names"])
+            mp_row = get_row_from_name(sheet, columns, person.name)
+            self.assertEqual("jimmy@steward.com", mp_row[COLUMN_INDICES["email"]])
+            self.assertEqual("987654321", mp_row[COLUMN_INDICES["mobile"]])
+            self.assertEqual(self.da.name, mp_row[COLUMN_INDICES["parties"]])
+
+        # Sheet should not contain MPLs
         for person in self.mpls:
             self.assertNotIn(person.name, columns["names"])
+
+        # Sheet should not contain inactive members
+        self.assertNotIn(self.inactive_mp_a.name, columns["names"])
 
     def test_download_mpls(self):
         response = self.client.get(reverse("sa-download-members-xlsx", args=("ncop",)))

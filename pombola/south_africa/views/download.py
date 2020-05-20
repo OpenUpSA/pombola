@@ -2,6 +2,7 @@ import os
 
 from django.db.models import Prefetch, Q
 from django.http import Http404, StreamingHttpResponse
+from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView
 
 import xlsx_streaming
@@ -11,41 +12,15 @@ MP_DOWNLOAD_TEMPLATE_SHEET = os.path.join(
     os.path.dirname(os.path.realpath(__file__)), "mp-download-template.xlsx"
 )
 
-SUPPORTED_HOUSES = ["all", "ncop", "national-assembly"]
-
-
-def generate_sheet_name(house=None):
-    """
-    Generate the sheet name of the file that will be downloaded using the house.
-    """
-    if house and house != "all":
-        return house + "-members"
-    return "members-of-parliament"
-
-
-def get_organisation_query_filter_for_house(house="all"):
-    """
-    Get the query to filter the organisations by given the house.
-    """
-    ncop_query = Q(organisation__kind__slug="provincial-legislature")
-    na_query = Q(organisation__slug="national-assembly")
-
-    if house == "ncop":
-        return ncop_query
-    elif house == "national-assembly":
-        return na_query
-    else:
-        return ncop_query | na_query
-
 
 def download_members_xlsx(request, slug):
-    if slug not in SUPPORTED_HOUSES:
-        raise Http404
-    house_query = get_organisation_query_filter_for_house(slug)
+    organisation = get_object_or_404(Organisation, slug=slug)
 
-    # Get all of the currently_active positions at the houses
-    house_positions = (
-        Position.objects.currently_active().filter(house_query).values("id")
+    # Get all of the currently_active positions at the organisation
+    organisation_positions = (
+        Position.objects.currently_active()
+        .filter(organisation=organisation)
+        .values("id")
     )
 
     party_positions = (
@@ -61,7 +36,7 @@ def download_members_xlsx(request, slug):
     # Get the persons from the positions
     persons = (
         Person.objects.filter(hidden=False)
-        .filter(position__id__in=house_positions)
+        .filter(position__id__in=organisation_positions)
         .distinct()
         .prefetch_related(
             "alternative_names",
@@ -104,7 +79,7 @@ def download_members_xlsx(request, slug):
         stream,
         content_type="application/vnd.xlsxformats-officedocument.spreadsheetml.sheet",
     )
-    response[
-        "Content-Disposition"
-    ] = "attachment; filename=%s.xlsx" % generate_sheet_name(slug)
+    response["Content-Disposition"] = "attachment; filename=%s.xlsx" % (
+        "%s-members" % slug
+    )
     return response
