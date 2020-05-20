@@ -72,10 +72,11 @@ TEMPLATES = [
     }
 ]
 
-ADMINS = ((
-    os.environ.get("ERRORS_NAME", "Pombola Developers"),
-    os.environ.get("ERRORS_EMAIL", "developers@example.com"),
-),)
+if os.environ.get("ERRORS_EMAIL"):
+    ADMINS = ((
+        os.environ.get("ERRORS_NAME", "Pombola Developers"),
+        os.environ.get("ERRORS_EMAIL"),
+    ),)
 
 SLUGGABLE_SLUGIFY_FUNCTION = slugify
 
