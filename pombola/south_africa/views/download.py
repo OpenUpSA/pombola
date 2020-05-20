@@ -13,6 +13,14 @@ MP_DOWNLOAD_TEMPLATE_SHEET = os.path.join(
 )
 
 
+def get_email_address_for_person(person):
+    if person.email:
+        return person.email
+    if len(person.email_addresses) > 0:
+        return person.email_addresses[0].value
+    return ""
+
+
 def download_members_xlsx(request, slug):
     organisation = get_object_or_404(Organisation, slug=slug)
 
@@ -49,13 +57,6 @@ def download_members_xlsx(request, slug):
             Prefetch("contacts", queryset=email_contacts, to_attr="email_addresses"),
         )
     )
-
-    def get_email_address_for_person(person):
-        if person.email:
-            return person.email
-        if len(person.email_addresses) > 0:
-            return person.email_addresses[0].value
-        return ""
 
     def person_row_generator():
         for person in persons:

@@ -3,6 +3,7 @@ import tempfile
 
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
+from django.db.models import Prefetch, Q
 from django.test import TestCase
 from nose.plugins.attrib import attr
 
@@ -11,6 +12,7 @@ from django_date_extensions.fields import ApproximateDate
 from pombola.core.models import (Contact, ContactKind, Organisation,
                                  OrganisationKind, Person, Position,
                                  PositionTitle)
+from pombola.south_africa.views.download import get_email_address_for_person
 
 COLUMN_INDICES = {"name": 0, "mobile": 1, "email": 2, "parties": 3}
 
@@ -172,3 +174,53 @@ class DownloadMPsTest(TestCase):
             "emails": sheet.col_values(COLUMN_INDICES["email"]),
             "parties": sheet.col_values(COLUMN_INDICES["parties"]),
         }
+
+
+@attr(country="south_africa")
+class GetEmailAddressForPersonTest(TestCase):
+    def get_persons_with_email_addresses(self):
+        return (
+            Person.objects.distinct()
+            .prefetch_related(
+                Prefetch(
+                    "contacts",
+                    queryset=Contact.email_contacts(),
+                    to_attr="email_addresses",
+                ),
+            )
+            .all()
+        )
+
+    def test_person_with_email_in_email_field(self):
+        Person.objects.all().delete()
+        person = Person.objects.create(
+            legal_name="Jimmy Stewart", slug="jimmy-stewart", email="jimmy@steward.com"
+        )
+        person_with_email_addresses = self.get_persons_with_email_addresses()[0]
+        self.assertEqual(
+            "jimmy@steward.com",
+            get_email_address_for_person(person_with_email_addresses),
+        )
+
+    def test_person_with_no_email_addresses(self):
+        Person.objects.all().delete()
+        person = Person.objects.create(legal_name="Jimmy Stewart", slug="jimmy-stewart")
+        person_with_email_addresses = self.get_persons_with_email_addresses()[0]
+        self.assertEqual("", get_email_address_for_person(person_with_email_addresses))
+
+    def test_person_with_email_contact(self):
+        Person.objects.all().delete()
+        person = Person.objects.create(legal_name="Jimmy Stewart", slug="jimmy-stewart")
+        email_kind = ContactKind.objects.create(slug="email", name="Email")
+        Contact.objects.create(
+            content_type=ContentType.objects.get_for_model(person),
+            object_id=person.id,
+            kind=email_kind,
+            value="jimmy@steward.com",
+            preferred=True,
+        )
+        person_with_email_addresses = self.get_persons_with_email_addresses()[0]
+        self.assertEqual(
+            "jimmy@steward.com",
+            get_email_address_for_person(person_with_email_addresses),
+        )
