@@ -72,10 +72,11 @@ TEMPLATES = [
     }
 ]
 
-ADMINS = ((
-    os.environ.get("ERRORS_NAME", "Pombola Developers"),
-    os.environ.get("ERRORS_EMAIL", "developers@example.com"),
-),)
+if os.environ.get("ERRORS_EMAIL"):
+    ADMINS = ((
+        os.environ.get("ERRORS_NAME", "Pombola Developers"),
+        os.environ.get("ERRORS_EMAIL"),
+    ),)
 
 SLUGGABLE_SLUGIFY_FUNCTION = slugify
 
@@ -668,3 +669,16 @@ def show_toolbar(request):
 DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': show_toolbar,
 }
+
+# Sentry
+if os.environ.get("SENTRY_DSN"):
+    import sentry_sdk
+    from sentry_sdk.integrations.django import DjangoIntegration
+
+    sentry_sdk.init(
+        dsn=os.environ.get("SENTRY_DSN"),
+        integrations=[DjangoIntegration()],
+
+        # Associate users to errors
+        send_default_pii=True
+    )

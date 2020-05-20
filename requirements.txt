@@ -181,4 +181,5 @@ zipstream==1.1.4
 # Reading Excel files for contast list download test
 xlrd==1.2.0
 
-
+# Sentry
+sentry-sdk==0.14.4

@@ -64,7 +64,7 @@ class LatLonDetailBaseView(BaseDetailView):
     party_slugs_that_have_logos = set((
         'acdp', 'adcp', 'al-jama-ah', 'anc', 'apc', 'azapo', 'cope', 'da', 'ff', 
         'good', 'id', 'ifp', 'mf', 'nfp', 'pac', 'sacp', 'ucdp', 'udm', 
-        'agang', 'aic', 'eff'
+        'agang', 'aic', 'eff', 'atm'
     ))
 
     def get_object(self):

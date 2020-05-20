@@ -14,6 +14,7 @@ from haystack.inputs import AutoQuery
 
 from pombola.core import models
 from pombola.core.views import PersonSpeakerMappingsMixin
+from pombola.za_hansard.models import Source
 
 from slug_helpers.views import SlugRedirect
 
@@ -40,15 +41,23 @@ class SASpeechesIndex(NamespaceMixin, TemplateView):
     template_name = 'south_africa/hansard_index.html'
     top_section_name = 'Hansard'
     sections_to_show = 25
-    section_parent_field = 'parent__parent__parent__parent'
+
+    def get_section_filter(self):
+        # Get the hansard sections using the ZAHansard Source model.
+        section_ids = Source.objects.values('sayit_section_id')
+        return {
+            'id__in': section_ids,
+            # exclude sections without subsections
+            'children__speech__id__isnull': False,
+            # and with subsections that have no speeches
+            'children__id__isnull': False
+        }
+
 
     def get_context_data(self, **kwargs):
         context = super(SASpeechesIndex, self).get_context_data(**kwargs)
         self.page = self.request.GET.get('page')
 
-        # Get the top level section, or 404
-        top_section = get_object_or_404(
-            Section, heading=self.top_section_name, parent=None)
         context['show_lateness_warning'] = (self.top_section_name == 'Hansard')
 
         # As we know that the hansard section structure is
@@ -62,15 +71,14 @@ class SASpeechesIndex(NamespaceMixin, TemplateView):
         # FIXME ideally we'd have start_date for sections rather than
         # having to get MAX('start_date') from the speeches table
 
-        # exclude sections without subsections and
-        # with subsections that have no speeches
-        section_filter = {
-            self.section_parent_field: top_section,
-            'children__speech__id__isnull': False,
-            'children__id__isnull': False
-        }
+        # Use the ZAHansard Source objects to find all of the hansards' 
+        # top-level sections
 
-        # get a list of all the section headings
+        section_filter = self.get_section_filter()
+
+        # Select distinct parent sections headings 
+        # (in the case of committee meetings, multiple sections might have the 
+        # same heading)
         all_parent_section_headings = Section \
             .objects \
             .filter(**section_filter) \
@@ -87,7 +95,7 @@ class SASpeechesIndex(NamespaceMixin, TemplateView):
             parent_section_headings = paginator.page(1)
         except EmptyPage:
             parent_section_headings = paginator.page(paginator.num_pages)
-
+        
         # get the sections for the current page in date order
         headings = list(section['heading'] for section in parent_section_headings)
         section_filter['heading__in'] = headings
@@ -104,27 +112,43 @@ class SASpeechesIndex(NamespaceMixin, TemplateView):
         debate_sections = Section \
             .objects \
             .filter(parent_id__in=parent_ids, speech__id__isnull=False) \
-            .annotate(start_order=Min('speech__id'), speech_start_date=Max('speech__start_date'), speech_count=Count('speech__id')) \
+            .annotate(
+                start_order=Min('speech__id'), 
+                speech_start_date=Max('speech__start_date'), 
+                speech_count=Count('speech__id')) \
             .exclude(heading='') \
+            .select_related(
+                'parent__slug', 'parent__heading'
+                ) \
             .order_by('-speech_start_date', 'parent__heading', 'start_order')
-
+        
         context['entries'] = debate_sections
         context['page_obj'] = parent_section_headings
+        context['top_section_name'] = self.top_section_name
         return context
 
 
 class SAHansardIndex(SASpeechesIndex):
     template_name = 'south_africa/hansard_index.html'
     top_section_name = 'Hansard'
-    section_parent_field = 'parent__parent__parent__parent'
     sections_to_show = 15
 
 
 class SACommitteeIndex(SASpeechesIndex):
     template_name = 'south_africa/hansard_index.html'
     top_section_name = 'Committee Minutes'
-    section_parent_field = 'parent__parent'
     sections_to_show = 25
+
+    def get_section_filter(self):
+        top_section = get_object_or_404(
+            Section, heading=self.top_section_name, parent=None)
+        return {
+            'parent__parent': top_section,
+            # exclude sections without subsections
+            'children__speech__id__isnull': False,
+            # and with subsections that have no speeches
+            'children__id__isnull': False
+        }
 
 
 def questions_section_sort_key(section):
@@ -311,10 +335,9 @@ class OldSpeechRedirect(RedirectView):
             raise Http404
 
 
-class OldSectionRedirect(RedirectView):
-    """Redirects from an old section URL to the current one"""
-
-    permanent = True
+class SectionRedirect(RedirectView):
+    """Redirects from an section URL with an ID to one with the full slug."""
+    permanent = False
 
     def get_redirect_url(self, *args, **kwargs):
         try:

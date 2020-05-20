@@ -161,6 +161,14 @@ urlpatterns += (
     url(r'^captcha/', include('captcha.urls')),
 )
 
+# URL to check that the Sentry integration is working
+def trigger_error(request):
+    division_by_zero = 1 / 0
+
+urlpatterns += (
+    url(r'^sentry-error/', trigger_error),
+)
+
 # For South Africa, we need SayIt to catch any otherwise unmatched
 # URLs, so this has to come last:
 if settings.COUNTRY_APP and settings.COUNTRY_APP == 'south_africa':

@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 
 from pombola.south_africa.views import (
-    OldSectionRedirect, OldSpeechRedirect,
+    SectionRedirect, OldSpeechRedirect,
     SASpeechView, SASectionView,
     SAHansardIndex, SACommitteeIndex, SAQuestionIndex,
     SASpeakerRedirectView)
@@ -22,9 +22,9 @@ from pombola.south_africa.views import (
 #  /hansard/928
 
 urlpatterns = [
-    url(r'^committee/(?P<pk>\d+)$', OldSectionRedirect.as_view()),
-    url(r'^question/(?P<pk>\d+)$', OldSectionRedirect.as_view()),
-    url(r'^hansard/(?P<pk>\d+)$', OldSectionRedirect.as_view()),
+    url(r'^committee/(?P<pk>\d+)$', SectionRedirect.as_view()),
+    url(r'^question/(?P<pk>\d+)$', SectionRedirect.as_view()),
+    url(r'^hansard/(?P<pk>\d+)$', SectionRedirect.as_view(), name='hansard-view'),
 
     url(r'^committee/speech/(?P<pk>\d+)$', OldSpeechRedirect.as_view()),
     url(r'^question/speech/(?P<pk>\d+)$', OldSpeechRedirect.as_view()),
