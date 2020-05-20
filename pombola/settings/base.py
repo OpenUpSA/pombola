@@ -671,7 +671,7 @@ DEBUG_TOOLBAR_CONFIG = {
 }
 
 # Sentry
-if os.environ.get("SENTRY_DSN", None):
+if os.environ.get("SENTRY_DSN"):
     import sentry_sdk
     from sentry_sdk.integrations.django import DjangoIntegration
 
@@ -679,7 +679,6 @@ if os.environ.get("SENTRY_DSN", None):
         dsn=os.environ.get("SENTRY_DSN"),
         integrations=[DjangoIntegration()],
 
-        # If you wish to associate users to errors (assuming you are using
-        # django.contrib.auth) you may enable sending PII data.
+        # Associate users to errors
         send_default_pii=True
     )
