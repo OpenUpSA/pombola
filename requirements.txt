@@ -173,3 +173,7 @@ everypolitician-popolo==0.0.11
 
 # Captcha
 django-simple-captcha==0.5.12
+
+# Sentry
+
+sentry-sdk==0.14.4
