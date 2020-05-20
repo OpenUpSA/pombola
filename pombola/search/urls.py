@@ -7,13 +7,10 @@ from .views import (
     SearchBaseView,
     )
 
-def trigger_error(request):
-    division_by_zero = 1 / 0
 
 urlpatterns = [
     # Haystack and other searches
     url(r'^autocomplete/', autocomplete, name="autocomplete"),
-    url(r'^sentry-error/', trigger_error),
 
     url(r'^$',
         SearchBaseView.as_view(),
