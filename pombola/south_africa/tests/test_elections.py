@@ -6,8 +6,15 @@ from nose.plugins.attrib import attr
 from django_date_extensions.fields import ApproximateDate, ApproximateDateField
 from info.models import InfoPage
 from mock import Mock
-from pombola.core.models import (Organisation, OrganisationKind, Person, Place,
-                                 PlaceKind, Position, PositionTitle)
+from pombola.core.models import (
+    Organisation,
+    OrganisationKind,
+    Person,
+    Place,
+    PlaceKind,
+    Position,
+    PositionTitle,
+)
 from pombola.south_africa.views.elections import get_candidate_ranking_sort_key
 
 
@@ -68,29 +75,11 @@ class ProvincialElectionViewTest(TestCase):
 @attr(country="south_africa")
 class TestGetCandidateRankingSortKey(TestCase):
     def setUp(self):
-        self.province_name = "north-west"
-        provincial_list_slug = "-provincial-%s-election-list-2019" % self.province_name
-        self.election_list_kind = OrganisationKind.objects.create(
-            name="Election List", slug="election-list",
-        )
-        self.party_kind = OrganisationKind.objects.create(name="Party", slug="party",)
-        self.party_da = Organisation.objects.create(
-            slug="da", name="DA", kind=self.party_kind
-        )
-
-        self.election_list_da = Organisation.objects.create(
-            slug=(self.party_da.slug + provincial_list_slug),
-            name="DA Election List",
-            kind=self.election_list_kind,
-        )
-        self.candidate = Person.objects.create(legal_name="Tom Jones", slug="tom-jones")
+        self.candidate = Person(legal_name="Tom Jones", slug="tom-jones")
 
     def create_position_with_title(self, title):
-        return Position.objects.create(
+        return Position(
             person=self.candidate,
-            organisation=self.election_list_da,
-            start_date=ApproximateDate(2016),
-            end_date=ApproximateDate(2020),
             title=PositionTitle.objects.create(name=title, slug=slugify(title)),
         )
 
