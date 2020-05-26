@@ -208,9 +208,11 @@ class GetEmailAddressForPersonTest(TestCase):
         person_with_email_addresses = self.get_persons_with_email_addresses()[0]
         self.assertEqual("", get_email_address_for_person(person_with_email_addresses))
 
-    def test_person_with_email_contact(self):
+    def test_person_with_multiple_email_addresses(self):
         Person.objects.all().delete()
-        person = Person.objects.create(legal_name="Jimmy Stewart", slug="jimmy-stewart")
+        person = Person.objects.create(
+            legal_name="Jimmy Stewart", slug="jimmy-stewart", email="jimmy@gmail.com"
+        )
         email_kind = ContactKind.objects.create(slug="email", name="Email")
         Contact.objects.create(
             content_type=ContentType.objects.get_for_model(person),
@@ -219,8 +221,17 @@ class GetEmailAddressForPersonTest(TestCase):
             value="jimmy@steward.com",
             preferred=True,
         )
-        person_with_email_addresses = self.get_persons_with_email_addresses()[0]
-        self.assertEqual(
-            "jimmy@steward.com",
-            get_email_address_for_person(person_with_email_addresses),
+        Contact.objects.create(
+            content_type=ContentType.objects.get_for_model(person),
+            object_id=person.id,
+            kind=email_kind,
+            value="jimmy@hotmail.com",
+            preferred=True,
         )
+        person_with_email_addresses = self.get_persons_with_email_addresses()[0]
+        email_addresses = ["jimmy@gmail.com", "jimmy@steward.com", "jimmy@hotmail.com"]
+        for email_address in email_addresses:
+            self.assertIn(
+                email_address,
+                get_email_address_for_person(person_with_email_addresses),
+            )
