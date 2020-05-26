@@ -9,12 +9,20 @@ from nose.plugins.attrib import attr
 
 import xlrd
 from django_date_extensions.fields import ApproximateDate
-from pombola.core.models import (Contact, ContactKind, Organisation,
-                                 OrganisationKind, Person, Position,
-                                 PositionTitle)
+from pombola.core.models import (
+    Contact,
+    ContactKind,
+    Organisation,
+    OrganisationKind,
+    Person,
+    Position,
+    PositionTitle,
+)
 from pombola.south_africa.views.download import (
-    get_active_persons_for_organisation, get_email_address_for_person,
-    get_queryset_for_members_download)
+    get_active_persons_for_organisation,
+    get_email_address_for_person,
+    get_queryset_for_members_download,
+)
 
 COLUMN_INDICES = {"name": 0, "mobile": 1, "email": 2, "parties": 3}
 
@@ -45,56 +53,21 @@ class DownloadMembersTest(TestCase):
 @attr(country="south_africa")
 class GetQuerysetForMembersDownloadTest(DownloadMembersTest):
     def test_get_persons_for_national_assembly(self):
-        self.mp_a = Person.objects.create(
+        self.mp = Person.objects.create(
             legal_name="Jimmy Stewart", slug="jimmy-stewart", email="jimmy@steward.com"
         )
         # Create MP position at the National Assembly
         Position.objects.create(
-            person=self.mp_a,
+            person=self.mp,
             organisation=self.na,
             start_date=ApproximateDate(past=True),
             end_date=ApproximateDate(future=True),
             title=self.member,
         )
-        # MP currently active position at the DA
-        Position.objects.create(
-            person=self.mp_a,
-            organisation=self.da,
-            start_date=ApproximateDate(past=True),
-            end_date=ApproximateDate(future=True),
-            title=self.member,
-        )
-        # MP inactive position at the ANC
-        Position.objects.create(
-            person=self.mp_a,
-            organisation=self.anc,
-            start_date=ApproximateDate(past=True),
-            end_date=ApproximateDate(year=2009),
-        )
-        # MP contact number
-        Contact.objects.create(
-            content_type=ContentType.objects.get_for_model(self.mp_a),
-            object_id=self.mp_a.id,
-            kind=self.phone_kind,
-            value="987654321",
-            preferred=True,
-        )
-        # Create an inactive MP
-        self.inactive_mp_a = Person.objects.create(
-            legal_name="Stefan Terblanche", slug="stefan-terblanche"
-        )
-        # Create an inactive position at the NA for the inactive MP
-        Position.objects.create(
-            person=self.inactive_mp_a,
-            organisation=self.na,
-            start_date=ApproximateDate(past=True),
-            end_date=ApproximateDate(year=2009),
-        )
-        self.mps = [self.mp_a]
 
         result = get_queryset_for_members_download(self.na)
         self.assertEqual(1, len(result))
-        self.assertIn(self.mp_a, result)
+        self.assertIn(self.mp, result)
 
         # Check if the prefetched attributes are included
         self.assertTrue(hasattr(result[0], "cell_numbers"))
@@ -105,13 +78,33 @@ class GetQuerysetForMembersDownloadTest(DownloadMembersTest):
 
 @attr(country="south_africa")
 class GetActivePersonsForOrganisationTest(DownloadMembersTest):
+    def test_get_inactive_persons_for_national_assembly(self):
+        """
+        No inactive people should be returned.
+        """
+        # Create an inactive MP
+        self.inactive_mp = Person.objects.create(
+            legal_name="Stefan Terblanche", slug="stefan-terblanche"
+        )
+        # Create an inactive position at the NA for the inactive MP
+        Position.objects.create(
+            person=self.inactive_mp,
+            organisation=self.na,
+            start_date=ApproximateDate(past=True),
+            end_date=ApproximateDate(year=2009),
+        )
+
+        result = get_active_persons_for_organisation(self.na)
+        self.assertEqual(0, len(result))
+        self.assertNotIn(self.inactive_mp, result)
+
     def test_get_persons_for_national_assembly(self):
-        self.mp_a = Person.objects.create(
+        self.mp = Person.objects.create(
             legal_name="Jimmy Stewart", slug="jimmy-stewart", email="jimmy@steward.com"
         )
         # Create MP position at the National Assembly
         Position.objects.create(
-            person=self.mp_a,
+            person=self.mp,
             organisation=self.na,
             start_date=ApproximateDate(past=True),
             end_date=ApproximateDate(future=True),
@@ -119,44 +112,24 @@ class GetActivePersonsForOrganisationTest(DownloadMembersTest):
         )
         # MP currently active position at the DA
         Position.objects.create(
-            person=self.mp_a,
+            person=self.mp,
             organisation=self.da,
             start_date=ApproximateDate(past=True),
             end_date=ApproximateDate(future=True),
             title=self.member,
         )
-        # MP inactive position at the ANC
-        Position.objects.create(
-            person=self.mp_a,
-            organisation=self.anc,
-            start_date=ApproximateDate(past=True),
-            end_date=ApproximateDate(year=2009),
-        )
         # MP contact number
         Contact.objects.create(
-            content_type=ContentType.objects.get_for_model(self.mp_a),
-            object_id=self.mp_a.id,
+            content_type=ContentType.objects.get_for_model(self.mp),
+            object_id=self.mp.id,
             kind=self.phone_kind,
             value="987654321",
             preferred=True,
         )
-        # Create an inactive MP
-        self.inactive_mp_a = Person.objects.create(
-            legal_name="Stefan Terblanche", slug="stefan-terblanche"
-        )
-        # Create an inactive position at the NA for the inactive MP
-        Position.objects.create(
-            person=self.inactive_mp_a,
-            organisation=self.na,
-            start_date=ApproximateDate(past=True),
-            end_date=ApproximateDate(year=2009),
-        )
-        self.mps = [self.mp_a]
 
         result = get_active_persons_for_organisation(self.na)
         self.assertEqual(1, len(result))
-        self.assertIn(self.mp_a, result)
-        self.assertNotIn(self.inactive_mp_a, result)
+        self.assertIn(self.mp, result)
 
 
 @attr(country="south_africa")
