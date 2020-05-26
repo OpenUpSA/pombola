@@ -50,14 +50,13 @@ def get_active_persons_for_organisation(organisation):
 
     party_positions = get_active_positions_at_parties()
 
-    cell_phone_contacts = Contact.contact_number_contacts()
-    email_contacts = Contact.email_contacts()
-
     # Get the persons from the positions
     return (
         Person.objects.filter(hidden=False)
         .filter(position__id__in=organisation_positions)
         .distinct()
+        .prefetch_contact_numbers()
+        .prefetch_email_addresses()
         .prefetch_related(
             "alternative_names",
             Prefetch(
@@ -65,8 +64,6 @@ def get_active_persons_for_organisation(organisation):
                 queryset=party_positions,
                 to_attr="active_party_positions",
             ),
-            Prefetch("contacts", queryset=cell_phone_contacts, to_attr="cell_numbers"),
-            Prefetch("contacts", queryset=email_contacts, to_attr="email_addresses"),
         )
     )
 
