@@ -35,11 +35,14 @@ def get_row_from_name(sheet, columns, name):
 class DownloadMembersTest(TestCase):
     def setUp(self):
         party = OrganisationKind.objects.create(name="Party", slug="party",)
-        parliament = OrganisationKind.objects.create(
+        self.parliament = OrganisationKind.objects.create(
             name="Parliament", slug="parliament",
         )
         self.na = Organisation.objects.create(
-            name="National Assembly", kind=parliament, slug="national-assembly",
+            name="National Assembly", kind=self.parliament, slug="national-assembly",
+        )
+        self.ncop = Organisation.objects.create(
+            name="NCOP", kind=self.parliament, slug="ncop",
         )
         self.da = Organisation.objects.create(name="DA", kind=party, slug="da")
         self.anc = Organisation.objects.create(name="ANC", kind=party, slug="anc")
@@ -126,40 +129,33 @@ class GetActivePersonsForOrganisationTest(DownloadMembersTest):
             value="987654321",
             preferred=True,
         )
+        # Create active NCOP member
+        self.mpl = Person.objects.create(legal_name="John Steyn", slug="john-steyn")
+        Position.objects.create(
+            person=self.mp,
+            organisation=self.ncop,
+            start_date=ApproximateDate(past=True),
+            end_date=ApproximateDate(future=True),
+            title=self.member,
+        )
 
         result = get_active_persons_for_organisation(self.na)
         self.assertEqual(1, len(result))
         self.assertIn(self.mp, result)
+        self.assertNotIn(self.mpl, result)
 
 
 @attr(country="south_africa")
-class DownloadMPsTest(TestCase):
+class DownloadMPsTest(DownloadMembersTest):
     def setUp(self):
-        party = OrganisationKind.objects.create(name="Party", slug="party",)
-        parliament = OrganisationKind.objects.create(
-            name="Parliament", slug="parliament",
-        )
+        super(DownloadMPsTest, self).setUp()
 
-        self.na = Organisation.objects.create(
-            name="National Assembly", kind=parliament, slug="national-assembly",
-        )
-        self.ncop = Organisation.objects.create(
-            name="NCOP", kind=parliament, slug="ncop",
-        )
-        self.da = Organisation.objects.create(name="DA", kind=party, slug="da")
-        self.anc = Organisation.objects.create(name="ANC", kind=party, slug="anc")
-        self.member = PositionTitle.objects.create(name="Member", slug="member")
-
-        email_kind = ContactKind.objects.create(slug="email", name="Email")
-        cell_kind = ContactKind.objects.create(slug="cell", name="Cell")
-        phone_kind = ContactKind.objects.create(slug="phone", name="Phone")
-
-        self.mp_a = Person.objects.create(
+        self.mp = Person.objects.create(
             legal_name="Jimmy Stewart", slug="jimmy-stewart", email="jimmy@steward.com"
         )
         # Create MP position at the National Assembly
         Position.objects.create(
-            person=self.mp_a,
+            person=self.mp,
             organisation=self.na,
             start_date=ApproximateDate(past=True),
             end_date=ApproximateDate(future=True),
@@ -167,74 +163,27 @@ class DownloadMPsTest(TestCase):
         )
         # MP currently active position at the DA
         Position.objects.create(
-            person=self.mp_a,
+            person=self.mp,
             organisation=self.da,
             start_date=ApproximateDate(past=True),
             end_date=ApproximateDate(future=True),
             title=self.member,
         )
-        # MP inactive position at the ANC
-        Position.objects.create(
-            person=self.mp_a,
-            organisation=self.anc,
-            start_date=ApproximateDate(past=True),
-            end_date=ApproximateDate(year=2009),
-        )
         # MP contact number
         Contact.objects.create(
-            content_type=ContentType.objects.get_for_model(self.mp_a),
-            object_id=self.mp_a.id,
-            kind=phone_kind,
+            content_type=ContentType.objects.get_for_model(self.mp),
+            object_id=self.mp.id,
+            kind=self.phone_kind,
             value="987654321",
             preferred=True,
         )
         Contact.objects.create(
-            content_type=ContentType.objects.get_for_model(self.mp_a),
-            object_id=self.mp_a.id,
-            kind=phone_kind,
+            content_type=ContentType.objects.get_for_model(self.mp),
+            object_id=self.mp.id,
+            kind=self.phone_kind,
             value="5555",
             preferred=True,
         )
-        self.inactive_mp_a = Person.objects.create(
-            legal_name="Stefan Terblanche", slug="stefan-terblanche"
-        )
-        # Create an inactive position at the NA for the inactive MP
-        Position.objects.create(
-            person=self.inactive_mp_a,
-            organisation=self.na,
-            start_date=ApproximateDate(past=True),
-            end_date=ApproximateDate(year=2009),
-        )
-        # Create an MPL member
-        self.mpl_a = Person.objects.create(
-            legal_name="Jonathan Brink", slug="jonathan-brink"
-        )
-        # MPL email address
-        Contact.objects.create(
-            content_type=ContentType.objects.get_for_model(self.mpl_a),
-            object_id=self.mpl_a.id,
-            kind=email_kind,
-            value="jonathan@brink.com",
-            preferred=True,
-        )
-        # MPL contact number
-        Contact.objects.create(
-            content_type=ContentType.objects.get_for_model(self.mpl_a),
-            object_id=self.mpl_a.id,
-            kind=cell_kind,
-            value="0123456789",
-            preferred=True,
-        )
-        # MPL position at the NCOP
-        Position.objects.create(
-            person=self.mpl_a,
-            organisation=self.ncop,
-            start_date=ApproximateDate(past=True),
-            end_date=ApproximateDate(future=True),
-        )
-        self.mps = [self.mp_a]
-        self.mpls = [self.mpl_a]
-        self.all = self.mps + self.mpls
 
     def test_download_mps(self):
         response = self.client.get(
@@ -243,33 +192,17 @@ class DownloadMPsTest(TestCase):
         xlsx_file = self.stream_xlsx_file(response)
         book = xlrd.open_workbook(filename=xlsx_file.name)
         sheet = self.sheet = book.sheet_by_index(0)
+
+        # Test that the headings are included and correct
         self.check_headings(sheet)
+
+        # Test that the MP's details are in the sheet
         columns = self.get_columns(sheet)
-        for person in self.mps:
-            self.assertIn(person.name, columns["names"])
-            mp_row = get_row_from_name(sheet, columns, person.name)
-            self.assertEqual("jimmy@steward.com", mp_row[COLUMN_INDICES["email"]])
-            self.assertEqual("5555, 987654321", mp_row[COLUMN_INDICES["mobile"]])
-            self.assertEqual(self.da.name, mp_row[COLUMN_INDICES["parties"]])
-
-        # Sheet should not contain MPLs
-        for person in self.mpls:
-            self.assertNotIn(person.name, columns["names"])
-
-        # Sheet should not contain inactive members
-        self.assertNotIn(self.inactive_mp_a.name, columns["names"])
-
-    def test_download_mpls(self):
-        response = self.client.get(reverse("sa-download-members-xlsx", args=("ncop",)))
-        xlsx_file = self.stream_xlsx_file(response)
-        book = xlrd.open_workbook(filename=xlsx_file.name)
-        sheet = self.sheet = book.sheet_by_index(0)
-        self.check_headings(sheet)
-        columns = self.get_columns(sheet)
-        for person in self.mpls:
-            self.assertIn(person.name, columns["names"])
-        for person in self.mps:
-            self.assertNotIn(person.name, columns["names"])
+        self.assertIn(self.mp.name, columns["names"])
+        mp_row = get_row_from_name(sheet, columns, self.mp.name)
+        self.assertEqual("jimmy@steward.com", mp_row[COLUMN_INDICES["email"]])
+        self.assertEqual("5555, 987654321", mp_row[COLUMN_INDICES["mobile"]])
+        self.assertEqual(self.da.name, mp_row[COLUMN_INDICES["parties"]])
 
     def stream_xlsx_file(self, response):
         f = tempfile.NamedTemporaryFile(suffix=".xlsx", delete=False)
@@ -323,7 +256,9 @@ class GetEmailAddressForPersonTest(TestCase):
         Person.objects.all().delete()
         person = Person.objects.create(legal_name="Jimmy Stewart", slug="jimmy-stewart")
         person_with_email_addresses = self.get_persons_with_email_addresses()[0]
-        self.assertEqual("", get_email_addresses_for_person(person_with_email_addresses))
+        self.assertEqual(
+            "", get_email_addresses_for_person(person_with_email_addresses)
+        )
 
     def test_person_with_multiple_email_addresses(self):
         Person.objects.all().delete()
