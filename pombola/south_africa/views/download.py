@@ -23,11 +23,7 @@ def download_members_xlsx(request, slug):
     organisation = get_object_or_404(Organisation, slug=slug)
 
     # Get all of the currently_active positions at the organisation
-    organisation_positions = (
-        Position.objects.currently_active()
-        .filter(organisation=organisation)
-        .values("id")
-    )
+    organisation_positions = organisation.position_set.currently_active().values("id")
 
     party_positions = (
         Position.objects.currently_active()
