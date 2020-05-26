@@ -9,9 +9,15 @@ from nose.plugins.attrib import attr
 
 import xlrd
 from django_date_extensions.fields import ApproximateDate
-from pombola.core.models import (Contact, ContactKind, Organisation,
-                                 OrganisationKind, Person, Position,
-                                 PositionTitle)
+from pombola.core.models import (
+    Contact,
+    ContactKind,
+    Organisation,
+    OrganisationKind,
+    Person,
+    Position,
+    PositionTitle,
+)
 from pombola.south_africa.views.download import get_email_address_for_person
 
 COLUMN_INDICES = {"name": 0, "mobile": 1, "email": 2, "parties": 3}
@@ -78,6 +84,13 @@ class DownloadMPsTest(TestCase):
             value="987654321",
             preferred=True,
         )
+        Contact.objects.create(
+            content_type=ContentType.objects.get_for_model(self.mp_a),
+            object_id=self.mp_a.id,
+            kind=phone_kind,
+            value="5555",
+            preferred=True,
+        )
         self.inactive_mp_a = Person.objects.create(
             legal_name="Stefan Terblanche", slug="stefan-terblanche"
         )
@@ -132,7 +145,7 @@ class DownloadMPsTest(TestCase):
             self.assertIn(person.name, columns["names"])
             mp_row = get_row_from_name(sheet, columns, person.name)
             self.assertEqual("jimmy@steward.com", mp_row[COLUMN_INDICES["email"]])
-            self.assertEqual("987654321", mp_row[COLUMN_INDICES["mobile"]])
+            self.assertEqual("5555, 987654321", mp_row[COLUMN_INDICES["mobile"]])
             self.assertEqual(self.da.name, mp_row[COLUMN_INDICES["parties"]])
 
         # Sheet should not contain MPLs

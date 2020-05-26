@@ -61,7 +61,7 @@ def download_members_xlsx(request, slug):
             email = get_email_address_for_person(person)
             yield (
                 person.name,
-                person.cell_numbers[0].value if len(person.cell_numbers) > 0 else "",
+                ", ".join([cell_number.value for cell_number in person.cell_numbers]),
                 get_email_address_for_person(person),
                 ",".join(
                     position.organisation.name
