@@ -13,7 +13,7 @@ MP_DOWNLOAD_TEMPLATE_SHEET = os.path.join(
 )
 
 
-def get_email_address_for_person(person):
+def get_email_addresses_for_person(person):
     email_addresses = [person.email] if person.email else []
     email_addresses += [email_address.value for email_address in person.email_addresses]
     return " ".join(email_addresses)
@@ -21,11 +21,11 @@ def get_email_address_for_person(person):
 
 def person_row_generator(persons):
     for person in persons:
-        email = get_email_address_for_person(person)
+        email = get_email_addresses_for_person(person)
         yield (
             person.name,
             ", ".join([cell_number.value for cell_number in person.cell_numbers]),
-            get_email_address_for_person(person),
+            get_email_addresses_for_person(person),
             ",".join(
                 position.organisation.name for position in person.active_party_positions
             ),

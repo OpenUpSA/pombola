@@ -20,7 +20,7 @@ from pombola.core.models import (
 )
 from pombola.south_africa.views.download import (
     get_active_persons_for_organisation,
-    get_email_address_for_person,
+    get_email_addresses_for_person,
     get_queryset_for_members_download,
 )
 
@@ -316,14 +316,14 @@ class GetEmailAddressForPersonTest(TestCase):
         person_with_email_addresses = self.get_persons_with_email_addresses()[0]
         self.assertEqual(
             "jimmy@steward.com",
-            get_email_address_for_person(person_with_email_addresses),
+            get_email_addresses_for_person(person_with_email_addresses),
         )
 
     def test_person_with_no_email_addresses(self):
         Person.objects.all().delete()
         person = Person.objects.create(legal_name="Jimmy Stewart", slug="jimmy-stewart")
         person_with_email_addresses = self.get_persons_with_email_addresses()[0]
-        self.assertEqual("", get_email_address_for_person(person_with_email_addresses))
+        self.assertEqual("", get_email_addresses_for_person(person_with_email_addresses))
 
     def test_person_with_multiple_email_addresses(self):
         Person.objects.all().delete()
@@ -350,5 +350,5 @@ class GetEmailAddressForPersonTest(TestCase):
         for email_address in email_addresses:
             self.assertIn(
                 email_address,
-                get_email_address_for_person(person_with_email_addresses),
+                get_email_addresses_for_person(person_with_email_addresses),
             )
