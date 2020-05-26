@@ -48,13 +48,18 @@ def get_active_persons_for_organisation(organisation):
     """
     organisation_positions = organisation.position_set.currently_active().values("id")
 
-    party_positions = get_active_positions_at_parties()
-
     # Get the persons from the positions
     return (
         Person.objects.filter(hidden=False)
         .filter(position__id__in=organisation_positions)
         .distinct()
+    )
+
+def get_queryset_for_members_download(organisation):
+    party_positions = get_active_positions_at_parties()
+
+    return (
+        get_active_persons_for_organisation(organisation)
         .prefetch_contact_numbers()
         .prefetch_email_addresses()
         .prefetch_related(
@@ -71,7 +76,7 @@ def get_active_persons_for_organisation(organisation):
 def download_members_xlsx(request, slug):
     organisation = get_object_or_404(Organisation, slug=slug)
 
-    persons = get_active_persons_for_organisation(organisation)
+    persons = get_queryset_for_members_download(organisation)
 
     with open(MP_DOWNLOAD_TEMPLATE_SHEET, "rb") as template:
         stream = xlsx_streaming.stream_queryset_as_xlsx(
