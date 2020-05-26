@@ -18,7 +18,10 @@ from pombola.core.models import (
     Position,
     PositionTitle,
 )
-from pombola.south_africa.views.download import get_email_address_for_person
+from pombola.south_africa.views.download import (
+    get_email_address_for_person,
+    get_active_persons_for_organisation,
+)
 
 COLUMN_INDICES = {"name": 0, "mobile": 1, "email": 2, "parties": 3}
 
@@ -26,6 +29,84 @@ COLUMN_INDICES = {"name": 0, "mobile": 1, "email": 2, "parties": 3}
 def get_row_from_name(sheet, columns, name):
     row_num = columns["names"].index(name)
     return sheet.row_values(row_num)
+
+
+@attr(country="south_africa")
+class GetActivePersonsForOrganisationTest(TestCase):
+    def setUp(self):
+        party = OrganisationKind.objects.create(name="Party", slug="party",)
+        parliament = OrganisationKind.objects.create(
+            name="Parliament", slug="parliament",
+        )
+        self.na = Organisation.objects.create(
+            name="National Assembly", kind=parliament, slug="national-assembly",
+        )
+        self.da = Organisation.objects.create(name="DA", kind=party, slug="da")
+        self.anc = Organisation.objects.create(name="ANC", kind=party, slug="anc")
+        self.member = PositionTitle.objects.create(name="Member", slug="member")
+
+        self.email_kind = ContactKind.objects.create(slug="email", name="Email")
+        self.cell_kind = ContactKind.objects.create(slug="cell", name="Cell")
+        self.phone_kind = ContactKind.objects.create(slug="phone", name="Phone")
+
+    def test_get_persons_for_national_assembly(self):
+        self.mp_a = Person.objects.create(
+            legal_name="Jimmy Stewart", slug="jimmy-stewart", email="jimmy@steward.com"
+        )
+        # Create MP position at the National Assembly
+        Position.objects.create(
+            person=self.mp_a,
+            organisation=self.na,
+            start_date=ApproximateDate(past=True),
+            end_date=ApproximateDate(future=True),
+            title=self.member,
+        )
+        # MP currently active position at the DA
+        Position.objects.create(
+            person=self.mp_a,
+            organisation=self.da,
+            start_date=ApproximateDate(past=True),
+            end_date=ApproximateDate(future=True),
+            title=self.member,
+        )
+        # MP inactive position at the ANC
+        Position.objects.create(
+            person=self.mp_a,
+            organisation=self.anc,
+            start_date=ApproximateDate(past=True),
+            end_date=ApproximateDate(year=2009),
+        )
+        # MP contact number
+        Contact.objects.create(
+            content_type=ContentType.objects.get_for_model(self.mp_a),
+            object_id=self.mp_a.id,
+            kind=self.phone_kind,
+            value="987654321",
+            preferred=True,
+        )
+        # Create an inactive MP
+        self.inactive_mp_a = Person.objects.create(
+            legal_name="Stefan Terblanche", slug="stefan-terblanche"
+        )
+        # Create an inactive position at the NA for the inactive MP
+        Position.objects.create(
+            person=self.inactive_mp_a,
+            organisation=self.na,
+            start_date=ApproximateDate(past=True),
+            end_date=ApproximateDate(year=2009),
+        )
+        self.mps = [self.mp_a]
+
+        result = get_active_persons_for_organisation(self.na)
+        self.assertEqual(1, len(result))
+        self.assertIn(self.mp_a, result)
+        self.assertNotIn(self.inactive_mp_a, result)
+
+        # Check if the prefetched attributes are included
+        self.assertTrue(hasattr(result[0], "cell_numbers"))
+        self.assertTrue(hasattr(result[0], "email_addresses"))
+        self.assertTrue(hasattr(result[0], "active_party_positions"))
+        self.assertTrue(hasattr(result[0], "alternative_names"))
 
 
 @attr(country="south_africa")
