@@ -14,11 +14,9 @@ MP_DOWNLOAD_TEMPLATE_SHEET = os.path.join(
 
 
 def get_email_address_for_person(person):
-    if person.email:
-        return person.email
-    if len(person.email_addresses) > 0:
-        return person.email_addresses[0].value
-    return ""
+    email_addresses = [person.email] if person.email else []
+    email_addresses += [email_address.value for email_address in person.email_addresses]
+    return " ".join(email_addresses)
 
 
 def download_members_xlsx(request, slug):
