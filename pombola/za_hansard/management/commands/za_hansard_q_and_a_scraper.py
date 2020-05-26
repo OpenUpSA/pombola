@@ -208,11 +208,9 @@ class Command(BaseCommand):
                 print "Skipping {0} due to a missing source_file".format(
                     data['url'])
             return
-        house = {
-            'National Assembly': 'N',
-            'National Council of Provinces': 'C'
-        }.get(data['house']['name'])
-        if not house:
+        try:
+            house = Question.get_house_choice(data['house']['name'])
+        except KeyError:
             print "Skipping {} because the house {} is not supported.".format(
                 data['url'], data['house']['name'])
             return

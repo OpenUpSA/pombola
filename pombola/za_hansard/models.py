@@ -464,6 +464,14 @@ class Question(models.Model):
             ('dp_number', 'house', 'year', 'term'),
         )
 
+    @classmethod
+    def get_house_choice(cls, house_name):
+        choice = next((choice[0] for choice in house_choices if choice[1] == house_name), None)
+        if not choice:
+            raise KeyError
+        return choice
+
+
 # CREATE TABLE completed_documents (`url` string);
 
 
