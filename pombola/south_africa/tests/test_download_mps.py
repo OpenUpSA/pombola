@@ -229,17 +229,7 @@ class DownloadMPsTest(DownloadMembersTest):
 @attr(country="south_africa")
 class GetEmailAddressForPersonTest(TestCase):
     def get_persons_with_email_addresses(self):
-        return (
-            Person.objects.distinct()
-            .prefetch_related(
-                Prefetch(
-                    "contacts",
-                    queryset=Contact.email_contacts(),
-                    to_attr="email_addresses",
-                ),
-            )
-            .all()
-        )
+        return Person.objects.distinct().prefetch_email_addresses()
 
     def test_person_with_email_in_email_field(self):
         Person.objects.all().delete()
