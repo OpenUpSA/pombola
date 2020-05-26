@@ -355,6 +355,25 @@ class PersonQuerySet(models.query.GeoQuerySet):
             Prefetch("contacts", queryset=email_contacts, to_attr="email_addresses"),
         )
 
+    def prefetch_active_party_positions(self):
+        """
+        Prefetch active party positions.
+        """
+        party_positions = (
+            Position.objects.currently_active()
+            .filter(title__slug="member")
+            .filter(organisation__kind__slug="party")
+            .select_related("organisation")
+        )
+
+        return self.prefetch_related(
+            Prefetch(
+                "position_set",
+                queryset=party_positions,
+                to_attr="active_party_positions",
+            )
+        )
+
 class PersonManager(ManagerBase):
     def get_queryset(self):
         return PersonQuerySet(self.model)

@@ -32,15 +32,6 @@ def person_row_generator(persons):
         )
 
 
-def get_active_positions_at_parties():
-    return (
-        Position.objects.currently_active()
-        .filter(title__slug="member")
-        .filter(organisation__kind__slug="party")
-        .select_related("organisation")
-    )
-
-
 def get_active_persons_for_organisation(organisation):
     """
     Get all of the currently active positions at an organisation and prefetch
@@ -55,21 +46,14 @@ def get_active_persons_for_organisation(organisation):
         .distinct()
     )
 
-def get_queryset_for_members_download(organisation):
-    party_positions = get_active_positions_at_parties()
 
+def get_queryset_for_members_download(organisation):
     return (
         get_active_persons_for_organisation(organisation)
         .prefetch_contact_numbers()
         .prefetch_email_addresses()
-        .prefetch_related(
-            "alternative_names",
-            Prefetch(
-                "position_set",
-                queryset=party_positions,
-                to_attr="active_party_positions",
-            ),
-        )
+        .prefetch_active_party_positions()
+        .prefetch_related("alternative_names",)
     )
 
 

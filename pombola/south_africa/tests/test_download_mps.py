@@ -9,20 +9,12 @@ from nose.plugins.attrib import attr
 
 import xlrd
 from django_date_extensions.fields import ApproximateDate
-from pombola.core.models import (
-    Contact,
-    ContactKind,
-    Organisation,
-    OrganisationKind,
-    Person,
-    Position,
-    PositionTitle,
-)
+from pombola.core.models import (Contact, ContactKind, Organisation,
+                                 OrganisationKind, Person, Position,
+                                 PositionTitle)
 from pombola.south_africa.views.download import (
-    get_active_persons_for_organisation,
-    get_email_addresses_for_person,
-    get_queryset_for_members_download,
-)
+    get_active_persons_for_organisation, get_email_addresses_for_person,
+    get_queryset_for_members_download, person_row_generator)
 
 COLUMN_INDICES = {"name": 0, "mobile": 1, "email": 2, "parties": 3}
 
@@ -277,3 +269,26 @@ class GetEmailAddressForPersonTest(TestCase):
                 email_address,
                 get_email_addresses_for_person(person_with_email_addresses),
             )
+
+
+@attr(country="south_africa")
+class PersonRowGeneratorTest(TestCase):
+    def generate_persons_from_empty_queryset_test(self):
+        Person.objects.all().delete()
+        result = list(person_row_generator(Person.objects.all()))
+        self.assertEqual([], result)
+
+    def get_persons_test(self):
+        person = Person.objects.create(legal_name="Jimmy Stewart")
+        result = list(
+            person_row_generator(
+                Person.objects.all()
+                .prefetch_contact_numbers()
+                .prefetch_email_addresses()
+                .prefetch_active_party_positions()
+            )
+        )
+        for person in result:
+            print(person)
+        self.assertEqual(1, len(result))
+        self.assertEqual([person], result)
