@@ -14,12 +14,19 @@ MP_DOWNLOAD_TEMPLATE_SHEET = os.path.join(
 
 
 def get_email_addresses_for_person(person):
+    """
+    Return all of the email addresses that we have for a person separated by spaces.
+    """
     email_addresses = [person.email] if person.email else []
     email_addresses += [email_address.value for email_address in person.email_addresses]
     return " ".join(email_addresses)
 
 
 def person_row_generator(persons):
+    """
+    Generate a tuple for each person containing their name, contact numbers, 
+    email addresses and party memberships.
+    """
     for person in persons:
         email = get_email_addresses_for_person(person)
         yield (
@@ -34,8 +41,7 @@ def person_row_generator(persons):
 
 def get_active_persons_for_organisation(organisation):
     """
-    Get all of the currently active positions at an organisation and prefetch
-    their contact numbers, email addresses and party memberships.
+    Get all of the currently active positions at an organisation.
     """
     organisation_positions = organisation.position_set.currently_active().values("id")
 
@@ -48,6 +54,9 @@ def get_active_persons_for_organisation(organisation):
 
 
 def get_queryset_for_members_download(organisation):
+    """
+    Return the querset for the members download with the necessary data prefetched.
+    """
     return (
         get_active_persons_for_organisation(organisation)
         .prefetch_contact_numbers()
@@ -58,6 +67,10 @@ def get_queryset_for_members_download(organisation):
 
 
 def download_members_xlsx(request, slug):
+    """
+    View function to stream an Excel sheet containing people's contact details
+    for people who are active members of an organisation with the given slug.
+    """
     organisation = get_object_or_404(Organisation, slug=slug)
 
     persons = get_queryset_for_members_download(organisation)
