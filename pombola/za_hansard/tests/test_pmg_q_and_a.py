@@ -3,12 +3,13 @@
 from datetime import date
 from mock import patch
 import copy
+from StringIO import StringIO
 
 from django.core.management import call_command
 from django.test import TestCase
 
 from pombola.za_hansard.models import Answer, Question, QuestionParsingError
-from pombola.za_hansard.management.commands.za_hansard_q_and_a_scraper import Command
+from pombola.za_hansard.management.commands.za_hansard_q_and_a_scraper import Command, QuestionParsingException
 from pombola.south_africa.models import ParliamentaryTerm
 from nose.plugins.attrib import attr
 
@@ -431,7 +432,8 @@ class PMGAPITests(TestCase):
         fake_sys_exit.assert_called_with(1)
 
     @patch('pombola.za_hansard.management.commands.za_hansard_q_and_a_scraper.all_from_api')
-    def test_unsupported_house(self, fake_all_from_api):
+    @patch('pombola.za_hansard.management.commands.za_hansard_q_and_a_scraper.sys.exit')
+    def test_unsupported_house(self, fake_sys_exit, fake_all_from_api):
         question_with_invalid_house = copy.deepcopy(EXAMPLE_QUESTION)
         question_with_invalid_house['house']['name'] = u'Unsupported House'
         def api_one_question_and_answer(url):
@@ -449,9 +451,12 @@ class PMGAPITests(TestCase):
         fake_all_from_api.side_effect = api_one_question_and_answer
 
         # Run the command:
-        call_command('za_hansard_q_and_a_scraper', scrape_from_pmg=True)
+        out = StringIO()
+        call_command('za_hansard_q_and_a_scraper', scrape_from_pmg=True, verbosity=4, stderr=out)
 
         # Check that no new questions or answers were created
+        expected_output = "Skipping http://api.pmg.org.za/example-question/5678/ because the house Unsupported House is not supported."
+        self.assertIn(expected_output, out.getvalue())
         self.assertEqual(Question.objects.count(), 0)
         self.assertEqual(Answer.objects.count(), 0)
 
@@ -535,13 +540,17 @@ class ParsePmgQuestionDataTests(TestCase):
             "oral_number": None,
             "askedby_pa_url": "http://www.pa.org.za/person/groucho-marx/",
         }
-        valid, result = self.command.parse_pmg_question_data(EXAMPLE_QUESTION)
+        result = self.command.parse_pmg_question_data(EXAMPLE_QUESTION)
 
-        self.assertTrue(valid)
         self.assertEqual(expected, result)
 
     def test_no_source_file(self):
         question = {}
-        valid, result = self.command.parse_pmg_question_data(question)
-
-        self.assertFalse(valid)
+        with self.assertRaisesRegexp(QuestionParsingException, 'missing'):
+            result = self.command.parse_pmg_question_data(question)
+        
+    def test_unsupported_house(self):
+        question = copy.deepcopy(EXAMPLE_QUESTION)
+        question['house']['name'] = 'unsupported'
+        with self.assertRaisesRegexp(QuestionParsingException, 'unsupported'):
+            result = self.command.parse_pmg_question_data(question)

@@ -95,6 +95,13 @@ def get_identifier_for_title(question_or_answer):
 def convert_url_to_https(url):
     return re.sub(r'^http:', 'https:', url)
 
+class QuestionParsingException(Exception):
+    def __init__(self, question_url, error_type, error_message):
+        self.question_url = question_url
+        self.error_type = error_type
+        self.error_message = error_message
+        super(QuestionParsingException, self).__init__(error_message)
+
 
 class Command(BaseCommand):
 
@@ -207,24 +214,42 @@ class Command(BaseCommand):
         Parses the question data that we get from PMG.
 
         Returns:
-            valid:      whether the PMG question data is valid.
-            data:       returns the converted data if the PMG data was valid, or
-            message:    returns an error message when the data is not valid.
+            data:       returns the converted data if the PMG data was valid
+
+        Raises:
+            QuestionParsingException if the data is invalid
         """
         parsed = {}
 
-        if 'source_file' not in data:
-            return False, "Skipping {0} due to a missing source_file".format(data.get('url'))
+        required_keys = [
+            'source_file'
+        ]
+
+        for required_key in required_keys:
+            if required_key not in data:
+                raise QuestionParsingException(
+                    data.get('url'),
+                    'missing-{0}'.format(required_key),
+                    "Skipping {0} due to missing {1} value".format(data.get('url'), required_key)
+                )
 
         try:
             parsed['house'] = Question.get_house_choice(data['house']['name'])
         except KeyError:
-            return False, "Skipping {} because the house {} is not supported.".format(
-                data.get('url'), data['house']['name'])
+            raise QuestionParsingException(
+                data.get('url'),
+                'unsupported-house',
+                "Skipping {} because the house {} is not supported.".format(
+                    data.get('url'), data['house']['name'])
+            )
 
         if data['answer_type'] not in ANSWER_TYPES:
-            return False, "Skipping {} because the answer type {} is not supported".format(
-                data['url'], data['answer_type'])
+            raise QuestionParsingException(
+                data.get('url'),
+                'answer-type',
+                "Skipping {} because the answer type {} is not supported".format(
+                    data['url'], data['answer_type'])
+            )
 
         parsed['answer_type'] = ANSWER_TYPES[data['answer_type']]
         parsed['askedby_name'] = ''
@@ -265,12 +290,11 @@ class Command(BaseCommand):
                     'Skipping question import.'
                 )\
                 .format(data['url'], data['date'])
-            self.log_question_parsing_error(
+            raise QuestionParsingException(
                 data['url'], 
                 'date-format-error', 
                 msg
             )
-            return False, ""
 
         try:
             parsed['term'] = ParliamentaryTerm.get_term_from_date(parsed['question_date'])
@@ -282,12 +306,11 @@ class Command(BaseCommand):
                     'Skipping question import.'
                 )\
                 .format(data['url'], data['date'])
-            self.log_question_parsing_error(
+            raise QuestionParsingException(
                 data['url'], 
                 'term-not-found', 
                 msg
             )
-            return False, ""
 
         parsed['existing_kwargs'] = {'date__year': parsed['year'], 'house': parsed['house'], 'term': parsed['term']}
         parsed['existing_kwargs'].update(parsed['number_q_kwargs'])
@@ -303,12 +326,11 @@ class Command(BaseCommand):
                     'president_number or dp_number. '
                 )\
                 .format(data['url'])
-            self.log_question_parsing_error(
+            raise QuestionParsingException(
                 data['url'], 
                 'number-not-found', 
                 msg
             )
-            return False, ""
 
         parsed['date'] = data['date']
         parsed['question_to_name'] = data['question_to_name']
@@ -323,7 +345,7 @@ class Command(BaseCommand):
         parsed['source_file'] = data['source_file']
         parsed['answer'] = data['answer']
 
-        return True, parsed
+        return parsed
     
     def create_new_question_from_pmg_data(self, parsed):
         return Question.objects.create(
@@ -461,13 +483,15 @@ class Command(BaseCommand):
 
 
     def handle_api_question_and_reply(self, data):
-        valid, parsed  = self.parse_pmg_question_data(data) 
-
-        if not valid:
-            if self.verbose:
-                print(parsed)
+        try:
+            parsed  = self.parse_pmg_question_data(data) 
+        except QuestionParsingException as e:
+            self.log_question_parsing_error(e.question_url, e.error_type, e.error_message)
             return
-        
+        except Exception as e:
+            self.log_question_parsing_error(data.get('url'), 'unknown-exception', e.error_message)
+            return
+
         question = self.update_or_create_question(parsed)
 
         self.update_or_create_answer_for_question(question, parsed)
