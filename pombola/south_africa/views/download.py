@@ -84,7 +84,5 @@ def download_members_xlsx(request, slug):
         stream,
         content_type="application/vnd.xlsxformats-officedocument.spreadsheetml.sheet",
     )
-    response["Content-Disposition"] = "attachment; filename=%s.xlsx" % (
-        "%s-members" % slug
-    )
+    response["Content-Disposition"] = "attachment; filename=%s-members.xlsx" % organisation.slug
     return response
