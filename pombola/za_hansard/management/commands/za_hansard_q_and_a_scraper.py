@@ -214,13 +214,13 @@ class Command(BaseCommand):
         parsed = {}
 
         if 'source_file' not in data:
-            return False, "Skipping {0} due to a missing source_file".format(data['url'])
+            return False, "Skipping {0} due to a missing source_file".format(data.get('url'))
 
         try:
             parsed['house'] = Question.get_house_choice(data['house']['name'])
         except KeyError:
             return False, "Skipping {} because the house {} is not supported.".format(
-                data['url'], data['house']['name'])
+                data.get('url'), data['house']['name'])
 
         if data['answer_type'] not in ANSWER_TYPES:
             return False, "Skipping {} because the answer type {} is not supported".format(

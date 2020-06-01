@@ -8,6 +8,7 @@ from django.core.management import call_command
 from django.test import TestCase
 
 from pombola.za_hansard.models import Answer, Question, QuestionParsingError
+from pombola.za_hansard.management.commands.za_hansard_q_and_a_scraper import Command
 from pombola.south_africa.models import ParliamentaryTerm
 from nose.plugins.attrib import attr
 
@@ -494,3 +495,53 @@ class PMGAPITests(TestCase):
         self.assertEqual(answer.text, 'To get to the other side')
         self.assertEqual(answer.house, NCOP_LETTER)
         self.assertEqual(answer.processed_code, Answer.PROCESSED_OK)
+
+@attr(country='south_africa')
+class ParsePmgQuestionDataTests(TestCase):
+    def setUp(self):
+        self.command = Command()
+
+    def test_valid_parse_example_question(self):
+        expected = {
+            "written_number": 12345,
+            "house": "N",
+            "number_found": True,
+            "existing_kwargs": {
+                "house": "N",
+                "term": ParliamentaryTerm.objects.get(number=26),
+                "written_number": 12345,
+                "date__year": "2016",
+            },
+            "source_file": {
+                "url": "http://example.org/chicken-joke.docx",
+                "file_path": "chicken-joke.docx",
+            },
+            "number_q_kwargs": {"written_number": 12345},
+            "year": "2016",
+            "president_number": None,
+            "question_text": "Why did the chicken cross the road?",
+            "question": None,
+            "answer_type": "W",
+            "deputy_president_number": None,
+            "intro": "Groucho Marx to ask the Minister of Arts and Culture",
+            "question_to_name": "Minister of Arts and Culture",
+            "question_date": date(2016, 9, 6),
+            "answer": "To get to the other side",
+            "date": "2016-09-06",
+            "term": ParliamentaryTerm.objects.get(number=26),
+            "url": "http://api.pmg.org.za/example-question/5678/",
+            "askedby_name": "Groucho Marx",
+            "translated": False,
+            "oral_number": None,
+            "askedby_pa_url": "http://www.pa.org.za/person/groucho-marx/",
+        }
+        valid, result = self.command.parse_pmg_question_data(EXAMPLE_QUESTION)
+
+        self.assertTrue(valid)
+        self.assertEqual(expected, result)
+
+    def test_no_source_file(self):
+        question = {}
+        valid, result = self.command.parse_pmg_question_data(question)
+
+        self.assertFalse(valid)
