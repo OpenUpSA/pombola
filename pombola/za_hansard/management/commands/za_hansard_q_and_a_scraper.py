@@ -201,32 +201,40 @@ class Command(BaseCommand):
                 "Some errors occurred while scraping questions and answers."
             )
             sys.exit(1)
+    
+    def parse_pmg_question_data(self, data):
+        """
+        Parses the question data that we get from PMG.
 
-    def handle_api_question_and_reply(self, data):
+        Returns:
+            valid:      whether the PMG question data is valid.
+            data:       returns the converted data if the PMG data was valid, or
+            message:    returns an error message when the data is not valid.
+        """
+        parsed = {}
+
         if 'source_file' not in data:
-            if self.verbose:
-                print "Skipping {0} due to a missing source_file".format(
-                    data['url'])
-            return
+            return False, "Skipping {0} due to a missing source_file".format(data['url'])
+
         try:
-            house = Question.get_house_choice(data['house']['name'])
+            parsed['house'] = Question.get_house_choice(data['house']['name'])
         except KeyError:
-            print "Skipping {} because the house {} is not supported.".format(
+            return False, "Skipping {} because the house {} is not supported.".format(
                 data['url'], data['house']['name'])
-            return
+
         if data['answer_type'] not in ANSWER_TYPES:
-            if self.verbose:
-                print "Skipping {} because the answer type {} is not supported".format(
-                    data['url'], data['answer_type'])
-            return
-        answer_type = ANSWER_TYPES[data['answer_type']]
-        askedby_name = ''
-        askedby_pa_url = ''
+            return False, "Skipping {} because the answer type {} is not supported".format(
+                data['url'], data['answer_type'])
+
+        parsed['answer_type'] = ANSWER_TYPES[data['answer_type']]
+        parsed['askedby_name'] = ''
+        parsed['askedby_pa_url'] = ''
         if 'asked_by_member' in data:
-            askedby_name = data['asked_by_member']['name']
+            parsed['askedby_name'] = data['asked_by_member']['name']
             if 'pa_url' in data['asked_by_member']:
-                askedby_pa_url = data['asked_by_member']['pa_url']
-        question_text = data['question']
+                parsed['askedby_pa_url'] = data['asked_by_member']['pa_url']
+        parsed['question_text'] = data['question']
+
         # 'code' is one of those like: "NW3847", but in the Code4SA /
         # PMG API data that's just composed (say) of 'NW' + the
         # written_number; they don't match with the NW codes that
@@ -234,10 +242,10 @@ class Command(BaseCommand):
         # 'code' field for checking if the question already exists, so
         # try to identify a unique question by the number + year +
         # house. (The numbers reset each year.)
-        year = data['date'][:4]
+        parsed['year'] = data['date'][:4]
         # Add whatever number there is to the query:
-        number_q_kwargs = {}
-        number_found = False
+        parsed['number_q_kwargs'] = {}
+        parsed['number_found'] = False
         for filter_key, api_key in (
                 ('written_number', 'written_number'),
                 ('oral_number', 'oral_number'),
@@ -245,11 +253,11 @@ class Command(BaseCommand):
                 ('dp_number', 'deputy_president_number'),
         ):
             if data.get(api_key):
-                number_found = True
-                number_q_kwargs[filter_key] = data[api_key]
+                parsed['number_found'] = True
+                parsed['number_q_kwargs'][filter_key] = data[api_key]
 
         try:
-            question_date = datetime.strptime(data['date'], "%Y-%m-%d").date()
+            parsed['question_date'] = datetime.strptime(data['date'], "%Y-%m-%d").date()
         except Exception:
             msg = (
                     'Could not parse the date for question {}. '
@@ -262,10 +270,10 @@ class Command(BaseCommand):
                 'date-format-error', 
                 msg
             )
-            return
+            return False, ""
 
         try:
-            term = ParliamentaryTerm.get_term_from_date(question_date)
+            parsed['term'] = ParliamentaryTerm.get_term_from_date(parsed['question_date'])
         except Exception:
             msg = (
                     'Could not determine the parliamentary term for question {}. '
@@ -279,12 +287,12 @@ class Command(BaseCommand):
                 'term-not-found', 
                 msg
             )
-            return
+            return False, ""
 
-        existing_kwargs = {'date__year': year, 'house': house, 'term': term}
-        existing_kwargs.update(number_q_kwargs)
-        question = None
-        if not number_found:
+        parsed['existing_kwargs'] = {'date__year': parsed['year'], 'house': parsed['house'], 'term': parsed['term']}
+        parsed['existing_kwargs'].update(parsed['number_q_kwargs'])
+        parsed['question'] = None
+        if not parsed['number_found']:
             # We won't be able to accurately tell whether a question
             # already exists if we don't have one of these number, so
             # ignore the question and answer completely in that
@@ -300,112 +308,126 @@ class Command(BaseCommand):
                 'number-not-found', 
                 msg
             )
-            return
+            return False, ""
+
+        parsed['date'] = data['date']
+        parsed['question_to_name'] = data['question_to_name']
+        parsed['intro'] = data['intro']
+        parsed['translated'] = data['translated']
+        parsed['written_number'] = data['written_number']
+        parsed['oral_number'] = data['oral_number']
+        parsed['written_number'] = data['written_number']
+        parsed['president_number'] = data['president_number']
+        parsed['deputy_president_number'] = data['deputy_president_number']
+        parsed['url'] = data['url']
+        parsed['source_file'] = data['source_file']
+        parsed['answer'] = data['answer']
+
+        return True, parsed
+    
+    def create_new_question_from_pmg_data(self, parsed):
+        return Question.objects.create(
+            # FIXME: I think this is actually the date of the
+            # answer, not the date of the question.
+            date=parsed['date'],
+            # paper_id= <-- FIXME: not sure what this is
+            question=parsed['question_text'],
+            questionto=parsed['question_to_name'],
+            # The 'identifier' is the NW code; the Code4SA API
+            # doesn't have this (the one under 'code' isn't
+            # right).  The 'id_number' field is the number
+            # extracted from 'identifier', so we don't have that
+            # either. These fields are NOT NULL, however, so we
+            # have to set them to something:
+            identifier='',
+            id_number=-1,
+            intro=parsed['intro'],
+            askedby=parsed['askedby_name'],
+            house=parsed['house'],
+            answer_type=parsed['answer_type'],
+            year=parsed['year'],
+            # date_transferred doesn't seem to be in API data
+            translated=parsed['translated'],
+            written_number=parsed['written_number'],
+            oral_number=parsed['oral_number'],
+            president_number=parsed['president_number'],
+            dp_number=parsed['deputy_president_number'],
+            pmg_api_url=parsed['url'],
+            pmg_api_member_pa_url=parsed['askedby_pa_url'],
+            pmg_api_source_file_url=parsed['source_file']['url'],
+            term=parsed['term']
+        )
+
+    def update_or_create_question(self, parsed):
         try:
-            question = Question.objects.get(**existing_kwargs)
+            question = Question.objects.get(**parsed['existing_kwargs'])
             if self.verbose:
-                print "Found the existing question for", data['url']
+                print "Found the existing question for", parsed['url']
             # It might well be useful to add the corresponding PMG API
             # URL details (e.g. using their PA link to get the PA person)
-            question.pmg_api_url = data['url']
-            question.pmg_api_member_pa_url = askedby_pa_url
-            question.pmg_api_source_file_url = data['source_file']['url']
+            question.pmg_api_url = parsed['url']
+            question.pmg_api_member_pa_url = parsed['askedby_pa_url']
+            question.pmg_api_source_file_url = parsed['source_file']['url']
             question.save()
+            return question
         except Question.DoesNotExist:
             if self.verbose:
-                print "No existing question found; creating a new one for", data['url']
+                print("No existing question found; creating a new one for", parsed['url'])
             # In which case, create it:
-            question = Question.objects.create(
-                # FIXME: I think this is actually the date of the
-                # answer, not the date of the question.
-                date=data['date'],
-                # paper_id= <-- FIXME: not sure what this is
-                question=question_text,
-                questionto=data['question_to_name'],
-                # The 'identifier' is the NW code; the Code4SA API
-                # doesn't have this (the one under 'code' isn't
-                # right).  The 'id_number' field is the number
-                # extracted from 'identifier', so we don't have that
-                # either. These fields are NOT NULL, however, so we
-                # have to set them to something:
-                identifier='',
-                id_number=-1,
-                intro=data['intro'],
-                askedby=askedby_name,
-                house=house,
-                answer_type=answer_type,
-                year=year,
-                # date_transferred doesn't seem to be in API data
-                translated=data['translated'],
-                written_number=data['written_number'],
-                oral_number=data['oral_number'],
-                president_number=data['president_number'],
-                dp_number=data['deputy_president_number'],
-                pmg_api_url=data['url'],
-                pmg_api_member_pa_url=askedby_pa_url,
-                pmg_api_source_file_url=data['source_file']['url'],
-                term=term
-            )
+            question = self.create_new_question_from_pmg_data(parsed)
+            return question
 
-        # If there's already an answer, assume it's OK, except record
-        # the PMG API URL if it hasn't got one:
-        if question.answer:
-            if self.verbose:
-                print "  That question already had an answer, updating it with API links"
-            answer = question.answer
-            existing_answer_pmg_api_url = answer.pmg_api_url
-            if existing_answer_pmg_api_url:
-                if convert_url_to_https(existing_answer_pmg_api_url) != convert_url_to_https(data['url']):
-                    msg = "An existing answer's pmg_api_url conflicted "
-                    msg += "with another one from the API. In the database, "
-                    msg += "the question ID was {0}, the answer ID was {1}, "
-                    msg += "and the PMG API URL was {2}. The new PMG API URL "
-                    msg += "was {3}.  Check that in this case they're the same "
-                    msg += "question and answer, but with two API URLs and "
-                    msg += "different dates and source files"
-                    msg = msg.format(
-                            question.id,
-                            answer.id,
-                            existing_answer_pmg_api_url,
-                            data['url'])
-                    self.log_question_parsing_error(
-                        data['url'], 
-                        'url-conflicted', 
-                        msg
-                    )
-            else:
-                answer.pmg_api_url = data['url']
-                answer.save()
-            return
+    def log_error_for_existing_answer(self, existing_answer_pmg_api_url, question, answer, parsed):
+        if convert_url_to_https(existing_answer_pmg_api_url) != convert_url_to_https(parsed['url']):
+            msg = "An existing answer's pmg_api_url conflicted "
+            msg += "with another one from the API. In the database, "
+            msg += "the question ID was {0}, the answer ID was {1}, "
+            msg += "and the PMG API URL was {2}. The new PMG API URL "
+            msg += "was {3}.  Check that in this case they're the same "
+            msg += "question and answer, but with two API URLs and "
+            msg += "different dates and source files"
+            msg = msg.format(
+                    question.id,
+                    answer.id,
+                    parsed['existing_answer_pmg_api_url'],
+                    parsed['url'])
+            self.log_question_parsing_error(
+                parsed['url'], 
+                'url-conflicted', 
+                msg
+            )
+    
+    def update_or_create_answer_for_question(self, question, parsed):
         # Also check whether there's an answer that already exists for
         # that number, house and year, but which hasn't been
         # associated with a question. If that's the case, don't try to
         # create the answer (the uniqueness constraint will fail
         # anyway).  If so, then associate it with the question that we
         # will just have created (or already existed).
-        existing_answer_qs = Answer.objects.filter(**existing_kwargs)
+        existing_answer_qs = Answer.objects.filter(**parsed['existing_kwargs'])
         if existing_answer_qs.exists():
             if self.verbose:
                 print "  Found an existing answer for that question; linking them"
             question.answer = existing_answer_qs.get()
-            question.answer.pmg_api_url = data['url']
+            question.answer.pmg_api_url = parsed['url']
             question.answer.save()
+            return question.answer
         else:
             if self.verbose:
                 print "  Creating a new answer for that question."
             # Otherwise create the answer from the API data:
             document_name, dot_extension = os.path.splitext(
-                data['source_file']['file_path'])
+                parsed['source_file']['file_path'])
             answer = Answer.objects.create(
                 document_name=document_name,
-                oral_number=data['oral_number'],
-                written_number=data['written_number'],
-                president_number=data['president_number'],
-                dp_number=data['deputy_president_number'],
-                date=data['date'],
-                year=data['year'],
-                house=house,
-                text=data['answer'],
+                oral_number=parsed['oral_number'],
+                written_number=parsed['written_number'],
+                president_number=parsed['president_number'],
+                dp_number=parsed['deputy_president_number'],
+                date=parsed['date'],
+                year=parsed['year'],
+                house=parsed['house'],
+                text=parsed['answer'],
                 # Mark this as processed since we've already got the text
                 # - the source file doesn't need to be parsed.
                 processed_code=Answer.PROCESSED_OK,
@@ -415,13 +437,43 @@ class Command(BaseCommand):
                 # in English, or whether there should be metadata for
                 # that?
                 language='English',
-                url=data['source_file']['url'],
-                date_published=data['date'],
+                url=parsed['source_file']['url'],
+                date_published=parsed['date'],
                 type=dot_extension[1:],
-                pmg_api_url=data['url'],
-                term=term
+                pmg_api_url=parsed['url'],
+                term=parsed['term']
             )
+            return answer
+
+
+    def handle_api_question_and_reply(self, data):
+        valid, parsed  = self.parse_pmg_question_data(data) 
+
+        if not valid:
+            if self.verbose:
+                print(parsed)
+            return
+        
+        question = self.update_or_create_question(parsed)
+
+        # If there's already an answer, assume it's OK, except record
+        # the PMG API URL if it hasn't got one:
+        if question.answer:
+            if self.verbose:
+                print("  That question already had an answer, updating it with API links")
+            answer = question.answer
+            existing_answer_pmg_api_url = answer.pmg_api_url
+            if existing_answer_pmg_api_url:
+                self.log_error_for_existing_answer(
+                    existing_answer_pmg_api_url, question, answer, parsed)
+            else:
+                answer.pmg_api_url = parsed['url']
+                answer.save()
+            return
+        else:
+            answer = self.update_or_create_answer_for_question(question, parsed)
             question.answer = answer
+
         question.save()
 
     def get_qa_from_pmg_api(self, *args, **options):
