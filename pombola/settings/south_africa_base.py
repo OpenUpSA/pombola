@@ -128,6 +128,12 @@ COUNTRY_JS = {
         ),
         'output_filename': 'js/writeinpublic.js'
     },
+    'mps-download-tracking': {
+        'source_filenames': (
+            'js/mps-download-tracking.js',
+        ),
+        'output_filename': 'js/mps-download-tracking.js'
+    },
 }
 
 INFO_PAGES_ALLOW_RAW_HTML = True

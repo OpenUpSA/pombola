@@ -12,7 +12,7 @@ from django.core import exceptions
 from django.core.urlresolvers import reverse
 from django.core.validators import MinValueValidator
 
-from django.db.models import Q
+from django.db.models import Q, Prefetch
 from django.db import transaction
 from django.db.models.signals import post_init
 
@@ -299,6 +299,14 @@ class Contact(ModelBase):
         Task.call_generate_tasks_on_if_possible(self.content_object)
         return []
 
+    @classmethod
+    def email_contacts(cls):
+        return cls.objects.filter(kind__slug__in=["email"])
+
+    @classmethod
+    def contact_number_contacts(cls):
+        return cls.objects.filter(kind__slug__in=["cell", "phone"])
+
     class Meta:
        ordering = ["content_type", "-preferred", "object_id", "kind"]
 
@@ -328,6 +336,43 @@ class PersonQuerySet(models.query.GeoQuerySet):
     def is_politician(self, when=None):
         # FIXME - Don't like the look of this, rather a big subquery.
         return self.filter(position__in=Position.objects.all().current_politician_positions(when))
+
+    def prefetch_contact_numbers(self):
+        """
+        Prefetch people's phone or cell phone numbers.
+        """
+        cell_phone_contacts = Contact.contact_number_contacts()
+        return self.prefetch_related(
+            Prefetch("contacts", queryset=cell_phone_contacts, to_attr="cell_numbers"),
+        )
+
+    def prefetch_email_addresses(self):
+        """
+        Prefetch email addresses
+        """
+        email_contacts = Contact.email_contacts()
+        return self.prefetch_related(
+            Prefetch("contacts", queryset=email_contacts, to_attr="email_addresses"),
+        )
+
+    def prefetch_active_party_positions(self):
+        """
+        Prefetch active party positions.
+        """
+        party_positions = (
+            Position.objects.currently_active()
+            .filter(title__slug="member")
+            .filter(organisation__kind__slug="party")
+            .select_related("organisation")
+        )
+
+        return self.prefetch_related(
+            Prefetch(
+                "position_set",
+                queryset=party_positions,
+                to_attr="active_party_positions",
+            )
+        )
 
 class PersonManager(ManagerBase):
     def get_queryset(self):
