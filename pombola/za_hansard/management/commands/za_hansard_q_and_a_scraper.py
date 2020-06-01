@@ -398,64 +398,6 @@ class Command(BaseCommand):
             )
     
     def update_or_create_answer_for_question(self, question, parsed):
-        # Also check whether there's an answer that already exists for
-        # that number, house and year, but which hasn't been
-        # associated with a question. If that's the case, don't try to
-        # create the answer (the uniqueness constraint will fail
-        # anyway).  If so, then associate it with the question that we
-        # will just have created (or already existed).
-        existing_answer_qs = Answer.objects.filter(**parsed['existing_kwargs'])
-        if existing_answer_qs.exists():
-            if self.verbose:
-                print "  Found an existing answer for that question; linking them"
-            question.answer = existing_answer_qs.get()
-            question.answer.pmg_api_url = parsed['url']
-            question.answer.save()
-            return question.answer
-        else:
-            if self.verbose:
-                print "  Creating a new answer for that question."
-            # Otherwise create the answer from the API data:
-            document_name, dot_extension = os.path.splitext(
-                parsed['source_file']['file_path'])
-            answer = Answer.objects.create(
-                document_name=document_name,
-                oral_number=parsed['oral_number'],
-                written_number=parsed['written_number'],
-                president_number=parsed['president_number'],
-                dp_number=parsed['deputy_president_number'],
-                date=parsed['date'],
-                year=parsed['year'],
-                house=parsed['house'],
-                text=parsed['answer'],
-                # Mark this as processed since we've already got the text
-                # - the source file doesn't need to be parsed.
-                processed_code=Answer.PROCESSED_OK,
-                # This always seems to be empty in the existing data:
-                name='',
-                # FIXME: check that all the answers from the PMG API are
-                # in English, or whether there should be metadata for
-                # that?
-                language='English',
-                url=parsed['source_file']['url'],
-                date_published=parsed['date'],
-                type=dot_extension[1:],
-                pmg_api_url=parsed['url'],
-                term=parsed['term']
-            )
-            return answer
-
-
-    def handle_api_question_and_reply(self, data):
-        valid, parsed  = self.parse_pmg_question_data(data) 
-
-        if not valid:
-            if self.verbose:
-                print(parsed)
-            return
-        
-        question = self.update_or_create_question(parsed)
-
         # If there's already an answer, assume it's OK, except record
         # the PMG API URL if it hasn't got one:
         if question.answer:
@@ -471,8 +413,64 @@ class Command(BaseCommand):
                 answer.save()
             return
         else:
-            answer = self.update_or_create_answer_for_question(question, parsed)
-            question.answer = answer
+            # Also check whether there's an answer that already exists for
+            # that number, house and year, but which hasn't been
+            # associated with a question. If that's the case, don't try to
+            # create the answer (the uniqueness constraint will fail
+            # anyway).  If so, then associate it with the question that we
+            # will just have created (or already existed).
+            existing_answer_qs = Answer.objects.filter(**parsed['existing_kwargs'])
+            if existing_answer_qs.exists():
+                if self.verbose:
+                    print "  Found an existing answer for that question; linking them"
+                question.answer = existing_answer_qs.get()
+                question.answer.pmg_api_url = parsed['url']
+                question.answer.save()
+            else:
+                if self.verbose:
+                    print "  Creating a new answer for that question."
+                # Otherwise create the answer from the API data:
+                document_name, dot_extension = os.path.splitext(
+                    parsed['source_file']['file_path'])
+                answer = Answer.objects.create(
+                    document_name=document_name,
+                    oral_number=parsed['oral_number'],
+                    written_number=parsed['written_number'],
+                    president_number=parsed['president_number'],
+                    dp_number=parsed['deputy_president_number'],
+                    date=parsed['date'],
+                    year=parsed['year'],
+                    house=parsed['house'],
+                    text=parsed['answer'],
+                    # Mark this as processed since we've already got the text
+                    # - the source file doesn't need to be parsed.
+                    processed_code=Answer.PROCESSED_OK,
+                    # This always seems to be empty in the existing data:
+                    name='',
+                    # FIXME: check that all the answers from the PMG API are
+                    # in English, or whether there should be metadata for
+                    # that?
+                    language='English',
+                    url=parsed['source_file']['url'],
+                    date_published=parsed['date'],
+                    type=dot_extension[1:],
+                    pmg_api_url=parsed['url'],
+                    term=parsed['term']
+                )
+                question.answer = answer
+
+
+    def handle_api_question_and_reply(self, data):
+        valid, parsed  = self.parse_pmg_question_data(data) 
+
+        if not valid:
+            if self.verbose:
+                print(parsed)
+            return
+        
+        question = self.update_or_create_question(parsed)
+
+        self.update_or_create_answer_for_question(question, parsed)
 
         question.save()
 
