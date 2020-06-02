@@ -417,7 +417,7 @@ class PMGAPITests(TestCase):
         fake_all_from_api.side_effect = api_one_question_and_answer
 
         # Run the command:
-        call_command('za_hansard_q_and_a_scraper', scrape_from_pmg=True)
+        call_command('za_hansard_q_and_a_scraper', scrape_from_pmg=True, verbosity=4)
 
         # Check that no new questions or answers were created
         self.assertEqual(Question.objects.count(), 0)
@@ -525,7 +525,6 @@ class ParsePmgQuestionDataTests(TestCase):
             "year": "2016",
             "president_number": None,
             "question_text": "Why did the chicken cross the road?",
-            "question": None,
             "answer_type": "W",
             "deputy_president_number": None,
             "intro": "Groucho Marx to ask the Minister of Arts and Culture",
@@ -553,4 +552,10 @@ class ParsePmgQuestionDataTests(TestCase):
         question = copy.deepcopy(EXAMPLE_QUESTION)
         question['house']['name'] = 'unsupported'
         with self.assertRaisesRegexp(QuestionParsingException, 'unsupported'):
+            result = self.command.parse_pmg_question_data(question)
+
+    def test_unsupported_answer_type(self):
+        question = copy.deepcopy(EXAMPLE_QUESTION)
+        question['answer_type'] = 'unsupported'
+        with self.assertRaisesRegexp(QuestionParsingException, 'answer type'):
             result = self.command.parse_pmg_question_data(question)

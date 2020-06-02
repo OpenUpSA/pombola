@@ -222,16 +222,24 @@ class Command(BaseCommand):
         parsed = {}
 
         required_keys = [
-            'source_file'
+            'source_file', 'date', 'question_to_name', 'intro', 'translated',
+            'deputy_president_number', 'url', 'source_file', 'answer'
         ]
 
         for required_key in required_keys:
             if required_key not in data:
                 raise QuestionParsingException(
                     data.get('url'),
-                    'missing-{0}'.format(required_key),
+                    'missing-field',
                     "Skipping {0} due to missing {1} value".format(data.get('url'), required_key)
                 )
+            parsed[required_key] = data[required_key]
+
+        optional_keys = [
+            'written_number', 'oral_number', 'written_number', 'president_number',
+        ]
+        for optional_key in optional_keys:
+            parsed[optional_key] = data.get(optional_key)
 
         try:
             parsed['house'] = Question.get_house_choice(data['house']['name'])
@@ -281,6 +289,23 @@ class Command(BaseCommand):
                 parsed['number_found'] = True
                 parsed['number_q_kwargs'][filter_key] = data[api_key]
 
+        if not parsed['number_found']:
+            # We won't be able to accurately tell whether a question
+            # already exists if we don't have one of these number, so
+            # ignore the question and answer completely in that
+            # case. (This is a rare occurence.)
+            msg = (
+                    'Question at {} could not be imported because it has no '
+                    'number (i.e. no written_number, oral_number, '
+                    'president_number or dp_number. '
+                )\
+                .format(data['url'])
+            raise QuestionParsingException(
+                data['url'], 
+                'number-not-found', 
+                msg
+            )
+
         try:
             parsed['question_date'] = datetime.strptime(data['date'], "%Y-%m-%d").date()
         except Exception:
@@ -312,38 +337,12 @@ class Command(BaseCommand):
                 msg
             )
 
-        parsed['existing_kwargs'] = {'date__year': parsed['year'], 'house': parsed['house'], 'term': parsed['term']}
+        parsed['existing_kwargs'] = {
+            'date__year': parsed['year'], 
+            'house': parsed['house'], 
+            'term': parsed['term']
+        }
         parsed['existing_kwargs'].update(parsed['number_q_kwargs'])
-        parsed['question'] = None
-        if not parsed['number_found']:
-            # We won't be able to accurately tell whether a question
-            # already exists if we don't have one of these number, so
-            # ignore the question and answer completely in that
-            # case. (This is a rare occurence.)
-            msg = (
-                    'Question at {} could not be imported because it has no '
-                    'number (i.e. no written_number, oral_number, '
-                    'president_number or dp_number. '
-                )\
-                .format(data['url'])
-            raise QuestionParsingException(
-                data['url'], 
-                'number-not-found', 
-                msg
-            )
-
-        parsed['date'] = data['date']
-        parsed['question_to_name'] = data['question_to_name']
-        parsed['intro'] = data['intro']
-        parsed['translated'] = data['translated']
-        parsed['written_number'] = data['written_number']
-        parsed['oral_number'] = data['oral_number']
-        parsed['written_number'] = data['written_number']
-        parsed['president_number'] = data['president_number']
-        parsed['deputy_president_number'] = data['deputy_president_number']
-        parsed['url'] = data['url']
-        parsed['source_file'] = data['source_file']
-        parsed['answer'] = data['answer']
 
         return parsed
     
@@ -1179,6 +1178,7 @@ class Command(BaseCommand):
         writes the error message to stderr if the message is new 
         (i.e. was created).
         """
+        print(error_type)
         question_parsing_error, created = QuestionParsingError.objects\
                 .update_or_create(
                     pmg_url=question_url,
