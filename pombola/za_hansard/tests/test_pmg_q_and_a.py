@@ -431,75 +431,6 @@ class PMGAPITests(TestCase):
 
         fake_sys_exit.assert_called_with(1)
 
-    @patch('pombola.za_hansard.management.commands.za_hansard_q_and_a_scraper.all_from_api')
-    @patch('pombola.za_hansard.management.commands.za_hansard_q_and_a_scraper.sys.exit')
-    def test_unsupported_house(self, fake_sys_exit, fake_all_from_api):
-        question_with_invalid_house = copy.deepcopy(EXAMPLE_QUESTION)
-        question_with_invalid_house['house']['name'] = u'Unsupported House'
-        def api_one_question_and_answer(url):
-            if url == 'https://api.pmg.org.za/minister/':
-                yield {
-                    'questions_url': "http://api.pmg.org.za/minister/2/questions/",
-                }
-                return
-            elif url == 'https://api.pmg.org.za/member/':
-                return
-            elif url == 'http://api.pmg.org.za/minister/2/questions/':
-                yield question_with_invalid_house
-            else:
-                raise Exception("Unfaked URL '{0}'".format(url))
-        fake_all_from_api.side_effect = api_one_question_and_answer
-
-        # Run the command:
-        out = StringIO()
-        call_command('za_hansard_q_and_a_scraper', scrape_from_pmg=True, verbosity=4, stderr=out)
-
-        # Check that no new questions or answers were created
-        expected_output = "Skipping http://api.pmg.org.za/example-question/5678/ because the house Unsupported House is not supported."
-        self.assertIn(expected_output, out.getvalue())
-        self.assertEqual(Question.objects.count(), 0)
-        self.assertEqual(Answer.objects.count(), 0)
-
-    @patch('pombola.za_hansard.management.commands.za_hansard_q_and_a_scraper.all_from_api')
-    def test_import_ncop_question(self, fake_all_from_api):
-        question_with_invalid_house = copy.deepcopy(EXAMPLE_QUESTION)
-        question_with_invalid_house['house']['name'] = u'National Council of Provinces'
-        def api_one_question_and_answer(url):
-            if url == 'https://api.pmg.org.za/minister/':
-                yield {
-                    'questions_url': "http://api.pmg.org.za/minister/2/questions/",
-                }
-                return
-            elif url == 'https://api.pmg.org.za/member/':
-                return
-            elif url == 'http://api.pmg.org.za/minister/2/questions/':
-                yield question_with_invalid_house
-            else:
-                raise Exception("Unfaked URL '{0}'".format(url))
-        fake_all_from_api.side_effect = api_one_question_and_answer
-
-        # Run the command:
-        call_command('za_hansard_q_and_a_scraper', scrape_from_pmg=True)
-
-        # Check that what we expect has been created:
-        self.assertEqual(Answer.objects.count(), 1)
-        self.assertEqual(Question.objects.count(), 1)
-        answer = Answer.objects.get()
-        question = Question.objects.get()
-
-        # Assertions about the question first:
-        self.assertEqual(
-            question.question, 'Why did the chicken cross the road?')
-        self.assertEqual(question.answer, answer)
-        self.assertEqual(question.written_number, 12345)
-
-        NCOP_LETTER = 'C'
-        self.assertEqual(question.house, NCOP_LETTER)
-        self.assertEqual(question.answer_type, 'W')
-
-        self.assertEqual(answer.text, 'To get to the other side')
-        self.assertEqual(answer.house, NCOP_LETTER)
-        self.assertEqual(answer.processed_code, Answer.PROCESSED_OK)
 
 @attr(country='south_africa')
 class ParsePmgQuestionDataTests(TestCase):
@@ -554,8 +485,27 @@ class ParsePmgQuestionDataTests(TestCase):
         with self.assertRaisesRegexp(QuestionParsingException, 'unsupported'):
             result = self.command.parse_pmg_question_data(question)
 
+    def test_ncop_house(self):
+        question = copy.deepcopy(EXAMPLE_QUESTION)
+        question['house']['name'] = u'National Council of Provinces'
+        result = self.command.parse_pmg_question_data(question)
+        self.assertIs(dict, type(result))
+        self.assertEqual(result['existing_kwargs']['house'], 'C')
+
     def test_unsupported_answer_type(self):
         question = copy.deepcopy(EXAMPLE_QUESTION)
         question['answer_type'] = 'unsupported'
         with self.assertRaisesRegexp(QuestionParsingException, 'answer type'):
+            result = self.command.parse_pmg_question_data(question)
+
+    def test_invalid_term_date(self):
+        question = copy.deepcopy(EXAMPLE_QUESTION)
+        question['date'] = '1990-02-20'
+        with self.assertRaisesRegexp(QuestionParsingException, 'Could not determine the parliamentary term'):
+            result = self.command.parse_pmg_question_data(question)
+
+    def test_invalid_date(self):
+        question = copy.deepcopy(EXAMPLE_QUESTION)
+        question['date'] = 'not-a-date'
+        with self.assertRaisesRegexp(QuestionParsingException, 'Could not parse the date'):
             result = self.command.parse_pmg_question_data(question)
