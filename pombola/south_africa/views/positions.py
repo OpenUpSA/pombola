@@ -23,9 +23,7 @@ class SAMembersView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(SAMembersView, self).get_context_data(**kwargs)
-        positions = Position.objects.filter(
-            Q(title__slug='member', organisation__kind__slug='parliament') |
-            Q(organisation__slug='ncop')) \
+        positions = Position.objects.parliament() \
             .currently_active() \
             .select_related(
                 'organisation__kind', 'person') \

@@ -527,6 +527,10 @@ class Person(ModelBase, HasImageMixin, ScorecardMixin, IdentifierMixin):
             return self.legal_name
 
     @property
+    def is_current_member_of_parliament(self):
+        return self.parliament_positions().currently_active().exists()
+
+    @property
     def everypolitician_uuid(self):
         return self.get_identifier('everypolitician')
 
@@ -563,6 +567,9 @@ class Person(ModelBase, HasImageMixin, ScorecardMixin, IdentifierMixin):
 
     def remove_alternative_name(self, alternative_name):
         self.alternative_names.filter(alternative_name=alternative_name).delete()
+
+    def parliament_positions(self):
+        return self.position_set.all().parliament()
 
     def aspirant_positions(self):
         return self.position_set.all().current_aspirant_positions()
@@ -1334,6 +1341,13 @@ class PositionQuerySet(models.query.GeoQuerySet):
     def political(self):
         """Filter down to only the political category"""
         return self.filter(category='political')
+
+    def parliament(self):
+        """Filter down to positions at parliament"""
+        return self.filter(
+            Q(title__slug='member', organisation__kind__slug='parliament') |
+            Q(organisation__slug='ncop')
+        )
 
     def committees(self):
         """Filter down to committee memberships"""
