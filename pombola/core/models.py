@@ -1435,8 +1435,7 @@ class Position(ModelBase, IdentifierMixin):
             raise exceptions.ValidationError("The job title '%s' requires a place to be set" % self.title.name)
 
         if self.organisation and self.organisation.kind.slug == 'election-list':
-            match = re.match('\d+', self.title.name)
-            if not match:
+            if not re.match('\d+', self.title.name):
                 raise exceptions.ValidationError("Election positions must contain a number, e.g. '1st Candidate'.")
 
 
