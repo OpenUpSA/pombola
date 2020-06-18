@@ -275,7 +275,7 @@ class Answer (models.Model):
     type = models.TextField()
 
     last_sayit_import = models.DateTimeField(blank=True, null=True)
-    sayit_section = models.ForeignKey(
+    sayit_section = models.OneToOneField(
         Section, blank=True, null=True, on_delete=models.PROTECT,
         help_text='Associated Sayit section object, if imported',
     )
@@ -440,7 +440,7 @@ class Question(models.Model):
     askedby = models.TextField()
 
     last_sayit_import = models.DateTimeField(blank=True, null=True)
-    sayit_section = models.ForeignKey(
+    sayit_section = models.OneToOneField(
         Section, blank=True, null=True, on_delete=models.PROTECT,
         help_text='Associated Sayit section object, if imported',
     )
@@ -463,6 +463,24 @@ class Question(models.Model):
             ('president_number', 'house', 'year', 'term'),
             ('dp_number', 'house', 'year', 'term'),
         )
+
+    @classmethod
+    def get_house_choice(cls, house_name):
+        choice = next((choice[0] for choice in house_choices if choice[1] == house_name), None)
+        if not choice:
+            raise KeyError
+        return choice
+
+    @property
+    def house_name(self):
+        choice = next((choice[1] for choice in house_choices if choice[0] == self.house), None)
+        if not choice:
+            return ''
+        return choice
+
+        if not self.house:
+            return ''
+
 
 # CREATE TABLE completed_documents (`url` string);
 

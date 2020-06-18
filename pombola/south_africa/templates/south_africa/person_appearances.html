@@ -7,12 +7,14 @@
 
 {% block subcontent %}
 
-  <h2>Appearances</h2>
+  <section class="person-appearances">
+    <h2>Appearances</h2>
 
-  {% autopaginate speeches %}
+    {% autopaginate speeches %}
 
-  {% include "core/person_speech_list.html" with speechlist=speeches %}
+    {% include "core/person_speech_list.html" with speechlist=speeches %}
 
-  {% paginate %}
+    {% paginate %}
+  </section>
 
 {% endblock %}

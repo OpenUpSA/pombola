@@ -3,11 +3,13 @@
 from datetime import date
 from mock import patch
 import copy
+from StringIO import StringIO
 
 from django.core.management import call_command
 from django.test import TestCase
 
 from pombola.za_hansard.models import Answer, Question, QuestionParsingError
+from pombola.za_hansard.management.commands.za_hansard_q_and_a_scraper import Command, QuestionParsingException
 from pombola.south_africa.models import ParliamentaryTerm
 from nose.plugins.attrib import attr
 
@@ -415,7 +417,7 @@ class PMGAPITests(TestCase):
         fake_all_from_api.side_effect = api_one_question_and_answer
 
         # Run the command:
-        call_command('za_hansard_q_and_a_scraper', scrape_from_pmg=True)
+        call_command('za_hansard_q_and_a_scraper', scrape_from_pmg=True, verbosity=4)
 
         # Check that no new questions or answers were created
         self.assertEqual(Question.objects.count(), 0)
@@ -429,27 +431,81 @@ class PMGAPITests(TestCase):
 
         fake_sys_exit.assert_called_with(1)
 
-    @patch('pombola.za_hansard.management.commands.za_hansard_q_and_a_scraper.all_from_api')
-    def test_unsupported_house(self, fake_all_from_api):
-        question_with_invalid_house = copy.deepcopy(EXAMPLE_QUESTION)
-        question_with_invalid_house['house']['name'] = u'National Council of Provinces'
-        def api_one_question_and_answer(url):
-            if url == 'https://api.pmg.org.za/minister/':
-                yield {
-                    'questions_url': "http://api.pmg.org.za/minister/2/questions/",
-                }
-                return
-            elif url == 'https://api.pmg.org.za/member/':
-                return
-            elif url == 'http://api.pmg.org.za/minister/2/questions/':
-                yield question_with_invalid_house
-            else:
-                raise Exception("Unfaked URL '{0}'".format(url))
-        fake_all_from_api.side_effect = api_one_question_and_answer
 
-        # Run the command:
-        call_command('za_hansard_q_and_a_scraper', scrape_from_pmg=True)
+@attr(country='south_africa')
+class ParsePmgQuestionDataTests(TestCase):
+    def setUp(self):
+        self.command = Command()
 
-        # Check that no new questions or answers were created
-        self.assertEqual(Question.objects.count(), 0)
-        self.assertEqual(Answer.objects.count(), 0)
+    def test_valid_parse_example_question(self):
+        expected = {
+            "written_number": 12345,
+            "house": "N",
+            "number_found": True,
+            "existing_kwargs": {
+                "house": "N",
+                "term": ParliamentaryTerm.objects.get(number=26),
+                "written_number": 12345,
+                "date__year": "2016",
+            },
+            "source_file": {
+                "url": "http://example.org/chicken-joke.docx",
+                "file_path": "chicken-joke.docx",
+            },
+            "number_q_kwargs": {"written_number": 12345},
+            "year": "2016",
+            "president_number": None,
+            "question_text": "Why did the chicken cross the road?",
+            "answer_type": "W",
+            "deputy_president_number": None,
+            "intro": "Groucho Marx to ask the Minister of Arts and Culture",
+            "question_to_name": "Minister of Arts and Culture",
+            "question_date": date(2016, 9, 6),
+            "answer": "To get to the other side",
+            "date": "2016-09-06",
+            "term": ParliamentaryTerm.objects.get(number=26),
+            "url": "http://api.pmg.org.za/example-question/5678/",
+            "askedby_name": "Groucho Marx",
+            "translated": False,
+            "oral_number": None,
+            "askedby_pa_url": "http://www.pa.org.za/person/groucho-marx/",
+        }
+        result = self.command.parse_pmg_question_data(EXAMPLE_QUESTION)
+
+        self.assertEqual(expected, result)
+
+    def test_no_source_file(self):
+        question = {}
+        with self.assertRaisesRegexp(QuestionParsingException, 'missing'):
+            result = self.command.parse_pmg_question_data(question)
+        
+    def test_unsupported_house(self):
+        question = copy.deepcopy(EXAMPLE_QUESTION)
+        question['house']['name'] = 'unsupported'
+        with self.assertRaisesRegexp(QuestionParsingException, 'unsupported'):
+            result = self.command.parse_pmg_question_data(question)
+
+    def test_ncop_house(self):
+        question = copy.deepcopy(EXAMPLE_QUESTION)
+        question['house']['name'] = u'National Council of Provinces'
+        result = self.command.parse_pmg_question_data(question)
+        self.assertIs(dict, type(result))
+        self.assertEqual(result['existing_kwargs']['house'], 'C')
+
+    def test_unsupported_answer_type(self):
+        question = copy.deepcopy(EXAMPLE_QUESTION)
+        question['answer_type'] = 'unsupported'
+        with self.assertRaisesRegexp(QuestionParsingException, 'answer type'):
+            result = self.command.parse_pmg_question_data(question)
+
+    def test_invalid_term_date(self):
+        question = copy.deepcopy(EXAMPLE_QUESTION)
+        question['date'] = '1990-02-20'
+        with self.assertRaisesRegexp(QuestionParsingException, 'Could not determine the parliamentary term'):
+            result = self.command.parse_pmg_question_data(question)
+
+    def test_invalid_date(self):
+        question = copy.deepcopy(EXAMPLE_QUESTION)
+        question['date'] = 'not-a-date'
+        with self.assertRaisesRegexp(QuestionParsingException, 'Could not parse the date'):
+            result = self.command.parse_pmg_question_data(question)

@@ -197,6 +197,9 @@ def questions_section_sort_key(section):
 class SAQuestionIndex(TemplateView):
     template_name = 'south_africa/question_index.html'
 
+    def dispatch(request, *args, **kwargs):
+      return redirect("https://pmg.org.za/question_replies/")
+
     def get_context_data(self, **kwargs):
         context = super(SAQuestionIndex, self).get_context_data(**kwargs)
 
