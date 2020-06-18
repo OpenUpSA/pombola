@@ -275,7 +275,7 @@ class Answer (models.Model):
     type = models.TextField()
 
     last_sayit_import = models.DateTimeField(blank=True, null=True)
-    sayit_section = models.ForeignKey(
+    sayit_section = models.OneToOneField(
         Section, blank=True, null=True, on_delete=models.PROTECT,
         help_text='Associated Sayit section object, if imported',
     )
