@@ -471,6 +471,16 @@ class Question(models.Model):
             raise KeyError
         return choice
 
+    @property
+    def house_name(self):
+        choice = next((choice[1] for choice in house_choices if choice[0] == self.house), None)
+        if not choice:
+            return ''
+        return choice
+
+        if not self.house:
+            return ''
+
 
 # CREATE TABLE completed_documents (`url` string);
 
