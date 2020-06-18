@@ -29,11 +29,13 @@
                         {{ speech.section.title }}
                     {% endif %}
                 </a>
-                {% if speech.section.question.house_name %}
-                  <span class="speech-house">
-                    {{ speech.section.question.house_name }}
-                  </span>
-                {% endif %}
+                {% with house_name=speech.section.question.house_name %}
+                  {% if house_name %}
+                    <span class="speech-house">
+                      {{ house_name }}
+                    </span>
+                  {% endif %}
+                {% endwith %}
             </span>
             <span class="speech-date">
                 {{ speech.start_date }}
