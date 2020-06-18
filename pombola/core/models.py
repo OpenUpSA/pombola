@@ -821,6 +821,10 @@ class Organisation(ModelBase, HasImageMixin, IdentifierMixin):
     class Meta:
        ordering = ["name"]
 
+    @property
+    def is_election_list(self):
+        return self.kind.slug == 'election-list'
+
     def is_ongoing(self):
         """Return True or False for whether the organisation is currently ongoing"""
         if not self.ended:
@@ -1433,6 +1437,11 @@ class Position(ModelBase, IdentifierMixin):
 
         if self.title and self.title.requires_place and not self.place:
             raise exceptions.ValidationError("The job title '%s' requires a place to be set" % self.title.name)
+
+        if self.organisation and self.organisation.is_election_list:
+            match = re.match('\d+', self.title.name)
+            if not match:
+                raise exceptions.ValidationError("Election positions must contain a number, e.g. '1st Candidate'.")
 
 
     def display_dates(self):
