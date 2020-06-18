@@ -459,6 +459,13 @@ def connection_error(x, *args, **kwargs):
 
 
 @attr(country='south_africa')
+class SAQuestionIndexTest(TestCase):
+    def test_question_view_redirects(self):
+        response = self.client.get(reverse('section-list-question'), follow=False)
+        self.assertRedirects(response, 'https://pmg.org.za/question_replies/', fetch_redirect_response=False)
+
+
+@attr(country='south_africa')
 class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
     def setUp(self):
         # Create the top level SayIt sections, so that there's no
