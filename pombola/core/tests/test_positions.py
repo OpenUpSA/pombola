@@ -9,9 +9,12 @@ from django.test import TestCase
 from django_date_extensions.fields import ApproximateDate
 from slug_helpers.models import SlugRedirect
 
+from nose.plugins.attrib import attr
+
 from pombola.core import models
 
 
+@attr(country='south_africa')
 class PositionTest(TestCase):
     def setUp(self):
         self.person = models.Person(
@@ -58,6 +61,19 @@ class PositionTest(TestCase):
             new_object=self.title,
             old_object_slug='old-positiontitle',
             )
+
+        self.election_list_kind = models.OrganisationKind.objects.create(
+            name="Election List", slug="election-list",
+        )
+        self.election_list_da = models.Organisation.objects.create(
+            slug='da-election-list-2019',
+            name="DA Election List",
+            kind=self.election_list_kind,
+        )
+        self.first_candidate = models.PositionTitle.objects.create(
+            name="1st Candidate", slug="1st-candidate"
+        )
+        
 
     def test_unicode(self):
         """Check that missing attributes don't crash"""
@@ -248,6 +264,24 @@ class PositionTest(TestCase):
 
         self.maxDiff = None
         self.assertEqual( position_expected_order, position_actual_order )
+
+    def test_election_position_has_number(self):
+        """
+        Positions on an election list must contain a number.
+        """
+        pos = models.Position(
+            person = self.person,            
+            organisation=self.election_list_da,
+            title=self.title
+        )
+
+        pos._set_sorting_dates()
+
+        with self.assertRaises(exceptions.ValidationError):
+            pos.full_clean()
+        
+        pos.title = self.first_candidate
+        pos.full_clean()
 
     def test_have_at_least_one_attribute(self):
         """

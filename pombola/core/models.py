@@ -1434,6 +1434,10 @@ class Position(ModelBase, IdentifierMixin):
         if self.title and self.title.requires_place and not self.place:
             raise exceptions.ValidationError("The job title '%s' requires a place to be set" % self.title.name)
 
+        if self.organisation and self.organisation.kind.slug == 'election-list':
+            if not re.match('\d+', self.title.name):
+                raise exceptions.ValidationError("Election positions must contain a number, e.g. '1st Candidate'.")
+
 
     def display_dates(self):
         """
