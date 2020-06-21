@@ -75,6 +75,7 @@ new_person_url = url(
     r'^(?P<slug>[-\w]+)/$',
     SAPersonDetail.as_view(),
     name='person',
+    kwargs={'configuration_slug': 'south-africa-assembly'},
     )
 
 new_person_appearances_url = url(

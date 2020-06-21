@@ -35,6 +35,29 @@ class Answer(RecipientMixin, object):
         self.person = person
 
 
+class Person(RecipientMixin, object):
+    def __init__(self, params, adapter):
+        self.id = params['id']
+        keys = [
+            "contactable",
+            "created_at",
+            "email",
+            "id",
+            "name",
+            "popit_id",
+            "popit_url",
+            "resource_uri",
+            "updated_at"
+        ]
+        for key in keys:
+            if key == 'created_at' or key == 'updated_at':
+                setattr(self, key, parse_datetime(params.get(key)))
+            setattr(self, key, params.get(key))
+
+        self._params = params
+        self.adapter = adapter
+
+
 class WriteInPublic(object):
     class WriteInPublicException(Exception):
         pass
@@ -99,5 +122,40 @@ class WriteInPublic(object):
             response.raise_for_status()
             messages = response.json()['objects']
             return [Message(m, adapter=self.adapter) for m in messages]
+        except requests.exceptions.RequestException as err:
+            raise self.WriteInPublicException(unicode(err))
+
+    def get_person_is_contactable(self, person):
+        filters = {
+            'contactable': 'True'
+        }
+        write_to_mp_people = self.get_person(person, filters)
+        return len(write_to_mp_people) > 0
+
+    def get_person(self, person, filters={}):
+        # TODO: add kwargs for filters above
+        url = '{url}/api/v1/person/'.format(url=self.url, instance_id=self.instance_id)
+        person_popolo_uri = self.person_uuid_prefix.format(person.id)
+        params = {
+            'format': 'json',
+            'username': self.username,
+            'api_key': self.api_key,
+            # 'identifiers__scheme': 'popolo_uri',
+            # 'identifiers__identifier': person_popolo_uri,
+            'identifiers__scheme': 'popolo:person',
+            'identifiers__identifier': person.id,
+        }
+        params.update(filters)
+        print("params")
+        print(params)
+        try:
+            response = requests.get(url, params=params)
+            print(response)
+            if response.status_code == 404:
+                return []
+            response.raise_for_status()
+            people = response.json()['objects']
+            print(people)
+            return [Person(p, adapter=self.adapter) for p in people]
         except requests.exceptions.RequestException as err:
             raise self.WriteInPublicException(unicode(err))

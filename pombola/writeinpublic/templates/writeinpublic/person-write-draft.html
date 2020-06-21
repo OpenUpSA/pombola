@@ -6,6 +6,18 @@
 <form action="" method="post" class="person-write-form">{% csrf_token %}
   {{ wizard.management_form }}
 
+    {% if non_contactable|length > 0 %}
+      <p class="form-group non-contactable">
+        The following people are not currently reachable through this service. Please try
+        again in 24 hours or contact them directly at the email addresses listed below:
+        <ul>
+          {% for person in non_contactable %}
+            <li>{{ person }} ({{ person.preferred_email|urlize }})</li>
+          {% endfor %}
+        </ul>
+      </p>
+    {% endif %}
+
     <p class="form-group">
         <label for="recipients">To</label>
         <input type="text" disabled id="recipients" value="{{ persons | join:", " }}">
