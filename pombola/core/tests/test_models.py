@@ -768,10 +768,10 @@ class PersonPreferredEmailTest(TestCase):
     def test_with_email_value(self):
         self.person.email = "preferred@gmail.com"
         self.person.save()
-        self.assertEqual(self.person.preferred_email_address, "preferred@gmail.com")
+        self.assertEqual(self.person.preferred_email, "preferred@gmail.com")
 
     def test_with_email_contact(self):
-        self.assertEqual(self.person.preferred_email_address, "test@example.com")
+        self.assertEqual(self.person.preferred_email, "test@example.com")
 
     def test_with_preferred_email_contact(self):
         self.preferred_email = models.Contact.objects.create(
@@ -781,8 +781,8 @@ class PersonPreferredEmailTest(TestCase):
             value        = "preferred_contact@gmail.com",
             preferred    = True,
         )
-        self.assertEqual(self.person.preferred_email_address, "preferred_contact@gmail.com")
+        self.assertEqual(self.person.preferred_email, "preferred_contact@gmail.com")
 
     def test_with_no_email(self):
         self.contact_email.delete()
-        self.assertEqual(self.person.preferred_email_address, None)
+        self.assertEqual(self.person.preferred_email, None)

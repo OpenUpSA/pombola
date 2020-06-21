@@ -513,7 +513,7 @@ class Person(ModelBase, HasImageMixin, ScorecardMixin, IdentifierMixin):
                                       'sort_name']
 
     @property
-    def preferred_email_address(self):
+    def preferred_email(self):
         if self.email.strip():
             return self.email.strip()
         preferred_contact_email = self.contacts.filter(kind__slug="email")\
