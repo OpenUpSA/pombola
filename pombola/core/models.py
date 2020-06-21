@@ -513,6 +513,17 @@ class Person(ModelBase, HasImageMixin, ScorecardMixin, IdentifierMixin):
                                       'sort_name']
 
     @property
+    def preferred_email_address(self):
+        if self.email.strip():
+            return self.email.strip()
+        preferred_contact_email = self.contacts.filter(kind__slug="email")\
+                        .order_by("-preferred")\
+                        .first()
+        if preferred_contact_email:
+            return preferred_contact_email.value.strip()
+        return None
+
+    @property
     def name(self):
         # n.b. we're deliberately not using
         # self.alternative_names.filter(name_to_use=True) here, since

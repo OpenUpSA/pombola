@@ -748,3 +748,41 @@ class PersonEveryPoliticianUUIDTest(TestCase):
     def test_returns_uuid(self):
         self.person.identifiers.create(scheme='everypolitician', identifier='99795f75-d2fe-4353-a177-a4b8c8cfc01d')
         self.assertEqual(self.person.everypolitician_uuid, '99795f75-d2fe-4353-a177-a4b8c8cfc01d')
+
+
+@attr(country="south_africa")
+class PersonPreferredEmailTest(TestCase):
+    def setUp(self):
+        self.person = models.Person.objects.create(legal_name="Bob Smith", slug="bob-smith")
+        self.email = models.ContactKind.objects.create(
+            slug='email', name='Email',
+        )
+        self.contact_email = models.Contact.objects.create(
+            content_type = ContentType.objects.get_for_model(self.person),
+            object_id    = self.person.id,
+            kind         = self.email,
+            value        = "test@example.com",
+            preferred    = False,
+        )
+
+    def test_with_email_value(self):
+        self.person.email = "preferred@gmail.com"
+        self.person.save()
+        self.assertEqual(self.person.preferred_email_address, "preferred@gmail.com")
+
+    def test_with_email_contact(self):
+        self.assertEqual(self.person.preferred_email_address, "test@example.com")
+
+    def test_with_preferred_email_contact(self):
+        self.preferred_email = models.Contact.objects.create(
+            content_type = ContentType.objects.get_for_model(self.person),
+            object_id    = self.person.id,
+            kind         = self.email,
+            value        = "preferred_contact@gmail.com",
+            preferred    = True,
+        )
+        self.assertEqual(self.person.preferred_email_address, "preferred_contact@gmail.com")
+
+    def test_with_no_email(self):
+        self.contact_email.delete()
+        self.assertEqual(self.person.preferred_email_address, None)
