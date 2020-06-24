@@ -216,35 +216,29 @@ class WriteInPublicNewMessage(WriteInPublicMixin, PreventRevalidationMixin, Name
         return [self.adapter.get_templates()[self.steps.current]]
 
     def get_context_data(self, form, **kwargs):
-        print('\n\n\nget_context_data\n\n\n')
         step = kwargs.get('step')
-        print("step: %s" % step)
         context = super(WriteInPublicNewMessage, self).get_context_data(form=form, **kwargs)
         context['message'] = self.get_cleaned_data_for_step('draft')
         recipients = self.get_cleaned_data_for_step('recipients')
+
         if recipients is not None:
             persons = recipients.get('persons')
             if step == 'draft':
+                # On the draft step, check if all recipients are contactable
+                # in WriteInPublic
                 not_contactable = []
                 contactable = []
-                # TODO: Check that all of the select people are available in WriteInPublic
-                print("\n\n\n\ndraft step")
-                print(recipients)
                 for person in persons:
-                    print("Checking %s" % person)
-                    # TODO: error handling if not found, etc.
-                    if not self.client.get_person_is_contactable(person):
-                        print("Not contactable")
+                    try:
+                        if not self.client.get_person_is_contactable(person):
+                            not_contactable.append(person)
+                        else:
+                            contactable.append(person)
+                    except Exception:
                         not_contactable.append(person)
-                        # TODO: remove contact from recipients
-                    else:
-                        print("Contactable")
-                        contactable.append(person)
-                print("not_contactable")
-                print([person.id for person in not_contactable])
+
                 context['non_contactable'] = not_contactable
                 context['persons'] = contactable
-                # TODO: redirect if no one is available to contact
             else:
                 context['persons'] = persons 
         return context

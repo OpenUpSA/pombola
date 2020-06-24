@@ -132,30 +132,24 @@ class WriteInPublic(object):
         write_to_mp_people = self.get_person(person, filters)
         return len(write_to_mp_people) > 0
 
-    def get_person(self, person, filters={}):
-        # TODO: add kwargs for filters above
+    def get_person(self, person, filters=None):
+        if not filters or type(filters) is not dict:
+            filters = {}
         url = '{url}/api/v1/person/'.format(url=self.url, instance_id=self.instance_id)
-        person_popolo_uri = self.person_uuid_prefix.format(person.id)
         params = {
             'format': 'json',
             'username': self.username,
             'api_key': self.api_key,
-            # 'identifiers__scheme': 'popolo_uri',
-            # 'identifiers__identifier': person_popolo_uri,
             'identifiers__scheme': 'popolo:person',
             'identifiers__identifier': person.id,
         }
         params.update(filters)
-        print("params")
-        print(params)
         try:
             response = requests.get(url, params=params)
-            print(response)
             if response.status_code == 404:
                 return []
             response.raise_for_status()
             people = response.json()['objects']
-            print(people)
             return [Person(p, adapter=self.adapter) for p in people]
         except requests.exceptions.RequestException as err:
             raise self.WriteInPublicException(unicode(err))
