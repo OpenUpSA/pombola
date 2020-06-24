@@ -27,13 +27,7 @@ class PersonAdapter(object):
         return self.get(object_id)
 
     def get_form_kwargs(self, step=None):
-        positions = Position.objects.currently_active().filter(
-            organisation__slug='national-assembly'
-        )
-        person_ids = positions.values_list("person", flat=True).distinct()
-        queryset = Person.objects.filter(
-            id__in=person_ids, contacts__kind__slug="email"
-        ).distinct().order_by('legal_name')
+        queryset = Person.objects.all().for_write_to_mp().order_by('legal_name')
         step_form_kwargs = {
             'recipients': {
                 'queryset': queryset,

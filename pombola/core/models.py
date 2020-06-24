@@ -337,6 +337,13 @@ class PersonQuerySet(models.query.GeoQuerySet):
         # FIXME - Don't like the look of this, rather a big subquery.
         return self.filter(position__in=Position.objects.all().current_politician_positions(when))
 
+    def for_write_to_mp(self):
+        positions = Position.objects.national_assembly().currently_active()
+        person_ids = positions.values_list("person", flat=True).distinct()
+        return self.filter(
+            id__in=person_ids, contacts__kind__slug="email"
+        ).distinct()
+
     def prefetch_contact_numbers(self):
         """
         Prefetch people's phone or cell phone numbers.
@@ -1352,6 +1359,12 @@ class PositionQuerySet(models.query.GeoQuerySet):
     def political(self):
         """Filter down to only the political category"""
         return self.filter(category='political')
+
+    def national_assembly(self):
+        """Filter down to positions at the National Assembly. """
+        return self.filter(
+            Q(organisation__slug='national-assembly')
+        )
 
     def parliament(self):
         """Filter down to positions at parliament"""
