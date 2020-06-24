@@ -233,6 +233,7 @@ class WriteInPublicNewMessage(WriteInPublicMixin, PreventRevalidationMixin, Name
                     except Exception:
                         not_contactable.append(person)
 
+                self.storage.set_step_data('recipients', {'recipients-persons': [p.id for p in contactable]})
                 context['non_contactable'] = not_contactable
                 context['persons'] = contactable
             else:
