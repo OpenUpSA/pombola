@@ -29,7 +29,7 @@
     </div>
 
     <div class="contact-actions">
-      {% if person.is_current_member_of_parliament and email_contacts %}
+      {% if person.is_current_member_of_national_assembly and email_contacts %}
         <div class="contact-actions__wip">
             <a href="{% url 'writeinpublic-mps:writeinpublic-new-message' %}?person_id={{ person.pk }}">Write a public message to this MP</a>
         </div>
@@ -105,7 +105,7 @@
             <a class="ui-tabs-anchor" href="#experience">Positions held</a>
           </li>
         {% endif %}
-        {% if person.everypolitician_uuid %}
+        {% if person.has_ever_been_member_of_national_assembly %}
           <li class="ui-state-default">
             <a class="ui-tabs-anchor js-person-messages-ajax" href="#messages" data-ajax-url="{% url 'sa-person-write-all' person_slug=person.slug %}">Messages</a>
           </li>
