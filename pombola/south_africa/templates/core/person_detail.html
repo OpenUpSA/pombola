@@ -29,7 +29,7 @@
     </div>
 
     <div class="contact-actions">
-      {% if person.is_current_member_of_parliament %}
+      {% if person.is_current_member_of_parliament and email_contacts %}
         <div class="contact-actions__wip">
             <a href="{% url 'writeinpublic-mps:writeinpublic-new-message' %}?person_id={{ person.pk }}">Write a public message to this MP</a>
         </div>
