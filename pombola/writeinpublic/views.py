@@ -181,7 +181,6 @@ class WriteInPublicNewMessage(WriteInPublicMixin, PreventRevalidationMixin, Name
             return super(WriteInPublicNewMessage, self).get_form_initial(step=step)
 
     def get(self, *args, **kwargs):
-        print('\n\n\nget\n\n\n')
         step = kwargs.get('step')
         # If we have an ID in the URL and it matches someone, go straight to
         # /draft
@@ -198,14 +197,11 @@ class WriteInPublicNewMessage(WriteInPublicMixin, PreventRevalidationMixin, Name
         # Check that the form contains valid data
         if step == 'draft' or step == 'preview':
             recipients = self.get_cleaned_data_for_step('recipients')
-
             if recipients is None or recipients.get('persons') == []:
                 # Form is missing persons, restart process
                 self.storage.reset()
                 self.storage.current_step = self.steps.first
                 return redirect(self.get_step_url(self.steps.first))
-
-
 
         return super(WriteInPublicNewMessage, self).get(*args, **kwargs)
 
