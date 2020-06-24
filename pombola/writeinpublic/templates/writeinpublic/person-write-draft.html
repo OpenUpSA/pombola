@@ -9,7 +9,7 @@
     {% if non_contactable|length > 0 %}
       <p class="form-group non-contactable">
         The following people are not currently reachable through this service. Please try
-        again in 24 hours or contact them directly at the email addresses listed below:
+        again in 24 hours or contact them directly at their email address listed below:
         <ul>
           {% for person in non_contactable %}
             <li>{{ person }} ({{ person.preferred_email|urlize }})</li>
