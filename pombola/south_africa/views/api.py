@@ -38,10 +38,7 @@ class NAMembersPopoloJson(ListView):
                     {
                         "id": str(person.id),
                         "name": person.name,
-                        "email": person.contacts.filter(kind__slug="email")
-                        .order_by("-preferred")
-                        .first()
-                        .value.strip(),
+                        "email": person.preferred_email,
                         "contact_details": [],
                         "memberships": [
                             {
