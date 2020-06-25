@@ -126,7 +126,8 @@ class WriteInPublic(object):
 
     def get_person_is_contactable(self, person):
         filters = {
-            'has_contacts': 'True'
+            'has_contacts': 'true',
+            'instance_id': self.instance_id
         }
         write_to_mp_people = self.get_person(person, filters)
         return len(write_to_mp_people) > 0

@@ -198,12 +198,12 @@ class ClientTest(TestCase):
         self.assertEqual(len(person_result), 1)
         self.assertEqual(person_result[0].email, person_json['objects'][0]['email'])
 
-    def get_person_is_contactable(self, m):
+    def test_get_person_is_contactable(self, m):
         m.get('/api/v1/person/', json=person_json)
         person = Person.objects.create(
             name="Jimmy Stewart",
             slug="jimmy-stewart")
-        result = self.writeinpublic.get_person(person)
+        result = self.writeinpublic.get_person_is_contactable(person)
         last_request = m._adapter.last_request
         expected_qs = {
             'username': ['test'],
@@ -211,7 +211,8 @@ class ClientTest(TestCase):
             'format': ['json'],
             'identifiers__scheme': ['popolo:person'],
             'identifiers__identifier': [str(person.id)],
-            'has_contacts': ['True']
+            'has_contacts': ['true'],
+            'instance_id': ['42']
         }
         self.assertEqual(last_request.qs, expected_qs)
         self.assertTrue(result)
