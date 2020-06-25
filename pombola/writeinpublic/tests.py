@@ -211,7 +211,7 @@ class ClientTest(TestCase):
             'format': ['json'],
             'identifiers__scheme': ['popolo:person'],
             'identifiers__identifier': [str(person.id)],
-            'contactable': ['True']
+            'has_contacts': ['True']
         }
         self.assertEqual(last_request.qs, expected_qs)
         self.assertTrue(result)

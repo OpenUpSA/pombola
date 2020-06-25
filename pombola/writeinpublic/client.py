@@ -39,7 +39,6 @@ class Person(RecipientMixin, object):
     def __init__(self, params, adapter):
         self.id = params['id']
         keys = [
-            "contactable",
             "created_at",
             "email",
             "id",
@@ -127,7 +126,7 @@ class WriteInPublic(object):
 
     def get_person_is_contactable(self, person):
         filters = {
-            'contactable': 'True'
+            'has_contacts': 'True'
         }
         write_to_mp_people = self.get_person(person, filters)
         return len(write_to_mp_people) > 0
