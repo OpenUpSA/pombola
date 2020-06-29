@@ -316,7 +316,7 @@
         {% endfor %}
       </ul>
 
-    {% if email_contacts %}
+    {% if person.has_ever_been_member_of_national_assembly and email_contacts %}
       <h3>Email</h3>
       <ul>
         {% for email in email_contacts %}
