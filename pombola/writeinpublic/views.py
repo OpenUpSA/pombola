@@ -32,7 +32,7 @@ class PersonAdapter(object):
         return self.get(object_id)
 
     def get_form_kwargs(self, step=None):
-        queryset = Person.objects.all().for_write_to_mp().order_by('legal_name')
+        queryset = Person.objects.all().current_mps_with_email().order_by('legal_name')
         step_form_kwargs = {
             'recipients': {
                 'queryset': queryset,

@@ -57,4 +57,4 @@ class NAMembersPopoloJson(ListView):
         )
 
     def get_queryset(self):
-        return Person.objects.all().for_write_to_mp()
+        return Person.objects.all().current_mps_with_email()

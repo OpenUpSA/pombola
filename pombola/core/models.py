@@ -337,7 +337,7 @@ class PersonQuerySet(models.query.GeoQuerySet):
         # FIXME - Don't like the look of this, rather a big subquery.
         return self.filter(position__in=Position.objects.all().current_politician_positions(when))
 
-    def for_write_to_mp(self):
+    def current_mps_with_email(self):
         positions = Position.objects.national_assembly().currently_active()
         person_ids = positions.values_list("person", flat=True).distinct()
         return self.filter(
