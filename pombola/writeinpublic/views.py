@@ -9,11 +9,16 @@ from django.utils.decorators import method_decorator
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 
+import logging
+
 from pombola.core.models import Person, Organisation, Position
 
 from .forms import RecipientForm, DraftForm, PreviewForm, ModelChoiceField
 from .client import WriteInPublic
 from .models import Configuration
+
+
+logger = logging.getLogger(__name__)
 
 
 class PersonAdapter(object):
@@ -230,7 +235,8 @@ class WriteInPublicNewMessage(WriteInPublicMixin, PreventRevalidationMixin, Name
                             not_contactable.append(person)
                         else:
                             contactable.append(person)
-                    except Exception:
+                    except Exception as e:
+                        logger.error(e)
                         not_contactable.append(person)
 
                 self.storage.set_step_data('recipients', {'recipients-persons': [p.id for p in contactable]})
