@@ -129,8 +129,8 @@ class WriteInPublic(object):
             'has_contacts': 'true',
             'instance_id': self.instance_id
         }
-        write_to_mp_people = self.get_person(person, filters)
-        return len(write_to_mp_people) > 0
+        persons_with_contacts = self.get_person(person, filters)
+        return len(persons_with_contacts) > 0
 
     def get_person(self, person, filters=None):
         if not filters or type(filters) is not dict:
