@@ -876,9 +876,10 @@ class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
             response.content
         )
         self.assertFalse(person.is_current_member_of_national_assembly)
+
         # Write in Public button should not be shown
         self.assertNotIn(
-            "Write a public message to this MP",
+            '<a href="/write/?person_id=%d">Write a public message to this MP</a>' % person.id,
             response.content
         )
 
@@ -899,9 +900,10 @@ class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
         )
         # Write in Public button should be shown
         self.assertIn(
-            "Write a public message to this MP",
+            '<a href="/write/?person_id=%d">Write a public message to this MP</a>' % person.id,
             response.content
         )
+
 
 
 @attr(country='south_africa')
