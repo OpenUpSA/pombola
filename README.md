@@ -1,5 +1,4 @@
 # Pombola
-Why is Github not picking up these commits?
 
 This web app allows you to store and share information on public figures,
 especially politicians.
