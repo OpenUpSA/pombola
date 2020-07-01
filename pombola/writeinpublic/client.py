@@ -35,28 +35,6 @@ class Answer(RecipientMixin, object):
         self.person = person
 
 
-class Person(RecipientMixin, object):
-    def __init__(self, params, adapter):
-        self.id = params['id']
-        keys = [
-            "created_at",
-            "email",
-            "id",
-            "name",
-            "popit_id",
-            "popit_url",
-            "resource_uri",
-            "updated_at"
-        ]
-        for key in keys:
-            if key == 'created_at' or key == 'updated_at':
-                setattr(self, key, parse_datetime(params.get(key)))
-            setattr(self, key, params.get(key))
-
-        self._params = params
-        self.adapter = adapter
-
-
 class WriteInPublic(object):
     class WriteInPublicException(Exception):
         pass
@@ -149,7 +127,6 @@ class WriteInPublic(object):
             if response.status_code == 404:
                 return []
             response.raise_for_status()
-            people = response.json()['objects']
-            return [Person(p, adapter=self.adapter) for p in people]
+            return response.json()['objects']
         except requests.exceptions.RequestException as err:
             raise self.WriteInPublicException(unicode(err))
