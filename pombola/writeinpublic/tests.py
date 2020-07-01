@@ -196,7 +196,7 @@ class ClientTest(TestCase):
         }
         self.assertEqual(last_request.qs, expected_qs)
         self.assertEqual(len(person_result), 1)
-        self.assertEqual(person_result[0].email, person_json['objects'][0]['email'])
+        self.assertEqual(person_result[0]['email'], person_json['objects'][0]['email'])
 
     def test_get_person_is_contactable(self, m):
         m.get('/api/v1/person/', json=person_json)
