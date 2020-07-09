@@ -224,7 +224,7 @@ class WriteInPublicNewMessage(WriteInPublicMixin, PreventRevalidationMixin, Name
 
         if recipients is not None:
             persons = recipients.get('persons')
-            if step == 'draft':
+            if not isinstance(persons, Organisation) and step == 'draft':
                 # On the draft step, check if all recipients are contactable
                 # in WriteInPublic
                 not_contactable = []
