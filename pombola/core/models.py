@@ -337,6 +337,13 @@ class PersonQuerySet(models.query.GeoQuerySet):
         # FIXME - Don't like the look of this, rather a big subquery.
         return self.filter(position__in=Position.objects.all().current_politician_positions(when))
 
+    def current_mps_with_email(self):
+        positions = Position.objects.national_assembly().currently_active()
+        person_ids = positions.values_list("person", flat=True).distinct()
+        return self.filter(
+            id__in=person_ids, contacts__kind__slug="email"
+        ).distinct()
+
     def prefetch_contact_numbers(self):
         """
         Prefetch people's phone or cell phone numbers.
@@ -513,6 +520,17 @@ class Person(ModelBase, HasImageMixin, ScorecardMixin, IdentifierMixin):
                                       'sort_name']
 
     @property
+    def preferred_email(self):
+        if self.email.strip():
+            return self.email.strip()
+        preferred_contact_email = self.contacts.filter(kind__slug="email")\
+                        .order_by("-preferred")\
+                        .first()
+        if preferred_contact_email:
+            return preferred_contact_email.value.strip()
+        return None
+
+    @property
     def name(self):
         # n.b. we're deliberately not using
         # self.alternative_names.filter(name_to_use=True) here, since
@@ -525,6 +543,14 @@ class Person(ModelBase, HasImageMixin, ScorecardMixin, IdentifierMixin):
             return alternative_names_to_use[0].alternative_name
         else:
             return self.legal_name
+
+    @property
+    def is_current_member_of_national_assembly(self):
+        return self.position_set.national_assembly().currently_active().exists()
+
+    @property
+    def has_ever_been_member_of_national_assembly(self):
+        return self.position_set.national_assembly().exists()
 
     @property
     def everypolitician_uuid(self):
@@ -1334,6 +1360,12 @@ class PositionQuerySet(models.query.GeoQuerySet):
     def political(self):
         """Filter down to only the political category"""
         return self.filter(category='political')
+
+    def national_assembly(self):
+        """Filter down to positions at the National Assembly. """
+        return self.filter(
+            Q(organisation__slug='national-assembly')
+        )
 
     def committees(self):
         """Filter down to committee memberships"""

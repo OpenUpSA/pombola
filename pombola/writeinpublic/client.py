@@ -101,3 +101,32 @@ class WriteInPublic(object):
             return [Message(m, adapter=self.adapter) for m in messages]
         except requests.exceptions.RequestException as err:
             raise self.WriteInPublicException(unicode(err))
+
+    def get_person_is_contactable(self, person):
+        filters = {
+            'has_contacts': 'true',
+            'instance_id': self.instance_id
+        }
+        persons_with_contacts = self.get_person(person, filters)
+        return len(persons_with_contacts) > 0
+
+    def get_person(self, person, filters=None):
+        if not filters or type(filters) is not dict:
+            filters = {}
+        url = '{url}/api/v1/person/'.format(url=self.url, instance_id=self.instance_id)
+        params = {
+            'format': 'json',
+            'username': self.username,
+            'api_key': self.api_key,
+            'identifiers__scheme': 'popolo:person',
+            'identifiers__identifier': person.id,
+        }
+        params.update(filters)
+        try:
+            response = requests.get(url, params=params)
+            if response.status_code == 404:
+                return []
+            response.raise_for_status()
+            return response.json()['objects']
+        except requests.exceptions.RequestException as err:
+            raise self.WriteInPublicException(unicode(err))

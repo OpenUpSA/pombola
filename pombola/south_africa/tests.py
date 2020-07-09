@@ -861,35 +861,49 @@ class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
             response.content
         )
 
-    def test_email_sorting_by_preferred_without_wip(self):
+    def test_email_with_past_but_no_current_na_positions(self):
+        # Current
+        self._setup_example_positions(True, False)
         person = models.Person.objects.get(slug='moomin-finn')
         email_contact_kind = models.ContactKind.objects.create(name='Email', slug='email')
         person.contacts.create(kind=email_contact_kind, value='not-preferred@example.com', preferred=False)
         person.contacts.create(kind=email_contact_kind, value='preferred@example.com', preferred=True)
 
         response = self.client.get(reverse('person', args=('moomin-finn',)))
-        self.assertIn(
-            '<span class="email-address preferred"><a href="mailto:preferred@example.com">preferred@example.com</a></span>\n        \n          <span class="email-address"><a href="mailto:not-preferred@example.com">not-preferred@example.com</a></span>',
-            response.content
-        )
-
-    def test_email_sorting_by_preferred_with_wip(self):
-        person = models.Person.objects.get(slug='moomin-finn')
-        email_contact_kind = models.ContactKind.objects.create(name='Email', slug='email')
-        person.contacts.create(kind=email_contact_kind, value='not-preferred@example.com', preferred=False)
-        person.contacts.create(kind=email_contact_kind, value='preferred@example.com', preferred=True)
-
-        models.Identifier.objects.create(
-            scheme='everypolitician',
-            identifier='123456',
-            content_object=person,
-            )
-
-        response = self.client.get(reverse('person', args=('moomin-finn',)))
+        # Email addresses should be shown
         self.assertIn(
             '<li class="email-address preferred"><a href="mailto:preferred@example.com">preferred@example.com</a></li>\n        \n          <li class="email-address"><a href="mailto:not-preferred@example.com">not-preferred@example.com</a></li>',
             response.content
         )
+        self.assertFalse(person.is_current_member_of_national_assembly)
+
+        # Write in Public button should not be shown
+        self.assertNotIn(
+            '<a href="/write/?person_id=%d">Write a public message to this MP</a>' % person.id,
+            response.content
+        )
+
+    def test_email_with_current_na_positions(self):
+        # Current
+        self._setup_example_positions(False, True)
+        person = models.Person.objects.get(slug='moomin-finn')
+        email_contact_kind = models.ContactKind.objects.create(name='Email', slug='email')
+        person.contacts.create(kind=email_contact_kind, value='not-preferred@example.com', preferred=False)
+        person.contacts.create(kind=email_contact_kind, value='preferred@example.com', preferred=True)
+
+        response = self.client.get(reverse('person', args=('moomin-finn',)))
+
+        # Email addresses should still be shown
+        self.assertIn(
+            '<li class="email-address preferred"><a href="mailto:preferred@example.com">preferred@example.com</a></li>\n        \n          <li class="email-address"><a href="mailto:not-preferred@example.com">not-preferred@example.com</a></li>',
+            response.content
+        )
+        # Write in Public button should be shown
+        self.assertIn(
+            '<a href="/write/?person_id=%d">Write a public message to this MP</a>' % person.id,
+            response.content
+        )
+
 
 
 @attr(country='south_africa')

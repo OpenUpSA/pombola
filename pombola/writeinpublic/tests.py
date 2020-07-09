@@ -16,7 +16,61 @@ from .models import Configuration
 from .views import PersonAdapter, CommitteeAdapter
 from .forms import RecipientForm
 
+person_json = {
+    "meta": {
+        "limit": 20,
+        "next": None,
+        "offset": 0,
+        "previous": None,
+        "total_count": 1
+    },
+    "objects": [
+        {
+            "additional_name": "",
+            "biography": "",
+            "birth_date": "",
+            "created_at": "2020-06-04T04:54:11.320858",
+            "death_date": "",
+            "email": "aseabi@parliament.gov.za",
+            "end_date": None,
+            "family_name": "",
+            "gender": "",
+            "given_name": "",
+            "honorific_prefix": "",
+            "honorific_suffix": "",
+            "id": 319,
+            "identifiers": [
+                {
+                    "id": 640,
+                    "identifier": "9684",
+                    "object_id": 319,
+                    "resource_uri": "",
+                    "scheme": "popolo:person"
+                },
+                {
+                    "id": 641,
+                    "identifier": "https://pa.org.za/api/national-assembly/popolo.json#person-9684",
+                    "object_id": 319,
+                    "resource_uri": "",
+                    "scheme": "popolo_uri"
+                }
+            ],
+            "image": None,
+            "name": "Albert Mammoga Seabi",
+            "national_identity": None,
+            "patronymic_name": "",
+            "popit_id": None,
+            "popit_url": "https://pa.org.za/api/national-assembly/popolo.json#person-9684",
+            "resource_uri": "https://pa.org.za/api/national-assembly/popolo.json#person-9684",
+            "sort_name": "",
+            "start_date": None,
+            "summary": "",
+            "updated_at": "2020-06-09T08:43:45.466050"
+        }
+    ]
+}
 
+@attr(country='south_africa')
 @requests_mock.Mocker()
 class ClientTest(TestCase):
     def setUp(self):
@@ -126,6 +180,43 @@ class ClientTest(TestCase):
         self.assertEqual(messages[0].subject, 'Test message')
         self.assertEqual(messages[1].subject, 'Another test message')
 
+    def test_get_person(self, m):
+        m.get('/api/v1/person/', json=person_json)
+        person = Person.objects.create(
+            name="Jimmy Stewart",
+            slug="jimmy-stewart")
+        person_result = self.writeinpublic.get_person(person)
+        last_request = m._adapter.last_request
+        expected_qs = {
+            'username': ['test'],
+            'api_key': ['123'],
+            'format': ['json'],
+            'identifiers__scheme': ['popolo:person'],
+            'identifiers__identifier': [str(person.id)],
+        }
+        self.assertEqual(last_request.qs, expected_qs)
+        self.assertEqual(len(person_result), 1)
+        self.assertEqual(person_result[0]['email'], person_json['objects'][0]['email'])
+
+    def test_get_person_is_contactable(self, m):
+        m.get('/api/v1/person/', json=person_json)
+        person = Person.objects.create(
+            name="Jimmy Stewart",
+            slug="jimmy-stewart")
+        result = self.writeinpublic.get_person_is_contactable(person)
+        last_request = m._adapter.last_request
+        expected_qs = {
+            'username': ['test'],
+            'api_key': ['123'],
+            'format': ['json'],
+            'identifiers__scheme': ['popolo:person'],
+            'identifiers__identifier': [str(person.id)],
+            'has_contacts': ['true'],
+            'instance_id': ['42']
+        }
+        self.assertEqual(last_request.qs, expected_qs)
+        self.assertTrue(result)
+
 
 @attr(country='south_africa')
 @requests_mock.Mocker()
@@ -135,6 +226,7 @@ class WriteInPublicNewMessageViewTest(TestCase):
         m.post('/api/v1/message/', json={
             'id': '42'
         })
+        m.get('/api/v1/person/', json=person_json)
         configuration = Configuration.objects.create(
             url='http://example.com',
             username='admin',

@@ -9,11 +9,16 @@ from django.utils.decorators import method_decorator
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 
+import logging
+
 from pombola.core.models import Person, Organisation, Position
 
 from .forms import RecipientForm, DraftForm, PreviewForm, ModelChoiceField
 from .client import WriteInPublic
 from .models import Configuration
+
+
+logger = logging.getLogger(__name__)
 
 
 class PersonAdapter(object):
@@ -27,13 +32,7 @@ class PersonAdapter(object):
         return self.get(object_id)
 
     def get_form_kwargs(self, step=None):
-        positions = Position.objects.currently_active().filter(
-            organisation__slug='national-assembly'
-        )
-        person_ids = positions.values_list("person", flat=True).distinct()
-        queryset = Person.objects.filter(
-            id__in=person_ids, contacts__kind__slug="email"
-        ).distinct().order_by('legal_name')
+        queryset = Person.objects.all().current_mps_with_email().order_by('legal_name')
         step_form_kwargs = {
             'recipients': {
                 'queryset': queryset,
@@ -218,11 +217,33 @@ class WriteInPublicNewMessage(WriteInPublicMixin, PreventRevalidationMixin, Name
         return [self.adapter.get_templates()[self.steps.current]]
 
     def get_context_data(self, form, **kwargs):
+        step = kwargs.get('step')
         context = super(WriteInPublicNewMessage, self).get_context_data(form=form, **kwargs)
         context['message'] = self.get_cleaned_data_for_step('draft')
         recipients = self.get_cleaned_data_for_step('recipients')
+
         if recipients is not None:
-            context['persons'] = recipients.get('persons')
+            persons = recipients.get('persons')
+            if step == 'draft':
+                # On the draft step, check if all recipients are contactable
+                # in WriteInPublic
+                not_contactable = []
+                contactable = []
+                for person in persons:
+                    try:
+                        if not self.client.get_person_is_contactable(person):
+                            not_contactable.append(person)
+                        else:
+                            contactable.append(person)
+                    except Exception as e:
+                        logger.error(e)
+                        not_contactable.append(person)
+
+                self.storage.set_step_data('recipients', {'recipients-persons': [p.id for p in contactable]})
+                context['non_contactable'] = not_contactable
+                context['persons'] = contactable
+            else:
+                context['persons'] = persons 
         return context
 
     def done(self, form_list, form_dict, **kwargs):
