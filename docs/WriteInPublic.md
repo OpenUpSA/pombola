@@ -31,3 +31,17 @@ MPs and Committees are configured in two WriteInPublic _instances_ with the resp
 
 This WriteInPublic instance used to get contacts from EveryPolitician but EveryPolitician has been paused, and contact details for MPs and Committees.
 
+## Using a local instance of WriteInPublic
+
+- Clone https://github.com/mysociety/writeinpublic
+- If you're running PA on port 8000, change the port on which WriteInPublic will run in the `docker-compose.yml` file.
+- Run `docker-compose up`
+- Enable your PA container to connect to your localhost by following one of the answers in [this question](https://stackoverflow.com/questions/24319662/from-inside-of-a-docker-container-how-do-i-connect-to-the-localhost-of-the-mach) or:
+  - Run `export DOCKERHOST=$(ifconfig | grep -E "([0-9]{1,3}\.){3}[0-9]{1,3}" | grep -v 127.0.0.1 | awk '{ print $2 }' | cut -f2 -d: | head -n1)`
+  - Add the following under the `app` service in your PA `docker-compose.yml` file:
+   ```
+     extra_hosts:
+    - "dockerhost:$DOCKERHOST"
+   ```
+  - Ensure you have two `Configuration` objects (rows in the `writeinpublic_configuration` table) in your database with the `url` values as `http://dockerhost:8001` and the `slug` values as `south-africa-committees` and `south-africa-assembly` respectively.
+  - You'll also need to create `ApiKey` and `WriteItInstance` objects in WriteInPublic and save their `api_key` and `instance_id` values in your `Configuration` objects.
