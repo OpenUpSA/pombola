@@ -788,6 +788,15 @@ class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
             '<h3>Formerly</h3>',
             response.content
         )
+        # Messages tab should not be shown
+        self.assertNotIn(
+            'href="#messages"',
+            response.content
+        )
+        self.assertNotIn(
+            '<div id="messages"',
+            response.content
+        )
 
     def test_past_and_current_positions(self):
         self._setup_example_positions(True, True)
@@ -811,6 +820,15 @@ class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
         self.assertRegexpMatches(
             response.content,
             r'Member\s+at <a href="/organisation/national-assembly/">National Assembly \(Parliament\)</a>\s+from 1st January 2000\s+until 31st December 2005\s*</li>'
+        )
+        # Messages tab should be shown
+        self.assertIn(
+            'href="#messages"',
+            response.content
+        )
+        self.assertIn(
+            '<div id="messages"',
+            response.content
         )
 
     def test_past_but_no_current_positions(self):
@@ -836,6 +854,15 @@ class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
             response.content,
             r'Member\s+at <a href="/organisation/national-assembly/">National Assembly \(Parliament\)</a>\s+from 1st January 2000\s+until 31st December 2005\s*</li>'
         )
+        # Messages tab should be shown
+        self.assertIn(
+            'href="#messages"',
+            response.content
+        )
+        self.assertIn(
+            '<div id="messages"',
+            response.content
+        )
 
     def test_no_past_but_some_current_positions(self):
         self._setup_example_positions(False, True)
@@ -858,6 +885,15 @@ class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
         )
         self.assertIn(
             'No former positions recorded.',
+            response.content
+        )
+        # Messages tab should be shown
+        self.assertIn(
+            'href="#messages"',
+            response.content
+        )
+        self.assertIn(
+            '<div id="messages"',
             response.content
         )
 
@@ -903,7 +939,6 @@ class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
             '<a href="/write/?person_id=%d">Write a public message to this MP</a>' % person.id,
             response.content
         )
-
 
 
 @attr(country='south_africa')
