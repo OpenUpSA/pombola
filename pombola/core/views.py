@@ -593,6 +593,7 @@ def position(request, pt_slug, ok_slug=None, o_slug=None):
 
                 return return_date
 
+            image = person.primary_image()
             writer.writerow([
                 person.slug,
                 request.build_absolute_uri(person.get_absolute_url())
@@ -600,8 +601,8 @@ def position(request, pt_slug, ok_slug=None, o_slug=None):
                 person.name,
                 person.honorific_prefix,
                 email,
-                request.build_absolute_uri('/' + str(person.primary_image()))
-                            .replace('http://', 'https://'),
+                request.build_absolute_uri(image.url)
+                            .replace('http://', 'https://') if image else '',
                 person_wikidata_id,
                 person_party_name,
                 person_party_wikidata_id,
