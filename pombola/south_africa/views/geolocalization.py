@@ -285,16 +285,6 @@ class SAPlaceDetailView(PlaceDetailView):
                 position__in=former_positions
             ).distinct()
 
-        context['other_people'] = (
-            models.Person.objects
-            .filter(position__place=self.object)
-            .exclude(id__in=context['national_assembly_people'])
-            .exclude(id__in=context['former_national_assembly_people'])
-            .exclude(id__in=context['ncop_people'])
-            .exclude(id__in=context['former_ncop_people'])
-            .exclude(id__in=context['legislature_people'])
-            .exclude(id__in=context['former_legislature_people'])
-        )
         return context
 
 
