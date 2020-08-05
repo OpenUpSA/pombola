@@ -9,13 +9,15 @@
              data-src="{{ im.url }}"
              width="{{ im.width }}"
              height="{{ im.height }}"
-             alt="{{ object.name }}">
-        <noscript><img src="{{ im.url }}" alt="{{ object.name }}" width="{{ im.width }}" height="{{ im.height }}" /></noscript>
+             alt="{{ object.name }}"
+             loading="lazy">
+             
+        <noscript><img src="{{ im.url }}" alt="{{ object.name }}" width="{{ im.width }}" height="{{ im.height }}" loading="lazy"/></noscript>
       {% else %}
-        <img src="{{ im.url }}" alt="{{ object.name }}" width="{{ im.width }}" height="{{ im.height }}" />
+        <img src="{{ im.url }}" alt="{{ object.name }}" width="{{ im.width }}" height="{{ im.height }}" loading="lazy"/>
       {% endif %}
     {% empty %}
-      <img src="{% static 'images/person-58x78.jpg' %}" height="58" width="58"/>
+      <img src="{% static 'images/person-58x78.jpg' %}" height="58" width="58" loading="lazy"/>
     {% endthumbnail %}
 
     <span class="name">{{ object.name }}</span>
