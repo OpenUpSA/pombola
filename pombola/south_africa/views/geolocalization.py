@@ -276,14 +276,19 @@ class SAPlaceDetailView(PlaceDetailView):
                 filter(**position_filter).select_related('person')
             current_positions = all_member_positions.currently_active()
             current_people = models.Person.objects.filter(
-                position__in=current_positions).distinct()
+                position__in=current_positions)\
+                    .prefetch_related(
+                        'alternative_names', 'images', 'position_set'
+                    ).distinct()
             former_positions = all_member_positions.currently_inactive()
 
             context[context_string + '_count'] = current_people.count()
             context[context_string] = current_people
             context['former_' + context_string] = models.Person.objects.filter(
                 position__in=former_positions
-            ).distinct()
+            )\
+                .prefetch_related(
+                    'alternative_names', 'images', 'position_set').distinct()
 
         return context
 
