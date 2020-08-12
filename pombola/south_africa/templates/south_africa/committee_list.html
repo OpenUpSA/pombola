@@ -1,47 +1,47 @@
 {% extends 'base.html' %}
 {% load pagination_tags %}
+{% load pipeline %}
+
+{% block js_end_of_body %}
+  {{ block.super }}
+  {% javascript 'hide-reveal' %}
+{% endblock %}
 
 {% block title %}{% if kind %}{{ kind.name }}{% endif %}{% endblock %}
 
 {% block content %}
 
     <h1 class="page-title">
-        {% if kind %}
-            {{ kind.name }}
-        {% else %}
-            Committees
-        {% endif %}
+        Committees
     </h1>
 
-    {% if committees %}
+    {% regroup committees by kind.name as houses %}
+    {% for house in houses %}
+    <div>
+        <a class="committee-list-house js-hide-reveal-link hide-reveal-link has-dropdown-dark" href="#{{ house.grouper|slugify }}">
+            <h2> {{ house.grouper }} </h2>
+        </a>
 
-        {% autopaginate committees %}
+        <div class="js-hide-reveal" id="{{ house.grouper|slugify }}">
+          <ul class="unstyled-list committee-list">
+            {% for committee in house.list %}
+              <li class="list-of-things-item {{ committee.css_class }}-list-item{% if not committee.show_active %} inactive{% endif %}">
+                  <p>
+                      <a href="{{ committee.get_absolute_url }}" class="committee-list__name">
+                      {{ committee.short_name }}
+                      </a>
+                  </p>
+                
+                  <div class="committee-list__links">
+                      <a href="{% url 'organisation_messages' slug=committee.slug %}">View messages</a>
+                      <a href="{% url 'writeinpublic-committees:writeinpublic-new-message-step' step='recipients' %}?person_id={{ committee.pk }}">Write a public message</a>
+                  </div>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+    </div>
+    {% endfor %}
 
-        <ul class="unstyled-list committee-list">
-
-        {% for committee in committees %}
-        <li class="list-of-things-item {{ committee.css_class }}-list-item{% if not committee.show_active %} inactive{% endif %}">
-            <p>
-                <a href="{{ committee.get_absolute_url }}" class="committee-list__name">
-                {{ committee.short_name }}
-                </a>
-            </p>
-           
-            <div class="committee-list__links">
-                <a href="{% url 'organisation_messages' slug=committee.slug %}">View messages</a>
-                <a href="{% url 'writeinpublic-committees:writeinpublic-new-message-step' step='recipients' %}?person_id={{ committee.pk }}">Write a public message</a>
-            </div>
-        </li>
-        {% endfor %}
-
-        </ul>
-
-        {% include "core/_search_pagination_text.html" %}
-
-        {% paginate %}
-
-    {% else %}
-        <p>No committees were found</p>
-    {% endif %}
 
 {% endblock %}

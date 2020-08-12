@@ -784,7 +784,26 @@ class OrganisationKind(ModelBase):
         return ('organisation_kind', (self.slug,))
 
 
+COMMITTEE_SLUGS = [
+    'ad-hoc-committees',
+    'joint-committees',
+    'national-assembly-committees',
+    'ncop-committees',
+    'provincial-legislature'
+]
+
 class OrganisationQuerySet(models.query.GeoQuerySet):
+    def committees(self):
+        return self.filter(kind__slug__in=COMMITTEE_SLUGS)
+
+    def ongoing(self):
+        now = datetime.date.today()
+        now_approx = ApproximateDate(year=now.year, month=now.month, day=now.day)
+        return self.filter(Q(started__lte=now_approx) & (
+            Q(ended='') | Q(ended='future') | 
+            Q(ended__isnull=True) | Q(ended__gte=now_approx
+        )))
+
     def parties(self):
         return self.filter(kind__slug='party')
 
