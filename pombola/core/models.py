@@ -990,7 +990,7 @@ class Place(ModelBase, HasImageMixin, ScorecardMixin, BudgetsMixin, IdentifierMi
         positions = Position.objects.filter(
             place=self,
             person__hidden=False,
-        ).currently_active()
+        ).select_related('person').currently_active()
         positions = positions_filter(positions)
 
         # Group all the positions by person:
