@@ -22,7 +22,7 @@ class Message(RecipientMixin, object):
         return self.adapter.filter(ids=self._recipient_ids())
 
     def _recipient_ids(self):
-        return [self.parse_id(p['resource_uri']) for p in self._params['people']]
+        return [self.parse_id(p) for p in self._params['persons']]
 
     def answers(self):
         return [Answer(a, person=self.adapter.get(self.parse_id(a['person']['resource_uri']))) for a in self._params['answers']]

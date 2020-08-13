@@ -113,10 +113,8 @@ class ClientTest(TestCase):
             'subject': 'Test message',
             'content': 'Test content',
             'created': '2017-11-14T04:01:05.799658',
-            'people': [
-                {
-                    'resource_uri': 'http://example.com/popolo.json#person-123',
-                }
+            'persons': [
+                'http://example.com/popolo.json#person-123',
             ],
             'answers': [
                 {
