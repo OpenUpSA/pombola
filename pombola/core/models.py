@@ -797,12 +797,16 @@ class OrganisationQuerySet(models.query.GeoQuerySet):
         return self.filter(kind__slug__in=COMMITTEE_SLUGS)
 
     def ongoing(self):
+        """
+        Filter committees with start dates before the current date and end dates
+        either null, '', 'future' or after the current date.
+        """
         now = datetime.date.today()
         now_approx = ApproximateDate(year=now.year, month=now.month, day=now.day)
         return self.filter(Q(started__lte=now_approx) & (
             Q(ended='') | Q(ended='future') | 
-            Q(ended__isnull=True) | Q(ended__gte=now_approx
-        )))
+            Q(ended__isnull=True) | Q(ended__gte=now_approx)
+        ))
 
     def parties(self):
         return self.filter(kind__slug='party')
