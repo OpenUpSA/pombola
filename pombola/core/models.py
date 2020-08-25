@@ -873,6 +873,18 @@ class Organisation(ModelBase, HasImageMixin, IdentifierMixin):
        ordering = ["name"]
 
     @property
+    def email_addresses(self):
+        """
+        Get the contacts with kind "email" for this organisation.
+
+        Filter using Python instead of Django because we assume that contacts
+        and their kinds have been prefetched (e.g. prefetch_related(contacts__kind)).
+        """
+        return [
+            contact for contact in self.contacts.all() if contact.kind.slug=='email'
+        ]
+
+    @property
     def has_email_address(self):
         """
         Check if we have a contact with kind "email" for this organisation.
@@ -880,9 +892,7 @@ class Organisation(ModelBase, HasImageMixin, IdentifierMixin):
         Filter using Python instead of Django because we assume that contacts
         and their kinds have been prefetched (e.g. prefetch_related(contacts__kind)).
         """
-        return len([
-            contact for contact in self.contacts.all() if contact.kind.slug=='email'
-        ]) > 0
+        return len(self.email_addresses) > 0
     
     @property
     def is_committee(self):
