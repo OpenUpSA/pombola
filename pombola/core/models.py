@@ -789,7 +789,6 @@ COMMITTEE_SLUGS = [
     'joint-committees',
     'national-assembly-committees',
     'ncop-committees',
-    'provincial-legislature'
 ]
 
 class OrganisationQuerySet(models.query.GeoQuerySet):
