@@ -22,7 +22,7 @@
             <h2> {{ house.grouper }} </h2>
         </a>
 
-        <div class="js-hide-reveal" id="{{ house.grouper|slugify }}">
+        <div class="js-hide-reveal" id="{{ house.grouper|slugify }}" style="display:none">
           <ul class="unstyled-list committee-list">
             {% for committee in house.list %}
               <li class="list-of-things-item {{ committee.css_class }}-list-item{% if not committee.show_active %} inactive{% endif %}">
