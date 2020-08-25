@@ -806,6 +806,9 @@ class OrganisationQuerySet(models.query.GeoQuerySet):
             Q(ended='') | Q(ended='future') | 
             Q(ended__isnull=True) | Q(ended__gte=now_approx)
         ))
+    
+    def has_email_contacts(self):
+        return self.filter(contacts__kind__slug='email')
 
     def parties(self):
         return self.filter(kind__slug='party')
@@ -868,6 +871,29 @@ class Organisation(ModelBase, HasImageMixin, IdentifierMixin):
 
     class Meta:
        ordering = ["name"]
+
+    @property
+    def has_email_address(self):
+        """
+        Check if we have a contact with kind "email" for this organisation.
+
+        Filter using Python instead of Django because we assume that contacts
+        and their kinds have been prefetched (e.g. prefetch_related(contacts__kind)).
+        """
+        return len([
+            contact for contact in self.contacts.all() if contact.kind.slug=='email'
+        ]) > 0
+    
+    @property
+    def is_committee(self):
+        return self.kind.slug in COMMITTEE_SLUGS
+
+    @property
+    def contactable(self):
+        """
+        Return whether users should be able to write a message to this organisation.
+        """
+        return self.is_committee and self.is_ongoing() and self.has_email_address
 
     def is_ongoing(self):
         """Return True or False for whether the organisation is currently ongoing"""
