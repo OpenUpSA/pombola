@@ -810,6 +810,12 @@ class OrganisationQuerySet(models.query.GeoQuerySet):
     def has_email_contacts(self):
         return self.filter(contacts__kind__slug='email')
 
+    def contactable(self):
+        """
+        Return all committees that we want users to be able to write to.
+        """
+        return self.committees().ongoing().has_email_contacts()
+
     def parties(self):
         return self.filter(kind__slug='party')
 

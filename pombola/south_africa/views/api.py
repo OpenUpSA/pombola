@@ -8,7 +8,7 @@ from pombola.core.models import Person, Organisation, Position
 # email address and is ongoing.
 class CommitteesPopoloJson(ListView):
     queryset = Organisation.objects.prefetch_related('contacts__kind')\
-        .committees().ongoing().has_email_contacts()
+        .contactable().distinct()
 
     def render_to_response(self, context, **response_kwargs):
         return JsonResponse(
