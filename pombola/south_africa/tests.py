@@ -2803,12 +2803,22 @@ class SACommitteesPopoloJSONTest(TestCase):
             name='National Assembly Committees',
             slug='national-assembly-committees'
         )
-        org = models.Organisation.objects.create(
+        org_kind_ncop_committee = models.OrganisationKind.objects.create(
+            name='NCOP',
+            slug='ncop-committees'
+        )
+        na_org = models.Organisation.objects.create(
             slug='committee-communications',
             name='PC on Communications',
             kind=org_kind_na_committee
         )
-        org.contacts.create(kind=self.email_kind, value='test@example.org', preferred=False)
+        ncop_org = models.Organisation.objects.create(
+            slug='committee-finance',
+            name='Select Committee in Finance',
+            kind=org_kind_ncop_committee
+        )
+        na_org.contacts.create(kind=self.email_kind, value='na-test@example.org', preferred=False)
+        ncop_org.contacts.create(kind=self.email_kind, value='ncop-test@example.org', preferred=False)
 
         response = self.client.get('/api/committees/popolo.json')
         self.assertEquals(response.status_code, 200)
@@ -2817,9 +2827,15 @@ class SACommitteesPopoloJSONTest(TestCase):
             'persons': [
                 {
                     'contact_details': [],
-                    'email': 'test@example.org',
-                    'id': str(org.id),
+                    'email': 'na-test@example.org',
+                    'id': str(na_org.id),
                     'name': 'PC on Communications'
+                },
+                {
+                    'contact_details': [],
+                    'email': 'ncop-test@example.org',
+                    'id': str(ncop_org.id),
+                    'name': 'Select Committee in Finance'
                 }
             ]
         }
