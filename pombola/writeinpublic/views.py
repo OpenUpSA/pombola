@@ -14,6 +14,7 @@ import logging
 from pombola.core.models import Person, Organisation, Position
 
 from .forms import RecipientForm, DraftForm, PreviewForm, ModelChoiceField
+from .fields import GroupedModelChoiceField
 from .client import WriteInPublic
 from .models import Configuration
 
@@ -70,16 +71,19 @@ class CommitteeAdapter(object):
         return self.get(object_id)
 
     def get_form_kwargs(self, step=None):
-
-        queryset = Organisation.objects.filter(
-            kind__name='National Assembly Committees',
-            contacts__kind__slug='email'
-        ).distinct().order_by('short_name')
-
+        queryset = Organisation.objects.prefetch_related('contacts__kind')\
+            .select_related('kind')\
+            .contactable().distinct().order_by('kind_id')
+        
+        choicefield = GroupedModelChoiceField(
+            choices_groupby='kind.name',
+            queryset=queryset,
+            empty_label=None
+        )
         step_form_kwargs = {
             'recipients': {
                 'queryset': queryset,
-                'choicefield': CommitteeModelChoiceField(queryset),
+                'choicefield': choicefield,
                 'multiple': False,
             },
         }
