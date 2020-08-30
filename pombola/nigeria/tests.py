@@ -22,6 +22,7 @@ def suite():
     suite.addTest(doctest.DocTestSuite(views))
     return suite
 
+@unittest.skip("Skip test for Nigeria")
 @attr(country='nigeria')
 class HomeViewTest(TestCase):
 
@@ -31,6 +32,7 @@ class HomeViewTest(TestCase):
         self.assertIn('featured_persons', response.context)
         self.assertIn('editable_content', response.context)
 
+@unittest.skip("Skip test for Nigeria")
 @attr(country='nigeria')
 class InfoBlogListTest(TestCase):
 
@@ -49,6 +51,7 @@ class InfoBlogListTest(TestCase):
         self.assertNotIn('&lt;p&gt;', response.content)
 
 
+@unittest.skip("Skip test for Nigeria")
 @attr(country='nigeria')
 class NGSearchViewTest(WebTest):
 
