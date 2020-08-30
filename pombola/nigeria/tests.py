@@ -6,8 +6,6 @@ from . import views
 from django.test import TestCase
 from django_webtest import WebTest
 
-from nose.plugins.attrib import attr
-
 from mapit.models import Area, CodeType, NameType, Type
 
 from info.models import InfoPage
@@ -23,7 +21,6 @@ def suite():
     return suite
 
 @unittest.skip("Skip test for Nigeria")
-@attr(country='nigeria')
 class HomeViewTest(TestCase):
 
     def test_homepage_context(self):
@@ -33,7 +30,6 @@ class HomeViewTest(TestCase):
         self.assertIn('editable_content', response.context)
 
 @unittest.skip("Skip test for Nigeria")
-@attr(country='nigeria')
 class InfoBlogListTest(TestCase):
 
     def setUp(self):
@@ -52,7 +48,6 @@ class InfoBlogListTest(TestCase):
 
 
 @unittest.skip("Skip test for Nigeria")
-@attr(country='nigeria')
 class NGSearchViewTest(WebTest):
 
     def setUp(self):
