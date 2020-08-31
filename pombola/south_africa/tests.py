@@ -1683,8 +1683,8 @@ class SACommitteeIndexViewTest(WebTest):
         self.email_kind = models.ContactKind.objects.create(name='Email', slug='email')
         self.na_org.contacts.create(
             kind=self.email_kind, value='na-test@example.org', preferred=False)
-        self.ncop_org.contacts.create(
-            kind=self.email_kind, value='ncop-test@example.org', preferred=False)
+        # self.ncop_org.contacts.create(
+        #     kind=self.email_kind, value='ncop-test@example.org', preferred=False)
 
     def test_committee_index_page(self):
         response = self.app.get('/committees/')
@@ -1698,7 +1698,33 @@ class SACommitteeIndexViewTest(WebTest):
         self.assertContains(response, self.na_org.name)
         self.assertContains(response, self.ncop_org.name)
 
-        # TODO: Check which ones are writetable
+        # Check the write to links
+        html = response.html
+
+        committee_links = html.find_all('a', {'class': 'committee-list__name'})
+        self.assertEqual(2, len(committee_links))
+
+        def get_view_messages_link(div):
+            return div.find('a', text='View messages')
+
+        def get_write_message_link(div):
+            return div.find('a', text='Write a public message')
+
+        for c in committee_links:
+            div = c.parent.find_next_sibling('div')
+            text = c.get_text().strip()
+            self.assertIn(text, [self.na_org.name, self.ncop_org.name])
+            if text == self.na_org.name:
+                self.assertIsNotNone(get_view_messages_link(div))
+                self.assertIsNotNone(get_write_message_link(div))
+            elif text == self.ncop_org.name:
+                view_link = div.find_all('a', text='View messages')
+                self.assertIsNotNone(get_view_messages_link(div))
+                self.assertIsNone(
+                    get_write_message_link(div), 
+                    "Committee that doesn't have an email address shouldn't be writeable."
+                )
+
 
 @attr(country='south_africa')
 class SACommitteeHansardsViewTest(WebTest):
