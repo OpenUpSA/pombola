@@ -1658,6 +1658,50 @@ class SAHansardIndexViewTest(TestCase):
 
 @attr(country='south_africa')
 class SACommitteeIndexViewTest(WebTest):
+    def setUp(self):
+        # Create the houses
+        self.org_kind_na_committee = models.OrganisationKind.objects.create(
+            name='National Assembly Committees',
+            slug='national-assembly-committees'
+        )
+        self.org_kind_ncop_committee = models.OrganisationKind.objects.create(
+            name='NCOP',
+            slug='ncop-committees'
+        )
+        # Create the committees
+        self.na_org = models.Organisation.objects.create(
+            slug='committee-communications',
+            name='PC on Communications',
+            kind=self.org_kind_na_committee
+        )
+        self.ncop_org = models.Organisation.objects.create(
+            slug='committee-finance',
+            name='Select Committee in Finance',
+            kind=self.org_kind_ncop_committee
+        )
+        # Create email addresses for committees
+        self.email_kind = models.ContactKind.objects.create(name='Email', slug='email')
+        self.na_org.contacts.create(
+            kind=self.email_kind, value='na-test@example.org', preferred=False)
+        self.ncop_org.contacts.create(
+            kind=self.email_kind, value='ncop-test@example.org', preferred=False)
+
+    def test_committee_index_page(self):
+        response = self.app.get('/committees/')
+        self.assertEqual(response.status_code, 200)
+
+        # Check that committee kind names are in response
+        self.assertContains(response, self.org_kind_na_committee.name)
+        self.assertContains(response, self.org_kind_ncop_committee.name)
+
+        # Check that committee names are in response
+        self.assertContains(response, self.na_org.name)
+        self.assertContains(response, self.ncop_org.name)
+
+        # TODO: Check which ones are writetable
+
+@attr(country='south_africa')
+class SACommitteeHansardsViewTest(WebTest):
 
     def setUp(self):
         self.fish_section_heading = u"Oh fishy fishy fishy fishy fishy fish"
@@ -1709,7 +1753,7 @@ class SACommitteeIndexViewTest(WebTest):
             },
         ], instance=default_instance)
 
-    def test_committee_index_page(self):
+    def test_committee_minutes_page(self):
         response = self.app.get('/committee-minutes/')
         self.assertEqual(response.status_code, 200)
 
