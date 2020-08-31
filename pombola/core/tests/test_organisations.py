@@ -12,55 +12,62 @@ from pombola.core.models import (
 from django.contrib.contenttypes.models import ContentType
 
 
+def create_organisation_kinds(self):
+    self.foo_kind = OrganisationKind.objects.create(name="Foo", slug="foo",)
+    self.na_kind = OrganisationKind.objects.create(
+        name="National Assembly", slug="national-assembly-committees",
+    )
+    self.ncop_kind = OrganisationKind.objects.create(
+        name="NCOP", slug="ncop-committees"
+    )
+
+def create_organisations(self):
+    self.test_organisation = Organisation.objects.create(
+        name="Test Org", slug="test-org", kind=self.foo_kind, ended="future"
+    )
+
+    self.na_organisation = Organisation.objects.create(
+        name="Basic Education", slug="basic-education", kind=self.na_kind,
+    )
+    self.ncop_organisation = Organisation.objects.create(
+        name="NCOP Appropriations",
+        slug="ncop-appropriations",
+        kind=self.ncop_kind,
+        ended="2010-01-01",
+    )
+
+def create_contact_kinds(self):
+    self.email_kind = ContactKind.objects.create(name="Email", slug="email")
+    self.phone_kind = ContactKind.objects.create(name="Phone", slug="phone")
+
+def create_contacts(self):
+    email_contact = Contact.objects.create(
+        kind=self.email_kind,
+        value="test@example.com",
+        content_type=ContentType.objects.get_for_model(self.na_organisation),
+        object_id=self.na_organisation.id,
+        preferred=True,
+    )
+
+
 @attr(country="south_africa")
 class OrganisationModelTest(TestCase):
     def setUp(self):
         self.organisation_kind = OrganisationKind(name="Foo", slug="foo",)
         self.organisation_kind.save()
-
         self.organisation = Organisation(
+            name="Test Org", slug="test-org", kind=self.organisation_kind,
+        )
+        self.na_organisation = Organisation(
             name="Test Org", slug="test-org", kind=self.organisation_kind,
         )
         self.organisation.save()
 
-        self.mysociety_id = Identifier.objects.create(
-            identifier="/organisations/1",
-            scheme="org.mysociety.za",
-            object_id=self.organisation.id,
-            content_type=ContentType.objects.get_for_model(Organisation),
-        )
-
-    def testIdentifier(self):
-        org_mysociety_id = self.organisation.get_identifier("org.mysociety.za")
-        self.assertEqual(org_mysociety_id, "/organisations/1")
-
-
-@attr(country="south_africa")
-class OrganisationQuerySetTest(TestCase):
-    def create_contact_kinds(self):
-        self.email_kind = ContactKind.objects.create(name="Email", slug="email")
-        self.phone_kind = ContactKind.objects.create(name="Phone", slug="phone")
-
-    def create_contacts(self):
-        email_contact = Contact.objects.create(
-            kind=self.email_kind,
-            value="test@example.com",
-            content_type=ContentType.objects.get_for_model(self.na_organisation),
-            object_id=self.na_organisation.id,
-            preferred=True,
-        )
-
-    def setUp(self):
-        self.foo_kind = OrganisationKind.objects.create(name="Foo", slug="foo",)
         self.na_kind = OrganisationKind.objects.create(
             name="National Assembly", slug="national-assembly-committees",
         )
         self.ncop_kind = OrganisationKind.objects.create(
             name="NCOP", slug="ncop-committees"
-        )
-
-        self.test_organisation = Organisation.objects.create(
-            name="Test Org", slug="test-org", kind=self.foo_kind, ended="future"
         )
 
         self.na_organisation = Organisation.objects.create(
@@ -72,8 +79,57 @@ class OrganisationQuerySetTest(TestCase):
             kind=self.ncop_kind,
             ended="2010-01-01",
         )
+    
+    def create_contact_kinds(self):
+        self.email_kind = ContactKind.objects.create(name="Email", slug="email")
+        self.phone_kind = ContactKind.objects.create(name="Phone", slug="phone")
+
+    def create_contacts(self):
+        self.email_contact = Contact.objects.create(
+            kind=self.email_kind,
+            value="test@example.com",
+            content_type=ContentType.objects.get_for_model(self.organisation),
+            object_id=self.organisation.id,
+            preferred=True,
+        )
+        self.phone_contact = Contact.objects.create(
+            kind=self.phone_kind,
+            value="0000000",
+            content_type=ContentType.objects.get_for_model(self.organisation),
+            object_id=self.organisation.id,
+            preferred=True,
+        )
+
+    def create_identifiers(self):
+        self.mysociety_id = Identifier.objects.create(
+            identifier="/organisations/1",
+            scheme="org.mysociety.za",
+            object_id=self.organisation.id,
+            content_type=ContentType.objects.get_for_model(Organisation),
+        )
+
+    def test_identifier(self):
+        self.create_identifiers()
+        org_mysociety_id = self.organisation.get_identifier("org.mysociety.za")
+        self.assertEqual(org_mysociety_id, "/organisations/1")
+    
+    def test_email_addresses(self):
         self.create_contact_kinds()
         self.create_contacts()
+        contacts = self.organisation.email_addresses
+        self.assertEqual(1, len(contacts))
+        self.assertEqual([self.email_contact], contacts)
+        self.assertTrue(self.organisation.has_email_address)
+        self.assertFalse(self.na_organisation.has_email_address)
+
+
+@attr(country="south_africa")
+class OrganisationQuerySetTest(TestCase):
+    def setUp(self):
+        create_organisation_kinds(self)
+        create_organisations(self)
+        create_contact_kinds(self)
+        create_contacts(self)
 
     def test_committees(self):
         result = Organisation.objects.committees().all()
