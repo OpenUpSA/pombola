@@ -1,7 +1,13 @@
 from nose.plugins.attrib import attr
 from django.test import TestCase
 
-from pombola.core.models import Organisation, OrganisationKind, Identifier
+from pombola.core.models import (
+    Organisation,
+    OrganisationKind,
+    Identifier,
+    Contact,
+    ContactKind,
+)
 
 from django.contrib.contenttypes.models import ContentType
 
@@ -31,6 +37,19 @@ class OrganisationModelTest(TestCase):
 
 @attr(country="south_africa")
 class OrganisationQuerySetTest(TestCase):
+    def create_contact_kinds(self):
+        self.email_kind = ContactKind.objects.create(name="Email", slug="email")
+        self.phone_kind = ContactKind.objects.create(name="Phone", slug="phone")
+
+    def create_contacts(self):
+        email_contact = Contact.objects.create(
+            kind=self.email_kind,
+            value="test@example.com",
+            content_type=ContentType.objects.get_for_model(self.na_organisation),
+            object_id=self.na_organisation.id,
+            preferred=True,
+        )
+
     def setUp(self):
         self.foo_kind = OrganisationKind.objects.create(name="Foo", slug="foo",)
         self.na_kind = OrganisationKind.objects.create(
@@ -53,6 +72,8 @@ class OrganisationQuerySetTest(TestCase):
             kind=self.ncop_kind,
             ended="2010-01-01",
         )
+        self.create_contact_kinds()
+        self.create_contacts()
 
     def test_committees(self):
         result = Organisation.objects.committees().all()
@@ -64,4 +85,16 @@ class OrganisationQuerySetTest(TestCase):
         result = Organisation.objects.ongoing().all()
         self.assertIn(self.na_organisation, result)
         self.assertIn(self.test_organisation, result)
+        self.assertNotIn(self.ncop_organisation, result)
+
+    def test_has_email_contacts(self):
+        result = Organisation.objects.has_email_contacts().all()
+        self.assertIn(self.na_organisation, result)
+        self.assertNotIn(self.test_organisation, result)
+        self.assertNotIn(self.ncop_organisation, result)
+
+    def test_contactable(self):
+        result = Organisation.objects.has_email_contacts().all()
+        self.assertIn(self.na_organisation, result)
+        self.assertNotIn(self.test_organisation, result)
         self.assertNotIn(self.ncop_organisation, result)
