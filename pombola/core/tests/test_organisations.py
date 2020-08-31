@@ -104,6 +104,11 @@ class OrganisationModelTest(TestCase):
         self.assertFalse(self.ncop_organisation.is_ongoing())
         self.assertTrue(self.test_organisation.is_ongoing())
 
+    def test_to_str(self):
+        self.assertEqual(
+            "Basic Education (National Assembly)", str(self.na_organisation)
+        )
+
 
 @attr(country="south_africa")
 class OrganisationQuerySetTest(TestCase):
