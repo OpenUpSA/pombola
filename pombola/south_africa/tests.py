@@ -2869,3 +2869,4 @@ class SAParliamentaryTerm(TestCase):
             ParliamentaryTerm.get_term_from_date, d)
             
 
+
