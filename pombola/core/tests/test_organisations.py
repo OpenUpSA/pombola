@@ -34,25 +34,34 @@ class OrganisationQuerySetTest(TestCase):
     def setUp(self):
         self.foo_kind = OrganisationKind.objects.create(name="Foo", slug="foo",)
         self.na_kind = OrganisationKind.objects.create(
-            name="National Assembly", slug="national-assembly-committees"
+            name="National Assembly", slug="national-assembly-committees",
         )
         self.ncop_kind = OrganisationKind.objects.create(
             name="NCOP", slug="ncop-committees"
         )
 
         self.test_organisation = Organisation.objects.create(
-            name="Test Org", slug="test-org", kind=self.foo_kind,
+            name="Test Org", slug="test-org", kind=self.foo_kind, ended="future"
         )
 
         self.na_organisation = Organisation.objects.create(
             name="Basic Education", slug="basic-education", kind=self.na_kind,
         )
         self.ncop_organisation = Organisation.objects.create(
-            name="NCOP Appropriations", slug="ncop-appropriations", kind=self.ncop_kind,
+            name="NCOP Appropriations",
+            slug="ncop-appropriations",
+            kind=self.ncop_kind,
+            ended="2010-01-01",
         )
 
-    def testGetCommittees(self):
+    def test_committees(self):
         result = Organisation.objects.committees().all()
         self.assertIn(self.na_organisation, result)
         self.assertIn(self.ncop_organisation, result)
         self.assertNotIn(self.test_organisation, result)
+
+    def test_ongoing(self):
+        result = Organisation.objects.ongoing().all()
+        self.assertIn(self.na_organisation, result)
+        self.assertIn(self.test_organisation, result)
+        self.assertNotIn(self.ncop_organisation, result)
