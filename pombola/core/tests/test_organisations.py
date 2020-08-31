@@ -13,7 +13,30 @@ from django.contrib.contenttypes.models import ContentType
 
 
 @attr(country="south_africa")
-class OrganisationTest(TestCase):
+class OrganisationModelTest(TestCase):
+    def setUp(self):
+        self.organisation_kind = OrganisationKind(name="Foo", slug="foo",)
+        self.organisation_kind.save()
+
+        self.organisation = Organisation(
+            name="Test Org", slug="test-org", kind=self.organisation_kind,
+        )
+        self.organisation.save()
+
+        self.mysociety_id = Identifier.objects.create(
+            identifier="/organisations/1",
+            scheme="org.mysociety.za",
+            object_id=self.organisation.id,
+            content_type=ContentType.objects.get_for_model(Organisation),
+        )
+
+    def testIdentifier(self):
+        org_mysociety_id = self.organisation.get_identifier("org.mysociety.za")
+        self.assertEqual(org_mysociety_id, "/organisations/1")
+
+
+@attr(country="south_africa")
+class OrganisationQuerySetTest(TestCase):
     def create_contact_kinds(self):
         self.email_kind = ContactKind.objects.create(name="Email", slug="email")
         self.phone_kind = ContactKind.objects.create(name="Phone", slug="phone")
@@ -25,14 +48,6 @@ class OrganisationTest(TestCase):
             content_type=ContentType.objects.get_for_model(self.na_organisation),
             object_id=self.na_organisation.id,
             preferred=True,
-        )
-
-    def create_identifiers(self):
-        self.mysociety_id = Identifier.objects.create(
-            identifier="/organisations/1",
-            scheme="org.mysociety.za",
-            object_id=self.test_organisation.id,
-            content_type=ContentType.objects.get_for_model(Organisation),
         )
 
     def setUp(self):
@@ -47,6 +62,7 @@ class OrganisationTest(TestCase):
         self.test_organisation = Organisation.objects.create(
             name="Test Org", slug="test-org", kind=self.foo_kind, ended="future"
         )
+
         self.na_organisation = Organisation.objects.create(
             name="Basic Education", slug="basic-education", kind=self.na_kind,
         )
@@ -56,14 +72,8 @@ class OrganisationTest(TestCase):
             kind=self.ncop_kind,
             ended="2010-01-01",
         )
-
         self.create_contact_kinds()
         self.create_contacts()
-
-    def test_identifier(self):
-        self.create_identifiers()
-        org_mysociety_id = self.test_organisation.get_identifier("org.mysociety.za")
-        self.assertEqual(org_mysociety_id, "/organisations/1")
 
     def test_committees(self):
         result = Organisation.objects.committees().all()
