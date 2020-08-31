@@ -65,6 +65,8 @@ class OrganisationModelTest(TestCase):
     def setUp(self):
         create_organisation_kinds(self)
         create_organisations(self)
+        create_contact_kinds(self)
+        create_contacts(self)
 
     def create_identifiers(self):
         self.mysociety_id = Identifier.objects.create(
@@ -80,14 +82,27 @@ class OrganisationModelTest(TestCase):
         self.assertEqual(org_mysociety_id, "/organisations/1")
 
     def test_email_addresses(self):
-        create_contact_kinds(self)
-        create_contacts(self)
         self.assertEqual(0, len(self.test_organisation.email_addresses))
         na_contacts = self.na_organisation.email_addresses
         self.assertEqual(1, len(na_contacts))
         self.assertEqual([self.email_contact], na_contacts)
         self.assertTrue(self.na_organisation.has_email_address)
         self.assertFalse(self.test_organisation.has_email_address)
+
+    def test_is_committee(self):
+        self.assertTrue(self.na_organisation.is_committee)
+        self.assertTrue(self.ncop_organisation.is_committee)
+        self.assertFalse(self.test_organisation.is_committee)
+
+    def test_contactable(self):
+        self.assertTrue(self.na_organisation.contactable)
+        self.assertFalse(self.ncop_organisation.contactable)
+        self.assertFalse(self.test_organisation.contactable)
+
+    def test_is_ongoing(self):
+        self.assertTrue(self.na_organisation.is_ongoing())
+        self.assertFalse(self.ncop_organisation.is_ongoing())
+        self.assertTrue(self.test_organisation.is_ongoing())
 
 
 @attr(country="south_africa")
