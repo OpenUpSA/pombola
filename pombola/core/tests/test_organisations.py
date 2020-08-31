@@ -28,11 +28,6 @@ class OrganisationModelTest(TestCase):
         org_mysociety_id = self.organisation.get_identifier("org.mysociety.za")
         self.assertEqual(org_mysociety_id, "/organisations/1")
 
-    def tearDown(self):
-        self.mysociety_id.delete()
-        self.organisation.delete()
-        self.organisation_kind.delete()
-
 
 @attr(country="south_africa")
 class OrganisationQuerySetTest(TestCase):
