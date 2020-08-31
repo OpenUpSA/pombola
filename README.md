@@ -72,3 +72,4 @@ Information about the GNU Affero GPL:
 http://www.fsf.org/licensing/licenses/agpl-3.0.html
 
 A copy of the GNU Affero General Public License can be found in [LICENSE.txt](/LICENSE.txt).
+
