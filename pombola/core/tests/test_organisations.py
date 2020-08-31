@@ -1,9 +1,11 @@
+from nose.plugins.attrib import attr
 from django.test import TestCase
 
 from pombola.core import models
 
 from django.contrib.contenttypes.models import ContentType
 
+@attr(country="south_africa")
 class OrganisationTest(TestCase):
     def setUp(self):
         self.organisation_kind = models.OrganisationKind(
