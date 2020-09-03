@@ -20,11 +20,11 @@
       </li>
   {% empty %}
     <p>No messages have been sent to {{ committee.name }}.</p>
-    {% if committee.contactable %}
-      <p>
-        <a href="{% url 'writeinpublic-committees:writeinpublic-new-message-step' step='recipients' %}?person_id={{ committee.pk }}">Write a public message</a>
-      </p>
-    {% endif %}
   {% endfor %}
   </ul>
+  {% if committee.contactable %}
+    <p>
+      <a href="{% url 'writeinpublic-committees:writeinpublic-new-message-step' step='recipients' %}?person_id={{ committee.pk }}">Write a new public message</a>
+    </p>
+  {% endif %}
 {% endblock %}
