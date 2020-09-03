@@ -14,7 +14,7 @@ import logging
 from pombola.core.models import Person, Organisation, Position
 
 from .forms import RecipientForm, DraftForm, PreviewForm, ModelChoiceField
-from .fields import GroupedModelChoiceField
+from .fields import CommiteeGroupedModelChoiceField
 from .client import WriteInPublic
 from .models import Configuration
 
@@ -75,7 +75,7 @@ class CommitteeAdapter(object):
             .select_related('kind')\
             .contactable().distinct().order_by('kind_id')
         
-        choicefield = GroupedModelChoiceField(
+        choicefield = CommiteeGroupedModelChoiceField(
             choices_groupby='kind.name',
             queryset=queryset,
             empty_label=None

@@ -43,3 +43,8 @@ class GroupedModelChoiceField(ModelChoiceField):
         return GroupedModelChoiceIterator(self, groupby=self.choices_groupby)
 
     choices = property(_get_choices, ChoiceField._set_choices)
+
+
+class CommiteeGroupedModelChoiceField(GroupedModelChoiceField):
+    def label_from_instance(self, obj):
+        return obj.name

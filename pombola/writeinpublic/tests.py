@@ -314,7 +314,7 @@ class WriteToCommitteeMessagesViewTest(TestCase):
         self.na_committee = Organisation.objects.create(
             slug='test-na-committee', name='NA Test Committee', kind=na_kind)
         self.ncop_committee = Organisation.objects.create(
-            slug='test-ncop-committee', name='NCOP Test Comittee', kind=ncop_kind)
+            slug='test-ncop-committee', name='NCOP Test Committee', kind=ncop_kind)
         email_kind, _ = ContactKind.objects.get_or_create(slug='email', name='Email')
         self.na_committee.contacts.create(
             kind=email_kind, 
@@ -375,10 +375,14 @@ class WriteToCommitteeMessagesViewTest(TestCase):
         response = self.client.get(response.url)
         self.assertEquals(response.status_code, 200)
 
-        self.assertContains(
+        self.assertContains(response, "National Assembly")
+        self.assertContains(response, "NCOP")
+        self.assertContains(response, "NA Test Committee")
+        # Does not contain the house in brackets 
+        self.assertNotContains(
             response, "NA Test Committee (National Assembly)"
         )
-        self.assertContains(response, "NCOP Test Comittee (NCOP)")
+        self.assertContains(response, "NCOP Test Committee")
 
         # POST to the recipients step
         response = self.client.post(
@@ -507,7 +511,7 @@ class CommitteeAdapterTest(TestCase):
     def test_get_form_kwargs_when_committee_has_multiple_emails(self):
         adapter = CommitteeAdapter()
 
-        na_committee_kind = OrganisationKind.objects.create(name='National Assembly Committees', slug='national-assembly-committees')
+        na_committee_kind = OrganisationKind.objects.create(name='National Assembly', slug='national-assembly-committees')
         email_kind = ContactKind.objects.create(name='Email', slug='email')
         committee = Organisation.objects.create(kind=na_committee_kind)
         committee.contacts.create(kind=email_kind, value='test@example.org', preferred=False)
