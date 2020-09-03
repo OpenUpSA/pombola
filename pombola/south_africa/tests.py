@@ -1661,7 +1661,7 @@ class SACommitteeIndexViewTest(WebTest):
     def setUp(self):
         # Create the houses
         self.org_kind_na_committee = models.OrganisationKind.objects.create(
-            name='National Assembly Committees',
+            name='National Assembly',
             slug='national-assembly-committees'
         )
         self.org_kind_ncop_committee = models.OrganisationKind.objects.create(
@@ -2847,7 +2847,7 @@ class SACommitteesPopoloJSONTest(TestCase):
 
     def test_produces_correct_json_with_contacts(self):
         org_kind_na_committee = models.OrganisationKind.objects.create(
-            name='National Assembly Committees',
+            name='National Assembly',
             slug='national-assembly-committees'
         )
         org_kind_ncop_committee = models.OrganisationKind.objects.create(
