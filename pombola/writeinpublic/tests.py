@@ -375,8 +375,60 @@ class WriteToCommitteeMessagesViewTest(TestCase):
         response = self.client.get(response.url)
         self.assertEquals(response.status_code, 200)
 
-        self.assertContains(response, "{} ({})".format(self.na_committee.name, "National Assembly"))
-        self.assertContains(response, "{} ({})".format(self.ncop_committee.name, "NCOP"))
+        self.assertContains(
+            response, "NA Test Committee (National Assembly)"
+        )
+        self.assertContains(response, "NCOP Test Comittee (NCOP)")
+
+        # POST to the recipients step
+        response = self.client.post(
+            reverse(
+                'writeinpublic-committees:writeinpublic-new-message-step', 
+                kwargs={'step': 'recipients'}
+            ), {
+                'write_in_public_new_message-current_step': 'recipients',
+                'recipients-persons': self.na_committee.id,
+            }
+        )
+
+        self.assertRedirects(
+            response, 
+            reverse(
+                'writeinpublic-committees:writeinpublic-new-message-step', 
+                kwargs={'step': 'draft'}
+            ))
+
+        # GET the draft step
+        response = self.client.get(response.url)
+        self.assertEquals(response.status_code, 200)
+        self.assertContains(
+            response, "NA Test Committee (National Assembly)"
+        )
+        self.assertNotContains(response, "NCOP Test Comittee (NCOP)")
+
+        # POST to the draft step
+        response = self.client.post(
+            reverse('writeinpublic-committees:writeinpublic-new-message-step', 
+            kwargs={'step': 'draft'}), 
+            {
+                'write_in_public_new_message-current_step': 'draft',
+                'draft-subject': 'Test',
+                'draft-content': 'Test',
+                'draft-author_name': 'Test',
+                'draft-author_email': 'test@example.com',
+            }
+        )
+        self.assertRedirects(
+            response, 
+            reverse(
+                'writeinpublic-committees:writeinpublic-new-message-step', 
+                kwargs={'step': 'preview'}
+            )
+        )
+
+        # GET the preview step
+        response = self.client.get(response.url)
+        self.assertEquals(response.status_code, 200)
 
 
 
