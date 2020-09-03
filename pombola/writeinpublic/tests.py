@@ -412,8 +412,8 @@ class WriteToCommitteeMessagesViewTest(TestCase):
             kwargs={'step': 'draft'}), 
             {
                 'write_in_public_new_message-current_step': 'draft',
-                'draft-subject': 'Test',
-                'draft-content': 'Test',
+                'draft-subject': 'Test subject',
+                'draft-content': 'Test message',
                 'draft-author_name': 'Test',
                 'draft-author_email': 'test@example.com',
             }
@@ -429,6 +429,54 @@ class WriteToCommitteeMessagesViewTest(TestCase):
         # GET the preview step
         response = self.client.get(response.url)
         self.assertEquals(response.status_code, 200)
+
+        self.assertContains(
+            response, "NA Test Committee (National Assembly)"
+        )
+        self.assertContains(
+            response, "Test subject"
+        )
+        self.assertContains(
+            response, "Test message"
+        )
+        self.assertContains(response, 
+            "Are you happy for this message to be made public?")
+
+        # Mock the POST response
+        m.post('/api/v1/message/', json={
+            'id': '42'
+        })
+
+        # POST to the preview step
+        response = self.client.post(
+            reverse(
+                'writeinpublic-committees:writeinpublic-new-message-step', 
+                kwargs={'step': 'preview'}
+            ),
+            {
+                'write_in_public_new_message-current_step': 'preview',
+                'preview-captcha_0': 'random-string',
+                'preview-captcha_1': 'PASSED'
+            }
+        )
+        self.assertRedirects(
+            response,
+            reverse(
+                'writeinpublic-committees:writeinpublic-new-message-step', 
+                kwargs={'step': 'done'}
+            ),
+            fetch_redirect_response=False
+        )
+
+        # GET the done step
+        response = self.client.get(response.url)
+
+        # Check that we're redirected to the pending message page
+        self.assertRedirects(
+            response,
+            reverse('writeinpublic-committees:writeinpublic-pending'),
+            fetch_redirect_response=False
+        )
 
 
 
