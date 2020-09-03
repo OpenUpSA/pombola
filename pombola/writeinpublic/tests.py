@@ -70,6 +70,7 @@ person_json = {
     ]
 }
 
+
 @attr(country='south_africa')
 @requests_mock.Mocker()
 class ClientTest(TestCase):
@@ -306,26 +307,76 @@ class WriteToCommitteeMessagesViewTest(TestCase):
             slug='south-africa-committees',
             person_uuid_prefix='http://example.org/popolo.json#person-{}'
         )
-        kind = OrganisationKind.objects.create(name='National Assembly Committee', slug='national-assembly-committee')
-        self.committee = Organisation.objects.create(slug='test-committee', kind=kind)
+        na_kind = OrganisationKind.objects.create(
+            name='National Assembly', slug='national-assembly-committees')
+        ncop_kind = OrganisationKind.objects.create(
+            name='NCOP', slug='ncop-committees')
+        self.na_committee = Organisation.objects.create(
+            slug='test-na-committee', name='NA Test Committee', kind=na_kind)
+        self.ncop_committee = Organisation.objects.create(
+            slug='test-ncop-committee', name='NCOP Test Comittee', kind=ncop_kind)
+        email_kind, _ = ContactKind.objects.get_or_create(slug='email', name='Email')
+        self.na_committee.contacts.create(
+            kind=email_kind, 
+            value='test@example.com', preferred=True)
+        self.ncop_committee.contacts.create(
+            kind=email_kind, 
+            value='test@example.com', preferred=True)
 
-    def test_committee_that_exists_in_writeinpublic(self, m):
+    def test_committees_that_exists_in_writeinpublic(self, m):
+        # Mock WriteInPublic API
         m.get(
-            '/api/v1/instance/1/messages/'.format(self.committee.id),
+            '/api/v1/instance/1/messages/'.format(self.na_committee.id),
             json={'objects': []}
         )
-        response = self.client.get(reverse('organisation_messages', kwargs={'slug': self.committee.slug}))
+        m.get(
+            '/api/v1/instance/1/messages/'.format(self.ncop_committee.id),
+            json={'objects': []}
+        )
+
+        # National Assembly committees
+        response = self.client.get(
+            reverse('organisation_messages', 
+            kwargs={'slug': self.na_committee.slug}))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['messages'], [])
+
+        # NCOP committee
+        response = self.client.get(
+            reverse('organisation_messages', 
+            kwargs={'slug': self.ncop_committee.slug}))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['messages'], [])
 
     def test_committee_that_doesnt_exist_in_writeinpublic(self, m):
+        # Mock WriteInPublic API
         m.get(
-            '/api/v1/instance/1/messages/'.format(self.committee.id),
+            '/api/v1/instance/1/messages/'.format(self.na_committee.id),
             status_code=404
         )
-        response = self.client.get(reverse('organisation_messages', kwargs={'slug': self.committee.slug}))
+        response = self.client.get(
+            reverse('organisation_messages', kwargs={'slug': self.na_committee.slug}))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['messages'], [])
+
+    def test_sending_message_wizard_steps(self, m):
+        # GET the new message redirect
+        response = self.client.get(
+            reverse('writeinpublic-committees:writeinpublic-new-message'))
+        self.assertRedirects(
+            response, 
+            reverse(
+                'writeinpublic-committees:writeinpublic-new-message-step', 
+                kwargs={'step': 'recipients'}
+            )
+        )
+
+        # GET the recipients step
+        response = self.client.get(response.url)
+        self.assertEquals(response.status_code, 200)
+
+        self.assertContains(response, "{} ({})".format(self.na_committee.name, "National Assembly"))
+        self.assertContains(response, "{} ({})".format(self.ncop_committee.name, "NCOP"))
 
 
 
