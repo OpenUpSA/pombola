@@ -19,10 +19,12 @@
         
       </li>
   {% empty %}
-    {% comment %}
-      TODO: Just hide this panel completely if there are no messages?
-    {% endcomment %}
-    <p>Nothing here!</p>
+    <p>No messages have been sent to {{ committee.name }}.</p>
+    {% if committee.contactable %}
+      <p>
+        <a href="{% url 'writeinpublic-committees:writeinpublic-new-message-step' step='recipients' %}?person_id={{ committee.pk }}">Write a public message</a>
+      </p>
+    {% endif %}
   {% endfor %}
   </ul>
 {% endblock %}
