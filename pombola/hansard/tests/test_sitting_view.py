@@ -1,9 +1,11 @@
 from django.contrib.auth.models import User
 from django_webtest import WebTest
+from django.utils.unittest import skip
 
 from pombola.core import models
 from ..models import Entry, Sitting
 
+@skip("The South African site doesn't use this app")
 class TestSittingView(WebTest):
 
     fixtures = ['hansard_test_data']

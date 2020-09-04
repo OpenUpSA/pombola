@@ -1,10 +1,12 @@
 from datetime import date, time
 
 from django.test import TestCase
+from django.utils.unittest import skip
 from pombola.hansard.models import Source, Sitting, Venue
 from pombola.hansard.views import get_sittings_from_slugs
 
 
+@skip("The South African site doesn't use this app")
 class HansardSittingTest(TestCase):
 
     fixtures = ['hansard_test_data']

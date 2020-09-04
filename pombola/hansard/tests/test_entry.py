@@ -1,11 +1,14 @@
 from datetime import date
 
+from django.utils.unittest import skip
 from django.test import TestCase
+from django.utils.unittest import skip
 from pombola.core.models import Person, Place, PlaceKind, Position, PositionTitle
 from pombola.hansard.models import Source, Sitting, Venue, Entry
 from pombola.hansard.models.entry import NAME_SUBSTRING_MATCH
 
 
+@skip("The South African site doesn't use this app")
 class HansardEntryTest(TestCase):
 
     def setUp(self):

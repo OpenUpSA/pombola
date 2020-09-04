@@ -1,6 +1,7 @@
 import datetime
 import os
 from collections import namedtuple
+from django.utils.unittest import skip
 
 from django.test import TestCase
 
@@ -28,6 +29,7 @@ class FakeHttp(object):
 </html>"""
 
 
+@skip("The South African site doesn't use this app")
 class HansardSourceTest(TestCase):
 
     def setUp(self):
