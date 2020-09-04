@@ -2,6 +2,13 @@
 {% load pipeline %}
 {% load staticfiles %}
 
+{% block open_graph %}
+<meta property="og:title" content="{{ object.name }}" />
+<meta property="og:site_name" content="{{ site.name }}" />
+<meta property="og:type" content="place" />
+<meta property="og:url" content="{{ request.build_absolute_uri }}" />
+{% endblock %}
+
 {% block object_menu %}
 {% endblock %}
 
