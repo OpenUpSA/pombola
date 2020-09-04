@@ -243,14 +243,14 @@ class PositionViewTest(WebTest):
         # Get the normal view - all current positions:
         resp = self.app.get('/position/member-national-assembly/')
         person_names = []
-        for li in resp.html.find_all('li', class_='position'):
+        for li in resp.html.find_all('li', class_='person-list-item'):
             span_name = li.find('span', class_='name')
             person_names.append(span_name.text)
         self.assertEqual(person_names, ['Josephine Later'])
         # Get all positions in the 2013 session:
         resp = self.app.get('/position/member-national-assembly/?session=na2013')
         person_names = []
-        for li in resp.html.find_all('li', class_='position'):
+        for li in resp.html.find_all('li', class_='person-list-item'):
             span_name = li.find('span', class_='name')
             person_names.append(span_name.text)
         person_names.sort()
@@ -261,7 +261,7 @@ class PositionViewTest(WebTest):
         # Get all positions in the 2013 session:
         resp = self.app.get('/position/member-national-assembly/?session=na2007')
         person_names = []
-        for li in resp.html.find_all('li', class_='position'):
+        for li in resp.html.find_all('li', class_='person-list-item'):
             span_name = li.find('span', class_='name')
             person_names.append(span_name.text)
         self.assertEqual(
