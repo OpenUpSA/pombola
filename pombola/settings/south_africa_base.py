@@ -18,7 +18,7 @@ BLOG_RSS_FEED = ''
 
 BREADCRUMB_URL_NAME_MAPPINGS = {
     'info': ['Information', '/info/'],
-    'organisation': ['People', '/organisation/all/'],
+    'organisation': ['Organisations', '/organisation/all/'],
     'person': ['Politicians', '/person/all/'],
     'place': ['Places', '/place/all/'],
     'search': ['Search', '/search/'],

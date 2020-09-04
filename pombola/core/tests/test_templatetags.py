@@ -19,10 +19,8 @@ class BreadcrumbTest(TestCase):
         tests = (
             # input, expected output
             ( '/',        '<li>Home</li>'),
-            # 'Organisation' was overwritten with 'People' in `BREADCRUMB_URL_NAME_MAPPINGS` in pombola/settings/south_africa_base.py
-            # TODO: explicitly set BREADCRUMB_URL_NAME_MAPPINGS for this test
-            ( '/organisation',     home_li + '<li>People</li>'),
-            ( '/organisation/bar', home_li + '<li><a href="/organisation/all/" title="Breadcrumb link to People">People</a>  <span class="sep">&raquo;</span> </li><li>Bar</li>'),
+            ( '/organisation',     home_li + '<li>Organisations</li>'),
+            ( '/organisation/bar', home_li + '<li><a href="/organisation/all/" title="Breadcrumb link to Organisations">Organisations</a>  <span class="sep">&raquo;</span> </li><li>Bar</li>'),
 
             # existing urls that aren't in the mapping should be linked to.
             ( '/blog/first-post', home_li + '<li><a href="/blog/" title="Breadcrumb link to Blog">Blog</a>  <span class="sep">&raquo;</span> </li><li>First Post</li>'),
