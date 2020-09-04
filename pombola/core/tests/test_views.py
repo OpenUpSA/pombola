@@ -45,6 +45,11 @@ class PositionViewTest(WebTest):
             slug = 'test-org',
             kind = self.organisation_kind,
         )
+        self.national_assembly = models.Organisation.objects.create(
+            name = 'National Assembly',
+            slug = 'national-assembly',
+            kind = self.organisation_kind,
+        )
 
         self.org_slug_redirect = SlugRedirect.objects.create(
             old_object_slug='test-Blah-org',
@@ -58,6 +63,10 @@ class PositionViewTest(WebTest):
         self.title2 = models.PositionTitle.objects.create(
             name = 'Test position with place',
             slug = 'test-position-with-place',
+        )
+        self.member_title = models.PositionTitle.objects.create(
+            name = 'Member',
+            slug = 'member',
         )
 
         self.position = models.Position.objects.create(
@@ -84,9 +93,9 @@ class PositionViewTest(WebTest):
 
         self.position2 = models.Position.objects.create(
             person = self.person,
-            title  = self.title2,
-            organisation = self.organisation,
+            title  = self.member_title,
             place = self.bobs_place,
+            organisation = self.national_assembly,
         )
 
         self.position_hidden_person = models.Position.objects.create(
@@ -199,6 +208,8 @@ class PositionViewTest(WebTest):
 
     def test_place_page_hidden_person_not_linked(self):
         resp = self.app.get('/place/bobs_place/')
+        resp.mustcontain('Test Person')
+        self.assertNotIn('Test Hidden Person', resp.html)
         self.assertEqual(
             set([u'/person/test-person/']),
             self.get_links_to_people(resp.html)
