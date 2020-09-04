@@ -98,12 +98,6 @@ class PositionViewTest(WebTest):
             organisation = self.national_assembly,
         )
 
-        self.position_hidden_person = models.Position.objects.create(
-            person = self.person_hidden,
-            title  = self.title,
-            organisation = self.organisation,
-            place = self.bobs_place,
-        )
         self.kind_governmental = models.OrganisationKind.objects.create(
             name='Governmental',
         )
@@ -156,9 +150,9 @@ class PositionViewTest(WebTest):
     def test_position_page_hidden_person_not_linked(self):
         resp = self.app.get('/position/test-title/')
         resp.mustcontain('Test Person')
-        resp.mustcontain('Test Hidden Person')
+        self.assertNotIn('Test Hidden Person', resp.html)
         self.assertEqual(
-            set([u'/person/test-person/']),
+            set(['/person/test-person/']),
             self.get_links_to_people(resp.html)
         )
 
