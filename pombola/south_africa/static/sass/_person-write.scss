@@ -17,6 +17,7 @@
     label {
         display: block;
         margin-bottom: 0.5em;
+        float: left;
 
         small {
             display: block;
@@ -102,6 +103,13 @@
         & > :last-child {
             margin-bottom: 0;
         }
+    }
+
+    .change-recipients {
+      border: 1px solid $colour_terracotta;
+      color: $colour_terracotta;
+      background-color: white;
+      padding: 2px;
     }
 }
 
