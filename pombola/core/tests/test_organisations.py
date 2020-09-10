@@ -122,27 +122,35 @@ class OrganisationOngoingUnitTest(unittest.TestCase):
 
 
 @attr(country="south_africa")
+class OrganisationIdentifiersTest(TestCase):
+# class OrganisationIdentifiersTest(unittest.TestCase):
+    def setUp(self):
+        self.test_kind = OrganisationKind(name="TestKind", slug="test-kind")
+        self.test_kind.save()
+        self.test_organisation = Organisation(
+            name="Test Org", slug="test-org", kind=self.test_kind, ended="future"
+        )
+        self.test_organisation.save()
+        self.mysociety_id = Identifier(
+            identifier="/organisations/1",
+            scheme="org.mysociety.za",
+            content_object=self.test_organisation
+        )
+        self.mysociety_id.save()
+
+    def test_identifier(self):
+        # Can't be unittest because it looks for identifiers with
+        # Identifier.objects.filter(
+        org_mysociety_id = self.test_organisation.get_identifier("org.mysociety.za")
+        self.assertEqual(org_mysociety_id, "/organisations/1")
+
+@attr(country="south_africa")
 class OrganisationModelTest(TestCase):
     def setUp(self):
         create_organisation_kinds(self)
         create_organisations(self)
         create_contact_kinds(self)
         create_contacts(self)
-
-    def create_identifiers(self):
-        self.mysociety_id = Identifier.objects.create(
-            identifier="/organisations/1",
-            scheme="org.mysociety.za",
-            object_id=self.test_organisation.id,
-            content_type=ContentType.objects.get_for_model(Organisation),
-        )
-
-    def test_identifier(self):
-        # Can't be unittest because it looks for identifiers with
-        # Identifier.objects.filter(
-        self.create_identifiers()
-        org_mysociety_id = self.test_organisation.get_identifier("org.mysociety.za")
-        self.assertEqual(org_mysociety_id, "/organisations/1")
 
     def test_is_committee(self):
         self.assertTrue(self.na_organisation.is_committee)
