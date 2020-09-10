@@ -1683,8 +1683,6 @@ class SACommitteeIndexViewTest(WebTest):
         self.email_kind = models.ContactKind.objects.create(name='Email', slug='email')
         self.na_org.contacts.create(
             kind=self.email_kind, value='na-test@example.org', preferred=False)
-        # self.ncop_org.contacts.create(
-        #     kind=self.email_kind, value='ncop-test@example.org', preferred=False)
 
     def test_committee_index_page(self):
         response = self.app.get('/committees/')
