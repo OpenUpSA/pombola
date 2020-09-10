@@ -99,6 +99,29 @@ class OrganisationEmailAddressesTest(TestCase):
 
 
 @attr(country="south_africa")
+class OrganisationOngoingUnitTest(unittest.TestCase):
+    def setUp(self):
+        self.test_kind = OrganisationKind(name="TestKind", slug="test-kind")
+        self.organisation_future_ended = Organisation(
+            name="Test Org", slug="test-org", kind=self.test_kind, ended="future"
+        )
+        self.organisation_none_ended = Organisation(
+            name="Basic Education", slug="basic-education", kind=self.test_kind,
+        )
+        self.organisation_already_ended = Organisation(
+            name="NCOP Appropriations",
+            slug="ncop-appropriations",
+            kind=self.test_kind,
+            ended="2010-01-01",
+        )
+
+    def test_is_ongoing(self):
+        self.assertTrue(self.organisation_future_ended.is_ongoing())
+        self.assertTrue(self.organisation_none_ended.is_ongoing())
+        self.assertFalse(self.organisation_already_ended.is_ongoing())
+
+
+@attr(country="south_africa")
 class OrganisationModelTest(TestCase):
     def setUp(self):
         create_organisation_kinds(self)
@@ -130,11 +153,6 @@ class OrganisationModelTest(TestCase):
         self.assertTrue(self.na_organisation.contactable_committee)
         self.assertFalse(self.ncop_organisation.contactable_committee)
         self.assertFalse(self.test_organisation.contactable_committee)
-
-    def test_is_ongoing(self):
-        self.assertTrue(self.na_organisation.is_ongoing())
-        self.assertFalse(self.ncop_organisation.is_ongoing())
-        self.assertTrue(self.test_organisation.is_ongoing())
 
     def test_to_str(self):
         self.assertEqual(
