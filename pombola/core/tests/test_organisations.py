@@ -1,5 +1,6 @@
 from nose.plugins.attrib import attr
 from django.test import TestCase
+from django.utils import unittest
 
 from pombola.core.models import (
     Organisation,
@@ -61,6 +62,34 @@ def create_contacts(self):
 
 
 @attr(country="south_africa")
+class OrganisationEmailAddressesModelUnitTest(unittest.TestCase):
+# class OrganisationEmailAddressesModelUnitTest(TestCase):
+    def setUp(self):
+        self.test_kind = OrganisationKind(name="TestKind", slug="test-kind")
+        # self.test_kind.save()
+        self.organisation_without_emails = Organisation(
+            name="Test Org", slug="test-org", kind=self.test_kind
+        )
+        # self.organisation_without_emails.save()
+        self.organisation_with_emails = Organisation(
+            name="Basic Education", slug="basic-education", kind=self.test_kind,
+        )
+        # self.organisation_with_emails.save()
+        self.email_kind = ContactKind(name="Email", slug="email")
+        # self.email_kind.save()
+        self.email_contact = Contact(
+            kind=self.email_kind,
+            value="test@example.com",
+            content_object = self.organisation_with_emails,
+            preferred=True,
+        )
+        # self.email_contact.save()
+
+    def test_email_addresses(self):
+        self.assertEqual(0, len(self.organisation_without_emails.email_addresses))
+        self.assertEqual(1, len(self.organisation_with_emails.email_addresses))
+
+@attr(country="south_africa")
 class OrganisationModelTest(TestCase):
     def setUp(self):
         create_organisation_kinds(self)
@@ -77,6 +106,8 @@ class OrganisationModelTest(TestCase):
         )
 
     def test_identifier(self):
+        # Can't be unittest because it looks for identifiers with
+        # Identifier.objects.filter(
         self.create_identifiers()
         org_mysociety_id = self.test_organisation.get_identifier("org.mysociety.za")
         self.assertEqual(org_mysociety_id, "/organisations/1")
