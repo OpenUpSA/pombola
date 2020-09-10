@@ -184,10 +184,17 @@ class OrganisationModelTest(TestCase):
         self.assertFalse(self.ncop_organisation.contactable_committee)
         self.assertFalse(self.test_organisation.contactable_committee)
 
-    def test_to_str(self):
-        self.assertEqual(
-            "Basic Education (National Assembly)", str(self.na_organisation)
+
+@attr(country="south_africa")
+class OrganisationToStrTest(TestCase):
+    def setUp(self):
+        self.test_kind = OrganisationKind(name="Test Kind", slug="test-kind")
+        self.test_organisation = Organisation(
+            name="Test Org", slug="test-org", kind=self.test_kind, ended="future"
         )
+
+    def test_to_str(self):
+        self.assertEqual("Test Org (Test Kind)", str(self.test_organisation))
 
 
 @attr(country="south_africa")
