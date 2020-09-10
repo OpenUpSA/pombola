@@ -62,28 +62,28 @@ def create_contacts(self):
 
 
 @attr(country="south_africa")
-class OrganisationEmailAddressesModelUnitTest(unittest.TestCase):
-# class OrganisationEmailAddressesModelUnitTest(TestCase):
+# class OrganisationEmailAddressesModelUnitTest(unittest.TestCase):
+class OrganisationEmailAddressesModelUnitTest(TestCase):
     def setUp(self):
         self.test_kind = OrganisationKind(name="TestKind", slug="test-kind")
-        # self.test_kind.save()
+        self.test_kind.save()
         self.organisation_without_emails = Organisation(
             name="Test Org", slug="test-org", kind=self.test_kind
         )
-        # self.organisation_without_emails.save()
+        self.organisation_without_emails.save()
         self.organisation_with_emails = Organisation(
             name="Basic Education", slug="basic-education", kind=self.test_kind,
         )
-        # self.organisation_with_emails.save()
+        self.organisation_with_emails.save()
         self.email_kind = ContactKind(name="Email", slug="email")
-        # self.email_kind.save()
+        self.email_kind.save()
         self.email_contact = Contact(
             kind=self.email_kind,
             value="test@example.com",
             content_object = self.organisation_with_emails,
             preferred=True,
         )
-        # self.email_contact.save()
+        self.email_contact.save()
 
     def test_email_addresses(self):
         self.assertEqual(0, len(self.organisation_without_emails.email_addresses))
