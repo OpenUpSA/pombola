@@ -684,7 +684,7 @@ class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
 
         self.assertEqual(
             context['attendance'],
-            [{'total': 28, 'percentage': 89.28571428571429, 'attended': 25, 'year': 2015, 'position':'mp'},
+            [{'total': 27, 'percentage': 88.88888888888888, 'attended': 24, 'year': 2015, 'position':'mp'},
              {'total': 15, 'percentage': 93.33333333333333, 'attended': 14, 'year': 2014, 'position':'mp'}],
             )
 
@@ -1015,7 +1015,7 @@ class SAAttendanceDataTest(TestCase):
         person = models.Person.objects.get(slug='person1')
         person_detail = SAPersonDetail(object = person)
 
-        expected = {2014: {'mp': {u'A': 1, u'P': 14}}, 2015: {'mp': {u'A': 1, u'P': 25, u'AP': 2}}}
+        expected = {2014: {'mp': {u'A': 1, u'P': 14}}, 2015: {'mp': {u'A': 1, u'P': 24, u'AP': 2}}}
         raw_stats = person_detail.get_attendance_stats_raw(raw_data['results'])
         self.assertEqual(raw_stats, expected)
 
@@ -1023,7 +1023,7 @@ class SAAttendanceDataTest(TestCase):
         person = models.Person.objects.get(slug='person2')
         person_detail = SAPersonDetail(object = person)
 
-        expected = {2014: {'mp': {u'A': 1, u'P': 14}}, 2015: {'minister': {u'P': 4}, 'mp': {u'A': 1, u'P': 21, u'AP': 2}}}
+        expected = {2014: {'mp': {u'A': 1, u'P': 14}}, 2015: {'minister': {u'P': 3}, 'mp': {u'A': 1, u'P': 21, u'AP': 2}}}
         raw_stats = person_detail.get_attendance_stats_raw(raw_data['results'])
         self.assertEqual(raw_stats, expected)
 
