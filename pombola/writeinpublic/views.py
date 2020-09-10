@@ -73,7 +73,7 @@ class CommitteeAdapter(object):
     def get_form_kwargs(self, step=None):
         queryset = Organisation.objects.prefetch_related('contacts__kind')\
             .select_related('kind')\
-            .contactable().distinct().order_by('kind_id')
+            .contactable_committees().distinct().order_by('kind_id')
         
         choicefield = CommiteeGroupedModelChoiceField(
             choices_groupby='kind.name',

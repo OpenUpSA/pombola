@@ -94,10 +94,10 @@ class OrganisationModelTest(TestCase):
         self.assertTrue(self.ncop_organisation.is_committee)
         self.assertFalse(self.test_organisation.is_committee)
 
-    def test_contactable(self):
-        self.assertTrue(self.na_organisation.contactable)
-        self.assertFalse(self.ncop_organisation.contactable)
-        self.assertFalse(self.test_organisation.contactable)
+    def test_contactable_committee(self):
+        self.assertTrue(self.na_organisation.contactable_committee)
+        self.assertFalse(self.ncop_organisation.contactable_committee)
+        self.assertFalse(self.test_organisation.contactable_committee)
 
     def test_is_ongoing(self):
         self.assertTrue(self.na_organisation.is_ongoing())

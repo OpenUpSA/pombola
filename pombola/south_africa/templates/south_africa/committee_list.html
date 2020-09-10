@@ -34,7 +34,7 @@
                 
                   <div class="committee-list__links">
                       <a href="{% url 'organisation_messages' slug=committee.slug %}">View messages</a>
-                      {% if committee.contactable %}
+                      {% if committee.contactable_committee %}
                         <a href="{% url 'writeinpublic-committees:writeinpublic-new-message-step' step='recipients' %}?person_id={{ committee.pk }}">Write a public message</a>
                       {% endif %}
                   </div>

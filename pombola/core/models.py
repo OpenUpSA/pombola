@@ -810,7 +810,7 @@ class OrganisationQuerySet(models.query.GeoQuerySet):
     def has_email_contacts(self):
         return self.filter(contacts__kind__slug='email')
 
-    def contactable(self):
+    def contactable_committees(self):
         """
         Return all committees that we want users to be able to write to.
         """
@@ -905,7 +905,7 @@ class Organisation(ModelBase, HasImageMixin, IdentifierMixin):
         return self.kind.slug in COMMITTEE_SLUGS
 
     @property
-    def contactable(self):
+    def contactable_committee(self):
         """
         Return whether users should be able to write a message to this organisation.
         """

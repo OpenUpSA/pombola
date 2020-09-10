@@ -38,7 +38,7 @@
 
   <div class="contact-actions">
     <div class="contact-actions__wip">
-        {% if object.contactable %}
+        {% if object.contactable_committee %}
           <a href="{% url 'writeinpublic-committees:writeinpublic-new-message' %}?person_id={{ object.pk }}">Write a public message to this committee</a>
         {% endif %}
         <a href="{% url 'organisation_messages' slug=object.slug %}" class="contact-actions__wip__view-link">View messages</a>
