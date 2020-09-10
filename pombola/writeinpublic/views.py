@@ -55,11 +55,6 @@ class PersonAdapter(object):
         return {}
 
 
-class CommitteeModelChoiceField(ModelChoiceField):
-    def label_from_instance(self, obj):
-        return obj.short_name
-
-
 class CommitteeAdapter(object):
     def filter(self, ids):
         return Organisation.objects.filter(id__in=ids)
