@@ -62,32 +62,41 @@ def create_contacts(self):
 
 
 @attr(country="south_africa")
-# class OrganisationEmailAddressesModelUnitTest(unittest.TestCase):
-class OrganisationEmailAddressesModelUnitTest(TestCase):
+class OrganisationEmailAddressesTest(TestCase):
     def setUp(self):
-        self.test_kind = OrganisationKind(name="TestKind", slug="test-kind")
-        self.test_kind.save()
-        self.organisation_without_emails = Organisation(
+        self.test_kind = OrganisationKind.objects.create(
+            name="TestKind", slug="test-kind"
+        )
+        self.organisation_without_emails = Organisation.objects.create(
             name="Test Org", slug="test-org", kind=self.test_kind
         )
-        self.organisation_without_emails.save()
-        self.organisation_with_emails = Organisation(
+        self.organisation_with_emails = Organisation.objects.create(
             name="Basic Education", slug="basic-education", kind=self.test_kind,
         )
-        self.organisation_with_emails.save()
-        self.email_kind = ContactKind(name="Email", slug="email")
-        self.email_kind.save()
-        self.email_contact = Contact(
+        self.email_kind = ContactKind.objects.create(name="Email", slug="email")
+        self.email_contact = Contact.objects.create(
             kind=self.email_kind,
             value="test@example.com",
-            content_object = self.organisation_with_emails,
+            content_object=self.organisation_with_emails,
             preferred=True,
         )
-        self.email_contact.save()
 
-    def test_email_addresses(self):
+    def test_email_addresses_property(self):
         self.assertEqual(0, len(self.organisation_without_emails.email_addresses))
         self.assertEqual(1, len(self.organisation_with_emails.email_addresses))
+        self.assertEqual(
+            [self.email_contact], self.organisation_with_emails.email_addresses
+        )
+
+    def test_has_email_address_property(self):
+        self.assertTrue(self.organisation_with_emails.has_email_address)
+        self.assertFalse(self.organisation_without_emails.has_email_address)
+
+    def test_has_email_contacts_filter(self):
+        result = Organisation.objects.has_email_contacts().all()
+        self.assertIn(self.organisation_with_emails, result)
+        self.assertNotIn(self.organisation_without_emails, result)
+
 
 @attr(country="south_africa")
 class OrganisationModelTest(TestCase):
@@ -111,14 +120,6 @@ class OrganisationModelTest(TestCase):
         self.create_identifiers()
         org_mysociety_id = self.test_organisation.get_identifier("org.mysociety.za")
         self.assertEqual(org_mysociety_id, "/organisations/1")
-
-    def test_email_addresses(self):
-        self.assertEqual(0, len(self.test_organisation.email_addresses))
-        na_contacts = self.na_organisation.email_addresses
-        self.assertEqual(1, len(na_contacts))
-        self.assertEqual([self.email_contact], na_contacts)
-        self.assertTrue(self.na_organisation.has_email_address)
-        self.assertFalse(self.test_organisation.has_email_address)
 
     def test_is_committee(self):
         self.assertTrue(self.na_organisation.is_committee)
@@ -159,12 +160,6 @@ class OrganisationQuerySetTest(TestCase):
         result = Organisation.objects.ongoing().all()
         self.assertIn(self.na_organisation, result)
         self.assertIn(self.test_organisation, result)
-        self.assertNotIn(self.ncop_organisation, result)
-
-    def test_has_email_contacts(self):
-        result = Organisation.objects.has_email_contacts().all()
-        self.assertIn(self.na_organisation, result)
-        self.assertNotIn(self.test_organisation, result)
         self.assertNotIn(self.ncop_organisation, result)
 
     def test_contactable(self):
