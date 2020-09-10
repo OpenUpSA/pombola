@@ -142,17 +142,42 @@ class OrganisationIdentifiersTest(TestCase):
 
 
 @attr(country="south_africa")
+class OrganisationIsCommitteeTest(unittest.TestCase):
+    def setUp(self):
+        self.test_kind = OrganisationKind(name="TestKind", slug="test-kind")
+        self.na_kind = OrganisationKind(
+            name="National Assembly", slug="national-assembly-committees",
+        )
+        self.ncop_kind = OrganisationKind(name="NCOP", slug="ncop-committees")
+        self.non_committee_org = Organisation(
+            name="Non-committee",
+            slug="non-committee",
+            kind=self.test_kind,
+            ended="future",
+        )
+        self.na_committee = Organisation(
+            name="NA Committee", slug="na-committee", kind=self.na_kind, ended="future"
+        )
+        self.ncop_committee = Organisation(
+            name="NCOP Committee",
+            slug="ncop-committee",
+            kind=self.ncop_kind,
+            ended="future",
+        )
+
+    def test_is_committee(self):
+        self.assertFalse(self.non_committee_org.is_committee)
+        self.assertTrue(self.na_committee.is_committee)
+        self.assertTrue(self.ncop_committee.is_committee)
+
+
+@attr(country="south_africa")
 class OrganisationModelTest(TestCase):
     def setUp(self):
         create_organisation_kinds(self)
         create_organisations(self)
         create_contact_kinds(self)
         create_contacts(self)
-
-    def test_is_committee(self):
-        self.assertTrue(self.na_organisation.is_committee)
-        self.assertTrue(self.ncop_organisation.is_committee)
-        self.assertFalse(self.test_organisation.is_committee)
 
     def test_contactable_committee(self):
         self.assertTrue(self.na_organisation.contactable_committee)
