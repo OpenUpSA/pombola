@@ -10,8 +10,6 @@ from pombola.core.models import (
     ContactKind,
 )
 
-from django.contrib.contenttypes.models import ContentType
-
 
 @attr(country="south_africa")
 class OrganisationEmailAddressesTest(TestCase):
@@ -51,7 +49,7 @@ class OrganisationEmailAddressesTest(TestCase):
 
 
 @attr(country="south_africa")
-class OrganisationOngoingUnitTest(unittest.TestCase):
+class OrganisationIsOngoingTest(unittest.TestCase):
     def setUp(self):
         self.test_kind = OrganisationKind(name="TestKind", slug="test-kind")
         self.organisation_future_ended = Organisation(
@@ -223,9 +221,9 @@ class OrganisationQuerysetCommitteesTest(TestCase):
 
     def test_committees_filter(self):
         result = Organisation.objects.committees().all()
-        self.assertIn(self.non_committee_org, result)
-        self.assertNotIn(self.ncop_committee, result)
-        self.assertNotIn(self.na_committee, result)
+        self.assertNotIn(self.non_committee_org, result)
+        self.assertIn(self.ncop_committee, result)
+        self.assertIn(self.na_committee, result)
 
 
 @attr(country="south_africa")
