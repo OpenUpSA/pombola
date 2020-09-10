@@ -123,26 +123,23 @@ class OrganisationOngoingUnitTest(unittest.TestCase):
 
 @attr(country="south_africa")
 class OrganisationIdentifiersTest(TestCase):
-# class OrganisationIdentifiersTest(unittest.TestCase):
     def setUp(self):
-        self.test_kind = OrganisationKind(name="TestKind", slug="test-kind")
-        self.test_kind.save()
-        self.test_organisation = Organisation(
+        self.test_kind = OrganisationKind.objects.create(
+            name="TestKind", slug="test-kind"
+        )
+        self.test_organisation = Organisation.objects.create(
             name="Test Org", slug="test-org", kind=self.test_kind, ended="future"
         )
-        self.test_organisation.save()
-        self.mysociety_id = Identifier(
+        self.mysociety_id = Identifier.objects.create(
             identifier="/organisations/1",
             scheme="org.mysociety.za",
-            content_object=self.test_organisation
+            content_object=self.test_organisation,
         )
-        self.mysociety_id.save()
 
-    def test_identifier(self):
-        # Can't be unittest because it looks for identifiers with
-        # Identifier.objects.filter(
+    def test_get_identifier(self):
         org_mysociety_id = self.test_organisation.get_identifier("org.mysociety.za")
         self.assertEqual(org_mysociety_id, "/organisations/1")
+
 
 @attr(country="south_africa")
 class OrganisationModelTest(TestCase):
