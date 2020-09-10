@@ -13,54 +13,6 @@ from pombola.core.models import (
 from django.contrib.contenttypes.models import ContentType
 
 
-def create_organisation_kinds(self):
-    self.foo_kind = OrganisationKind.objects.create(name="Foo", slug="foo",)
-    self.na_kind = OrganisationKind.objects.create(
-        name="National Assembly", slug="national-assembly-committees",
-    )
-    self.ncop_kind = OrganisationKind.objects.create(
-        name="NCOP", slug="ncop-committees"
-    )
-
-
-def create_organisations(self):
-    self.test_organisation = Organisation.objects.create(
-        name="Test Org", slug="test-org", kind=self.foo_kind, ended="future"
-    )
-
-    self.na_organisation = Organisation.objects.create(
-        name="Basic Education", slug="basic-education", kind=self.na_kind,
-    )
-    self.ncop_organisation = Organisation.objects.create(
-        name="NCOP Appropriations",
-        slug="ncop-appropriations",
-        kind=self.ncop_kind,
-        ended="2010-01-01",
-    )
-
-
-def create_contact_kinds(self):
-    self.email_kind = ContactKind.objects.create(name="Email", slug="email")
-    self.phone_kind = ContactKind.objects.create(name="Phone", slug="phone")
-
-
-def create_contacts(self):
-    self.email_contact = Contact.objects.create(
-        kind=self.email_kind,
-        value="test@example.com",
-        content_type=ContentType.objects.get_for_model(self.na_organisation),
-        object_id=self.na_organisation.id,
-        preferred=True,
-    )
-    self.phone_contact = Contact.objects.create(
-        kind=self.phone_kind,
-        value="0000000",
-        content_type=ContentType.objects.get_for_model(self.na_organisation),
-        object_id=self.na_organisation.id,
-        preferred=True,
-    )
-
-
 @attr(country="south_africa")
 class OrganisationEmailAddressesTest(TestCase):
     def setUp(self):
@@ -172,20 +124,6 @@ class OrganisationIsCommitteeTest(unittest.TestCase):
 
 
 @attr(country="south_africa")
-class OrganisationModelTest(TestCase):
-    def setUp(self):
-        create_organisation_kinds(self)
-        create_organisations(self)
-        create_contact_kinds(self)
-        create_contacts(self)
-
-    def test_contactable_committee(self):
-        self.assertTrue(self.na_organisation.contactable_committee)
-        self.assertFalse(self.ncop_organisation.contactable_committee)
-        self.assertFalse(self.test_organisation.contactable_committee)
-
-
-@attr(country="south_africa")
 class OrganisationToStrTest(TestCase):
     def setUp(self):
         self.test_kind = OrganisationKind(name="Test Kind", slug="test-kind")
@@ -198,27 +136,119 @@ class OrganisationToStrTest(TestCase):
 
 
 @attr(country="south_africa")
-class OrganisationQuerySetTest(TestCase):
+class OrganisationContactableCommitteesTest(TestCase):
     def setUp(self):
-        create_organisation_kinds(self)
-        create_organisations(self)
-        create_contact_kinds(self)
-        create_contacts(self)
+        self.test_kind = OrganisationKind.objects.create(
+            name="Test Kind", slug="test-kind"
+        )
+        self.email_kind = ContactKind.objects.create(name="Email", slug="email")
 
-    def test_committees(self):
+        self.na_kind = OrganisationKind.objects.create(
+            name="National Assembly", slug="national-assembly-committees",
+        )
+        self.ncop_kind = OrganisationKind.objects.create(
+            name="NCOP", slug="ncop-committees"
+        )
+
+        self.non_committee_org = Organisation.objects.create(
+            name="Non-committee",
+            slug="non-committee",
+            kind=self.test_kind,
+            ended="future",
+        )
+        self.ncop_committee_with_no_emails = Organisation.objects.create(
+            name="NCOP Committee",
+            slug="ncop-committee",
+            kind=self.ncop_kind,
+            ended="future",
+        )
+        self.na_committee_with_emails_future_ended = Organisation.objects.create(
+            name="Basic Education",
+            slug="basic-education",
+            kind=self.na_kind,
+            ended="future",
+        )
+        self.email_contact = Contact.objects.create(
+            kind=self.email_kind,
+            value="test@example.com",
+            content_object=self.na_committee_with_emails_future_ended,
+            preferred=True,
+        )
+
+    def test_contactable_filter(self):
+        result = Organisation.objects.contactable_committees().all()
+        self.assertIn(self.na_committee_with_emails_future_ended, result)
+        self.assertNotIn(self.non_committee_org, result)
+        self.assertNotIn(self.ncop_committee_with_no_emails, result)
+
+    def test_contactable_committee_property(self):
+        self.assertTrue(
+            self.na_committee_with_emails_future_ended.contactable_committee
+        )
+        self.assertFalse(self.non_committee_org.contactable_committee)
+        self.assertFalse(self.ncop_committee_with_no_emails.contactable_committee)
+
+
+@attr(country="south_africa")
+class OrganisationQuerysetCommitteesTest(TestCase):
+    def setUp(self):
+        self.test_kind = OrganisationKind.objects.create(
+            name="Test Kind", slug="test-kind"
+        )
+        self.na_kind = OrganisationKind.objects.create(
+            name="National Assembly", slug="national-assembly-committees",
+        )
+        self.ncop_kind = OrganisationKind.objects.create(
+            name="NCOP", slug="ncop-committees"
+        )
+
+        self.non_committee_org = Organisation.objects.create(
+            name="Non-committee",
+            slug="non-committee",
+            kind=self.test_kind,
+            ended="future",
+        )
+        self.ncop_committee = Organisation.objects.create(
+            name="NCOP Committee",
+            slug="ncop-committee",
+            kind=self.ncop_kind,
+            ended="future",
+        )
+        self.na_committee = Organisation.objects.create(
+            name="Basic Education",
+            slug="basic-education",
+            kind=self.na_kind,
+            ended="future",
+        )
+
+    def test_committees_filter(self):
         result = Organisation.objects.committees().all()
-        self.assertIn(self.na_organisation, result)
-        self.assertIn(self.ncop_organisation, result)
-        self.assertNotIn(self.test_organisation, result)
+        self.assertIn(self.non_committee_org, result)
+        self.assertNotIn(self.ncop_committee, result)
+        self.assertNotIn(self.na_committee, result)
 
-    def test_ongoing(self):
+
+@attr(country="south_africa")
+class OrganisationQuerysetOngoingTest(unittest.TestCase):
+    def setUp(self):
+        self.test_kind = OrganisationKind.objects.create(
+            name="TestKind", slug="test-kind"
+        )
+        self.organisation_future_ended = Organisation.objects.create(
+            name="Test Org", slug="test-org", kind=self.test_kind, ended="future"
+        )
+        self.organisation_none_ended = Organisation.objects.create(
+            name="Basic Education", slug="basic-education", kind=self.test_kind,
+        )
+        self.organisation_already_ended = Organisation.objects.create(
+            name="NCOP Appropriations",
+            slug="ncop-appropriations",
+            kind=self.test_kind,
+            ended="2010-01-01",
+        )
+
+    def test_ongoing_filter(self):
         result = Organisation.objects.ongoing().all()
-        self.assertIn(self.na_organisation, result)
-        self.assertIn(self.test_organisation, result)
-        self.assertNotIn(self.ncop_organisation, result)
-
-    def test_contactable(self):
-        result = Organisation.objects.has_email_contacts().all()
-        self.assertIn(self.na_organisation, result)
-        self.assertNotIn(self.test_organisation, result)
-        self.assertNotIn(self.ncop_organisation, result)
+        self.assertIn(self.organisation_future_ended, result)
+        self.assertIn(self.organisation_none_ended, result)
+        self.assertNotIn(self.organisation_already_ended, result)
