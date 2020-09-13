@@ -6,6 +6,15 @@
     'return_to_url':      return_to_url,
 {% endcomment %}
 
+{% if settings.GOOGLE_RECAPTCHA_SITE_KEY %}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script>
+        function onSubmitFeedback() {
+            document.getElementById("add_feedback").submit();
+        }
+    </script>
+{% endif %}
+
 {% block title %}
     Leave feedback
     {% if form.url %}
@@ -52,7 +61,12 @@
                 {% csrf_token %}
 
                 {{ form.as_p }}
-                <input type="submit" class="submit" value="Send feedback">
+                {% if settings.GOOGLE_RECAPTCHA_SITE_KEY %}
+                  <input type="submit" value="Send feedback" class="submit g-recaptcha" data-sitekey="{{ settings.GOOGLE_RECAPTCHA_SITE_KEY }}" data-callback='onSubmitFeedback'>
+                {% else %}
+                  <input type="submit" class="submit" value="Send feedback">
+                {% endif %}
+
             </form>
         </div>
 

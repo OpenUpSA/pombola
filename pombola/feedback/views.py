@@ -2,6 +2,8 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_protect
 
+from pombola.search.recaptcha import recaptcha_client
+
 from models import Feedback
 from forms import FeedbackForm
 
@@ -18,6 +20,8 @@ def add(request):
     # If it is a post request try to create the feedback
     if request.method == 'POST':
         form = FeedbackForm( request.POST )
+        recaptcha_response = request.POST.get("g-recaptcha-response", "")
+
         if form.is_valid():
             feedback = Feedback()
             feedback.url      = form.cleaned_data['url']
@@ -26,6 +30,10 @@ def add(request):
 
             # if there is any content in the honeypot field then label this comment as spammy
             if form.cleaned_data['website']:
+                feedback.status = 'spammy'
+
+            # if the recaptcha fails label the comment as spammy
+            if not recaptcha_client.verify(recaptcha_response):
                 feedback.status = 'spammy'
             
             # if the comment starts with an html tag it is probably spam
