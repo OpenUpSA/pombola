@@ -1658,6 +1658,74 @@ class SAHansardIndexViewTest(TestCase):
 
 @attr(country='south_africa')
 class SACommitteeIndexViewTest(WebTest):
+    def setUp(self):
+        # Create the houses
+        self.org_kind_na_committee = models.OrganisationKind.objects.create(
+            name='National Assembly',
+            slug='national-assembly-committees'
+        )
+        self.org_kind_ncop_committee = models.OrganisationKind.objects.create(
+            name='NCOP',
+            slug='ncop-committees'
+        )
+        # Create the committees
+        self.na_org = models.Organisation.objects.create(
+            slug='committee-communications',
+            name='PC on Communications',
+            kind=self.org_kind_na_committee
+        )
+        self.ncop_org = models.Organisation.objects.create(
+            slug='committee-finance',
+            name='Select Committee in Finance',
+            kind=self.org_kind_ncop_committee
+        )
+        # Create email addresses for committees
+        self.email_kind = models.ContactKind.objects.create(name='Email', slug='email')
+        self.na_org.contacts.create(
+            kind=self.email_kind, value='na-test@example.org', preferred=False)
+
+    def test_committee_index_page(self):
+        response = self.app.get('/committees/')
+        self.assertEqual(response.status_code, 200)
+
+        # Check that committee kind names are in response
+        self.assertContains(response, self.org_kind_na_committee.name)
+        self.assertContains(response, self.org_kind_ncop_committee.name)
+
+        # Check that committee names are in response
+        self.assertContains(response, self.na_org.name)
+        self.assertContains(response, self.ncop_org.name)
+
+        # Check the write to links
+        html = response.html
+
+        committee_links = html.find_all('a', {'class': 'committee-list__name'})
+        self.assertEqual(2, len(committee_links))
+
+        def get_view_messages_link(div):
+            return div.find('a', text='View messages')
+
+        def get_write_message_link(div):
+            return div.find('a', text='Write a public message')
+
+        for c in committee_links:
+            div = c.parent.find_next_sibling('div')
+            text = c.get_text().strip()
+            self.assertIn(text, [self.na_org.name, self.ncop_org.name])
+            if text == self.na_org.name:
+                self.assertIsNotNone(get_view_messages_link(div))
+                self.assertIsNotNone(get_write_message_link(div))
+            elif text == self.ncop_org.name:
+                view_link = div.find_all('a', text='View messages')
+                self.assertIsNotNone(get_view_messages_link(div))
+                self.assertIsNone(
+                    get_write_message_link(div), 
+                    "Committee that doesn't have an email address shouldn't be writeable."
+                )
+
+
+@attr(country='south_africa')
+class SACommitteeHansardsViewTest(WebTest):
 
     def setUp(self):
         self.fish_section_heading = u"Oh fishy fishy fishy fishy fishy fish"
@@ -1709,7 +1777,7 @@ class SACommitteeIndexViewTest(WebTest):
             },
         ], instance=default_instance)
 
-    def test_committee_index_page(self):
+    def test_committee_minutes_page(self):
         response = self.app.get('/committee-minutes/')
         self.assertEqual(response.status_code, 200)
 
@@ -1810,29 +1878,6 @@ class SAOrganisationDetailViewTest(WebTest):
         positions = resp.context['positions']
         self.assertEqual(positions[0].person.legal_name, "Zest ABCPerson")
         self.assertEqual(positions[1].person.legal_name, "Test Person")
-
-
-@attr(country='south_africa')
-class SAOrganisationDetailViewWriteInPublicTest(TestCase):
-    def setUp(self):
-        na_committee_kind = models.OrganisationKind.objects.create(name='National Assembly Committees', slug='national-assembly-committees')
-        self.committee = models.Organisation.objects.create(slug='test-committee', kind=na_committee_kind)
-
-    def test_not_contactable_via_writeinpublic_with_no_email(self):
-        response = self.client.get(reverse('organisation', kwargs={'slug': self.committee.slug}))
-        self.assertFalse(response.context['contactable_via_writeinpublic'])
-
-    def test_contactable_via_writeinpublic_with_email(self):
-        email_contact_kind = models.ContactKind.objects.create(name='Email', slug='email')
-        self.committee.contacts.create(kind=email_contact_kind, value='test@example.com', preferred=False)
-        response = self.client.get(reverse('organisation', kwargs={'slug': self.committee.slug}))
-        self.assertTrue(response.context['contactable_via_writeinpublic'])
-
-    def test_contactable_via_writeinpublic_not_committee(self):
-        org_kind = models.OrganisationKind.objects.create(name='Test', slug='test')
-        org = models.Organisation.objects.create(slug='test-org', kind=org_kind)
-        response = self.client.get(reverse('organisation', kwargs={'slug': org.slug}))
-        self.assertFalse(response.context['contactable_via_writeinpublic'])
 
 
 @attr(country='south_africa')
@@ -2800,15 +2845,25 @@ class SACommitteesPopoloJSONTest(TestCase):
 
     def test_produces_correct_json_with_contacts(self):
         org_kind_na_committee = models.OrganisationKind.objects.create(
-            name='National Assembly Committees',
+            name='National Assembly',
             slug='national-assembly-committees'
         )
-        org = models.Organisation.objects.create(
+        org_kind_ncop_committee = models.OrganisationKind.objects.create(
+            name='NCOP',
+            slug='ncop-committees'
+        )
+        na_org = models.Organisation.objects.create(
             slug='committee-communications',
             name='PC on Communications',
             kind=org_kind_na_committee
         )
-        org.contacts.create(kind=self.email_kind, value='test@example.org', preferred=False)
+        ncop_org = models.Organisation.objects.create(
+            slug='committee-finance',
+            name='Select Committee in Finance',
+            kind=org_kind_ncop_committee
+        )
+        na_org.contacts.create(kind=self.email_kind, value='na-test@example.org', preferred=False)
+        ncop_org.contacts.create(kind=self.email_kind, value='ncop-test@example.org', preferred=False)
 
         response = self.client.get('/api/committees/popolo.json')
         self.assertEquals(response.status_code, 200)
@@ -2817,9 +2872,15 @@ class SACommitteesPopoloJSONTest(TestCase):
             'persons': [
                 {
                     'contact_details': [],
-                    'email': 'test@example.org',
-                    'id': str(org.id),
+                    'email': 'na-test@example.org',
+                    'id': str(na_org.id),
                     'name': 'PC on Communications'
+                },
+                {
+                    'contact_details': [],
+                    'email': 'ncop-test@example.org',
+                    'id': str(ncop_org.id),
+                    'name': 'Select Committee in Finance'
                 }
             ]
         }

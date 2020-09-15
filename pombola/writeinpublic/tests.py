@@ -70,6 +70,7 @@ person_json = {
     ]
 }
 
+
 @attr(country='south_africa')
 @requests_mock.Mocker()
 class ClientTest(TestCase):
@@ -306,26 +307,180 @@ class WriteToCommitteeMessagesViewTest(TestCase):
             slug='south-africa-committees',
             person_uuid_prefix='http://example.org/popolo.json#person-{}'
         )
-        kind = OrganisationKind.objects.create(name='National Assembly Committee', slug='national-assembly-committee')
-        self.committee = Organisation.objects.create(slug='test-committee', kind=kind)
+        na_kind = OrganisationKind.objects.create(
+            name='National Assembly', slug='national-assembly-committees')
+        ncop_kind = OrganisationKind.objects.create(
+            name='NCOP', slug='ncop-committees')
+        self.na_committee = Organisation.objects.create(
+            slug='test-na-committee', name='NA Test Committee', kind=na_kind)
+        self.ncop_committee = Organisation.objects.create(
+            slug='test-ncop-committee', name='NCOP Test Committee', kind=ncop_kind)
+        email_kind, _ = ContactKind.objects.get_or_create(slug='email', name='Email')
+        self.na_committee.contacts.create(
+            kind=email_kind, 
+            value='test@example.com', preferred=True)
+        self.ncop_committee.contacts.create(
+            kind=email_kind, 
+            value='test@example.com', preferred=True)
 
-    def test_committee_that_exists_in_writeinpublic(self, m):
+    def test_committees_that_exists_in_writeinpublic(self, m):
+        # Mock WriteInPublic API
         m.get(
-            '/api/v1/instance/1/messages/'.format(self.committee.id),
+            '/api/v1/instance/1/messages/'.format(self.na_committee.id),
             json={'objects': []}
         )
-        response = self.client.get(reverse('organisation_messages', kwargs={'slug': self.committee.slug}))
+        m.get(
+            '/api/v1/instance/1/messages/'.format(self.ncop_committee.id),
+            json={'objects': []}
+        )
+
+        # National Assembly committees
+        response = self.client.get(
+            reverse('organisation_messages', 
+            kwargs={'slug': self.na_committee.slug}))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['messages'], [])
+
+        # NCOP committee
+        response = self.client.get(
+            reverse('organisation_messages', 
+            kwargs={'slug': self.ncop_committee.slug}))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['messages'], [])
 
     def test_committee_that_doesnt_exist_in_writeinpublic(self, m):
+        # Mock WriteInPublic API
         m.get(
-            '/api/v1/instance/1/messages/'.format(self.committee.id),
+            '/api/v1/instance/1/messages/'.format(self.na_committee.id),
             status_code=404
         )
-        response = self.client.get(reverse('organisation_messages', kwargs={'slug': self.committee.slug}))
+        response = self.client.get(
+            reverse('organisation_messages', kwargs={'slug': self.na_committee.slug}))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['messages'], [])
+
+    def test_sending_message_wizard_steps(self, m):
+        # GET the new message redirect
+        response = self.client.get(
+            reverse('writeinpublic-committees:writeinpublic-new-message'))
+        self.assertRedirects(
+            response, 
+            reverse(
+                'writeinpublic-committees:writeinpublic-new-message-step', 
+                kwargs={'step': 'recipients'}
+            )
+        )
+
+        # GET the recipients step
+        response = self.client.get(response.url)
+        self.assertEquals(response.status_code, 200)
+
+        self.assertContains(response, "National Assembly")
+        self.assertContains(response, "NCOP")
+        self.assertContains(response, "NA Test Committee")
+        # Does not contain the house in brackets 
+        self.assertNotContains(
+            response, "NA Test Committee (National Assembly)"
+        )
+        self.assertContains(response, "NCOP Test Committee")
+
+        # POST to the recipients step
+        response = self.client.post(
+            reverse(
+                'writeinpublic-committees:writeinpublic-new-message-step', 
+                kwargs={'step': 'recipients'}
+            ), {
+                'write_in_public_new_message-current_step': 'recipients',
+                'recipients-persons': self.na_committee.id,
+            }
+        )
+
+        self.assertRedirects(
+            response, 
+            reverse(
+                'writeinpublic-committees:writeinpublic-new-message-step', 
+                kwargs={'step': 'draft'}
+            ))
+
+        # GET the draft step
+        response = self.client.get(response.url)
+        self.assertEquals(response.status_code, 200)
+        self.assertContains(
+            response, "NA Test Committee (National Assembly)"
+        )
+        self.assertNotContains(response, "NCOP Test Comittee (NCOP)")
+
+        # POST to the draft step
+        response = self.client.post(
+            reverse('writeinpublic-committees:writeinpublic-new-message-step', 
+            kwargs={'step': 'draft'}), 
+            {
+                'write_in_public_new_message-current_step': 'draft',
+                'draft-subject': 'Test subject',
+                'draft-content': 'Test message',
+                'draft-author_name': 'Test',
+                'draft-author_email': 'test@example.com',
+            }
+        )
+        self.assertRedirects(
+            response, 
+            reverse(
+                'writeinpublic-committees:writeinpublic-new-message-step', 
+                kwargs={'step': 'preview'}
+            )
+        )
+
+        # GET the preview step
+        response = self.client.get(response.url)
+        self.assertEquals(response.status_code, 200)
+
+        self.assertContains(
+            response, "NA Test Committee (National Assembly)"
+        )
+        self.assertContains(
+            response, "Test subject"
+        )
+        self.assertContains(
+            response, "Test message"
+        )
+        self.assertContains(response, 
+            "Are you happy for this message to be made public?")
+
+        # Mock the POST response
+        m.post('/api/v1/message/', json={
+            'id': '42'
+        })
+
+        # POST to the preview step
+        response = self.client.post(
+            reverse(
+                'writeinpublic-committees:writeinpublic-new-message-step', 
+                kwargs={'step': 'preview'}
+            ),
+            {
+                'write_in_public_new_message-current_step': 'preview',
+                'preview-captcha_0': 'random-string',
+                'preview-captcha_1': 'PASSED'
+            }
+        )
+        self.assertRedirects(
+            response,
+            reverse(
+                'writeinpublic-committees:writeinpublic-new-message-step', 
+                kwargs={'step': 'done'}
+            ),
+            fetch_redirect_response=False
+        )
+
+        # GET the done step
+        response = self.client.get(response.url)
+
+        # Check that we're redirected to the pending message page
+        self.assertRedirects(
+            response,
+            reverse('writeinpublic-committees:writeinpublic-pending'),
+            fetch_redirect_response=False
+        )
 
 
 
@@ -356,7 +511,7 @@ class CommitteeAdapterTest(TestCase):
     def test_get_form_kwargs_when_committee_has_multiple_emails(self):
         adapter = CommitteeAdapter()
 
-        na_committee_kind = OrganisationKind.objects.create(name='National Assembly Committees', slug='national-assembly-committees')
+        na_committee_kind = OrganisationKind.objects.create(name='National Assembly', slug='national-assembly-committees')
         email_kind = ContactKind.objects.create(name='Email', slug='email')
         committee = Organisation.objects.create(kind=na_committee_kind)
         committee.contacts.create(kind=email_kind, value='test@example.org', preferred=False)
