@@ -5,12 +5,10 @@ from pombola.core.models import Person, Organisation, Position
 
 
 # Output Popolo JSON suitable for WriteInPublic for any committees that have an
-# email address.
+# email address and is ongoing.
 class CommitteesPopoloJson(ListView):
-    queryset = Organisation.objects.filter(
-        kind__name='National Assembly Committees',
-        contacts__kind__slug='email'
-    )
+    queryset = Organisation.objects.prefetch_related('contacts__kind')\
+        .contactable_committees().distinct()
 
     def render_to_response(self, context, **response_kwargs):
         return JsonResponse(
@@ -19,7 +17,7 @@ class CommitteesPopoloJson(ListView):
                     {
                         'id': str(committee.id),
                         'name': committee.short_name,
-                        'email': committee.contacts.filter(kind__slug='email')[0].value,
+                        'email': committee.email_addresses[0].value,
                         'contact_details': []
                     }
                     for committee in context['object_list']

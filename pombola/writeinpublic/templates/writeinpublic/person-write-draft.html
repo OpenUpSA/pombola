@@ -20,6 +20,7 @@
 
     <p class="form-group">
         <label for="recipients">To</label>
+        <a class="button pull-right change-recipients" href="{% url 'writeinpublic:writeinpublic-new-message-step' step='recipients' %}">Change recipients</a>
         <input type="text" disabled id="recipients" value="{{ persons | join:", " }}">
     </p>
 
@@ -61,7 +62,6 @@
         </div>
     </div>
 
-    <a class="button secondary-button" href="{% url 'writeinpublic:writeinpublic-new-message-step' step='recipients' %}">Change recipients</a>
     <input type="submit" value="Preview message" class="button pull-right">
 </form>
 {% endblock %}
