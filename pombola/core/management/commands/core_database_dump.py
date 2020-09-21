@@ -53,23 +53,6 @@ class Command(BaseCommand):
             'za_hansard_sourceparsinglog',
             'za_hansard_questionparsingerror'
         ])
-        if settings.COUNTRY_APP in ('nigeria',):
-            # In the past I think the hansard application was in use
-            # for Nigeria, so these tables are present (and contain
-            # data), but the hansard app is no longer used for
-            # Nigeria.  So, it's best to ignore these tables to make
-            # the dump smaller.  place_data and projects are similarly
-            # no longer used (but those applications' tables are empty
-            # anyway)
-            tables_to_ignore.update([
-                'hansard_alias',
-                'hansard_entry',
-                'hansard_sitting',
-                'hansard_source',
-                'hansard_venue',
-                'place_data_entry',
-                'projects_project',
-            ])
         if settings.COUNTRY_APP in ('kenya',):
             # Ignore SMS tables as they contain phone numbers.
             tables_to_ignore.update([
@@ -170,13 +153,6 @@ class Command(BaseCommand):
                 'za_hansard_question',
                 'za_hansard_questionpaper',
                 'za_hansard_source',
-            ]
-        if settings.COUNTRY_APP in ('nigeria', 'south_africa'):
-            # spinner
-            expected_tables += [
-                'spinner_imagecontent',
-                'spinner_quotecontent',
-                'spinner_slide',
             ]
         if settings.COUNTRY_APP in ('kenya',):
             # hansard, place_data, projects, votematch, wordcloud
