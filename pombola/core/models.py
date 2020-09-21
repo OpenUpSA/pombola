@@ -12,7 +12,7 @@ from django.core import exceptions
 from django.core.urlresolvers import reverse
 from django.core.validators import MinValueValidator
 
-from django.db.models import Q, Prefetch
+from django.db.models import Q, Prefetch, Case, When
 from django.db import transaction
 from django.db.models.signals import post_init
 
@@ -784,16 +784,31 @@ class OrganisationKind(ModelBase):
         return ('organisation_kind', (self.slug,))
 
 
-COMMITTEE_SLUGS = [
-    'ad-hoc-committees',
-    'joint-committees',
+COMMITTEE_HOUSE_SLUGS = [
     'national-assembly-committees',
     'ncop-committees',
+    'joint-committees',
+    'ad-hoc-committees',
 ]
 
 class OrganisationQuerySet(models.query.GeoQuerySet):
+    def order_by_house(self):
+        """
+        Order the organisation queryset according to the COMMITTEE_HOUSE_SLUGS list.
+
+        Copied from: https://stackoverflow.com/a/37648265/3486675
+        """
+        preserved = Case(
+            *[
+                When(kind__slug=slug, then=pos)
+                for pos, slug in enumerate(COMMITTEE_HOUSE_SLUGS)
+            ]
+        )
+
+        return self.order_by(preserved)
+
     def committees(self):
-        return self.filter(kind__slug__in=COMMITTEE_SLUGS)
+        return self.filter(kind__slug__in=COMMITTEE_HOUSE_SLUGS)
 
     def ongoing(self):
         """
@@ -902,7 +917,7 @@ class Organisation(ModelBase, HasImageMixin, IdentifierMixin):
     
     @property
     def is_committee(self):
-        return self.kind.slug in COMMITTEE_SLUGS
+        return self.kind.slug in COMMITTEE_HOUSE_SLUGS
 
     @property
     def contactable_committee(self):
