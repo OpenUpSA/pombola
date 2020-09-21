@@ -36,16 +36,14 @@
 
   {% endif %}
 
-  {% if contactable_via_writeinpublic %}
-    
-
-    <div class="contact-actions">
-      <div class="contact-actions__wip">
+  <div class="contact-actions">
+    <div class="contact-actions__wip">
+        {% if object.contactable_committee %}
           <a href="{% url 'writeinpublic-committees:writeinpublic-new-message' %}?person_id={{ object.pk }}">Write a public message to this committee</a>
-          <a href="{% url 'organisation_messages' slug=object.slug %}" class="contact-actions__wip__view-link">View messages</a>
-      </div>
+        {% endif %}
+        <a href="{% url 'organisation_messages' slug=object.slug %}" class="contact-actions__wip__view-link">View messages</a>
     </div>
-  {% endif %}
+  </div>
 
   <h2>People</h2>
 

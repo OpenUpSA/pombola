@@ -244,6 +244,9 @@ class SAPersonDetail(PersonSpeakerMappingsMixin, PersonDetail):
         minister_positions_by_year = self.get_active_minister_positions(years)
 
         for x in data:
+            if x['alternate_member']:
+                # Don't count alternate member attendances
+                continue
             attendance = x['attendance']
             meeting_date = dateutil.parser.parse(x['meeting']['date'])
             year = meeting_date.year

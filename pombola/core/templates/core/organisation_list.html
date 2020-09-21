@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load pagination_tags %}
 
-{% block title %}{% if kind %}{{ kind.name }}{% endif %}{% endblock %}
+{% block title %}{% if kind %}{{ kind.name }}{% else %}Organisations{% endif %}{% endblock %}
 
 {% block content %}
 
