@@ -45,7 +45,6 @@ from pombola.interests_register.models import Category, Release, Entry, EntryLin
 
 from pombola.za_hansard.models import Source
 
-from nose.plugins.attrib import attr
 from pygeolib import GeocoderError
 
 def fake_constituency_office_geocode(address_string, geocode_cache=None, verbose=True):
@@ -77,7 +76,6 @@ def fake_geocoder(country, q, decimal_places=3):
     else:
         raise Exception, u"Unexpected input to fake_geocoder: {}".format(q)
 
-@attr(country='south_africa')
 class HomeViewTest(TestCase):
     def test_homepage_context(self):
         response = self.client.get('/')
@@ -85,7 +83,6 @@ class HomeViewTest(TestCase):
         self.assertIn('news_articles', response.context)
 
 
-@attr(country='south_africa')
 class ConstituencyOfficesImportTestCase(WebTest):
     def setUp(self):
         # Geocode needs to return
@@ -213,7 +210,6 @@ class ConstituencyOfficesImportTestCase(WebTest):
         self.assertTrue(models.Person.objects.filter(Q(legal_name="Sonja Boshoff")).exists())
 
 
-@attr(country='south_africa')
 class ConstituencyOfficesTestCase(WebTest):
     def setUp(self):
         self.old_HAYSTACK_SIGNAL_PROCESSOR = settings.HAYSTACK_SIGNAL_PROCESSOR
@@ -333,14 +329,12 @@ class ConstituencyOfficesTestCase(WebTest):
         settings.HAYSTACK_SIGNAL_PROCESSOR = self.old_HAYSTACK_SIGNAL_PROCESSOR
 
 
-@attr(country='south_africa')
 class LatLonDetailViewTest(TestCase):
     def test_404_for_incorrect_province_lat_lon(self):
         res = self.client.get(reverse('latlon', kwargs={'lat': '0', 'lon': '0'}))
         self.assertEquals(404, res.status_code)
 
 
-@attr(country='south_africa')
 class SASearchViewTest(WebTest):
 
     def setUp(self):
@@ -458,7 +452,6 @@ def connection_error(x, *args, **kwargs):
     raise requests.exceptions.ConnectionError
 
 
-@attr(country='south_africa')
 class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
     def setUp(self):
         # Create the top level SayIt sections, so that there's no
@@ -941,7 +934,6 @@ class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
         )
 
 
-@attr(country='south_africa')
 class SAAttendanceDataTest(TestCase):
     def setUp(self):
         org_kind_party = models.OrganisationKind.objects.create(name='Party', slug='party')
@@ -1043,7 +1035,7 @@ class SAAttendanceDataTest(TestCase):
         self.assertEqual(len(meetings_attended), 39)
         self.assertTrue(bool(k in meeting_keys for k in meetings_attended[0].iterkeys()))
 
-@attr(country='south_africa')
+
 class SAMpAttendancePageTest(TestCase):
     def setUp(self):
         org_kind_party = models.OrganisationKind.objects.create(name='Party', slug='party')
@@ -1253,7 +1245,6 @@ class SAMpAttendancePageTest(TestCase):
         self.assertEqual(context['attendance_data'], expected)
 
 
-@attr(country='south_africa')
 class SAPersonProfileSubPageTest(WebTest):
     def setUp(self):
         self.org_kind_party = models.OrganisationKind.objects.create(name='Party', slug='party')
@@ -1385,7 +1376,6 @@ class SAPersonProfileSubPageTest(WebTest):
         self.assertRegexpMatches(former_pos_list, r'Member\s+at National Assembly \(Parliament\)')
 
 
-@attr(country='south_africa')
 class SAOrganisationPartySubPageTest(TestCase):
 
     def setUp(self):
@@ -1471,7 +1461,6 @@ class SAOrganisationPartySubPageTest(TestCase):
         self.assertEqual(context2['sorted_positions'][1].person.slug, 'person5')
 
 
-@attr(country='south_africa')
 class SAOrganisationPeopleSubPageTest(TestCase):
 
     def setUp(self):
@@ -1566,7 +1555,6 @@ class SAOrganisationPeopleSubPageTest(TestCase):
         self.assertEqual(context['count_by_prefix'], expected_count_by_prefix)
 
 
-@attr(country='south_africa')
 class SAHansardIndexViewTest(TestCase):
 
     def setUp(self):
@@ -1656,7 +1644,6 @@ class SAHansardIndexViewTest(TestCase):
         )
 
 
-@attr(country='south_africa')
 class SACommitteeIndexViewTest(WebTest):
     def setUp(self):
         # Create the houses
@@ -1724,7 +1711,6 @@ class SACommitteeIndexViewTest(WebTest):
                 )
 
 
-@attr(country='south_africa')
 class SACommitteeHansardsViewTest(WebTest):
 
     def setUp(self):
@@ -1828,7 +1814,6 @@ class SACommitteeHansardsViewTest(WebTest):
         self.assertEqual(response.status_code, 200)
         self.assertIn('rhubarb rhubarb', response)
 
-@attr(country='south_africa')
 class SAOrganisationDetailViewTest(WebTest):
 
     def setUp(self):
@@ -1880,7 +1865,6 @@ class SAOrganisationDetailViewTest(WebTest):
         self.assertEqual(positions[1].person.legal_name, "Test Person")
 
 
-@attr(country='south_africa')
 class SAOrganisationDetailViewTestParliament(WebTest):
 
     def setUp(self):
@@ -2016,7 +2000,7 @@ class SAOrganisationDetailViewTestParliament(WebTest):
         self.assertEqual(ps_and_ps[1][1], 1)
         self.assertAlmostEqual(ps_and_ps[1][2], 33.333333333333)
 
-@attr(country='south_africa')
+
 class SAOrganisationDetailViewTestPlaceAndTitleDisplay(WebTest):
 
     def setUp(self):
@@ -2134,7 +2118,6 @@ class SAOrganisationDetailViewTestPlaceAndTitleDisplay(WebTest):
         )
 
 
-@attr(country='south_africa')
 class SAPlaceDetailViewTest(WebTest):
 
     def setUp(self):
@@ -2436,7 +2419,6 @@ class SAPlaceDetailViewTest(WebTest):
         self.assertEqual(1, len(resp.context['related_people']))
 
 
-@attr(country='south_africa')
 class SAMembersInterestsBrowserTest(TestCase):
     def setUp(self):
         person1 = models.Person.objects.create(
@@ -2608,7 +2590,6 @@ class SAMembersInterestsBrowserTest(TestCase):
         self.assertEqual(len(context['data']), 2)
 
 
-@attr(country='south_africa')
 class SACommentsArchiveTest(WebTest):
     def setUp(self):
         blog_page1 = InfoPage.objects.create(
@@ -2684,7 +2665,6 @@ class SACommentsArchiveTest(WebTest):
         self.assertFalse('archive_link' in context)
 
 
-@attr(country='south_africa')
 class SAUrlRoutingTest(TestCase):
     """Check South Africa doesn't override URLs with slug versions."""
 
@@ -2759,7 +2739,6 @@ class SAUrlRoutingTest(TestCase):
         self.assertEqual(match.func.func_name, 'SAHomeView')
 
 
-@attr(country='south_africa')
 class SAMPProfilesMainHeader(WebTest):
     def setUp(self):
         self.title1 = models.PositionTitle.objects.create(
@@ -2795,7 +2774,6 @@ class SAMPProfilesMainHeader(WebTest):
             response.html.find(class_='page-title').string, 'Foo of any Parliament')
 
 
-@attr(country='south_africa')
 class SAMPProfilesSubHeader(WebTest):
     def setUp(self):
         self.title1 = models.PositionTitle.objects.create(
@@ -2833,7 +2811,6 @@ class SAMPProfilesSubHeader(WebTest):
             'Current Position Holders')
 
 
-@attr(country='south_africa')
 class SACommitteesPopoloJSONTest(TestCase):
     def setUp(self):
         self.email_kind = models.ContactKind.objects.create(name='Email', slug='email')
@@ -2886,7 +2863,7 @@ class SACommitteesPopoloJSONTest(TestCase):
         }
         self.assertJSONEqual(response.content, expected_json)
 
-@attr(country='south_africa')
+
 class SAParliamentaryTerm(TestCase):
     def test_get_term_from_date(self):
         examples = [

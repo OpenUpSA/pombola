@@ -3,8 +3,6 @@ from datetime import date, time
 from django.test import TestCase
 from django.core.management import call_command
 
-from nose.plugins.attrib import attr
-
 from speeches.tests.helpers import create_sections
 from speeches.models import Speech, Tag
 
@@ -12,7 +10,6 @@ from mock import patch
 from pombola.za_hansard.models import Source
 
 
-@attr(country="south_africa")
 class OneOffTagSpeechesTests(TestCase):
     def setUp(self):
 
@@ -126,7 +123,6 @@ def mocked_requests_get(*args, **kwargs):
     return MockResponse(None, 404)
 
 
-@attr(country="south_africa")
 class ZaHansardCheckForNewSourcesFromPMGTests(TestCase):
     @patch(
         "pombola.za_hansard.management.commands.za_hansard_check_for_new_sources_from_pmg.requests.get",

@@ -9,7 +9,6 @@ from django.test import TestCase
 
 from pombola.za_hansard.models import Answer, Question, ParliamentaryTerm
 from pombola.south_africa.models import ParliamentaryTerm
-from nose.plugins.attrib import attr
 
 TERM = ParliamentaryTerm.objects.get_or_create(
     number=26, start_date=date(2014, 6, 1), end_date=date(2019, 5, 31)
@@ -59,7 +58,6 @@ EXAMPLE_ANSWER = {
 }
 
 
-@attr(country="south_africa")
 class PMGAPITests(TestCase):
     def setUp(self):
         # Create non-duplicate question

@@ -377,5 +377,7 @@ class ScraperQAOralAnswerTest(TestCase):
         command = Command()
         try:
             command.handle_api_question_and_reply(self.question)
-        except Exception:
-            self.fail("No exception should be thrown for oral question type.")
+        except Exception as e:
+            self.fail(
+                "No exception should be thrown for oral question type, "\
+                "but this exception was raised: %s" % e)

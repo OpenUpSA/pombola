@@ -153,7 +153,8 @@ class PopoloTest(TestCase):
                     }
                 ],
                 "birth_date": "1970-01-01",
-                "id": "core_person:{person_id}"
+                "id": "core_person:{person_id}",
+                "pa_url": "http://pombola.example.org/person/test-person/"
             }
         ]
 
@@ -167,7 +168,8 @@ class PopoloTest(TestCase):
                 "classification": u"Example Org Kind",
                 "identifiers": [],
                 "id": "core_organisation:{organization_id}",
-                "slug": u"test-organisation"
+                "slug": u"test-organisation",
+                "pa_url": u'http://pombola.example.org/organisation/test-organisation/'
             }
         ]
 

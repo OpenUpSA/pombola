@@ -1,4 +1,3 @@
-from nose.plugins.attrib import attr
 from django.test import TestCase
 from django.utils import unittest
 
@@ -11,7 +10,6 @@ from pombola.core.models import (
 )
 
 
-@attr(country="south_africa")
 class OrganisationEmailAddressesTest(TestCase):
     def setUp(self):
         self.test_kind = OrganisationKind.objects.create(
@@ -48,7 +46,6 @@ class OrganisationEmailAddressesTest(TestCase):
         self.assertNotIn(self.organisation_without_emails, result)
 
 
-@attr(country="south_africa")
 class OrganisationIsOngoingTest(unittest.TestCase):
     def setUp(self):
         self.test_kind = OrganisationKind(name="TestKind", slug="test-kind")
@@ -71,7 +68,6 @@ class OrganisationIsOngoingTest(unittest.TestCase):
         self.assertFalse(self.organisation_already_ended.is_ongoing())
 
 
-@attr(country="south_africa")
 class OrganisationIdentifiersTest(TestCase):
     def setUp(self):
         self.test_kind = OrganisationKind.objects.create(
@@ -91,7 +87,6 @@ class OrganisationIdentifiersTest(TestCase):
         self.assertEqual(org_mysociety_id, "/organisations/1")
 
 
-@attr(country="south_africa")
 class OrganisationIsCommitteeTest(unittest.TestCase):
     def setUp(self):
         self.test_kind = OrganisationKind(name="TestKind", slug="test-kind")
@@ -121,7 +116,6 @@ class OrganisationIsCommitteeTest(unittest.TestCase):
         self.assertTrue(self.ncop_committee.is_committee)
 
 
-@attr(country="south_africa")
 class OrganisationToStrTest(TestCase):
     def setUp(self):
         self.test_kind = OrganisationKind(name="Test Kind", slug="test-kind")
@@ -133,7 +127,6 @@ class OrganisationToStrTest(TestCase):
         self.assertEqual("Test Org (Test Kind)", str(self.test_organisation))
 
 
-@attr(country="south_africa")
 class OrganisationContactableCommitteesTest(TestCase):
     def setUp(self):
         self.test_kind = OrganisationKind.objects.create(
@@ -187,7 +180,6 @@ class OrganisationContactableCommitteesTest(TestCase):
         self.assertFalse(self.ncop_committee_with_no_emails.contactable_committee)
 
 
-@attr(country="south_africa")
 class OrganisationQuerysetCommitteesTest(TestCase):
     def setUp(self):
         self.test_kind = OrganisationKind.objects.create(
@@ -226,7 +218,6 @@ class OrganisationQuerysetCommitteesTest(TestCase):
         self.assertIn(self.na_committee, result)
 
 
-@attr(country="south_africa")
 class OrganisationQuerysetOngoingTest(unittest.TestCase):
     def setUp(self):
         self.test_kind = OrganisationKind.objects.create(

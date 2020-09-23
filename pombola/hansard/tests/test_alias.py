@@ -4,8 +4,10 @@
 # from datetime import date, time
 # 
 from django.test import TestCase
+from django.utils.unittest import skip
 from pombola.hansard.models import Alias
 
+@skip("The South African site doesn't use this app")
 class HansardAliasTest(TestCase):
 
     def test_alias_cleanup(self):

@@ -5,7 +5,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.db.models import Prefetch, Q
 from django.test import TestCase
-from nose.plugins.attrib import attr
 
 import xlrd
 from django_date_extensions.fields import ApproximateDate
@@ -45,7 +44,6 @@ class DownloadMembersTest(TestCase):
         self.phone_kind = ContactKind.objects.create(slug="phone", name="Phone")
 
 
-@attr(country="south_africa")
 class GetQuerysetForMembersDownloadTest(DownloadMembersTest):
     def test_get_persons_for_national_assembly(self):
         self.mp = Person.objects.create(
@@ -71,7 +69,6 @@ class GetQuerysetForMembersDownloadTest(DownloadMembersTest):
         self.assertTrue(hasattr(result[0], "alternative_names"))
 
 
-@attr(country="south_africa")
 class GetActivePersonsForOrganisationTest(DownloadMembersTest):
     def test_get_inactive_persons_for_national_assembly(self):
         """
@@ -137,7 +134,6 @@ class GetActivePersonsForOrganisationTest(DownloadMembersTest):
         self.assertNotIn(self.mpl, result)
 
 
-@attr(country="south_africa")
 class DownloadMPsTest(DownloadMembersTest):
     def setUp(self):
         super(DownloadMPsTest, self).setUp()
@@ -218,7 +214,6 @@ class DownloadMPsTest(DownloadMembersTest):
         }
 
 
-@attr(country="south_africa")
 class GetEmailAddressForPersonTest(TestCase):
     def get_persons_with_email_addresses(self):
         return Person.objects.distinct().prefetch_email_addresses()
@@ -271,7 +266,6 @@ class GetEmailAddressForPersonTest(TestCase):
             )
 
 
-@attr(country="south_africa")
 class PersonRowGeneratorTest(TestCase):
     def generate_persons_from_empty_queryset_test(self):
         Person.objects.all().delete()

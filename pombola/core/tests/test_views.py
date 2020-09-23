@@ -45,6 +45,11 @@ class PositionViewTest(WebTest):
             slug = 'test-org',
             kind = self.organisation_kind,
         )
+        self.national_assembly = models.Organisation.objects.create(
+            name = 'National Assembly',
+            slug = 'national-assembly',
+            kind = self.organisation_kind,
+        )
 
         self.org_slug_redirect = SlugRedirect.objects.create(
             old_object_slug='test-Blah-org',
@@ -58,6 +63,10 @@ class PositionViewTest(WebTest):
         self.title2 = models.PositionTitle.objects.create(
             name = 'Test position with place',
             slug = 'test-position-with-place',
+        )
+        self.member_title = models.PositionTitle.objects.create(
+            name = 'Member',
+            slug = 'member',
         )
 
         self.position = models.Position.objects.create(
@@ -84,17 +93,11 @@ class PositionViewTest(WebTest):
 
         self.position2 = models.Position.objects.create(
             person = self.person,
-            title  = self.title2,
-            organisation = self.organisation,
+            title  = self.member_title,
             place = self.bobs_place,
+            organisation = self.national_assembly,
         )
 
-        self.position_hidden_person = models.Position.objects.create(
-            person = self.person_hidden,
-            title  = self.title,
-            organisation = self.organisation,
-            place = self.bobs_place,
-        )
         self.kind_governmental = models.OrganisationKind.objects.create(
             name='Governmental',
         )
@@ -147,9 +150,9 @@ class PositionViewTest(WebTest):
     def test_position_page_hidden_person_not_linked(self):
         resp = self.app.get('/position/test-title/')
         resp.mustcontain('Test Person')
-        resp.mustcontain('Test Hidden Person')
+        self.assertNotIn('Test Hidden Person', resp.html)
         self.assertEqual(
-            set([u'/person/test-person/']),
+            set(['/person/test-person/']),
             self.get_links_to_people(resp.html)
         )
 
@@ -159,7 +162,7 @@ class PositionViewTest(WebTest):
 
     def test_organisation_page(self):
         self.app.get('/organisation/missing-org/', status=404)
-        with self.assertNumQueries(9):
+        with self.assertNumQueries(17):
             resp = self.app.get('/organisation/test-org/')
         resp.mustcontain('Test Org')
         resp = self.app.get('/organisation/test-org/people/')
@@ -199,6 +202,8 @@ class PositionViewTest(WebTest):
 
     def test_place_page_hidden_person_not_linked(self):
         resp = self.app.get('/place/bobs_place/')
+        resp.mustcontain('Test Person')
+        self.assertNotIn('Test Hidden Person', resp.html)
         self.assertEqual(
             set([u'/person/test-person/']),
             self.get_links_to_people(resp.html)
@@ -243,14 +248,14 @@ class PositionViewTest(WebTest):
         # Get the normal view - all current positions:
         resp = self.app.get('/position/member-national-assembly/')
         person_names = []
-        for li in resp.html.find_all('li', class_='position'):
+        for li in resp.html.find_all('li', class_='person-list-item'):
             span_name = li.find('span', class_='name')
             person_names.append(span_name.text)
         self.assertEqual(person_names, ['Josephine Later'])
         # Get all positions in the 2013 session:
         resp = self.app.get('/position/member-national-assembly/?session=na2013')
         person_names = []
-        for li in resp.html.find_all('li', class_='position'):
+        for li in resp.html.find_all('li', class_='person-list-item'):
             span_name = li.find('span', class_='name')
             person_names.append(span_name.text)
         person_names.sort()
@@ -261,7 +266,7 @@ class PositionViewTest(WebTest):
         # Get all positions in the 2013 session:
         resp = self.app.get('/position/member-national-assembly/?session=na2007')
         person_names = []
-        for li in resp.html.find_all('li', class_='position'):
+        for li in resp.html.find_all('li', class_='person-list-item'):
             span_name = li.find('span', class_='name')
             person_names.append(span_name.text)
         self.assertEqual(
@@ -293,110 +298,3 @@ class PositionViewTest(WebTest):
         self.assertEqual(link, '?a=1&order=name&letter=P')
         self.assertTrue(response.context['alphabetical_link_from_query_parameter'])
 
-
-class TestPersonView(WebTest):
-
-    def setUp(self):
-        self.alf = models.Person.objects.create(
-            legal_name="Alfred Smith",
-            slug='alfred-smith',
-            date_of_birth='1960-04-01',
-        )
-        self.deceased = models.Person.objects.create(
-            legal_name="Deceased Person",
-            slug='deceased-person',
-            date_of_birth='1965-12-31',
-            date_of_death='2010-01-01',
-        )
-        self.superuser = User.objects.create(
-            username='admin',
-            is_superuser=True
-        )
-        self.slug_redirect = SlugRedirect.objects.create(
-            old_object_slug='Alfred--Smith',
-            new_object=self.alf,
-        )
-
-    def test_person_view_redirect(self):
-        resp = self.app.get('/person/alfred-smith')
-        self.assertRedirects(resp, '/person/alfred-smith/', status_code=301)
-
-    def test_person_smoke_test(self):
-        resp = self.app.get('/person/alfred-smith/')
-        self.assertTrue(resp)
-
-    def test_person_slug_redirects(self):
-        resp = self.app.get('/person/Alfred--Smith/')
-        self.assertRedirects(resp, '/person/alfred-smith/', status_code=302)
-
-    def test_person_experience_slug_redirects(self):
-        resp = self.app.get('/person/Alfred--Smith/experience/')
-        self.assertRedirects(resp, '/person/alfred-smith/experience/', status_code=302)
-
-    def test_person_appearances_slug_redirects(self):
-        resp = self.app.get('/person/Alfred--Smith/appearances/')
-        self.assertRedirects(resp, '/person/alfred-smith/appearances/', status_code=302)
-
-    @contextmanager
-    def with_hidden_person(self):
-        try:
-            self.alf.hidden = True
-            self.alf.save()
-            yield
-        finally:
-            self.alf.hidden = False
-            self.alf.save()
-
-    def test_person_hidden(self):
-        with self.with_hidden_person():
-            resp = self.app.get('/person/alfred-smith/', status=404)
-            self.assertEqual(resp.status_code, 404)
-
-    def test_person_hidden_superuser(self):
-        with self.with_hidden_person():
-            resp = self.app.get('/person/alfred-smith/', user=self.superuser)
-            self.assertTrue(resp)
-
-    def get_next_sibling(self, original_element, tag_name_to_find):
-        current = original_element
-        while True:
-            current = current.next_sibling
-            self.assertIsNotNone(current)
-            if type(current) == NavigableString:
-                continue
-            if current.name == tag_name_to_find:
-                return current
-        return None
-
-    def get_personal_details(self, soup):
-        heading = soup.find('h2', text='Personal Details')
-        dl = self.get_next_sibling(heading, 'dl')
-        terms = [dt.text.strip() for dt in dl.find_all('dt')]
-        definitions = [dd.text.strip() for dd in dl.find_all('dd')]
-        return dict(zip(terms, definitions))
-
-    def test_person_birth_date_no_death_date(self):
-        resp = self.app.get('/person/alfred-smith/')
-        personal_details = self.get_personal_details(resp.html)
-        keys = personal_details.keys()
-        self.assertIn('Born', keys)
-        self.assertNotIn('Died', keys)
-        self.assertEqual(
-            '1st April 1960',
-            personal_details['Born'],
-        )
-
-    def test_person_birth_date_and_death_date(self):
-        resp = self.app.get('/person/deceased-person/')
-        personal_details = self.get_personal_details(resp.html)
-        keys = personal_details.keys()
-        self.assertIn('Born', keys)
-        self.assertIn('Died', keys)
-        self.assertEqual(
-            '31st December 1965',
-            personal_details['Born'],
-        )
-        self.assertEqual(
-            '1st January 2010',
-            personal_details['Died'],
-        )

@@ -10,7 +10,6 @@ from django.core.management import call_command
 from io import BytesIO
 from datetime import date
 from mock import patch
-from nose.plugins.attrib import attr
 from instances.models import Instance
 
 from instances.tests import InstanceTestCase
@@ -33,7 +32,6 @@ logging.disable(logging.WARNING)
 logger = logging.getLogger(__name__)
 
 
-@attr(country="south_africa")
 class ImportZAAkomaNtosoTests(InstanceTestCase):
     @classmethod
     def setUpClass(cls):

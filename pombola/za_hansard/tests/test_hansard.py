@@ -10,7 +10,6 @@ from django.core.exceptions import ImproperlyConfigured
 from django.conf import settings
 
 from instances.models import Instance
-from nose.plugins.attrib import attr
 
 from pombola.za_hansard.models import Source
 
@@ -20,7 +19,6 @@ from lxml import etree
 import os
 
 
-@attr(country='south_africa')
 class ZAHansardParsingTests(TestCase):
 
     docnames = ['502914_1', 'NA290307', 'EPC110512', 'NA210212', 'NA200912']
@@ -173,7 +171,6 @@ class ZAHansardParsingTests(TestCase):
         self.assertEqual(len(subSections), 16)
 
 
-@attr(country='south_africa')
 class ZAHansardSayitLoadingTests(TestCase):
 
     tests_dir = os.path.dirname(os.path.abspath(__file__))

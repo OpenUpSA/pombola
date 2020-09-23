@@ -1,7 +1,6 @@
 from datetime import datetime
 
 import requests_mock
-from nose.plugins.attrib import attr
 from mock import Mock
 
 from django.test import TestCase
@@ -71,7 +70,6 @@ person_json = {
 }
 
 
-@attr(country='south_africa')
 @requests_mock.Mocker()
 class ClientTest(TestCase):
     def setUp(self):
@@ -217,7 +215,6 @@ class ClientTest(TestCase):
         self.assertTrue(result)
 
 
-@attr(country='south_africa')
 @requests_mock.Mocker()
 class WriteInPublicNewMessageViewTest(TestCase):
     def test_sending_message_wizard_steps(self, m):
@@ -295,7 +292,6 @@ class WriteInPublicNewMessageViewTest(TestCase):
         )
 
 
-@attr(country='south_africa')
 @requests_mock.Mocker()
 class WriteToCommitteeMessagesViewTest(TestCase):
     def setUp(self):

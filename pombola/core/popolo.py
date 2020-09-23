@@ -288,7 +288,7 @@ def get_people(primary_id_scheme, base_url, title_to_sessions, inline_membership
 
         # always include the pombola slug as an identifier
         person_properties['identifiers'].append({
-            'scheme': 'pombola-slug',
+            'scheme': u'pombola-slug',
             'identifier': person.slug
         })
 
