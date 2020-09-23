@@ -1,0 +1,325 @@
+{
+    "offices": [
+        {
+            "Province": "KwaZulu-Natal",
+            "People": [
+                {
+                    "Position": "Constituency Leader",
+                    "Name": "Prince Mangosuthu Gatsha Buthelezi",
+                    "Email": "mbuthelezi@parliament.gov.za",
+                    "Tel": "0739291418"
+                },
+                {
+                    "Position": "Administrator",
+                    "Name": "Zola Dotwana",
+                    "Tel": "0358701894",
+                    "Email": "mbuthelezi@parliament.gov.za"
+                },
+                {
+                    "Position": "Constituency Leader",
+                    "Name": "Narend Singh",
+                    "Email": "nsingh@parliament.gov.za",
+                    "Tel": "083 788 5954"
+                },
+                {
+                    "Position": "Constituency Leader",
+                    "Name": "Simo Ezra Mfayela"
+                }
+            ],
+            "Title": "IFP Constituency Office: Ulundi",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/IFP_Constituency_Offices_2019.xlsx",
+            "Postal Address": "B82 Princess Mkabayi Street, Ulundi 3838",
+            "Physical Address": "B82 Princess Mkabayi Street, Ulundi 3838",
+            "Type": "office",
+            "Party": "IFP",
+            "Source Note": "IFP Constituency Offices 2019"
+        },
+        {
+            "Province": "KwaZulu-Natal",
+            "People": [
+                {
+                    "Position": "Constituency Leader",
+                    "Name": "Muziwenkosi Blessed Gwala",
+                    "Email": "gwalam2@kznlegislature.go.za",
+                    "Tel": "078 290 5842"
+                },
+                {
+                    "Position": "Administrator",
+                    "Name": "Nontando Mafuleka",
+                    "Tel": "0357924751",
+                    "Email": "gwalam2@kznlegislature.go.za"
+                }
+            ],
+            "Title": "IFP Constituency Office: Empangeni",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/IFP_Constituency_Offices_2019.xlsx",
+            "Postal Address": "No10 Union Street, Edward Pharmacy Building, Empangeni",
+            "Physical Address": "No10 Union Street, Edward Pharmacy Building, Empangeni",
+            "Type": "office",
+            "Party": "IFP",
+            "Source Note": "IFP Constituency Offices 2019"
+        },
+        {
+            "Province": "KwaZulu-Natal",
+            "People": [
+                {
+                    "Position": "Constituency Leader",
+                    "Name": "Phumzile Audrey Thandekile Nokuphiwa Buthelezi",
+                    "Email": "buthelezip@kznleg.gov.za"
+                },
+                {
+                    "Position": "Constituency Leader",
+                    "Name": "Elphas Mfakazeleni Buthelezi",
+                    "Email": "ebuthelezi@parliament.gov.za",
+                    "Tel": "0783020929"
+                },
+                {
+                    "Position": "Administrator",
+                    "Name": "Pretty Mnguni",
+                    "Tel": "033 342 9014",
+                    "Cell": "071 284 7218",
+                    "Email": "buthelezip@kznleg.gov.za"
+                }
+            ],
+            "Title": "IFP Constituency Office: Pietermaritzburg",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/IFP_Constituency_Offices_2019.xlsx",
+            "Postal Address": "250 Jabu Ndlovu Street, Pietermaritzburg, 3251",
+            "Physical Address": "250 Jabu Ndlovu Street, Pietermaritzburg, 3251",
+            "Type": "office",
+            "Party": "IFP",
+            "Source Note": "IFP Constituency Offices 2019"
+        },
+        {
+            "Province": "KwaZulu-Natal",
+            "People": [
+                {
+                    "Position": "Constituency Leader",
+                    "Name": "Poobalan Govender",
+                    "Email": "govenderp@kznleg.gov.za",
+                    "Tel": "033 355 7618"
+                },
+                {
+                    "Position": "Administrator",
+                    "Name": "Leanne Maisuria",
+                    "Tel": "0623992044",
+                    "Email": "govenderp@kznleg.gov.za"
+                }
+            ],
+            "Title": "IFP Constituency Office: Chatsworth",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/IFP_Constituency_Offices_2019.xlsx",
+            "Postal Address": "200 Florence Nightingale Drive, Westcliff, Chatsworth",
+            "Physical Address": "200 Florence Nightingale Drive, Westcliff, Chatsworth",
+            "Type": "office",
+            "Party": "IFP",
+            "Source Note": "IFP Constituency Offices 2019"
+        },
+        {
+            "Province": "KwaZulu-Natal",
+            "People": [
+                {
+                    "Position": "Constituency Leader",
+                    "Name": "Thokozile Joyce Gumede",
+                    "Email": "gumedetj@kznleg.gov.za",
+                    "Tel": "033 355 7618"
+                },
+                {
+                    "Position": "Administrator",
+                    "Name": "Nozipho Mabanga",
+                    "Tel": "0735023821",
+                    "Email": "gumedetj@kznleg.gov.za"
+                }
+            ],
+            "Title": "IFP Constituency Office: Verulam",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/IFP_Constituency_Offices_2019.xlsx",
+            "Postal Address": "Temple Chambers, 52 George Sewparsad Street, 2nd Floor Suite, Verulam",
+            "Physical Address": "Temple Chambers, 52 George Sewparsad Street, 2nd Floor Suite, Verulam",
+            "Type": "office",
+            "Party": "IFP",
+            "Source Note": "IFP Constituency Offices 2019"
+        },
+        {
+            "Province": "KwaZulu-Natal",
+            "People": [
+                {
+                    "Position": "Constituency Leader",
+                    "Name": "Velenkosini Fiki Hlabisa",
+                    "Email": "hlabisavf@kznlegislature.gov.za%20",
+                    "Tel": "0342121756"
+                },
+                {
+                    "Position": "Administrator",
+                    "Name": "Nomvula Mthethwa",
+                    "Cell": "0717344190",
+                    "Email": "hlabisavf@kznlegislature.gov.za",
+                    "Tel": "034 212 1756"
+                }
+            ],
+            "Title": "IFP Constituency Office: Dundee",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/IFP_Constituency_Offices_2019.xlsx",
+            "Postal Address": "No2 King Edward Street, Dundee, 3000",
+            "Physical Address": "No2 King Edward Street, Dundee, 3000",
+            "Type": "office",
+            "Party": "IFP",
+            "Source Note": "IFP Constituency Offices 2019"
+        },
+        {
+            "Province": "KwaZulu-Natal",
+            "People": [
+                {
+                    "Position": "Constituency Leader",
+                    "Name": "Mr Mntomuhle Khawula",
+                    "Email": "mnkhawula@parliament.gov.za",
+                    "Tel": "071 207 9445"
+                },
+                {
+                    "Position": "Administrator",
+                    "Name": "Azile Njenjani",
+                    "Tel": "0396820770",
+                    "Email": "mnkhawula@parliament.gov.za"
+                }
+            ],
+            "Title": "IFP Constituency Office: Port Shepstone",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/IFP_Constituency_Offices_2019.xlsx",
+            "Postal Address": "No 1 Garfield House, 44 Bisset Street, Port Shepstone, 4240",
+            "Physical Address": "No 1 Garfield House, 44 Bisset Street, Port Shepstone, 4240",
+            "Type": "office",
+            "Party": "IFP",
+            "Source Note": "IFP Constituency Offices 2019"
+        },
+        {
+            "Province": "KwaZulu-Natal",
+            "People": [
+                {
+                    "Position": "Constituency Leader",
+                    "Name": "Lourens Johannes De Klerk",
+                    "Email": "lourensdeklerk@telkomsa.net"
+                },
+                {
+                    "Position": "Administrator",
+                    "Name": "Amirah Khan",
+                    "Tel": "0313071974"
+                }
+            ],
+            "Title": "IFP Constituency Office: Durban",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/IFP_Constituency_Offices_2019.xlsx",
+            "Postal Address": "No 2A Durban Club Place, Durban",
+            "Physical Address": "No 2A Durban Club Place, Durban",
+            "Type": "office",
+            "Party": "IFP",
+            "Source Note": "IFP Constituency Offices 2019"
+        },
+        {
+            "Province": "KwaZulu-Natal",
+            "People": [
+                {
+                    "Position": "Constituency Leader",
+                    "Name": "Otto Bonginkosi Kunene"
+                },
+                {
+                    "Position": "Administrator",
+                    "Name": "Fezile Mlambo",
+                    "Cell": "0646306110"
+                }
+            ],
+            "Title": "IFP Constituency Office: Ladysmith",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/IFP_Constituency_Offices_2019.xlsx",
+            "Postal Address": "No 224F Murchison Street, Ladysmith, 3370",
+            "Physical Address": "No 224F Murchison Street, Ladysmith, 3370",
+            "Type": "office",
+            "Party": "IFP",
+            "Source Note": "IFP Constituency Offices 2019"
+        },
+        {
+            "Province": "KwaZulu-Natal",
+            "People": [
+                {
+                    "Position": "Constituency Leader",
+                    "Name": "Mbongeleni Joshua Mazibuko",
+                    "Email": "mazibukoj@kznlegislature.gov.za",
+                    "Cell": "083 992 6135"
+                },
+                {
+                    "Position": "Administrator",
+                    "Name": "Mlamuleli Ndlovu",
+                    "Tel": "0658154455",
+                    "Email": "mazibukoj@kznlegislature.gov.za"
+                }
+            ],
+            "Title": "IFP Constituency Office: Ixopo",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/IFP_Constituency_Offices_2019.xlsx",
+            "Postal Address": "IFP Constituency Office, Portion 13 of 12, Landsdown, Ixopo",
+            "Physical Address": "IFP Constituency Office, Portion 13 of 12, Landsdown, Ixopo",
+            "Type": "office",
+            "Party": "IFP",
+            "Source Note": "IFP Constituency Offices 2019"
+        },
+        {
+            "Province": "KwaZulu-Natal",
+            "People": [
+                {
+                    "Position": "Constituency Leader",
+                    "Name": "Petros Nhlanhla Msimango",
+                    "Tel": "0783024565"
+                },
+                {
+                    "Position": "Administrator",
+                    "Name": "Nolwazi Mbatha",
+                    "Tel": "0765578096"
+                }
+            ],
+            "Title": "IFP Constituency Office: Ulundi",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/IFP_Constituency_Offices_2019.xlsx",
+            "Postal Address": "Ulundi Office Block, BA94 Princess, Magogo Street, Ulundi, 3838",
+            "Physical Address": "Ulundi Office Block, BA94 Princess, Magogo Street, Ulundi, 3838",
+            "Type": "office",
+            "Party": "IFP",
+            "Source Note": "IFP Constituency Offices 2019"
+        },
+        {
+            "Province": "KwaZulu-Natal",
+            "People": [
+                {
+                    "Position": "Constituency Leader",
+                    "Name": "Thembeni Petty Mthethwa",
+                    "Email": "mthethwat@kznlegislature.gov.za",
+                    "Cell": "071 884 3844"
+                },
+                {
+                    "Position": "Administrator",
+                    "Name": "Sindi Nkosi",
+                    "Tel": "0355721008"
+                }
+            ],
+            "Title": "IFP Constituency Office: Umkhanyakude",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/IFP_Constituency_Offices_2019.xlsx",
+            "Postal Address": "Smax Building, Main Road, Jozini, Umkhanyakude",
+            "Physical Address": "Smax Building, Main Road, Jozini, Umkhanyakude",
+            "Type": "office",
+            "Party": "IFP",
+            "Source Note": "IFP Constituency Offices 2019"
+        },
+        {
+            "Province": "KwaZulu-Natal",
+            "People": [
+                {
+                    "Position": "Constituency Leader",
+                    "Name": "Ncamisile Jerich Nkwanyana",
+                    "Tel": "078 302 3991"
+                },
+                {
+                    "Position": "Administrator",
+                    "Name": "Ngobile Sithole",
+                    "Tel": "0325516813"
+                }
+            ],
+            "Title": "IFP Constituency Office: KwaDukuza",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/IFP_Constituency_Offices_2019.xlsx",
+            "Postal Address": "121 Mahatma Ghandi Street, KwaDukuza, 4450",
+            "Physical Address": "121 Mahatma Ghandi Street, KwaDukuza, 4450",
+            "Type": "office",
+            "Party": "IFP",
+            "Source Note": "IFP Constituency Offices 2019"
+        }
+    ],
+    "start_date": "2019-06-01",
+    "end_date": "2019-05-31"
+}
