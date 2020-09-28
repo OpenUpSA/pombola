@@ -53,12 +53,6 @@ class Command(BaseCommand):
             'za_hansard_sourceparsinglog',
             'za_hansard_questionparsingerror'
         ])
-        if settings.COUNTRY_APP in ('kenya',):
-            # Ignore SMS tables as they contain phone numbers.
-            tables_to_ignore.update([
-                'sms_message',
-                'sms_question',
-            ])
         tables_to_dump = [
             t for t in tables if t not in tables_to_ignore
         ]
@@ -130,52 +124,30 @@ class Command(BaseCommand):
             'south_migrationhistory',
             'tasks_task',
             'tasks_taskcategory',
+            'interests_register_category',
+            'interests_register_entry',
+            'interests_register_entrylineitem',
+            'interests_register_release',
+            'pombola_sayit_pombolasayitjoin',
+            'speeches_recording',
+            'speeches_recordingtimestamp',
+            'speeches_section',
+            'speeches_slug',
+            'speeches_speaker',
+            'speeches_speech',
+            'speeches_speech_tags',
+            'speeches_tag',
+            'surveys_survey',
+            'za_hansard_answer',
+            'za_hansard_pmgcommitteeappearance',
+            'za_hansard_pmgcommitteereport',
+            'za_hansard_question',
+            'za_hansard_questionpaper',
+            'za_hansard_source',
+            'spinner_imagecontent',
+            'spinner_quotecontent',
+            'spinner_slide',
         ]
-        if settings.COUNTRY_APP in ('south_africa',):
-            expected_tables += [
-                'interests_register_category',
-                'interests_register_entry',
-                'interests_register_entrylineitem',
-                'interests_register_release',
-                'pombola_sayit_pombolasayitjoin',
-                'speeches_recording',
-                'speeches_recordingtimestamp',
-                'speeches_section',
-                'speeches_slug',
-                'speeches_speaker',
-                'speeches_speech',
-                'speeches_speech_tags',
-                'speeches_tag',
-                'surveys_survey',
-                'za_hansard_answer',
-                'za_hansard_pmgcommitteeappearance',
-                'za_hansard_pmgcommitteereport',
-                'za_hansard_question',
-                'za_hansard_questionpaper',
-                'za_hansard_source',
-            ]
-        if settings.COUNTRY_APP in ('kenya',):
-            # hansard, place_data, projects, votematch, wordcloud
-            expected_tables += [
-                'hansard_alias',
-                'hansard_entry',
-                'hansard_sitting',
-                'hansard_source',
-                'hansard_venue',
-                'place_data_entry',
-                'projects_project',
-                'votematch_answer',
-                'votematch_party',
-                'votematch_quiz',
-                'votematch_stance',
-                'votematch_statement',
-            ]
-        if settings.COUNTRY_APP in ('kenya',):
-            # place_data, bills
-            expected_tables += [
-                'bills_bill',
-
-            ]
         unexpected = set(tables_to_dump) - set(expected_tables)
         if unexpected:
             print '''The following tables were found which weren't expected
