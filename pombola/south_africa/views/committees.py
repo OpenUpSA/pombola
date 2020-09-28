@@ -6,7 +6,7 @@ from pombola.core.models import Organisation, OrganisationKind
 class SACommitteesView(ListView):
     queryset = Organisation.objects.committees()\
         .select_related('kind').prefetch_related('contacts__kind')\
-        .order_by('kind__id').all()
+        .order_by_house().all()
     context_object_name = 'committees'
     template_name = 'south_africa/committee_list.html'
 

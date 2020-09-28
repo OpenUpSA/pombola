@@ -191,6 +191,12 @@ class OrganisationQuerysetCommitteesTest(TestCase):
         self.ncop_kind = OrganisationKind.objects.create(
             name="NCOP", slug="ncop-committees"
         )
+        self.joint_kind = OrganisationKind.objects.create(
+            name="Joint Committees", slug="joint-committees"
+        )
+        self.ad_hoc_kind = OrganisationKind.objects.create(
+            name="Ad-hoc Committees", slug="ad-hoc-committees"
+        )
 
         self.non_committee_org = Organisation.objects.create(
             name="Non-committee",
@@ -210,12 +216,42 @@ class OrganisationQuerysetCommitteesTest(TestCase):
             kind=self.na_kind,
             ended="future",
         )
+        self.ad_hoc_committee = Organisation.objects.create(
+            name="Ad Hoc Committee on the Appointment of the Auditor General",
+            slug="ad-hoc-auditor-general",
+            kind=self.ad_hoc_kind,
+            ended="future",
+        )
+        self.joint_committee = Organisation.objects.create(
+            name="Joint Standing Committee on Defence",
+            slug="joint-defence",
+            kind=self.joint_kind,
+            ended="future",
+        )
 
     def test_committees_filter(self):
         result = Organisation.objects.committees().all()
+        committees = [
+            self.ncop_committee,
+            self.na_committee,
+            self.joint_committee,
+            self.ad_hoc_committee,
+        ]
+        for committee in committees:
+            self.assertIn(committee, result)
         self.assertNotIn(self.non_committee_org, result)
-        self.assertIn(self.ncop_committee, result)
-        self.assertIn(self.na_committee, result)
+
+    def test_order_by_house(self):
+        result = Organisation.objects.order_by_house().all()
+        expected_ordering = [
+            self.na_committee,
+            self.ncop_committee,
+            self.joint_committee,
+            self.ad_hoc_committee,
+            self.non_committee_org,
+        ]
+        for i, organisation in enumerate(expected_ordering):
+            self.assertEqual(result[i], organisation)
 
 
 class OrganisationQuerysetOngoingTest(unittest.TestCase):
