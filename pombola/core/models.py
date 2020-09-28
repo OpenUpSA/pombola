@@ -784,7 +784,7 @@ class OrganisationKind(ModelBase):
         return ('organisation_kind', (self.slug,))
 
 
-COMMITTEE_HOUSE_SLUGS = [
+COMMITTEE_GROUP_SLUGS = [
     'national-assembly-committees',
     'ncop-committees',
     'joint-committees',
@@ -794,21 +794,21 @@ COMMITTEE_HOUSE_SLUGS = [
 class OrganisationQuerySet(models.query.GeoQuerySet):
     def order_by_house(self):
         """
-        Order the organisation queryset according to the COMMITTEE_HOUSE_SLUGS list.
+        Order the organisation queryset according to the COMMITTEE_GROUP_SLUGS list.
 
         Copied from: https://stackoverflow.com/a/37648265/3486675
         """
         preserved = Case(
             *[
                 When(kind__slug=slug, then=pos)
-                for pos, slug in enumerate(COMMITTEE_HOUSE_SLUGS)
+                for pos, slug in enumerate(COMMITTEE_GROUP_SLUGS)
             ]
         )
 
         return self.order_by(preserved)
 
     def committees(self):
-        return self.filter(kind__slug__in=COMMITTEE_HOUSE_SLUGS)
+        return self.filter(kind__slug__in=COMMITTEE_GROUP_SLUGS)
 
     def ongoing(self):
         """
@@ -917,7 +917,7 @@ class Organisation(ModelBase, HasImageMixin, IdentifierMixin):
     
     @property
     def is_committee(self):
-        return self.kind.slug in COMMITTEE_HOUSE_SLUGS
+        return self.kind.slug in COMMITTEE_GROUP_SLUGS
 
     @property
     def contactable_committee(self):
