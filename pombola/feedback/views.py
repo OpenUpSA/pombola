@@ -2,7 +2,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_protect
 
-from pombola.search.recaptcha import recaptcha_client
+from pombola.core.recaptcha import recaptcha_client
 
 from models import Feedback
 from forms import FeedbackForm
@@ -16,11 +16,12 @@ def add(request):
 
     submit_was_success = False
     return_to_url      = None
+    message            = None
 
     # If it is a post request try to create the feedback
     if request.method == 'POST':
         form = FeedbackForm( request.POST )
-        recaptcha_response = request.POST.get("g-recaptcha-response", "")
+        recaptcha_response = request.POST.get("g-recaptcha-response", None)
 
         if form.is_valid():
             feedback = Feedback()
@@ -28,13 +29,11 @@ def add(request):
             feedback.email    = form.cleaned_data['email']
             feedback.comment  = form.cleaned_data['comment']
 
-            # if there is any content in the honeypot field then label this comment as spammy
-            if form.cleaned_data['website']:
-                feedback.status = 'spammy'
+            submit_was_success = True
 
-            # if the recaptcha fails label the comment as spammy
             if not recaptcha_client.verify(recaptcha_response):
-                feedback.status = 'spammy'
+                submit_was_success = False
+                message = "Sorry, something went wrong. Please try again or email us at <a href='mailto:contact@pa.org.za'>contact@pa.org.za</a>"
             
             # if the comment starts with an html tag it is probably spam
             if re.search('\A\s*<\w+>', form.cleaned_data['comment']):
@@ -43,9 +42,9 @@ def add(request):
             if request.user.is_authenticated():
                 feedback.user = request.user
 
-            feedback.save()
+            if submit_was_success:
+                feedback.save()
 
-            submit_was_success = True
             return_to_url = feedback.url or None
         
     else:
@@ -59,6 +58,7 @@ def add(request):
             'form':               form,
             'submit_was_success': submit_was_success,
             'return_to_url':      return_to_url,
+            'message':            message
         },
         context_instance=RequestContext(request)
     )

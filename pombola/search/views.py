@@ -18,8 +18,8 @@ from haystack.inputs import AutoQuery, Raw
 from pygeolib import GeocoderError
 from sorl.thumbnail import get_thumbnail
 from .geocoder import geocoder
-from .recaptcha import check_recaptcha_is_valid_if_query_param_present
 
+from pombola.core.recaptcha import check_recaptcha_is_valid_if_query_param_present
 
 logger = logging.getLogger(__name__)
 
