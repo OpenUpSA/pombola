@@ -100,7 +100,11 @@ $(function(){
                 var dialog_div = $('<div>Loading...</div>');
 
                 // Load the initial content for the dialog
-                dialog_div.load( event.target.href + ' #ajax_dialog_subcontent' );
+                dialog_div.load( event.target.href + ' #ajax_dialog_subcontent', function() {
+                  grecaptcha.render('feedbackSubmit', {
+                    'sitekey' : '6LdxtOkUAAAAAK1vgwf5z6WWMUgqZFJLYFArF7tB', // TODO: use environment value
+                  });
+                } );
 
                 // Form subission should be done using ajax, and only the ajax_dialog_subcontent should be shown.
                 var handle_form_submission = function( form_submit_event ) {
