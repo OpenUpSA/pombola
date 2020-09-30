@@ -53,13 +53,13 @@
                         {{ form.as_p }}
 
                         {% if settings.GOOGLE_RECAPTCHA_SITE_KEY %}
-                            <input id="feedbackSubmit" type="submit" value="Send feedback" class="submit g-recaptcha" data-sitekey="{{ settings.GOOGLE_RECAPTCHA_SITE_KEY }}">
+                            <input id="feedbackSubmit" type="submit" value="Send feedback" class="submit g-recaptcha" data-callback="handle_feedback_form_submission"  data-sitekey="{{ settings.GOOGLE_RECAPTCHA_SITE_KEY }}">
                         {% else %}
-                            <input type="submit" class="submit" value="Send feedback">
+                            <input onClick="handle_feedback_form_submission()" class="submit" value="Send feedback">
                         {% endif %}
 
-                    </form>
-                </div>
+                </form>
+            </div>
 
                 {% endif %}
             {% endif %}
