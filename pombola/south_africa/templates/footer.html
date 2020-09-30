@@ -70,9 +70,7 @@
 </div>
 {% if settings.GOOGLE_RECAPTCHA_SITE_KEY %}
     <script>
-        
-        function feedbackForm(token) {
-            console.log("tetss");
+        function feedbackFormCallback(token) {
             document.getElementById("add_feedback").submit();
         }
     </script>
