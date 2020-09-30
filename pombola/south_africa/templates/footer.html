@@ -68,3 +68,13 @@
         </ul>
     </div>
 </div>
+{% if settings.GOOGLE_RECAPTCHA_SITE_KEY %}
+    <script>
+        
+        function feedbackForm(token) {
+            console.log("tetss");
+            document.getElementById("add_feedback").submit();
+        }
+    </script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+{% endif %}

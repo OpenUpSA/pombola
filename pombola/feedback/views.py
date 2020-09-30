@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_protect
@@ -21,7 +22,6 @@ def add(request):
     # If it is a post request try to create the feedback
     if request.method == 'POST':
         form = FeedbackForm( request.POST )
-        recaptcha_response = request.POST.get("g-recaptcha-response", None)
 
         if form.is_valid():
             feedback = Feedback()
@@ -31,9 +31,11 @@ def add(request):
 
             submit_was_success = True
 
-            if not recaptcha_client.verify(recaptcha_response):
-                submit_was_success = False
-                submit_error_message = "Sorry, something went wrong. Please try again or email us at <a href='mailto:contact@pa.org.za'>contact@pa.org.za</a>"
+            if settings.GOOGLE_RECAPTCHA_SECRET_KEY:
+                recaptcha_response = request.POST.get("g-recaptcha-response")
+                if not recaptcha_client.verify(recaptcha_response):
+                    submit_was_success = False
+                    submit_error_message = "Sorry, something went wrong. Please try again or email us at <a href='mailto:contact@pa.org.za'>contact@pa.org.za</a>"
             
             # if the comment starts with an html tag it is probably spam
             if re.search('\A\s*<\w+>', form.cleaned_data['comment']):
