@@ -52,11 +52,12 @@
 
                             {{ form.as_p }}
 
-                            {% if settings.GOOGLE_RECAPTCHA_SITE_KEY %}
-                                <input type="submit" value="Send feedback" id="submit" class="submit">
-                            {% else %}
-                                <input type="submit" class="submit" value="Send feedback">
-                            {% endif %}
+                    {{ form.as_p }}
+                    {% if settings.GOOGLE_RECAPTCHA_SITE_KEY %}
+                    <input id="feedbackSubmit" type="submit" value="Send feedback" class="submit g-recaptcha" data-sitekey="{{ settings.GOOGLE_RECAPTCHA_SITE_KEY }}">
+                    {% else %}
+                    <input type="submit" class="submit" value="Send feedback">
+                    {% endif %}
 
                         </form>
                     </div>
