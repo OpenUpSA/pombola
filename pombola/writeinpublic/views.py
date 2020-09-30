@@ -69,7 +69,7 @@ class CommitteeAdapter(object):
         queryset = Organisation.objects.prefetch_related('contacts__kind')\
             .select_related('kind')\
             .contactable_committees().distinct()\
-            .order_by_house()
+            .order_by_house_then_by('name')
         
         choicefield = CommiteeGroupedModelChoiceField(
             choices_groupby='kind.name',
