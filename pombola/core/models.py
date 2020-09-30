@@ -790,22 +790,22 @@ COMMITTEE_GROUP_SLUGS = [
     'joint-committees',
     'ad-hoc-committees',
 ]
+COMMITTEE_GROUP_SLUGS_CASE_WHEN = Case(
+    *[
+        When(kind__slug=slug, then=pos)
+        for pos, slug in enumerate(COMMITTEE_GROUP_SLUGS)
+    ]
+)
 
 class OrganisationQuerySet(models.query.GeoQuerySet):
-    def order_by_house(self):
+    def order_by_house_then_by(self, *args):
         """
-        Order the organisation queryset according to the COMMITTEE_GROUP_SLUGS list.
+        Order the organisation queryset according to the list of committee houses,
+        then by any other fields in args.
 
         Copied from: https://stackoverflow.com/a/37648265/3486675
         """
-        preserved = Case(
-            *[
-                When(kind__slug=slug, then=pos)
-                for pos, slug in enumerate(COMMITTEE_GROUP_SLUGS)
-            ]
-        )
-
-        return self.order_by(preserved)
+        return self.order_by(COMMITTEE_GROUP_SLUGS_CASE_WHEN, *args)
 
     def committees(self):
         return self.filter(kind__slug__in=COMMITTEE_GROUP_SLUGS)

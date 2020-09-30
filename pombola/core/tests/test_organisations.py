@@ -210,7 +210,13 @@ class OrganisationQuerysetCommitteesTest(TestCase):
             kind=self.ncop_kind,
             ended="future",
         )
-        self.na_committee = Organisation.objects.create(
+        self.na_committee_a = Organisation.objects.create(
+            name="Ad Hoc Committee on Education",
+            slug="ad-hoc-education",
+            kind=self.na_kind,
+            ended="future",
+        )
+        self.na_committee_b = Organisation.objects.create(
             name="Basic Education",
             slug="basic-education",
             kind=self.na_kind,
@@ -233,7 +239,7 @@ class OrganisationQuerysetCommitteesTest(TestCase):
         result = Organisation.objects.committees().all()
         committees = [
             self.ncop_committee,
-            self.na_committee,
+            self.na_committee_a,
             self.joint_committee,
             self.ad_hoc_committee,
         ]
@@ -241,10 +247,11 @@ class OrganisationQuerysetCommitteesTest(TestCase):
             self.assertIn(committee, result)
         self.assertNotIn(self.non_committee_org, result)
 
-    def test_order_by_house(self):
-        result = Organisation.objects.order_by_house().all()
+    def test_order_by_house_then_by(self):
+        result = Organisation.objects.order_by_house_then_by('name').all()
         expected_ordering = [
-            self.na_committee,
+            self.na_committee_a,
+            self.na_committee_b,
             self.ncop_committee,
             self.joint_committee,
             self.ad_hoc_committee,
