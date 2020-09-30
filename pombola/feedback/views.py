@@ -16,7 +16,7 @@ def add(request):
 
     submit_was_success = False
     return_to_url      = None
-    message            = None
+    submit_error_message  = None
 
     # If it is a post request try to create the feedback
     if request.method == 'POST':
@@ -33,7 +33,7 @@ def add(request):
 
             if not recaptcha_client.verify(recaptcha_response):
                 submit_was_success = False
-                message = "Sorry, something went wrong. Please try again or email us at <a href='mailto:contact@pa.org.za'>contact@pa.org.za</a>"
+                submit_error_message = "Sorry, something went wrong. Please try again or email us at <a href='mailto:contact@pa.org.za'>contact@pa.org.za</a>"
             
             # if the comment starts with an html tag it is probably spam
             if re.search('\A\s*<\w+>', form.cleaned_data['comment']):
@@ -58,7 +58,7 @@ def add(request):
             'form':               form,
             'submit_was_success': submit_was_success,
             'return_to_url':      return_to_url,
-            'message':            message
+            'submit_error_message': submit_error_message
         },
         context_instance=RequestContext(request)
     )
