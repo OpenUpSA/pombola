@@ -100,11 +100,16 @@ $(function(){
                 var dialog_div = $('<div id="feedback_dialog_div">Loading...</div>');
 
                 // Load the initial content for the dialog
-                dialog_div.load( event.target.href + ' #ajax_dialog_subcontent', function() {
-                  grecaptcha.render('feedbackSubmit', {
-                    'sitekey' : window.pombola_settings.google_recaptcha_site_key,
-                  });
-                } );
+                if (window.pombola_settings.google_recaptcha_site_key) {
+                  dialog_div.load( event.target.href + ' #ajax_dialog_subcontent', function() {
+                    grecaptcha.render('feedbackSubmit', {
+                      'sitekey' : window.pombola_settings.google_recaptcha_site_key,
+                    });
+                    
+                  } );
+                } else {
+                  dialog_div.load( event.target.href + ' #ajax_dialog_subcontent' );
+                }
 
 
                 // Show the dialog
