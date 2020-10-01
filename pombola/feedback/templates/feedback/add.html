@@ -15,54 +15,52 @@
 {% endblock %}
 
 {% block content %}
-    <div id="ajax_dialog_subcontent">
-        <h1 class="page-title">
-            Leave feedback
-            {% if form.url.value %}
-                on {{ form.url.value }}
-            {% endif %}
-        </h1>
+    <h1 class="page-title">
+        Leave feedback
+        {% if form.url.value %}
+            on {{ form.url.value }}
+        {% endif %}
+    </h1>
 
-        <div class="infopage">
-            {% if submit_error_message %}
+    <div class="infopage">
+        {% if submit_error_message %}
+            <div>
                 <div>
-                    <div>
-                        {{ submit_error_message|safe }}
+                    {{ submit_error_message|safe }}
+                </div>
+            </div>
+        {% else %}
+            {% if submit_was_success %}
+
+                <div id="ajax_dialog_subcontent">
+                    <div class="success">
+                        Thank you for your feedback!
                     </div>
                 </div>
+
+                {% if return_to_url %}
+                    <p>You can return to the <a href="{{ return_to_url }}">page you were on</a>.</p>
+                {% endif %}
+
             {% else %}
-                {% if submit_was_success %}
 
-                    <div>
-                        <div class="success">
-                            Thank you for your feedback!
-                        </div>
-                    </div>
+            <div id="ajax_dialog_subcontent">
 
-                    {% if return_to_url %}
-                        <p>You can return to the <a href="{{ return_to_url }}">page you were on</a>.</p>
+                <form method="post" action="{% url "feedback_add" %}" id="add_feedback">
+                    {% csrf_token %}
+
+                    {{ form.as_p }}
+
+                    {% if settings.GOOGLE_RECAPTCHA_SITE_KEY %}
+                        <input id="feedbackSubmit" type="submit" value="Send feedback" class="submit g-recaptcha" data-callback="handle_feedback_form_submission"  data-sitekey="{{ settings.GOOGLE_RECAPTCHA_SITE_KEY }}">
+                    {% else %}
+                        <input onClick="handle_feedback_form_submission()" class="submit" value="Send feedback">
                     {% endif %}
 
-                {% else %}
-
-                <div>
-
-                    <form method="post" action="{% url "feedback_add" %}" id="add_feedback">
-                        {% csrf_token %}
-
-                        {{ form.as_p }}
-
-                        {% if settings.GOOGLE_RECAPTCHA_SITE_KEY %}
-                            <input id="feedbackSubmit" type="submit" value="Send feedback" class="submit g-recaptcha" data-callback="handle_feedback_form_submission"  data-sitekey="{{ settings.GOOGLE_RECAPTCHA_SITE_KEY }}">
-                        {% else %}
-                            <input onClick="handle_feedback_form_submission()" class="submit" value="Send feedback">
-                        {% endif %}
-
-                </form>
-            </div>
-
-                {% endif %}
-            {% endif %}
+            </form>
         </div>
+
+            {% endif %}
+        {% endif %}
     </div>
 {% endblock %}
