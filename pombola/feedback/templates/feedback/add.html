@@ -4,7 +4,12 @@
     'form':               form,
     'submit_was_success': submit_was_success,
     'return_to_url':      return_to_url,
+    'message':            message
 {% endcomment %}
+
+{% if settings.GOOGLE_RECAPTCHA_SITE_KEY %}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+{% endif %}
 
 {% block title %}
     Leave feedback
@@ -24,38 +29,43 @@
     </h1>
 
     <div class="infopage">
-    {% if submit_was_success %}
-
+    {% if submit_error_message %}
         <div id="ajax_dialog_subcontent">
-            <div class="success">
-                Thank you for your feedback!
+            <div>
+                {{ message|safe }}
             </div>
         </div>
-
-        {% if return_to_url %}
-            <p>You can return to the <a href="{{ return_to_url }}">page you were on</a>.</p>
-        {% endif %}
-
     {% else %}
+        {% if submit_was_success %}
 
-        <div id="ajax_dialog_subcontent">
+            <div id="ajax_dialog_subcontent">
+                <div class="success">
+                    Thank you for your feedback!
+                </div>
+            </div>
 
-            {% comment %}
-                hide the honeypot field from humans
-            {% endcomment %}
-            <style type="text/css">
-                #add_feedback label[for=id_website] { display: none; }
-                #add_feedback input[name=website]   { display: none; }
-            </style>
+            {% if return_to_url %}
+                <p>You can return to the <a href="{{ return_to_url }}">page you were on</a>.</p>
+            {% endif %}
 
-            <form method="post" action="{% url "feedback_add" %}" id="add_feedback">
-                {% csrf_token %}
+        {% else %}
 
-                {{ form.as_p }}
-                <input type="submit" class="submit" value="Send feedback">
-            </form>
-        </div>
+            <div id="ajax_dialog_subcontent">
 
+                <form method="post" action="{% url "feedback_add" %}" id="add_feedback">
+                    {% csrf_token %}
+
+                    {{ form.as_p }}
+                    {% if settings.GOOGLE_RECAPTCHA_SITE_KEY %}
+                    <input id="feedbackSubmit" type="submit" value="Send feedback" class="submit g-recaptcha" data-sitekey="{{ settings.GOOGLE_RECAPTCHA_SITE_KEY }}">
+                    {% else %}
+                    <input type="submit" class="submit" value="Send feedback">
+                    {% endif %}
+
+                </form>
+            </div>
+
+        {% endif %}
     {% endif %}
     </div>
 

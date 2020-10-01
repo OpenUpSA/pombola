@@ -435,7 +435,7 @@ class SASearchViewTest(WebTest):
         mocked_geocoder.assert_called_once_with(q='Trafford Road', country='za')
 
     @override_settings(GOOGLE_RECAPTCHA_SECRET_KEY='test-key')
-    @patch('pombola.search.recaptcha.recaptcha_client')
+    @patch('pombola.core.recaptcha.recaptcha_client')
     @patch('pombola.search.views.geocoder', side_effect=fake_geocoder)
     def test_multiple_result_place_with_recaptcha(self, mocked_geocoder, mocked_recaptcha_client):
         mocked_recaptcha_client.verify.return_value = True
