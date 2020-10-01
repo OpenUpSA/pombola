@@ -6,6 +6,9 @@ notifications:
 services:
   - docker
 
+before_script:
+  - "docker-compose run --rm app ./manage.py collectstatic --noinput"
+
 script:
   - "docker-compose run app bin/wait-for-deps.sh coverage run -a --source=pombola,pombola_sayit,wordcloud,writeinpublic ./manage.py test --settings=pombola.settings.tests_south_africa"
 
