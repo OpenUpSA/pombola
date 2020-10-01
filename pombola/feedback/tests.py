@@ -6,7 +6,7 @@ from django.test.utils import override_settings
 class FeedbackFormTest(TestCase):
 
     @override_settings(GOOGLE_RECAPTCHA_SECRET_KEY='test-key')
-    @patch('pombola.core.recaptcha.recaptcha_client')
+    @patch('pombola.feedback.views.recaptcha_client')
     def test_success_post_with_recaptcha(self, mocked_recaptcha_client):
         """
         Tests that we submit the form successfully.
@@ -27,7 +27,7 @@ class FeedbackFormTest(TestCase):
         )
 
     @override_settings(GOOGLE_RECAPTCHA_SECRET_KEY='test-key')
-    @patch('pombola.core.recaptcha.recaptcha_client')
+    @patch('pombola.feedback.views.recaptcha_client')
     def test_fail_post_with_recaptcha(self, mocked_recaptcha_client):
         """
         Tests that the submit feedback fails.
@@ -44,5 +44,5 @@ class FeedbackFormTest(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(
-            response, "Sorry, something went wrong. Please try again or email us at <a href='mailto:contact@pa.org.za'>contact@pa.org.za</a>", html=True
+            response, "Sorry, something went wrong. Please try again or email us at <a href='mailto:contact@pa.org.za'>contact@pa.org.za</a>"
         )
