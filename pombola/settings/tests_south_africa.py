@@ -29,3 +29,5 @@ CACHES['pmg_api'] = {
     'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
     'LOCATION': 'pmg_api_test',
     }
+
+NOSE_ARGS += ['--nologcapture']
