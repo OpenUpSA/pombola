@@ -102,7 +102,8 @@ $(function(){
                 // Load the initial content for the dialog
                 dialog_div.load( event.target.href + ' #ajax_dialog_subcontent', function() {
                   grecaptcha.render('feedbackSubmit', {
-                    'sitekey' : '6LdxtOkUAAAAAK1vgwf5z6WWMUgqZFJLYFArF7tB', // TODO: use environment value
+                    'sitekey' : window.pombola_settings.google_recaptcha_site_key,
+                    'callback': handle_feedback_form_submission";
                   });
                 } );
 

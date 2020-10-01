@@ -21,6 +21,9 @@ services:
       - ELASTICSEARCH_URL=elasticsearch:9200
       - GOOGLE_MAPS_GEOCODING_API_KEY=${GOOGLE_MAPS_GEOCODING_API_KEY}
       - DJANGO_DEBUG_TOOLBAR
+      # Dev/Test credentials only for domain localhost
+      - GOOGLE_RECAPTCHA_SITE_KEY=6Leab9IZAAAAAAlvO9R9qTsZxA36ULD1ouMXAMnt
+      - GOOGLE_RECAPTCHA_SECRET_KEY=6Leab9IZAAAAAFo96sE2EsTdLCU8frYljAof_LV-
     ports:
       - "8000:8000"
     command: bin/wait-for-deps.sh python manage.py runserver 0.0.0.0:8000

@@ -20,5 +20,20 @@ class CreateFeedbackTestCase(TestCase):
                 "comment": "Hello",
             },
         )
+        print(response)
         self.assertContains(response, "Thank you for your feedback!", status_code=200)
         self.assertEquals(1, Feedback.objects.count())
+
+    def test_reject_without_recaptcha_token(self):
+        c = Client()
+        self.assertEquals(0, Feedback.objects.count())
+        response = c.post(
+            "/feedback/",
+            {
+                "url": "http://example.com",
+                "comment": "Hello",
+            },
+        )
+        print(response)
+        self.assertContains(response, "Sorry, something went wrong", status_code=200)
+        self.assertEquals(0, Feedback.objects.count())

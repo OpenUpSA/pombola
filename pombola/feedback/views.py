@@ -34,10 +34,6 @@ def add(request):
             if not recaptcha_client.verify(recaptcha_response):
                 submit_was_success = False
                 submit_error_message = "Sorry, something went wrong. Please try again or email us at <a href='mailto:contact@pa.org.za'>contact@pa.org.za</a>"
-            
-            # if the comment starts with an html tag it is probably spam
-            if re.search('\A\s*<\w+>', form.cleaned_data['comment']):
-                feedback.status = 'spammy'
 
             if request.user.is_authenticated():
                 feedback.user = request.user
@@ -46,12 +42,12 @@ def add(request):
                 feedback.save()
 
             return_to_url = feedback.url or None
-        
+
     else:
         # use GET to grab the url if set
         form = FeedbackForm(initial=request.GET)
-        
-    
+
+
     return render_to_response(
         'feedback/add.html',
         {
