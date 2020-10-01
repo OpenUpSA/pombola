@@ -22,7 +22,7 @@ class CoreTestCase(WebTest):
         self.assertTrue("Page Not Found" in response)
 
     @override_settings(GOOGLE_RECAPTCHA_SECRET_KEY="test-key")
-    @patch("pombola.search.recaptcha.recaptcha_client")
+    @patch("pombola.core.recaptcha.recaptcha_client")
     def test_403(self, mocked_recaptcha_client):
         """Test that proper 404 page is being shown"""
         mocked_recaptcha_client.verify.return_value = False

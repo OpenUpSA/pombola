@@ -2,7 +2,7 @@ from django.utils import unittest
 
 from mock import patch, Mock
 
-from ..recaptcha import recaptcha_client
+from pombola.core.recaptcha import recaptcha_client
 
 
 class MockResponse:
@@ -16,7 +16,7 @@ class MockResponse:
 
 class RecaptchaTests(unittest.TestCase):
     @patch(
-        "pombola.search.recaptcha.requests.get",
+        "pombola.core.recaptcha.requests.get",
         return_value=MockResponse({"success": True}, 200),
     )
     def test_verify_success(self, requests_mock):
@@ -24,7 +24,7 @@ class RecaptchaTests(unittest.TestCase):
         self.assertTrue(result)
 
     @patch(
-        "pombola.search.recaptcha.requests.get",
+        "pombola.core.recaptcha.requests.get",
         return_value=MockResponse({"success": False}, 200),
     )
     def test_verify_fail(self, requests_mock):

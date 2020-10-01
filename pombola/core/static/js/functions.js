@@ -97,24 +97,20 @@ $(function(){
                 event.preventDefault();
 
                 // create a div to use in the dialog
-                var dialog_div = $('<div>Loading...</div>');
+                var dialog_div = $('<div id="feedback_dialog_div">Loading...</div>');
 
                 // Load the initial content for the dialog
-                dialog_div.load( event.target.href + ' #ajax_dialog_subcontent' );
-
-                // Form subission should be done using ajax, and only the ajax_dialog_subcontent should be shown.
-                var handle_form_submission = function( form_submit_event ) {
-                    form_submit_event.preventDefault();
-                    var form = $(form_submit_event.target);
-                    form.ajaxSubmit({
-                        success: function( responseText ) {
-                            dialog_div.html( $(responseText).find('#ajax_dialog_subcontent') );
-                        }
+                if (window.pombola_settings.google_recaptcha_site_key) {
+                  dialog_div.load( event.target.href + ' #ajax_dialog_subcontent', function() {
+                    grecaptcha.render('feedbackSubmit', {
+                      'sitekey' : window.pombola_settings.google_recaptcha_site_key,
                     });
-                };
+                    
+                  } );
+                } else {
+                  dialog_div.load( event.target.href + ' #ajax_dialog_subcontent' );
+                }
 
-                // catch all form submissions and do them using ajax
-                dialog_div.on( 'submit', 'form', handle_form_submission );
 
                 // Show the dialog
                 dialog_div.dialog({
@@ -137,3 +133,14 @@ $(function(){
     location.href="/search?q=" + escape($('#id_q,#loc').first().val());
   });
 });
+
+// Submit feedback using AJAX, and only show the ajax_dialog_subcontent.
+var handle_feedback_form_submission = function() {
+    let form = $("#add_feedback");
+    form.ajaxSubmit({
+        success: function( responseText ) {
+            let dialog_div = $("#feedback_dialog_div");
+            dialog_div.html( $(responseText).find('#ajax_dialog_subcontent') );
+        }
+    });
+};

@@ -9,7 +9,6 @@
   {{ block.super }}
   {% javascript 'google-map' %}
   {% if settings.GOOGLE_RECAPTCHA_SITE_KEY %}
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script>
        function onSubmitLocationSearch(token) {
          document.getElementsByClassName("global-search-form")[0].submit();
