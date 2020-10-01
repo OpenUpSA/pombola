@@ -136,6 +136,9 @@
         {% block js_end_of_body %}
           <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
           <script src="//www.google.com/jsapi"></script>
+          {% if settings.GOOGLE_RECAPTCHA_SITE_KEY %}
+              <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+          {% endif %}
           {% javascript 'base' %}
           {% javascript 'survey' %}
         {% endblock %}
