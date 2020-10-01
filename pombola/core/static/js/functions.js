@@ -105,12 +105,22 @@ $(function(){
                     grecaptcha.render('feedbackSubmit', {
                       'sitekey' : window.pombola_settings.google_recaptcha_site_key,
                     });
-                    
+
                   } );
                 } else {
                   dialog_div.load( event.target.href + ' #ajax_dialog_subcontent' );
                 }
 
+                // Submit feedback using AJAX, and only show the ajax_dialog_subcontent.
+                window.handle_feedback_form_submission = function() {
+                  var form = $("#add_feedback");
+                  form.ajaxSubmit({
+                    success: function( responseText ) {
+                      var dialog_div = $("#feedback_dialog_div");
+                      dialog_div.html( $(responseText).find('#ajax_dialog_subcontent') );
+                    }
+                  });
+                };
 
                 // Show the dialog
                 dialog_div.dialog({
@@ -133,14 +143,3 @@ $(function(){
     location.href="/search?q=" + escape($('#id_q,#loc').first().val());
   });
 });
-
-// Submit feedback using AJAX, and only show the ajax_dialog_subcontent.
-var handle_feedback_form_submission = function() {
-    let form = $("#add_feedback");
-    form.ajaxSubmit({
-        success: function( responseText ) {
-            let dialog_div = $("#feedback_dialog_div");
-            dialog_div.html( $(responseText).find('#ajax_dialog_subcontent') );
-        }
-    });
-};
