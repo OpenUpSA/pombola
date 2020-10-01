@@ -5,7 +5,6 @@ from django_webtest import WebTest
 from mock import patch
 
 
-@attr(country="south_africa")
 class CoreTestCase(WebTest):
     def test_home(self):
         response = self.app.get(reverse("home"))

@@ -1,4 +1,3 @@
-from nose.plugins.attrib import attr
 from django.utils import unittest
 
 from mock import patch, Mock
@@ -15,7 +14,6 @@ class MockResponse:
         return self.json_data
 
 
-@attr(country="south_africa")
 class RecaptchaTests(unittest.TestCase):
     @patch(
         "pombola.core.recaptcha.requests.get",

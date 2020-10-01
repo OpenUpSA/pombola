@@ -22,8 +22,6 @@ MIDDLEWARE_CLASSES += ( 'pombola.middleware.FakeInstanceMiddleware', )
 
 ENABLED_FEATURES = make_enabled_features(INSTALLED_APPS, ALL_OPTIONAL_APPS)
 
-NOSE_ARGS += ['-a', 'country=south_africa']
-
 # For testing purposes we need a cache that we can put stuff in
 # to avoid external calls, and generally to avoid polluting the
 # cache proper.

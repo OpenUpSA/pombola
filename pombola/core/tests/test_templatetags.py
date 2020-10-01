@@ -26,7 +26,9 @@ class BreadcrumbTest(TestCase):
             ( '/blog/first-post', home_li + '<li><a href="/blog/" title="Breadcrumb link to Blog">Blog</a>  <span class="sep">&raquo;</span> </li><li>First Post</li>'),
 
             # urls that don't exist shouldn't be linked to.
-            ( '/foo/bar', home_li + '<li>Foo  <span class="sep">&raquo;</span> </li><li>Bar</li>'),
+            # the fallback URL in pombola/south_africa/fallback_urls.py now captures any
+            # single-word URL so /foo will still be linked to
+            ( '/foo/bar', home_li + '<li><a href="/foo/" title="Breadcrumb link to Foo">Foo</a>  <span class="sep">&raquo;</span> </li><li>Bar</li>'),
 
             # Test that coordinates are passed through correctly
             # (don't drop '-', put space after ',')

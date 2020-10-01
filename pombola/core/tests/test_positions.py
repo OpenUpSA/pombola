@@ -9,12 +9,9 @@ from django.test import TestCase
 from django_date_extensions.fields import ApproximateDate
 from slug_helpers.models import SlugRedirect
 
-from nose.plugins.attrib import attr
-
 from pombola.core import models
 
 
-@attr(country='south_africa')
 class PositionTest(TestCase):
     def setUp(self):
         self.person = models.Person(

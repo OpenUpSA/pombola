@@ -97,7 +97,8 @@ def convert_url_to_https(url):
 
 
 class Command(BaseCommand):
-
+    new_errors_count = 0
+    verbose = False
     help = 'Scrape questions and answers'
     option_list = BaseCommand.option_list + (
         make_option('--scrape-questions',
@@ -169,9 +170,6 @@ class Command(BaseCommand):
     )
 
     def handle(self, *args, **options):
-        self.new_errors_count = 0
-        self.verbose = False
-
         if options['verbosity'] > 1:
             self.verbose = True
 

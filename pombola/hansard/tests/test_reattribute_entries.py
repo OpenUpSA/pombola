@@ -3,6 +3,7 @@
 from datetime import date
 from mock import patch
 
+from django.utils.unittest import skip
 from pombola.core.models import Person
 from pombola.hansard.models import (
     Entry, Source, Sitting, Venue
@@ -14,6 +15,7 @@ from django.test import TestCase
 from pombola.core.tests.test_commands import no_stdout_or_stderr
 
 
+@skip("The South African site doesn't use this app")
 class ReattributeEntriesCommandTest(TestCase):
 
     def setUp(self):

@@ -17,7 +17,6 @@ from django.utils.unittest import skipUnless
 from .. import question_scraper
 from ..management.commands.za_hansard_q_and_a_scraper import Command as QAScraperCommand
 from ..models import Question, QuestionPaper
-from nose.plugins.attrib import attr
 
 
 def sample_file(filename):
@@ -25,7 +24,6 @@ def sample_file(filename):
     return os.path.join(tests_dir, 'test_inputs', 'questions', filename)
 
 
-@attr(country='south_africa')
 class ZAAnswerTests(TestCase):
 
     def test_answer_parsing(self):
@@ -127,7 +125,6 @@ class ZAIteratorBaseMixin(object):
                          self.penultimate_expected_number)
 
 
-@attr(country='south_africa')
 class ZAQuestionIteratorTests(ZAIteratorBaseMixin, TestCase):
 
     cache_dir_name = 'questions_cache'
@@ -150,7 +147,6 @@ class ZAQuestionIteratorTests(ZAIteratorBaseMixin, TestCase):
     penultimate_expected_number = 19
 
 
-@attr(country='south_africa')
 class ZAAnswerIteratorTests(ZAIteratorBaseMixin, TestCase):
 
     cache_dir_name = 'answers_cache'
@@ -176,7 +172,6 @@ class ZAAnswerIteratorTests(ZAIteratorBaseMixin, TestCase):
     penultimate_expected_number = 6
 
 
-@attr(country='south_africa')
 class ZAQuestionParsing(TestCase):
     test_data = (
         ('559662_1', 'http://www.parliament.gov.za/live/commonrepository/Processed/20140113/559662_1.pdf',

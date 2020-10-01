@@ -9,7 +9,6 @@ from django.test import TestCase
 
 from pombola.za_hansard.models import Answer, Question, QuestionParsingError
 from pombola.south_africa.models import ParliamentaryTerm
-from nose.plugins.attrib import attr
 
 EXAMPLE_QUESTION = {
     'question': 'Why did the chicken cross the road?',
@@ -39,7 +38,6 @@ EXAMPLE_QUESTION = {
 }
 
 
-@attr(country='south_africa')
 class PMGAPITests(TestCase):
 
     @patch('pombola.za_hansard.management.commands.za_hansard_q_and_a_scraper.all_from_api')
