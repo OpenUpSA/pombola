@@ -1,0 +1,1952 @@
+[
+    {
+        "fields": {
+            "updated": "2013-07-22T14:20:13.658",
+            "identifier": "/house/national-assembly",
+            "created": "2013-07-22T14:20:13.658",
+            "object_id": 1,
+            "content_type": 35,
+            "scheme": "org.mysociety.za"
+        },
+        "model": "core.identifier",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "updated": "2013-07-22T14:20:13.686",
+            "identifier": "/house/ncop",
+            "created": "2013-07-22T14:20:13.686",
+            "object_id": 2,
+            "content_type": 35,
+            "scheme": "org.mysociety.za"
+        },
+        "model": "core.identifier",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "updated": "2013-07-22T14:20:21.522",
+            "name": "Email",
+            "slug": "email",
+            "created": "2013-07-22T14:20:21.522"
+        },
+        "model": "core.contactkind",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "updated": "2013-10-16T12:57:39.277",
+            "object_id": 542,
+            "created": "2013-10-16T12:57:39.277",
+            "kind": 1,
+            "value": "sabram@parliament.gov.za",
+            "note": "",
+            "source": "",
+            "preferred": false,
+            "content_type": 32
+        },
+        "model": "core.contact",
+        "pk": 12022
+    },
+    {
+        "fields": {
+            "updated": "2013-10-16T12:57:39.497",
+            "object_id": 543,
+            "created": "2013-10-16T12:57:39.497",
+            "kind": 1,
+            "value": "ladams@parliament.gov.za",
+            "note": "",
+            "source": "",
+            "preferred": false,
+            "content_type": 32
+        },
+        "model": "core.contact",
+        "pk": 12023
+    },
+    {
+        "fields": {
+            "updated": "2013-10-16T12:57:39.708",
+            "object_id": 544,
+            "created": "2013-10-16T12:57:39.708",
+            "kind": 1,
+            "value": "padams@parliament.gov.za",
+            "note": "",
+            "source": "",
+            "preferred": false,
+            "content_type": 32
+        },
+        "model": "core.contact",
+        "pk": 12024
+    },
+    {
+        "fields": {
+            "updated": "2013-10-16T12:57:39.826",
+            "object_id": 545,
+            "created": "2013-10-16T12:57:39.826",
+            "kind": 1,
+            "value": "aainslie@parliament.gov.za",
+            "note": "",
+            "source": "",
+            "preferred": false,
+            "content_type": 32
+        },
+        "model": "core.contact",
+        "pk": 12025
+    },
+    {
+        "fields": {
+            "updated": "2020-04-22T17:49:56.029",
+            "object_id": 546,
+            "created": "2013-10-16T12:57:39.980",
+            "kind": 1,
+            "value": "aalberts@parliament.gov.za",
+            "note": "",
+            "source": "https://www.pa.org.za/media_root/file_archive/FF_Constituency_Data_2019.xlsx",
+            "preferred": false,
+            "content_type": 32
+        },
+        "model": "core.contact",
+        "pk": 12026
+    },
+    {
+        "fields": {
+            "updated": "2013-10-16T12:57:40.172",
+            "object_id": 548,
+            "created": "2013-10-16T12:57:40.172",
+            "kind": 1,
+            "value": "zbalindlela@parliament.gov.za",
+            "note": "",
+            "source": "",
+            "preferred": false,
+            "content_type": 32
+        },
+        "model": "core.contact",
+        "pk": 12027
+    },
+    {
+        "fields": {
+            "updated": "2013-10-16T12:57:40.360",
+            "object_id": 550,
+            "created": "2013-10-16T12:57:40.360",
+            "kind": 1,
+            "value": "vbam-mugwanya@parliament.gov.za",
+            "note": "",
+            "source": "",
+            "preferred": false,
+            "content_type": 32
+        },
+        "model": "core.contact",
+        "pk": 12028
+    },
+    {
+        "fields": {
+            "updated": "2015-02-10T17:14:03.652",
+            "created": "2015-02-10T17:14:03.652",
+            "object_id": 757,
+            "note": "ANC Eastern Cape Constituency List 2014",
+            "source": "http://sourceafrica.net/documents/15394-anc-constituency-offices-eastern-cape-2014.html",
+            "content_type": 35,
+            "entered": true
+        },
+        "model": "core.informationsource",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "updated": "2015-02-10T17:14:05.335",
+            "created": "2015-02-10T17:14:05.335",
+            "object_id": 424,
+            "note": "ANC Eastern Cape Constituency List 2014",
+            "source": "http://sourceafrica.net/documents/15394-anc-constituency-offices-eastern-cape-2014.html",
+            "content_type": 35,
+            "entered": true
+        },
+        "model": "core.informationsource",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "updated": "2015-02-10T17:14:06.040",
+            "created": "2015-02-10T17:14:06.040",
+            "object_id": 69804,
+            "note": "ANC Eastern Cape Constituency List 2014",
+            "source": "http://sourceafrica.net/documents/15394-anc-constituency-offices-eastern-cape-2014.html",
+            "content_type": 39,
+            "entered": true
+        },
+        "model": "core.informationsource",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "updated": "2015-02-10T17:14:06.527",
+            "created": "2015-02-10T17:14:06.527",
+            "object_id": 425,
+            "note": "ANC Eastern Cape Constituency List 2014",
+            "source": "http://sourceafrica.net/documents/15394-anc-constituency-offices-eastern-cape-2014.html",
+            "content_type": 35,
+            "entered": true
+        },
+        "model": "core.informationsource",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "updated": "2015-02-10T17:14:06.982",
+            "created": "2015-02-10T17:14:06.982",
+            "object_id": 69805,
+            "note": "ANC Eastern Cape Constituency List 2014",
+            "source": "http://sourceafrica.net/documents/15394-anc-constituency-offices-eastern-cape-2014.html",
+            "content_type": 39,
+            "entered": true
+        },
+        "model": "core.informationsource",
+        "pk": 5
+    },
+    {
+        "fields": {
+            "updated": "2015-02-10T17:14:07.524",
+            "created": "2015-02-10T17:14:07.524",
+            "object_id": 426,
+            "note": "ANC Eastern Cape Constituency List 2014",
+            "source": "http://sourceafrica.net/documents/15394-anc-constituency-offices-eastern-cape-2014.html",
+            "content_type": 35,
+            "entered": true
+        },
+        "model": "core.informationsource",
+        "pk": 6
+    },
+    {
+        "fields": {
+            "updated": "2015-02-10T17:14:07.963",
+            "created": "2015-02-10T17:14:07.962",
+            "object_id": 69806,
+            "note": "ANC Eastern Cape Constituency List 2014",
+            "source": "http://sourceafrica.net/documents/15394-anc-constituency-offices-eastern-cape-2014.html",
+            "content_type": 39,
+            "entered": true
+        },
+        "model": "core.informationsource",
+        "pk": 7
+    },
+    {
+        "fields": {
+            "updated": "2015-02-10T17:14:08.224",
+            "created": "2015-02-10T17:14:08.224",
+            "object_id": 69807,
+            "note": "ANC Eastern Cape Constituency List 2014",
+            "source": "http://sourceafrica.net/documents/15394-anc-constituency-offices-eastern-cape-2014.html",
+            "content_type": 39,
+            "entered": true
+        },
+        "model": "core.informationsource",
+        "pk": 8
+    },
+    {
+        "fields": {
+            "updated": "2015-02-10T17:14:08.791",
+            "created": "2015-02-10T17:14:08.791",
+            "object_id": 432,
+            "note": "ANC Eastern Cape Constituency List 2014",
+            "source": "http://sourceafrica.net/documents/15394-anc-constituency-offices-eastern-cape-2014.html",
+            "content_type": 35,
+            "entered": true
+        },
+        "model": "core.informationsource",
+        "pk": 9
+    },
+    {
+        "fields": {
+            "updated": "2015-02-10T17:14:09.330",
+            "created": "2015-02-10T17:14:09.330",
+            "object_id": 69808,
+            "note": "ANC Eastern Cape Constituency List 2014",
+            "source": "http://sourceafrica.net/documents/15394-anc-constituency-offices-eastern-cape-2014.html",
+            "content_type": 39,
+            "entered": true
+        },
+        "model": "core.informationsource",
+        "pk": 10
+    },
+    {
+        "fields": {
+            "updated": "2015-02-10T17:14:09.792",
+            "created": "2015-02-10T17:14:09.792",
+            "object_id": 433,
+            "note": "ANC Eastern Cape Constituency List 2014",
+            "source": "http://sourceafrica.net/documents/15394-anc-constituency-offices-eastern-cape-2014.html",
+            "content_type": 35,
+            "entered": true
+        },
+        "model": "core.informationsource",
+        "pk": 11
+    },
+    {
+        "fields": {
+            "updated": "2015-02-10T17:14:10.207",
+            "created": "2015-02-10T17:14:10.207",
+            "object_id": 69809,
+            "note": "ANC Eastern Cape Constituency List 2014",
+            "source": "http://sourceafrica.net/documents/15394-anc-constituency-offices-eastern-cape-2014.html",
+            "content_type": 39,
+            "entered": true
+        },
+        "model": "core.informationsource",
+        "pk": 12
+    },
+    {
+        "fields": {
+            "updated": "2015-02-10T17:14:10.683",
+            "created": "2015-02-10T17:14:10.683",
+            "object_id": 443,
+            "note": "ANC Eastern Cape Constituency List 2014",
+            "source": "http://sourceafrica.net/documents/15394-anc-constituency-offices-eastern-cape-2014.html",
+            "content_type": 35,
+            "entered": true
+        },
+        "model": "core.informationsource",
+        "pk": 13
+    },
+    {
+        "fields": {
+            "honorific_suffix": "",
+            "national_identity": "",
+            "sort_name": "Gordhan",
+            "biography": "Mr Gordhan entered South African politics during the height of the struggle against Apartheid. He led and organised the Student Movement and Civic Structures from the 1970\u2019s to 1980\u2019s. Before becoming the Minister of Finance, Mr Gordhan was involved in the CODESA multi-party dialogue, participated in drafting the White Paper for Local Government and was appointed as the Chairperson of the Parliamentary Constitutional Committee in Parliament where he had the responsibility of overseeing the implementation of the 1996 Constitution. Additionally, he served as the Deputy Commissioner of the South African Revenue Service (SARS) from 1998 to 1999 and was appointed as the Commissioner of SARS in 1999. He completed a DTech degree in Business Administration at the Free State Central University of Technology in 2009 and received an Honorary Doctorate of Commerce from UNISA and an Honorary Doctorate of Law from UCT in 2007 respectively. Source: (gov.za)",
+            "title": "Mr",
+            "additional_name": "",
+            "honorific_prefix": "Mr",
+            "date_of_birth": null,
+            "given_name": "Pravin",
+            "hidden": false,
+            "email": "",
+            "updated": "2019-08-06T10:46:34.754",
+            "family_name": "Gordhan",
+            "_summary_rendered": "<p>Mr Gordhan is currently the Minister of Public Enterprises. He has also previously served as the Minister of Finance, Cooperative Governance and Traditional Affairs and Public Enterprises. Mr Gordhan entered South African politics during the height of the struggle against Apartheid. He led and organised the Student Movement and Civic Structures from the 1970\u2019s to 1980\u2019s. Mr Gordhan was involved in the CODESA multi-party dialogue, participated in drafting the White Paper for Local Government and was appointed as the Chairperson of the Parliamentary Constitutional Committee in Parliament where he had the responsibility of overseeing the implementation of the 1996 Constitution. Additionally, he served as the Deputy Commissioner of the South African Revenue Service (SARS) from 1998 to 1999 and was appointed as the Commissioner of SARS in 1999. He completed a DTech degree in Business Administration at the Free State Central University of Technology in 2009 and received an Honorary Doctorate of Commerce from UNISA and an Honorary Doctorate of Law from UCT in 2007 respectively. (gov.za)</p>",
+            "date_of_death": null,
+            "slug": "pravin-gordhan",
+            "legal_name": "Pravin Jamnadas Gordhan",
+            "created": "2013-08-01T01:21:29.635",
+            "gender": "male",
+            "summary": "Mr Gordhan is currently the Minister of Public Enterprises. He has also previously served as the Minister of Finance, Cooperative Governance and Traditional Affairs and Public Enterprises. Mr Gordhan entered South African politics during the height of the struggle against Apartheid. He led and organised the Student Movement and Civic Structures from the 1970\u2019s to 1980\u2019s. Mr Gordhan was involved in the CODESA multi-party dialogue, participated in drafting the White Paper for Local Government and was appointed as the Chairperson of the Parliamentary Constitutional Committee in Parliament where he had the responsibility of overseeing the implementation of the 1996 Constitution. Additionally, he served as the Deputy Commissioner of the South African Revenue Service (SARS) from 1998 to 1999 and was appointed as the Commissioner of SARS in 1999. He completed a DTech degree in Business Administration at the Free State Central University of Technology in 2009 and received an Honorary Doctorate of Commerce from UNISA and an Honorary Doctorate of Law from UCT in 2007 respectively. (gov.za)",
+            "_biography_rendered": "<p>Mr Gordhan entered South African politics during the height of the struggle against Apartheid. He led and organised the Student Movement and Civic Structures from the 1970\u2019s to 1980\u2019s. Before becoming the Minister of Finance, Mr Gordhan was involved in the CODESA multi-party dialogue, participated in drafting the White Paper for Local Government and was appointed as the Chairperson of the Parliamentary Constitutional Committee in Parliament where he had the responsibility of overseeing the implementation of the 1996 Constitution. Additionally, he served as the Deputy Commissioner of the South African Revenue Service (SARS) from 1998 to 1999 and was appointed as the Commissioner of SARS in 1999. He completed a DTech degree in Business Administration at the Free State Central University of Technology in 2009 and received an Honorary Doctorate of Commerce from UNISA and an Honorary Doctorate of Law from UCT in 2007 respectively. Source: (gov.za)</p>",
+            "can_be_featured": false
+        },
+        "model": "core.person",
+        "pk": 539
+    },
+    {
+        "fields": {
+            "honorific_suffix": "",
+            "national_identity": "",
+            "sort_name": "Patel",
+            "biography": "Mr Patel has an extensive amount of experience and accomplishments. He has been heavily involved in labour-government issues as he was the Chief Negotiator on the Labour Relations Act of 1995 and the acting (as of 2014) President of the South African Labour Research Institute. He is also involved in higher education, working with multiply universities. He has been Chief Negotiator for the National Bargaining Council for the Clothing Industry (2002) and the National Textile Bargaining Council (2003). He served as the Minister of Economic Development from 2009 \u2013 2014. (Source: anc.org.za) ",
+            "title": "Mr",
+            "additional_name": "",
+            "honorific_prefix": "",
+            "date_of_birth": null,
+            "given_name": "Ebrahim",
+            "hidden": false,
+            "email": "",
+            "updated": "2019-06-03T11:11:27.249",
+            "family_name": "Patel",
+            "_summary_rendered": "<p>Mr Patel is currently serving as the Minister of Trade and Industry. He is the former Minister of Economic Development. He studied at the University of the Western Cape and University of Cape Town. He has been heavily involved in labour-government issues as he was the Chief Negotiator on the Labour Relations Act of 1995 and acting President of the South African Labour Research Institute (as of 2014). He was Chief Negotiator for the National Bargaining Council for the Clothing Industry (2002) and the National Textile Bargaining Council (2003). He has served as Minister of Economic Development since 2009. (Source: anc.org.za)</p>",
+            "date_of_death": null,
+            "slug": "ebrahim-patel",
+            "legal_name": "Ebrahim Patel",
+            "created": "2013-08-01T01:21:29.713",
+            "gender": "male",
+            "summary": "Mr Patel is currently serving as the Minister of Trade and Industry. He is the former Minister of Economic Development. He studied at the University of the Western Cape and University of Cape Town. He has been heavily involved in labour-government issues as he was the Chief Negotiator on the Labour Relations Act of 1995 and acting President of the South African Labour Research Institute (as of 2014). He was Chief Negotiator for the National Bargaining Council for the Clothing Industry (2002) and the National Textile Bargaining Council (2003). He has served as Minister of Economic Development since 2009. (Source: anc.org.za)",
+            "_biography_rendered": "<p>Mr Patel has an extensive amount of experience and accomplishments. He has been heavily involved in labour-government issues as he was the Chief Negotiator on the Labour Relations Act of 1995 and the acting (as of 2014) President of the South African Labour Research Institute. He is also involved in higher education, working with multiply universities. He has been Chief Negotiator for the National Bargaining Council for the Clothing Industry (2002) and the National Textile Bargaining Council (2003). He served as the Minister of Economic Development from 2009 \u2013 2014. (Source: anc.org.za) </p>",
+            "can_be_featured": false
+        },
+        "model": "core.person",
+        "pk": 540
+    },
+    {
+        "fields": {
+            "honorific_suffix": "",
+            "national_identity": "",
+            "sort_name": "Ramokgopa",
+            "biography": "",
+            "title": "Dr",
+            "additional_name": "",
+            "honorific_prefix": "Dr",
+            "date_of_birth": null,
+            "given_name": "Gwen Malegwale",
+            "hidden": false,
+            "email": "",
+            "updated": "2018-10-29T10:26:59.336",
+            "family_name": "Ramokgopa",
+            "_summary_rendered": "",
+            "date_of_death": null,
+            "slug": "gwen-malegwale-ramokgopa",
+            "legal_name": "Gwen Malegwale Ramokgopa",
+            "created": "2013-08-01T01:21:29.782",
+            "gender": "female",
+            "summary": "",
+            "_biography_rendered": "",
+            "can_be_featured": false
+        },
+        "model": "core.person",
+        "pk": 541
+    },
+    {
+        "fields": {
+            "honorific_suffix": "",
+            "national_identity": "",
+            "sort_name": "Abram",
+            "biography": "Mr. Salamuddi Abrahams has been an MP since 1984 and, in the past, has appeared on the PC Agriculture and Land Affairs and the Joint Standing Committee on Intelligence. He is currently a member of the PC Agriculture, Forestry and Fisheries and the Standing Committee on Appropriations. He is also a member of the ANC Sinqobile branch. Some of his political career highlights include membership on the City Council of Greater Benoni, President\u2019s Council, the SA Indian Council and he has served as the House of Delegates Chairperson. Mr. Abrahams believes that involvement of communities at all levels of governance will help deepen democracy. Source: ANC (www.anc.org.za) ",
+            "title": "Mr",
+            "additional_name": "",
+            "honorific_prefix": "Mr",
+            "date_of_birth": null,
+            "given_name": "Salamuddi (Salam)",
+            "hidden": false,
+            "email": "",
+            "updated": "2015-01-30T13:00:33.262",
+            "family_name": "Abram",
+            "_summary_rendered": "<p>Mr Salamuddi Abrahams began his career as an MP in 1984 and has sat on the Portfolio Committees for agriculture, land affairs, appropriation and the Joint Standing Committee on Intelligence. He has been part of the ANC's Sinqobile branch. Some of his political career highlights include membership on the City Council of Greater Benoni, President\u2019s Council, the SA Indian Council and he has served as the House of Delegates Chairperson. Mr. Abrahams believes that involvement of communities at all levels of governance will help deepen democracy. Source: ANC (www.anc.org.za) </p>\n<p>Salamuddi Salam Abram's plenary attendance record for Feb-Apr <a href=\"/file_archive/Salamuddi-Salam-Abram-Attendance-2013\" title=\"Salamuddi Salam Abram Attendance\">2013</a> and <a href=\"/file_archive/Salamuddi-Salam-Abram-Attendance-2012\" title=\"Salamuddi Salam Abram Attendance\">2012</a>.</p>",
+            "date_of_death": null,
+            "slug": "salamuddi-salam-abram",
+            "legal_name": "Salamuddi (Salam) Abram",
+            "created": "2013-08-01T01:21:29.851",
+            "gender": "male",
+            "summary": "Mr Salamuddi Abrahams began his career as an MP in 1984 and has sat on the Portfolio Committees for agriculture, land affairs, appropriation and the Joint Standing Committee on Intelligence. He has been part of the ANC's Sinqobile branch. Some of his political career highlights include membership on the City Council of Greater Benoni, President\u2019s Council, the SA Indian Council and he has served as the House of Delegates Chairperson. Mr. Abrahams believes that involvement of communities at all levels of governance will help deepen democracy. Source: ANC (www.anc.org.za) \r\n\r\nSalamuddi Salam Abram's plenary attendance record for Feb-Apr [2013](/file_archive/Salamuddi-Salam-Abram-Attendance-2013 \"Salamuddi Salam Abram Attendance\") and [2012](/file_archive/Salamuddi-Salam-Abram-Attendance-2012 \"Salamuddi Salam Abram Attendance\").",
+            "_biography_rendered": "<p>Mr. Salamuddi Abrahams has been an MP since 1984 and, in the past, has appeared on the PC Agriculture and Land Affairs and the Joint Standing Committee on Intelligence. He is currently a member of the PC Agriculture, Forestry and Fisheries and the Standing Committee on Appropriations. He is also a member of the ANC Sinqobile branch. Some of his political career highlights include membership on the City Council of Greater Benoni, President\u2019s Council, the SA Indian Council and he has served as the House of Delegates Chairperson. Mr. Abrahams believes that involvement of communities at all levels of governance will help deepen democracy. Source: ANC (www.anc.org.za) </p>",
+            "can_be_featured": false
+        },
+        "model": "core.person",
+        "pk": 542
+    },
+    {
+        "fields": {
+            "honorific_suffix": "",
+            "national_identity": "",
+            "sort_name": "Adams",
+            "biography": "",
+            "title": "Mrs",
+            "additional_name": "",
+            "honorific_prefix": "Mrs",
+            "date_of_birth": null,
+            "given_name": "Luzelle Henrietta",
+            "hidden": false,
+            "email": "",
+            "updated": "2014-05-15T12:03:11.177",
+            "family_name": "Adams",
+            "_summary_rendered": "",
+            "date_of_death": null,
+            "slug": "luzelle-henrietta-adams",
+            "legal_name": "Luzelle Henrietta Adams",
+            "created": "2013-08-01T01:21:35.928",
+            "gender": "",
+            "summary": "",
+            "_biography_rendered": "",
+            "can_be_featured": false
+        },
+        "model": "core.person",
+        "pk": 543
+    },
+    {
+        "fields": {
+            "honorific_suffix": "",
+            "national_identity": "",
+            "sort_name": "Adams",
+            "biography": "",
+            "title": "Ms",
+            "additional_name": "",
+            "honorific_prefix": "Ms",
+            "date_of_birth": null,
+            "given_name": "Patricia Emily",
+            "hidden": false,
+            "email": "",
+            "updated": "2019-05-09T11:49:28.896",
+            "family_name": "Adams",
+            "_summary_rendered": "",
+            "date_of_death": null,
+            "slug": "patricia-emily-adams",
+            "legal_name": "Patricia Emily Adams",
+            "created": "2013-08-01T01:21:41.569",
+            "gender": "female",
+            "summary": "",
+            "_biography_rendered": "",
+            "can_be_featured": false
+        },
+        "model": "core.person",
+        "pk": 544
+    },
+    {
+        "fields": {
+            "honorific_suffix": "",
+            "national_identity": "",
+            "sort_name": "Ainslie",
+            "biography": "Mr. Arthur Roy Ainslie has been an MP since 1999. He holds a BA from UCT, and Economic and Public Finance Certificate from Unisa and a B. Com honours degree from UWC. He was a member of KwaZulu-Natal MPL from 1994 to 1999 and has appeared on the PC Environmental Affairs and Tourism Committee, the PC Public Works and the PC Science and Technology. Mr. Ainslie is currently the ANC Greater Kwadukuza Regional Treasurer, Umhlanga Community Development Trust Chairperson, ANC Kwadukuza region KZN ex-officio and the Joint editor of Journal Natal. He is interested in development, poverty elimination and job creation and would like to see more people participating in government programmes. Source: ANC (www.anc.org.za) ",
+            "title": "Mr",
+            "additional_name": "",
+            "honorific_prefix": "Mr",
+            "date_of_birth": null,
+            "given_name": "Arthur Roy",
+            "hidden": false,
+            "email": "",
+            "updated": "2014-05-15T12:03:11.285",
+            "family_name": "Ainslie",
+            "_summary_rendered": "<p>Mr. Arthur Roy Ainslie has been an MP since 1999. He holds a BA from UCT, and Economic and Public Finance Certificate from Unisa and a B. Com honours degree from UWC. He was a member of KwaZulu-Natal MPL from 1994 to 1999 and has appeared on the PC Environmental Affairs and Tourism Committee, the PC Public Works and the PC Science and Technology. Mr. Ainslie is currently the ANC Greater Kwadukuza Regional Treasurer, Umhlanga Community Development Trust Chairperson, ANC Kwadukuza region KZN ex-officio and the Joint editor of Journal Natal. He is interested in development, poverty elimination and job creation and would like to see more people participating in government programmes. Source: ANC (www.anc.org.za)</p>\n<p>Arthur Roy Ainslie's plenary attendance record for Feb-Apr <a href=\"/file_archive/Arthur-Roy-Ainslie-Attendance-2013\" title=\"Arthur Roy Ainslie Attendance\">2013</a> and <a href=\"/file_archives/Arthur-Roy-Ainslie-Attendance-2012\" title=\"Arthur Roy Ainslie Attendance\">2012</a>.</p>",
+            "date_of_death": null,
+            "slug": "arthur-roy-ainslie",
+            "legal_name": "Arthur Roy Ainslie",
+            "created": "2013-08-01T01:21:41.678",
+            "gender": "male",
+            "summary": "Mr. Arthur Roy Ainslie has been an MP since 1999. He holds a BA from UCT, and Economic and Public Finance Certificate from Unisa and a B. Com honours degree from UWC. He was a member of KwaZulu-Natal MPL from 1994 to 1999 and has appeared on the PC Environmental Affairs and Tourism Committee, the PC Public Works and the PC Science and Technology. Mr. Ainslie is currently the ANC Greater Kwadukuza Regional Treasurer, Umhlanga Community Development Trust Chairperson, ANC Kwadukuza region KZN ex-officio and the Joint editor of Journal Natal. He is interested in development, poverty elimination and job creation and would like to see more people participating in government programmes. Source: ANC (www.anc.org.za)\r\n\r\nArthur Roy Ainslie's plenary attendance record for Feb-Apr [2013](/file_archive/Arthur-Roy-Ainslie-Attendance-2013 \"Arthur Roy Ainslie Attendance\") and [2012](/file_archives/Arthur-Roy-Ainslie-Attendance-2012 \"Arthur Roy Ainslie Attendance\").",
+            "_biography_rendered": "<p>Mr. Arthur Roy Ainslie has been an MP since 1999. He holds a BA from UCT, and Economic and Public Finance Certificate from Unisa and a B. Com honours degree from UWC. He was a member of KwaZulu-Natal MPL from 1994 to 1999 and has appeared on the PC Environmental Affairs and Tourism Committee, the PC Public Works and the PC Science and Technology. Mr. Ainslie is currently the ANC Greater Kwadukuza Regional Treasurer, Umhlanga Community Development Trust Chairperson, ANC Kwadukuza region KZN ex-officio and the Joint editor of Journal Natal. He is interested in development, poverty elimination and job creation and would like to see more people participating in government programmes. Source: ANC (www.anc.org.za) </p>",
+            "can_be_featured": false
+        },
+        "model": "core.person",
+        "pk": 545
+    },
+    {
+        "fields": {
+            "honorific_suffix": "",
+            "national_identity": "",
+            "sort_name": "Alberts",
+            "biography": "Adv. Anton De Waal Alberts was born in 1970 and completed his high schooling at Ho\u00ebrskool Roodeport.  He completed an LLB Degree at the University of Johannesburg (UJ). In 1994 he also completed a Human Rights Litigation Diploma at the same institution. He was admitted as an advocate in 1996. He also read for a Masters in International Law at UJ in 1998, completed an Executive Business Certificate at the University of Manchester and obtained a Technical Film and Television Directing Certificate from Monash University. He lectured Law at the former Technikon SA (now part of UNISA) and was as a part-time lecturer at the University of Johannesburg, Wits University and Rhodes University respectively. Adv. Alberts is the chairperson of the FF+ Information and Marketing Committee. He has been in Parliament since 2009.",
+            "title": "Adv",
+            "additional_name": "",
+            "honorific_prefix": "",
+            "date_of_birth": null,
+            "given_name": "Anton De Waal",
+            "hidden": false,
+            "email": "",
+            "updated": "2019-05-29T11:57:24.731",
+            "family_name": "Alberts",
+            "_summary_rendered": "<p>Adv. Anton De Waal Alberts was born in 1970 and completed his high schooling at Ho\u00ebrskool Roodeport.  He completed an LLB Degree at the University of Johannesburg (UJ). In 1994 he also completed a Human Rights Litigation Diploma at the same institution. He was admitted as an advocate in 1996. He also read for a Master's in International Law at UJ in 1998, completed an Executive Business Certificate at the University of Manchester and obtained a Technical Film and Television Directing Certificate from Monash University. He lectured Law at the former Technikon SA (now part of UNISA) and was as a part-time lecturer at the University of Johannesburg, Wits University and Rhodes University respectively. Adv. Alberts is the chairperson of the FF+ Information and Marketing Committee. He has been in Parliament since 2009.</p>\n<p>To learn more about this Member, read his <a href=\"http://www.pa.org.za/blog/adv-anton-alberts-ff\" title=\"post\">blog post</a>.</p>",
+            "date_of_death": null,
+            "slug": "anton-de-waal-alberts",
+            "legal_name": "Anton De Waal Alberts",
+            "created": "2013-08-01T01:21:48.483",
+            "gender": "male",
+            "summary": "Adv. Anton De Waal Alberts was born in 1970 and completed his high schooling at Ho\u00ebrskool Roodeport.  He completed an LLB Degree at the University of Johannesburg (UJ). In 1994 he also completed a Human Rights Litigation Diploma at the same institution. He was admitted as an advocate in 1996. He also read for a Master's in International Law at UJ in 1998, completed an Executive Business Certificate at the University of Manchester and obtained a Technical Film and Television Directing Certificate from Monash University. He lectured Law at the former Technikon SA (now part of UNISA) and was as a part-time lecturer at the University of Johannesburg, Wits University and Rhodes University respectively. Adv. Alberts is the chairperson of the FF+ Information and Marketing Committee. He has been in Parliament since 2009.\r\n\r\nTo learn more about this Member, read his [blog post](http://www.pa.org.za/blog/adv-anton-alberts-ff \"post\").\r\n",
+            "_biography_rendered": "<p>Adv. Anton De Waal Alberts was born in 1970 and completed his high schooling at Ho\u00ebrskool Roodeport.  He completed an LLB Degree at the University of Johannesburg (UJ). In 1994 he also completed a Human Rights Litigation Diploma at the same institution. He was admitted as an advocate in 1996. He also read for a Masters in International Law at UJ in 1998, completed an Executive Business Certificate at the University of Manchester and obtained a Technical Film and Television Directing Certificate from Monash University. He lectured Law at the former Technikon SA (now part of UNISA) and was as a part-time lecturer at the University of Johannesburg, Wits University and Rhodes University respectively. Adv. Alberts is the chairperson of the FF+ Information and Marketing Committee. He has been in Parliament since 2009.</p>",
+            "can_be_featured": false
+        },
+        "model": "core.person",
+        "pk": 546
+    },
+    {
+        "fields": {
+            "honorific_suffix": "",
+            "national_identity": "",
+            "sort_name": "Balfour",
+            "biography": "",
+            "title": "Mr",
+            "additional_name": "",
+            "honorific_prefix": "Mr",
+            "date_of_birth": null,
+            "given_name": "B M",
+            "hidden": false,
+            "email": "",
+            "updated": "2014-05-15T12:03:11.404",
+            "family_name": "Balfour",
+            "_summary_rendered": "",
+            "date_of_death": null,
+            "slug": "b-m-balfour",
+            "legal_name": "B M Balfour",
+            "created": "2013-08-01T01:21:48.597",
+            "gender": "",
+            "summary": "",
+            "_biography_rendered": "",
+            "can_be_featured": false
+        },
+        "model": "core.person",
+        "pk": 547
+    },
+    {
+        "fields": {
+            "name_to_use": false,
+            "family_name": "",
+            "updated": "2013-10-16T12:57:43.125",
+            "alternative_name": "Ms S G Pampiri",
+            "end_date": null,
+            "created": "2013-10-16T12:57:43.121",
+            "additional_name": "",
+            "honorific_suffix": "",
+            "honorific_prefix": "",
+            "note": "",
+            "person": 539,
+            "given_name": "",
+            "start_date": null
+        },
+        "model": "core.alternativepersonname",
+        "pk": 478
+    },
+    {
+        "fields": {
+            "name_to_use": false,
+            "family_name": "",
+            "updated": "2013-10-16T12:57:46.627",
+            "alternative_name": "Blaai",
+            "end_date": null,
+            "created": "2013-10-16T12:57:46.623",
+            "additional_name": "",
+            "honorific_suffix": "",
+            "honorific_prefix": "",
+            "note": "",
+            "person": 540,
+            "given_name": "",
+            "start_date": null
+        },
+        "model": "core.alternativepersonname",
+        "pk": 479
+    },
+    {
+        "fields": {
+            "name_to_use": false,
+            "family_name": "",
+            "updated": "2013-10-16T12:57:47.301",
+            "alternative_name": "Dlakudla",
+            "end_date": null,
+            "created": "2013-10-16T12:57:47.299",
+            "additional_name": "",
+            "honorific_suffix": "",
+            "honorific_prefix": "",
+            "note": "",
+            "person": 541,
+            "given_name": "",
+            "start_date": null
+        },
+        "model": "core.alternativepersonname",
+        "pk": 480
+    },
+    {
+        "fields": {
+            "name_to_use": false,
+            "family_name": "",
+            "updated": "2013-10-16T12:57:56.125",
+            "alternative_name": "Kekane",
+            "end_date": null,
+            "created": "2013-10-16T12:57:56.122",
+            "additional_name": "",
+            "honorific_suffix": "",
+            "honorific_prefix": "",
+            "note": "",
+            "person": 542,
+            "given_name": "",
+            "start_date": null
+        },
+        "model": "core.alternativepersonname",
+        "pk": 481
+    },
+    {
+        "fields": {
+            "name_to_use": false,
+            "family_name": "",
+            "updated": "2013-10-16T12:57:57.734",
+            "alternative_name": "Kohler-Banard",
+            "end_date": null,
+            "created": "2013-10-16T12:57:57.731",
+            "additional_name": "",
+            "honorific_suffix": "",
+            "honorific_prefix": "",
+            "note": "",
+            "person": 543,
+            "given_name": "",
+            "start_date": null
+        },
+        "model": "core.alternativepersonname",
+        "pk": 482
+    },
+    {
+        "fields": {
+            "name_to_use": false,
+            "family_name": "",
+            "updated": "2013-10-16T12:57:59.973",
+            "alternative_name": "Line-Hendriks",
+            "end_date": null,
+            "created": "2013-10-16T12:57:59.969",
+            "additional_name": "",
+            "honorific_suffix": "",
+            "honorific_prefix": "",
+            "note": "",
+            "person": 544,
+            "given_name": "",
+            "start_date": null
+        },
+        "model": "core.alternativepersonname",
+        "pk": 483
+    },
+    {
+        "fields": {
+            "name_to_use": false,
+            "family_name": "",
+            "updated": "2013-10-16T12:58:01.727",
+            "alternative_name": "Mackenzie",
+            "end_date": null,
+            "created": "2013-10-16T12:58:01.724",
+            "additional_name": "",
+            "honorific_suffix": "",
+            "honorific_prefix": "",
+            "note": "",
+            "person": 545,
+            "given_name": "",
+            "start_date": null
+        },
+        "model": "core.alternativepersonname",
+        "pk": 484
+    },
+    {
+        "fields": {
+            "name_to_use": false,
+            "family_name": "",
+            "updated": "2013-10-16T12:58:02.453",
+            "alternative_name": "Petersen-Maduna",
+            "end_date": null,
+            "created": "2013-10-16T12:58:02.451",
+            "additional_name": "",
+            "honorific_suffix": "",
+            "honorific_prefix": "",
+            "note": "",
+            "person": 546,
+            "given_name": "",
+            "start_date": null
+        },
+        "model": "core.alternativepersonname",
+        "pk": 485
+    },
+    {
+        "fields": {
+            "name_to_use": false,
+            "family_name": "",
+            "updated": "2013-10-16T12:58:09.703",
+            "alternative_name": "Pakiso David Poho Mlohele",
+            "end_date": null,
+            "created": "2013-10-16T12:58:09.700",
+            "additional_name": "",
+            "honorific_suffix": "",
+            "honorific_prefix": "",
+            "note": "",
+            "person": 547,
+            "given_name": "",
+            "start_date": null
+        },
+        "model": "core.alternativepersonname",
+        "pk": 486
+    },
+    {
+        "fields": {
+            "updated": "2013-08-01T01:21:27.556",
+            "name": "Parliament",
+            "created": "2013-08-01T01:21:27.556",
+            "_summary_rendered": "",
+            "summary": "",
+            "slug": "parliament"
+        },
+        "model": "core.organisationkind",
+        "pk": 8
+    },
+    {
+        "fields": {
+            "updated": "2013-08-01T01:21:27.654",
+            "name": "Executive",
+            "created": "2013-08-01T01:21:27.654",
+            "_summary_rendered": "",
+            "summary": "",
+            "slug": "executive"
+        },
+        "model": "core.organisationkind",
+        "pk": 9
+    },
+    {
+        "fields": {
+            "updated": "2013-08-01T01:21:27.682",
+            "name": "Party",
+            "created": "2013-08-01T01:21:27.682",
+            "_summary_rendered": "",
+            "summary": "",
+            "slug": "party"
+        },
+        "model": "core.organisationkind",
+        "pk": 10
+    },
+    {
+        "fields": {
+            "updated": "2019-03-19T16:07:28.174",
+            "name": "National Assembly",
+            "short_name": "National Assembly",
+            "created": "2013-08-01T01:21:27.594",
+            "started": null,
+            "kind": 8,
+            "_summary_rendered": "<p>The National Assembly is elected to represent the people and to ensure government by the people under the Constitution. It does this by:</p>\n<ul>\n<li>choosing the President, </li>\n<li>providing a national forum for public consideration of issues, </li>\n<li>passing legislation and </li>\n<li>scrutinizing and overseeing executive action. <a href=\"/info/national-assembly\" title=\"The National Assembly\">More</a></li>\n</ul>",
+            "summary": "The National Assembly is elected to represent the people and to ensure government by the people under the Constitution. It does this by:\r\n\r\n- choosing the President, \r\n- providing a national forum for public consideration of issues, \r\n- passing legislation and \r\n- scrutinizing and overseeing executive action. [More](/info/national-assembly \"The National Assembly\")",
+            "ended": null,
+            "show_attendance": false,
+            "seats": 400,
+            "slug": "national-assembly"
+        },
+        "model": "core.organisation",
+        "pk": 70
+    },
+    {
+        "fields": {
+            "updated": "2019-03-19T15:58:10.546",
+            "name": "National Council of Provinces",
+            "short_name": "National Council of Provinces",
+            "created": "2013-08-01T01:21:27.629",
+            "started": null,
+            "kind": 8,
+            "_summary_rendered": "<p>The National Council of Provinces (NCOP) ensures that the nine provinces and local government have a direct voice in Parliament when laws are made. The National Council of Provinces represents the provinces to ensure that provincial interests are taken into account in the national sphere of government. It does this mainly by:</p>\n<ul>\n<li>participating in the national legislative process and </li>\n<li>providing a national forum for public consideration of issues affecting the provinces. </li>\n</ul>\n<p><a href=\"/info/national-council-provinces\" title=\"NCOP\">More...</a></p>",
+            "summary": "The National Council of Provinces (NCOP) ensures that the nine provinces and local government have a direct voice in Parliament when laws are made. The National Council of Provinces represents the provinces to ensure that provincial interests are taken into account in the national sphere of government. It does this mainly by:\r\n\r\n- participating in the national legislative process and \r\n- providing a national forum for public consideration of issues affecting the provinces. \r\n\r\n\r\n[More...](/info/national-council-provinces \"NCOP\")",
+            "ended": null,
+            "show_attendance": false,
+            "seats": 90,
+            "slug": "ncop"
+        },
+        "model": "core.organisation",
+        "pk": 71
+    },
+    {
+        "fields": {
+            "updated": "2018-08-24T11:44:29.989",
+            "name": "National Executive",
+            "short_name": "National Executive",
+            "created": "2013-08-01T01:21:27.658",
+            "started": null,
+            "kind": 9,
+            "_summary_rendered": "",
+            "summary": "",
+            "ended": null,
+            "show_attendance": false,
+            "seats": null,
+            "slug": "national-executive"
+        },
+        "model": "core.organisation",
+        "pk": 72
+    },
+    {
+        "fields": {
+            "updated": "2018-08-24T11:44:29.829",
+            "name": "Independent Democrats (ID)",
+            "short_name": "Independent Democrats (ID)",
+            "created": "2013-08-01T01:21:27.686",
+            "started": null,
+            "kind": 10,
+            "_summary_rendered": "",
+            "summary": "",
+            "ended": null,
+            "show_attendance": false,
+            "seats": null,
+            "slug": "id"
+        },
+        "model": "core.organisation",
+        "pk": 73
+    },
+    {
+        "fields": {
+            "updated": "2018-08-24T11:44:30.563",
+            "name": "United Democratic Movement (UDM)",
+            "short_name": "United Democratic Movement (UDM)",
+            "created": "2013-08-01T01:21:27.714",
+            "started": null,
+            "kind": 10,
+            "_summary_rendered": "",
+            "summary": "",
+            "ended": null,
+            "show_attendance": false,
+            "seats": null,
+            "slug": "udm"
+        },
+        "model": "core.organisation",
+        "pk": 74
+    },
+    {
+        "fields": {
+            "updated": "2018-08-24T11:44:29.083",
+            "name": "Congress of the People (COPE)",
+            "short_name": "Congress of the People (COPE)",
+            "created": "2013-08-01T01:21:27.741",
+            "started": null,
+            "kind": 10,
+            "_summary_rendered": "",
+            "summary": "",
+            "ended": null,
+            "show_attendance": false,
+            "seats": null,
+            "slug": "cope"
+        },
+        "model": "core.organisation",
+        "pk": 75
+    },
+    {
+        "fields": {
+            "updated": "2018-08-24T11:44:28.227",
+            "name": "African People's Convention (APC)",
+            "short_name": "African People's Convention (APC)",
+            "created": "2013-08-01T01:21:27.770",
+            "started": null,
+            "kind": 10,
+            "_summary_rendered": "",
+            "summary": "",
+            "ended": null,
+            "show_attendance": false,
+            "seats": null,
+            "slug": "apc"
+        },
+        "model": "core.organisation",
+        "pk": 76
+    },
+    {
+        "fields": {
+            "updated": "2019-07-18T16:05:57.429",
+            "name": "African National Congress (ANC)",
+            "short_name": "African National Congress (ANC)",
+            "created": "2013-08-01T01:21:27.798",
+            "started": null,
+            "kind": 10,
+            "_summary_rendered": "",
+            "summary": "",
+            "ended": null,
+            "show_attendance": true,
+            "seats": null,
+            "slug": "anc"
+        },
+        "model": "core.organisation",
+        "pk": 77
+    },
+    {
+        "fields": {
+            "updated": "2019-07-18T16:05:57.868",
+            "name": "Democratic Alliance (DA)",
+            "short_name": "Democratic Alliance (DA)",
+            "created": "2013-08-01T01:21:27.825",
+            "started": null,
+            "kind": 10,
+            "_summary_rendered": "",
+            "summary": "",
+            "ended": null,
+            "show_attendance": true,
+            "seats": null,
+            "slug": "da"
+        },
+        "model": "core.organisation",
+        "pk": 78
+    },
+    {
+        "fields": {
+            "updated": "2018-08-24T11:44:30.052",
+            "name": "Pan Africanist Congress of Azania (PAC)",
+            "short_name": "Pan Africanist Congress of Azania (PAC)",
+            "created": "2013-08-01T01:21:27.854",
+            "started": null,
+            "kind": 10,
+            "_summary_rendered": "",
+            "summary": "",
+            "ended": null,
+            "show_attendance": false,
+            "seats": null,
+            "slug": "pac"
+        },
+        "model": "core.organisation",
+        "pk": 79
+    },
+    {
+        "fields": {
+            "updated": "2018-08-24T11:44:28.981",
+            "name": "Azanian People's Organisation (AZAPO)",
+            "short_name": "Azanian People's Organisation (AZAPO)",
+            "created": "2013-08-01T01:21:27.882",
+            "started": null,
+            "kind": 10,
+            "_summary_rendered": "",
+            "summary": "",
+            "ended": null,
+            "show_attendance": false,
+            "seats": null,
+            "slug": "azapo"
+        },
+        "model": "core.organisation",
+        "pk": 80
+    },
+    {
+        "fields": {
+            "updated": "2020-04-07T17:34:00.057",
+            "name": "African Christian Democratic Party (ACDP)",
+            "short_name": "African Christian Democratic Party (ACDP)",
+            "created": "2013-08-01T01:21:27.910",
+            "started": null,
+            "kind": 10,
+            "_summary_rendered": "",
+            "summary": "",
+            "ended": null,
+            "show_attendance": false,
+            "seats": null,
+            "slug": "acdp"
+        },
+        "model": "core.organisation",
+        "pk": 81
+    },
+    {
+        "fields": {
+            "updated": "2018-08-24T11:44:29.836",
+            "name": "Inkatha Freedom Party (IFP)",
+            "short_name": "Inkatha Freedom Party (IFP)",
+            "created": "2013-08-01T01:21:27.938",
+            "started": null,
+            "kind": 10,
+            "_summary_rendered": "",
+            "summary": "",
+            "ended": null,
+            "show_attendance": false,
+            "seats": null,
+            "slug": "ifp"
+        },
+        "model": "core.organisation",
+        "pk": 82
+    },
+    {
+        "fields": {
+            "updated": "2018-08-24T11:44:29.783",
+            "name": "Freedom Front + (Vryheidsfront Plus, FF+)",
+            "short_name": "Freedom Front + (Vryheidsfront Plus, FF+)",
+            "created": "2013-08-01T01:21:27.970",
+            "started": null,
+            "kind": 10,
+            "_summary_rendered": "",
+            "summary": "",
+            "ended": null,
+            "show_attendance": false,
+            "seats": null,
+            "slug": "ff"
+        },
+        "model": "core.organisation",
+        "pk": 83
+    },
+    {
+        "fields": {
+            "updated": "2018-08-24T11:44:30.536",
+            "name": "United Christian Democratic Party (UCDP)",
+            "short_name": "United Christian Democratic Party (UCDP)",
+            "created": "2013-08-01T01:21:27.998",
+            "started": null,
+            "kind": 10,
+            "_summary_rendered": "",
+            "summary": "",
+            "ended": null,
+            "show_attendance": false,
+            "seats": null,
+            "slug": "ucdp"
+        },
+        "model": "core.organisation",
+        "pk": 84
+    },
+    {
+        "fields": {
+            "updated": "2018-08-24T11:44:29.959",
+            "name": "Minority Front (MF)",
+            "short_name": "Minority Front (MF)",
+            "created": "2013-08-01T01:21:28.030",
+            "started": null,
+            "kind": 10,
+            "_summary_rendered": "",
+            "summary": "",
+            "ended": null,
+            "show_attendance": false,
+            "seats": null,
+            "slug": "mf"
+        },
+        "model": "core.organisation",
+        "pk": 85
+    },
+    {
+        "fields": {
+            "updated": "2014-02-07T10:36:38.433",
+            "plural_name": "Province",
+            "name": "Province",
+            "created": "2013-07-22T14:20:21.987",
+            "_summary_rendered": "<h4>Provincial Legislatures</h4>\n<p>Each province has a legislature, the size of which varies depending on the population levels in the province. According to the Constitution the minimum size of a Legislature is 30 members and the maximum size is 80 members. Members are elected from provincial lists on the basis of the number of votes received by a political party. <a href=\"/info/provincial-legislatures\" title=\"Provincial Legislatures\">More...</a></p>",
+            "summary": "#### Provincial Legislatures \r\n\r\nEach province has a legislature, the size of which varies depending on the population levels in the province. According to the Constitution the minimum size of a Legislature is 30 members and the maximum size is 80 members. Members are elected from provincial lists on the basis of the number of votes received by a political party. [More...](/info/provincial-legislatures \"Provincial Legislatures\")",
+            "slug": "province"
+        },
+        "model": "core.placekind",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "updated": "2013-12-02T12:27:29.467",
+            "plural_name": "",
+            "name": "District Municipality",
+            "created": "2013-12-02T12:27:29.467",
+            "_summary_rendered": "",
+            "summary": "",
+            "slug": "district-municipality"
+        },
+        "model": "core.placekind",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "parent_place": null,
+            "kind": 1,
+            "name": "Free State",
+            "created": "2013-07-22T14:20:22.056",
+            "organisation": null,
+            "shape_url": "",
+            "updated": "2019-04-01T10:27:06.818",
+            "_summary_rendered": "",
+            "summary": "",
+            "location": null,
+            "parliamentary_session": null,
+            "slug": "free-state",
+            "mapit_area": null
+        },
+        "model": "core.place",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "parent_place": null,
+            "kind": 1,
+            "name": "KwaZulu-Natal",
+            "created": "2013-07-22T14:20:28.681",
+            "organisation": null,
+            "shape_url": "",
+            "updated": "2019-04-01T10:27:33.274",
+            "_summary_rendered": "",
+            "summary": "",
+            "location": null,
+            "parliamentary_session": null,
+            "slug": "kwazulu-natal",
+            "mapit_area": null
+        },
+        "model": "core.place",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "parent_place": null,
+            "kind": 1,
+            "name": "Gauteng",
+            "created": "2013-07-22T14:20:28.821",
+            "organisation": null,
+            "shape_url": "",
+            "updated": "2019-04-01T10:27:21.143",
+            "_summary_rendered": "",
+            "summary": "",
+            "location": null,
+            "parliamentary_session": null,
+            "slug": "gauteng",
+            "mapit_area": null
+        },
+        "model": "core.place",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "parent_place": null,
+            "kind": 1,
+            "name": "Eastern Cape",
+            "created": "2013-07-22T14:22:30.828",
+            "organisation": null,
+            "shape_url": "",
+            "updated": "2019-04-01T10:26:20.375",
+            "_summary_rendered": "",
+            "summary": "",
+            "location": null,
+            "parliamentary_session": null,
+            "slug": "eastern-cape",
+            "mapit_area": null
+        },
+        "model": "core.place",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "parent_place": null,
+            "kind": 1,
+            "name": "Limpopo",
+            "created": "2013-07-22T14:23:32.243",
+            "organisation": null,
+            "shape_url": "",
+            "updated": "2019-04-01T10:27:46.882",
+            "_summary_rendered": "",
+            "summary": "",
+            "location": null,
+            "parliamentary_session": null,
+            "slug": "limpopo",
+            "mapit_area": null
+        },
+        "model": "core.place",
+        "pk": 5
+    },
+    {
+        "fields": {
+            "parent_place": null,
+            "kind": 1,
+            "name": "Mpumalanga",
+            "created": "2013-07-22T14:23:35.338",
+            "organisation": null,
+            "shape_url": "",
+            "updated": "2019-04-01T10:28:01.663",
+            "_summary_rendered": "",
+            "summary": "",
+            "location": null,
+            "parliamentary_session": null,
+            "slug": "mpumalanga",
+            "mapit_area": null
+        },
+        "model": "core.place",
+        "pk": 6
+    },
+    {
+        "fields": {
+            "parent_place": null,
+            "kind": 1,
+            "name": "North West",
+            "created": "2013-07-22T14:23:41.787",
+            "organisation": null,
+            "shape_url": "",
+            "updated": "2019-04-01T10:28:43.105",
+            "_summary_rendered": "",
+            "summary": "",
+            "location": null,
+            "parliamentary_session": null,
+            "slug": "north-west",
+            "mapit_area": null
+        },
+        "model": "core.place",
+        "pk": 7
+    },
+    {
+        "fields": {
+            "parent_place": null,
+            "kind": 1,
+            "name": "Western Cape",
+            "created": "2013-07-22T14:24:24.648",
+            "organisation": null,
+            "shape_url": "",
+            "updated": "2019-04-01T10:28:55.131",
+            "_summary_rendered": "",
+            "summary": "",
+            "location": null,
+            "parliamentary_session": null,
+            "slug": "western-cape",
+            "mapit_area": null
+        },
+        "model": "core.place",
+        "pk": 8
+    },
+    {
+        "fields": {
+            "parent_place": null,
+            "kind": 1,
+            "name": "Northern Cape",
+            "created": "2013-07-22T14:26:57.182",
+            "organisation": null,
+            "shape_url": "",
+            "updated": "2019-04-01T10:28:30.640",
+            "_summary_rendered": "",
+            "summary": "",
+            "location": null,
+            "parliamentary_session": null,
+            "slug": "northern-cape",
+            "mapit_area": null
+        },
+        "model": "core.place",
+        "pk": 9
+    },
+    {
+        "fields": {
+            "parent_place": 4,
+            "kind": 4,
+            "name": "Alfred Nzo",
+            "created": "2013-12-02T12:27:29.759",
+            "organisation": null,
+            "shape_url": "",
+            "updated": "2013-12-02T13:08:33.528",
+            "_summary_rendered": "",
+            "summary": "",
+            "location": null,
+            "parliamentary_session": null,
+            "slug": "alfred-nzo",
+            "mapit_area": null
+        },
+        "model": "core.place",
+        "pk": 983
+    },
+    {
+        "fields": {
+            "parent_place": 2,
+            "kind": 4,
+            "name": "Amajuba",
+            "created": "2013-12-02T12:27:32.110",
+            "organisation": null,
+            "shape_url": "",
+            "updated": "2013-12-02T13:08:34.838",
+            "_summary_rendered": "",
+            "summary": "",
+            "location": null,
+            "parliamentary_session": null,
+            "slug": "amajuba",
+            "mapit_area": null
+        },
+        "model": "core.place",
+        "pk": 984
+    },
+    {
+        "fields": {
+            "parent_place": 4,
+            "kind": 4,
+            "name": "Amathole",
+            "created": "2013-12-02T12:27:32.336",
+            "organisation": null,
+            "shape_url": "",
+            "updated": "2013-12-02T13:08:36.231",
+            "_summary_rendered": "",
+            "summary": "",
+            "location": null,
+            "parliamentary_session": null,
+            "slug": "amathole",
+            "mapit_area": null
+        },
+        "model": "core.place",
+        "pk": 985
+    },
+    {
+        "fields": {
+            "parent_place": 7,
+            "kind": 4,
+            "name": "Bojanala",
+            "created": "2013-12-02T12:27:32.592",
+            "organisation": null,
+            "shape_url": "",
+            "updated": "2013-12-02T13:08:36.826",
+            "_summary_rendered": "",
+            "summary": "",
+            "location": null,
+            "parliamentary_session": null,
+            "slug": "bojanala",
+            "mapit_area": null
+        },
+        "model": "core.place",
+        "pk": 986
+    },
+    {
+        "fields": {
+            "parent_place": 4,
+            "kind": 4,
+            "name": "Buffalo City",
+            "created": "2013-12-02T12:27:33.822",
+            "organisation": null,
+            "shape_url": "",
+            "updated": "2013-12-02T13:08:37.882",
+            "_summary_rendered": "",
+            "summary": "",
+            "location": null,
+            "parliamentary_session": null,
+            "slug": "buffalo-city",
+            "mapit_area": null
+        },
+        "model": "core.place",
+        "pk": 987
+    },
+    {
+        "fields": {
+            "parent_place": 4,
+            "kind": 4,
+            "name": "Cacadu",
+            "created": "2013-12-02T12:27:34.311",
+            "organisation": null,
+            "shape_url": "",
+            "updated": "2013-12-02T13:08:41.453",
+            "_summary_rendered": "",
+            "summary": "",
+            "location": null,
+            "parliamentary_session": null,
+            "slug": "cacadu",
+            "mapit_area": null
+        },
+        "model": "core.place",
+        "pk": 988
+    },
+    {
+        "fields": {
+            "parent_place": 8,
+            "kind": 4,
+            "name": "Cape Winelands",
+            "created": "2013-12-02T12:27:34.477",
+            "organisation": null,
+            "shape_url": "",
+            "updated": "2013-12-02T13:08:43.486",
+            "_summary_rendered": "",
+            "summary": "",
+            "location": null,
+            "parliamentary_session": null,
+            "slug": "cape-winelands",
+            "mapit_area": null
+        },
+        "model": "core.place",
+        "pk": 989
+    },
+    {
+        "fields": {
+            "parent_place": 5,
+            "kind": 4,
+            "name": "Capricorn",
+            "created": "2013-12-02T12:27:35.130",
+            "organisation": null,
+            "shape_url": "",
+            "updated": "2013-12-02T13:08:43.851",
+            "_summary_rendered": "",
+            "summary": "",
+            "location": null,
+            "parliamentary_session": null,
+            "slug": "capricorn",
+            "mapit_area": null
+        },
+        "model": "core.place",
+        "pk": 990
+    },
+    {
+        "fields": {
+            "parent_place": 8,
+            "kind": 4,
+            "name": "Central Karoo",
+            "created": "2013-12-02T12:27:35.247",
+            "organisation": null,
+            "shape_url": "",
+            "updated": "2013-12-02T13:08:46.371",
+            "_summary_rendered": "",
+            "summary": "",
+            "location": null,
+            "parliamentary_session": null,
+            "slug": "central-karoo",
+            "mapit_area": null
+        },
+        "model": "core.place",
+        "pk": 991
+    },
+    {
+        "fields": {
+            "parent_place": 4,
+            "kind": 4,
+            "name": "Chris Hani",
+            "created": "2013-12-02T12:27:35.389",
+            "organisation": null,
+            "shape_url": "",
+            "updated": "2013-12-02T13:08:47.765",
+            "_summary_rendered": "",
+            "summary": "",
+            "location": null,
+            "parliamentary_session": null,
+            "slug": "chris-hani",
+            "mapit_area": null
+        },
+        "model": "core.place",
+        "pk": 992
+    },
+    {
+        "fields": {
+            "updated": "2013-08-01T01:21:29.691",
+            "name": "Minister of Finance",
+            "created": "2013-08-01T01:21:29.691",
+            "_summary_rendered": "",
+            "summary": "",
+            "responsibilities": "",
+            "requires_place": false,
+            "slug": "minister-of-finance",
+            "_responsibilities_rendered": ""
+        },
+        "model": "core.positiontitle",
+        "pk": 158
+    },
+    {
+        "fields": {
+            "updated": "2013-08-01T01:21:29.763",
+            "name": "Minister of Economic Development",
+            "created": "2013-08-01T01:21:29.763",
+            "_summary_rendered": "",
+            "summary": "",
+            "responsibilities": "",
+            "requires_place": false,
+            "slug": "minister-of-economic-development",
+            "_responsibilities_rendered": ""
+        },
+        "model": "core.positiontitle",
+        "pk": 159
+    },
+    {
+        "fields": {
+            "updated": "2013-08-01T01:21:29.831",
+            "name": "Deputy Minister of Health",
+            "created": "2013-08-01T01:21:29.831",
+            "_summary_rendered": "",
+            "summary": "",
+            "responsibilities": "",
+            "requires_place": false,
+            "slug": "deputy-minister-of-health",
+            "_responsibilities_rendered": ""
+        },
+        "model": "core.positiontitle",
+        "pk": 160
+    },
+    {
+        "fields": {
+            "updated": "2013-08-01T01:21:35.869",
+            "name": "Member",
+            "created": "2013-08-01T01:21:35.869",
+            "_summary_rendered": "",
+            "summary": "",
+            "responsibilities": "",
+            "requires_place": false,
+            "slug": "member",
+            "_responsibilities_rendered": ""
+        },
+        "model": "core.positiontitle",
+        "pk": 161
+    },
+    {
+        "fields": {
+            "category": "political",
+            "updated": "2019-08-06T10:46:34.812",
+            "subtitle": "",
+            "end_date": "2017-03-30",
+            "title": 158,
+            "sorting_start_date_high": "2015-12-13",
+            "organisation": 72,
+            "created": "2013-10-16T12:57:39.158",
+            "sorting_end_date": "2017-03-30",
+            "note": "",
+            "person": 539,
+            "place": null,
+            "sorting_end_date_high": "2017-03-30",
+            "sorting_start_date": "2015-12-13",
+            "start_date": "2015-12-13"
+        },
+        "model": "core.position",
+        "pk": 42982
+    },
+    {
+        "fields": {
+            "category": "political",
+            "updated": "2019-06-03T11:11:27.476",
+            "subtitle": "",
+            "end_date": "2014-04-24",
+            "title": 159,
+            "sorting_start_date_high": "0000-99-99",
+            "organisation": 72,
+            "created": "2013-10-16T12:57:39.194",
+            "sorting_end_date": "2014-04-24",
+            "note": "",
+            "person": 540,
+            "place": null,
+            "sorting_end_date_high": "2014-04-24",
+            "sorting_start_date": "0000-00-00",
+            "start_date": null
+        },
+        "model": "core.position",
+        "pk": 42983
+    },
+    {
+        "fields": {
+            "category": "political",
+            "updated": "2018-10-29T10:27:03.203",
+            "subtitle": "",
+            "end_date": "2014-04-24",
+            "title": 160,
+            "sorting_start_date_high": "2010-10-31",
+            "organisation": 72,
+            "created": "2013-10-16T12:57:39.230",
+            "sorting_end_date": "2014-04-24",
+            "note": "",
+            "person": 541,
+            "place": null,
+            "sorting_end_date_high": "2014-04-24",
+            "sorting_start_date": "2010-10-31",
+            "start_date": "2010-10-31"
+        },
+        "model": "core.position",
+        "pk": 42984
+    },
+    {
+        "fields": {
+            "category": "political",
+            "updated": "2019-05-09T11:53:04.927",
+            "subtitle": "",
+            "end_date": "future",
+            "title": 161,
+            "sorting_start_date_high": "0000-99-99",
+            "organisation": 77,
+            "created": "2013-10-16T12:57:39.346",
+            "sorting_end_date": "future",
+            "note": "",
+            "person": 542,
+            "place": null,
+            "sorting_end_date_high": "future",
+            "sorting_start_date": "0000-00-00",
+            "start_date": null
+        },
+        "model": "core.position",
+        "pk": 42985
+    },
+    {
+        "fields": {
+            "category": "political",
+            "updated": "2019-03-19T16:07:30.657",
+            "subtitle": "",
+            "end_date": "2014-05-06",
+            "title": 161,
+            "sorting_start_date_high": "2009-05-06",
+            "organisation": 70,
+            "created": "2013-10-16T12:57:39.382",
+            "sorting_end_date": "2014-05-06",
+            "note": "",
+            "person": 542,
+            "place": 1,
+            "sorting_end_date_high": "2014-05-06",
+            "sorting_start_date": "2009-05-06",
+            "start_date": "2009-05-06"
+        },
+        "model": "core.position",
+        "pk": 42986
+    },
+    {
+        "fields": {
+            "category": "political",
+            "updated": "2015-01-30T13:00:33.303",
+            "subtitle": "",
+            "end_date": "2014-05-06",
+            "title": 161,
+            "sorting_start_date_high": "0000-99-99",
+            "organisation": 85,
+            "created": "2013-10-16T12:57:39.397",
+            "sorting_end_date": "2014-05-06",
+            "note": "",
+            "person": 542,
+            "place": null,
+            "sorting_end_date_high": "2014-05-06",
+            "sorting_start_date": "0000-00-00",
+            "start_date": null
+        },
+        "model": "core.position",
+        "pk": 42987
+    },
+    {
+        "fields": {
+            "category": "political",
+            "updated": "2019-02-11T15:54:52.394",
+            "subtitle": "",
+            "end_date": "2014-05-06",
+            "title": 161,
+            "sorting_start_date_high": "0000-99-99",
+            "organisation": 85,
+            "created": "2013-10-16T12:57:39.411",
+            "sorting_end_date": "2014-05-06",
+            "note": "",
+            "person": 542,
+            "place": null,
+            "sorting_end_date_high": "2014-05-06",
+            "sorting_start_date": "0000-00-00",
+            "start_date": null
+        },
+        "model": "core.position",
+        "pk": 42988
+    },
+    {
+        "fields": {
+            "category": "political",
+            "updated": "2015-01-30T13:00:33.304",
+            "subtitle": "",
+            "end_date": "2014-05-06",
+            "title": 161,
+            "sorting_start_date_high": "0000-99-99",
+            "organisation": 75,
+            "created": "2013-10-16T12:57:39.425",
+            "sorting_end_date": "2014-05-06",
+            "note": "",
+            "person": 542,
+            "place": null,
+            "sorting_end_date_high": "2014-05-06",
+            "sorting_start_date": "0000-00-00",
+            "start_date": null
+        },
+        "model": "core.position",
+        "pk": 42989
+    },
+    {
+        "fields": {
+            "category": "political",
+            "updated": "2015-01-30T13:00:33.299",
+            "subtitle": "",
+            "end_date": "2014-05-06",
+            "title": 161,
+            "sorting_start_date_high": "0000-99-99",
+            "organisation": 72,
+            "created": "2013-10-16T12:57:39.439",
+            "sorting_end_date": "2014-05-06",
+            "note": "",
+            "person": 542,
+            "place": null,
+            "sorting_end_date_high": "2014-05-06",
+            "sorting_start_date": "0000-00-00",
+            "start_date": null
+        },
+        "model": "core.position",
+        "pk": 42990
+    },
+    {
+        "fields": {
+            "category": "political",
+            "updated": "2015-01-30T13:00:33.306",
+            "subtitle": "",
+            "end_date": "2014-05-06",
+            "title": 161,
+            "sorting_start_date_high": "0000-99-99",
+            "organisation": 85,
+            "created": "2013-10-16T12:57:39.454",
+            "sorting_end_date": "2014-05-06",
+            "note": "",
+            "person": 542,
+            "place": null,
+            "sorting_end_date_high": "2014-05-06",
+            "sorting_start_date": "0000-00-00",
+            "start_date": null
+        },
+        "model": "core.position",
+        "pk": 42991
+    },
+    {
+        "fields": {
+            "updated": "2017-06-30T18:43:15.690",
+            "name": "26th Parliament (National Assembly)",
+            "end_date": "2019-05-21",
+            "created": "2017-06-30T18:43:15.690",
+            "house": 70,
+            "mapit_generation": 1,
+            "slug": "na26",
+            "position_title": 161,
+            "start_date": "2014-05-21"
+        },
+        "model": "core.parliamentarysession",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "updated": "2017-06-30T18:43:15.932",
+            "name": "25th Parliament (National Assembly)",
+            "end_date": "2014-05-06",
+            "created": "2017-06-30T18:43:15.932",
+            "house": 70,
+            "mapit_generation": 1,
+            "slug": "na25",
+            "position_title": 161,
+            "start_date": "2009-05-06"
+        },
+        "model": "core.parliamentarysession",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "updated": "2017-06-30T18:43:15.935",
+            "name": "26th Parliament (National Council of Provinces)",
+            "end_date": "2019-05-21",
+            "created": "2017-06-30T18:43:15.934",
+            "house": 71,
+            "mapit_generation": 1,
+            "slug": "ncop26",
+            "position_title": 161,
+            "start_date": "2014-05-21"
+        },
+        "model": "core.parliamentarysession",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "updated": "2017-06-30T18:43:15.936",
+            "name": "25th Parliament (National Council of Provinces)",
+            "end_date": "2014-05-06",
+            "created": "2017-06-30T18:43:15.936",
+            "house": 71,
+            "mapit_generation": 1,
+            "slug": "ncop25",
+            "position_title": 161,
+            "start_date": "2009-05-06"
+        },
+        "model": "core.parliamentarysession",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "updated": "2019-06-06T14:15:34.224",
+            "name": "27th Parliament (National Assembly)",
+            "end_date": "2024-05-22",
+            "created": "2019-06-06T14:15:34.224",
+            "house": 70,
+            "mapit_generation": 1,
+            "slug": "na27",
+            "position_title": 161,
+            "start_date": "2019-05-22"
+        },
+        "model": "core.parliamentarysession",
+        "pk": 5
+    },
+    {
+        "fields": {
+            "updated": "2013-08-02T19:17:41.609",
+            "name": "has_office",
+            "created": "2013-08-02T19:17:41.609"
+        },
+        "model": "core.organisationrelationshipkind",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "organisation_a": 78,
+            "updated": "2014-03-12T20:24:12.204",
+            "organisation_b": 81,
+            "kind": 1,
+            "created": "2014-03-12T20:24:12.204"
+        },
+        "model": "core.organisationrelationship",
+        "pk": 3353
+    },
+    {
+        "fields": {
+            "organisation_a": 78,
+            "updated": "2014-03-12T20:24:12.558",
+            "organisation_b": 80,
+            "kind": 1,
+            "created": "2014-03-12T20:24:12.558"
+        },
+        "model": "core.organisationrelationship",
+        "pk": 3354
+    },
+    {
+        "fields": {
+            "organisation_a": 78,
+            "updated": "2014-03-12T20:24:12.858",
+            "organisation_b": 79,
+            "kind": 1,
+            "created": "2014-03-12T20:24:12.858"
+        },
+        "model": "core.organisationrelationship",
+        "pk": 3355
+    },
+    {
+        "fields": {
+            "organisation_a": 78,
+            "updated": "2014-03-12T20:24:13.184",
+            "organisation_b": 82,
+            "kind": 1,
+            "created": "2014-03-12T20:24:13.184"
+        },
+        "model": "core.organisationrelationship",
+        "pk": 3356
+    },
+    {
+        "fields": {
+            "organisation_a": 78,
+            "updated": "2014-03-12T20:24:13.472",
+            "organisation_b": 83,
+            "kind": 1,
+            "created": "2014-03-12T20:24:13.472"
+        },
+        "model": "core.organisationrelationship",
+        "pk": 3357
+    },
+    {
+        "fields": {
+            "organisation_a": 78,
+            "updated": "2014-03-12T20:24:13.759",
+            "organisation_b": 82,
+            "kind": 1,
+            "created": "2014-03-12T20:24:13.759"
+        },
+        "model": "core.organisationrelationship",
+        "pk": 3358
+    },
+    {
+        "fields": {
+            "organisation_a": 78,
+            "updated": "2014-03-12T20:24:14.026",
+            "organisation_b": 79,
+            "kind": 1,
+            "created": "2014-03-12T20:24:14.026"
+        },
+        "model": "core.organisationrelationship",
+        "pk": 3359
+    },
+    {
+        "fields": {
+            "organisation_a": 78,
+            "updated": "2014-03-12T20:24:14.426",
+            "organisation_b": 74,
+            "kind": 1,
+            "created": "2014-03-12T20:24:14.426"
+        },
+        "model": "core.organisationrelationship",
+        "pk": 3360
+    },
+    {
+        "fields": {
+            "organisation_a": 78,
+            "updated": "2014-03-12T20:24:14.859",
+            "organisation_b": 80,
+            "kind": 1,
+            "created": "2014-03-12T20:24:14.859"
+        },
+        "model": "core.organisationrelationship",
+        "pk": 3361
+    },
+    {
+        "fields": {
+            "organisation_a": 78,
+            "updated": "2014-03-12T20:24:15.135",
+            "organisation_b": 85,
+            "kind": 1,
+            "created": "2014-03-12T20:24:15.135"
+        },
+        "model": "core.organisationrelationship",
+        "pk": 3362
+    },
+    {
+        "fields": {
+            "organisation_a": 78,
+            "updated": "2014-03-12T20:24:15.435",
+            "organisation_b": 85,
+            "kind": 1,
+            "created": "2014-03-12T20:24:15.435"
+        },
+        "model": "core.organisationrelationship",
+        "pk": 3363
+    },
+    {
+        "fields": {
+            "organisation_a": 78,
+            "updated": "2014-03-12T20:24:15.710",
+            "organisation_b": 85,
+            "kind": 1,
+            "created": "2014-03-12T20:24:15.710"
+        },
+        "model": "core.organisationrelationship",
+        "pk": 3364
+    },
+    {
+        "fields": {
+            "organisation_a": 78,
+            "updated": "2014-03-12T20:24:16.010",
+            "organisation_b": 85,
+            "kind": 1,
+            "created": "2014-03-12T20:24:16.010"
+        },
+        "model": "core.organisationrelationship",
+        "pk": 3365
+    },
+    {
+        "fields": {
+            "organisation_a": 78,
+            "updated": "2014-03-12T20:24:16.277",
+            "organisation_b": 85,
+            "kind": 1,
+            "created": "2014-03-12T20:24:16.277"
+        },
+        "model": "core.organisationrelationship",
+        "pk": 3366
+    }
+]
