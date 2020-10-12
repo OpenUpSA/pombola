@@ -138,15 +138,7 @@
                   {% endif %}
                 {% endfor %}
 
-                <ul class="attendance__notes">
-                  <li>Attendance records reflect Committee not Plenary Attendance.</li>
-                  <li>Minister/Deputy Minister attendance is not compulsory.</li>
-                  <li>MP attendance is compulsory unless an apology is given.</li>
-                  <li>MPs are recorded as absent whether they have, or have not submitted apologies.</li>
-                  <li>Attendance records include non-member attendance.</li>
-                  <li>This is not the official committee attendance record of Parliament.</li>
-                  <li>Plenary Attendance is not made public by Parliament although it has been requested.</li>
-                </ul>
+                <p><a href="{% url 'info_page' slug='attendance-methodology' %}">Attendance Methodology</a></p>
               </div>
 
               {% if latest_meetings_attended %}
