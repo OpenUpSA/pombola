@@ -14,7 +14,7 @@ before_script:
 
 script:
   - coverage run -a --source=pombola,pombola_sayit,wordcloud,writeinpublic ./manage.py test --settings=pombola.settings.tests_south_africa
-  - wget --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 0 -qO- http://0.0.0.0:8000/position/member/parliament/?order=name&a=1 | grep "Ramokgopa"
+  - wget --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 0 -qO- http://localhost:8000/position/member/parliament/?order=name&a=1 | grep "Ramokgopa"
 
 after_script:
   # Log output in case issues occurred where this can help us debug quicly
