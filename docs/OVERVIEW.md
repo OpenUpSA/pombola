@@ -7,14 +7,8 @@ found in 'pombola'.
 Python dependencies are specified in the 'requirements.txt' file. Most are
 standard Python packages but some are repositories.
 
-Other dependencies are listed in 'conf/packages'. If you are on a Debian like
-system these are the packages you'll need to install.
-
-Configuration is done by editing the values in 'pombola/settings/base.py'.
-Values which change between installations (eg dev and production) are set in the
-file 'conf/general.yml' (use the 'conf/general.yml-example' to get started).
-There is also a sample Apache2 config in 'conf/httpd.conf-example' which might
-be helpful.
+Configuration is done by editing the values in 'pombola/settings/base.py' and
+additional settings modules that import it.
 
 When installing the system note that many additional files and directories will
 be created in the `data/` directory in the top level git repo checkout. These
