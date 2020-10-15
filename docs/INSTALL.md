@@ -29,6 +29,18 @@ The code is available via github: https://github.com/OpenUpSA/pombola
 git clone https://github.com/OpenUpSA/pombola.git
 ```
 
+Run migrations
+
+```
+docker-compose run --rm app python manage.py migrate
+```
+
+Add dev data for easy dev setup
+
+```
+docker-compose run --rm app python manage.py loaddata demodata.json
+```
+
 Start the app, DB and search index:
 
 ```
