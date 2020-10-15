@@ -9,6 +9,7 @@ services:
 before_script:
   - docker-compose run app bin/wait-for-deps.sh
   - docker-compose down --volumes
+  - sleep 10
   - docker-compose run --rm app python manage.py migrate
   - docker-compose run --rm app python manage.py loaddata demodata.json
   - docker-compose up -d
