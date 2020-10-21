@@ -12,5 +12,5 @@ TMP_PATH=/tmp/${TMP_FILENAME}
 
 trap "rm -f ${TMP_PATH}" EXIT
 
-tar -czf ${TMP_PATH} ${POMBOLA_DATADIR}
+tar --exclude=pmg_api_cache -czf ${TMP_PATH} ${POMBOLA_DATADIR}
 aws s3 cp ${TMP_PATH} s3://${BUCKET}/${TMP_FILENAME}
