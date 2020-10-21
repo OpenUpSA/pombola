@@ -121,7 +121,7 @@ class PMGAPITests(TestCase):
             else:
                 raise Exception("Unfaked URL '{0}'".format(url))
         fake_all_from_api.side_effect = api_one_question_and_answer
-        # Create an existing question with the right year and
+        # Create an existing question with the right date and
         # written_number; this test makes sure that a duplicate
         # question isn't created in that circumstance.
         Question.objects.create(
@@ -248,7 +248,7 @@ class PMGAPITests(TestCase):
             else:
                 raise Exception("Unfaked URL '{0}'".format(url))
         fake_all_from_api.side_effect = api_one_question_and_answer
-        # Create an existing question and answer with the right year
+        # Create an existing question and answer with the right date 
         # and written_number; this test makes sure neither a new
         # question nor a new answer is created in this case:
         existing_answer = Answer.objects.create(
@@ -333,7 +333,7 @@ class PMGAPITests(TestCase):
             else:
                 raise Exception("Unfaked URL '{0}'".format(url))
         fake_all_from_api.side_effect = api_one_question_and_answer
-        # Create an existing answer with the right year and
+        # Create an existing answer with the right date and
         # written_number, but no corresponding existing question.
         Answer.objects.create(
             text='For to arrive unto the other side',
