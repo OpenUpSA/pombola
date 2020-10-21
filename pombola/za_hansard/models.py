@@ -290,10 +290,10 @@ class Answer (models.Model):
 
     class Meta:
         unique_together = (
-            ('oral_number', 'house', 'year', 'term'),
-            ('written_number', 'house', 'year', 'term'),
-            ('president_number', 'house', 'year', 'term'),
-            ('dp_number', 'house', 'year', 'term'),
+            ('oral_number', 'house', 'date'),
+            ('written_number', 'house', 'date'),
+            ('president_number', 'house', 'date'),
+            ('dp_number', 'house', 'date'),
         )
 
 
@@ -458,10 +458,10 @@ class Question(models.Model):
 
     class Meta:
         unique_together = (
-            ('oral_number', 'house', 'year', 'term'),
-            ('written_number', 'house', 'year', 'term'),
-            ('president_number', 'house', 'year', 'term'),
-            ('dp_number', 'house', 'year', 'term'),
+            ('oral_number', 'house', 'date'),
+            ('written_number', 'house', 'date'),
+            ('president_number', 'house', 'date'),
+            ('dp_number', 'house', 'date'),
         )
 
 # CREATE TABLE completed_documents (`url` string);
