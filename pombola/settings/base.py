@@ -686,7 +686,7 @@ if os.environ.get("SENTRY_DSN"):
         dsn=os.environ.get("SENTRY_DSN"),
         integrations=[DjangoIntegration()],
 
-				before_send=before_send
+				before_send=before_send,
 
         # Associate users to errors
         send_default_pii=True
