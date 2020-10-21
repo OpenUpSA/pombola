@@ -254,7 +254,7 @@ class PMGAPITests(TestCase):
         existing_answer = Answer.objects.create(
             text='For to arrive unto the other side',
             written_number=12345,
-            date=date(2016, 9, 1),
+            date=date(2016, 9, 6),
             term=ParliamentaryTerm.objects.get(number=26),
             date_published=date(2016, 9, 6),
             year=2016,
@@ -265,7 +265,7 @@ class PMGAPITests(TestCase):
             question=u'Forsooth, why hath the chicken crossèd the road?',
             answer=existing_answer,
             written_number=12345,
-            date=date(2016, 1, 27),
+            date=date(2016, 9, 6),
             term=ParliamentaryTerm.objects.get(number=26),
             house='N',
             answer_type='W',
@@ -292,7 +292,7 @@ class PMGAPITests(TestCase):
         self.assertEqual(question.askedby, 'G Marx')
         self.assertEqual(question.identifier, 'NW9876543E')
         self.assertEqual(question.year, 2016)
-        self.assertEqual(question.date, date(2016, 1, 27))
+        self.assertEqual(question.date, date(2016, 9, 6))
         # These fields of question should be as it would
         # if this were a new import.:
         self.assertEqual(question.answer, answer)
@@ -314,7 +314,7 @@ class PMGAPITests(TestCase):
         # Now check that the answer still has some old values:
         self.assertEqual(answer.text, 'For to arrive unto the other side')
         self.assertEqual(answer.written_number, 12345)
-        self.assertEqual(answer.date, date(2016, 9, 1))
+        self.assertEqual(answer.date, date(2016, 9, 6))
         self.assertEqual(answer.pmg_api_url,
                          'http://api.pmg.org.za/example-question/5678/')
 
