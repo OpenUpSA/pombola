@@ -678,7 +678,7 @@ if os.environ.get("SENTRY_DSN"):
 		def before_send(event, hint):
 			"""Don't log sorl.thumbnail.base errors in Sentry."""
 			if 'log_record' in hint:
-				if hint['log_record'].name == 'sorl.thumbnail.base':
+				if hint['log_record'].message == 'missing file_ argument in get_thumbnail()':
 					return None
 			return event
 
