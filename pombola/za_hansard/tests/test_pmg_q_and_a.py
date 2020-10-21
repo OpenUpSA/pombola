@@ -338,7 +338,7 @@ class PMGAPITests(TestCase):
         Answer.objects.create(
             text='For to arrive unto the other side',
             written_number=12345,
-            date=date(2016, 9, 1),
+            date=date(2016, 9, 6),
             term=ParliamentaryTerm.objects.get(number=26),
             date_published=date(2016, 9, 6),
             year=2016,
@@ -383,7 +383,7 @@ class PMGAPITests(TestCase):
         # Now check that the answer still has some old values:
         self.assertEqual(answer.text, 'For to arrive unto the other side')
         self.assertEqual(answer.written_number, 12345)
-        self.assertEqual(answer.date, date(2016, 9, 1))
+        self.assertEqual(answer.date, date(2016, 9, 6))
         self.assertEqual(answer.pmg_api_url,
                          'http://api.pmg.org.za/example-question/5678/')
 
