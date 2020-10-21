@@ -174,10 +174,10 @@ class PMGAPITests(TestCase):
                          'http://example.org/chicken-joke.docx')
 
     @patch('pombola.za_hansard.management.commands.za_hansard_q_and_a_scraper.all_from_api')
-    def test_create_question_if_questions_have_different_terms(self, fake_all_from_api):
-        new_term_question = copy.deepcopy(EXAMPLE_QUESTION)
-        new_term_question['year'] = '2019'
-        new_term_question['date'] = '2019-06-03' # 27th term
+    def test_create_question_if_questions_have_different_dates(self, fake_all_from_api):
+        new_date_question = copy.deepcopy(EXAMPLE_QUESTION)
+        new_date_question['year'] = '2019'
+        new_date_question['date'] = '2019-01-03'
         def api_one_question_and_answer(url):
             if url == 'https://api.pmg.org.za/minister/':
                 yield {
@@ -187,7 +187,7 @@ class PMGAPITests(TestCase):
             elif url == 'https://api.pmg.org.za/member/':
                 return
             elif url == 'http://api.pmg.org.za/minister/2/questions/':
-                yield new_term_question
+                yield new_date_question
             else:
                 raise Exception("Unfaked URL '{0}'".format(url))
         fake_all_from_api.side_effect = api_one_question_and_answer
@@ -198,7 +198,7 @@ class PMGAPITests(TestCase):
         question = Question.objects.create(
             question=u'Forsooth, why hath the chicken crossèd the road?',
             written_number=12345,
-            date=date(2019, 1, 27), # 26th term
+            date=date(2019, 1, 27),
             term=ParliamentaryTerm.objects.get(number=26),
             house='N',
             answer_type='W',
@@ -210,7 +210,7 @@ class PMGAPITests(TestCase):
         )
         answer = Answer.objects.create(
             written_number=12345,
-            date=date(2019, 1, 27), # 26th term
+            date=date(2019, 1, 27),
             date_published=date(2019, 1, 27),
             term=ParliamentaryTerm.objects.get(number=26),
             house='N',
