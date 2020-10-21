@@ -672,22 +672,22 @@ DEBUG_TOOLBAR_CONFIG = {
 
 # Sentry
 if os.environ.get("SENTRY_DSN"):
-    import sentry_sdk
-    from sentry_sdk.integrations.django import DjangoIntegration
+  import sentry_sdk
+  from sentry_sdk.integrations.django import DjangoIntegration
 
-		def before_send(event, hint):
-			"""Don't log sorl.thumbnail.base errors in Sentry."""
-			if 'log_record' in hint:
-				if hint['log_record'].message == 'missing file_ argument in get_thumbnail()':
-					return None
-			return event
+	def before_send(event, hint):
+		"""Don't log sorl.thumbnail.base errors in Sentry."""
+		if 'log_record' in hint:
+			if hint['log_record'].message == 'missing file_ argument in get_thumbnail()':
+				return None
+		return event
 
-    sentry_sdk.init(
-        dsn=os.environ.get("SENTRY_DSN"),
-        integrations=[DjangoIntegration()],
+	sentry_sdk.init(
+			dsn=os.environ.get("SENTRY_DSN"),
+			integrations=[DjangoIntegration()],
 
-				before_send=before_send,
+			before_send=before_send,
 
-        # Associate users to errors
-        send_default_pii=True
-    )
+			# Associate users to errors
+			send_default_pii=True
+	)
