@@ -127,7 +127,7 @@ class PMGAPITests(TestCase):
         Question.objects.create(
             question=u'Forsooth, why hath the chicken crossèd the road?',
             written_number=12345,
-            date=date(2016, 1, 27),
+            date=date(2016, 9, 6),
             house='N',
             answer_type='W',
             term=ParliamentaryTerm.objects.get(number=26),
@@ -153,7 +153,7 @@ class PMGAPITests(TestCase):
         self.assertEqual(question.askedby, 'G Marx')
         self.assertEqual(question.identifier, 'NW9876543E')
         self.assertEqual(question.year, 2016)
-        self.assertEqual(question.date, date(2016, 1, 27))
+        self.assertEqual(question.date, date(2016, 9, 6))
         # These fields of question should be as it would
         # if this were a new import.:
         self.assertEqual(question.answer, answer)
