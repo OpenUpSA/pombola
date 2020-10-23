@@ -677,6 +677,7 @@ if os.environ.get("SENTRY_DSN"):
 
     sentry_sdk.init(
         dsn=os.environ.get("SENTRY_DSN"),
+        environment=os.environ.get("ENVIRONMENT"),
         integrations=[DjangoIntegration()],
 
         # Associate users to errors
