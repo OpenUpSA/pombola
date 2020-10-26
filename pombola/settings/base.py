@@ -679,6 +679,7 @@ if os.environ.get("SENTRY_DSN"):
         dsn=os.environ.get("SENTRY_DSN"),
         environment=os.environ.get("ENVIRONMENT"),
         integrations=[DjangoIntegration()],
+        traces_sample_rate=0.01,
 
         # Associate users to errors
         send_default_pii=True
