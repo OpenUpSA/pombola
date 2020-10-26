@@ -28,7 +28,8 @@ PIPELINE_JS.update(COUNTRY_JS)
 
 EXCLUDE_FROM_SEARCH = ('places', 'info_pages');
 
-PMG_API_CACHE_PATH = os.path.join(data_dir, 'pmg_api_cache')
+pmg_api_cache_dir = os.environ.get('PMG_API_CACHE_DIR', 'pmg_api_cache')
+PMG_API_CACHE_PATH = os.path.join(data_dir, pmg_api_cache_dir)
 
 try:
     os.makedirs(PMG_API_CACHE_PATH)

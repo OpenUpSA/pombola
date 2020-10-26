@@ -159,7 +159,8 @@ dokku config:set pombola \
     GOOGLE_RECAPTCHA_SITE_KEY=... \
     GOOGLE_RECAPTCHA_SECRET_KEY=... \
     DATA_DIR_BACKUP_AWS_SECRET_ACCESS_KEY=... \
-    DATA_DIR_BACKUP_AWS_ACCESS_KEY_ID=...
+    DATA_DIR_BACKUP_AWS_ACCESS_KEY_ID=... \
+    PMG_API_CACHE_DIR=pmg_api_cache
 
 dokku docker-options:add pombola deploy "-v /var/pombola-data:/data"
 dokku docker-options:add pombola run "-v /var/pombola-data:/data"
