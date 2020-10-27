@@ -59,8 +59,9 @@ class ZAHansardSourceAdmin(admin.ModelAdmin):
 @admin.register(models.QuestionParsingError)
 class QuestionParsingErrorAdmin(admin.ModelAdmin):
     search_fields = ('pmg_url', )
-    list_display = ['error_type', 'pmg_api_url_link', 'last_seen']
-    list_filter = ['error_type',]
+    list_display = ['error_type', 'pmg_api_url_link', 'last_seen', 'created_at']
+    list_filter = ['error_type', 'created_at']
+    readonly_fields = ('created_at', )
     actions = None
 
     def pmg_api_url_link(self, obj):
