@@ -121,13 +121,13 @@ class PMGAPITests(TestCase):
             else:
                 raise Exception("Unfaked URL '{0}'".format(url))
         fake_all_from_api.side_effect = api_one_question_and_answer
-        # Create an existing question with the right year and
+        # Create an existing question with the right date and
         # written_number; this test makes sure that a duplicate
         # question isn't created in that circumstance.
         Question.objects.create(
             question=u'Forsooth, why hath the chicken crossèd the road?',
             written_number=12345,
-            date=date(2016, 1, 27),
+            date=date(2016, 9, 6),
             house='N',
             answer_type='W',
             term=ParliamentaryTerm.objects.get(number=26),
@@ -153,7 +153,7 @@ class PMGAPITests(TestCase):
         self.assertEqual(question.askedby, 'G Marx')
         self.assertEqual(question.identifier, 'NW9876543E')
         self.assertEqual(question.year, 2016)
-        self.assertEqual(question.date, date(2016, 1, 27))
+        self.assertEqual(question.date, date(2016, 9, 6))
         # These fields of question should be as it would
         # if this were a new import.:
         self.assertEqual(question.answer, answer)
@@ -174,10 +174,10 @@ class PMGAPITests(TestCase):
                          'http://example.org/chicken-joke.docx')
 
     @patch('pombola.za_hansard.management.commands.za_hansard_q_and_a_scraper.all_from_api')
-    def test_create_question_if_questions_have_different_terms(self, fake_all_from_api):
-        new_term_question = copy.deepcopy(EXAMPLE_QUESTION)
-        new_term_question['year'] = '2019'
-        new_term_question['date'] = '2019-06-03' # 27th term
+    def test_create_question_if_questions_have_different_dates(self, fake_all_from_api):
+        new_date_question = copy.deepcopy(EXAMPLE_QUESTION)
+        new_date_question['year'] = '2019'
+        new_date_question['date'] = '2019-01-03'
         def api_one_question_and_answer(url):
             if url == 'https://api.pmg.org.za/minister/':
                 yield {
@@ -187,7 +187,7 @@ class PMGAPITests(TestCase):
             elif url == 'https://api.pmg.org.za/member/':
                 return
             elif url == 'http://api.pmg.org.za/minister/2/questions/':
-                yield new_term_question
+                yield new_date_question
             else:
                 raise Exception("Unfaked URL '{0}'".format(url))
         fake_all_from_api.side_effect = api_one_question_and_answer
@@ -198,7 +198,7 @@ class PMGAPITests(TestCase):
         question = Question.objects.create(
             question=u'Forsooth, why hath the chicken crossèd the road?',
             written_number=12345,
-            date=date(2019, 1, 27), # 26th term
+            date=date(2019, 1, 27),
             term=ParliamentaryTerm.objects.get(number=26),
             house='N',
             answer_type='W',
@@ -210,7 +210,7 @@ class PMGAPITests(TestCase):
         )
         answer = Answer.objects.create(
             written_number=12345,
-            date=date(2019, 1, 27), # 26th term
+            date=date(2019, 1, 27),
             date_published=date(2019, 1, 27),
             term=ParliamentaryTerm.objects.get(number=26),
             house='N',
@@ -248,13 +248,13 @@ class PMGAPITests(TestCase):
             else:
                 raise Exception("Unfaked URL '{0}'".format(url))
         fake_all_from_api.side_effect = api_one_question_and_answer
-        # Create an existing question and answer with the right year
+        # Create an existing question and answer with the right date 
         # and written_number; this test makes sure neither a new
         # question nor a new answer is created in this case:
         existing_answer = Answer.objects.create(
             text='For to arrive unto the other side',
             written_number=12345,
-            date=date(2016, 9, 1),
+            date=date(2016, 9, 6),
             term=ParliamentaryTerm.objects.get(number=26),
             date_published=date(2016, 9, 6),
             year=2016,
@@ -265,7 +265,7 @@ class PMGAPITests(TestCase):
             question=u'Forsooth, why hath the chicken crossèd the road?',
             answer=existing_answer,
             written_number=12345,
-            date=date(2016, 1, 27),
+            date=date(2016, 9, 6),
             term=ParliamentaryTerm.objects.get(number=26),
             house='N',
             answer_type='W',
@@ -292,7 +292,7 @@ class PMGAPITests(TestCase):
         self.assertEqual(question.askedby, 'G Marx')
         self.assertEqual(question.identifier, 'NW9876543E')
         self.assertEqual(question.year, 2016)
-        self.assertEqual(question.date, date(2016, 1, 27))
+        self.assertEqual(question.date, date(2016, 9, 6))
         # These fields of question should be as it would
         # if this were a new import.:
         self.assertEqual(question.answer, answer)
@@ -314,7 +314,7 @@ class PMGAPITests(TestCase):
         # Now check that the answer still has some old values:
         self.assertEqual(answer.text, 'For to arrive unto the other side')
         self.assertEqual(answer.written_number, 12345)
-        self.assertEqual(answer.date, date(2016, 9, 1))
+        self.assertEqual(answer.date, date(2016, 9, 6))
         self.assertEqual(answer.pmg_api_url,
                          'http://api.pmg.org.za/example-question/5678/')
 
@@ -333,12 +333,12 @@ class PMGAPITests(TestCase):
             else:
                 raise Exception("Unfaked URL '{0}'".format(url))
         fake_all_from_api.side_effect = api_one_question_and_answer
-        # Create an existing answer with the right year and
+        # Create an existing answer with the right date and
         # written_number, but no corresponding existing question.
         Answer.objects.create(
             text='For to arrive unto the other side',
             written_number=12345,
-            date=date(2016, 9, 1),
+            date=date(2016, 9, 6),
             term=ParliamentaryTerm.objects.get(number=26),
             date_published=date(2016, 9, 6),
             year=2016,
@@ -383,7 +383,7 @@ class PMGAPITests(TestCase):
         # Now check that the answer still has some old values:
         self.assertEqual(answer.text, 'For to arrive unto the other side')
         self.assertEqual(answer.written_number, 12345)
-        self.assertEqual(answer.date, date(2016, 9, 1))
+        self.assertEqual(answer.date, date(2016, 9, 6))
         self.assertEqual(answer.pmg_api_url,
                          'http://api.pmg.org.za/example-question/5678/')
 

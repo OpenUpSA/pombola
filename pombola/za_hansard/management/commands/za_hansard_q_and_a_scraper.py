@@ -280,7 +280,7 @@ class Command(BaseCommand):
             )
             return
 
-        existing_kwargs = {'date__year': year, 'house': house, 'term': term}
+        existing_kwargs = {'date': data['date'], 'house': house}
         existing_kwargs.update(number_q_kwargs)
         question = None
         if not number_found:
