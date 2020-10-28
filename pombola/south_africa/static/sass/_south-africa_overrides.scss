@@ -391,6 +391,16 @@ small {
     }
 }
 
+.instagram-social-icon {
+    @extend .social-icon;
+    background-position: -190px 0;
+
+    &:hover,
+    &:focus {
+        background-position: -190px -38px;
+    }
+}
+
 /*
 
 HEADER
