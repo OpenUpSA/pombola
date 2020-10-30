@@ -554,6 +554,17 @@ class Person(ModelBase, HasImageMixin, ScorecardMixin, IdentifierMixin):
         return self.position_set.national_assembly().exists()
 
     @property
+    def has_ever_been_member_of_ncop(self):
+        return self.position_set.ncop().exists()
+
+    @property
+    def has_ever_been_member_of_ncop_or_national_assembly(self):
+        return (
+            self.has_ever_been_member_of_national_assembly or
+            self.has_ever_been_member_of_ncop
+        )
+
+    @property
     def everypolitician_uuid(self):
         return self.get_identifier('everypolitician')
 
@@ -1445,6 +1456,12 @@ class PositionQuerySet(models.query.GeoQuerySet):
         """Filter down to positions at the National Assembly. """
         return self.filter(
             Q(organisation__slug='national-assembly')
+        )
+
+    def ncop(self):
+        """Filter down to positions at the NCOP. """
+        return self.filter(
+            Q(organisation__slug='ncop')
         )
 
     def committees(self):
