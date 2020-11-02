@@ -671,6 +671,14 @@ DEBUG_TOOLBAR_CONFIG = {
 }
 
 # Sentry
+sample_rate_str = os.environ.get("SENTRY_PERF_SAMPLE_RATE")
+if sample_rate_str is None:
+    sample_rate = 0
+else:
+    sample_rate = float(sample_rate_str)
+
+print("Sentry performance tracing sample rate is %r" % sample_rate)
+
 if os.environ.get("SENTRY_DSN"):
     import sentry_sdk
     from sentry_sdk.integrations.django import DjangoIntegration
@@ -681,13 +689,12 @@ if os.environ.get("SENTRY_DSN"):
             if hint['log_record'].message == 'missing file_ argument in get_thumbnail()':
                 return None
         return event
-
     sentry_sdk.init(
         dsn=os.environ.get("SENTRY_DSN"),
         environment=os.environ.get("ENVIRONMENT"),
         integrations=[DjangoIntegration()],
         before_send=before_send,
-        traces_sample_rate=0.01,
+        traces_sample_rate=sample_rate,
         # Associate users to errors
         send_default_pii=True
     )
