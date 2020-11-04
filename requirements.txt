@@ -80,7 +80,8 @@ Unidecode==0.04.16
 python-memcached==1.53
 
 # django-mapit
--e git+git://github.com/mysociety/mapit@d692d2788167516a9963563937bb8ed8a0e475e1#egg=django-mapit
+#-e git+git://github.com/mysociety/mapit@d692d2788167516a9963563937bb8ed8a0e475e1#egg=django-mapit
+django-mapit==1.6
 
 # SayIt and ZA hansard scrapers - need to be made available to be added as an optional app
 # Note, if the subsequent -e are ever removed, please remove manually from virtualenv/src !
@@ -107,7 +108,7 @@ parsedatetime==1.4
 pygeocoder==1.2.5
 
 # Dependencies of our dependencies
-Django-Select2==4.3.2
+Django-Select2==5.9.0
 Shapely==1.5
 WebOb==1.4
 amqp==1.4.6
@@ -183,3 +184,4 @@ xlrd==1.2.0
 
 # Sentry
 sentry-sdk==0.14.4
+django-appconf==1.0.3
