@@ -44,14 +44,26 @@ class CustomResult(object):
 def search_pmg_committee_in_pa(c):
     name = c["name"]
     print("Searching for %s" % name)
+
+    # See if there's an exact match
     exact_match = Organisation.objects.filter(name__iexact=name).first()
     if exact_match:
         return [CustomResult(1, exact_match)]
 
+    # See if there's a committee that contains this name
     contains_match = Organisation.objects.filter(name__icontains=name).first()
     if contains_match:
         return [CustomResult(0.5, contains_match)]
 
+    # Split query up into words and see if there's a committee that contains all of them
+    terms = [term.lower() for term in name.split()]
+    queries = [Q(name__icontains=term) for term in terms]
+    django_query = reduce(operator.and_, queries)
+    contains_match = Organisation.objects.filter(django_query).first()
+    if contains_match:
+        return [CustomResult(0.5, contains_match)]
+
+    # Search in ElasticSearch
     query = SearchQuerySet().models(*[Organisation])
     defaults = {
         "model": Organisation,
@@ -63,13 +75,27 @@ def search_pmg_committee_in_pa(c):
     query = query.filter(
         content=generate_fuzzy_query_object(name), *filter_args, **filter_kwargs
     )
-
     if len(query):
         return query
 
-    # Split query up into words and search for all of them
-
-    terms = name.split()
+    # Remove common words and search again
+    terms = set(terms)
+    common_words = {
+        "of",
+        "the",
+        "and",
+        "committee",
+        "ad",
+        "hoc",
+        "joint",
+        "inactive",
+        "(inactive)",
+        "to",
+        "public",
+        "&",
+        "ncop",
+    }
+    terms -= common_words
     queries = [Q(name__icontains=term) for term in terms]
     django_query = reduce(operator.and_, queries)
     contains_match = Organisation.objects.filter(django_query).first()
