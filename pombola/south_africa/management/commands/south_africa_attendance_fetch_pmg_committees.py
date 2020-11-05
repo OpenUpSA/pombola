@@ -15,9 +15,12 @@ def write_to_json(data):
         f.write(json.dumps(data, indent=4))
 
 
-def add_response_to_data(data, response):
+def add_response_to_data(session, data, response):
     results = response["results"]
-    data.append(results)
+    for result in results:
+        result["num_committees"] = fetch_num_meetings(session, result)
+        data.append(result)
+    return data + results
 
 
 def fetch_page(session, url):
@@ -27,6 +30,16 @@ def fetch_page(session, url):
     return response.json()
 
 
+def fetch_num_meetings(session, committee):
+    print("Fetching meetings for %s" % committee["name"])
+    url = (
+        "https://api.pmg.org.za/committee-meeting/?filter[committee_id]=%d"
+        % committee["id"]
+    )
+    response = session.get(url)
+    return response.json()["count"]
+
+
 class Command(BaseCommand):
     help = "Fetch all PMG committees and save in file"
 
@@ -34,7 +47,7 @@ class Command(BaseCommand):
         session = requests.Session()
         data = []
         response = fetch_page(session, BASE_URL)
-        add_response_to_data(data, response)
+        data = add_response_to_data(session, data, response)
         while response["next"]:
             try:
                 response = fetch_page(session, response["next"])
@@ -42,5 +55,5 @@ class Command(BaseCommand):
             except Exception as e:
                 print("Fetch failed with exception: %s" % e)
                 break
-            add_response_to_data(data, response)
+            add_response_to_data(session, data, response)
         write_to_json(data)
