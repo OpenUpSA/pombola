@@ -1,14 +1,9 @@
-import logging
-
 import requests
 from django.core.cache import caches
 from django.core.management.base import BaseCommand, CommandError
 from django.utils.text import slugify
 
 from pombola.core.models import Organisation, OrganisationKind
-
-logger = logging.getLogger(__name__)
-
 
 COMMITTEE_ORGANISATION_KINDS = (
     11,
@@ -28,7 +23,10 @@ COMMITTEE_ORGANISATION_KINDS = (
     30,
 )
 
-cache = caches["pmg_api"]
+
+def get_pmg_api_cache():
+    return caches["pmg_api"]
+
 
 PMG_SEARCH_URL = "https://api.pmg.org.za/search/?type=committee&q=%s"
 
@@ -37,13 +35,16 @@ def committee_cache_slug(committee):
     return "pmg-search-%s" % slugify(committee.name)
 
 
+def get_all_committees():
+    return Organisation.objects.filter(kind_id__in=COMMITTEE_ORGANISATION_KINDS)
+
+
 class Command(BaseCommand):
     help = "Fetch all committees from the PMG API and cache them in the pmg_api cache"
 
     def handle(self, *args, **options):
-        pa_committees = Organisation.objects.filter(
-            kind_id__in=COMMITTEE_ORGANISATION_KINDS
-        )
+        cache = get_pmg_api_cache()
+        pa_committees = get_all_committees()
         session = requests.Session()
 
         for pa_committee in pa_committees:
