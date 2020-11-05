@@ -18,7 +18,7 @@ def write_to_json(data):
 def add_response_to_data(session, data, response):
     results = response["results"]
     for result in results:
-        result["num_committees"] = fetch_num_meetings(session, result)
+        result["num_meetings"] = fetch_num_meetings(session, result)
         data.append(result)
     return data + results
 
