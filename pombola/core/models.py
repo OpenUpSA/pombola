@@ -348,7 +348,7 @@ class PersonQuerySet(models.query.GeoQuerySet):
         """
         Prefetch people's phone or cell phone numbers.
         """
-        cell_phone_contacts = Contact.contact_number_contacts()
+        cell_phone_contacts = Contact.contact_number_contacts().order_by('-pk')
         return self.prefetch_related(
             Prefetch("contacts", queryset=cell_phone_contacts, to_attr="cell_numbers"),
         )
@@ -357,7 +357,7 @@ class PersonQuerySet(models.query.GeoQuerySet):
         """
         Prefetch email addresses
         """
-        email_contacts = Contact.email_contacts()
+        email_contacts = Contact.email_contacts().order_by('-pk')
         return self.prefetch_related(
             Prefetch("contacts", queryset=email_contacts, to_attr="email_addresses"),
         )
@@ -371,6 +371,7 @@ class PersonQuerySet(models.query.GeoQuerySet):
             .filter(title__slug="member")
             .filter(organisation__kind__slug="party")
             .select_related("organisation")
+            .order_by('-pk')
         )
 
         return self.prefetch_related(
