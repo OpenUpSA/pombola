@@ -41,7 +41,7 @@ def transform_to_out_com(com):
         "pmg_id": com["id_pmg"],
         "pmg_name": com["name_pmg"],
         "pmg_house": com["house_pmg"],
-        "houses": [],
+        "pa_committees": [],
     }
     for i in range(4):
         pa_name = com["pa_name_%d" % i].strip()
@@ -50,7 +50,7 @@ def transform_to_out_com(com):
         print("Finding %s" % pa_name)
         if pa_name:
             pa_com = find_pa_comm(pa_name, pa_house, pa_link)
-            d["houses"].append(
+            d["pa_committees"].append(
                 {"pa_id": pa_com.id, "pa_name": pa_name, "pa_house": pa_com.kind.name}
             )
     return d
