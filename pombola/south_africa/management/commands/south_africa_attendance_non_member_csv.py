@@ -18,18 +18,25 @@ import csv
 import json
 import operator
 import re
-from datetime import datetime
+from datetime import datetime, date
 
 import requests
 from django.core.management.base import BaseCommand, CommandError
+from django.core.cache import caches
 from django.db.models import Q
 
 from pombola.core.models import Organisation, OrganisationKind, Person, Position
 
 COMMITTEE_MATCHING_FILE = "pmg-attendance/pmg-pa-committee-matches.json"
 OUT_FILE = "pmg-attendance/pmg-pa-member-attendance.csv"
+PEOPLE_NOT_FOUND_FILE = "pmg-attendance/pmg-members-not-found.csv"
 PMG_API_MEETINGS_BASE_URL = "https://api.pmg.org.za/committee-meeting/"
 
+
+def get_pmg_api_cache():
+    return caches["pmg_api"]
+
+cache = get_pmg_api_cache()
 
 def write_to_csv(data, headings, name):
     print("Writing to %s" % name)
@@ -55,9 +62,17 @@ def read_json_file(name):
 
 def get_results_from_url(session, url):
     while True:
-        print("\n\n\nGetting url: %s" % url)
-        response = session.get(url)
-        data = response.json()
+        print("\nGetting url: %s" % url)
+
+        data = cache.get(url)
+        if not cache.get(url):
+            print("Fetching data from API")
+            response = session.get(url)
+            data = response.json()
+            cache.set(url, data)
+        else:
+            print("Getting data from cache")
+
         for result in data["results"]:
             yield result
         if not data["next"]:
@@ -116,19 +131,6 @@ def get_was_member(pa_person, pa_com, meeting_date):
 def to_out_row(
     pmg_meeting, pmg_attendance, pa_committees, meeting_date, pa_person, was_member
 ):
-    """
-    - pmg_member_id
-    - pmg_member_name
-    - pmg_meeting_link
-    - meeting_date
-    - pmg_committee_name
-    - pmg_committee_id
-    - pa_committee_id
-    - pa_committee_name
-    - alternate_member: taken from the alternate field in PMG
-    - pa_committee_member: whether the person was a member of the committee at the 
-        time according to the PA data
-    """
     d = {
         "pmg_member_id": pmg_attendance["member_id"],
         "pmg_member_name": pmg_attendance["member"]["name"],
@@ -136,11 +138,11 @@ def to_out_row(
         "meeting_date": pmg_meeting["date"],
         "pmg_committee_name": pmg_meeting["committee_id"],
         "pmg_committee_id": pmg_meeting["committee"]["name"],
-        # can be multiple
+        "pa_person_id": pa_person.id,
         "pa_committee_ids": ", ".join([str(c.id) for c in pa_committees]),
-        # - pa_committee_name
         "alternate_member": pmg_attendance["alternate_member"],
         "pa_committee_member": was_member,
+        "pa_link": "https://www.pa.org.za/person/%s/" % pa_person.slug,
     }
     print("out_row:")
     print(json.dumps(d, indent=4))
@@ -168,6 +170,11 @@ class Command(BaseCommand):
             meetings[meeting["id"]] = True
 
             meeting_date = get_meeting_date(meeting)
+
+            if meeting_date < date(2019,1,1):
+                print("Skipping meeting before 2019")
+                continue
+
             pa_coms = get_pa_coms(com_matches, meeting)
             for attendance in get_meeting_attendances(meeting):
                 try:
@@ -177,8 +184,6 @@ class Command(BaseCommand):
                     attendance_people_not_found.append(
                         {"pmg_member_id": attendance["member_id"]}
                     )
-                    # TODO: do something better about this
-                    # TODO: count how many of these we get
                     continue
 
                 was_member = any(
@@ -196,6 +201,7 @@ class Command(BaseCommand):
                     )
                 )
 
+            print("-" * 30)
             print("Done with meeting_id %d" % meeting["id"])
 
             after = datetime.now()
@@ -213,11 +219,22 @@ class Command(BaseCommand):
                         new_attendances, str(elapsed), str(elapsed / new_attendances)
                     )
                 )
+            print("Total attendances found so far: %d" % len(out_data))
+            if len(out_data) > 0:
+                print("Not found found so far: %d (%.2f%%)" % (
+                        len(attendance_people_not_found),
+                        len(attendance_people_not_found)*100.0/len(out_data)
+                    )
+                )
 
-        headings = out_data[0].keys()
-        write_to_csv(out_data, headings, OUT_FILE)
+                headings = out_data[0].keys()
+                write_to_csv(out_data, headings, OUT_FILE)
+
+            if len(attendance_people_not_found) > 0:
+                headings = attendance_people_not_found[0].keys()
+                write_to_csv(attendance_people_not_found, headings, PEOPLE_NOT_FOUND_FILE)
 
         print(
             "Couldn't find people for %d attendances" % len(attendance_people_not_found)
         )
-        print("Attendance found correctly: %d" % len(data))
+        print("Attendance found correctly: %d" % len(out_data))
