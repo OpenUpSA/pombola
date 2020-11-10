@@ -35,7 +35,7 @@ Run migrations
 docker-compose run --rm app python manage.py migrate
 ```
 
-Add dev data for easy dev setup
+Load [demo data](#demo-data) for easy dev setup
 
 ```
 docker-compose run --rm app python manage.py loaddata demodata.json
@@ -75,6 +75,17 @@ To enable [Django debug toolbar](https://django-debug-toolbar.readthedocs.io/en/
 ```
 DJANGO_DEBUG_TOOLBAR=true docker-compose up
 ```
+
+## Demo data
+
+We use the [demodata.json](./pombola/core/fixtures/demodata.json) fixture to make it easy to set up a fully functional PA site in developer environments.
+
+Remember to create or update fixtures when:
+
+- Adding a hard-coded link to a new info page (e.g. `{% url 'info_page', 'some-new-page' %}` ).
+- Creating a new model that is used somewhere on the site.
+- Adding more filtering to a page.
+
 
 Production deployment
 ---------------------
