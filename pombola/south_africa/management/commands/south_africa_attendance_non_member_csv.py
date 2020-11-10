@@ -24,7 +24,7 @@ import requests
 from django.core.management.base import BaseCommand, CommandError
 from django.db.models import Q
 
-from pombola.core.models import Organisation, OrganisationKind, Person
+from pombola.core.models import Organisation, OrganisationKind, Person, Position
 
 COMMITTEE_MATCHING_FILE = "pmg-attendance/pmg-pa-committee-matches.json"
 COMMITTEE_MATCHING_FILE = "pmg-attendance/pmg-pa-committee-matches-134.json"
@@ -35,6 +35,7 @@ PMG_API_MEETINGS_BASE_URL = "https://api.pmg.org.za/committee-meeting/"
 def write_to_csv(data, headings, name):
     print("Writing to %s" % name)
     with open(name, "w") as f:
+        print("Headings: %s" % headings)
         writer = csv.DictWriter(f, fieldnames=headings)
         writer.writeheader()
         for row in data:
@@ -48,10 +49,14 @@ def read_json_file(name):
 
 
 def get_results_from_url(session, url):
-    response = session.get(url)
-    data = response.json()
-    for result in data["results"]:
-        yield result
+    while True:
+        response = session.get(url)
+        data = response.json()
+        for result in data["results"]:
+            yield result
+        if not data["next"]:
+            break
+        url = data["next"]
 
 
 def get_next_pmg_meeting():
@@ -59,29 +64,22 @@ def get_next_pmg_meeting():
     response = session.get(PMG_API_MEETINGS_BASE_URL)
 
     url = PMG_API_MEETINGS_BASE_URL
-    while True:
-        for result in get_results_from_url(session, url):
-            yield result
-        if not data["next"]:
-            break
-        url = data["next"]
+    for result in get_results_from_url(session, url):
+        yield result
 
 
 def get_meeting_attendances(meeting):
     url = meeting["attendance_url"]
     session = requests.Session()
-    while True:
-        for result in get_results_from_url(session, url):
-            yield result
-        if not data["next"]:
-            break
-        url = data["next"]
+    for result in get_results_from_url(session, url):
+        yield result
 
 
-def get_pa_com(com_matches, meeting):
+def get_pa_coms(com_matches, meeting):
     committee_id = meeting["committee"]["id"]
     print("Searching for PMG committee id %d" % committee_id)
-    return next(m for m in com_matches if m["pmg_id"] == str(committee_id))
+    match = next(m for m in com_matches if m["pmg_id"] == str(committee_id))
+    return [Organisation.objects.get(id=c['pa_id']) for c in match['pa_committees']]
 
 
 def get_pa_person(attendance):
@@ -99,13 +97,43 @@ def get_meeting_date(meeting):
     return datetime.strptime(string_date, "%Y-%m-%d").date()
 
 
-def to_out_row(pmg_meeting, pa_meeting, attendance):
-    pass
-
-
 def get_was_member(pa_person, pa_com, meeting_date):
-    return True
-    pass
+    return Position.objects.currently_active(meeting_date).filter(
+        organisation=pa_com,
+        person=pa_person
+    ).exists()
+
+def to_out_row(pmg_meeting, pmg_attendance, pa_committees, meeting_date, pa_person, was_member):
+    """
+    - pmg_member_id
+    - pmg_member_name
+    - pmg_meeting_link
+    - meeting_date
+    - pmg_committee_name
+    - pmg_committee_id
+    - pa_committee_id
+    - pa_committee_name
+    - alternate_member: taken from the alternate field in PMG
+    - pa_committee_member: whether the person was a member of the committee at the 
+        time according to the PA data
+    """
+    d = {
+        "pmg_member_id": pmg_attendance['member_id'],
+        "pmg_member_name": pmg_attendance['member']['name'],
+        "pmg_meeting_link": pmg_meeting['url'],
+        "meeting_date": pmg_meeting['date'],
+        "pmg_committee_name": pmg_meeting['committee_id'],
+        "pmg_committee_id": pmg_meeting['committee']['name'],
+        # can be multiple
+        "pa_committee_ids": ", ".join([str(c.id) for c in pa_committees]),
+        # - pa_committee_name
+        "alternate_member": pmg_attendance['alternate_member'],
+        "pa_committee_member": was_member,
+    }
+    print("out_row:")
+    print(json.dumps(d, indent=4))
+    return d
+
 
 
 class Command(BaseCommand):
@@ -123,14 +151,15 @@ class Command(BaseCommand):
             meetings[meeting["id"]] = True
 
             meeting_date = get_meeting_date(meeting)
-            pa_com = get_pa_com(com_matches, meeting)
+            pa_coms = get_pa_coms(com_matches, meeting)
             for attendance in get_meeting_attendances(meeting):
                 pa_person = get_pa_person(attendance)
-                pa_committee_member = get_was_member(pa_person, pa_com, meeting_date)
-
-                break
-
+                was_member = any(
+                    get_was_member(pa_person, pa_com, meeting_date) for pa_com in pa_coms)
+                out_data.append(to_out_row(
+                    meeting, attendance, pa_coms, meeting_date, pa_person, was_member
+                ))
             break
 
-        headings = []
+        headings = out_data[0].keys()
         write_to_csv(out_data, headings, OUT_FILE)
