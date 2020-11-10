@@ -34,7 +34,7 @@ def csv_row(d):
         "id_pmg": d["id_pmg"],
         "name_pmg": d["name_pmg"],
         "house_pmg": d["house_pmg"],
-        "number_of_meetings": d["num_meetings"],
+        "num_meetings": d["num_meetings"],
     }
     for i, result in enumerate(d["results"][:4]):
         data["pa_name_%d" % i] = result["name_pa"]
@@ -45,7 +45,7 @@ def csv_row(d):
 
 def write_to_csv(data):
     file_path = CSV_OUT_FILE
-    headings = ["id_pmg", "name_pmg", "house_pmg", "number_of_meetings"]
+    headings = ["id_pmg", "num_meetings", "name_pmg", "house_pmg"]
     for i in range(4):
         headings += ["pa_name_%d" % i, "pa_house_%d" % i, "pa_link_%d" % i]
 
