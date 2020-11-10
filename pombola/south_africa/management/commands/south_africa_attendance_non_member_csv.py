@@ -16,9 +16,9 @@ Out format:
 
 import csv
 import json
-from datetime import datetime
 import operator
 import re
+from datetime import datetime
 
 import requests
 from django.core.management.base import BaseCommand, CommandError
@@ -31,9 +31,10 @@ COMMITTEE_MATCHING_FILE = "pmg-attendance/pmg-pa-committee-matches-134.json"
 OUT_FILE = "pmg-attendance/pmg-pa-member-attendance.csv"
 PMG_API_MEETINGS_BASE_URL = "https://api.pmg.org.za/committee-meeting/"
 
+
 def write_to_csv(data, headings, name):
     print("Writing to %s" % name)
-    with open(name, 'w') as f:
+    with open(name, "w") as f:
         writer = csv.DictWriter(f, fieldnames=headings)
         writer.writeheader()
         for row in data:
@@ -42,14 +43,16 @@ def write_to_csv(data, headings, name):
 
 def read_json_file(name):
     print("Reading %s" % name)
-    with open(name, 'r') as f:
+    with open(name, "r") as f:
         return json.loads(f.read())
+
 
 def get_results_from_url(session, url):
     response = session.get(url)
     data = response.json()
-    for result in data['results']:
+    for result in data["results"]:
         yield result
+
 
 def get_next_pmg_meeting():
     session = requests.Session()
@@ -59,44 +62,51 @@ def get_next_pmg_meeting():
     while True:
         for result in get_results_from_url(session, url):
             yield result
-        if not data['next']:
+        if not data["next"]:
             break
-        url = data['next']
-    
+        url = data["next"]
+
+
 def get_meeting_attendances(meeting):
-    url = meeting['attendance_url']
+    url = meeting["attendance_url"]
     session = requests.Session()
     while True:
         for result in get_results_from_url(session, url):
             yield result
-        if not data['next']:
+        if not data["next"]:
             break
-        url = data['next']
+        url = data["next"]
+
 
 def get_pa_com(com_matches, meeting):
-    committee_id = meeting['committee']['id']
+    committee_id = meeting["committee"]["id"]
     print("Searching for PMG committee id %d" % committee_id)
-    return next(m for m in com_matches if m['pmg_id'] == str(committee_id))
+    return next(m for m in com_matches if m["pmg_id"] == str(committee_id))
+
 
 def get_pa_person(attendance):
     # Example pa_link: "https://www.pa.org.za/person/lorraine-juliette-botha/"
-    l = pa_link = attendance['member']['pa_link'].rstrip('/')
-    slug =l[l.rstrip('/').rindex('/')+1:]
+    l = pa_link = attendance["member"]["pa_link"].rstrip("/")
+    slug = l[l.rstrip("/").rindex("/") + 1 :]
     print("Searching for PA person with slug: %s" % slug)
     pa_person = Person.objects.get(slug=slug)
     return pa_person
 
+
 def get_meeting_date(meeting):
-    string_date = meeting['date']
-    string_date = string_date[:string_date.index('T')]
+    string_date = meeting["date"]
+    string_date = string_date[: string_date.index("T")]
     return datetime.strptime(string_date, "%Y-%m-%d").date()
+
 
 def to_out_row(pmg_meeting, pa_meeting, attendance):
     pass
 
+
 def get_was_member(pa_person, pa_com, meeting_date):
     return True
     pass
+
 
 class Command(BaseCommand):
     help = ""
@@ -107,10 +117,10 @@ class Command(BaseCommand):
         out_data = []
         for meeting in get_next_pmg_meeting():
             # Check if seen before
-            if meeting['id'] in meetings:
+            if meeting["id"] in meetings:
                 continue
             # Mark as seen
-            meetings[meeting['id']] = True
+            meetings[meeting["id"]] = True
 
             meeting_date = get_meeting_date(meeting)
             pa_com = get_pa_com(com_matches, meeting)
@@ -119,7 +129,6 @@ class Command(BaseCommand):
                 pa_committee_member = get_was_member(pa_person, pa_com, meeting_date)
 
                 break
-
 
             break
 
