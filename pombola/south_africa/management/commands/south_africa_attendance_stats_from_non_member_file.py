@@ -1,7 +1,7 @@
 import csv
 import json
 import operator
-import re
+import requests
 from datetime import datetime, date
 from django.core.management.base import BaseCommand
 
@@ -9,6 +9,8 @@ from .utils import *
 
 ATTENDANCES_FILE = "pmg-attendance/pmg-pa-member-attendance.csv"
 PEOPLE_NOT_FOUND_FILE = "pmg-attendance/pmg-members-not-found.csv"
+PMG_MEMBER_URL = "https://api.pmg.org.za/member/%s/"
+
 
 
 class Command(BaseCommand):
@@ -124,4 +126,19 @@ class Command(BaseCommand):
         )
         )
 
-        print("PMG member IDs of people not found: \t\t\t %s" % ", ".join(people_not_found_ids))
+        # print("PMG member IDs of people not found: \t\t\t %s" % ", ".join(people_not_found_ids))
+        print("Names of members not found:")
+        for pmg_member_id in people_not_found_ids:
+            url = PMG_MEMBER_URL % pmg_member_id
+            # print("Fetching %s" % url)
+            try:
+                data = fetch_if_not_in_cache(url)
+
+                print("\t%s \t | %s" %
+                    (
+                        pmg_member_id,
+                        data['name']
+                    )
+                )
+            except Exception as e:
+                print("\t%s \t | PMG ID not found in PMG API" % pmg_member_id)

@@ -11,9 +11,9 @@ from haystack.inputs import AutoQuery, Raw
 from haystack.query import SearchQuerySet
 from pombola.core.models import Organisation, OrganisationKind
 
-PMG_COMMITTEES_FILE = "pmg-committees.json"
-JSON_OUT_FILE = "pmg-pa-committees.json"
-CSV_OUT_FILE = "pmg-pa-committees.csv"
+PMG_COMMITTEES_FILE = "pmg-attendance/pmg-committees.json"
+JSON_OUT_FILE = "pmg-attendance/pmg-pa-committees.json"
+CSV_OUT_FILE = "pmg-attendance/pmg-pa-committees.csv"
 
 
 def write_to_json(data):
