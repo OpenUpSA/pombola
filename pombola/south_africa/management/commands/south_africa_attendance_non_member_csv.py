@@ -108,9 +108,9 @@ def get_pa_coms(com_matches, meeting):
 
 def get_pa_person(attendance):
     # Example pa_link: "https://www.pa.org.za/person/lorraine-juliette-botha/"
-    pa_link = attendance["member"]["pa_link"]
+    l = pa_link = attendance["member"]["pa_link"]
     print("Get PA person from link: %s" % pa_link)
-    l = pa_link = pa_link.rstrip("/")
+    l = l[:l.rindex("/")]
     slug = l[l.rstrip("/").rindex("/") + 1 :]
     print("Searching for PA person with slug: %s" % slug)
     pa_person = Person.objects.get(slug=slug)
@@ -189,6 +189,7 @@ class Command(BaseCommand):
                         {
                             "pmg_meeting_id": meeting["id"],
                             "pmg_member_id": attendance["member_id"],
+                            # "pmg_member_name": attendance["member_id"],
                         }
                     )
                     continue

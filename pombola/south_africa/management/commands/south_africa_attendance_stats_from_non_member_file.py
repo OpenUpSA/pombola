@@ -12,7 +12,6 @@ PEOPLE_NOT_FOUND_FILE = "pmg-attendance/pmg-members-not-found.csv"
 PMG_MEMBER_URL = "https://api.pmg.org.za/member/%s/"
 
 
-
 class Command(BaseCommand):
     help = ""
 
@@ -82,9 +81,7 @@ class Command(BaseCommand):
         )
         # Non-member and also not alternate member (the ones we really care about)
         non_member_and_non_alternate = [
-            a
-            for a in non_member_attendances
-            if a["alternate_member"] == "False"
+            a for a in non_member_attendances if a["alternate_member"] == "False"
         ]
         print(
             "Non-member and non-alternate member attendances: \t %d (%.2f%%)"
@@ -96,9 +93,7 @@ class Command(BaseCommand):
 
         # Non-member and alternate member (shouldn't usually be possible)
         non_member_and_alternate = [
-            a
-            for a in non_member_attendances
-            if a["alternate_member"] == "True"
+            a for a in non_member_attendances if a["alternate_member"] == "True"
         ]
         print(
             "Non-member and alternate member attendances: \t\t %d (%.2f%%)"
@@ -111,34 +106,40 @@ class Command(BaseCommand):
             non_member_attendances
         )
 
-
-        print('\n')
+        print("\n")
         print("---- PMG people not found in PA ----")
 
-        unique_people = set(a['pmg_member_id'] for a in uniq_attendances)
+        unique_people = set(a["pmg_member_id"] for a in uniq_attendances)
         print("Number PMG people with attendances: \t\t\t %d" % len(unique_people))
 
         # Number of people not found
-        people_not_found_ids = set([p['pmg_member_id'] for p in people_not_found])
-        print("Number of PMG people not found in PA: \t\t\t %d (%.2f%%)" % (
-            len(people_not_found_ids),
-            perc(len(people_not_found_ids), len(unique_people))
-        )
+        people_not_found_ids = set([p["pmg_member_id"] for p in people_not_found])
+        print(
+            "Number of PMG people not found in PA: \t\t\t %d (%.2f%%)"
+            % (
+                len(people_not_found_ids),
+                perc(len(people_not_found_ids), len(unique_people)),
+            )
         )
 
         # print("PMG member IDs of people not found: \t\t\t %s" % ", ".join(people_not_found_ids))
         print("Names of members not found:")
         for pmg_member_id in people_not_found_ids:
+            meeting_ids_not_found_in = sorted(
+                [
+                    p["pmg_meeting_id"]
+                    for p in people_not_found
+                    if p["pmg_member_id"] == pmg_member_id
+                ]
+            )
             url = PMG_MEMBER_URL % pmg_member_id
-            # print("Fetching %s" % url)
             try:
                 data = fetch_if_not_in_cache(url)
-
-                print("\t%s \t | %s" %
-                    (
-                        pmg_member_id,
-                        data['name']
-                    )
-                )
+                name = data["name"]
             except Exception as e:
-                print("\t%s \t | PMG ID not found in PMG API" % pmg_member_id)
+                name = "PMG ID not found in PMG API"
+
+            print(
+                "\t%s \t | %s \t | %s "
+                % (pmg_member_id, name, ", ".join(meeting_ids_not_found_in))
+            )
