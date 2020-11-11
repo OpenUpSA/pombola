@@ -18,14 +18,15 @@ import csv
 import json
 import operator
 import re
-from datetime import datetime, date
+from datetime import date, datetime
 
 import requests
-from django.core.management.base import BaseCommand, CommandError
 from django.core.cache import caches
+from django.core.management.base import BaseCommand, CommandError
 from django.db.models import Q
 
-from pombola.core.models import Organisation, OrganisationKind, Person, Position
+from pombola.core.models import (Organisation, OrganisationKind, Person,
+                                 Position)
 
 COMMITTEE_MATCHING_FILE = "pmg-attendance/pmg-pa-committee-matches.json"
 OUT_FILE = "pmg-attendance/pmg-pa-member-attendance.csv"
@@ -36,7 +37,9 @@ PMG_API_MEETINGS_BASE_URL = "https://api.pmg.org.za/committee-meeting/"
 def get_pmg_api_cache():
     return caches["pmg_api"]
 
+
 cache = get_pmg_api_cache()
+
 
 def write_to_csv(data, headings, name):
     print("Writing to %s" % name)
@@ -135,6 +138,7 @@ def to_out_row(
         "pmg_member_id": pmg_attendance["member_id"],
         "pmg_member_name": pmg_attendance["member"]["name"],
         "pmg_meeting_link": pmg_meeting["url"],
+        "pmg_meeting_id": pmg_meeting["id"],
         "meeting_date": pmg_meeting["date"],
         "pmg_committee_name": pmg_meeting["committee_id"],
         "pmg_committee_id": pmg_meeting["committee"]["name"],
@@ -171,7 +175,7 @@ class Command(BaseCommand):
 
             meeting_date = get_meeting_date(meeting)
 
-            if meeting_date < date(2019,1,1):
+            if meeting_date < date(2019, 1, 1):
                 print("Skipping meeting before 2019")
                 continue
 
@@ -182,7 +186,10 @@ class Command(BaseCommand):
                 except Exception as e:
                     print("Couldn't find PA person. Skipping.")
                     attendance_people_not_found.append(
-                        {"pmg_member_id": attendance["member_id"]}
+                        {
+                            "pmg_meeting_id": meeting["id"],
+                            "pmg_member_id": attendance["member_id"],
+                        }
                     )
                     continue
 
@@ -215,15 +222,16 @@ class Command(BaseCommand):
             print("Attendance found correctly: %d" % new_attendances)
             if new_attendances > 0:
                 print(
-                    "Found %d attendances in %s (%s per attendance)" % (
-                        new_attendances, str(elapsed), str(elapsed / new_attendances)
-                    )
+                    "Found %d attendances in %s (%s per attendance)"
+                    % (new_attendances, str(elapsed), str(elapsed / new_attendances))
                 )
             print("Total attendances found so far: %d" % len(out_data))
             if len(out_data) > 0:
-                print("Not found found so far: %d (%.2f%%)" % (
+                print(
+                    "Not found found so far: %d (%.2f%%)"
+                    % (
                         len(attendance_people_not_found),
-                        len(attendance_people_not_found)*100.0/len(out_data)
+                        len(attendance_people_not_found) * 100.0 / len(out_data),
                     )
                 )
 
@@ -232,7 +240,9 @@ class Command(BaseCommand):
 
             if len(attendance_people_not_found) > 0:
                 headings = attendance_people_not_found[0].keys()
-                write_to_csv(attendance_people_not_found, headings, PEOPLE_NOT_FOUND_FILE)
+                write_to_csv(
+                    attendance_people_not_found, headings, PEOPLE_NOT_FOUND_FILE
+                )
 
         print(
             "Couldn't find people for %d attendances" % len(attendance_people_not_found)

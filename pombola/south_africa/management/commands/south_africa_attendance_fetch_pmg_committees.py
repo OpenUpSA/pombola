@@ -6,7 +6,7 @@ from django.core.management.base import BaseCommand, CommandError
 BASE_URL = "https://api.pmg.org.za/committee/"
 
 # while data['next']
-PMG_COMMITTEES_FILE = "pmg-committees.json"
+PMG_COMMITTEES_FILE = "pmg-attendance/pmg-committees.json"
 
 
 def write_to_json(data):
