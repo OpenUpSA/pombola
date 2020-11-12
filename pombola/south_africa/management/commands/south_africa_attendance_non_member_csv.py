@@ -137,11 +137,12 @@ def to_out_row(
     d = {
         "pmg_member_id": pmg_attendance["member_id"],
         "pmg_member_name": pmg_attendance["member"]["name"],
-        "pmg_meeting_link": pmg_meeting["url"],
+        # "pmg_meeting_link": pmg_meeting["url"],
+        "pmg_meeting_admin_link": "https://pmg.org.za/admin/committee-meeting/edit/?id=%s" % pmg_meeting["id"],
         "pmg_meeting_id": pmg_meeting["id"],
         "meeting_date": pmg_meeting["date"],
-        "pmg_committee_name": pmg_meeting["committee_id"],
-        "pmg_committee_id": pmg_meeting["committee"]["name"],
+        "pmg_committee_id": pmg_meeting["committee_id"],
+        "pmg_committee_name": pmg_meeting["committee"]["name"],
         "pa_person_id": pa_person.id,
         "pa_committee_ids": ", ".join([str(c.id) for c in pa_committees]),
         "alternate_member": pmg_attendance["alternate_member"],
@@ -194,10 +195,13 @@ class Command(BaseCommand):
                     )
                     continue
 
-                was_member = any(
-                    get_was_member(pa_person, pa_com, meeting_date)
-                    for pa_com in pa_coms
-                )
+                if len(pa_coms) > 0:
+                    was_member = any(
+                        get_was_member(pa_person, pa_com, meeting_date)
+                        for pa_com in pa_coms
+                    )
+                else:
+                    was_member = None
                 out_data.append(
                     to_out_row(
                         meeting,

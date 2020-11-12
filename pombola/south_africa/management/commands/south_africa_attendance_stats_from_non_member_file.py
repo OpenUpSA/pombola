@@ -38,13 +38,7 @@ class Command(BaseCommand):
         member_attendances = [
             a for a in uniq_attendances if a["pa_committee_member"] == "True"
         ]
-        # print(
-        #     "Non-member attendances: \t\t\t\t %d (%.2f%%)"
-        #     % (
-        #         len(non_member_attendances),
-        #         perc(len(non_member_attendances), len(uniq_attendances)),
-        #     )
-        # )
+        
         # print(
         #     "Member attendances: \t\t\t\t\t %d (%.2f%%)"
         #     % (
@@ -79,12 +73,21 @@ class Command(BaseCommand):
                 perc(len(alternate_attendances), len(uniq_attendances)),
             )
         )
+        
+        print(
+            "Non-member attendances: \t\t\t\t %d (%.2f%%)"
+            % (
+                len(non_member_attendances),
+                perc(len(non_member_attendances), len(uniq_attendances)),
+            )
+        )
+
         # Non-member and also not alternate member (the ones we really care about)
         non_member_and_non_alternate = [
             a for a in non_member_attendances if a["alternate_member"] == "False"
         ]
         print(
-            "Non-member and non-alternate member attendances: \t %d (%.2f%%)"
+            "\t Non-member, non-alternate member: \t %d (%.2f%%)"
             % (
                 len(non_member_and_non_alternate),
                 perc(len(non_member_and_non_alternate), len(uniq_attendances)),
@@ -96,7 +99,7 @@ class Command(BaseCommand):
             a for a in non_member_attendances if a["alternate_member"] == "True"
         ]
         print(
-            "Non-member and alternate member attendances: \t\t %d (%.2f%%)"
+            "\t Non-member, alternate member: \t\t %d (%.2f%%)"
             % (
                 len(non_member_and_alternate),
                 perc(len(non_member_and_alternate), len(uniq_attendances)),
