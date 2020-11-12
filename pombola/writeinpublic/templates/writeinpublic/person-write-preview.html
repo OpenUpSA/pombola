@@ -1,5 +1,16 @@
 {% extends "base.html" %}
 
+{% block js_end_of_body %}
+  {{ block.super }}
+  {% if settings.GOOGLE_RECAPTCHA_SITE_KEY %}
+    <script>
+       function onSubmitMessage(token) {
+         document.getElementById("submitMessage").submit();
+       }
+     </script>
+  {% endif %}
+{% endblock %}
+
 {% block title %}Preview of message to {{ object.name }}{% endblock %}
 
 {% block content %}
@@ -21,7 +32,7 @@
     </div>
 </div>
 
-<form action="" method="post" class="person-write-form">{% csrf_token %}
+<form id="submitMessage" action="" method="post" class="person-write-form">{% csrf_token %}
     {{ wizard.management_form }}
 
     <div class="privacy-reminder">
@@ -39,6 +50,14 @@
     </p>
 
     <a class="button secondary-button" href="{% url 'writeinpublic:writeinpublic-new-message-step' step='draft' %}">Edit message</a>
-    <input type="submit" value="Send message" class="button pull-right">
+    {% if settings.GOOGLE_RECAPTCHA_SITE_KEY %}
+      <input 
+        type="submit" value="Send message"
+        class="g-recaptcha button pull-right"
+        data-sitekey="{{ settings.GOOGLE_RECAPTCHA_SITE_KEY }}"
+        data-callback='onSubmitMessage'>
+    {% else %}
+      <input type="submit" value="Send message" class="button pull-right">
+    {% endif %}
 </form>
 {% endblock %}
