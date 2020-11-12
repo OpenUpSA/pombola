@@ -272,8 +272,6 @@ class WriteInPublicNewMessageViewTest(TestCase):
         # POST to the preview step
         response = self.client.post(reverse('writeinpublic:writeinpublic-new-message-step', kwargs={'step': 'preview'}), {
             'write_in_public_new_message-current_step': 'preview',
-            'preview-captcha_0': 'random-string',
-            'preview-captcha_1': 'PASSED'
         })
         self.assertRedirects(
             response,

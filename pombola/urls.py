@@ -157,10 +157,6 @@ urlpatterns += (
 )
 
 
-urlpatterns += (
-    url(r'^captcha/', include('captcha.urls')),
-)
-
 # URL to check that the Sentry integration is working
 def trigger_error(request):
     division_by_zero = 1 / 0

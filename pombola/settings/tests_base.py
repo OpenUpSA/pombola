@@ -36,5 +36,3 @@ MAP_BOUNDING_BOX_WEST = None
 # assets, as suggested here:
 #   https://github.com/cyberdelia/django-pipeline/issues/277
 STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
-
-CAPTCHA_TEST_MODE = True
