@@ -43,15 +43,6 @@
       <p>Once you send this message, it will be available on the Internet for anyone to read. Your name will be included alongside the message. Your email address will not be public.</p>
     </div>
 
-    <div class="row">
-      <p class="form-group">
-          <label for="{{ form.captcha.auto_id }}">Please enter the text you see below or click on the image to hear an audio version:</label>
-          <div class="captcha-group">
-            {{form.captcha}}
-          </div>
-      </p>
-    </p>
-
     <a class="button secondary-button" href="{% url 'writeinpublic:writeinpublic-new-message-step' step='draft' %}">Edit message</a>
     {% if settings.GOOGLE_RECAPTCHA_SITE_KEY %}
       <input 
