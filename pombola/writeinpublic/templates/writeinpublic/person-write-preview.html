@@ -14,6 +14,9 @@
 {% block title %}Preview of message to {{ object.name }}{% endblock %}
 
 {% block content %}
+
+{% include 'writeinpublic/flash_messages.html' %}
+
 <div class="person-write-thread">
     <div class="person-write-message">
         <dl class="person-write-message__meta">

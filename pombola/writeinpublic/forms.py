@@ -1,6 +1,5 @@
 from django import forms
 from django.forms import SelectMultiple, ModelMultipleChoiceField, ModelChoiceField
-from captcha.fields import CaptchaField
 
 from pombola.core.models import Person
 
@@ -29,4 +28,4 @@ class DraftForm(forms.Form):
 
 
 class PreviewForm(forms.Form):
-    captcha = CaptchaField()
+    pass
