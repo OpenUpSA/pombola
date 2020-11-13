@@ -31,29 +31,8 @@ from pombola.core.recaptcha import RecaptchaField
 
 class PreviewForm(forms.Form):
     # g_recaptcha_response = RecaptchaField(required=True)
+
     def __init__(self, *args, **kwargs):
         super(PreviewForm, self).__init__(*args, **kwargs)
         self.fields["g-recaptcha-response"]= RecaptchaField(required=True)
     
-    prefix = None
-
-    def is_valid(self):
-        for name, field in self.fields.items():
-            print("name")
-            print(name)
-            print("data")
-            print(self.data)
-            print(self.data.get(name))
-            print(self.data.get('g-recaptcha-response'))
-            print("widget")
-            print(field.widget)
-            value = field.widget.value_from_datadict(self.data, self.files, self.add_prefix(name))
-            print('prefix')
-            print(self.prefix)
-            print("with prefix")
-            print(self.add_prefix(name))
-
-            print('value')
-            print(value)
-        raise Exception("run is valid")
-        return True

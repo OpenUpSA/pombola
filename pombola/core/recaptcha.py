@@ -54,16 +54,24 @@ def check_recaptcha_is_valid_if_query_param_present(function, query_param):
     return wrap
 
 from django.forms.fields import Field, CharField
+from django.forms.widgets import Widget
 
 def validate_recaptcha(value):
     # Verify Recaptcha
     if settings.GOOGLE_RECAPTCHA_SECRET_KEY:
         # recaptcha_response = request.POST.get("g-recaptcha-response", "")
         if not recaptcha_client.verify(value):
-            raise Exception("Recaptcha invalid")
+            print("\n\nrecaptcha_response in validate_recaptcha: %s" % value)
+            print("recaptcha_response valid in validate_recaptcha: %s" % recaptcha_client.verify(value))
             raise ValidationError("Recaptcha invalid")
 
+class ReCaptchaWidget(Widget):
+    def value_from_datadict(self, data, files, name):
+        return data.get("g-recaptcha-response", None)
+
 class RecaptchaField(Field):
+    widget = ReCaptchaWidget
+
     def __init__(self, *args, **kwargs):
         super(RecaptchaField, self).__init__(*args, **kwargs)
         self.validators.append(validate_recaptcha)

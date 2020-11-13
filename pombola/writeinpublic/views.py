@@ -160,14 +160,19 @@ class WriteInPublicNewMessage(WriteInPublicMixin, NamedUrlSessionWizardView):
 
     def post(self, request, *args, **kwargs):
         step = kwargs.get('step')
-        # if step == 'preview':
-        #     # Verify Recaptcha
-        #     if settings.GOOGLE_RECAPTCHA_SECRET_KEY:
-        #         recaptcha_response = request.POST.get("g-recaptcha-response", "")
-        #         if not recaptcha_client.verify(recaptcha_response):
-        #             messages.error(self.request, 'Sorry, there was an error sending your message, please try again. If this problem persists please contact us.')
-        #             return redirect(self.get_step_url(self.steps.current))
-        #             # TODO: redirect with message
+        if step == 'preview':
+            # Verify Recaptcha
+            recaptcha_response = request.POST.get("g-recaptcha-response", "")
+            print("\n\nrecaptcha_response in POST: %s" % recaptcha_response)
+            print("recaptcha_response valid in POST: %s" % recaptcha_client.verify(recaptcha_response))
+            if settings.GOOGLE_RECAPTCHA_SECRET_KEY:
+                recaptcha_response = request.POST.get("g-recaptcha-response", "")
+                if not recaptcha_client.verify(recaptcha_response):
+                    print("\n\nrecaptcha_response")
+                    print(recaptcha_response)
+                    messages.error(self.request, 'Sorry, there was an error sending your message, please try again. If this problem persists please contact us.')
+                    return redirect(self.get_step_url(self.steps.current))
+                    # TODO: redirect with message
 
         return super(WriteInPublicNewMessage, self).post(*args, **kwargs)
 
