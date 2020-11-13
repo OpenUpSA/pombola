@@ -43,7 +43,7 @@
       <p>Once you send this message, it will be available on the Internet for anyone to read. Your name will be included alongside the message. Your email address will not be public.</p>
     </div>
 
-    <a class="button secondary-button" href="{% url 'writeinpublic:writeinpublic-new-message-step' step='draft' %}">Edit message</a>
+    <a id="edit-write-to-message" class="button secondary-button" href="{% url 'writeinpublic:writeinpublic-new-message-step' step='draft' %}">Edit message</a>
     {% if settings.GOOGLE_RECAPTCHA_SITE_KEY %}
       <input 
         type="submit" value="Send message"
