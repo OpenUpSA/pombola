@@ -38,6 +38,7 @@
 <form id="submitMessage" action="" method="post" class="person-write-form person-write-form--centered">{% csrf_token %}
     {{ wizard.management_form }}
 
+    {{ form.errors }}
     <div class="privacy-reminder">
       <h2><i class="fa fa-question-circle"></i> Are you happy for this message to be made public?</h2>
       <p>Once you send this message, it will be available on the Internet for anyone to read. Your name will be included alongside the message. Your email address will not be public.</p>

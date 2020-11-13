@@ -2,6 +2,8 @@ from django.conf import settings
 from functools import wraps
 from django.core.exceptions import PermissionDenied
 import requests
+from django.conf import settings
+from django.core.exceptions import ValidationError
 
 
 class ReCaptchaClient(object):
@@ -50,3 +52,18 @@ def check_recaptcha_is_valid_if_query_param_present(function, query_param):
         return function(request, *args, **kwargs)
 
     return wrap
+
+from django.forms.fields import Field, CharField
+
+def validate_recaptcha(value):
+    # Verify Recaptcha
+    if settings.GOOGLE_RECAPTCHA_SECRET_KEY:
+        # recaptcha_response = request.POST.get("g-recaptcha-response", "")
+        if not recaptcha_client.verify(value):
+            raise Exception("Recaptcha invalid")
+            raise ValidationError("Recaptcha invalid")
+
+class RecaptchaField(Field):
+    def __init__(self, *args, **kwargs):
+        super(RecaptchaField, self).__init__(*args, **kwargs)
+        self.validators.append(validate_recaptcha)
