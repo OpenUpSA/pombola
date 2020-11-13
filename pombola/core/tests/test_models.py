@@ -91,6 +91,82 @@ class PositionTestCase(TestCase):
         self.assertFalse( pos.is_ongoing() )
 
 
+class PositionOrganisationTest(TestCase):
+    def setUp(self):
+        self.parliament_kind = models.OrganisationKind.objects.create(
+            name="Parliament",
+            slug="parliament",
+        )
+        self.na_organisation = models.Organisation.objects.create(
+            slug='national-assembly',
+            name='National Assembly',
+            kind=self.parliament_kind
+        )
+        self.ncop_organisation = models.Organisation.objects.create(
+            slug='ncop',
+            name='National Council of Provinces',
+            kind=self.parliament_kind
+        )
+        self.current_na_member = models.Person.objects.create(
+            legal_name='Current NA Member',
+            slug='current-na-member'
+        )
+        self.current_na_member_position = models.Position.objects.create(
+            person=self.current_na_member,
+            organisation=self.na_organisation,
+            start_date=ApproximateDate(past=True),
+            end_date=ApproximateDate(future=True)
+        )
+        self.old_na_member = models.Person.objects.create(
+            legal_name='Old NA Member',
+            slug='old-na-member'
+        )
+        self.old_na_member_position = models.Position.objects.create(
+            person=self.old_na_member,
+            organisation=self.na_organisation,
+            start_date=ApproximateDate(past=True),
+            end_date=ApproximateDate(past=True)
+        )
+        self.current_ncop_member = models.Person.objects.create(
+            legal_name='Current NCOP Member',
+            slug='current-ncop-member'
+        )
+        self.current_ncop_member_position = models.Position.objects.create(
+            person=self.current_ncop_member,
+            organisation=self.ncop_organisation,
+            start_date=ApproximateDate(past=True),
+            end_date=ApproximateDate(future=True)
+        )
+        self.old_ncop_member = models.Person.objects.create(
+            legal_name='Old NCOP Member',
+            slug='old-ncop-member'
+        )
+        self.old_ncop_member_position = models.Position.objects.create(
+            person=self.old_ncop_member,
+            organisation=self.ncop_organisation,
+            start_date=ApproximateDate(past=True),
+            end_date=ApproximateDate(past=True)
+        )
+
+    def test_position_set_filters(self):
+        self.assertIn(self.current_na_member_position, self.current_na_member.position_set.national_assembly())
+        self.assertIn(self.old_na_member_position, self.old_na_member.position_set.national_assembly())
+        self.assertIn(self.old_ncop_member_position, self.old_ncop_member.position_set.ncop())
+        self.assertIn(self.current_ncop_member_position, self.current_ncop_member.position_set.ncop())
+
+        self.assertTrue(self.current_ncop_member.has_ever_been_member_of_ncop)
+        self.assertTrue(self.old_ncop_member.has_ever_been_member_of_ncop)
+        self.assertTrue(self.current_ncop_member.has_ever_been_member_of_ncop_or_national_assembly)
+        self.assertTrue(self.old_ncop_member.has_ever_been_member_of_ncop_or_national_assembly)
+        self.assertFalse(self.old_ncop_member.has_ever_been_member_of_national_assembly)
+
+        self.assertTrue(self.current_na_member.has_ever_been_member_of_national_assembly)
+        self.assertTrue(self.old_na_member.has_ever_been_member_of_national_assembly)
+        self.assertTrue(self.current_na_member.has_ever_been_member_of_ncop_or_national_assembly)
+        self.assertTrue(self.old_na_member.has_ever_been_member_of_ncop_or_national_assembly)
+        self.assertFalse(self.current_na_member.has_ever_been_member_of_ncop)
+
+
 class PositionCurrencyTest(TestCase):
 
     def setUp(self):
