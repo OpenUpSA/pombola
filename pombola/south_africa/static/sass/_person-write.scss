@@ -112,9 +112,10 @@
       padding: 2px;
     }
 
-    // Hide the Google Recaptcha element so that the 'Edit' and 'Submit' buttons align
-    #edit-write-to-message + div {
-      display: None;
+    .preview-buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
     }
 }
 
