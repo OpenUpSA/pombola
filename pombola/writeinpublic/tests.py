@@ -246,38 +246,24 @@ class WriteInPublicNewMessageViewTest(TestCase):
         person.position_set.create(organisation=na)
         ck_email, _ = ContactKind.objects.get_or_create(slug='email', name='Email')
         person.contacts.create(kind=ck_email, value='test@example.com', preferred=True)
-        response = self.client.get(reverse('writeinpublic:writeinpublic-new-message'))
-        self.assertRedirects(response, reverse('writeinpublic:writeinpublic-new-message-step', kwargs={'step': 'recipients'}))
 
-        # GET the recipients step
-        response = self.client.get(response.url)
-        self.assertEquals(response.status_code, 200)
-
-        # POST to the recipients step
-        response = self.client.post(reverse('writeinpublic:writeinpublic-new-message-step', kwargs={'step': 'recipients'}), {
-            'write_in_public_new_message-current_step': 'recipients',
-            'recipients-persons': person.id,
-        })
-
-        self.assertRedirects(response, reverse('writeinpublic:writeinpublic-new-message-step', kwargs={'step': 'draft'}))
-
-        # GET the draft step
-        response = self.client.get(response.url)
-        self.assertEquals(response.status_code, 200)
-
-        # POST to the draft step
-        response = self.client.post(reverse('writeinpublic:writeinpublic-new-message-step', kwargs={'step': 'draft'}), {
-            'write_in_public_new_message-current_step': 'draft',
-            'draft-subject': 'Test',
-            'draft-content': 'Test',
-            'draft-author_name': 'Test',
-            'draft-author_email': 'test@example.com',
-        })
-        self.assertRedirects(response, reverse('writeinpublic:writeinpublic-new-message-step', kwargs={'step': 'preview'}))
-
-        # GET the preview step
-        response = self.client.get(response.url)
-        self.assertEquals(response.status_code, 200)
+        session = self.client.session
+        session['wizard_write_in_public_new_message'] = {
+            u'step_files': {
+                u'draft': {}, u'recipients': {}
+            }, 
+            u'step': u'preview', u'extra_data': {}, 
+            u'step_data': {
+                u'draft': {
+                    u'draft-content': [u'Test'], 
+                    u'draft-author_email': [u'test@example.com'], 
+                    u'write_in_public_new_message-current_step': [u'draft'], 
+                    u'draft-author_name': [u'Test'], 
+                    u'draft-subject': [u'Test']}, 
+                    u'recipients': {u'recipients-persons': [28]}
+                }
+            }
+        session.save()
 
         # POST to the preview step
         response = self.client.post(reverse('writeinpublic:writeinpublic-new-message-step', kwargs={'step': 'preview'}), {
