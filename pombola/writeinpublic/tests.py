@@ -411,7 +411,13 @@ class WriteToCommitteeMessagesViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['messages'], [])
 
-    def _test_successful_sending_message_wizard_steps(self, mock_requests):
+    def _mock_write_in_public_messages_post(self, mock_requests):
+        # Mock the POST response
+        mock_requests.post('/api/v1/message/', json={
+            'id': '42'
+        })
+
+    def _test_recaptcha_recipients_to_draft_steps(self):
         # GET the new message redirect
         response = self.client.get(
             reverse('writeinpublic-committees:writeinpublic-new-message'))
@@ -482,6 +488,11 @@ class WriteToCommitteeMessagesViewTest(TestCase):
             )
         )
 
+        return response
+
+    def _test_successful_sending_message_wizard_steps(self):
+        response = self._test_recaptcha_recipients_to_draft_steps()
+
         # GET the preview step
         response = self.client.get(response.url)
         self.assertEquals(response.status_code, 200)
@@ -497,11 +508,6 @@ class WriteToCommitteeMessagesViewTest(TestCase):
         )
         self.assertContains(response, 
             "Are you happy for this message to be made public?")
-
-        # Mock the POST response
-        mock_requests.post('/api/v1/message/', json={
-            'id': '42'
-        })
 
         # POST to the preview step
         response = self.client.post(
@@ -535,9 +541,56 @@ class WriteToCommitteeMessagesViewTest(TestCase):
         )
 
     @override_settings(GOOGLE_RECAPTCHA_SECRET_KEY=None)
-    def test_sending_message_wizard_steps(self, mock_requests):
-        self._test_successful_sending_message_wizard_steps(mock_requests)
+    def test_sending_message_wizard_steps_without_recaptcha(self, mock_requests):
+        self._mock_write_in_public_messages_post(mock_requests)
+        self._test_successful_sending_message_wizard_steps()
 
+    @override_settings(GOOGLE_RECAPTCHA_SECRET_KEY='test-key')
+    @patch('pombola.writeinpublic.views.recaptcha_client')
+    def test_sending_message_wizard_steps_with_success_recatpcha(self, mock_requests, mocked_recaptcha_client):
+        mocked_recaptcha_client.verify.return_value = True
+        self._mock_write_in_public_messages_post(mock_requests)
+        self._test_successful_sending_message_wizard_steps()
+
+    @override_settings(GOOGLE_RECAPTCHA_SECRET_KEY='test-key')
+    @patch('pombola.writeinpublic.views.recaptcha_client')
+    def test_sending_message_wizard_steps_with_failed_recatpcha(self, mock_requests, mocked_recaptcha_client):
+        mocked_recaptcha_client.verify.return_value = False
+        response = self._test_recaptcha_recipients_to_draft_steps()
+
+        # GET the preview step
+        response = self.client.get(response.url)
+        self.assertEquals(response.status_code, 200)
+
+        # POST to the preview step
+        response = self.client.post(
+            reverse(
+                'writeinpublic-committees:writeinpublic-new-message-step', 
+                kwargs={'step': 'preview'}
+            ),
+            {
+                'write_in_public_new_message-current_step': 'preview',
+                'preview-captcha_0': 'random-string',
+                'preview-captcha_1': 'PASSED'
+            },
+            follow=True
+        )
+
+        # After unsuccessful Recaptcha, return to the preview page
+        self.assertRedirects(
+            response,
+            reverse(
+                'writeinpublic-committees:writeinpublic-new-message-step', 
+                kwargs={'step': 'preview'}
+            ),
+            fetch_redirect_response=False
+        )
+        
+        # Check that the error message is in the context
+        message = list(response.context['messages'])[0]
+        self.assertEqual(message.tags, "error")
+        expected_message = 'Sorry, there was an error sending your message, please try again. If this problem persists please contact us.'
+        self.assertTrue(expected_message in message.message)
 
 
 class PersonAdapterTest(TestCase):
