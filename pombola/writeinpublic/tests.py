@@ -7,6 +7,8 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.utils.dateparse import parse_datetime
 from django.forms import ModelMultipleChoiceField, ModelChoiceField
+from django.test.utils import override_settings
+from mock import patch
 
 from pombola.core.models import Person, Organisation, OrganisationKind, ContactKind
 
@@ -217,6 +219,88 @@ class ClientTest(TestCase):
 
 @requests_mock.Mocker()
 class WriteInPublicNewMessageViewTest(TestCase):
+    @override_settings(GOOGLE_RECAPTCHA_SECRET_KEY=None)
+    def test_sending_message_wizard_steps_works_without_recaptcha(self, m):
+        # TODO
+        pass
+
+    @override_settings(GOOGLE_RECAPTCHA_SECRET_KEY='test-key')
+    @patch('pombola.writeinpublic.views.recaptcha_client')
+    def test_sending_message_wizard_steps_raises_error_with_incorrect_recaptcha(self, m, mocked_recaptcha_client):
+        mocked_recaptcha_client.verify.return_value = False
+        # Mock the POST response
+        m.post('/api/v1/message/', json={
+            'id': '42'
+        })
+        m.get('/api/v1/person/', json=person_json)
+        configuration = Configuration.objects.create(
+            url='http://example.com',
+            username='admin',
+            api_key='test',
+            instance_id='1',
+            slug='south-africa-assembly'
+        )
+        person = Person.objects.create()
+        parliament = OrganisationKind.objects.create(slug='parliament', name='Parliament')
+        na = Organisation.objects.create(slug='national-assembly', name='National Assembly', kind=parliament)
+        person.position_set.create(organisation=na)
+        ck_email, _ = ContactKind.objects.get_or_create(slug='email', name='Email')
+        person.contacts.create(kind=ck_email, value='test@example.com', preferred=True)
+        response = self.client.get(reverse('writeinpublic:writeinpublic-new-message'))
+        self.assertRedirects(response, reverse('writeinpublic:writeinpublic-new-message-step', kwargs={'step': 'recipients'}))
+
+        # GET the recipients step
+        response = self.client.get(response.url)
+        self.assertEquals(response.status_code, 200)
+
+        # POST to the recipients step
+        response = self.client.post(reverse('writeinpublic:writeinpublic-new-message-step', kwargs={'step': 'recipients'}), {
+            'write_in_public_new_message-current_step': 'recipients',
+            'recipients-persons': person.id,
+        })
+
+        self.assertRedirects(response, reverse('writeinpublic:writeinpublic-new-message-step', kwargs={'step': 'draft'}))
+
+        # GET the draft step
+        response = self.client.get(response.url)
+        self.assertEquals(response.status_code, 200)
+
+        # POST to the draft step
+        response = self.client.post(reverse('writeinpublic:writeinpublic-new-message-step', kwargs={'step': 'draft'}), {
+            'write_in_public_new_message-current_step': 'draft',
+            'draft-subject': 'Test',
+            'draft-content': 'Test',
+            'draft-author_name': 'Test',
+            'draft-author_email': 'test@example.com',
+        })
+        self.assertRedirects(response, reverse('writeinpublic:writeinpublic-new-message-step', kwargs={'step': 'preview'}))
+
+        # GET the preview step
+        response = self.client.get(response.url)
+        self.assertEquals(response.status_code, 200)
+
+        # POST to the preview step
+        response = self.client.post(reverse('writeinpublic:writeinpublic-new-message-step', kwargs={'step': 'preview'}), {
+            'write_in_public_new_message-current_step': 'preview',
+        }, follow=True
+        )
+
+        # After unsuccessful Recaptcha, return to the preview page
+        self.assertRedirects(
+            response,
+            reverse('writeinpublic:writeinpublic-new-message-step', kwargs={'step': 'preview'}),
+            fetch_redirect_response=False
+        )
+        
+        # Check that the error message is in the context
+        message = list(response.context['messages'])[0]
+        self.assertEqual(message.tags, "error")
+        expected_message = 'Sorry, there was an error sending your message, please try again. If this problem persists please contact us.'
+        self.assertTrue(expected_message in message.message)
+
+
+    @override_settings(GOOGLE_RECAPTCHA_SECRET_KEY=None)
+    @patch('pombola.writeinpublic.views.recaptcha_client')
     def test_sending_message_wizard_steps(self, m):
         # Mock the POST response
         m.post('/api/v1/message/', json={
