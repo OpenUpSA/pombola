@@ -167,7 +167,6 @@ class WriteInPublicNewMessage(WriteInPublicMixin, NamedUrlSessionWizardView):
                 if not recaptcha_client.verify(recaptcha_response):
                     messages.error(self.request, 'Sorry, there was an error sending your message, please try again. If this problem persists please contact us.')
                     return redirect(self.get_step_url(self.steps.current))
-                    # TODO: redirect with message
 
         return super(WriteInPublicNewMessage, self).post(*args, **kwargs)
 
