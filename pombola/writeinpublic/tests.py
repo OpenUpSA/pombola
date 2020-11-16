@@ -411,7 +411,7 @@ class WriteToCommitteeMessagesViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['messages'], [])
 
-    def test_sending_message_wizard_steps(self, m):
+    def _test_successful_sending_message_wizard_steps(self, mock_requests):
         # GET the new message redirect
         response = self.client.get(
             reverse('writeinpublic-committees:writeinpublic-new-message'))
@@ -499,7 +499,7 @@ class WriteToCommitteeMessagesViewTest(TestCase):
             "Are you happy for this message to be made public?")
 
         # Mock the POST response
-        m.post('/api/v1/message/', json={
+        mock_requests.post('/api/v1/message/', json={
             'id': '42'
         })
 
@@ -533,6 +533,10 @@ class WriteToCommitteeMessagesViewTest(TestCase):
             reverse('writeinpublic-committees:writeinpublic-pending'),
             fetch_redirect_response=False
         )
+
+    @override_settings(GOOGLE_RECAPTCHA_SECRET_KEY=None)
+    def test_sending_message_wizard_steps(self, mock_requests):
+        self._test_successful_sending_message_wizard_steps(mock_requests)
 
 
 
