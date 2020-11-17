@@ -1,6 +1,5 @@
 import datetime
 
-from django.conf.urls import patterns
 from django.contrib import admin
 from django.utils.decorators import method_decorator
 from django.contrib.admin.views.decorators import staff_member_required
@@ -37,10 +36,11 @@ class TaskAdmin(admin.ModelAdmin):
 
     def get_urls(self):
         urls = super(TaskAdmin, self).get_urls()
-        my_urls = patterns('',
+        # XXX: not sure if there URLs are in use
+        my_urls = [
             ( r'^do/$',                     self.do_next ),
             ( r'^do/(?P<task_id>[\d+]+)/$', self.do      ),
-        )
+        ]
         return my_urls + urls
         
 
