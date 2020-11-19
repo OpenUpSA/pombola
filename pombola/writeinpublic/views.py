@@ -1,4 +1,3 @@
-from collections import OrderedDict
 from formtools.wizard.views import NamedUrlSessionWizardView
 
 from django.views.generic import TemplateView
@@ -12,6 +11,7 @@ from django.core.urlresolvers import reverse
 import logging
 
 from pombola.core.models import Person, Organisation, Position
+from pombola.core.recaptcha import recaptcha_client
 
 from .forms import RecipientForm, DraftForm, PreviewForm, ModelChoiceField
 from .fields import CommiteeGroupedModelChoiceField
@@ -137,32 +137,6 @@ class WriteInPublicMixin(object):
         self.request.current_app = self.request.resolver_match.namespace
         return super(WriteInPublicMixin, self).render_to_response(context, **response_kwargs)
 
-class PreventRevalidationMixin(object):
-    """
-    Mixin to prevent the revalidation of specific fields.
-
-    From https://github.com/jazzband/django-formtools/issues/21.
-
-    Added because the Captcha field can't be validated more than once.
-
-    Add the mixin and an array of NO_REVALIDATION_FIELD_NAMES that you don't 
-    want to be revalidated at the end of the wizard.
-    """
-    def process_step(self, form):
-        for name in self.NO_REVALIDATION_FIELD_NAMES:
-           if name in form.fields:
-               self.storage.extra_data['skip_validation_%s' % name] = True
-        return super(PreventRevalidationMixin, self).process_step(form)
-
-    def get_form(self, step=None, *args, **kwargs):
-        # From https://github.com/jazzband/django-formtools/issues/21
-        form = super(PreventRevalidationMixin, self).get_form(step=step, *args, **kwargs)
-        for name in self.NO_REVALIDATION_FIELD_NAMES:
-           if name in form.fields and self.storage.extra_data.get('skip_validation_%s' % name):
-                del form.fields[name]
-        return form
-
-
 
 FORMS = [
     ("recipients", RecipientForm),
@@ -171,8 +145,7 @@ FORMS = [
 ]
 
 
-class WriteInPublicNewMessage(WriteInPublicMixin, PreventRevalidationMixin, NamedUrlSessionWizardView):
-    NO_REVALIDATION_FIELD_NAMES = ['captcha']
+class WriteInPublicNewMessage(WriteInPublicMixin, NamedUrlSessionWizardView):
     form_list = FORMS
 
     def get_form_kwargs(self, step=None):
@@ -185,8 +158,21 @@ class WriteInPublicNewMessage(WriteInPublicMixin, PreventRevalidationMixin, Name
         else:
             return super(WriteInPublicNewMessage, self).get_form_initial(step=step)
 
+    def post(self, request, *args, **kwargs):
+        step = kwargs.get('step')
+        if step == 'preview':
+            # Verify Recaptcha
+            if settings.GOOGLE_RECAPTCHA_SECRET_KEY:
+                recaptcha_response = request.POST.get("g-recaptcha-response", "")
+                if not recaptcha_client.verify(recaptcha_response):
+                    messages.error(self.request, 'Sorry, there was an error sending your message, please try again. If this problem persists please contact us.')
+                    return redirect(self.get_step_url(self.steps.current))
+
+        return super(WriteInPublicNewMessage, self).post(*args, **kwargs)
+
     def get(self, *args, **kwargs):
         step = kwargs.get('step')
+
         # If we have an ID in the URL and it matches someone, go straight to
         # /draft
         if 'person_id' in self.request.GET:
@@ -198,6 +184,7 @@ class WriteInPublicNewMessage(WriteInPublicMixin, PreventRevalidationMixin, Name
                 return redirect(self.get_step_url('draft'))
             except Person.DoesNotExist:
                 pass
+
 
         # Check that the form contains valid data
         if step == 'draft' or step == 'preview':

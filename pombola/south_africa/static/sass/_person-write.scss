@@ -111,6 +111,16 @@
       background-color: white;
       padding: 2px;
     }
+
+    .preview-buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+}
+
+.person-write-form--centered {
+  margin: 0 auto;
 }
 
 // Custom version of the write form, with a coloured background,

@@ -171,9 +171,6 @@ cffi
 everypolitician==0.0.13
 everypolitician-popolo==0.0.11
 
-# Captcha
-django-simple-captcha==0.5.12
-
 # Streaming Excel files for contact list download
 xlsx-streaming==0.4.1
 zipstream==1.1.4
