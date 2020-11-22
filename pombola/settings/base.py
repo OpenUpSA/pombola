@@ -486,9 +486,21 @@ def make_enabled_features(installed_apps, all_optional_apps):
     return result
 
 
+# Only for debugging compression (the default is: 'not DEBUG' which is
+# fine when not experimenting with compression)
+# PIPELINE_ENABLED = True
+
+PIPELINE = {
+    'COMPILERS' : ("pipeline_compass.compass.CompassCompiler",),
+    'CSS_COMPRESSOR': "pipeline.compressors.yui.YUICompressor",
+    'JS_COMPRESSOR': "pipeline.compressors.yui.YUICompressor",
+    'YUI_BINARY': "/usr/bin/env yui-compressor",
+    'DISABLE_WRAPPER': True
+}
+
 # Set up the core CSS and JS files:
 
-PIPELINE_CSS = {
+PIPELINE['STYLESHEETS'] = {
     'countdown': {
         'source_filenames': (
             'css/jquery.countdown-v1.6.0.css',
@@ -505,7 +517,7 @@ PIPELINE_CSS = {
     },
 }
 
-PIPELINE_JS = {
+PIPELINE['JAVASCRIPT'] = {
     'base': {
         'source_filenames': (
             'js/libs/jquery-ui.js',
@@ -571,17 +583,6 @@ PIPELINE_JS = {
     },
 }
 
-# Only for debugging compression (the default is: 'not DEBUG' which is
-# fine when not experimenting with compression)
-# PIPELINE_ENABLED = True
-
-PIPELINE = {
-    'COMPILERS' : ("pipeline_compass.compass.CompassCompiler",),
-    'CSS_COMPRESSOR': "pipeline.compressors.yui.YUICompressor",
-    'JS_COMPRESSOR': "pipeline.compressors.yui.YUICompressor",
-    'YUI_BINARY': "/usr/bin/env yui-compressor",
-    'DISABLE_WRAPPER': True
-}
 
 EXCLUDE_FROM_SEARCH = ()
 
