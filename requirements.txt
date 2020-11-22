@@ -40,7 +40,8 @@ django-ajax-selects==1.4.2
 django-autocomplete-light==2.3.3
 django-slug-helpers==0.0.3
 django-file-archive==0.0.2
-django-info-pages==0.0.5
+# django-info-pages
+-e git+git://github.com/OpenUpSA/django-info-pages@a592d2f00f205051c50ee4f5a4e19e4ad4c25c6a#egg=django-info-pages
 
 Markdown==2.5.1
 
