@@ -84,7 +84,7 @@ django-mapit==1.6
 
 # SayIt and ZA hansard scrapers - need to be made available to be added as an optional app
 # Note, if the subsequent -e are ever removed, please remove manually from virtualenv/src !
--e git+git://github.com/mysociety/sayit.git@89952e69826ce4ad5717fa445339ca68727e7fd0#egg=django-sayit
+-e git+git://github.com/mysociety/sayit.git@f60da55a85ba0870f920259b226fcc13aba7de37#egg=django-sayit
 
 mysociety-django-sluggable==0.2.7
 -e git+git://github.com/mysociety/popolo-name-resolver@a6fca27e080acdb475e6fd2e1382592b0c0a0fc5#egg=popolo-name-resolver
