@@ -2,6 +2,7 @@ import datetime
 
 from django.contrib import admin
 from django.utils.decorators import method_decorator
+from django.conf.urls import url
 from django.contrib.admin.views.decorators import staff_member_required
 from django.core.urlresolvers import reverse
 from django.shortcuts  import render_to_response, redirect
@@ -38,8 +39,8 @@ class TaskAdmin(admin.ModelAdmin):
         urls = super(TaskAdmin, self).get_urls()
         # XXX: not sure if there URLs are in use
         my_urls = [
-            ( r'^do/$',                     self.do_next ),
-            ( r'^do/(?P<task_id>[\d+]+)/$', self.do      ),
+            url(r'^do/$',                     self.do_next ),
+            url(r'^do/(?P<task_id>[\d+]+)/$', self.do      ),
         ]
         return my_urls + urls
         
