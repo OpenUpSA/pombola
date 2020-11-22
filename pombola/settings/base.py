@@ -575,15 +575,13 @@ PIPELINE_JS = {
 # fine when not experimenting with compression)
 # PIPELINE_ENABLED = True
 
-PIPELINE_COMPILERS = ("pipeline_compass.compass.CompassCompiler",)
-
-PIPELINE_CSS_COMPRESSOR = "pipeline.compressors.yui.YUICompressor"
-PIPELINE_JS_COMPRESSOR = "pipeline.compressors.yui.YUICompressor"
-
-
-PIPELINE_YUI_BINARY = "/usr/bin/env yui-compressor"
-
-PIPELINE_DISABLE_WRAPPER = True
+PIPELINE = {
+    'COMPILERS' : ("pipeline_compass.compass.CompassCompiler",),
+    'CSS_COMPRESSOR': "pipeline.compressors.yui.YUICompressor",
+    'JS_COMPRESSOR': "pipeline.compressors.yui.YUICompressor",
+    'YUI_BINARY': "/usr/bin/env yui-compressor",
+    'DISABLE_WRAPPER': True
+}
 
 EXCLUDE_FROM_SEARCH = ()
 
