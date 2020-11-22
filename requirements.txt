@@ -53,7 +53,7 @@ lxml==3.6.2
 # that the behaviour is not altered. If you need to reintroduce jQuery manually
 # into the admin then commit c5fdf97df10782c098592e89503fce461840dcda may be
 # useful as a reference.
-django-markitup==2.3.0
+django-markitup==4.0.0
 
 requests==2.20.0
 elasticsearch>=1.0.0,<2.0.0
