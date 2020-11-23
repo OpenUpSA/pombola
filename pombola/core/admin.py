@@ -16,7 +16,6 @@ from pombola.scorecards import models as scorecard_models
 
 admin.site.register(models.ParliamentarySession)
 
-
 def create_admin_link_for(obj, link_text):
     return u'<a href="{url}">{link_text}</a>'.format(
         url=obj.get_admin_url(),
@@ -316,3 +315,9 @@ class LogAdmin(admin.ModelAdmin):
         return True
     def has_delete_permission(self, request, obj=None):
         return False
+
+@admin.register(models.OrganisationHistory)
+class OrganisationHistoryAdmin(admin.ModelAdmin):
+    list_display = ['old_organisation', 'new_organisation', 'date_changed']
+    list_filter = ['date_changed']
+    search_fields = ['old_organisation', 'new_organisation']
