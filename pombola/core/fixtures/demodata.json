@@ -737,7 +737,7 @@
             "created": "2013-08-01T01:21:27.556",
             "_summary_rendered": "",
             "summary": "",
-            "slug": "national-assembly-committees"
+            "slug": "parliament"
         },
         "model": "core.organisationkind",
         "pk": 8
@@ -749,7 +749,7 @@
             "created": "2013-08-01T01:21:27.654",
             "_summary_rendered": "",
             "summary": "",
-            "slug": "executive"
+            "slug": "national-assembly-committees"
         },
         "model": "core.organisationkind",
         "pk": 9
