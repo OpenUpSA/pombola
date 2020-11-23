@@ -737,7 +737,7 @@
             "created": "2013-08-01T01:21:27.556",
             "_summary_rendered": "",
             "summary": "",
-            "slug": "parliament"
+            "slug": "national-assembly-committees"
         },
         "model": "core.organisationkind",
         "pk": 8
@@ -779,7 +779,7 @@
             "ended": null,
             "show_attendance": false,
             "seats": 400,
-            "slug": "national-assembly"
+            "slug": "national-assembly-committees"
         },
         "model": "core.organisation",
         "pk": 70
@@ -797,7 +797,7 @@
             "ended": null,
             "show_attendance": false,
             "seats": 90,
-            "slug": "ncop"
+            "slug": "ncop-committees"
         },
         "model": "core.organisation",
         "pk": 71
@@ -1052,6 +1052,17 @@
             "slug": "mf"
         },
         "model": "core.organisation",
+        "pk": 85
+    },
+    {
+        "fields": {
+            "updated": "2020-11-24T11:44:29.959",
+            "old_organisation": 70,
+            "new_organisation": 71,
+            "created": "2020-11-01T01:21:28.030",
+            "date_changed": "2013-08-01"
+        },
+        "model": "core.organisationhistory",
         "pk": 85
     },
     {
