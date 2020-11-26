@@ -1,9 +1,9 @@
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 
 from pombola.core.models import ParliamentarySession, Person
 
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
 
     help = "Go through people who are MP aspirants, and check that they're associated with a 2013 constituency"
 

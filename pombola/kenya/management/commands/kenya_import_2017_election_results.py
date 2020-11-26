@@ -1,7 +1,7 @@
 import csv
 import os
 
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 from django.utils.text import slugify
 
 from django.db.utils import IntegrityError
@@ -69,7 +69,7 @@ class bcolors:
     UNDERLINE = '\033[4m'
 
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     help = 'Import elected representatives from the 2017 election'
 
     def prepare_common_objects(self):

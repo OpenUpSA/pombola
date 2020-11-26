@@ -25,17 +25,17 @@ from collections import namedtuple
 from optparse import make_option
 
 from django.core.management import call_command
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 
 from mapit.models import Generation, NameType, Country
 
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     """Import South African boundaries"""
 
     help = 'Import shapefiles with South African boundary data'
 
-    option_list = NoArgsCommand.option_list + (
+    option_list = BaseCommand.option_list + (
         make_option(
             '--wards', '-w',
             help="The wards shapefile"),

@@ -2,7 +2,7 @@ import json
 from optparse import make_option
 import re
 
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 
 from pombola.feedback.models import Feedback
 
@@ -14,10 +14,10 @@ def unpack_comment(comment_text):
         raise Exception(u"Found a malformed comment: " + comment_text)
     return json.loads(m.group(1)), m.group(2)
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     help = 'Generate a CSV file with all candiates for generating Google AdWords'
 
-    option_list = NoArgsCommand.option_list + (
+    option_list = BaseCommand.option_list + (
         make_option('--commit', action='store_true', dest='commit', help='Actually update the database'),
         )
 

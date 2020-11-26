@@ -1,17 +1,17 @@
 import sys
 from optparse import make_option
 
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 
 from pombola.core.models import Person
 
 from iebc_api import maybe_save, normalize_name
 
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     help = 'Normalize the legal_name and other_names for each Person'
 
-    option_list = NoArgsCommand.option_list + (
+    option_list = BaseCommand.option_list + (
         make_option('--commit', action='store_true', dest='commit', help='Actually update the database'),
         )
 

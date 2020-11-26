@@ -1,14 +1,14 @@
 from optparse import make_option
 
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 from django.db.models import Q
 
 from pombola.core.models import Person
 
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
 
-    option_list = NoArgsCommand.option_list + (
+    option_list = BaseCommand.option_list + (
         make_option('--commit', action='store_true', dest='commit', help='Actually update the database'),
         )
 

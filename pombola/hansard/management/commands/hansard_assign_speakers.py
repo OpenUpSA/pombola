@@ -1,10 +1,10 @@
 from django.conf import settings
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 
 from pombola.hansard.models import Entry
 
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     help = 'Try to assign a person to each entry'
     args = ''
 

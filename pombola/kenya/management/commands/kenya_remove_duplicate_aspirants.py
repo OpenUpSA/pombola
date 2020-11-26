@@ -12,7 +12,7 @@ import re
 import sys
 from optparse import make_option
 
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 from django.utils.text import slugify
 from django.contrib.contenttypes.models import ContentType
 
@@ -175,10 +175,10 @@ def remove_duplicate_candidates_for_place(place_name,
                         other_person.delete()
 
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     help = 'Update the database with aspirants from the IEBC website'
 
-    option_list = NoArgsCommand.option_list + (
+    option_list = BaseCommand.option_list + (
         make_option('--commit', action='store_true', dest='commit', help='Actually update the database'),
         make_option('--only-place', dest='place', help='Only remove duplicates for particular places matching this name'),
         )

@@ -1,10 +1,10 @@
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 from django.core.mail import send_mail
 
 from pombola.hansard.models import Alias
 
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     help = 'Email a list of all the speaker names that have not been matched up to a real person'
 
     def handle_noargs(self, **options):

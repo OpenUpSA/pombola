@@ -14,7 +14,7 @@ import os
 import sys
 from optparse import make_option
 
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 
 from django.conf import settings
 
@@ -36,10 +36,10 @@ data_directory = os.path.join(
     os.path.dirname(__file__), '..', '..', '2013-election-data'
 )
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     help = 'Update the database with aspirants from the IEBC website'
 
-    option_list = NoArgsCommand.option_list + (
+    option_list = BaseCommand.option_list + (
         make_option('--commit', action='store_true', dest='commit', help='Actually update the database'),
         )
 

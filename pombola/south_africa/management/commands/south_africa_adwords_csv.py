@@ -8,16 +8,16 @@ from optparse import make_option
 
 from pombola.core.models import Organisation, Place
 from pombola.south_africa.models import ZAPlace
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 
 
 data_directory = os.path.join(
     sys.path[0], 'pombola', 'south_africa', 'data', 'adwords')
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     help = 'Generate CSV files with data for generating Google AdWords'
 
-    option_list = NoArgsCommand.option_list + (
+    option_list = BaseCommand.option_list + (
         make_option('--commit', action='store_true', dest='commit', help='Actually update the database'),
         )
 

@@ -12,7 +12,7 @@ from optparse import make_option
 from pombola.core.models import (Organisation, OrganisationKind,
                          Person, Position,
                          PositionTitle, AlternativePersonName)
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 from django.db.models import Q
 
 from django_date_extensions.fields import ApproximateDate
@@ -290,12 +290,12 @@ def search(firstnames, surname, party, list_position, list_name):
         return True
     return False
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     '''Import South African national and provincial election candidates'''
 
     help = 'Import csv file of South African national and provincial election candidates'
 
-    option_list = NoArgsCommand.option_list + (
+    option_list = BaseCommand.option_list + (
         make_option( '--candidates', '-c', help="The candidates csv file" ),
         make_option( '--year', '-y', help="The year of the election" ),
         make_option( '--commit', action='store_true',

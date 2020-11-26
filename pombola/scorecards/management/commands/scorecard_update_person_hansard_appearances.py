@@ -1,9 +1,9 @@
 import datetime
 
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 from django.core.exceptions import ImproperlyConfigured
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     help = 'Create/update hansard scorecard entry for all mps'
     args = ''
 

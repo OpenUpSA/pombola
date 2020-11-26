@@ -1,11 +1,11 @@
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 from django.utils.text import slugify
 
 from pombola.core import models
 from mapit import models as mapit_models
 
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     help = 'Link places to areas in mapit'
 
     def handle_noargs(self, **options):

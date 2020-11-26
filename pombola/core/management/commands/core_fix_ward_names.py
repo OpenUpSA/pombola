@@ -1,6 +1,6 @@
 import re
 
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 
 from django.utils.text import slugify
 
@@ -12,10 +12,10 @@ from pombola.core.models import PlaceKind, Place
 def slugify_place_name(place_name):
     return 'ward-' + slugify(place_name)
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     help = 'Standardize the form of ward names with regard to / and - separators'
 
-    option_list = NoArgsCommand.option_list + (
+    option_list = BaseCommand.option_list + (
         make_option('--commit', action='store_true', dest='commit', help='Actually update the database'),
         )
 

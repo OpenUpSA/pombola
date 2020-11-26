@@ -12,7 +12,7 @@ import re
 import sys
 from optparse import make_option
 
-from django.core.management.base import NoArgsCommand, CommandError
+from django.core.management.base import BaseCommand, CommandError
 from django.utils.text import slugify
 
 from django_date_extensions.fields import ApproximateDate
@@ -190,10 +190,10 @@ def maybe_save(o, **options):
     else:
         print >> sys.stderr, 'Not saving %s because --commit was not specified' % (o,)
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     help = 'Update the database with aspirants from the IEBC website'
 
-    option_list = NoArgsCommand.option_list + (
+    option_list = BaseCommand.option_list + (
         make_option('--commit', action='store_true', dest='commit', help='Actually update the database'),
         )
 

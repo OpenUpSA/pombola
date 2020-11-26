@@ -13,7 +13,7 @@ import sys
 from optparse import make_option
 
 from django.core.management import call_command
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 from django.utils.text import slugify
 
 from pombola.core.models import (
@@ -126,10 +126,10 @@ except (PlaceKind.DoesNotExist, PositionTitle.DoesNotExist):
     ward_representative_position_data = None
     governor_position_data = None
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     help = 'Set the elected ward representatives and governors'
 
-    option_list = NoArgsCommand.option_list + (
+    option_list = BaseCommand.option_list + (
         make_option('--commit', action='store_true', dest='commit', help='Actually update the database'),
         )
 

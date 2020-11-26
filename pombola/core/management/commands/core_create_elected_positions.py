@@ -9,7 +9,7 @@
 
 from optparse import make_option
 
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 from django_date_extensions.fields import ApproximateDate
 
 from pombola.core.models import Person, Position, PositionTitle, Place, Organisation
@@ -19,11 +19,11 @@ def yyyymmdd_to_approx(yyyymmdd):
     year, month, day = map(int, yyyymmdd.split('-'))
     return ApproximateDate(year, month, day)
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
 
     help = 'create new position for election winners, end aspirant positions'
 
-    option_list = NoArgsCommand.option_list + (
+    option_list = BaseCommand.option_list + (
         make_option('--commit', action='store_true', dest='commit', help='Actually update the database'),
 
         make_option('--place',                help="The Place slug that the positions are linked to"),
