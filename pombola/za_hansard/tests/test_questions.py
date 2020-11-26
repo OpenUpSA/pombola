@@ -12,7 +12,7 @@ from unittest import skip
 
 from django.test import TestCase
 from django.template.defaultfilters import slugify
-from django.utils.unittest import skipUnless
+from unittest import skipUnless
 
 from .. import question_scraper
 from ..management.commands.za_hansard_q_and_a_scraper import Command as QAScraperCommand
