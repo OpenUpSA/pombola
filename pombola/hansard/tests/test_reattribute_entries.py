@@ -3,7 +3,7 @@
 from datetime import date
 from mock import patch
 
-from django.utils.unittest import skip
+from unittest import skip
 from pombola.core.models import Person
 from pombola.hansard.models import (
     Entry, Source, Sitting, Venue

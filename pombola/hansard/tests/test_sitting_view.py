@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django_webtest import WebTest
-from django.utils.unittest import skip
+from unittest import skip
 
 from pombola.core import models
 from ..models import Entry, Sitting
