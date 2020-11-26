@@ -617,7 +617,7 @@ def position(request, pt_slug, ok_slug=None, o_slug=None):
     else:
 
         return render(
-            request
+            request,
             template,
             context,
         )
