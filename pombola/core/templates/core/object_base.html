@@ -13,7 +13,7 @@
           <h1>{{ object.title }} {{ object.name }}</h1>
           {% for hist in object.org_history_old.all %}
               <span class="committee-history">
-                  Became:
+                  {{ hist.date_changed|date:"d M Y" }} | Became:
                  <a href="{{ hist.new_organisation.get_absolute_url }}">
                     {{ hist.new_organisation }}
                  </a>
@@ -21,7 +21,7 @@
           {% endfor %}
           {% for hist in object.new_history_old.all %}
               <span class="committee-history">
-                  Became:
+                  {{ hist.date_changed|date:"d M Y" }} | Formerly:
                  <a href="{{ hist.old_organisation.get_absolute_url }}">
                     {{ hist.old_organisation }}
                  </a>

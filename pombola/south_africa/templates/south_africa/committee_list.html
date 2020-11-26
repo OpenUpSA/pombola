@@ -33,7 +33,7 @@
                   </p>
                   {% for hist in committee.org_history_old.all %}
                       <p class="committee-history">
-                          Became:
+                          {{ hist.date_changed|date:"d M Y" }} | Became:
                           <a href="{{ hist.new_organisation.get_absolute_url }}">
                             {{ hist.new_organisation }}
                           </a>
@@ -42,7 +42,7 @@
 
                   {% for hist in committee.org_history_new.all %}
                      <p class="committee-history">
-                        Formerly:
+                        {{ hist.date_changed|date:"d M Y" }} | Formerly:
                          <a href="{{ hist.old_organisation.get_absolute_url }}">
                             {{ hist.old_organisation }}
                          </a>
