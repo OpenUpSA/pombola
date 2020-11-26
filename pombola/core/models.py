@@ -1700,8 +1700,8 @@ class Position(ModelBase, IdentifierMixin):
         none_repr = '0000-00-00'
 
         # value can be yyyy-mm-dd, future or None
-        start = repr(self.start_date) if self.start_date else None
-        end   = repr(self.end_date)   if self.end_date   else None
+        start = str(self.start_date) if self.start_date else None
+        end   = str(self.end_date)   if self.end_date   else None
 
         # set the value or default to something sane
         sorting_start_date =        start or none_repr
