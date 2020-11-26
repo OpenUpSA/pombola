@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_protect
 
@@ -54,7 +54,8 @@ def add(request):
         form = FeedbackForm(initial=request.GET)
         
     
-    return render_to_response(
+    return render(
+        request,
         'feedback/add.html',
         {
             'form':               form,
@@ -62,5 +63,4 @@ def add(request):
             'return_to_url':      return_to_url,
             'submit_error_message': submit_error_message
         },
-        context_instance=RequestContext(request)
     )

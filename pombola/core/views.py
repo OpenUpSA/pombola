@@ -23,7 +23,7 @@ from django.core.urlresolvers import reverse
 from django.db.models import Count
 from django.db.models import Q
 from django.http import HttpResponse
-from django.shortcuts  import render_to_response, get_object_or_404, redirect
+from django.shortcuts  import render, get_object_or_404, redirect
 from django.template   import RequestContext
 from django.views.decorators.cache import cache_control, never_cache
 from django.views.generic import ListView, DetailView, TemplateView
@@ -616,10 +616,10 @@ def position(request, pt_slug, ok_slug=None, o_slug=None):
 
     else:
 
-        return render_to_response(
+        return render(
+            request
             template,
             context,
-            context_instance=RequestContext(request)
         )
 
 
@@ -694,12 +694,12 @@ def parties(request):
 
     parties = models.Organisation.objects.all().active_parties()
 
-    return render_to_response(
+    return render(
+        request,
         'core/parties.html',
         {
             'parties': parties,
         },
-        context_instance = RequestContext( request ),
     )
 
 def featured_person(request, current_slug, direction):
@@ -709,12 +709,12 @@ def featured_person(request, current_slug, direction):
        random requests that can be cached)."""
     want_previous = direction == 'before'
     featured_person = models.Person.objects.get_next_featured(current_slug, want_previous)
-    return render_to_response(
+    return render(
+        request,
         'core/person_feature.html',
         {
             'featured_person': featured_person,
         },
-        context_instance = RequestContext( request ),
     )
 
 # We never want this to be cached
@@ -743,12 +743,12 @@ def memcached_status(request):
 # Template the robots.txt so we can block robots on staging.
 @cache_control(max_age=86400, s_maxage=86400, public=True)
 def robots(request):
-    return render_to_response(
+    return render(
+        request,
         'robots.txt',
         {
             'staging': settings.STAGING,
         },
-        context_instance=RequestContext(request),
         content_type='text/plain',
     )
 

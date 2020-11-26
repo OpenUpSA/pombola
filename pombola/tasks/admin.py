@@ -5,7 +5,7 @@ from django.utils.decorators import method_decorator
 from django.conf.urls import url
 from django.contrib.admin.views.decorators import staff_member_required
 from django.core.urlresolvers import reverse
-from django.shortcuts  import render_to_response, redirect
+from django.shortcuts  import render, redirect
 from django.template   import RequestContext
 
 from slug_helpers.admin import StricterSlugFieldMixin
@@ -90,7 +90,8 @@ class TaskAdmin(admin.ModelAdmin):
         
 
 
-        return render_to_response(
+        return render(
+            request,
             'admin/tasks/task/do.html',
             {
                 'task':             task,
@@ -99,7 +100,6 @@ class TaskAdmin(admin.ModelAdmin):
                 'object_admin_url': create_admin_url_for(task.content_object),
                 'show_completed_warning': show_completed_warning,
             },
-            context_instance=RequestContext(request)
         )
 
     @method_decorator(staff_member_required)
@@ -110,10 +110,10 @@ class TaskAdmin(admin.ModelAdmin):
             task = tasks_to_do[0]
             return redirect( '/admin/tasks/task/do/' + str(task.id) + '/' )
         except IndexError:
-            return render_to_response(
+            return render(
+                request,
                 'admin/tasks/task/do_next.html',
                 {},
-                context_instance=RequestContext(request)
             )
 
 

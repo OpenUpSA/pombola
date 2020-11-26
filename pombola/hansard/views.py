@@ -1,7 +1,7 @@
 import re
 import datetime
 
-from django.shortcuts  import render_to_response, get_object_or_404
+from django.shortcuts  import render, get_object_or_404
 from django.http import Http404
 from django.template   import RequestContext
 from django.views.generic import TemplateView, DetailView, ListView
@@ -169,10 +169,10 @@ def person_summary(request, slug):
     }
     context.update(person.get_disqus_thread_data(request))
 
-    return render_to_response(
+    return render(
+        request
         'hansard/person_summary.html',
         context,
-        context_instance=RequestContext(request)
     )
 
 

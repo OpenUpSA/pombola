@@ -1,12 +1,12 @@
-from django.shortcuts  import render_to_response
+from django.shortcuts  import render
 from django.template   import RequestContext
 
 def home(request):
     """Homepage"""
 
-    return render_to_response(
+    return render(
+        request,
         'map/home.html',
         {},
-        context_instance=RequestContext(request)
     )
 

@@ -1,6 +1,6 @@
 import models
 
-from django.shortcuts  import render_to_response, get_object_or_404, redirect
+from django.shortcuts  import render, get_object_or_404, redirect
 from django.template   import RequestContext
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -58,13 +58,13 @@ def quiz_detail (request, slug):
             return redirect(submission)
 
 
-    return render_to_response(
+    return render(
+        request,
         'votematch/quiz_detail.html',
         {
             'object':     quiz,
             'choices':    models.agreement_choices,
         },
-        context_instance=RequestContext(request)
     )
     
 
@@ -130,7 +130,8 @@ def submission_detail (request, slug, token):
     for result in results:
         result['score_percentage'] = abs(result['score']) / float(max_score) * 100
 
-    return render_to_response(
+    return render(
+        request,
        'votematch/submission_detail.html',
        {
            'object':     submission,
@@ -138,5 +139,4 @@ def submission_detail (request, slug, token):
            'quiz':       quiz,
            'results':    results,
        },
-       context_instance=RequestContext(request)
     )
