@@ -15,8 +15,6 @@ before_script:
 script:
   - docker-compose run app coverage run -a --source=pombola,pombola_sayit,wordcloud,writeinpublic ./manage.py test --settings=pombola.settings.tests_south_africa
   - curl --connect-timeout 20 --retry 5 --retry-delay 1 http://localhost:8000/position/member/parliament/\?order\=name\&a\=1 | grep "Ramokgopa"
-  - curl --connect-timeout 20 --retry 5 --retry-delay 1 http://localhost:8000/committees/ | grep "26 Nov 2020 | Became"
-  - curl --connect-timeout 20 --retry 5 --retry-delay 1 http://localhost:8000/organisation/committee-multi-party-womens-caucus/ | grep "26 Nov 2020 | Became"
 
 after_script:
   # Log output in case issues occurred where this can help us debug quicly
