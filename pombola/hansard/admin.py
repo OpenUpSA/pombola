@@ -1,6 +1,7 @@
 from ajax_select import make_ajax_form
 
 from django.contrib import admin, messages
+from django.conf.urls import url
 from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import redirect, render_to_response
 from django.template import RequestContext
@@ -89,7 +90,7 @@ class AliasAdmin(admin.ModelAdmin):
         urls = super(AliasAdmin, self).get_urls()
         # XXX: not sure if there URLs are in use
         my_urls = [
-            ( r'^next_unassigned/$', self.next_unassigned ),
+            url( r'^next_unassigned/$', self.next_unassigned ),
         ]
         return my_urls + urls
 
