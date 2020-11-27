@@ -7,7 +7,7 @@ class Command(BaseCommand):
 
     help = "Go through people who are MP aspirants, and check that they're associated with a 2013 constituency"
 
-    def handle_noargs(self, **options):
+    def handle(self, **options):
         next_session = ParliamentarySession.objects.get(slug="na2013")
         for person in Person.objects.all():
             if not person.is_aspirant():
