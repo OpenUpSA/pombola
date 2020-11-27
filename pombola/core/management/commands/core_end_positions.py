@@ -1,5 +1,3 @@
-from optparse import make_option
-
 from django.core.management.base import BaseCommand
 from django_date_extensions.fields import ApproximateDate
 
@@ -14,15 +12,14 @@ class Command(BaseCommand):
 
     help = 'End positions which meet the criteria'
 
-    option_list = BaseCommand.option_list + (
-        make_option('--commit', action='store_true', dest='commit', help='Actually update the database'),
+    def add_arguments(self, parser):
+        parser.add_argument('--commit', action='store_true', dest='commit', help='Actually update the database'),
 
-        make_option('--end-date',     dest="end-date",     help="The end date to apply to matching positions"),
+        parser.add_argument('--end-date',     dest="end-date",     help="The end date to apply to matching positions"),
 
-        make_option('--title',             dest="title",             help="The title to match positions"),
-        make_option('--organisation',      dest="organisation",      help="The organisation to match positions"),
-        make_option('--organisation-kind', dest="organisation-kind", help="The kind of organisation to match positions")
-    )
+        parser.add_argument('--title',             dest="title",             help="The title to match positions"),
+        parser.add_argument('--organisation',      dest="organisation",      help="The organisation to match positions"),
+        parser.add_argument('--organisation-kind', dest="organisation-kind", help="The kind of organisation to match positions")
 
     def handle_noargs(self, **options):
 

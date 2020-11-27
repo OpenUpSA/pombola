@@ -13,8 +13,6 @@ import subprocess
 
 from datetime import datetime, date, timedelta
 
-from optparse import make_option
-
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
@@ -100,74 +98,73 @@ class Command(BaseCommand):
     new_errors_count = 0
     verbose = False
     help = 'Scrape questions and answers'
-    option_list = BaseCommand.option_list + (
-        make_option('--scrape-questions',
+    def add_arguments(self, parser):
+        parser.add_argument('--scrape-questions',
                     default=False,
                     action='store_true',
                     help='Scrape questions (step 1)',
                     ),
-        make_option('--scrape-answers',
+        parser.add_argument('--scrape-answers',
                     default=False,
                     action='store_true',
                     help='Scrape answers (step 2)',
                     ),
-        make_option('--scrape-from-pmg',
+        parser.add_argument('--scrape-from-pmg',
                     default=False,
                     action='store_true',
                     help='Scrape questions and answers from PMG (step 2.5)',
                     ),
-        make_option('--process-answers',
+        parser.add_argument('--process-answers',
                     default=False,
                     action='store_true',
                     help='Process answers (step 3)',
                     ),
-        make_option('--match-answers',
+        parser.add_argument('--match-answers',
                     default=False,
                     action='store_true',
                     help='Match answers (step 4)',
                     ),
-        make_option('--save',
+        parser.add_argument('--save',
                     default=False,
                     action='store_true',
                     help='Save Q&A as json (step 5)',
                     ),
-        make_option('--import-into-sayit',
+        parser.add_argument('--import-into-sayit',
                     default=False,
                     action='store_true',
                     help='Import saved json to sayit (step 6)',
                     ),
-        make_option('--run-all-steps',
+        parser.add_argument('--run-all-steps',
                     default=False,
                     action='store_true',
                     help='Run all of the steps',
                     ),
-        make_option('--correct-existing-sayit-import',
+        parser.add_argument('--correct-existing-sayit-import',
                     default=False,
                     action='store_true',
                     help='Correct the structure of existing data',
                     ),
-        make_option('--instance',
+        parser.add_argument('--instance',
                     type='str',
                     default='default',
                     help='Instance to import into',
                     ),
-        make_option('--limit',
+        parser.add_argument('--limit',
                     default=0,
                     action='store',
                     type='int',
                     help='How far to go back (not set means all the way)',
                     ),
-        make_option('--fetch-to-limit',
+        parser.add_argument('--fetch-to-limit',
                     default=False,
                     action='store_true',
                     help="Don't stop when reaching seen questions, continue to --limit",
                     ),
-        make_option('--commit',
+        parser.add_argument('--commit',
                     default=False,
                     action='store_true',
                     help='Whether to commit SayIt import corrections',
-                    ),
-    )
+                    )
 
     def handle(self, *args, **options):
         if options['verbosity'] > 1:

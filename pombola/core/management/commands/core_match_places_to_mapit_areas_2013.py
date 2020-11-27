@@ -1,7 +1,5 @@
 import sys
 
-from optparse import make_option
-
 from django.core.management.base import BaseCommand
 from django.utils.text import slugify
 
@@ -12,9 +10,8 @@ from mapit import models as mapit_models
 class Command(BaseCommand):
     help = 'Link places to areas in mapit for the new 2013 places'
 
-    option_list = BaseCommand.option_list + (
-        make_option('--commit', action='store_true', dest='commit', help='Actually update the database'),
-    )
+    def add_arguments(self, parser):
+        parser.add_argument('--commit', action='store_true', dest='commit', help='Actually update the database'),
 
     def handle_noargs(self, **options):
         self.match_for_types(type_code='CON',

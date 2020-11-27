@@ -2,7 +2,6 @@
 # for merging object in Pombola (e.g. Person and Organisation at the
 # moment).
 
-from optparse import make_option
 import sys
 
 from django.contrib.contenttypes.models import ContentType
@@ -47,19 +46,19 @@ def check_basic_fields(basic_fields, to_keep, to_delete):
 
 
 class MergeCommandBase(BaseCommand):
-    option_list = BaseCommand.option_list + (
-        make_option("--keep-object", dest="keep_object", type="string",
+    def add_arguments(self, parser):
+        parser.add_argument("--keep-object", dest="keep_object", type="string",
                     help="The ID or slug of the object to retain",
                     metavar="OBJECT-ID"),
-        make_option("--delete-object", dest="delete_object", type="string",
+        parser.add_argument("--delete-object", dest="delete_object", type="string",
                     help="The ID or slug of the object to delete",
                     metavar="OBJECT-ID"),
-        make_option('--noinput',  dest='interactive',
+        parser.add_argument('--noinput',  dest='interactive',
                     action='store_false', default=True,
                     help="Do NOT prompt the user for input of any kind"),
-        make_option("--quiet", dest="quiet",
+        parser.add_argument("--quiet", dest="quiet",
                     help="Suppress progress output",
-                    default=False, action='store_true'))
+                    default=False, action='store_true')
 
     admin_url_name = None
     basic_fields_to_check = ()

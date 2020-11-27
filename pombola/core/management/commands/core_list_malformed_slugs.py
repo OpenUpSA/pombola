@@ -1,6 +1,4 @@
 import re
-from optparse import make_option
-
 from slug_helpers.models import SlugRedirect
 
 from django.core.management.base import BaseCommand, CommandError
@@ -13,9 +11,8 @@ working_slug_re = re.compile(r'^[-\w]+$')
 class Command(BaseCommand):
     help = 'List slugs that are not correctly formed'
 
-    option_list = BaseCommand.option_list + (
-        make_option('--correct', action='store_true', dest='correct', help='Correct bad slugs'),
-    )
+    def add_arguments(self, parser):
+        parser.add_argument('--correct', action='store_true', dest='correct', help='Correct bad slugs'),
 
     def handle(self, **options):
         """For each model check all the slugs are as expected"""

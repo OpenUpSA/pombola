@@ -15,7 +15,6 @@
 import httplib2
 import re
 import datetime
-from optparse import make_option
 import parsedatetime as pdt
 from warnings import warn
 from urlparse import urlsplit, urlunsplit
@@ -42,10 +41,9 @@ class Command(BaseCommand):
     # /plone/national-assembly/business/hansard/copy_of_official-report-28-march-2013-pm/at_multi_download/item_files
     # ?name=Hansard%20National%20Assembly%2028.03.2013P.pdf
 
-    option_list = BaseCommand.option_list + (
-        make_option('--check-all', action='store_true',
-                    help='Carry on to check sources on every page'),
-    )
+    def add_arguments(self, parser):
+        parser.add_argument('--check-all', action='store_true',
+                    help='Carry on to check sources on every page')
 
     def handle_noargs(self, **options):
 
