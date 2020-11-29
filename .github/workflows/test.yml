@@ -28,4 +28,6 @@ jobs:
       - run: docker-compose logs db elasticsearch
 
       # Run codecov passing appropriate codecov.io CI environment variables to container
-      - run: "docker-compose run --rm `bash <(curl -s https://codecov.io/env)` app codecov"
+      - name: Upload coverage data to codecov.io
+        run: "docker-compose run --rm `bash <(curl -s https://codecov.io/env)` app codecov"
+        if: ${{ always() }}
