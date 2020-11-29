@@ -26,6 +26,7 @@ jobs:
         run: wget --retry-connrefused --waitretry=1 --read-timeout=10 --timeout=10 --tries=10 -O- http://localhost:8000/position/member/parliament/\?order\=name\&a\=1 | grep "Ramokgopa"
       # Log output in case issues occurred where this can help us debug quicly
       - run: docker-compose logs db elasticsearch
+        if: ${{ always() }}
 
       # Run codecov passing appropriate codecov.io CI environment variables to container
       - name: Upload coverage data to codecov.io
