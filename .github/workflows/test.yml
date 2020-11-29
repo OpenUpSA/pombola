@@ -23,7 +23,7 @@ jobs:
       - name: Start server
         run: docker-compose up -d
       - name: "Smoke test demo data check that a typical request returns the data in demodata"
-        run: curl --connect-timeout 20 --retry 5 --retry-delay 1 http://localhost:8000/position/member/parliament/\?order\=name\&a\=1 | grep "Ramokgopa"
+        run: wget --retry-connrefused --waitretry=1 --read-timeout=10 --timeout=10 --tries=10 -O- http://localhost:8000/position/member/parliament/\?order\=name\&a\=1 | grep "Ramokgopa"
       # Log output in case issues occurred where this can help us debug quicly
       - run: docker-compose logs db elasticsearch
 
