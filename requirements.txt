@@ -18,7 +18,7 @@ dj-database-url==0.5.0
 
 ### Django related
 Django==1.11.29
-django-pagination==1.0.7
+mysociety-django-pagination==1.0.9
 django-bcrypt==0.9.2
 django-pipeline==1.6.13
 django-pipeline-compass-rubygem==0.1.9
@@ -175,7 +175,7 @@ everypolitician==0.0.13
 everypolitician-popolo==0.0.11
 
 # Streaming Excel files for contact list download
-xlsx-streaming==0.4.1
+xlsx-streaming==0.4.0
 zipstream==1.1.4
 
 # Reading Excel files for contast list download test
