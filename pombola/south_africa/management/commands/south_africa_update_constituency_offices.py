@@ -11,7 +11,7 @@ import re
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.gis.geos import Point
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.management.base import LabelCommand
+from django.core.management.base import BaseCommand
 from django.db.models import Q
 from django.utils.text import slugify
 
@@ -700,12 +700,15 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
     return organisation
 
 
-class Command(LabelCommand):
+class Command(BaseCommand):
     """Update constituency offices"""
 
     help = 'Update constituency office data for South Africa'
 
     def add_arguments(self, parser):
+        parser.add_argument(
+            'input_filename',
+            help='File name containing constituency offices data')
         parser.add_argument(
             '--verbose',
             action='store_true',
@@ -732,7 +735,8 @@ class Command(LabelCommand):
         )
 
 
-    def handle_label(self, input_filename, **options):
+    def handle(self, **options):
+        input_filename = options['input_filename']
 
         commit = False
         end_old_offices = False

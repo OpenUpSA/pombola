@@ -63,6 +63,7 @@ class OrganisationIsOngoingTest(unittest.TestCase):
         )
 
     def test_is_ongoing(self):
+        # TODO: looks like django-date-extensions now only parses fields after saving
         self.assertTrue(self.organisation_future_ended.is_ongoing())
         self.assertTrue(self.organisation_none_ended.is_ongoing())
         self.assertFalse(self.organisation_already_ended.is_ongoing())

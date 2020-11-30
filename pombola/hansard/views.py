@@ -170,7 +170,7 @@ def person_summary(request, slug):
     context.update(person.get_disqus_thread_data(request))
 
     return render(
-        request
+        request,
         'hansard/person_summary.html',
         context,
     )
