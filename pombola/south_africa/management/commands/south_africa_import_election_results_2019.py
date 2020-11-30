@@ -124,7 +124,7 @@ class Command(BaseCommand):
         else:
             print "Existing position found: {}".format(position)
 
-    def handle_noargs(self, **options):
+    def handle(self, **options):
         path = "pombola/south_africa/data/elections/2019/"
 
         # Read and process the Assembly file.

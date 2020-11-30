@@ -10,7 +10,6 @@ import hashlib
 import os
 import re
 import sys
-from optparse import make_option
 
 from django.core.management.base import BaseCommand, CommandError
 from django.utils.text import slugify
@@ -193,9 +192,8 @@ def maybe_save(o, **options):
 class Command(BaseCommand):
     help = 'Update the database with aspirants from the IEBC website'
 
-    option_list = BaseCommand.option_list + (
-        make_option('--commit', action='store_true', dest='commit', help='Actually update the database'),
-        )
+    def add_arguments(self, parser):
+        parser.add_argument('--commit', action='store_true', dest='commit', help='Actually update the database')
 
     def handle_noargs(self, **options):
 

@@ -8,7 +8,6 @@ import sys
 import unicodecsv
 import string
 import datetime
-from optparse import make_option
 from pombola.core.models import (
     Organisation,
     OrganisationKind,
@@ -444,15 +443,15 @@ class Command(BaseCommand):
         "Import csv file of South African national and provincial election candidates"
     )
 
-    option_list = BaseCommand.option_list + (
-        make_option(
+    def add_arguments(self, parser):
+        parser.add_argument(
             "--commit",
             action="store_true",
             help="Actually commit person changes to the database (new positions/orgs always created)",
-        ),
-    )
+        )
+    
 
-    def handle_noargs(self, **options):
+    def handle(self, **options):
         global COMMIT
         COMMIT = options["commit"]
 

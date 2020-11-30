@@ -1,4 +1,3 @@
-from optparse import make_option
 from django.core.management.base import BaseCommand
 from ...models import Release, Category, Entry, EntryLineItem
 
@@ -6,14 +5,14 @@ from ...models import Release, Category, Entry, EntryLineItem
 class Command(BaseCommand):
     help = 'Delete existing declarations of members interests - allows for subsequent re-importing of data.'
 
-    option_list = BaseCommand.option_list + (
-        make_option(
+    def add_arguments(self, parser):
+        parser.add_argument(
             '--commit',
             action='store_true',
             dest='commit',
-            help='Actually update the database'),)
+            help='Actually update the database')
 
-    def handle_noargs(self, **options):
+    def handle(self, **options):
         count_releases = Release.objects.count()
         count_categories = Category.objects.count()
         count_entries = Entry.objects.count()

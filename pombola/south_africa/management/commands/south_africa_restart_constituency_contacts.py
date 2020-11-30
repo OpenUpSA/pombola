@@ -1,5 +1,4 @@
 from datetime import date
-from optparse import make_option
 
 from django.core.management.base import BaseCommand
 from django_date_extensions.fields import ApproximateDate
@@ -16,14 +15,14 @@ class Command(BaseCommand):
 
     help = 'Restart constituency contact positions for re-elected MPs and MPLs'
 
-    option_list = BaseCommand.option_list + (
-        make_option(
+    def add_arguments(self, parser):
+        parser.add_argument(
             '--commit',
             action='store_true',
             dest='commit',
-            help='Actually update the database'),)
+            help='Actually update the database')
 
-    def handle_noargs(self, **options):
+    def handle(self, **options):
 
         pt = PositionTitle.objects.get(name='Constituency Contact')
 

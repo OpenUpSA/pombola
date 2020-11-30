@@ -4,7 +4,6 @@ import csv
 import os
 import re
 import sys
-from optparse import make_option
 
 from pombola.core.models import Organisation, Place
 from pombola.south_africa.models import ZAPlace
@@ -17,11 +16,10 @@ data_directory = os.path.join(
 class Command(BaseCommand):
     help = 'Generate CSV files with data for generating Google AdWords'
 
-    option_list = BaseCommand.option_list + (
-        make_option('--commit', action='store_true', dest='commit', help='Actually update the database'),
-        )
+    def add_arguments(self, parser):
+        parser.add_argument('--commit', action='store_true', dest='commit', help='Actually update the database'),
 
-    def handle_noargs(self, **options):
+    def handle(self, **options):
         # write out representatives csv
         headings = ['Name', 'MzURL', 'Parliament', 'Province', 'Parties', 'Positions', 'Keywords']
         self.write_adwords_csv(

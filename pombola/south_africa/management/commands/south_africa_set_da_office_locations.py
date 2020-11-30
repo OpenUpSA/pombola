@@ -24,7 +24,6 @@ import csv
 # from difflib import SequenceMatcher
 # from itertools import chain
 # import json
-from optparse import make_option
 # import os
 import re
 # import requests
@@ -55,17 +54,17 @@ class Command(LabelCommand):
 
     help = 'Add locations to DA constituency areas'
 
-    option_list = LabelCommand.option_list + (
-        make_option(
+    def add_arguments(self, parser):
+        parser.add_argument(
             '--verbose',
             action='store_true',
             dest='verbose',
             help='Output extra information for debugging'),
-        make_option(
+        parser.add_argument(
             '--commit',
             action='store_true',
             dest='commit',
-            help='Actually update the database'),)
+            help='Actually update the database')
 
     def handle_label(self, input_filename, **options):
 

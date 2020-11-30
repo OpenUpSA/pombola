@@ -6,7 +6,6 @@
 # (omitted) offices and areas.
 
 import json
-from optparse import make_option
 import re
 
 from django.contrib.contenttypes.models import ContentType
@@ -706,31 +705,31 @@ class Command(LabelCommand):
 
     help = 'Update constituency office data for South Africa'
 
-    option_list = LabelCommand.option_list + (
-        make_option(
+    def add_arguments(self, parser):
+        parser.add_argument(
             '--verbose',
             action='store_true',
             dest='verbose',
-            help='Output extra information for debugging'),
-        make_option(
+            help='Output extra information for debugging')
+        parser.add_argument(
             '--commit',
             action='store_true',
             dest='commit',
-            help='Actually update the database'),
-        make_option(
+            help='Actually update the database')
+        parser.add_argument(
             '--end-old-offices',
             action='store_true',
-            help='Set the end_date of the old offices for the party'),
-        make_option(
+            help='Set the end_date of the old offices for the party')
+        parser.add_argument(
             '--party',
             help='Party name, e.g. EFF, DA',
             type=str,
-        ),
-        make_option(
+        )
+        parser.add_argument(
             '--search-office',
             help='Find similar office names by searching for them',
             type=str,
-        ),)
+        )
 
 
     def handle_label(self, input_filename, **options):

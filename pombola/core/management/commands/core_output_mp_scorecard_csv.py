@@ -9,16 +9,6 @@ from pombola.core import models
 class Command(BaseCommand):
     help = 'Output CSV of all MPs and their scorecard ratings'
 
-    # option_list = BaseCommand.option_list + (
-    #     make_option(
-    #         '--delete',
-    #         action='store_true',
-    #         dest='delete',
-    #         default=False,
-    #         help='Delete found duplicates'),
-    #     )
-
-
     def handle(self, **options):
         """Create a CSV line for each MP"""
 

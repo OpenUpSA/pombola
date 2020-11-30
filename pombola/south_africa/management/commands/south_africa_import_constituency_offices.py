@@ -28,7 +28,6 @@
 #    the Pombola database.
 
 import csv
-from optparse import make_option
 import re
 import sys
 
@@ -68,22 +67,22 @@ class Command(LabelCommand):
 
     help = 'Import constituency office data for South Africa'
 
-    option_list = LabelCommand.option_list + (
-        make_option(
+    def add_arguments(self, parser):
+        parser.add_argument(
             '--test',
             action='store_true',
             dest='test',
-            help='Run any doctests for this script'),
-        make_option(
+            help='Run any doctests for this script')
+        parser.add_argument(
             '--verbose',
             action='store_true',
             dest='verbose',
-            help='Output extra information for debugging'),
-        make_option(
+            help='Output extra information for debugging')
+        parser.add_argument(
             '--commit',
             action='store_true',
             dest='commit',
-            help='Actually update the database'),)
+            help='Actually update the database')
 
     def handle_label(self, input_filename, **options):
 
