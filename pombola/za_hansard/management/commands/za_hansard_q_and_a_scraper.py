@@ -98,68 +98,69 @@ class Command(BaseCommand):
     new_errors_count = 0
     verbose = False
     help = 'Scrape questions and answers'
+
     def add_arguments(self, parser):
         parser.add_argument('--scrape-questions',
                     default=False,
                     action='store_true',
                     help='Scrape questions (step 1)',
-                    ),
+                    )
         parser.add_argument('--scrape-answers',
                     default=False,
                     action='store_true',
                     help='Scrape answers (step 2)',
-                    ),
+                    )
         parser.add_argument('--scrape-from-pmg',
                     default=False,
                     action='store_true',
                     help='Scrape questions and answers from PMG (step 2.5)',
-                    ),
+                    )
         parser.add_argument('--process-answers',
                     default=False,
                     action='store_true',
                     help='Process answers (step 3)',
-                    ),
+                    )
         parser.add_argument('--match-answers',
                     default=False,
                     action='store_true',
                     help='Match answers (step 4)',
-                    ),
+                    )
         parser.add_argument('--save',
                     default=False,
                     action='store_true',
                     help='Save Q&A as json (step 5)',
-                    ),
+                    )
         parser.add_argument('--import-into-sayit',
                     default=False,
                     action='store_true',
                     help='Import saved json to sayit (step 6)',
-                    ),
+                    )
         parser.add_argument('--run-all-steps',
                     default=False,
                     action='store_true',
                     help='Run all of the steps',
-                    ),
+                    )
         parser.add_argument('--correct-existing-sayit-import',
                     default=False,
                     action='store_true',
                     help='Correct the structure of existing data',
-                    ),
+                    )
         parser.add_argument('--instance',
                     type=str,
                     default='default',
                     help='Instance to import into',
-                    ),
+                    )
         parser.add_argument('--limit',
                     default=0,
                     action='store',
                     type=int,
                     help='How far to go back (not set means all the way)',
-                    ),
+                    )
         parser.add_argument('--fetch-to-limit',
                     default=False,
                     action='store_true',
                     help="Don't stop when reaching seen questions, continue to --limit",
-                    ),
+                    )
         parser.add_argument('--commit',
                     default=False,
                     action='store_true',
