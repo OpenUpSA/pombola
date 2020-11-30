@@ -2375,7 +2375,7 @@ class SAPlaceDetailViewTest(WebTest):
         # Unrelated, should never be counted.
 
         person_unrelated = models.Person.objects.create(
-            name='Test Person Unrelated',
+            legal_name='Test Person Unrelated',
             slug='test-person-unrelated',
         )
 
