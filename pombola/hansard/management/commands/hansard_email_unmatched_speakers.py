@@ -7,7 +7,7 @@ from pombola.hansard.models import Alias
 class Command(BaseCommand):
     help = 'Email a list of all the speaker names that have not been matched up to a real person'
 
-    def handle_noargs(self, **options):
+    def handle(self, **options):
         unassigned = Alias.objects.unassigned()
         count = unassigned.count()
 
