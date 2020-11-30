@@ -15,15 +15,15 @@ class Command(BaseCommand):
     help = 'Move Hansard Entries from one Person to another'
 
     def add_arguments(self, parser):
-        parser.add_argument("--person-from", dest="person_from", type="string",
+        parser.add_argument("--person-from", dest="person_from", type=str,
                     help="The ID or slug of the person whose speeches you want to move",
                     metavar="PERSON-ID")
-        parser.add_argument("--person-to", dest="person_to", type="string",
+        parser.add_argument("--person-to", dest="person_to", type=str,
                     help="The ID or slug of the person who will become associated with the speeches",
                     metavar="PERSON-ID")
-        parser.add_argument("--date-from", dest="date_from", type="string",
+        parser.add_argument("--date-from", dest="date_from", type=str,
                     help="The date of the earliest entry to reattribute as YYYY-MM-DD (optional)")
-        parser.add_argument("--date-to", dest="date_to", type="string",
+        parser.add_argument("--date-to", dest="date_to", type=str,
                     help="The date of the last entry to reattribute as YYYY-MM-DD (optional)")
         parser.add_argument('--noinput',
                     action='store_false', dest='interactive', default=True,

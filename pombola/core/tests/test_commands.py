@@ -49,10 +49,10 @@ def no_stdout_or_stderr():
 class MergeObjectsCommandTest(TestCase):
     def setUp(self):
         self.person_a = Person.objects.create(
-            name="Jimmy Stewart",
+            legal_name="Jimmy Stewart",
             slug="jimmy-stewart")
         self.person_b = Person.objects.create(
-            name="James Stewart",
+            legal_name="James Stewart",
             slug="james-stewart")
 
         self.organisation_kind = OrganisationKind.objects.create(

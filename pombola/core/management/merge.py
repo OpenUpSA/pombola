@@ -47,10 +47,10 @@ def check_basic_fields(basic_fields, to_keep, to_delete):
 
 class MergeCommandBase(BaseCommand):
     def add_arguments(self, parser):
-        parser.add_argument("--keep-object", dest="keep_object", type="string",
+        parser.add_argument("--keep-object", dest="keep_object", type=str,
                     help="The ID or slug of the object to retain",
                     metavar="OBJECT-ID")
-        parser.add_argument("--delete-object", dest="delete_object", type="string",
+        parser.add_argument("--delete-object", dest="delete_object", type=str,
                     help="The ID or slug of the object to delete",
                     metavar="OBJECT-ID")
         parser.add_argument('--noinput',  dest='interactive',
