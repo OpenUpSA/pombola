@@ -116,7 +116,7 @@ class AddQueryParameterTest(TestCase):
         template = Template("{% load add_query_parameter %}{% add_query_parameter request 'foo' 'bar' %}")
         self.assertEqual(
             template.render(Context({'request': request})),
-            'foo=bar&parameter=value')
+            u'foo=bar&parameter=value')
 
     def test_overwrites_query_parameters_if_they_exist(self):
         request  = RequestFake('parameter=value')
