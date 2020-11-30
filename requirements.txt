@@ -18,7 +18,8 @@ dj-database-url==0.5.0
 
 ### Django related
 Django==1.11.29
-mysociety-django-pagination==1.0.9
+## django-pagination
+-e git+git://github.com/OpenUpSA/django-pagination@d013c9c1facf7e1d6827a5a7929064c5c80c53e2#egg=django-pagination
 django-bcrypt==0.9.2
 django-pipeline==1.6.13
 django-pipeline-compass-rubygem==0.1.9
@@ -85,7 +86,7 @@ django-mapit==1.6
 
 # SayIt and ZA hansard scrapers - need to be made available to be added as an optional app
 # Note, if the subsequent -e are ever removed, please remove manually from virtualenv/src !
--e git+git://github.com/mysociety/sayit.git@f60da55a85ba0870f920259b226fcc13aba7de37#egg=django-sayit
+-e git+git://github.com/OpenUpSA/sayit.git@9e3f0f71b07ca9b7ef4d6172cbe3573b28d3efb0#egg=django-sayit
 
 mysociety-django-sluggable==0.2.7
 -e git+git://github.com/mysociety/popolo-name-resolver@a6fca27e080acdb475e6fd2e1382592b0c0a0fc5#egg=popolo-name-resolver
@@ -124,7 +125,7 @@ cssselect==0.9.1
 django-bleach==0.3
 django-celery==3.1.16
 django-qmethod==0.0.3
-django-subdomain-instances==2.0
+django-subdomain-instances==3.0.2
 django-tastypie==0.12.1
 html5lib==0.999
 kombu==3.0.24
