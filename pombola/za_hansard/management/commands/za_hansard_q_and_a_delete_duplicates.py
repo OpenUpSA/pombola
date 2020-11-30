@@ -45,7 +45,6 @@ def convert_url_to_https(url):
 class Command(BaseCommand):
 
     help = "Delete previously duplicate hansard questions and answers"
-    option_list = BaseCommand.option_list
 
     def handle(self, *args, **options):
         self.delete_old_duplicate_questions_and_answers(*args, **options)
