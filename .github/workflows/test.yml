@@ -1,0 +1,34 @@
+name: Test
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 0 * * 0' # weekly
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run tests
+        run: docker-compose run app bin/wait-for-deps.sh coverage run -a --source=pombola,pombola_sayit,wordcloud,writeinpublic ./manage.py test --settings=pombola.settings.tests_south_africa
+
+      - name: Set up database
+        run: docker-compose run --rm app python manage.py migrate
+      - name: Load demo data fixture
+        run: docker-compose run --rm app python manage.py loaddata demodata.json
+      - name: Start server
+        run: docker-compose up -d
+      - name: "Smoke test demo data check that a typical request returns the data in demodata"
+        run: wget --retry-connrefused --waitretry=1 --read-timeout=10 --timeout=10 --tries=10 -O- http://localhost:8000/position/member/parliament/\?order\=name\&a\=1 | grep "Ramokgopa"
+      # Log output in case issues occurred where this can help us debug quicly
+      - run: docker-compose logs db elasticsearch
+        if: ${{ always() }}
+
+      # Run codecov passing appropriate codecov.io CI environment variables to container
+      - name: Upload coverage data to codecov.io
+        run: "docker-compose run --rm `bash <(curl -s https://codecov.io/env)` app codecov"
+        if: ${{ always() }}
