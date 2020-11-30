@@ -251,7 +251,7 @@ class SAQuestionIndex(TemplateView):
             .filter(
                 parent__parent__heading='Questions'
             ) \
-            .select_related('parent__heading') \
+            .select_related('parent') \
             .prefetch_related('speech_set') \
             .annotate(
                 earliest_date=Min('speech__start_date'),
