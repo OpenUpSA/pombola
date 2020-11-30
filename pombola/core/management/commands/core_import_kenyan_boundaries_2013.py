@@ -32,9 +32,9 @@ class Command(BaseCommand):
     help = 'Import boundaries for the 2013 election'
 
     def add_arguments(self, parser):
-        parser.add_argument('--commit', action='store_true', dest='commit', help='Actually update the database'),
-        parser.add_argument('--counties_shpfile', dest='counties_shpfile', help='The counties .shp file (required)'),
-        parser.add_argument('--constituencies_shpfile', dest='constituencies_shpfile', help='The constituencies .shp file (required)'),
+        parser.add_argument('--commit', action='store_true', dest='commit', help='Actually update the database')
+        parser.add_argument('--counties_shpfile', dest='counties_shpfile', help='The counties .shp file (required)')
+        parser.add_argument('--constituencies_shpfile', dest='constituencies_shpfile', help='The constituencies .shp file (required)')
 
     def handle_noargs(self, **options):
 

@@ -275,7 +275,7 @@ class Command(BaseCommand):
                     help='Actually make changes to the database',
                     ),
         make_option('--sayit-instance',
-                    type='str',
+                    type=str,
                     default='default',
                     help='SayIt instance to import into (only applies to --import-to-sayit',
                     ),
@@ -300,11 +300,11 @@ class Command(BaseCommand):
                     help='Delete existing SayIt speeches (with --import-to-sayit)',
                     ),
         make_option('--committee',
-                    type='int',
+                    type=int,
                     help='Only process the committee with this ID',
                     ),
         make_option('--meeting',
-                    type='int',
+                    type=int,
                     help='Only process the meeting with this ID',
                     )
     )

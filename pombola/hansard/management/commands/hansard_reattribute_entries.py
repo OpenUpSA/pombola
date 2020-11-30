@@ -17,17 +17,17 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument("--person-from", dest="person_from", type="string",
                     help="The ID or slug of the person whose speeches you want to move",
-                    metavar="PERSON-ID"),
+                    metavar="PERSON-ID")
         parser.add_argument("--person-to", dest="person_to", type="string",
                     help="The ID or slug of the person who will become associated with the speeches",
-                    metavar="PERSON-ID"),
+                    metavar="PERSON-ID")
         parser.add_argument("--date-from", dest="date_from", type="string",
-                    help="The date of the earliest entry to reattribute as YYYY-MM-DD (optional)"),
+                    help="The date of the earliest entry to reattribute as YYYY-MM-DD (optional)")
         parser.add_argument("--date-to", dest="date_to", type="string",
-                    help="The date of the last entry to reattribute as YYYY-MM-DD (optional)"),
+                    help="The date of the last entry to reattribute as YYYY-MM-DD (optional)")
         parser.add_argument('--noinput',
                     action='store_false', dest='interactive', default=True,
-                    help="Do NOT prompt the user for input of any kind."),
+                    help="Do NOT prompt the user for input of any kind.")
         parser.add_argument("--quiet", dest="quiet",
                     help="Suppress progress output",
                     default=False, action='store_true')

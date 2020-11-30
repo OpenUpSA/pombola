@@ -11,7 +11,7 @@ class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
         make_option('--historical-limit',
                     default='2009-04-22',
-                    type='str',
+                    type=str,
                     help='Limit earliest historical entry to check (in yyyy-mm-dd format, default 2009-04-22)',
                     ),
         make_option('--delete-existing',

@@ -22,16 +22,16 @@ class Command(BaseCommand):
     help = 'create new position for election winners, end aspirant positions'
 
     def add_arguments(self, parser):
-        parser.add_argument('--commit', action='store_true', dest='commit', help='Actually update the database'),
+        parser.add_argument('--commit', action='store_true', dest='commit', help='Actually update the database')
 
-        parser.add_argument('--place',                help="The Place slug that the positions are linked to"),
-        parser.add_argument('--elected-organisation', help="The Organisation slug that the person is elected to"),
-        parser.add_argument('--aspirant-title',       help="The PositionTitle slug for aspirants"),
-        parser.add_argument('--aspirant-end-date',    help="The end date to apply to matching positions"),
-        parser.add_argument('--elected-person',       help="The Person slug of the winner"),
-        parser.add_argument('--elected-title',        help="The PositionTitle slug for elected position"),
-        parser.add_argument('--elected-subtitle',     help="Optional subtitle for elected position"),
-        parser.add_argument('--elected-start-date',   help="The start date to apply to matching positions"),        
+        parser.add_argument('--place',                help="The Place slug that the positions are linked to")
+        parser.add_argument('--elected-organisation', help="The Organisation slug that the person is elected to")
+        parser.add_argument('--aspirant-title',       help="The PositionTitle slug for aspirants")
+        parser.add_argument('--aspirant-end-date',    help="The end date to apply to matching positions")
+        parser.add_argument('--elected-person',       help="The Person slug of the winner")
+        parser.add_argument('--elected-title',        help="The PositionTitle slug for elected position")
+        parser.add_argument('--elected-subtitle',     help="Optional subtitle for elected position")
+        parser.add_argument('--elected-start-date',   help="The start date to apply to matching positions")
 
     def handle(self, **options):
         

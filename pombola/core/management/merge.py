@@ -49,13 +49,13 @@ class MergeCommandBase(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument("--keep-object", dest="keep_object", type="string",
                     help="The ID or slug of the object to retain",
-                    metavar="OBJECT-ID"),
+                    metavar="OBJECT-ID")
         parser.add_argument("--delete-object", dest="delete_object", type="string",
                     help="The ID or slug of the object to delete",
-                    metavar="OBJECT-ID"),
+                    metavar="OBJECT-ID")
         parser.add_argument('--noinput',  dest='interactive',
                     action='store_false', default=True,
-                    help="Do NOT prompt the user for input of any kind"),
+                    help="Do NOT prompt the user for input of any kind")
         parser.add_argument("--quiet", dest="quiet",
                     help="Suppress progress output",
                     default=False, action='store_true')
