@@ -11,40 +11,38 @@ from instances.models import Instance
 
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
-from optparse import make_option
 
 
 class Command(BaseCommand):
     help = 'Import available hansards into sayit'
-    option_list = BaseCommand.option_list + (
-        make_option('--reimport',
+    def add_arguments(self, parser):
+        parser.add_argument('--reimport',
                     default=False,
                     action='store_true',
                     help='Reimport already imported speeches',
-                    ),
-        make_option('--id',
+                    )
+        parser.add_argument('--id',
                     type=str,
                     help='Import a given id',
-                    ),
-        make_option('--instance',
+                    )
+        parser.add_argument('--instance',
                     type=str,
                     default='default',
                     help='Instance to import into',
-                    ),
-        make_option('--limit',
+                    )
+        parser.add_argument('--limit',
                     default=0,
                     type=int,
                     help='limit query (default 0 for none)',
-                    ),
-        make_option('--since',
+                    )
+        parser.add_argument('--since',
                     help='Oldest date to parse Sources from (format must be YYYY-MM-DD).',
-                    ),
-        make_option('--delete-existing',
+                    )
+        parser.add_argument('--delete-existing',
                     default=False,
                     action='store_true',
                     help='Delete existing speeches before importing',
-                    ),
-    )
+                    )
 
     def handle(self, *args, **options):
         limit = options['limit']
