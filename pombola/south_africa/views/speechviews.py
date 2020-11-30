@@ -117,8 +117,8 @@ class SASpeechesIndex(NamespaceMixin, TemplateView):
                 speech_start_date=Max('speech__start_date'), 
                 speech_count=Count('speech__id')) \
             .exclude(heading='') \
-            .select_related(
-                'parent__slug', 'parent__heading'
+            .select_related( # This gives error
+                'parent'
                 ) \
             .order_by('-speech_start_date', 'parent__heading', 'start_order')
         

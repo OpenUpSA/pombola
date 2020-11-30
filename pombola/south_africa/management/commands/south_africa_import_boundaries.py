@@ -22,7 +22,6 @@ import re
 import sys
 
 from collections import namedtuple
-from optparse import make_option
 
 from django.core.management import call_command
 from django.core.management.base import BaseCommand
@@ -35,26 +34,26 @@ class Command(BaseCommand):
 
     help = 'Import shapefiles with South African boundary data'
 
-    option_list = BaseCommand.option_list + (
-        make_option(
+    def add_arguments(self, parser):
+        parser.add_argument(
             '--wards', '-w',
-            help="The wards shapefile"),
-        make_option(
+            help="The wards shapefile")
+        parser.add_argument(
             '--districts', '-d',
-            help="The district municipalities shapefile"),
-        make_option(
+            help="The district municipalities shapefile")
+        parser.add_argument(
             '--provinces', '-p',
-            help="The provinces shapefile"),
-        make_option(
+            help="The provinces shapefile")
+        parser.add_argument(
             '--locals', '-l',
-            help="The local municipalities shapefile"),
-        make_option(
+            help="The local municipalities shapefile")
+        parser.add_argument(
             '--commit',
             action='store_true',
             dest='commit',
-            help='Actually update the database'),)
+            help='Actually update the database')
 
-    def handle_noargs(self, **options):
+    def handle(self, **options):
 
         stop = False
         for k in ('wards',
