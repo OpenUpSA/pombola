@@ -3,7 +3,6 @@ import csv
 from datetime import datetime, timedelta
 import errno
 import json
-from optparse import make_option
 import os
 from os.path import dirname, join, exists
 from pytz.tzinfo import StaticTzInfo
@@ -268,46 +267,45 @@ class Command(BaseCommand):
 
     help = 'Find committee appearances from the PMG API'
 
-    option_list = BaseCommand.option_list + (
-        make_option('--commit',
+    def add_arguments(self, parser):
+        parser.add_argument('--commit',
                     default=False,
                     action='store_true',
                     help='Actually make changes to the database',
-                    ),
-        make_option('--sayit-instance',
+                    )
+        parser.add_argument('--sayit-instance',
                     type=str,
                     default='default',
                     help='SayIt instance to import into (only applies to --import-to-sayit',
-                    ),
-        make_option('--scrape',
+                    )
+        parser.add_argument('--scrape',
                     default=False,
                     action='store_true',
                     help='Scrape committee minutes into the database',
-                    ),
-        make_option('--save-json',
+                    )
+        parser.add_argument('--save-json',
                     default=False,
                     action='store_true',
                     help='Save JSON files from already scraped minutes in the database',
-                    ),
-        make_option('--import-to-sayit',
+                    )
+        parser.add_argument('--import-to-sayit',
                     default=False,
                     action='store_true',
                     help='Import JSON files to SayIt',
-                    ),
-        make_option('--delete-existing',
+                    )
+        parser.add_argument('--delete-existing',
                     default=False,
                     action='store_true',
                     help='Delete existing SayIt speeches (with --import-to-sayit)',
-                    ),
-        make_option('--committee',
+                    )
+        parser.add_argument('--committee',
                     type=int,
                     help='Only process the committee with this ID',
-                    ),
-        make_option('--meeting',
+                    )
+        parser.add_argument('--meeting',
                     type=int,
                     help='Only process the meeting with this ID',
                     )
-    )
 
     def handle_committee(self, committee):
         self.stdout.write("=======================================\n")
