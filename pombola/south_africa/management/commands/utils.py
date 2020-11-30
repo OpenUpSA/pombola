@@ -1,4 +1,5 @@
 import csv
+from datetime import datetime
 import requests
 import json
 from django.core.cache import caches
@@ -39,3 +40,21 @@ def fetch_if_not_in_cache(url):
     response = requests.get(url)
     response.raise_for_status()
     return response.json()
+
+def write_to_csv(data, headings, name):
+    print("Writing to %s" % name)
+    with open(name, "w") as f:
+        print("Headings: %s" % headings)
+        writer = csv.DictWriter(f, fieldnames=headings)
+        writer.writeheader()
+        for row in data:
+            writer.writerow(encode_to_utf8(row))
+
+def encode_to_utf8(data):
+    return {
+        k: v.encode("utf-8") if type(v) == unicode else v for k, v in data.iteritems()
+    }
+
+def date_string_to_date(string_date):
+    string_date = string_date[: string_date.index("T")]
+    return datetime.strptime(string_date, "%Y-%m-%d").date()

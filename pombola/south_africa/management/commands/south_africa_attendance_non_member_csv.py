@@ -4,13 +4,16 @@ Out format:
  - member_name
  - pmg_meeting_link
  - meeting_date
+ - pa_person_id
  - pmg_committee_name
  - pmg_committee_id
  - pa_committee_id
  - pa_committee_name
- - alternate_member: taken from the alternate field in PMG
+ - pa_alternate_member: whether the person was marked as an alternate member at the committee
+ - pmg_alternate_member: taken from the alternate field in PMG
  - pa_committee_member: whether the person was a member of the committee at the 
      time according to the PA data
+ - attendance_status: "attendance" value from PMG, e.g. 'Absent', 'Present', etc.
 """
 
 
@@ -29,7 +32,7 @@ from pombola.core.models import (Organisation, OrganisationKind, Person,
                                  Position)
 
 COMMITTEE_MATCHING_FILE = "pmg-attendance/pmg-pa-committee-matches.json"
-OUT_FILE = "pmg-attendance/pmg-pa-member-attendance.csv"
+OUT_FILE = "pmg-attendance/pmg-pa-member-attendance-with-alternate-attendance.csv"
 PEOPLE_NOT_FOUND_FILE = "pmg-attendance/pmg-members-not-found.csv"
 PMG_API_MEETINGS_BASE_URL = "https://api.pmg.org.za/committee-meeting/"
 
@@ -123,16 +126,26 @@ def get_meeting_date(meeting):
     return datetime.strptime(string_date, "%Y-%m-%d").date()
 
 
-def get_was_member(pa_person, pa_com, meeting_date):
+def get_was_full_member(pa_person, pa_com, meeting_date):
     return (
         Position.objects.currently_active(meeting_date)
         .filter(organisation=pa_com, person=pa_person)
+        .exclude(title__name='Alternate Member')
+        .exists()
+    )
+
+
+def get_was_alternate_member(pa_person, pa_com, meeting_date):
+    return (
+        Position.objects.currently_active(meeting_date)
+        .filter(organisation=pa_com, person=pa_person)
+        .filter(title__name='Alternate Member')
         .exists()
     )
 
 
 def to_out_row(
-    pmg_meeting, pmg_attendance, pa_committees, meeting_date, pa_person, was_member
+    pmg_meeting, pmg_attendance, pa_committees, meeting_date, pa_person, was_full_member, was_alternate_member
 ):
     d = {
         "pmg_member_id": pmg_attendance["member_id"],
@@ -145,9 +158,11 @@ def to_out_row(
         "pmg_committee_name": pmg_meeting["committee"]["name"],
         "pa_person_id": pa_person.id,
         "pa_committee_ids": ", ".join([str(c.id) for c in pa_committees]),
-        "alternate_member": pmg_attendance["alternate_member"],
-        "pa_committee_member": was_member,
+        "pmg_alternate_member": pmg_attendance["alternate_member"],
+        "pa_alternate_member": was_alternate_member,
+        "pa_committee_member": was_full_member,
         "pa_link": "https://www.pa.org.za/person/%s/" % pa_person.slug,
+        "attendance_status": pmg_attendance["attendance"],
     }
     print("out_row:")
     print(json.dumps(d, indent=4))
@@ -196,8 +211,12 @@ class Command(BaseCommand):
                     continue
 
                 if len(pa_coms) > 0:
-                    was_member = any(
-                        get_was_member(pa_person, pa_com, meeting_date)
+                    was_full_member = any(
+                        get_was_full_member(pa_person, pa_com, meeting_date)
+                        for pa_com in pa_coms
+                    )
+                    was_alternate_member = any(
+                        get_was_alternate_member(pa_person, pa_com, meeting_date)
                         for pa_com in pa_coms
                     )
                 else:
@@ -209,7 +228,8 @@ class Command(BaseCommand):
                         pa_coms,
                         meeting_date,
                         pa_person,
-                        was_member,
+                        was_full_member,
+                        was_alternate_member,
                     )
                 )
 
