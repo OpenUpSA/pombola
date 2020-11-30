@@ -1,5 +1,5 @@
 from django.test import TestCase
-from django.utils import unittest
+import unittest
 
 from pombola.core.models import (
     Organisation,
