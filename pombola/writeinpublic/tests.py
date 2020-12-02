@@ -200,7 +200,7 @@ class ClientTest(TestCase):
     def test_get_person_is_contactable(self, m):
         m.get('/api/v1/person/', json=person_json)
         person = Person.objects.create(
-            name="Jimmy Stewart",
+            legal_name="Jimmy Stewart",
             slug="jimmy-stewart")
         result = self.writeinpublic.get_person_is_contactable(person)
         last_request = m._adapter.last_request
