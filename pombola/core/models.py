@@ -829,6 +829,7 @@ class OrganisationQuerySet(models.query.GeoQuerySet):
         """
         now = datetime.date.today()
         now_approx = ApproximateDate(year=now.year, month=now.month, day=now.day)
+        # TODO: check this works when we use ApproximateDate(future=True)
         return self.filter(Q(started__lte=now_approx) & (
             Q(ended='') | Q(ended='future') | 
             Q(ended__isnull=True) | Q(ended__gte=now_approx)
@@ -1700,8 +1701,8 @@ class Position(ModelBase, IdentifierMixin):
         none_repr = '0000-00-00'
 
         # value can be yyyy-mm-dd, future or None
-        start = self.start_date if type(self.start_date) is str else repr(self.start_date) if self.start_date else None
-        end   = self.end_date if type(self.end_date) is str else repr(self.end_date)   if self.end_date   else None
+        start = str(self.start_date) if type(self.start_date) in (str, unicode) else repr(self.start_date) if self.start_date else None
+        end   = str(self.end_date) if type(self.end_date) in (str, unicode) else repr(self.end_date)   if self.end_date   else None
 
         # set the value or default to something sane
         sorting_start_date =        start or none_repr

@@ -140,7 +140,7 @@ class ConstituencyOfficesImportTestCase(WebTest):
         self.assertTrue(models.Organisation.objects.filter(
                 name="EFF Constituency Office: Cape Town", 
                 kind=self.office_kind,
-                started="2019-06-01", ended="future"
+                started="2019-06-01", ended=ApproximateDate(future=True)
             ).exists())
         organisation = models.Organisation.objects.\
             get(name="EFF Constituency Office: Cape Town")
@@ -169,7 +169,7 @@ class ConstituencyOfficesImportTestCase(WebTest):
         self.assertTrue(models.Organisation.objects.filter(
                 name__iexact="DA Constituency Area: eMalahleni", 
                 kind=self.area_kind,
-                started="2019-06-01", ended="future"
+                started="2019-06-01", ended=ApproximateDate(future=True)
              ).exists())
         organisation = models.Organisation.objects.\
             get(name__iexact="DA Constituency Area: eMalahleni")
@@ -188,7 +188,7 @@ class ConstituencyOfficesImportTestCase(WebTest):
         self.assertTrue(models.Organisation.objects.filter(
                 name__iexact="DA Constituency Area: Rustenburg - Kgetlengrivier", 
                 kind=self.area_kind,
-                ended="future"
+                ended=ApproximateDate(future=True)
             ).exists())
         organisation = models.Organisation.objects.\
             get(name__iexact="DA Constituency Area: Rustenburg - Kgetlengrivier")
