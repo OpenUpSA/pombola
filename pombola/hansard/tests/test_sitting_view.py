@@ -8,7 +8,7 @@ from ..models import Entry, Sitting
 @skip("The South African site doesn't use this app")
 class TestSittingView(WebTest):
 
-    fixtures = ['hansard_test_data']
+    fixtures = ['hansard_test_data.json']
 
     def setUp(self):
         self.staffuser = User.objects.create(

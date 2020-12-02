@@ -4,7 +4,7 @@ from pombola.testing.selenium import PombolaSeleniumTestCase
 
 class AdminTestCase(PombolaSeleniumTestCase):
     
-    fixtures = ['test_data']
+    fixtures = ['test_data.json']
 
     def test_person_position_inline_autocomplete(self):
         driver = self.driver
