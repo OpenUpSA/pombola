@@ -736,6 +736,8 @@ class Person(ModelBase, HasImageMixin, ScorecardMixin, IdentifierMixin):
 def update_sort_name(**kwargs):
     """A signal handler function to set a default sort_name"""
     person = kwargs.get('instance')
+    if not hasattr(person, 'legal_name') or not hasattr(person, 'sort_name'):
+        return
     if person.legal_name and not person.sort_name:
         person.sort_name = person.legal_name.strip().split()[-1]
 
