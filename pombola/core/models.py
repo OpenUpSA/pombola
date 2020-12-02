@@ -1226,10 +1226,10 @@ class Place(ModelBase, HasImageMixin, ScorecardMixin, BudgetsMixin, IdentifierMi
                                                [self.mapit_area.type.code],
                                                mapit_models.Generation.objects.get(pk=session.mapit_generation)):
                 # Now work out the % intersection between the two:
-                self_geos_geometry = self.mapit_area.polygons.collect()
+                self_geos_geometry = self.mapit_area.polygons.aggregate(models.Collect('polygon'))['polygon__collect']
                 if self_geos_geometry.area == 0:
                     continue
-                other_geos_geometry = area.polygons.collect()
+                other_geos_geometry = area.polygons.aggregate(models.Collect('polygon'))['polygon__collect']
                 intersection = self_geos_geometry.intersection(other_geos_geometry)
                 proportion_shared = intersection.area / self_geos_geometry.area
                 intersections.append((100 * proportion_shared,
