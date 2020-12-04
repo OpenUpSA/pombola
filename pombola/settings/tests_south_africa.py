@@ -31,7 +31,7 @@ CACHES['pmg_api'] = {
     }
 
 # Ignore tests for the apps that are not installed
-DIRECTORIES_TO_IGNORE_FOR_TESTS = ['pombola/sms']
+DIRECTORIES_TO_IGNORE_FOR_TESTS = ['pombola/kenya', 'pombola/sms']
 for app in ALL_OPTIONAL_APPS:
     if app not in INSTALLED_APPS:
         if app.startswith('pombola.'):
