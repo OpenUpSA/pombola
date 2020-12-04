@@ -119,11 +119,11 @@ amqp==1.4.6
 anyjson==0.3.3
 audioread==1.0.3
 billiard==3.3.0.19
-bleach==1.4
+bleach==1.5.0
 celery==3.1.17
 chardet==2.3.0
 cssselect==0.9.1
-django-bleach==0.3.0
+django-bleach==0.5.2
 django-celery==3.1.16
 django-qmethod==0.0.3
 django-subdomain-instances==3.0.2
