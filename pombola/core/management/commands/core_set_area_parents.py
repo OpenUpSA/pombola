@@ -70,7 +70,7 @@ def recalculate_parents(child_placekind, child_type, parent_placekind, parent_ty
         parent_areas = set([])
         for potential_parent_area in Area.objects.filter(type=parent_type,
                                                          polygons__polygon__intersects=child_multipolygon).distinct():
-            collected_parent_polygon = potential_parent_area.polygons.aggregate(Collect('polygon'))['polygon__collect'])
+            collected_parent_polygon = potential_parent_area.polygons.aggregate(Collect('polygon'))['polygon__collect']
             if not collected_parent_polygon.valid:
                 print "The potential parent area's multipolygon was invalid; simplifying it"
                 collected_parent_polygon = collected_parent_polygon.simplify(tolerance=0)
