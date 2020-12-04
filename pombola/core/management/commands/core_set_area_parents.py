@@ -63,7 +63,7 @@ def recalculate_parents(child_placekind, child_type, parent_placekind, parent_ty
             print "No MapIt area corresponded to", place, "- skipping"
             continue
         print "Looking for parents of", child_area
-        child_multipolygon = child_area.polygons.aggregate(Collect('polygon'))['polygon__collect'])
+        child_multipolygon = child_area.polygons.aggregate(Collect('polygon'))['polygon__collect']
         if not child_multipolygon.valid:
             print "The child area's multipolygon was invalid; simplifying it"
             child_multipolygon = child_multipolygon.simplify(tolerance=0)
