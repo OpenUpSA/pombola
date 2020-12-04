@@ -831,7 +831,6 @@ class OrganisationQuerySet(models.query.GeoQuerySet):
         """
         now = datetime.date.today()
         now_approx = ApproximateDate(year=now.year, month=now.month, day=now.day)
-        # TODO: check this works when we use ApproximateDate(future=True)
         return self.filter(Q(started__lte=now_approx) & (
             Q(ended='') | Q(ended='future') | 
             Q(ended__isnull=True) | Q(ended__gte=now_approx)
