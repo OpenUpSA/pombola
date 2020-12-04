@@ -64,6 +64,7 @@ urllib3==1.24.2
 
 # Testing helpers
 django-nose==1.4.5
+nose-exclude==0.5.0
 yanc==0.2.4
 httplib2==0.11.3
 WebTest==2.0.15
