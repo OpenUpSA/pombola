@@ -37,7 +37,6 @@ class TaskAdmin(admin.ModelAdmin):
 
     def get_urls(self):
         urls = super(TaskAdmin, self).get_urls()
-        # XXX: not sure if there URLs are in use
         my_urls = [
             url(r'^do/$',                     self.do_next ),
             url(r'^do/(?P<task_id>[\d+]+)/$', self.do      ),
