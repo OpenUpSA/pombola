@@ -36,7 +36,7 @@ django-registration-defaults==0.3
 
 ### Pombola dependencies
 sorl-thumbnail==12.4.1
-django_date_extensions==3.0
+django-date-extensions==3.0
 django-ajax-selects==1.4.2
 django-autocomplete-light==2.3.3
 django-slug-helpers==0.0.3
@@ -57,7 +57,7 @@ lxml==3.6.2
 django-markitup==4.0.0
 
 requests==2.20.0
-elasticsearch>=1.0.0,<2.0.0
+elasticsearch==1.9.0
 django-haystack==2.6.1
 # Required (but not a declared requirement) of elasticsearch
 urllib3==1.24.2
@@ -79,7 +79,7 @@ django-selenium==0.9.7
 # Hansard parsing is quite particular
 BeautifulSoup==3.2.1
 beautifulsoup4==4.3.2
-Unidecode==0.04.16
+Unidecode==0.4.16
 python-memcached==1.53
 
 # django-mapit
@@ -113,7 +113,7 @@ pygeocoder==1.2.5
 # Django-Select2==4.3.2
 # mysociety-Django-Select2==4.3.2.2
 -e git+git://github.com/mysociety/django-select2@28c9bf981017d83836390b264a0fa8dd246e6a07#egg=Django-Select2
-Shapely==1.5
+Shapely==1.5.0
 WebOb==1.4
 amqp==1.4.6
 anyjson==0.3.3
@@ -121,9 +121,9 @@ audioread==1.0.3
 billiard==3.3.0.19
 bleach==1.4
 celery==3.1.17
-chardet==2.3
+chardet==2.3.0
 cssselect==0.9.1
-django-bleach==0.3
+django-bleach==0.3.0
 django-celery==3.1.16
 django-qmethod==0.0.3
 django-subdomain-instances==3.0.2
@@ -142,7 +142,7 @@ six==1.10.0
 slumber==0.6.2
 sqlparse==0.2.0
 virtualenv==1.11.6
-wsgi-intercept==0.8
+wsgi-intercept==0.8.0
 wsgiref==0.1.2
 
 # We cannot pin these to specific versions, because they're OS/Python version
@@ -158,19 +158,37 @@ pip-tools==0.3.5
 
 # Other things presumably installed as dependencies of stuff above
 python-mimeparse==0.1.4
+approx-dates==0.0.1
+cryptography==3.2.1
+easy-thumbnails==2.6
+enum34==1.1.10
+funcsigs==1.0.2
+future==0.18.2
+futures==3.3.0
+idna==2.7
+ipaddress==1.0.23
+libsass==0.20.1
+ndg-httpsclient==0.5.1
+pbr==5.5.1
+pyasn1==0.4.8
+pycparser==2.20
+pyOpenSSL==20.0.0
+uk-postcode-utils==1.1
+unicode-slugify==0.1.1
+waitress==1.4.4
 
 
 #necessary to process unicode csv files for ZA elections data
 unicodecsv==0.9.4
 
 # Used to format budgetary things into local currency strings
-babel==2.6.0
+Babel==2.6.0
 
 # Pin certifi to a version that works with OpenSSL 1.0.1 - see
 # https://github.com/certifi/python-certifi/issues/26
 certifi==2015.04.28
 
-cffi
+cffi==1.14.4
 
 # everypolitician packages
 everypolitician==0.0.13
