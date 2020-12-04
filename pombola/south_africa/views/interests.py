@@ -291,8 +291,7 @@ class SAMembersInterestsIndex(TemplateView):
                 GROUP BY category_id, release_id, person_id ORDER BY c DESC''',
                 [context['category_id'], context['release_id']])
 
-        paginator = Paginator(data, 20)
-        paginator._count = len(list(data))
+        paginator = Paginator(list(data), 20)
         page = self.request.GET.get('page')
 
         try:
@@ -378,8 +377,7 @@ class SAMembersInterestsIndex(TemplateView):
                 GROUP BY value, release_id, category_id ORDER BY c DESC''',
                 [context['category_id'], context['release_id']])
 
-        paginator = Paginator(data, 20)
-        paginator._count = len(list(data))
+        paginator = Paginator(list(data), 20)
         page = self.request.GET.get('page')
 
         try:
