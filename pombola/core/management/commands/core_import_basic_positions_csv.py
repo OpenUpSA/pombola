@@ -57,10 +57,6 @@ class Command(LabelCommand):
     help = 'Import positions from a very basic CSV format'
     args = '<positions CSV file>'
 
-    # option_list = LabelCommand.option_list + (
-    #     make_option('--commit', action='store_true', dest='commit', help='Actually update the database'),
-    # )
-
     def handle_label(self,  input_filename, **options):
 
         csv_file = csv.DictReader(open(input_filename, 'rb'))

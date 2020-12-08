@@ -1,5 +1,4 @@
 import requests
-from optparse import make_option
 
 from django.core.management.base import BaseCommand
 
@@ -8,18 +7,18 @@ from pombola.za_hansard.models import Source
 
 class Command(BaseCommand):
     help = 'Check for new sources'
-    option_list = BaseCommand.option_list + (
-        make_option('--historical-limit',
+
+    def add_arguments(self, parser):
+        parser.add_argument('--historical-limit',
                     default='2009-04-22',
-                    type='str',
+                    type=str,
                     help='Limit earliest historical entry to check (in yyyy-mm-dd format, default 2009-04-22)',
-                    ),
-        make_option('--delete-existing',
+                    )
+        parser.add_argument('--delete-existing',
                     default=False,
                     action='store_true',
                     help='Delete existing sources',
-                    ),
-    )
+                    )
 
     def handle(self, *args, **options):
         self.verbose = int(options['verbosity']) > 1

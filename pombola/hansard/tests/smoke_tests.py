@@ -1,5 +1,5 @@
 from django_webtest import WebTest
-from django.utils.unittest import skip
+from unittest import skip
 
 from pombola.core import models
 

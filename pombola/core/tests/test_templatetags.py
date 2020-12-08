@@ -3,6 +3,7 @@
 from django.http import QueryDict
 from django.template import Context, Template
 from django.test import TestCase
+from django.utils.html import escape
 
 from ..templatetags.breadcrumbs import breadcrumbs, path_element_overrides
 from ..templatetags.active_class import active_class
@@ -116,7 +117,7 @@ class AddQueryParameterTest(TestCase):
         template = Template("{% load add_query_parameter %}{% add_query_parameter request 'foo' 'bar' %}")
         self.assertEqual(
             template.render(Context({'request': request})),
-            'foo=bar&parameter=value')
+            escape('foo=bar&parameter=value'))
 
     def test_overwrites_query_parameters_if_they_exist(self):
         request  = RequestFake('parameter=value')

@@ -4,6 +4,7 @@ import requests
 from .constants import API_REQUESTS_TIMEOUT
 
 from django import forms
+from django.contrib.gis.db.models import Collect
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import D
 from django.core.urlresolvers import reverse
@@ -309,7 +310,8 @@ class SAPlaceDetailSub(PlaceDetailSub):
                 ZAPlace.objects
                 .filter(kind__slug__in=CONSTITUENCY_OFFICE_PLACE_KIND_SLUGS)
                 .filter(
-                    location__coveredby=self.object.mapit_area.polygons.collect())
+                    # From https://github.com/mysociety/mapit/blob/e79689499cade74bed2d016cb1291c6849c0e8b7/mapit/geometryserialiser.py#L58
+                    location__coveredby=self.object.mapit_area.polygons.aggregate(Collect('polygon'))['polygon__collect'])
             )
 
         return context

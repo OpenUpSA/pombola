@@ -15,7 +15,6 @@ def shellquote(s):
 class Command(BaseCommand):
 
     help = 'Output a database dump only containing public data'
-    args = '<OUTPUT-FILENAME>'
 
     def get_tables_to_dump(self):
         tables = connection.introspection.table_names()
@@ -161,12 +160,12 @@ publicly) add them to 'tables_to_ignore'.'''
             sys.exit(2)
 
         return tables_to_dump
+    
+    def add_arguments(self, parser):
+        parser.add_argument('output_filename')
 
     def handle(self, *args, **options):
-        if len(args) != 1:
-            self.print_help(sys.argv[0], sys.argv[1])
-            sys.exit(1)
-        output_prefix = args[0]
+        output_prefix = options['output_filename']
 
         for dump_type in ('schema', 'data'):
             output_filename = '{}_{}.sql'.format(output_prefix, dump_type)

@@ -2,7 +2,7 @@ import os
 from datetime import date
 
 from django.core.management import call_command
-from django.utils.unittest import skip
+from unittest import skip
 
 from instances.tests import InstanceTestCase
 from popolo_name_resolver.resolve import (

@@ -8,7 +8,6 @@ import sys
 import unicodecsv
 import string
 import datetime
-from optparse import make_option
 from pombola.core.models import (
     Organisation,
     OrganisationKind,
@@ -17,7 +16,7 @@ from pombola.core.models import (
     PositionTitle,
     AlternativePersonName,
 )
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 from django.db.models import Q
 from django.db.utils import IntegrityError
 from django.utils.text import slugify
@@ -437,22 +436,22 @@ def search(firstnames, surname, party, list_position, list_name, id_number):
     return False
 
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     """Import South African national and provincial election candidates"""
 
     help = (
         "Import csv file of South African national and provincial election candidates"
     )
 
-    option_list = NoArgsCommand.option_list + (
-        make_option(
+    def add_arguments(self, parser):
+        parser.add_argument(
             "--commit",
             action="store_true",
             help="Actually commit person changes to the database (new positions/orgs always created)",
-        ),
-    )
+        )
+    
 
-    def handle_noargs(self, **options):
+    def handle(self, **options):
         global COMMIT
         COMMIT = options["commit"]
 

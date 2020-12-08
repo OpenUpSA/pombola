@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 
 from pombola.south_africa.views import (
     SectionRedirect, OldSpeechRedirect,
@@ -33,24 +33,24 @@ urlpatterns = [
 
 # Make sure the top level custom indexes work:
 
-urlpatterns += patterns('',
+urlpatterns += [
     url(r'^hansard/?$', SAHansardIndex.as_view(), name='section-list-hansard'),
     url(r'^committee-minutes/?$', SACommitteeIndex.as_view(), name='section-list-committee-minutes'),
     url(r'^question/?$', SAQuestionIndex.as_view(), name='section-list-question'),
-)
+]
 
 # Anything else unmatched we assume is dealt with by SayIt (which will
 # return a 404 if the path is unknown anyway):
 
-fallback_sayit_patterns = patterns('',
+fallback_sayit_patterns = [
     # Exposed endpoint for a speech referred to by a numeric ID:
     url(r'^speech/(?P<pk>\d+)$', SASpeechView.as_view(), name='speech-view'),
     # Fake endpoint to redirect to the right speaker:
     url(r'^speaker/(?P<pk>\d+)$', SASpeakerRedirectView.as_view(), name='speaker-view'),
     # Anything else might be a slug referring to a section:
     url(r'^(?P<full_slug>.+)$', SASectionView.as_view(), name='section-view'),
-)
+]
 
-urlpatterns += patterns('',
+urlpatterns += [
     url(r'', include(fallback_sayit_patterns, namespace='sayit', app_name='speeches')),
-)
+]

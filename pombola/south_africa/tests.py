@@ -140,7 +140,7 @@ class ConstituencyOfficesImportTestCase(WebTest):
         self.assertTrue(models.Organisation.objects.filter(
                 name="EFF Constituency Office: Cape Town", 
                 kind=self.office_kind,
-                started="2019-06-01", ended="future"
+                started="2019-06-01", ended=ApproximateDate(future=True)
             ).exists())
         organisation = models.Organisation.objects.\
             get(name="EFF Constituency Office: Cape Town")
@@ -169,7 +169,7 @@ class ConstituencyOfficesImportTestCase(WebTest):
         self.assertTrue(models.Organisation.objects.filter(
                 name__iexact="DA Constituency Area: eMalahleni", 
                 kind=self.area_kind,
-                started="2019-06-01", ended="future"
+                started="2019-06-01", ended=ApproximateDate(future=True)
              ).exists())
         organisation = models.Organisation.objects.\
             get(name__iexact="DA Constituency Area: eMalahleni")
@@ -188,7 +188,7 @@ class ConstituencyOfficesImportTestCase(WebTest):
         self.assertTrue(models.Organisation.objects.filter(
                 name__iexact="DA Constituency Area: Rustenburg - Kgetlengrivier", 
                 kind=self.area_kind,
-                ended="future"
+                ended=ApproximateDate(future=True)
             ).exists())
         organisation = models.Organisation.objects.\
             get(name__iexact="DA Constituency Area: Rustenburg - Kgetlengrivier")
@@ -2230,7 +2230,7 @@ class SAPlaceDetailViewTest(WebTest):
         # Related by Assembly, should be counted
 
         person_related_assembly = models.Person.objects.create(
-            name='Test Person Related Assembly',
+            legal_name='Test Person Related Assembly',
             slug='test-person-related-assembly',
         )
 
@@ -2246,7 +2246,7 @@ class SAPlaceDetailViewTest(WebTest):
         # Related by NCOP, should be counted
 
         person_related_ncop = models.Person.objects.create(
-            name='Test Person Related NCOP',
+            legal_name='Test Person Related NCOP',
             slug='test-person-related-ncop',
         )
 
@@ -2262,7 +2262,7 @@ class SAPlaceDetailViewTest(WebTest):
         # Related by Legislature, should be counted
 
         person_related_legislature = models.Person.objects.create(
-            name='Test Person Related Legislature',
+            legal_name='Test Person Related Legislature',
             slug='test-person-related-legislature',
         )
 
@@ -2288,7 +2288,7 @@ class SAPlaceDetailViewTest(WebTest):
         # Related by Assembly and NCOP, should be counted once
 
         person_related_assembly_ncop = models.Person.objects.create(
-            name='Test Person Related Assembly and NCOP',
+            legal_name='Test Person Related Assembly and NCOP',
             slug='test-person-related-assembly-ncop',
         )
 
@@ -2323,7 +2323,7 @@ class SAPlaceDetailViewTest(WebTest):
         # Related by Assembly and NCOP, should be counted once
 
         person_related_assembly_ncop = models.Person.objects.create(
-            name='Test Person Related Assembly and NCOP',
+            legal_name='Test Person Related Assembly and NCOP',
             slug='test-person-related-assembly-ncop',
         )
 
@@ -2349,7 +2349,7 @@ class SAPlaceDetailViewTest(WebTest):
         # Related by Assembly, but former member, should not be counted
 
         person_related_assembly_former = models.Person.objects.create(
-            name='Test Person Related Former Assembly',
+            legal_name='Test Person Related Former Assembly',
             slug='test-person-related-assembly-former',
         )
 
@@ -2375,7 +2375,7 @@ class SAPlaceDetailViewTest(WebTest):
         # Unrelated, should never be counted.
 
         person_unrelated = models.Person.objects.create(
-            name='Test Person Unrelated',
+            legal_name='Test Person Unrelated',
             slug='test-person-unrelated',
         )
 
@@ -2400,7 +2400,7 @@ class SAPlaceDetailViewTest(WebTest):
         # Related by Other, should not be counted
 
         person_related_other = models.Person.objects.create(
-            name='Test Person Related Other',
+            legal_name='Test Person Related Other',
             slug='test-person-related-other',
         )
 
@@ -2429,7 +2429,7 @@ class SAPlaceDetailViewTest(WebTest):
         # Related by Assembly, but not a Member, should not be counted
 
         person_related_assembly_not_member = models.Person.objects.create(
-            name='Test Person Related Assembly (Not Member)',
+            legal_name='Test Person Related Assembly (Not Member)',
             slug='test-person-related-assembly-not-member',
         )
 

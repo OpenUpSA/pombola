@@ -7,8 +7,6 @@ from dateutil import parser
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 
-from optparse import make_option
-
 import pombola.core.models as core_models
 import pombola.hansard.models as hansard_models
 
@@ -16,23 +14,23 @@ import pombola.hansard.models as hansard_models
 class Command(BaseCommand):
     help = 'Move Hansard Entries from one Person to another'
 
-    option_list = BaseCommand.option_list + (
-        make_option("--person-from", dest="person_from", type="string",
+    def add_arguments(self, parser):
+        parser.add_argument("--person-from", dest="person_from", type=str,
                     help="The ID or slug of the person whose speeches you want to move",
-                    metavar="PERSON-ID"),
-        make_option("--person-to", dest="person_to", type="string",
+                    metavar="PERSON-ID")
+        parser.add_argument("--person-to", dest="person_to", type=str,
                     help="The ID or slug of the person who will become associated with the speeches",
-                    metavar="PERSON-ID"),
-        make_option("--date-from", dest="date_from", type="string",
-                    help="The date of the earliest entry to reattribute as YYYY-MM-DD (optional)"),
-        make_option("--date-to", dest="date_to", type="string",
-                    help="The date of the last entry to reattribute as YYYY-MM-DD (optional)"),
-        make_option('--noinput',
+                    metavar="PERSON-ID")
+        parser.add_argument("--date-from", dest="date_from", type=str,
+                    help="The date of the earliest entry to reattribute as YYYY-MM-DD (optional)")
+        parser.add_argument("--date-to", dest="date_to", type=str,
+                    help="The date of the last entry to reattribute as YYYY-MM-DD (optional)")
+        parser.add_argument('--noinput',
                     action='store_false', dest='interactive', default=True,
-                    help="Do NOT prompt the user for input of any kind."),
-        make_option("--quiet", dest="quiet",
+                    help="Do NOT prompt the user for input of any kind.")
+        parser.add_argument("--quiet", dest="quiet",
                     help="Suppress progress output",
-                    default=False, action='store_true'))
+                    default=False, action='store_true')
 
     @transaction.atomic()
     def handle(self, *args, **options):

@@ -1,4 +1,3 @@
-from optparse import make_option
 import sys
 
 from django.contrib.gis.geos import Point
@@ -15,15 +14,14 @@ class Command(BaseCommand):
     help = 'Update the physical address of a constituency office'
     args = '<CONSTITUENCY-OFFICE-ID>'
 
-    option_list = BaseCommand.option_list + (
-        make_option('--commit', dest='commit', action='store_true',
-                    help='Actually update the database'),
-        make_option('--lat', dest='lat', type='float', help='Latitude'),
-        make_option('--lon', dest='lon', type='float', help='Longitude'),
-        make_option("--address", dest="new_address",
+    def add_arguments(self, parser):
+        parser.add_argument('--commit', dest='commit', action='store_true',
+                    help='Actually update the database')
+        parser.add_argument('--lat', dest='lat', type=float, help='Latitude')
+        parser.add_argument('--lon', dest='lon', type=float, help='Longitude')
+        parser.add_argument("--address", dest="new_address",
                     help='The new street address of the constituency office',
-                    metavar='STREET-ADDRESS'),
-    )
+                    metavar='STREET-ADDRESS')
 
     def handle(self, *args, **options):
 

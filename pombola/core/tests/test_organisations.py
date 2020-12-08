@@ -1,5 +1,6 @@
 from django.test import TestCase
-from django.utils import unittest
+import unittest
+from django_date_extensions.fields import ApproximateDate
 
 from pombola.core.models import (
     Organisation,
@@ -50,7 +51,7 @@ class OrganisationIsOngoingTest(unittest.TestCase):
     def setUp(self):
         self.test_kind = OrganisationKind(name="TestKind", slug="test-kind")
         self.organisation_future_ended = Organisation(
-            name="Test Org", slug="test-org", kind=self.test_kind, ended="future"
+            name="Test Org", slug="test-org", kind=self.test_kind, ended=ApproximateDate(future=True)
         )
         self.organisation_none_ended = Organisation(
             name="Basic Education", slug="basic-education", kind=self.test_kind,
@@ -59,7 +60,7 @@ class OrganisationIsOngoingTest(unittest.TestCase):
             name="NCOP Appropriations",
             slug="ncop-appropriations",
             kind=self.test_kind,
-            ended="2010-01-01",
+            ended=ApproximateDate(2010,1,1),
         )
 
     def test_is_ongoing(self):
@@ -74,7 +75,7 @@ class OrganisationIdentifiersTest(TestCase):
             name="TestKind", slug="test-kind"
         )
         self.test_organisation = Organisation.objects.create(
-            name="Test Org", slug="test-org", kind=self.test_kind, ended="future"
+            name="Test Org", slug="test-org", kind=self.test_kind, ended=ApproximateDate(future=True)
         )
         self.mysociety_id = Identifier.objects.create(
             identifier="/organisations/1",
@@ -98,16 +99,16 @@ class OrganisationIsCommitteeTest(unittest.TestCase):
             name="Non-committee",
             slug="non-committee",
             kind=self.test_kind,
-            ended="future",
+            ended=ApproximateDate(future=True),
         )
         self.na_committee = Organisation(
-            name="NA Committee", slug="na-committee", kind=self.na_kind, ended="future"
+            name="NA Committee", slug="na-committee", kind=self.na_kind, ended=ApproximateDate(future=True)
         )
         self.ncop_committee = Organisation(
             name="NCOP Committee",
             slug="ncop-committee",
             kind=self.ncop_kind,
-            ended="future",
+            ended=ApproximateDate(future=True),
         )
 
     def test_is_committee(self):
@@ -120,7 +121,7 @@ class OrganisationToStrTest(TestCase):
     def setUp(self):
         self.test_kind = OrganisationKind(name="Test Kind", slug="test-kind")
         self.test_organisation = Organisation(
-            name="Test Org", slug="test-org", kind=self.test_kind, ended="future"
+            name="Test Org", slug="test-org", kind=self.test_kind, ended=ApproximateDate(future=True)
         )
 
     def test_to_str(self):
@@ -145,19 +146,19 @@ class OrganisationContactableCommitteesTest(TestCase):
             name="Non-committee",
             slug="non-committee",
             kind=self.test_kind,
-            ended="future",
+            ended=ApproximateDate(future=True),
         )
         self.ncop_committee_with_no_emails = Organisation.objects.create(
             name="NCOP Committee",
             slug="ncop-committee",
             kind=self.ncop_kind,
-            ended="future",
+            ended=ApproximateDate(future=True),
         )
         self.na_committee_with_emails_future_ended = Organisation.objects.create(
             name="Basic Education",
             slug="basic-education",
             kind=self.na_kind,
-            ended="future",
+            ended=ApproximateDate(future=True),
         )
         self.email_contact = Contact.objects.create(
             kind=self.email_kind,
@@ -202,37 +203,37 @@ class OrganisationQuerysetCommitteesTest(TestCase):
             name="Non-committee",
             slug="non-committee",
             kind=self.test_kind,
-            ended="future",
+            ended=ApproximateDate(future=True),
         )
         self.ncop_committee = Organisation.objects.create(
             name="NCOP Committee",
             slug="ncop-committee",
             kind=self.ncop_kind,
-            ended="future",
+            ended=ApproximateDate(future=True),
         )
         self.na_committee_a = Organisation.objects.create(
             name="Ad Hoc Committee on Education",
             slug="ad-hoc-education",
             kind=self.na_kind,
-            ended="future",
+            ended=ApproximateDate(future=True),
         )
         self.na_committee_b = Organisation.objects.create(
             name="Basic Education",
             slug="basic-education",
             kind=self.na_kind,
-            ended="future",
+            ended=ApproximateDate(future=True),
         )
         self.ad_hoc_committee = Organisation.objects.create(
             name="Ad Hoc Committee on the Appointment of the Auditor General",
             slug="ad-hoc-auditor-general",
             kind=self.ad_hoc_kind,
-            ended="future",
+            ended=ApproximateDate(future=True),
         )
         self.joint_committee = Organisation.objects.create(
             name="Joint Standing Committee on Defence",
             slug="joint-defence",
             kind=self.joint_kind,
-            ended="future",
+            ended=ApproximateDate(future=True),
         )
 
     def test_committees_filter(self):
@@ -267,7 +268,7 @@ class OrganisationQuerysetOngoingTest(unittest.TestCase):
             name="TestKind", slug="test-kind"
         )
         self.organisation_future_ended = Organisation.objects.create(
-            name="Test Org", slug="test-org", kind=self.test_kind, ended="future"
+            name="Test Org", slug="test-org", kind=self.test_kind, ended=ApproximateDate(future=True)
         )
         self.organisation_none_ended = Organisation.objects.create(
             name="Basic Education", slug="basic-education", kind=self.test_kind,

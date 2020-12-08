@@ -1,7 +1,7 @@
 import datetime
 import os
 from collections import namedtuple
-from django.utils.unittest import skip
+from unittest import skip
 
 from django.test import TestCase
 

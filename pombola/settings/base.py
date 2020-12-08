@@ -56,11 +56,11 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 "django.contrib.auth.context_processors.auth",
-                "django.core.context_processors.debug",
-                "django.core.context_processors.i18n",
-                "django.core.context_processors.media",
-                "django.core.context_processors.static",
-                "django.core.context_processors.request",
+                "django.template.context_processors.debug",
+                "django.template.context_processors.i18n",
+                "django.template.context_processors.media",
+                "django.template.context_processors.static",
+                "django.template.context_processors.request",
                 "django.contrib.messages.context_processors.messages",
                 "pombola.core.context_processors.add_settings",
                 "pombola.core.context_processors.site_processor",
@@ -431,13 +431,13 @@ INSTALLED_APPS = (
     'popolo',
 
     'images',
-    'sorl.thumbnail',
     # easy_thumbnails is required by SayIt; it needs to be in
     # INSTALLED_APPS so that its table is created so that we can
     # create SayIt speakers. It should be after sorl.thumbnails so
     # that sorl.thumbnails (used by Pombola) is what's loaded when
     # Pombola templates do {% load thumbnail %}
     'easy_thumbnails',
+    'sorl.thumbnail',
 
     'haystack',
 
@@ -486,15 +486,34 @@ def make_enabled_features(installed_apps, all_optional_apps):
     return result
 
 
-# Set up the core CSS and JS files:
+# Only for debugging compression (the default is: 'not DEBUG' which is
+# fine when not experimenting with compression)
+# PIPELINE_ENABLED = True
 
-PIPELINE_CSS = {
+PIPELINE = {
+    'COMPILERS' : ("pipeline_compass.compass.CompassCompiler",),
+    'CSS_COMPRESSOR': "pipeline.compressors.yui.YUICompressor",
+    'JS_COMPRESSOR': "pipeline.compressors.yui.YUICompressor",
+    'YUI_BINARY': "/usr/bin/env yui-compressor",
+    'DISABLE_WRAPPER': True
+}
+
+# Set up the core CSS and JS f,iles:
+
+default_stylesheet_extra_content = {
+    'media': 'all',
+    'charset': None,
+    'title': None,
+}
+
+PIPELINE['STYLESHEETS'] = {
     'countdown': {
         'source_filenames': (
             'css/jquery.countdown-v1.6.0.css',
             'sass/countdown.scss',
         ),
         'output_filename': 'css/countdown.css',
+        'extra_context': default_stylesheet_extra_content, 
     },
     'admin': {
         'source_filenames': (
@@ -502,10 +521,16 @@ PIPELINE_CSS = {
             'sass/admin.scss',
         ),
         'output_filename': 'css/admin.css',
+        'extra_context': default_stylesheet_extra_content, 
     },
 }
 
-PIPELINE_JS = {
+default_js_extra_content = {
+    'async': False,
+    'defer': False,
+}
+
+PIPELINE['JAVASCRIPT'] = {
     'base': {
         'source_filenames': (
             'js/libs/jquery-ui.js',
@@ -516,74 +541,72 @@ PIPELINE_JS = {
             'js/analytics.js',
         ),
         'output_filename': 'js/base.js',
+        'extra_context': default_js_extra_content, 
     },
     'load-appearances': {
         'source_filenames': (
             'js/load-appearances.html',
         ),
         'output_filename': 'js/load-appearances.js',
+        'extra_context': default_js_extra_content, 
     },
     'feeds': {
         'source_filenames': (
             'js/feeds.js',
         ),
-        'output_filename': 'js/feeds.js'
+        'output_filename': 'js/feeds.js',
+        'extra_context': default_js_extra_content, 
     },
     'responsive-carousel': {
         'source_filenames': (
             'js/libs/responsive-carousel.js',
         ),
         'output_filename': 'js/responsive-carousel.js',
+        'extra_context': default_js_extra_content, 
     },
     'map': {
         'source_filenames': (
             'js/map-drilldown.js',
         ),
         'output_filename': 'js/base-map-drilldown.js',
+        'extra_context': default_js_extra_content, 
     },
     'ui-test': {
         'source_filenames': (
             'js/ui-test.js',
         ),
         'output_filename': 'js/ui-test.js',
+        'extra_context': default_js_extra_content, 
     },
     'google-map': {
         'source_filenames': (
             'js/map.js',
         ),
         'output_filename': 'js/google-map.js',
+        'extra_context': default_js_extra_content, 
     },
     'modernizr': {
         'source_filenames': ('js/libs/modernizr.js',),
         'output_filename': 'js/modernizr.js',
+        'extra_context': default_js_extra_content, 
     },
     'respond': {
         'source_filenames': ('js/libs/respond.1.4.2.js',),
         'output_filename': 'js/respond.js',
+        'extra_context': default_js_extra_content, 
     },
     'hide-reveal': {
         'source_filenames': ('js/hide-reveal.js',),
         'output_filename': 'js/hide-reveal.js',
+        'extra_context': default_js_extra_content, 
     },
     'survey': {
         'source_filenames': ('js/survey.js',),
         'output_filename': 'js/survey.js',
+        'extra_context': default_js_extra_content, 
     },
 }
 
-# Only for debugging compression (the default is: 'not DEBUG' which is
-# fine when not experimenting with compression)
-# PIPELINE_ENABLED = True
-
-PIPELINE_COMPILERS = ("pipeline_compass.compass.CompassCompiler",)
-
-PIPELINE_CSS_COMPRESSOR = "pipeline.compressors.yui.YUICompressor"
-PIPELINE_JS_COMPRESSOR = "pipeline.compressors.yui.YUICompressor"
-
-
-PIPELINE_YUI_BINARY = "/usr/bin/env yui-compressor"
-
-PIPELINE_DISABLE_WRAPPER = True
 
 EXCLUDE_FROM_SEARCH = ()
 

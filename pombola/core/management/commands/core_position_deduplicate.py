@@ -1,5 +1,3 @@
-from optparse import make_option
-
 from django.core.management.base import BaseCommand
 
 from pombola.core import models
@@ -8,14 +6,13 @@ from pombola.core import models
 class Command(BaseCommand):
     help = 'Deduplicate the position entries'
 
-    option_list = BaseCommand.option_list + (
-        make_option(
+    def add_arguments(self, parser):
+        parser.add_argument(
             '--delete',
             action='store_true',
             dest='delete',
             default=False,
-            help='Delete found duplicates'),
-        )
+            help='Delete found duplicates')
 
     fields_to_order = ('person', 'organisation', 'place', 'title')
     fields_to_compare = fields_to_order + ('subtitle', 'start_date', 'end_date', 'note')

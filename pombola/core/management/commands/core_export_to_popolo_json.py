@@ -12,24 +12,22 @@ from django.core.management.base import BaseCommand, CommandError
 
 
 class Command(BaseCommand):
-    args = 'OUTPUT-DIRECTORY POMBOLA-URL'
+    # args = 'OUTPUT-DIRECTORY POMBOLA-URL'
     help = 'Export all people, organisations and memberships to Popolo JSON and mongoexport format'
 
-    option_list = BaseCommand.option_list + (
-            make_option(
-                "--pombola",
-                dest="pombola",
-                action="store_true",
-                help="Make a single file with inline memberships"
-            ),
-    )
+    def add_arguments(self, parser):
+        parser.add_argument('OUTPUT-DIRECTORY')
+        parser.add_argument('POMBOLA-URL')
+        parser.add_argument(
+            "--pombola",
+            dest="pombola",
+            action="store_true",
+            help="Make a single file with inline memberships"
+        )
 
     def handle(self, *args, **options):
-
-        if len(args) != 2:
-            raise CommandError, "You must provide a filename prefix and the Pombola instance URL"
-
-        output_directory, pombola_url = args
+        output_directory = options['OUTPUT-DIRECTORY']
+        pombola_url = options['POMBOLA-URL']
         if not (exists(output_directory) and isdir(output_directory)):
             message = "'{0}' was not a directory"
             raise CommandError(message.format(output_directory))

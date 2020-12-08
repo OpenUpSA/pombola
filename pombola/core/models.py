@@ -736,6 +736,8 @@ class Person(ModelBase, HasImageMixin, ScorecardMixin, IdentifierMixin):
 def update_sort_name(**kwargs):
     """A signal handler function to set a default sort_name"""
     person = kwargs.get('instance')
+    if not hasattr(person, 'legal_name') or not hasattr(person, 'sort_name'):
+        return
     if person.legal_name and not person.sort_name:
         person.sort_name = person.legal_name.strip().split()[-1]
 
@@ -1225,10 +1227,10 @@ class Place(ModelBase, HasImageMixin, ScorecardMixin, BudgetsMixin, IdentifierMi
                                                [self.mapit_area.type.code],
                                                mapit_models.Generation.objects.get(pk=session.mapit_generation)):
                 # Now work out the % intersection between the two:
-                self_geos_geometry = self.mapit_area.polygons.collect()
+                self_geos_geometry = self.mapit_area.polygons.aggregate(models.Collect('polygon'))['polygon__collect']
                 if self_geos_geometry.area == 0:
                     continue
-                other_geos_geometry = area.polygons.collect()
+                other_geos_geometry = area.polygons.aggregate(models.Collect('polygon'))['polygon__collect']
                 intersection = self_geos_geometry.intersection(other_geos_geometry)
                 proportion_shared = intersection.area / self_geos_geometry.area
                 intersections.append((100 * proportion_shared,
@@ -1700,8 +1702,8 @@ class Position(ModelBase, IdentifierMixin):
         none_repr = '0000-00-00'
 
         # value can be yyyy-mm-dd, future or None
-        start = repr(self.start_date) if self.start_date else None
-        end   = repr(self.end_date)   if self.end_date   else None
+        start = str(self.start_date) if type(self.start_date) in (str, unicode) else repr(self.start_date) if self.start_date else None
+        end   = str(self.end_date) if type(self.end_date) in (str, unicode) else repr(self.end_date)   if self.end_date   else None
 
         # set the value or default to something sane
         sorting_start_date =        start or none_repr

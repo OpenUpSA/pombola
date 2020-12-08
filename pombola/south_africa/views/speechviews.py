@@ -118,7 +118,7 @@ class SASpeechesIndex(NamespaceMixin, TemplateView):
                 speech_count=Count('speech__id')) \
             .exclude(heading='') \
             .select_related(
-                'parent__slug', 'parent__heading'
+                'parent'
                 ) \
             .order_by('-speech_start_date', 'parent__heading', 'start_order')
         
@@ -251,7 +251,7 @@ class SAQuestionIndex(TemplateView):
             .filter(
                 parent__parent__heading='Questions'
             ) \
-            .select_related('parent__heading') \
+            .select_related('parent') \
             .prefetch_related('speech_set') \
             .annotate(
                 earliest_date=Min('speech__start_date'),

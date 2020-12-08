@@ -1,7 +1,6 @@
 from datetime import date
-from optparse import make_option
 
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 from django_date_extensions.fields import ApproximateDate
 
 from pombola.core.models import PositionTitle
@@ -11,19 +10,19 @@ date_for_last_active_check = date(2014, 5, 1)
 # The date of the final results being announced:
 date_to_start_new_positions = date(2014, 5, 10)
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     """Restart constituency contact positions for re-elected MPs and MPLs"""
 
     help = 'Restart constituency contact positions for re-elected MPs and MPLs'
 
-    option_list = NoArgsCommand.option_list + (
-        make_option(
+    def add_arguments(self, parser):
+        parser.add_argument(
             '--commit',
             action='store_true',
             dest='commit',
-            help='Actually update the database'),)
+            help='Actually update the database')
 
-    def handle_noargs(self, **options):
+    def handle(self, **options):
 
         pt = PositionTitle.objects.get(name='Constituency Contact')
 

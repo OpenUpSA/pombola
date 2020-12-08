@@ -7,7 +7,7 @@ from pombola.feedback.models import Feedback
 
 class FeedbackTestCase(PombolaSeleniumTestCase):
 
-    fixtures = ['test_data']    
+    fixtures = ['test_data.json']    
 
     thanks_text = 'Thank you for your feedback!'
 

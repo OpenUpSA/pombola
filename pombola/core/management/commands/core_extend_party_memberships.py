@@ -13,23 +13,20 @@
 # if that position ends with ApproximateDate(2012), change it to
 # ApproximateDate(future=True).
 
-from optparse import make_option
-
 import sys
 
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 
 from django_date_extensions.fields import ApproximateDate
 
 from pombola.core.models import Person
 
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     help = 'Change party memberships that end in 2012 to end in "future".'
 
-    option_list = NoArgsCommand.option_list + (
-        make_option('--commit', action='store_true', dest='commit', help='Actually update the database'),
-        )
+    def add_arguments(self, parser):
+        parser.add_argument('--commit', action='store_true', dest='commit', help='Actually update the database'),
 
     def handle_noargs(self, **options):
         for person in Person.objects.all():

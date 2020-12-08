@@ -1,10 +1,10 @@
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 from django.contrib.sites.models import Site
 
 from pombola.feedback.models import Feedback
 
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     help = 'Report all the feedbac that needs attention'
     args = ''
 

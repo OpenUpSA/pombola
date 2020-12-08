@@ -7,9 +7,7 @@
 #
 # This script takes arguments are passed in on the command line.
 
-from optparse import make_option
-
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 from django_date_extensions.fields import ApproximateDate
 
 from pombola.core.models import Person, Position, PositionTitle, Place, Organisation
@@ -19,24 +17,23 @@ def yyyymmdd_to_approx(yyyymmdd):
     year, month, day = map(int, yyyymmdd.split('-'))
     return ApproximateDate(year, month, day)
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
 
     help = 'create new position for election winners, end aspirant positions'
 
-    option_list = NoArgsCommand.option_list + (
-        make_option('--commit', action='store_true', dest='commit', help='Actually update the database'),
+    def add_arguments(self, parser):
+        parser.add_argument('--commit', action='store_true', dest='commit', help='Actually update the database')
 
-        make_option('--place',                help="The Place slug that the positions are linked to"),
-        make_option('--elected-organisation', help="The Organisation slug that the person is elected to"),
-        make_option('--aspirant-title',       help="The PositionTitle slug for aspirants"),
-        make_option('--aspirant-end-date',    help="The end date to apply to matching positions"),
-        make_option('--elected-person',       help="The Person slug of the winner"),
-        make_option('--elected-title',        help="The PositionTitle slug for elected position"),
-        make_option('--elected-subtitle',     help="Optional subtitle for elected position"),
-        make_option('--elected-start-date',   help="The start date to apply to matching positions"),        
-    )
+        parser.add_argument('--place',                help="The Place slug that the positions are linked to")
+        parser.add_argument('--elected-organisation', help="The Organisation slug that the person is elected to")
+        parser.add_argument('--aspirant-title',       help="The PositionTitle slug for aspirants")
+        parser.add_argument('--aspirant-end-date',    help="The end date to apply to matching positions")
+        parser.add_argument('--elected-person',       help="The Person slug of the winner")
+        parser.add_argument('--elected-title',        help="The PositionTitle slug for elected position")
+        parser.add_argument('--elected-subtitle',     help="Optional subtitle for elected position")
+        parser.add_argument('--elected-start-date',   help="The start date to apply to matching positions")
 
-    def handle_noargs(self, **options):
+    def handle(self, **options):
         
         print "Looking at '%s' in '%s'" % (options['elected_person'], options['place'] )
 

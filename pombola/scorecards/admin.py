@@ -58,13 +58,13 @@ class EntryAdmin(admin.ModelAdmin):
         )
     
     def get_urls(self):
-        from django.conf.urls import patterns, url
+        from django.conf.urls import url
         urls = super(EntryAdmin, self).get_urls()
-        my_urls = patterns('',
+        my_urls = [
             url(
                 r'upload_csv',
                 self.admin_site.admin_view(self.upload_csv),
                 name='admin_upload_csv',
             ),
-        )
+        ]
         return my_urls + urls

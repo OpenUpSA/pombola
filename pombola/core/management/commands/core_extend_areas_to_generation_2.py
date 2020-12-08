@@ -6,11 +6,11 @@
 # This script just extends the generation_high to generation 2 for
 # every area where it was set to generation 2.
 
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 from mapit.models import Area, Generation
 
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     help = 'Change all genertion_high=1 to generation_high=2'
     def handle_noargs(self, **options):
         g1 = Generation.objects.get(id=1)

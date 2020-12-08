@@ -6,13 +6,12 @@
 # (omitted) offices and areas.
 
 import json
-from optparse import make_option
 import re
 
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.gis.geos import Point
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.management.base import LabelCommand
+from django.core.management.base import BaseCommand
 from django.db.models import Q
 from django.utils.text import slugify
 
@@ -701,39 +700,43 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
     return organisation
 
 
-class Command(LabelCommand):
+class Command(BaseCommand):
     """Update constituency offices"""
 
     help = 'Update constituency office data for South Africa'
 
-    option_list = LabelCommand.option_list + (
-        make_option(
+    def add_arguments(self, parser):
+        parser.add_argument(
+            'input_filename',
+            help='File name containing constituency offices data')
+        parser.add_argument(
             '--verbose',
             action='store_true',
             dest='verbose',
-            help='Output extra information for debugging'),
-        make_option(
+            help='Output extra information for debugging')
+        parser.add_argument(
             '--commit',
             action='store_true',
             dest='commit',
-            help='Actually update the database'),
-        make_option(
+            help='Actually update the database')
+        parser.add_argument(
             '--end-old-offices',
             action='store_true',
-            help='Set the end_date of the old offices for the party'),
-        make_option(
+            help='Set the end_date of the old offices for the party')
+        parser.add_argument(
             '--party',
             help='Party name, e.g. EFF, DA',
             type=str,
-        ),
-        make_option(
+        )
+        parser.add_argument(
             '--search-office',
             help='Find similar office names by searching for them',
             type=str,
-        ),)
+        )
 
 
-    def handle_label(self, input_filename, **options):
+    def handle(self, **options):
+        input_filename = options['input_filename']
 
         commit = False
         end_old_offices = False

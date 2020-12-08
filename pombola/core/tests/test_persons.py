@@ -48,6 +48,9 @@ class PersonTest(WebTest):
         self.assertEqual(person.sort_name, 'Vaughan Williams')
 
     def test_only_query(self):
+        """
+        Regression test for Person model update_sort_name post_init trigger.
+        """
         at_least_one_person = models.Person.objects.create(
             legal_name='Ralph Vaughan Williams',
             sort_name='Vaughan Williams')

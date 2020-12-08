@@ -17,7 +17,6 @@ from lxml import etree
 
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
-from optparse import make_option
 
 from pombola.za_hansard.models import Source, SourceUrlCouldNotBeRetrieved, SourceParsingLog
 from pombola.za_hansard.parse import ZAHansardParser, ConversionException, DateParseException
@@ -25,35 +24,35 @@ from pombola.za_hansard.parse import ZAHansardParser, ConversionException, DateP
 
 class Command(BaseCommand):
     help = 'Parse unparsed'
-    option_list = BaseCommand.option_list + (
-        make_option('--redo',
+
+    def add_arguments(self, parser):
+        parser.add_argument('--redo',
                     default=False,
                     action='store_true',
                     help='Redo already completed parses',
-                    ),
-        make_option('--id',
-                    type='str',
+                    )
+        parser.add_argument('--id',
+                    type=str,
                     help='Parse a given id',
-                    ),
-        make_option('--retry',
+                    )
+        parser.add_argument('--retry',
                     default=False,
                     action='store_true',
                     help='Retry attempted (but not completed) parses',
-                    ),
-        make_option('--since',
+                    )
+        parser.add_argument('--since',
                     help='Oldest date to parse Sources from (format must be YYYY-MM-DD).',
-                    ),
-        make_option('--retry-download',
+                    )
+        parser.add_argument('--retry-download',
                     default=False,
                     action='store_true',
                     help='Retry download of previously 404\'d documents',
-                    ),
-        make_option('--limit',
+                    )
+        parser.add_argument('--limit',
                     default=0,
-                    type='int',
+                    type=int,
                     help='limit query (default 0 for none)',
-                    ),
-    )
+                    )
 
     def handle(self, *args, **options):
         limit = options['limit']

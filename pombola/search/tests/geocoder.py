@@ -1,7 +1,7 @@
 import json
 import os
 
-from django.utils import unittest
+import unittest
 
 from ..geocoder import geocoder
 

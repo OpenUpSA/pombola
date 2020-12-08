@@ -6,7 +6,7 @@
             <option value="">All</option>
             {% for place in places  %}
                 <option
-                    {% if place_slug = place.slug %}selected="selected"{% endif %}
+                    {% if place_slug == place.slug %}selected="selected"{% endif %}
                     value="{{ place.slug }}"
                 >{{ place.name }} ({{ place.kind.name }})</option>
             {% endfor %}

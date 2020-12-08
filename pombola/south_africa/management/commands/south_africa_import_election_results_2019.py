@@ -3,7 +3,7 @@ import string
 import unicodecsv as csv
 from django_date_extensions.fields import ApproximateDate
 
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 from django.utils.text import slugify
 
 from pombola.core.models import (
@@ -21,7 +21,7 @@ ENDC = "\033[0m"
 start_date = ApproximateDate(year=2019, month=5, day=22)
 
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
 
     help = "Imports South Africa election results from CSV."
 
@@ -124,7 +124,7 @@ class Command(NoArgsCommand):
         else:
             print "Existing position found: {}".format(position)
 
-    def handle_noargs(self, **options):
+    def handle(self, **options):
         path = "pombola/south_africa/data/elections/2019/"
 
         # Read and process the Assembly file.

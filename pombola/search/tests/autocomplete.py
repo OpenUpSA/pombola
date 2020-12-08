@@ -2,7 +2,7 @@ import json
 import re
 
 from django.test.client import Client
-from django.utils import unittest
+import unittest
 from django.utils.text import slugify
 from django.core.urlresolvers import reverse
 from django.core.management import call_command

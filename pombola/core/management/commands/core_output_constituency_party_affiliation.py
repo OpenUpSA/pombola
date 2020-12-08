@@ -1,6 +1,7 @@
 import csv
 import StringIO
 
+from django.contrib.gis.db.models import Collect
 from django.core.management.base import BaseCommand
 
 from pombola.core import models
@@ -65,7 +66,7 @@ class Command(BaseCommand):
                 all_areas = area.polygons.all()
 
                 if len(all_areas) > 1:
-                    all_areas = all_areas.collect()
+                    all_areas = all_areas.aggregate(Collect('polygon'))['polygon__collect']
                 elif len(all_areas) == 1:
                     all_areas = all_areas[0].polygon
                 # else:

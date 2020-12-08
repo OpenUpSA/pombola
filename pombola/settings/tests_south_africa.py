@@ -29,3 +29,13 @@ CACHES['pmg_api'] = {
     'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
     'LOCATION': 'pmg_api_test',
     }
+
+# Ignore tests for the apps that are not installed
+DIRECTORIES_TO_IGNORE_FOR_TESTS = ['pombola/kenya', 'pombola/sms']
+for app in ALL_OPTIONAL_APPS:
+    if app not in INSTALLED_APPS:
+        if app.startswith('pombola.'):
+            DIRECTORIES_TO_IGNORE_FOR_TESTS.append(app.replace('.', '/'))
+
+for directory in DIRECTORIES_TO_IGNORE_FOR_TESTS:
+    NOSE_ARGS += ['--exclude-dir', directory]

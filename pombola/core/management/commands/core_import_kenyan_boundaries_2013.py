@@ -4,10 +4,8 @@
 import string
 import sys
 
-from optparse import make_option
-
 from django.core.management import call_command
-from django.core.management.base import NoArgsCommand, CommandError
+from django.core.management.base import BaseCommand, CommandError
 
 from mapit.models import Generation, Area
 
@@ -30,14 +28,13 @@ def map_constituency_name(original_name):
              "WEBUTE WEST": "WEBUYE WEST"}
     return fixes.get(original_name, original_name)
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     help = 'Import boundaries for the 2013 election'
 
-    option_list = NoArgsCommand.option_list + (
-        make_option('--commit', action='store_true', dest='commit', help='Actually update the database'),
-        make_option('--counties_shpfile', dest='counties_shpfile', help='The counties .shp file (required)'),
-        make_option('--constituencies_shpfile', dest='constituencies_shpfile', help='The constituencies .shp file (required)'),
-    )
+    def add_arguments(self, parser):
+        parser.add_argument('--commit', action='store_true', dest='commit', help='Actually update the database')
+        parser.add_argument('--counties_shpfile', dest='counties_shpfile', help='The counties .shp file (required)')
+        parser.add_argument('--constituencies_shpfile', dest='constituencies_shpfile', help='The constituencies .shp file (required)')
 
     def handle_noargs(self, **options):
 

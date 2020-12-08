@@ -1,15 +1,15 @@
 from django import template
-from django.template import loader, Context
+from django.template import loader
 
 register = template.Library()
 
 @register.assignment_tag()
 def section_prev_next_links(section, *args):
 
-    context = Context({
+    context = {
         "next":     get_neighboring_section(section, +1),
         "previous": get_neighboring_section(section, -1),
-    })
+    }
 
     t = loader.get_template('speeches/_section_prev_next_links.html')
     return t.render(context)
