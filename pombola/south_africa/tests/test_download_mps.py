@@ -41,6 +41,7 @@ class DownloadMembersTest(TestCase):
 
         self.email_kind = ContactKind.objects.create(slug="email", name="Email")
         self.cell_kind = ContactKind.objects.create(slug="cell", name="Cell")
+        self.voice_kind = ContactKind.objects.create(slug="voice", name="Voice")
         self.phone_kind = ContactKind.objects.create(slug="phone", name="Phone")
 
 
@@ -161,14 +162,14 @@ class DownloadMPsTest(DownloadMembersTest):
         Contact.objects.create(
             content_type=ContentType.objects.get_for_model(self.mp),
             object_id=self.mp.id,
-            kind=self.phone_kind,
+            kind=self.voice_kind,
             value="987654321",
             preferred=True,
         )
         Contact.objects.create(
             content_type=ContentType.objects.get_for_model(self.mp),
             object_id=self.mp.id,
-            kind=self.phone_kind,
+            kind=self.cell_kind,
             value="5555",
             preferred=True,
         )

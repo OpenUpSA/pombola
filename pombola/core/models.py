@@ -305,7 +305,7 @@ class Contact(ModelBase):
 
     @classmethod
     def contact_number_contacts(cls):
-        return cls.objects.filter(kind__slug__in=["cell", "phone"])
+        return cls.objects.filter(kind__slug__in=["cell", "phone", "voice"])
 
     class Meta:
        ordering = ["content_type", "-preferred", "object_id", "kind"]
