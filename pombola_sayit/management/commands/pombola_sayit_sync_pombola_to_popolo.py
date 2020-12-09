@@ -5,6 +5,7 @@ from collections import defaultdict
 from django.contrib.contenttypes.models import ContentType
 from django.core.management import BaseCommand
 from django.db import transaction
+from django_date_extensions.fields import ApproximateDate
 
 from instances.models import Instance
 from popolo import models as popolo_models
@@ -17,7 +18,9 @@ from speeches.models import Speaker
 def convert_approximate_date(approx_date):
     if approx_date is None:
         return None
-    if approx_date.future or approx_date.past:
+    if type(approx_date.future) == str:
+        return approx_date
+    if type(approx_date) == ApproximateDate and (approx_date.future or approx_date.past):
         return None
     return repr(approx_date)
 
