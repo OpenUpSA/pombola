@@ -31,7 +31,7 @@ def person_row_generator(persons):
         email = get_email_addresses_for_person(person)
         yield (
             person.name,
-            ", ".join([cell_number.value for cell_number in person.cell_numbers]),
+            ", ".join([contact_number.value for contact_number in person.contact_numbers]),
             get_email_addresses_for_person(person),
             ",".join(
                 position.organisation.name for position in person.active_party_positions

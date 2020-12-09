@@ -348,9 +348,9 @@ class PersonQuerySet(models.query.GeoQuerySet):
         """
         Prefetch people's phone or cell phone numbers.
         """
-        cell_phone_contacts = Contact.contact_number_contacts().order_by('-pk')
+        contact_number_contacts = Contact.contact_number_contacts().order_by('-pk')
         return self.prefetch_related(
-            Prefetch("contacts", queryset=cell_phone_contacts, to_attr="cell_numbers"),
+            Prefetch("contacts", queryset=contact_number_contacts, to_attr="contact_numbers"),
         )
 
     def prefetch_email_addresses(self):

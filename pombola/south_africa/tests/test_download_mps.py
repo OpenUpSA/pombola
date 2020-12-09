@@ -64,7 +64,7 @@ class GetQuerysetForMembersDownloadTest(DownloadMembersTest):
         self.assertIn(self.mp, result)
 
         # Check if the prefetched attributes are included
-        self.assertTrue(hasattr(result[0], "cell_numbers"))
+        self.assertTrue(hasattr(result[0], "contact_numbers"))
         self.assertTrue(hasattr(result[0], "email_addresses"))
         self.assertTrue(hasattr(result[0], "active_party_positions"))
         self.assertTrue(hasattr(result[0], "alternative_names"))
