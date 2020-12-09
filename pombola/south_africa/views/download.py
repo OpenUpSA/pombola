@@ -30,12 +30,18 @@ def person_row_generator(persons):
     for person in persons:
         email = get_email_addresses_for_person(person)
         yield (
+            # Name
             person.name,
+            # Contact numbers
             ", ".join([contact_number.value for contact_number in person.contact_numbers]),
+            # Email addresses
             get_email_addresses_for_person(person),
+            # Parties
             ",".join(
                 position.organisation.name for position in person.active_party_positions
             ),
+            # Twitter handles
+            ", ".join([contact.value for contact in person.twitter_contacts]),
         )
 
 
@@ -62,6 +68,7 @@ def get_queryset_for_members_download(organisation):
         .prefetch_contact_numbers()
         .prefetch_email_addresses()
         .prefetch_active_party_positions()
+        .prefetch_contacts_with_kind('twitter')
         .prefetch_related("alternative_names",)
     )
 

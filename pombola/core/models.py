@@ -344,6 +344,15 @@ class PersonQuerySet(models.query.GeoQuerySet):
             id__in=person_ids, contacts__kind__slug="email"
         ).distinct()
 
+    def prefetch_contacts_with_kind(self, kind_slug):
+        """
+        Prefetch people's contacts of a given kind
+        """
+        contacts = Contact.objects.filter(kind__slug=kind_slug).order_by('-pk')
+        return self.prefetch_related(
+            Prefetch("contacts", queryset=contacts, to_attr=kind_slug + "_contacts"),
+        )
+
     def prefetch_contact_numbers(self):
         """
         Prefetch people's phone or cell phone numbers.
