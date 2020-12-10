@@ -18,7 +18,7 @@ from speeches.models import Speaker
 def convert_approximate_date(approx_date):
     if approx_date is None:
         return None
-    if type(approx_date.future) == str:
+    if type(approx_date) == str:
         return approx_date
     if type(approx_date) == ApproximateDate and (approx_date.future or approx_date.past):
         return None
