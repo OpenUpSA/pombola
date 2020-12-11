@@ -118,9 +118,7 @@
         <div class="home__news__row">
           {% if survey %}
             <div class="home__news__survey">
-                {% thumbnail survey.image "345x345" crop="center" as sm %}
-                  <img src="{{ sm.url }}" class="home__news__survey__thumb" />
-                {% endthumbnail %}
+                <img class="home__news__survey__thumb" src="{{ survey.image.url }}" />
                 <p><a href="{{ survey.url }}" class="button button--low-case">Have Your Say!</a></p>
             </div>
           {% endif %}
