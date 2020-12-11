@@ -133,7 +133,7 @@ USE_L10N = True
 MEDIA_ROOT = os.path.normpath(os.path.join(data_dir, 'media_root/'))
 
 # All uploaded files world-readable
-FILE_UPLOAD_PERMISSIONS = 420  # 644 in octal, 'rw-r--r--'
+FILE_UPLOAD_PERMISSIONS = 0o644  # 'rw-r--r--'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
