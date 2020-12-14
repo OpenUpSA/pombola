@@ -47,6 +47,6 @@ class OrganisationHistoryTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(
             response, " <span class='committee-history'>26 Nov 2020 | Became:<a href='/organisation/example-org2/'>\
-                Example Organisation2 (Ad Hoc)</a></span>",
+                Example Organisation2 </a></span>",
             html=True
         )
