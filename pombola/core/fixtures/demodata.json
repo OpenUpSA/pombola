@@ -816,42 +816,6 @@
     },
     {
         "fields": {
-            "updated": "2019-03-19T16:07:28.174",
-            "name": "National Assembly",
-            "short_name": "National Assembly",
-            "created": "2013-08-01T01:21:27.594",
-            "started": null,
-            "kind": 8,
-            "_summary_rendered": "<p>The National Assembly is elected to represent the people and to ensure government by the people under the Constitution. It does this by:</p>\n<ul>\n<li>choosing the President, </li>\n<li>providing a national forum for public consideration of issues, </li>\n<li>passing legislation and </li>\n<li>scrutinizing and overseeing executive action. <a href=\"/info/national-assembly\" title=\"The National Assembly\">More</a></li>\n</ul>",
-            "summary": "The National Assembly is elected to represent the people and to ensure government by the people under the Constitution. It does this by:\r\n\r\n- choosing the President, \r\n- providing a national forum for public consideration of issues, \r\n- passing legislation and \r\n- scrutinizing and overseeing executive action. [More](/info/national-assembly \"The National Assembly\")",
-            "ended": null,
-            "show_attendance": false,
-            "seats": 400,
-            "slug": "national-assembly"
-        },
-        "model": "core.organisation",
-        "pk": 70
-    },
-    {
-        "fields": {
-            "updated": "2019-03-19T15:58:10.546",
-            "name": "National Council of Provinces",
-            "short_name": "National Council of Provinces",
-            "created": "2013-08-01T01:21:27.629",
-            "started": null,
-            "kind": 8,
-            "_summary_rendered": "<p>The National Council of Provinces (NCOP) ensures that the nine provinces and local government have a direct voice in Parliament when laws are made. The National Council of Provinces represents the provinces to ensure that provincial interests are taken into account in the national sphere of government. It does this mainly by:</p>\n<ul>\n<li>participating in the national legislative process and </li>\n<li>providing a national forum for public consideration of issues affecting the provinces. </li>\n</ul>\n<p><a href=\"/info/national-council-provinces\" title=\"NCOP\">More...</a></p>",
-            "summary": "The National Council of Provinces (NCOP) ensures that the nine provinces and local government have a direct voice in Parliament when laws are made. The National Council of Provinces represents the provinces to ensure that provincial interests are taken into account in the national sphere of government. It does this mainly by:\r\n\r\n- participating in the national legislative process and \r\n- providing a national forum for public consideration of issues affecting the provinces. \r\n\r\n\r\n[More...](/info/national-council-provinces \"NCOP\")",
-            "ended": null,
-            "show_attendance": false,
-            "seats": 90,
-            "slug": "ncop"
-        },
-        "model": "core.organisation",
-        "pk": 71
-    },
-    {
-        "fields": {
             "updated": "2018-08-24T11:44:29.989",
             "name": "National Executive",
             "short_name": "National Executive",
