@@ -14,7 +14,7 @@
             <span class="committee-history">
                 {{ hist.date_changed|date:"d M Y" }} | Became:
                <a href="{{ hist.new_organisation.get_absolute_url }}">
-                  {{ hist.new_organisation }}
+                  {{ hist.new_organisation.name }}
                </a>
             </span>
         {% endfor %}

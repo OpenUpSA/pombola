@@ -35,7 +35,7 @@
                       <p class="committee-history">
                           {{ hist.date_changed|date:"d M Y" }} | Became:
                           <a href="{{ hist.new_organisation.get_absolute_url }}">
-                            {{ hist.new_organisation }}
+                            {{ hist.new_organisation.name }}
                           </a>
                       </p>
                   {% endfor %}
@@ -44,7 +44,7 @@
                      <p class="committee-history">
                         {{ hist.date_changed|date:"d M Y" }} | Formerly:
                          <a href="{{ hist.old_organisation.get_absolute_url }}">
-                            {{ hist.old_organisation }}
+                            {{ hist.old_organisation.name }}
                          </a>
                      </p>
                   {% endfor %}
