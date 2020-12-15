@@ -15,7 +15,7 @@ from pombola.south_africa.views.download import (
     get_active_persons_for_organisation, get_email_addresses_for_person,
     get_queryset_for_members_download, person_row_generator)
 
-COLUMN_INDICES = {"name": 0, "mobile": 1, "email": 2, "parties": 3, "twitter": 4}
+COLUMN_INDICES = {"name": 0, "mobile": 1, "email": 2, "parties": 3, "twitter": 4, "facebook": 5, "linkedin": 6}
 
 
 def get_row_from_name(sheet, columns, name):
@@ -44,6 +44,8 @@ class DownloadMembersTest(TestCase):
         self.voice_kind = ContactKind.objects.create(slug="voice", name="Voice")
         self.phone_kind = ContactKind.objects.create(slug="phone", name="Phone")
         self.twitter_kind = ContactKind.objects.create(slug="twitter", name="Twitter")
+        self.facebook_kind = ContactKind.objects.create(slug="facebook", name="Facebook")
+        self.linkedin_kind = ContactKind.objects.create(slug="linkedin", name="LinkedIn")
 
 
 class GetQuerysetForMembersDownloadTest(DownloadMembersTest):
@@ -182,6 +184,20 @@ class DownloadMPsTest(DownloadMembersTest):
             value="@jimmysteward",
             preferred=True,
         )
+        Contact.objects.create(
+            content_type=ContentType.objects.get_for_model(self.mp),
+            object_id=self.mp.id,
+            kind=self.facebook_kind,
+            value="Jimmy Steward",
+            preferred=True,
+        )
+        Contact.objects.create(
+            content_type=ContentType.objects.get_for_model(self.mp),
+            object_id=self.mp.id,
+            kind=self.linkedin_kind,
+            value="jimmy_steward",
+            preferred=True,
+        )
 
     def test_download_mps(self):
         response = self.client.get(
@@ -202,6 +218,8 @@ class DownloadMPsTest(DownloadMembersTest):
         self.assertEqual("5555, 987654321", mp_row[COLUMN_INDICES["mobile"]])
         self.assertEqual(self.da.name, mp_row[COLUMN_INDICES["parties"]])
         self.assertEqual("@jimmysteward", mp_row[COLUMN_INDICES["twitter"]])
+        self.assertEqual("Jimmy Steward", mp_row[COLUMN_INDICES["facebook"]])
+        self.assertEqual("jimmy_steward", mp_row[COLUMN_INDICES["linkedin"]])
 
     def stream_xlsx_file(self, response):
         f = tempfile.NamedTemporaryFile(suffix=".xlsx", delete=False)
@@ -298,7 +316,7 @@ class GetEmailAddressForPersonTest(TestCase):
             )
 
 
-class PersonRowGeneratorTest(TestCase):
+class PersonRowGeneratorTest(DownloadMembersTest):
     def generate_persons_from_empty_queryset_test(self):
         Person.objects.all().delete()
         result = list(person_row_generator(Person.objects.all()))
@@ -306,15 +324,38 @@ class PersonRowGeneratorTest(TestCase):
 
     def get_persons_test(self):
         person = Person.objects.create(legal_name="Jimmy Stewart")
+        Contact.objects.create(
+            content_type=ContentType.objects.get_for_model(person),
+            object_id=person.id,
+            kind=self.twitter_kind,
+            value="@jimmysteward",
+            preferred=True,
+        )
+        Contact.objects.create(
+            content_type=ContentType.objects.get_for_model(person),
+            object_id=person.id,
+            kind=self.facebook_kind,
+            value="Jimmy Steward",
+            preferred=True,
+        )
+        Contact.objects.create(
+            content_type=ContentType.objects.get_for_model(person),
+            object_id=person.id,
+            kind=self.linkedin_kind,
+            value="jimmy_steward",
+            preferred=True,
+        )
         result = list(
             person_row_generator(
                 Person.objects.all()
                 .prefetch_contact_numbers()
                 .prefetch_email_addresses()
                 .prefetch_contacts_with_kind('twitter')
+                .prefetch_contacts_with_kind('facebook')
+                .prefetch_contacts_with_kind('linkedin')
                 .prefetch_active_party_positions()
             )
         )
-        expected_result = (u'Jimmy Stewart', '', '', '', '')
+        expected_result = (u'Jimmy Stewart', '', '', '', '@jimmysteward', 'Jimmy Steward', 'jimmy_steward')
         self.assertEqual(1, len(result))
         self.assertEqual([expected_result], result)

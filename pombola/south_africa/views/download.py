@@ -40,8 +40,12 @@ def person_row_generator(persons):
             ",".join(
                 position.organisation.name for position in person.active_party_positions
             ),
-            # Twitter handles
+            # Twitter 
             ", ".join([contact.value for contact in person.twitter_contacts]),
+            # Facebook
+            ", ".join([contact.value for contact in person.facebook_contacts]),
+            # LinkedIn
+            ", ".join([contact.value for contact in person.linkedin_contacts]),
         )
 
 
@@ -69,6 +73,8 @@ def get_queryset_for_members_download(organisation):
         .prefetch_email_addresses()
         .prefetch_active_party_positions()
         .prefetch_contacts_with_kind('twitter')
+        .prefetch_contacts_with_kind('facebook')
+        .prefetch_contacts_with_kind('linkedin')
         .prefetch_related("alternative_names",)
     )
 
