@@ -305,7 +305,7 @@ class Contact(ModelBase):
 
     @classmethod
     def contact_number_contacts(cls):
-        return cls.objects.filter(kind__slug__in=["cell", "phone"])
+        return cls.objects.filter(kind__slug__in=["cell", "phone", "voice"])
 
     class Meta:
        ordering = ["content_type", "-preferred", "object_id", "kind"]
@@ -344,13 +344,22 @@ class PersonQuerySet(models.query.GeoQuerySet):
             id__in=person_ids, contacts__kind__slug="email"
         ).distinct()
 
+    def prefetch_contacts_with_kind(self, kind_slug):
+        """
+        Prefetch people's contacts of a given kind
+        """
+        contacts = Contact.objects.filter(kind__slug=kind_slug).order_by('-pk')
+        return self.prefetch_related(
+            Prefetch("contacts", queryset=contacts, to_attr=kind_slug + "_contacts"),
+        )
+
     def prefetch_contact_numbers(self):
         """
         Prefetch people's phone or cell phone numbers.
         """
-        cell_phone_contacts = Contact.contact_number_contacts().order_by('-pk')
+        contact_number_contacts = Contact.contact_number_contacts().order_by('-pk')
         return self.prefetch_related(
-            Prefetch("contacts", queryset=cell_phone_contacts, to_attr="cell_numbers"),
+            Prefetch("contacts", queryset=contact_number_contacts, to_attr="contact_numbers"),
         )
 
     def prefetch_email_addresses(self):

@@ -15,7 +15,7 @@ from pombola.south_africa.views.download import (
     get_active_persons_for_organisation, get_email_addresses_for_person,
     get_queryset_for_members_download, person_row_generator)
 
-COLUMN_INDICES = {"name": 0, "mobile": 1, "email": 2, "parties": 3}
+COLUMN_INDICES = {"name": 0, "mobile": 1, "email": 2, "parties": 3, "twitter": 4, "facebook": 5, "linkedin": 6}
 
 
 def get_row_from_name(sheet, columns, name):
@@ -41,7 +41,11 @@ class DownloadMembersTest(TestCase):
 
         self.email_kind = ContactKind.objects.create(slug="email", name="Email")
         self.cell_kind = ContactKind.objects.create(slug="cell", name="Cell")
+        self.voice_kind = ContactKind.objects.create(slug="voice", name="Voice")
         self.phone_kind = ContactKind.objects.create(slug="phone", name="Phone")
+        self.twitter_kind = ContactKind.objects.create(slug="twitter", name="Twitter")
+        self.facebook_kind = ContactKind.objects.create(slug="facebook", name="Facebook")
+        self.linkedin_kind = ContactKind.objects.create(slug="linkedin", name="LinkedIn")
 
 
 class GetQuerysetForMembersDownloadTest(DownloadMembersTest):
@@ -63,10 +67,11 @@ class GetQuerysetForMembersDownloadTest(DownloadMembersTest):
         self.assertIn(self.mp, result)
 
         # Check if the prefetched attributes are included
-        self.assertTrue(hasattr(result[0], "cell_numbers"))
+        self.assertTrue(hasattr(result[0], "contact_numbers"))
         self.assertTrue(hasattr(result[0], "email_addresses"))
         self.assertTrue(hasattr(result[0], "active_party_positions"))
         self.assertTrue(hasattr(result[0], "alternative_names"))
+        self.assertTrue(hasattr(result[0], "twitter_contacts"))
 
 
 class GetActivePersonsForOrganisationTest(DownloadMembersTest):
@@ -161,15 +166,36 @@ class DownloadMPsTest(DownloadMembersTest):
         Contact.objects.create(
             content_type=ContentType.objects.get_for_model(self.mp),
             object_id=self.mp.id,
-            kind=self.phone_kind,
+            kind=self.voice_kind,
             value="987654321",
             preferred=True,
         )
         Contact.objects.create(
             content_type=ContentType.objects.get_for_model(self.mp),
             object_id=self.mp.id,
-            kind=self.phone_kind,
+            kind=self.cell_kind,
             value="5555",
+            preferred=True,
+        )
+        Contact.objects.create(
+            content_type=ContentType.objects.get_for_model(self.mp),
+            object_id=self.mp.id,
+            kind=self.twitter_kind,
+            value="@jimmysteward",
+            preferred=True,
+        )
+        Contact.objects.create(
+            content_type=ContentType.objects.get_for_model(self.mp),
+            object_id=self.mp.id,
+            kind=self.facebook_kind,
+            value="Jimmy Steward",
+            preferred=True,
+        )
+        Contact.objects.create(
+            content_type=ContentType.objects.get_for_model(self.mp),
+            object_id=self.mp.id,
+            kind=self.linkedin_kind,
+            value="jimmy_steward",
             preferred=True,
         )
 
@@ -191,6 +217,9 @@ class DownloadMPsTest(DownloadMembersTest):
         self.assertEqual("jimmy@steward.com", mp_row[COLUMN_INDICES["email"]])
         self.assertEqual("5555, 987654321", mp_row[COLUMN_INDICES["mobile"]])
         self.assertEqual(self.da.name, mp_row[COLUMN_INDICES["parties"]])
+        self.assertEqual("@jimmysteward", mp_row[COLUMN_INDICES["twitter"]])
+        self.assertEqual("Jimmy Steward", mp_row[COLUMN_INDICES["facebook"]])
+        self.assertEqual("jimmy_steward", mp_row[COLUMN_INDICES["linkedin"]])
 
     def stream_xlsx_file(self, response):
         f = tempfile.NamedTemporaryFile(suffix=".xlsx", delete=False)
@@ -204,6 +233,7 @@ class DownloadMPsTest(DownloadMembersTest):
         self.assertEqual(sheet.cell_value(0, COLUMN_INDICES["mobile"]), u"Cell")
         self.assertEqual(sheet.cell_value(0, COLUMN_INDICES["email"]), u"Email")
         self.assertEqual(sheet.cell_value(0, COLUMN_INDICES["parties"]), u"Parties")
+        self.assertEqual(sheet.cell_value(0, COLUMN_INDICES["twitter"]), u"Twitter")
 
     def get_columns(self, sheet):
         return {
@@ -211,8 +241,28 @@ class DownloadMPsTest(DownloadMembersTest):
             "mobiles": sheet.col_values(COLUMN_INDICES["mobile"]),
             "emails": sheet.col_values(COLUMN_INDICES["email"]),
             "parties": sheet.col_values(COLUMN_INDICES["parties"]),
+            "twitter": sheet.col_values(COLUMN_INDICES["twitter"]),
         }
 
+
+class GetContactsWithKindForPersonTest(TestCase):
+    def test_get_twitter_contacts(self):
+        person = Person.objects.create(
+            legal_name="Jimmy Stewart", slug="jimmy-stewart", email="jimmy@steward.com"
+        )
+        twitter_kind = ContactKind.objects.create(slug="twitter", name="Twitter")
+        twitter_contact = Contact.objects.create(
+            content_type=ContentType.objects.get_for_model(person),
+            object_id=person.id,
+            kind=twitter_kind,
+            value="@jimmysteward",
+            preferred=True,
+        )
+        result = Person.objects.all().prefetch_contacts_with_kind('twitter').filter(id=person.id).first()
+        self.assertTrue(hasattr(result, "twitter_contacts"))
+        self.assertEqual(
+            [twitter_contact], result.twitter_contacts
+        )
 
 class GetEmailAddressForPersonTest(TestCase):
     def get_persons_with_email_addresses(self):
@@ -266,7 +316,7 @@ class GetEmailAddressForPersonTest(TestCase):
             )
 
 
-class PersonRowGeneratorTest(TestCase):
+class PersonRowGeneratorTest(DownloadMembersTest):
     def generate_persons_from_empty_queryset_test(self):
         Person.objects.all().delete()
         result = list(person_row_generator(Person.objects.all()))
@@ -274,15 +324,38 @@ class PersonRowGeneratorTest(TestCase):
 
     def get_persons_test(self):
         person = Person.objects.create(legal_name="Jimmy Stewart")
+        Contact.objects.create(
+            content_type=ContentType.objects.get_for_model(person),
+            object_id=person.id,
+            kind=self.twitter_kind,
+            value="@jimmysteward",
+            preferred=True,
+        )
+        Contact.objects.create(
+            content_type=ContentType.objects.get_for_model(person),
+            object_id=person.id,
+            kind=self.facebook_kind,
+            value="Jimmy Steward",
+            preferred=True,
+        )
+        Contact.objects.create(
+            content_type=ContentType.objects.get_for_model(person),
+            object_id=person.id,
+            kind=self.linkedin_kind,
+            value="jimmy_steward",
+            preferred=True,
+        )
         result = list(
             person_row_generator(
                 Person.objects.all()
                 .prefetch_contact_numbers()
                 .prefetch_email_addresses()
+                .prefetch_contacts_with_kind('twitter')
+                .prefetch_contacts_with_kind('facebook')
+                .prefetch_contacts_with_kind('linkedin')
                 .prefetch_active_party_positions()
             )
         )
-        for person in result:
-            print(person)
+        expected_result = (u'Jimmy Stewart', '', '', '', '@jimmysteward', 'Jimmy Steward', 'jimmy_steward')
         self.assertEqual(1, len(result))
-        self.assertEqual([person], result)
+        self.assertEqual([expected_result], result)
