@@ -35,7 +35,7 @@ Run migrations
 docker-compose run --rm app python manage.py migrate
 ```
 
-Load [demo data](#demo-data) for easy dev setup
+Load [demo data](#demo-data) for easy dev setup. (See also [loading a production database dump](#production-data-dumps).)
 
 ```
 docker-compose run --rm app python manage.py loaddata demodata.json
@@ -45,13 +45,6 @@ Start the app, DB and search index:
 
 ```
 docker-compose up
-```
-
-Load the schema and data:
-
-```
-zcat pg-dump_schema.sql.gz | docker-compose run --rm db psql postgres://pombola:pombola@db/pombola
-zcat pg-dump_data.sql.gz | docker-compose run --rm db psql postgres://pombola:pombola@db/pombola
 ```
 
 Build the search index:
@@ -76,7 +69,7 @@ To enable [Django debug toolbar](https://django-debug-toolbar.readthedocs.io/en/
 DJANGO_DEBUG_TOOLBAR=true docker-compose up
 ```
 
-## Demo data
+### Demo data
 
 We use the [demodata.json](./pombola/core/fixtures/demodata.json) fixture to make it easy to set up a fully functional PA site in developer environments.
 
@@ -85,6 +78,20 @@ Remember to create or update fixtures when:
 - Adding a hard-coded link to a new info page (e.g. `{% url 'info_page', 'some-new-page' %}` ).
 - Creating a new model that is used somewhere on the site.
 - Adding more filtering to a page.
+
+
+### Production data dumps
+
+We prefer not developing on a full production dataset - this is a bad habit.
+But while we're migrating to using a [demo data fixture](#demo-data), you can
+download a production database dump and load it locally using the following:
+
+Load the schema and data:
+
+```
+zcat pg-dump_schema.sql.gz | docker-compose run --rm db psql postgres://pombola:pombola@db/pombola
+zcat pg-dump_data.sql.gz | docker-compose run --rm db psql postgres://pombola:pombola@db/pombola
+```
 
 
 Production deployment
