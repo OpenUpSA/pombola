@@ -574,6 +574,17 @@ class Person(ModelBase, HasImageMixin, ScorecardMixin, IdentifierMixin):
         )
 
     @property
+    def has_ever_been_member_of_prov_legislature(self):
+        return self.position_set.position_titles().exists()
+
+    @property
+    def has_ever_been_member_of_nat_prov_legislature(self):
+        return (
+            self.has_ever_been_member_of_ncop_or_national_assembly or
+            self.has_ever_been_member_of_prov_legislature
+        )
+
+    @property
     def everypolitician_uuid(self):
         return self.get_identifier('everypolitician')
 
@@ -1474,6 +1485,12 @@ class PositionQuerySet(models.query.GeoQuerySet):
         return self.filter(
             Q(organisation__slug='ncop')
         )
+
+    def position_titles(self):
+        # maybe its worth checking if the position of the organisation
+        # has a title as well instead of only checking if position has a title
+        # self.filter(Q(organisation__title__isnull=False))
+        return self.filter(title__isnull=False)
 
     def committees(self):
         """Filter down to committee memberships"""
