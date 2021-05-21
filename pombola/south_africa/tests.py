@@ -968,6 +968,47 @@ class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
             response.content
         )
 
+    def test_email_with_current_prov_legislature_positions(self):
+        party = models.OrganisationKind.objects.create(
+            name='Party',
+            slug='party',
+            )
+        org = models.Organisation.objects.create(
+            slug='da',
+            name='DA',
+            kind=party,
+            )
+        pt_member = models.PositionTitle.objects.create(
+            slug='member', name='Member')
+        person = models.Person.objects.get(slug='moomin-finn')
+        person.position_set.create(
+            title=pt_member, category='political', organisation=org,
+        )
+
+        person = models.Person.objects.get(slug='moomin-finn')
+        email_contact_kind = models.ContactKind.objects.create(name='Email', slug='email')
+        person.contacts.create(kind=email_contact_kind, value='not-preferred@example.com', preferred=False)
+        person.contacts.create(kind=email_contact_kind, value='preferred@example.com', preferred=True)
+
+        response = self.client.get(reverse('person', args=('moomin-finn',)))
+
+        # Email addresses should be shown
+        self.assertIn(
+            '<li class="email-address preferred"><a href="mailto:preferred@example.com">preferred@example.com</a></li>\n        \n          <li class="email-address"><a href="mailto:not-preferred@example.com">not-preferred@example.com</a></li>',
+            response.content
+        )
+
+        person = models.Person.objects.get(slug='moomin-finn')
+        person.position_set.all().delete()
+        person.save()
+        response = self.client.get(reverse('person', args=('moomin-finn',)))
+
+        # Email addresses should not be shown
+        self.assertNotIn(
+            '<li class="email-address preferred"><a href="mailto:preferred@example.com">preferred@example.com</a></li>\n        \n          <li class="email-address"><a href="mailto:not-preferred@example.com">not-preferred@example.com</a></li>',
+            response.content
+        )
+
 
 class SAAttendanceDataTest(TestCase):
     def setUp(self):
