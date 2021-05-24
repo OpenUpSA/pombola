@@ -5,6 +5,88 @@
 
 {% block title %}{{ object.name }}{% endblock %}
 
+{% block content %}
+  {% block title_space %}
+    <div class="title-space">
+      {% block object_title %}
+        <h1>{{ object.title }} {{ object.name }}</h1>
+        {% for hist in object.org_history_old.all %}
+            <span class="committee-history">
+                {{ hist.date_changed|date:"d M Y" }} | Became:
+               <a href="{{ hist.new_organisation.get_absolute_url }}">
+                  {{ hist.new_organisation.name }}
+               </a>
+            </span>
+        {% endfor %}
+        {% for hist in object.new_history_old.all %}
+            <span class="committee-history">
+                {{ hist.date_changed|date:"d M Y" }} | Formerly:
+               <a href="{{ hist.old_organisation.get_absolute_url }}">
+                  {{ hist.old_organisation.name }}
+               </a>
+            </span>
+        {% endfor %}
+      {% endblock %}
+    </div>
+  {% endblock %}
+  <div class="large-container">
+    {% block subcontent %}
+
+      {% if object.summary %}
+        <h2>Summary</h2>
+
+        <div class="markdown">
+          {{ object.summary }}
+        </div>
+      {% endif %}
+
+      {% if object.kind.slug == 'constituency-office' or object.kind.slug == 'constituency-area' %}
+
+        {% if object.is_ongoing == False %}
+          <div class="rep-results-warning">
+              This {{ object.kind.name.lower }} ceased to exist from {{ object.ended }}.
+          </div>
+        {% endif %}
+
+      {% endif %}
+
+      <div class="contact-actions">
+        <div class="contact-actions__wip">
+            {% if object.contactable_committee %}
+              <a href="{% url 'writeinpublic-committees:writeinpublic-new-message' %}?person_id={{ object.pk }}">Write a public message to this committee</a>
+            {% endif %}
+            <a href="{% url 'organisation_messages' slug=object.slug %}" class="contact-actions__wip__view-link">View messages</a>
+        </div>
+      </div>
+
+      <h2>People</h2>
+
+      {% if object.kind.slug == 'constituency-office' or object.kind.slug == 'constituency-area' %}
+
+        {% include "south_africa/_position_listing_constituency.html" with positions=positions %}
+        {% include 'disqus_comments.html' %}
+      {% else %}
+        {% include "core/_position_listing.html" with positions=positions %}
+      {% endif %}
+
+      <div class="pagination">
+        {% if positions.has_previous %}
+          <a href="?page={{ positions.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        <span class="current">
+          Page {{ positions.number }} of {{ positions.paginator.num_pages }}
+        </span>
+
+         {% if positions.has_next %}
+          <a href="?page={{ positions.next_page_number }}">Next</a>
+        {% endif %}
+      </div>
+
+    {% endblock %}
+  </div>
+{% endblock %}
+
 {% block body_attributes %}class="profile-with-map"{% endblock %}
 
 {# Remove the object_menu #}
@@ -14,61 +96,6 @@
 {% block js_end_of_body %}
   {{ block.super }}
   {% javascript 'google-map' %}
-{% endblock %}
-
-{% block subcontent %}
-
-  {% if object.summary %}
-    <h2>Summary</h2>
-
-    <div class="markdown">
-      {{ object.summary }}
-    </div>
-  {% endif %}
-
-  {% if object.kind.slug == 'constituency-office' or object.kind.slug == 'constituency-area' %}
-
-    {% if object.is_ongoing == False %}
-      <div class="rep-results-warning">
-          This {{ object.kind.name.lower }} ceased to exist from {{ object.ended }}.
-      </div>
-    {% endif %}
-
-  {% endif %}
-
-  <div class="contact-actions">
-    <div class="contact-actions__wip">
-        {% if object.contactable_committee %}
-          <a href="{% url 'writeinpublic-committees:writeinpublic-new-message' %}?person_id={{ object.pk }}">Write a public message to this committee</a>
-        {% endif %}
-        <a href="{% url 'organisation_messages' slug=object.slug %}" class="contact-actions__wip__view-link">View messages</a>
-    </div>
-  </div>
-
-  <h2>People</h2>
-
-  {% if object.kind.slug == 'constituency-office' or object.kind.slug == 'constituency-area' %}
-
-    {% include "south_africa/_position_listing_constituency.html" with positions=positions %}
-    {% include 'disqus_comments.html' %}
-  {% else %}
-    {% include "core/_position_listing.html" with positions=positions %}
-  {% endif %}
-
-  <div class="pagination">
-    {% if positions.has_previous %}
-      <a href="?page={{ positions.previous_page_number }}">Previous</a>
-    {% endif %}
-
-    <span class="current">
-      Page {{ positions.number }} of {{ positions.paginator.num_pages }}
-    </span>
-
-     {% if positions.has_next %}
-      <a href="?page={{ positions.next_page_number }}">Next</a>
-    {% endif %}
-  </div>
-
 {% endblock %}
 
 {# Put a map in the profile_pic block #}

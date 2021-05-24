@@ -79,6 +79,13 @@ Remember to create or update fixtures when:
 - Creating a new model that is used somewhere on the site.
 - Adding more filtering to a page.
 
+### How to add demodata
+
+- Delete all data in the database `docker-compose run --rm app python manage.py flush`
+- Load demodata `docker-compose run --rm app python manage.py loaddata demodata.json`
+- Edit the data in the admin dashboard
+- Dump the data into demodata.json ` docker-compose run --rm app python manage.py dumpdata --indent 2 > pombola/core/fixtures/demodata.json`
+- Git diff - do the changes look sensible?
 
 ### Production data dumps
 

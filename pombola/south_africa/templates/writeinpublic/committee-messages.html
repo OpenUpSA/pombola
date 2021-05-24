@@ -5,6 +5,22 @@
 {% block content %}
 
 <h2>Messages sent to {{ committee.name }}</h2>
+{% for hist in committee.org_history_old.all %}
+  <span class="committee-history">
+      {{ hist.date_changed|date:"d M Y" }} | Became:
+     <a href="{{ hist.new_organisation.get_absolute_url }}">
+        {{ hist.new_organisation.name }}
+     </a>
+  </span>
+{% endfor %}
+{% for hist in committee.org_history_new.all %}
+  <span class="committee-history">
+      {{ hist.date_changed|date:"d M Y" }} | Formerly:
+     <a href="{{ hist.old_organisation.get_absolute_url }}">
+        {{ hist.old_organisation.name }}
+     </a>
+  </span>
+{% endfor %}
   <ul class="list-of-committee-messages">
   {% for message in messages %}
     <li class="list-of-committee-messages__item">

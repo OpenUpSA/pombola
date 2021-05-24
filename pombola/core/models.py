@@ -1920,3 +1920,18 @@ def raw_query_with_prefetch(query_model, query, params, fields_prefetches):
             if related_object:
                 setattr(o, field, related_object)
     return objects
+
+
+class OrganisationHistory(ModelBase):
+    old_organisation = models.ForeignKey('Organisation', null=False, related_name='org_history_old')
+    new_organisation = models.ForeignKey('Organisation', null=False, related_name='org_history_new')
+    date_changed = DateField(null=False)
+
+    class Meta:
+        ordering = ['date_changed']
+        verbose_name_plural = 'organisation histories'
+
+    def __str__(self):
+        if self.new_organisation:
+            return "%s " % (self.new_organisation,)
+        return "%s" % (self.old_organisation,)

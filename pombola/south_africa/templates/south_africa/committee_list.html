@@ -31,7 +31,24 @@
                       {{ committee.short_name }}
                       </a>
                   </p>
-                
+                  {% for hist in committee.org_history_old.all %}
+                      <p class="committee-history">
+                          {{ hist.date_changed|date:"d M Y" }} | Became:
+                          <a href="{{ hist.new_organisation.get_absolute_url }}">
+                            {{ hist.new_organisation.name }}
+                          </a>
+                      </p>
+                  {% endfor %}
+
+                  {% for hist in committee.org_history_new.all %}
+                     <p class="committee-history">
+                        {{ hist.date_changed|date:"d M Y" }} | Formerly:
+                         <a href="{{ hist.old_organisation.get_absolute_url }}">
+                            {{ hist.old_organisation.name }}
+                         </a>
+                     </p>
+                  {% endfor %}
+
                   <div class="committee-list__links">
                       <a href="{% url 'organisation_messages' slug=committee.slug %}">View messages</a>
                       {% if committee.contactable_committee %}

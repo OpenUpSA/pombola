@@ -3572,3 +3572,25 @@ ul.attendance__notes {
 .committee-list-house h2 {
   color: $colour_terracotta;
 }
+
+.committee-history{
+    font-family: Lato;
+    font-size: 12px;
+    line-height: 140%;
+    display: inline-block;
+    align-items: center;
+    letter-spacing: -0.02em;
+    color: rgba(0, 0, 0, 0.6);
+    background: #dedede;
+    width: auto;
+    padding: 3px 10px 3px 10px;
+    border-radius: 5px;
+}
+.committee-history a {
+    text-decoration: underline !important;
+    font-weight: 400;
+}
+span.committee-history {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}

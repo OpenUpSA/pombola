@@ -768,6 +768,54 @@
     },
     {
         "fields": {
+            "updated": "2013-08-01T01:21:27.682",
+            "name": "National Assembly",
+            "created": "2013-08-01T01:21:27.682",
+            "_summary_rendered": "",
+            "summary": "",
+            "slug": "national-assembly-committees"
+        },
+        "model": "core.organisationkind",
+        "pk": 11
+    },
+    {
+        "fields": {
+            "updated": "2013-08-01T01:21:27.682",
+            "name": "National Council of Provinces",
+            "created": "2013-08-01T01:21:27.682",
+            "_summary_rendered": "",
+            "summary": "",
+            "slug": "ncop-committees"
+        },
+        "model": "core.organisationkind",
+        "pk": 12
+    },
+    {
+        "fields": {
+            "updated": "2013-08-01T01:21:27.682",
+            "name": "Joint (NA + NCOP)",
+            "created": "2013-08-01T01:21:27.682",
+            "_summary_rendered": "",
+            "summary": "",
+            "slug": "joint-committees"
+        },
+        "model": "core.organisationkind",
+        "pk": 13
+    },
+    {
+        "fields": {
+            "updated": "2013-08-01T01:21:27.682",
+            "name": "Ad Hoc",
+            "created": "2013-08-01T01:21:27.682",
+            "_summary_rendered": "",
+            "summary": "",
+            "slug": "ad-hoc-committees"
+        },
+        "model": "core.organisationkind",
+        "pk": 14
+    },
+    {
+        "fields": {
             "updated": "2019-03-19T16:07:28.174",
             "name": "National Assembly",
             "short_name": "National Assembly",
@@ -783,24 +831,6 @@
         },
         "model": "core.organisation",
         "pk": 70
-    },
-    {
-        "fields": {
-            "updated": "2019-03-19T15:58:10.546",
-            "name": "National Council of Provinces",
-            "short_name": "National Council of Provinces",
-            "created": "2013-08-01T01:21:27.629",
-            "started": null,
-            "kind": 8,
-            "_summary_rendered": "<p>The National Council of Provinces (NCOP) ensures that the nine provinces and local government have a direct voice in Parliament when laws are made. The National Council of Provinces represents the provinces to ensure that provincial interests are taken into account in the national sphere of government. It does this mainly by:</p>\n<ul>\n<li>participating in the national legislative process and </li>\n<li>providing a national forum for public consideration of issues affecting the provinces. </li>\n</ul>\n<p><a href=\"/info/national-council-provinces\" title=\"NCOP\">More...</a></p>",
-            "summary": "The National Council of Provinces (NCOP) ensures that the nine provinces and local government have a direct voice in Parliament when laws are made. The National Council of Provinces represents the provinces to ensure that provincial interests are taken into account in the national sphere of government. It does this mainly by:\r\n\r\n- participating in the national legislative process and \r\n- providing a national forum for public consideration of issues affecting the provinces. \r\n\r\n\r\n[More...](/info/national-council-provinces \"NCOP\")",
-            "ended": null,
-            "show_attendance": false,
-            "seats": 90,
-            "slug": "ncop"
-        },
-        "model": "core.organisation",
-        "pk": 71
     },
     {
         "fields": {
@@ -1053,6 +1083,150 @@
         },
         "model": "core.organisation",
         "pk": 85
+    },
+    {
+        "fields": {
+            "updated": "2018-08-24T11:44:29.959",
+            "name": "Committee on multi-party women's caucus",
+            "short_name": "committee on multi-party women's caucus",
+            "created": "2013-08-01T01:21:28.030",
+            "started": null,
+            "kind": 11,
+            "_summary_rendered": "",
+            "summary": "",
+            "ended": null,
+            "show_attendance": false,
+            "seats": null,
+            "slug": "committee-multi-party-womens-caucus"
+        },
+        "model": "core.organisation",
+        "pk": 86
+    },
+    {
+        "fields": {
+            "updated": "2018-08-24T11:44:29.959",
+            "name": "Standing Committee on Public Accounts",
+            "short_name": "Standing Committee on Public Accounts",
+            "created": "2013-08-01T01:21:28.030",
+            "started": null,
+            "kind": 11,
+            "_summary_rendered": "",
+            "summary": "",
+            "ended": null,
+            "show_attendance": false,
+            "seats": null,
+            "slug": "standing-committee-on-public-accounts"
+        },
+        "model": "core.organisation",
+        "pk": 87
+    },
+    {
+        "fields": {
+            "updated": "2018-08-24T11:44:29.959",
+            "name": "NCOP Rules Committee",
+            "short_name": "NCOP Rules Committee",
+            "created": "2013-08-01T01:21:28.030",
+            "started": null,
+            "kind": 12,
+            "_summary_rendered": "",
+            "summary": "",
+            "ended": null,
+            "show_attendance": false,
+            "seats": null,
+            "slug": "ncop-rules-of-the-national-council-of-provinces"
+        },
+        "model": "core.organisation",
+        "pk": 88
+    },
+    {
+        "fields": {
+            "updated": "2018-08-24T11:44:29.959",
+            "name": "Select Committee on Appropriations",
+            "short_name": "Select Committee on Appropriations",
+            "created": "2013-08-01T01:21:28.030",
+            "started": null,
+            "kind": 12,
+            "_summary_rendered": "",
+            "summary": "",
+            "ended": null,
+            "show_attendance": false,
+            "seats": null,
+            "slug": "ncop-appropriations"
+        },
+        "model": "core.organisation",
+        "pk": 89
+    },
+    {
+        "fields": {
+            "updated": "2018-08-24T11:44:29.959",
+            "name": "Budget Committee on Appropriation",
+            "short_name": "Budget Committee on Appropriation",
+            "created": "2013-08-01T01:21:28.030",
+            "started": null,
+            "kind": 13,
+            "_summary_rendered": "",
+            "summary": "",
+            "ended": null,
+            "show_attendance": false,
+            "seats": null,
+            "slug": "budget-committee-on-appropriation"
+        },
+        "model": "core.organisation",
+        "pk": 90
+    },
+    {
+        "fields": {
+            "updated": "2018-08-24T11:44:29.959",
+            "name": "Committee of Chairpersons",
+            "short_name": "Committee of Chairpersons",
+            "created": "2013-08-01T01:21:28.030",
+            "started": null,
+            "kind": 13,
+            "_summary_rendered": "",
+            "summary": "",
+            "ended": null,
+            "show_attendance": false,
+            "seats": null,
+            "slug": "committee-of-chairpersons"
+        },
+        "model": "core.organisation",
+        "pk": 91
+    },
+    {
+        "fields": {
+            "updated": "2018-08-24T11:44:29.959",
+            "name": "Ad Hoc Commitee on Commission for Gender Equality (CGE) Forensic Investigation",
+            "short_name": "Ad Hoc Commitee on Commission for Gender Equality (CGE) Forensic Investigation",
+            "created": "2013-08-01T01:21:28.030",
+            "started": null,
+            "kind": 14,
+            "_summary_rendered": "",
+            "summary": "",
+            "ended": null,
+            "show_attendance": false,
+            "seats": null,
+            "slug": "ad-hoc-commitee-on-commission-for-gender-equality-cge-forensic-investigation"
+        },
+        "model": "core.organisation",
+        "pk": 92
+    },
+    {
+        "fields": {
+            "updated": "2018-08-24T11:44:29.959",
+            "name": "Ad Hoc Committee in Filling of Vacancies in the Electoral Commission",
+            "short_name": "Ad Hoc Committee in Filling of Vacancies in the Electoral Commission",
+            "created": "2013-08-01T01:21:28.030",
+            "started": null,
+            "kind": 14,
+            "_summary_rendered": "",
+            "summary": "",
+            "ended": null,
+            "show_attendance": false,
+            "seats": null,
+            "slug": "ad-hoc-committee-in-filling-of-vacancies-in-the-electoral-commission"
+        },
+        "model": "core.organisation",
+        "pk": 93
     },
     {
         "fields": {
@@ -1530,7 +1704,7 @@
             "end_date": "2014-04-24",
             "title": 160,
             "sorting_start_date_high": "2010-10-31",
-            "organisation": 71,
+            "organisation": 88,
             "created": "2013-10-16T12:57:39.230",
             "sorting_end_date": "2014-04-24",
             "note": "",
@@ -1614,7 +1788,7 @@
             "end_date": "2030-05-06",
             "title": 161,
             "sorting_start_date_high": "0000-99-99",
-            "organisation": 71,
+            "organisation": 87,
             "created": "2013-10-16T12:57:39.411",
             "sorting_end_date": "2030-05-06",
             "note": "",
@@ -1656,7 +1830,7 @@
             "end_date": "future",
             "title": 161,
             "sorting_start_date_high": "0000-99-99",
-            "organisation": 71,
+            "organisation": 86,
             "created": "2013-10-16T12:57:39.439",
             "sorting_end_date": "2030-05-06",
             "note": "",
@@ -1696,7 +1870,7 @@
             "name": "26th Parliament (National Assembly)",
             "end_date": "2030-05-21",
             "created": "2017-06-30T18:43:15.690",
-            "house": 70,
+            "house": 90,
             "mapit_generation": 1,
             "slug": "na26",
             "position_title": 161,
@@ -1711,7 +1885,7 @@
             "name": "25th Parliament (National Assembly)",
             "end_date": "2030-05-06",
             "created": "2017-06-30T18:43:15.932",
-            "house": 70,
+            "house": 90,
             "mapit_generation": 1,
             "slug": "na25",
             "position_title": 161,
@@ -1726,7 +1900,7 @@
             "name": "26th Parliament (National Council of Provinces)",
             "end_date": "2030-05-21",
             "created": "2017-06-30T18:43:15.934",
-            "house": 71,
+            "house": 91,
             "mapit_generation": 1,
             "slug": "ncop26",
             "position_title": 161,
@@ -1741,7 +1915,7 @@
             "name": "25th Parliament (National Council of Provinces)",
             "end_date": "2030-05-06",
             "created": "2017-06-30T18:43:15.936",
-            "house": 71,
+            "house": 91,
             "mapit_generation": 1,
             "slug": "ncop25",
             "position_title": 161,
@@ -1756,7 +1930,7 @@
             "name": "27th Parliament (National Assembly)",
             "end_date": "2024-05-22",
             "created": "2019-06-06T14:15:34.224",
-            "house": 70,
+            "house": 90,
             "mapit_generation": 1,
             "slug": "na27",
             "position_title": 161,
@@ -1927,5 +2101,49 @@
         },
         "model": "core.organisationrelationship",
         "pk": 3366
+    },
+    {
+    "fields": {
+        "date_changed": "2020-11-26",
+        "updated": "2020-11-26T07:15:41.573",
+        "new_organisation": 92,
+        "old_organisation": 93,
+        "created": "2020-11-26T07:15:41.573"
+    },
+    "model": "core.organisationhistory",
+    "pk": 1
+    },
+    {
+        "fields": {
+            "date_changed": "2020-11-26",
+            "updated": "2020-11-26T07:16:18.961",
+            "new_organisation": 91,
+            "old_organisation": 90,
+            "created": "2020-11-26T07:16:18.961"
+        },
+        "model": "core.organisationhistory",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "date_changed": "2020-11-26",
+            "updated": "2020-11-26T07:16:52.093",
+            "new_organisation": 87,
+            "old_organisation": 86,
+            "created": "2020-11-26T07:16:52.093"
+        },
+        "model": "core.organisationhistory",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "date_changed": "2020-11-26",
+            "updated": "2020-11-26T07:17:23.951",
+            "new_organisation": 89,
+            "old_organisation": 88,
+            "created": "2020-11-26T07:17:23.951"
+        },
+        "model": "core.organisationhistory",
+        "pk": 4
     }
 ]
