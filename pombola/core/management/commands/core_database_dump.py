@@ -64,6 +64,7 @@ class Command(BaseCommand):
             'core_identifier',
             'core_informationsource',
             'core_organisation',
+            'core_organisationhistory',
             'core_organisationkind',
             'core_organisationrelationship',
             'core_organisationrelationshipkind',
