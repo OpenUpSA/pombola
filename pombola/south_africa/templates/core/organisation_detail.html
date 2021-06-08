@@ -18,7 +18,7 @@
                </a>
             </span>
         {% endfor %}
-        {% for hist in object.new_history_old.all %}
+        {% for hist in object.org_history_new.all %}
             <span class="committee-history">
                 {{ hist.date_changed|date:"d M Y" }} | Formerly:
                <a href="{{ hist.old_organisation.get_absolute_url }}">
