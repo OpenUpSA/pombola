@@ -574,6 +574,17 @@ class Person(ModelBase, HasImageMixin, ScorecardMixin, IdentifierMixin):
         )
 
     @property
+    def has_ever_been_member_of_prov_legislature(self):
+        return self.position_set.provincial_legislature().exists()
+
+    @property
+    def has_ever_been_member_of_nat_prov_legislature(self):
+        return (
+            self.has_ever_been_member_of_ncop_or_national_assembly or
+            self.has_ever_been_member_of_prov_legislature
+        )
+
+    @property
     def everypolitician_uuid(self):
         return self.get_identifier('everypolitician')
 
@@ -1473,6 +1484,12 @@ class PositionQuerySet(models.query.GeoQuerySet):
         """Filter down to positions at the NCOP. """
         return self.filter(
             Q(organisation__slug='ncop')
+        )
+
+    def provincial_legislature(self):
+        """Filter down to positions at the Provincial Legislature. """
+        return self.filter(
+            Q(organisation__kind__slug='provincial-legislature')
         )
 
     def committees(self):
