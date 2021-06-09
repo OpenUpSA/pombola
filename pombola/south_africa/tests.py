@@ -969,15 +969,17 @@ class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
         )
 
     def test_email_with_current_prov_legislature_positions(self):
-        party = models.OrganisationKind.objects.create(
-            name='Party',
-            slug='party',
-            )
+        orgkind_legislature = models.OrganisationKind.objects.create(
+            name='Test OrganisationKind Legislature',
+            slug='provincial-legislature',
+        )
+
         org = models.Organisation.objects.create(
-            slug='da',
-            name='DA',
-            kind=party,
-            )
+            name='Test Organisation Legislature',
+            slug='test-org-legislature',
+            kind=orgkind_legislature,
+        )
+
         pt_member = models.PositionTitle.objects.create(
             slug='member', name='Member')
         person = models.Person.objects.get(slug='moomin-finn')

@@ -575,7 +575,7 @@ class Person(ModelBase, HasImageMixin, ScorecardMixin, IdentifierMixin):
 
     @property
     def has_ever_been_member_of_prov_legislature(self):
-        return self.position_set.position_titles().exists()
+        return self.position_set.provincial_legislature().exists()
 
     @property
     def has_ever_been_member_of_nat_prov_legislature(self):
@@ -1486,11 +1486,11 @@ class PositionQuerySet(models.query.GeoQuerySet):
             Q(organisation__slug='ncop')
         )
 
-    def position_titles(self):
-        # maybe its worth checking if the position of the organisation
-        # has a title as well instead of only checking if position has a title
-        # self.filter(Q(organisation__title__isnull=False))
-        return self.filter(title__isnull=False)
+    def provincial_legislature(self):
+        """Filter down to positions at the Provincial Legislature. """
+        return self.filter(
+            Q(organisation__kind__slug='provincial-legislature')
+        )
 
     def committees(self):
         """Filter down to committee memberships"""
