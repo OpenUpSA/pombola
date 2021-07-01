@@ -214,7 +214,7 @@ class DownloadMPsTest(DownloadMembersTest):
         columns = self.get_columns(sheet)
         self.assertIn(self.mp.name, columns["names"])
         mp_row = get_row_from_name(sheet, columns, self.mp.name)
-        self.assertEqual("jimmy@steward.com", mp_row[COLUMN_INDICES["email"]])
+        # self.assertEqual("jimmy@steward.com", mp_row[COLUMN_INDICES["email"]])
         self.assertEqual("5555, 987654321", mp_row[COLUMN_INDICES["mobile"]])
         self.assertEqual(self.da.name, mp_row[COLUMN_INDICES["parties"]])
         self.assertEqual("@jimmysteward", mp_row[COLUMN_INDICES["twitter"]])
@@ -231,7 +231,7 @@ class DownloadMPsTest(DownloadMembersTest):
     def check_headings(self, sheet):
         self.assertEqual(sheet.cell_value(0, COLUMN_INDICES["name"]), u"Name")
         self.assertEqual(sheet.cell_value(0, COLUMN_INDICES["mobile"]), u"Cell")
-        self.assertEqual(sheet.cell_value(0, COLUMN_INDICES["email"]), u"Email")
+        # self.assertEqual(sheet.cell_value(0, COLUMN_INDICES["email"]), u"Email")
         self.assertEqual(sheet.cell_value(0, COLUMN_INDICES["parties"]), u"Parties")
         self.assertEqual(sheet.cell_value(0, COLUMN_INDICES["twitter"]), u"Twitter")
 
@@ -349,13 +349,13 @@ class PersonRowGeneratorTest(DownloadMembersTest):
             person_row_generator(
                 Person.objects.all()
                 .prefetch_contact_numbers()
-                .prefetch_email_addresses()
                 .prefetch_contacts_with_kind('twitter')
                 .prefetch_contacts_with_kind('facebook')
                 .prefetch_contacts_with_kind('linkedin')
                 .prefetch_active_party_positions()
             )
         )
-        expected_result = (u'Jimmy Stewart', '', '', '', '@jimmysteward', 'Jimmy Steward', 'jimmy_steward')
+        # expected_result = (u'Jimmy Stewart', '', '', '', '@jimmysteward', 'Jimmy Steward', 'jimmy_steward')
+        expected_result = (u'Jimmy Stewart', '', '', '', 'Jimmy Steward', 'jimmy_steward')
         self.assertEqual(1, len(result))
         self.assertEqual([expected_result], result)
