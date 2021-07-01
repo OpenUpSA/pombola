@@ -15,7 +15,7 @@ from pombola.south_africa.views.download import (
     get_active_persons_for_organisation, get_email_addresses_for_person,
     get_queryset_for_members_download, person_row_generator)
 
-COLUMN_INDICES = {"name": 0, "mobile": 1, "email": 2, "parties": 3, "twitter": 4, "facebook": 5, "linkedin": 6}
+COLUMN_INDICES = {"name": 0, "mobile": 1, "parties": 2, "twitter": 3, "facebook": 4, "linkedin": 5}
 
 
 def get_row_from_name(sheet, columns, name):
@@ -239,7 +239,6 @@ class DownloadMPsTest(DownloadMembersTest):
         return {
             "names": sheet.col_values(COLUMN_INDICES["name"]),
             "mobiles": sheet.col_values(COLUMN_INDICES["mobile"]),
-            "emails": sheet.col_values(COLUMN_INDICES["email"]),
             "parties": sheet.col_values(COLUMN_INDICES["parties"]),
             "twitter": sheet.col_values(COLUMN_INDICES["twitter"]),
         }
@@ -355,7 +354,6 @@ class PersonRowGeneratorTest(DownloadMembersTest):
                 .prefetch_active_party_positions()
             )
         )
-        # expected_result = (u'Jimmy Stewart', '', '', '', '@jimmysteward', 'Jimmy Steward', 'jimmy_steward')
-        expected_result = (u'Jimmy Stewart', '', '', '', 'Jimmy Steward', 'jimmy_steward')
+        expected_result = (u'Jimmy Stewart', '', '', u'@jimmysteward', u'Jimmy Steward', u'jimmy_steward')
         self.assertEqual(1, len(result))
         self.assertEqual([expected_result], result)
