@@ -28,14 +28,11 @@ def person_row_generator(persons):
     email addresses and party memberships.
     """
     for person in persons:
-        email = get_email_addresses_for_person(person)
         yield (
             # Name
             person.name,
             # Contact numbers
             ", ".join([contact_number.value for contact_number in person.contact_numbers]),
-            # Email addresses
-            get_email_addresses_for_person(person),
             # Parties
             ",".join(
                 position.organisation.name for position in person.active_party_positions
