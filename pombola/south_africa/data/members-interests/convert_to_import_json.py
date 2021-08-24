@@ -4,21 +4,27 @@
 # format needed for import. Should do all cleanup of data and removal of
 # unneeded entries too.
 
-import sys
-import os
 import json
+import os
 import re
+import sys
+
+import django
 import urllib
+
+from django.db.models import Q
+from django.utils.text import slugify
 
 script_dir = os.path.basename(__file__)
 base_dir = os.path.join(script_dir, "../../../../..")
 app_path = os.path.abspath(base_dir)
 sys.path.append(app_path)
-os.environ['DJANGO_SETTINGS_MODULE'] = 'pombola.settings.south_africa'
 
-from django.utils.text import slugify
-from django.db.models import Q
 
+settings_module = "pombola.settings.south_africa"
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", settings_module)
+django.setup()
 from pombola.core.models import Person
 
 class Converter(object):
@@ -280,7 +286,7 @@ class Converter(object):
         "zolile-xalisa": "zolile-roger-xalisa",
         "thandiwe-alina-mfulo": "alina-mfulo",
         "micheal-shackleton": "michael-stephen-shackleton",
-        #name changes confirmed in National Assembly membership document
+        # name changes confirmed in National Assembly membership document
         "buyiswa-blaai": "buyiswa-cornelia-diemu",
         "sanna-keikantseeng-molao": "sanna-keikantseeng-plaatjie",
         # Garbage entries
@@ -368,7 +374,7 @@ class Converter(object):
                     previous_entries.append(entry)
 
                 # Filter out entries that are empty
-                entries = [ e for e in entries if len(e) ]
+                entries = [e for e in entries if len(e)]
 
                 if len(entries) == 0:
                     continue
@@ -390,7 +396,7 @@ class Converter(object):
                 # Work out who the person is
                 person_slug = self.mp_to_person_slug(register_entry['mp'])
                 if not person_slug:
-                    continue # skip if no slug
+                    continue  # skip if no slug
                 grouping['person'] = {
                     "slug": person_slug
                 }
@@ -417,13 +423,14 @@ class Converter(object):
             return person.slug
         except Person.DoesNotExist:
             try:
-                name_parts = re.findall(r'(.*?), (.*)', muddled_name)
-                person = Person.objects.get(Q(slug__contains=slugify(name_parts[0][0])) & Q(slug__contains=slugify(name_parts[0][1])))
+                name_parts = re.findall(r'(.*?), (.*)', muddled_name.replace('-', ','))[0]
+                person = Person.objects.get(Q(slug__contains=slugify(name_parts[0])) & Q(slug__contains=slugify(name_parts[1])))
                 return person.slug
             except Person.DoesNotExist:
                 last_name = name.split(' ')[-1]
 
-                possible_persons = Person.objects.filter(legal_name__icontains=last_name)
+                possible_persons = Person.objects.filter(
+                    legal_name__icontains=last_name)
 
                 if self.finding_slug_corrections and possible_persons.count() == 1:
                     possible_slug = possible_persons.all()[0].slug
@@ -431,11 +438,12 @@ class Converter(object):
                     return possible_slug
 
                 for person in possible_persons:
-                    print 'perhaps: "{0}": "{1}",'.format(slug, person.slug)
+                    print('perhaps: "{0}": "{1}",'.format(slug, person.slug))
                 else:
-                    print "no possible matches for {0}".format(slug)
+                    print("no possible matches for {0}".format(slug))
 
-                raise Exception("Slug {0} not found, please find matching slug and add it to the slug_corrections".format(slug))
+                raise Exception(
+                    "Slug {0} not found, please find matching slug and add it to the slug_corrections".format(slug))
 
     def produce_json(self):
         data = self.groupings
@@ -452,7 +460,7 @@ class Converter(object):
         """
         sorted_data = sorted(
             data,
-            key = lambda x: x['person']['slug'] + ':' + x['category']['name']
+            key=lambda x: x['person']['slug'] + ':' + x['category']['name']
         )
 
         combined_data = []
@@ -473,7 +481,6 @@ class Converter(object):
 
         return combined_data
 
-
     def extract_data_from_json(self):
         with open(self.filename) as fh:
             return json.load(fh)
@@ -482,11 +489,11 @@ class Converter(object):
 if __name__ == "__main__":
     converter = Converter(sys.argv[1])
     output = converter.convert()
-    print output
+    print(output)
 
     if converter.finding_slug_corrections:
-        print "\n\n"
-        print "#### COPY THIS TO slug_corrections and s/null/None/ :) ####"
-        print "\n\n"
-        print json.dumps(converter.slug_corrections, indent=4, sort_keys=True)
-        print "\n\n"
+        print("\n\n")
+        print("#### COPY THIS TO slug_corrections and s/null/None/ :) ####")
+        print("\n\n")
+        print(json.dumps(converter.slug_corrections, indent=4, sort_keys=True))
+        print("\n\n")
