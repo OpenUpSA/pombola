@@ -155,19 +155,25 @@ class InterestScraper(object):
             "TRUSTS": "TRUSTS"
         }
 
-        PRE_DATA = []
-        SEMI_FINAL = {}
+        # state machine
+
+        # state variables
+        self.mps_count = 0
+        self.mps_names = []
+        all_mps_data = []
+        single_mp_interests = {}
         self.data = []
         self.all_sections = {}
 
-        # state variable
-        # state machine
         soup = BeautifulSoup(html, 'html.parser')
         # Loop through all html elements and classify the data
         main_div = soup.find("div", {'id': "content"})
         if main_div is None:
             raise ValueError("Could not find main content div")
+        in_table = False
+        table_headers = []
         # find all children within the div
+        category_entries = []
         for div in main_div.findChildren(recursive=False):
             div_text = str(div.get_text().encode("utf-8").strip())
             if re.match('[0-9]+[.][0-9]+[.]', div_text):
@@ -175,33 +181,50 @@ class InterestScraper(object):
                 self.mp = ' '.join(div_text.replace(
                     "\xe2\x80\x93", "-").split(' ')[1:]).replace(
                         ',', '').replace(' -', ',')
-                if self.mp not in SEMI_FINAL:
-                    SEMI_FINAL[self.mp] = {}
+                self.mps_count = self.mps_count + 1
+                self.mps_names.append(self.mp)
+                if self.mp not in single_mp_interests:
+                    single_mp_interests[self.mp] = {}
             if div_text in CATEGORIES:
                 # This is the section name
                 self.section = CATEGORIES[div_text]
+                in_table = False
+                category_entries = []
             if div.name == 'table':
                 table = div
-                AN_ARR = []
                 if table is not None:
-                    table_tr = table.find_all('tr')
-                    # table_headers = [str(el.text.encode('utf-8').strip()) if not el.p else str(el.p.text.encode('utf-8').strip()) if el.p.strong else str(el.p.strong.text.encode('utf-8').strip()) for el in list(table_tr)[0].select('th')]
-                    table_headers = [el.text.encode('utf-8').strip() for el in list(table_tr)[
-                        0].select('th')]
-                    for tr in list(table_tr)[1:]:
-                        section_content = {}
-                        for n, inner_tr in list(enumerate(tr.find_all('th'))):
-                            if not n > len(table_headers) - 1:
-                                section_content[table_headers[n]] = str(
-                                    inner_tr.text.encode('utf-8').strip())
-                        AN_ARR.append(section_content)
-                    if self.section not in SEMI_FINAL[self.mp]:
-                        SEMI_FINAL[self.mp][self.section] = {}
-                    SEMI_FINAL[self.mp][self.section] = AN_ARR
-                    SEMI_FINAL[self.mp]["mp"] = self.mp
-        PRE_DATA.append(SEMI_FINAL)
-        for mp in PRE_DATA[0]:
-            self.data.append(PRE_DATA[0][mp])
+                    if in_table:
+                        # subsequent table found, process it
+                        table_tr = table.find_all('tr')
+                        for tr in list(table_tr):
+                            section_content = {}
+                            for n, inner_tr in list(enumerate(tr.find_all('th'))):
+                                if not n > len(table_headers) - 1:
+                                    section_content[table_headers[n]] = str(
+                                        inner_tr.text.encode('utf-8').strip())
+                            category_entries.append(section_content)
+                    else:
+                        table_tr = table.find_all('tr')
+                        # table_headers = [str(el.text.encode('utf-8').strip()) if not el.p else str(el.p.text.encode('utf-8').strip()) if el.p.strong else str(el.p.strong.text.encode('utf-8').strip()) for el in list(table_tr)[0].select('th')]
+                        table_headers = [el.text.encode('utf-8').strip() for el in list(table_tr)[
+                            0].select('th')]
+                        for tr in list(table_tr)[1:]:
+                            section_content = {}
+                            for n, inner_tr in list(enumerate(tr.find_all('th'))):
+                                if not n > len(table_headers) - 1:
+                                    section_content[table_headers[n]] = str(
+                                        inner_tr.text.encode('utf-8').strip())
+                            category_entries.append(section_content)
+
+                    if self.section not in single_mp_interests[self.mp]:
+                        single_mp_interests[self.mp][self.section] = {}
+                    single_mp_interests[self.mp][self.section] = category_entries
+                    single_mp_interests[self.mp]["mp"] = self.mp
+                in_table = True
+
+        all_mps_data.append(single_mp_interests)
+        for mp in all_mps_data[0]:
+            self.data.append(all_mps_data[0][mp])
 
     def write_results(self):
         with open(self.output, 'w') as outfile:
@@ -209,7 +232,9 @@ class InterestScraper(object):
                 'year': self.year,
                 'date': '%s-12-31' % (self.year),
                 'source': self.source,
-                'register': self.data},
+                'register': self.data,
+                "mps_count": self.mps_count
+                },
                 outfile, indent=1)
 
         pprint.pprint(self.data)
