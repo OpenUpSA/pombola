@@ -286,6 +286,115 @@ class Converter(object):
         "zolile-xalisa": "zolile-roger-xalisa",
         "thandiwe-alina-mfulo": "alina-mfulo",
         "micheal-shackleton": "michael-stephen-shackleton",
+        "muzi-enock-mthethwa": "enock-muzi-mthethwa",
+        "claudia-nonhlanhla-ndaba": "ndaba-nonhlanhla",
+        "thandi-ruth-modise": "thandi-modise",
+        "suzan-sophie-thembekwayo": "sophie-suzan-thembekwayo",
+        "mbongiseni-david-mahlobo": "mbangiseni-david-mahlobo",
+        "jaqueline-motlagomang-mofokeng": "jacqueline-motlagomang-mofokeng",
+        "lindiwe-christabola-bebee": "lc-bebee",
+        "nothembe-hendrietta-maseko-jele": "nomathemba-hendrietta-maseko-jele",
+        "sieso-joel-mohai": "seiso-joel-mohai",
+        "sibongiseni-maxwell-dhlomo": "sm-dhlomo",
+        "sicelo-bafuze-yabo": "bafuze-sicelo-yabo",
+        "thenjiwe-mirriam-kibi": "mirriam-thenjiwe-kibi",
+        "khonziwe-ntokozo-fortunate-hlonyana": "ntokozo-khonziwe-fortunate-hlonyana",
+        "nokozola-ndongeni": "nokuzola-ndongeni",
+        "barbara-dallas-creecy": "creecy-barbara",
+        "cedrick-thomas-frolick": "cedric-thomas-frolick",
+        "thandi-mpambo-sibhukwana": "thandi-gloria-mpambo-sibhukwana",
+        "thlolohelo-malatji": "thlologelo-malatji",
+        "tseko-washington-isaac-mafanya": "washington-tseko-isaac-mafanya",
+        "ronald-patumedi-moroatshehla": "patamedi-ronald-moroatshehla",
+        "christaan-frederik-beyers-smit": "christiaan-frederik-beyers-smit",
+        "mohamed-haniff-hoosen": "haniff-mohammed-hoosen",
+        "phindile-martha-mmola": "martha-phindile-mmola",
+        "gcinikhaya-gordon-mpumza": "gordon-gcinikhaya-mpumza",
+        "dorah-dunana-dlamini": "dd-dlamini",
+        "liezel-linda-van-der-merwe": "liezl-linda-van-der-merwe",
+        "lilian-nombulelo-hermans": "nombulelo-lilian-hermans",
+        "ezekiel-lesiba-molala": "lesiba-ezekiel-molala",
+        "mandla-isaac-rayi": "mandla-rayi",
+        "sifiso-nobert-buthelezi": "sfiso-norbert-buthelezi",
+        "regina-mina-mponsteng-lesoma": "regina-mina-mpontseng-lesoma",
+        "anthony-hope-mankwana-papo": "papo-hope",
+        "zwelizwe-lawrence-mkhize": "zwelini-lawrence-mkhize",
+        "hlengiwe-octavia-mkhaliphi": "hlengiwe-octavia-hlophe",
+        "thamsanqa-simon-china-dodovu": "china-dodovu",
+        "faith-azwihangwisi-muthambi": "azwihangwisi-faith-muthambi",
+        "supra-obakeng-ramoeletsi-mahumapelo": "supra-mahumapelo",
+        "aloysias-mmusi-maimane": "mmusi-aloysias-maimane",
+        "godfrey-phumulo-masualle": "phumulo-masualle",
+        "nonkosi-queenie-mvana": "nonkosi-mvana",
+        "frederik-jacobus-mulder": "frederik-mulder",
+        "constance-tebogo-modise": "tebogo-modise",
+        "elsabe-natasha-ntlangwini": "elsabe-natasha-louw",
+        "lizzie-fikelephi-shabalala": "lf-shabalala",
+        "mmoba-solomon-malatsi": "mmoba-solomon-seshoka",
+        "slindili-ann-luthuli": "a-n-luthuli",
+        "altia-sthembembile-hlongo": "altia-sthembile-hlongo",
+        "chantel-valencia-king": "chantel-king",
+        "elleck-mamagase-nchabeleng": "mamagase-elleck-nchabeleng",
+        "fikile-devilliers-xasa": "fikile-xasa",
+        "bidget-staff-masango": "bridget-staff-masango",
+        "samantha-jane-graham-mare": "samantha-graham-mare",
+        "okert-stefanus-terblanche": "ockert-stefanus-terblanche",
+        "edward-senzo-mchunu": "es-mchunu",
+        "delisile-blessing-ngwenya": "delisile-ngwenya",
+        "kennth-leonard-jacobs": "kenneth-leonard-jacobs",
+        "makhoni-maria-ntuli": "mm-ntuli",
+        "yoliswa-nomampondomisi-yako": "yoliswa-nomampondomise-yako",
+        "stella-tembisa-ndabeni": "stella-tembisa-ndabeni-abrahams",
+        "pemmy-castelinah-pamella-majodina": "pemmy-majodina",
+        "thomas-charles-ravenscroft-walters": "thomas-walters",
+        "patekile-sango-holomisa": "sango-patekile-holomisa",
+        "nkosi-zwelivelile-mandela": "zwelivelile-mandlesizwe-dalibhunga-mandela",
+        "nigel-sibusiso-gumede": "sibusiso-nigel-gumede",
+        "bethwel-tshilidzi-munyai": "tshilidzi-bethuel-munyai",
+        "nhlagongwe-patricia-mahlo": "ms-mahlo-nhlagonwe-patricia",
+        "bhekizwe-simon-nkosi": "bekizwe-simon-nkosi",
+        "valentia-thokozile-malinga": "thokozile-malinga",
+        "mammoga-albert-seabi": "albert-mammoga-seabi",
+        "jaques-warren-william-julius": "jacques-warren-william-julius",
+        "madelein-bertine-hicklin": "madeleine-bertine-hicklin",
+        "johannes-mathews-wolmarans": "matthews-johannes-wolmarans",
+        "lydia-moji-moshodi": "moji-lydia-moshodi",
+        "marubini-lourane-lubengo": "ms-lubengo-lourane-marubini",
+        "rose-mary-thandiwe-zungu": "thandiwe-rose-marry-zungu",
+        "mimi-martha-gondwe": "mimmy-martha-gondwe",
+        "zoyisile-edward-njadu": "edward-zoyisile-njadu",
+        "brenda-thirani-mathevula": "brenda-tirhani-mathevula",
+        "thembi-rhulani-siweya": "rhulani-thembi-siweya",
+        "noxolo-phoebe-abraham": "noxolo-abraham-ntantiso",
+        "nontando-judith-nolutshungu": "nontando-nolutshungu",
+        "makosini-mishack-chabangu": "mishack-makosini-chabangu",
+        "kenny-thabo-motsamai": "kenny-motsamai",
+        "michelle-odette-clarke": "michele-odette-clarke",
+        "amos-nkosiyakhe-masondo": "nkosiyakhe-amos-masondo",
+        "thandiswa-linnen-marawu": "thandiswa-marawu",
+        "melina-matshidiso-gomba": "matshidiso-melina-gomba",
+        "thabang-makwetla": "sampson-phathakge-makwetla",
+        "thandeka-moloko-mbamba": "thandeka-moloko-mbabama",
+        "bheki-hadebe": "bheki-mathews-hadebe",
+        "tina-monica-joemat-petterson": "tina-monica-joemat-pettersson",
+        "haseenabanu-ismael": "haseena-ismail",
+        "natasha-wendy-anita-mazonne": "natasha-wendy-anita-michael",
+        "christian-hans-heinrich-husinger": "christian-hans-heinrich-hunsinger",
+        "thandeka-moloko-mbamba": "thandeka-moloko-mbabama",
+        "lindiwe-mjobe": "lindiwe-ntombikayise-mjobo",
+        "bernice-swarts-malaba": "bernice-swarts",
+        "josephine-nomsa-kubeka": "nomsa-josephina-kubheka",
+        "heloise-jordaan": "heloise-denner",
+        "tryphosa-mmamoloko-kubayi-ngubane": "mmamoloko-tryphosa-kubayi",
+        "spies-eleanor": "eleanore-rochelle-jacquelene-spies",
+        "rosina-komane": "rosina-ntshetsana-komane",
+        "moletsane-moletsane": "moletsane-simon-moletsane",
+        "evelyn-wilson": "evelyn-rayne-wilson",
+        "anele-gxoyiya": "anele-benedict-gxoyiya",
+        "lindiwe-daphney-zulu": "l-d-zulu",
+        "lusizo-sharon-makhubele-mashele": "lusizo-sharon-makhubela-mashele",
+        "ntombovuyo-veronica-mente": "ntombovuyo-veronica-nqweniso",
+        "freitas-manuel-simao-franca-de": "manuel-simao-franca-de-freitas",
         # name changes confirmed in National Assembly membership document
         "buyiswa-blaai": "buyiswa-cornelia-diemu",
         "sanna-keikantseeng-molao": "sanna-keikantseeng-plaatjie",
@@ -311,6 +420,7 @@ class Converter(object):
 
     def __init__(self, filename):
         self.filename = filename
+        self.mp_count = {}
 
     def convert(self):
         data = self.extract_data_from_json()
@@ -397,17 +507,21 @@ class Converter(object):
                 person_slug = self.mp_to_person_slug(register_entry['mp'])
                 if not person_slug:
                     continue  # skip if no slug
+                self.mp_count[person_slug] = register_entry['mp']
                 grouping['person'] = {
                     "slug": person_slug
                 }
-
 
                 self.groupings.append(grouping)
 
             # break # just for during dev
 
     def mp_to_person_slug(self, mp):
-        muddled_name, party = re.search(r'^(.*)\s\(+(.*?)\)+', mp).groups()
+        regex_match = re.search(r'^(.*)\s\(+(.*?)\)+', mp)
+        if not regex_match:
+            print("Could not extract person name from MP name: {0}".format(mp))
+            return None
+        muddled_name, party = regex_match.groups()
         name = re.sub(r'(.*?), (.*)', r'\2 \1', muddled_name)
         slug = slugify(name)
 
@@ -423,9 +537,14 @@ class Converter(object):
             return person.slug
         except Person.DoesNotExist:
             try:
-                name_parts = re.findall(r'(.*?), (.*)', muddled_name.replace('-', ','))[0]
-                person = Person.objects.get(Q(slug__contains=slugify(name_parts[0])) & Q(slug__contains=slugify(name_parts[1])))
-                return person.slug
+                name_base = re.findall(r'(.*?), (.*)', muddled_name.replace('-', ','))
+                if name_base:
+                    name_parts = name_base[0]
+                    try:
+                        person = Person.objects.get(Q(slug__contains=slugify(name_parts[0])) & Q(slug__contains=slugify(name_parts[1])))
+                        return person.slug
+                    except Person.MultipleObjectsReturned:
+                        print('Multiple people matched', name_parts, slug if slug else '')
             except Person.DoesNotExist:
                 last_name = name.split(' ')[-1]
 
