@@ -206,7 +206,10 @@ class InterestScraper(object):
                                 if not n > len(table_headers) - 1:
                                     section_content[table_headers[n]] = str(
                                         inner_tr.text.encode('utf-8').strip())
-                            category_entries.append(section_content)
+                            if any("nothing to disclose" in s.lower() for s in section_content.values()):
+                                category_entries = "Nothing to disclose"
+                            else:
+                                category_entries.append(section_content)
                     else:
                         table_tr = table.find_all('tr')
                         table_headers = [el.text.encode('utf-8').strip() for el in list(table_tr)[
@@ -217,7 +220,10 @@ class InterestScraper(object):
                                 if not n > len(table_headers) - 1:
                                     section_content[table_headers[n]] = str(
                                         inner_tr.text.encode('utf-8').strip())
-                            category_entries.append(section_content)
+                            if any("nothing to disclose" in s.lower() for s in section_content.values()):
+                                category_entries = "Nothing to disclose"
+                            else:
+                                category_entries.append(section_content)
 
                     if self.section not in single_mp_interests[self.mp]:
                         single_mp_interests[self.mp][self.section] = {}
