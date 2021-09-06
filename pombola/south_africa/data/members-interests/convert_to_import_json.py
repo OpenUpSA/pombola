@@ -544,7 +544,7 @@ class Converter(object):
                         person = Person.objects.get(Q(slug__contains=slugify(name_parts[0])) & Q(slug__contains=slugify(name_parts[1])))
                         return person.slug
                     except Person.MultipleObjectsReturned:
-                        print('Multiple people matched', name_parts, slug if slug else '')
+                        return None
             except Person.DoesNotExist:
                 last_name = name.split(' ')[-1]
 
