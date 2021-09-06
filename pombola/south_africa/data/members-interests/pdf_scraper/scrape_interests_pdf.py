@@ -155,29 +155,33 @@ class InterestScraper(object):
             "TRUSTS": "TRUSTS"
         }
 
-        # state machine
+        """
+        The following implementation of the parser is based on the state machine
+        concept.
 
-        # state variables
+        The variables described below are used to keep track of the current state
+
+        eg. in_table: True when we are in a table and helps identify the
+        table continuation over a page break.
+        """
         self.mps_count = 0
         self.mps_names = []
         all_mps_data = []
         single_mp_interests = {}
         self.data = []
         self.all_sections = {}
+        in_table = False
 
         soup = BeautifulSoup(html, 'html.parser')
-        # Loop through all html elements and classify the data
         main_div = soup.find("div", {'id': "content"})
         if main_div is None:
             raise ValueError("Could not find main content div")
-        in_table = False
         table_headers = []
-        # find all children within the div
         category_entries = []
         for div in main_div.findChildren(recursive=False):
             div_text = str(div.get_text().encode("utf-8").strip())
             if re.match('[0-9]+[.][0-9]+[.]', div_text):
-                # This is the mp name ' '.join(div_text.split(' ')[1:]).decode('UTF-8')
+                # This is the mp name
                 self.mp = ' '.join(div_text.replace(
                     "\xe2\x80\x93", "-").split(' ')[1:]).replace(
                         ',', '').replace(' -', ',')
@@ -194,7 +198,7 @@ class InterestScraper(object):
                 table = div
                 if table is not None:
                     if in_table:
-                        # subsequent table found, process it
+                        # table continuation over a page break found, process it
                         table_tr = table.find_all('tr')
                         for tr in list(table_tr):
                             section_content = {}
@@ -205,7 +209,6 @@ class InterestScraper(object):
                             category_entries.append(section_content)
                     else:
                         table_tr = table.find_all('tr')
-                        # table_headers = [str(el.text.encode('utf-8').strip()) if not el.p else str(el.p.text.encode('utf-8').strip()) if el.p.strong else str(el.p.strong.text.encode('utf-8').strip()) for el in list(table_tr)[0].select('th')]
                         table_headers = [el.text.encode('utf-8').strip() for el in list(table_tr)[
                             0].select('th')]
                         for tr in list(table_tr)[1:]:
@@ -234,7 +237,7 @@ class InterestScraper(object):
                 'source': self.source,
                 'register': self.data,
                 "mps_count": self.mps_count
-                },
+            },
                 outfile, indent=1)
 
         pprint.pprint(self.data)
