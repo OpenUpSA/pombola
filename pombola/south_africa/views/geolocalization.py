@@ -63,8 +63,8 @@ class LatLonDetailBaseView(BaseDetailView):
     # The codes used here should match the party slugs, and the names of the
     # icon files in .../static/images/party-map-icons/
     party_slugs_that_have_logos = set((
-        'acdp', 'adcp', 'al-jama-ah', 'anc', 'apc', 'azapo', 'cope', 'da', 'ff', 
-        'good', 'id', 'ifp', 'mf', 'nfp', 'pac', 'sacp', 'ucdp', 'udm', 
+        'acdp', 'adcp', 'al-jama-ah', 'anc', 'apc', 'azapo', 'cope', 'da', 'ff',
+        'good', 'id', 'ifp', 'mf', 'nfp', 'pac', 'sacp', 'ucdp', 'udm',
         'agang', 'aic', 'eff', 'atm'
     ))
 
@@ -133,8 +133,8 @@ class LatLonDetailBaseView(BaseDetailView):
             {
                 'name': councillor_data['Name'],
                 'person': None,
-                'email': councillor_data['custom_contact_details'].get('email', ''),
-                'phone': councillor_data['custom_contact_details'].get('phone', ''),
+                'email': councillor_data.get('custom_contact_details', {}).get('email', ''),
+                'phone': councillor_data.get('custom_contact_details', {}).get('phone', ''),
                 'postal_addresses': [],
                 'party': party,
                 'has_party_logo': has_party_logo,
