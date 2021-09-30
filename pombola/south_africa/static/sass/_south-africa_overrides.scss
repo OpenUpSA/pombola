@@ -1022,25 +1022,11 @@ body.home {
         }
     }
 
-    .button--write {
-        background-size: 25px 18px;
-        background-repeat: no-repeat;
-        background-position: 20px center;
-        padding-left: 3.2em;
-    }
+    // I can't tell why this div isn't going full width, but for some
+    // reason it's 300% wide unless I make it 100%.
 
-    .button--write--rep {
-        background-image: url('/static/images/rep-icon.png');
-        @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
-            background-image: url('/static/images/rep-icon@2.png');
-        }
-    }
-
-    .button--write--committee {
-        background-image: url('/static/images/committee-icon.png');
-        @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
-            background-image: url('/static/images/committee-icon@2.png');
-        }
+    #issues-options-embed {
+        width: 100%;
     }
 
     // Flexbox layout on wide screens, to get the h2 and buttons

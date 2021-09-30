@@ -106,11 +106,12 @@
 </div>
 <div class="home__section home__actions">
     <div class="wrapper">
-        <h2>
-            Do you have a problem?
-        </h2>
-        <a href="{% url 'writeinpublic-mps:writeinpublic-new-message' %}" class="button button--low-case button--write button--write--rep">Write to an MP</a>
-        <a href="{% url 'writeinpublic-committees:writeinpublic-new-message' %}" class="button button--low-case button--write button--write--committee">Write to a Parliamentary Committee</a>
+        <div id="issues-options-embed"></div>
+        <script type="text/javascript" src="https://pym.nprapps.org/pym.v1.min.js"></script>
+        <script>
+          var pymParent = new pym.Parent('issues-options-embed', 'https://issues-and-options.pa.org.za/', {});
+        </script>
+    </div>
     </div>
 </div>
 <div class="home__section home__news">
