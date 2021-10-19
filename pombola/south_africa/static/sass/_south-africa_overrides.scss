@@ -1091,6 +1091,10 @@ FOOTER
 
 */
 
+.issues-and-options-footer {
+    background-color: $colour_green;
+}
+
 #site-footer{
     background: $colour_footer_background;
     border-top: mix($colour_footer_background, #000, 70%) 2px solid;
