@@ -4,24 +4,31 @@
 
 {% block content %}
 <div class="js-person-messages-all">
-
-  {% for message in messages %}
-    <div>
-        <h3>
-            <a href="{% url 'writeinpublic:writeinpublic-message' message_id=message.id %}">{{ message.subject }}</a>
-            &ndash; <small>{{ message.created_at|date:"d M Y" }}</small>
-        </h3>
-        <p>
+  <div class="row">
+    {% for message in messages %}
+    <div class="col-6 mb-3">
+      <div class="card">
+        <div class="card-body">
+          <p class="lead">
+            <a href="{% url 'writeinpublic:writeinpublic-message' message_id=message.id %}">
+              {{ message.subject }}
+            </a>
+          </p>
+          <p>
+            <small>{{ message.created_at|date:"d M Y" }}</small>
+          </p>
+          <p>
             {{ message.content|truncatewords:30 }}
-            <a href="{% url 'writeinpublic:writeinpublic-message' message_id=message.id %}">(Read more)</a>
-        </p>
+            <a href="{% url 'writeinpublic:writeinpublic-message' message_id=message.id %}">
+              (Read more)
+            </a>
+          </p>
+        </div>
+      </div>
     </div>
-  {% empty %}
-    {% comment %}
-      TODO: Just hide this panel completely if there are no messages?
-    {% endcomment %}
-    <p>Nothing here!</p>
-  {% endfor %}
-
+    {% empty %}
+      <p>Nothing here!</p>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}

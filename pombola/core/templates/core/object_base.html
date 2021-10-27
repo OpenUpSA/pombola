@@ -6,16 +6,35 @@
 {% block content %}
     {% include "disqus_javascript.html" %}
 
+    <div class="row">
+      <div class="col">
+        {% block object_title %}
+        <h1>{{ object.title }} {{ object.name }}</h1>
+      {% endblock %}
+      {% block object_tagline %}
+        {% endblock %}
+      </div>
+      <div class="col">
+        <div class="float-right">
+          <div class="profile-pic">
+            {% thumbnail object.primary_image "100x100" crop="center" as sm %}
+              <img src="{{ sm.url }}"
+            {% empty %}
+              <img src="{{STATIC_URL}}images/{{object.css_class}}-210x210.jpg"
+            {% endthumbnail %}
+            {% thumbnail object.primary_image "210x210" crop="center" as lg %}
+                srcset="{{ lg.url }} 640w"
+            {% empty %}
+                srcset="{{STATIC_URL}}images/{{object.css_class}}-210x210.jpg"
+            {% endthumbnail %}
+                alt="{{ object.name }}">
+          </div>
+        </div>
+      </div>
+    </div>
+
     {% block title_space %}
       <div class="title-space">
-
-        {% block object_title %}
-          <h1>{{ object.title }} {{ object.name }}</h1>
-        {% endblock %}
-
-        {% block object_tagline %}
-        {% endblock %}
-
         {% block object_menu %}
         <div class="object_menu">
           <nav>
@@ -30,31 +49,57 @@
       </div>
     {% endblock %}
 
-    {% block profile_pic %}
-      <div class="profile-pic">
-        {% thumbnail object.primary_image "100x100" crop="center" as sm %}
-          <img src="{{ sm.url }}"
-        {% empty %}
-          <img src="{{STATIC_URL}}images/{{object.css_class}}-210x210.jpg"
-        {% endthumbnail %}
-        {% thumbnail object.primary_image "210x210" crop="center" as lg %}
-            srcset="{{ lg.url }} 640w"
-        {% empty %}
-            srcset="{{STATIC_URL}}images/{{object.css_class}}-210x210.jpg"
-        {% endthumbnail %}
-            alt="{{ object.name }}">
+    <!-- about -->
+    <div class="person-summary mt-3">
+      <h2 class="mp-subheading">About {{ object.name }}</h2>
+      {% if person.date_of_death %}
+        <p>Died {{ person.date_of_death }}</p>
+      {% endif %}
+      <div class="mp-col">
+        <div class="mp-block is--underlined">
+          <p>
+            {{ person.summary }}
+          </p>
+        </div>
       </div>
-    {% endblock %}
-
-    <div class="profile-info">
-      {% block profile_info %}
+    </div>
+      <div class="row">
+        <div class="col">
+          {% block profile_info %}
+          {% endblock %}
+        </div>
+        <div class="col">
+          <h3>Current positions:</h3>
+          {% block current_positions %}
+          {% endblock %}
+        </div>
+        <div class="col">
+          <h3>Former positions:</h3>
+          {% block former_positions %}
+          {% endblock %}
+        </div>
+      </div>
+    <div>
+      {% block person_messages %}
       {% endblock %}
+    </div>
+    <div>
+      <h3>Member Activity</h3>
+      {% block member_activity %}
+      {% endblock %}
+    </div>
+    <div>
+      {% block declaration_of_interests %}
+      {% endblock %}
+    </div>
+    <!-- <div class="profile-info">
+
 
       <div class="social-and-tools">
           {% include 'core/social_tools.html' %}
       </div>
 
-    </div>
+    </div> -->
 
     <div class="large-container">
       {% block subcontent %}
@@ -64,11 +109,11 @@
 {% endblock %}
 
 
-{% block extra_attribution %}
+<!-- {% block extra_attribution %}
   {# If the object has a summary it may have come from Wikipedia. Display the attribution. #}
   {% if object.summary %}
     {% include 'wikipedia_attribution.html' %}
   {% endif %}
   {# Display any attribution for candidate data #}
   {% include 'candidate_data_attribution.html' %}
-{% endblock %}
+{% endblock %} -->
