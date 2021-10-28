@@ -2,271 +2,525 @@
 {% load pipeline %}
 
 {% block js_end_of_body %}
-  {{ block.super }}
-  {% javascript 'tabs' %}
-  {% javascript 'person-messages-ajax' %}
+{{ block.super }}
+{% javascript 'tabs' %}
+{% javascript 'person-messages-ajax' %}
 {% endblock %}
 
 {% block object_tagline %}
-    <div class="important-positions">
-      {% if organizations_from_important_positions %}
-        <h3 class="text-success">
-          {% for o in organizations_from_important_positions %}
-            <span class="position-title">Member of the {{ o.name }}</span>
-          {% if not forloop.last %}and{% endif %}
-          {% endfor %}
-        </h3>
-      {% endif %}
-      {% if organizations_from_former_important_positions %}
-        <p>
-          Formerly:
-          {% for organisation in organizations_from_former_important_positions %}
-            <span class="position-title">{{ organisation.name }}</span>
-          {% if not forloop.last %}and{% endif %}
-          {% endfor %}
-        </p>
-      {% endif %}
+<div class="important-positions">
+  {% if organizations_from_important_positions %}
+  <h3 class="text-success">
+    {% for o in organizations_from_important_positions %}
+    <p class="mp-role">
+      Member of the {{ o.name }}
+    </p>
+    {% if not forloop.last %}and{% endif %}
+    {% endfor %}
+  </h3>
+  {% endif %}
+  {% if organizations_from_former_important_positions %}
+  <p>
+    Formerly:
+    {% for organisation in organizations_from_former_important_positions %}
+    <span class="position-title">{{ organisation.name }}</span>
+    {% if not forloop.last %}and{% endif %}
+    {% endfor %}
+  </p>
+  {% endif %}
+</div>
+
+<div>
+  {% if person.is_current_member_of_national_assembly and email_contacts %}
+  <a href="{% url 'writeinpublic-mps:writeinpublic-new-message' %}?person_id={{ person.pk }}"
+    class="button is--orange w-inline-block">
+    <div class="button-icon">
+      <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"
+          data-prefix="fas" data-icon="pencil-alt" class="svg-inline--fa fa-pencil-alt fa-w-16" role="img"
+          viewBox="0 0 512 512">
+          <path fill="currentColor"
+            d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z">
+          </path>
+        </svg></div>
     </div>
+    <p>Write a public message to this politician</p>
+  </a>
+  <div class="mp-socials">
+    <p class="mp-socials__title">
+      {{ object.title }} {{ object.name }} on social media:
+    </p>
+    {% if twitter_contacts %}
+    {% for twitter in twitter_contacts %}
+    <a href="https://twitter.com/{{ twitter|cut:" @"|cut:" " }}" class="button is--social is--twitter w-inline-block">
+      <div class="button-icon">
+        <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"
+            data-prefix="fab" data-icon="twitter" class="svg-inline--fa fa-twitter fa-w-16" role="img"
+            viewBox="0 0 512 512">
+            <path fill="currentColor"
+              d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z">
+            </path>
+          </svg></div>
+      </div>
+      <p>@{{ twitter|cut:"@"|cut:" " }}</p>
+    </a>
+    {% endfor %}
+    {% endif %}
 
-    <div class="contact-actions">
-      {% if person.is_current_member_of_national_assembly and email_contacts %}
-        <!-- <div class="contact-actions__wip">
-            <a href="{% url 'writeinpublic-mps:writeinpublic-new-message' %}?person_id={{ person.pk }}">Write a public message to this MP</a>
-        </div> -->
-        <a href="{% url 'writeinpublic-mps:writeinpublic-new-message' %}?person_id={{ person.pk }}" class="button is--orange w-inline-block">
-          <div class="button-icon">
-            <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="pencil-alt" class="svg-inline--fa fa-pencil-alt fa-w-16" role="img" viewBox="0 0 512 512">
-                <path fill="currentColor" d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"></path>
-              </svg></div>
-          </div>
-          <p>Write a public message to this MP</p>
-        </a>
-      {% endif %}
-    </div>
-    <div class="mp-socials">
-      <p class="mp-socials__title">
-        {{ object.title }} {{ object.name }} on social media:
-      </p>
-      {% if twitter_contacts %}
-          {% for twitter in twitter_contacts %}
-            <a href="https://twitter.com/{{ twitter|cut:"@"|cut:" " }}" class="button is--social is--twitter w-inline-block">
-              <div class="button-icon">
-                <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="twitter" class="svg-inline--fa fa-twitter fa-w-16" role="img" viewBox="0 0 512 512">
-                    <path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path>
-                  </svg></div>
-              </div>
-              <p>@{{ twitter|cut:"@"|cut:" " }}</p>
-            </a>
-          {% endfor %}
-      {% endif %}
+    {% if facebook_contacts %}
+    {% for facebook in facebook_contacts %}
+    <a href="{{ facebook }}" class="button is--social is--facebook w-inline-block">
+      <div class="button-icon">
+        <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"
+            data-prefix="fab" data-icon="facebook-square" class="svg-inline--fa fa-facebook-square fa-w-14" role="img"
+            viewbox="0 0 448 512">
+            <path fill="currentColor"
+              d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z">
+            </path>
+          </svg></div>
+      </div>
+      <p>Facebook</p>
+    </a>
+    {% endfor %}
+    {% endif %}
 
-      {% if facebook_contacts %}
-          {% for facebook in facebook_contacts %}
-            <a href="{{ facebook }}"
-            class="button is--social is--facebook w-inline-block"
-            >
-              <div class="button-icon">
-                <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="facebook-square" class="svg-inline--fa fa-facebook-square fa-w-14" role="img" viewbox="0 0 448 512">
-                    <path fill="currentColor" d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z"></path>
-                  </svg></div>
-              </div>
-              <p>Facebook</p>
-            </a>
-          {% endfor %}
-      {% endif %}
+    {% if whoswhosa_contacts %}
+    {% for whoswhosa in whoswhosa_contacts %}
+    <a href="{{ whoswhosa }}" class="button is--social is--whoswho w-inline-block">
+      Who&rsquo;s Who
+    </a>
+    {% endfor %}
+    {% endif %}
 
-      {% if whoswhosa_contacts %}
-          {% for whoswhosa in whoswhosa_contacts %}
-            <a href="{{ whoswhosa }}" class="button is--social is--whoswho w-inline-block">
-              Who&rsquo;s Who
-            </a>
-          {% endfor %}
-      {% endif %}
+    {% if youtube_contacts %}
+    {% for youtube in youtube_contacts %}
+    <a href="{{ youtube }}" class="button is--social is--youtube w-inline-block">
+      <div class="button-icon">
+        <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"
+            data-prefix="fab" data-icon="youtube" class="svg-inline--fa fa-youtube fa-w-18" role="img"
+            viewbox="0 0 576 512">
+            <path fill="currentColor"
+              d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z">
+            </path>
+          </svg></div>
+      </div>
+      <p>Youtube</p>
+    </a>
+    {% endfor %}
+    {% endif %}
 
-      {% if youtube_contacts %}
-          {% for youtube in youtube_contacts %}
-            <a href="{{ youtube }}" class="button is--social is--youtube w-inline-block">
-              <div class="button-icon">
-                <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="youtube" class="svg-inline--fa fa-youtube fa-w-18" role="img" viewbox="0 0 576 512">
-                    <path fill="currentColor" d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"></path>
-                  </svg></div>
-              </div>
-              <p>Youtube</p>
-            </a>
-          {% endfor %}
-      {% endif %}
-
-      {% if linkedin_contacts %}
-          {% for linkedin in linkedin_contacts %}
-            <a href="{{ linkedin }}" class="button is--social is--linkedin w-inline-block">
-              <div class="button-icon">
-                <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="linkedin" class="svg-inline--fa fa-linkedin fa-w-14" role="img" viewbox="0 0 448 512">
-                    <path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path>
-                  </svg></div>
-              </div>
-              <p>LinkedIn</p>
-            </a>
-          {% endfor %}
-      {% endif %}
-    </div>
+    {% if linkedin_contacts %}
+    {% for linkedin in linkedin_contacts %}
+    <a href="{{ linkedin }}" class="button is--social is--linkedin w-inline-block">
+      <div class="button-icon">
+        <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"
+            data-prefix="fab" data-icon="linkedin" class="svg-inline--fa fa-linkedin fa-w-14" role="img"
+            viewbox="0 0 448 512">
+            <path fill="currentColor"
+              d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z">
+            </path>
+          </svg></div>
+      </div>
+      <p>LinkedIn</p>
+    </a>
+    {% endfor %}
+    {% endif %}
+  </div>
+  {% endif %}
+</div>
 {% endblock object_tagline %}
 
 {% block subcontent %}
-
-  {% with past_positions=person.position_set.all.political.currently_inactive current_positions=person.position_set.all.political.currently_active %}
-    <div class="tabs ui-tabs ui-widget person-tabs">
-      <ul class="tab-links ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header">
-        {% if attendance %}
-          <li class="ui-state-default">
-            <a class="ui-tabs-anchor" href="#attendance">Committee Attendance</a>
-          </li>
-        {% endif %}
-        {% if past_positions or current_positions %}
-          <li class="ui-state-default">
-            <a class="ui-tabs-anchor" href="#experience">Positions held</a>
-          </li>
-        {% endif %}
-        {% if person.has_ever_been_member_of_national_assembly %}
-          <li class="ui-state-default">
-            <a class="ui-tabs-anchor js-person-messages-ajax" href="#messages" data-ajax-url="{% url 'sa-person-write-all' person_slug=person.slug %}">Messages</a>
-          </li>
-        {% endif %}
-        {% if object.interests_register_entries.exists %}
-          <li class="ui-state-default">
-            <a class="ui-tabs-anchor" href="#membersinterests">Register of Interests</a>
-          </li>
-        {% endif %}
-        {% if hansard.count or question.count or committee.count %}
-          <li class="ui-state-default">
-            <a class="ui-tabs-anchor" href="#appearances">Appearances</a>
-          </li>
-        {% endif %}
-      </ul>
-
-      {% if attendance %}
-        <div id="attendance" class="tab-content ui-tabs-panel ui-widget-content">
-          <div class="fifty-fifty-layout">
-
-            {% if attendance == 'UNAVAILABLE' %}
-              <p>Attendance data is currently unavailable.</p>
-            {% else %}
-
-              <div class="column">
-                {% for data in attendance %}
-                  <header>
-                    <h3 class="attendance__heading">{{ data.year }} committee attendance as {{ data.position }}</h3>
-                    {% if data.year == 2014 %}<p>(From the start of the Fifth Parliament)</p>{% endif %}
-                  </header>
-                  {% if data.position == 'minister/deputy' %}
-                    <p class="attendance__number">Attended {{ data.attended }} meeting{{ data.attended|pluralize }}</p>
-                  {% else %}
-                    <p class="attendance__percentage">{{ data.percentage|floatformat:"0" }}% attendance rate</p>
-                    <p class="attendance__context">Attended {{ data.attended }} meeting{{ data.attended|pluralize }} out of {{ data.total }}</p>
-                  {% endif %}
+<div class="mt-3">
+  <div class="row">
+    <div class="col-lg-4 col-md-12 col-sm-12">
+      <div class="mp-col">
+        <div>
+          <div>
+            <div class="mp-block">
+              <h3 class="mp-block__title">Political party:</h3>
+              <ul>
+                {% for party in object.parties_and_coalitions %}
+                <li>
+                  <a href="{{ party.get_absolute_url }}" {% for identifier in party.identifiers.all %}
+                    data-identifier-{{ identifier.scheme }}="{{ identifier.identifier }}" {%endfor%}
+                    class="text-link w-inline-block">
+                    <p class="text-link__text">
+                      {{ party.name }}
+                    </p>
+                    <div class="text-link__icon">
+                      <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+                          focusable="false" data-prefix="fas" data-icon="long-arrow-alt-right"
+                          class="svg-inline--fa fa-long-arrow-alt-right fa-w-14" role="img" viewBox="0 0 448 512">
+                          <path fill="currentColor"
+                            d="M313.941 216H12c-6.627 0-12 5.373-12 12v56c0 6.627 5.373 12 12 12h301.941v46.059c0 21.382 25.851 32.09 40.971 16.971l86.059-86.059c9.373-9.373 9.373-24.569 0-33.941l-86.059-86.059c-15.119-15.119-40.971-4.411-40.971 16.971V216z">
+                          </path>
+                        </svg></div>
+                    </div>
+                  </a>
+                </li>
+                {% empty %}
+                {% if former_parties %}
+                {% for party in former_parties %}
+                <li><a href="{{ party.get_absolute_url }}"
+                    class="party-membership party-membership--{{ party.kind.name | slugify }}">{{ party.name }}</a></li>
+                {% empty %}
+                <li>
+                  <p class="no-data">Not associated with any political party</p>
+                </li>
                 {% endfor %}
+                {% else %}
+                <li>
+                  <p class="no-data">Not associated with any political party</p>
+                </li>
+                {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
 
-                <p><a href="{% url 'info_page' slug='attendance-methodology' %}">Attendance Methodology</a></p>
-              </div>
+            {% comment %}
+            <!-- Temporary hide MP email addresses. -->
+            {% if person.has_ever_been_member_of_nat_prov_legislature and email_contacts %}
+            <h3>Email</h3>
+            <ul>
+              {% for email in email_contacts %}
+              <li class="email-address{{ email.1|yesno:" preferred," }}">{{ email.0|urlizetrunc:50 }}</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+            {% endcomment %}
 
-              {% if latest_meetings_attended %}
-                <div class="column">
-                  <h3>Recent meetings attended</h3>
-                  <ul class="unstyled attendance__recently-attended">
-                    {% for meeting in latest_meetings_attended %}
-                      <li><span class="committee-name">{{ meeting.committee_name }} &mdash; </span> <a href="{{ meeting.url }}"><span class="meeting-title">{{ meeting.title }}</span></a> &mdash; <span class="meeting-date">{{ meeting.date }}</span></li>
-                    {% endfor %}
-                  </ul>
-                  <p><a href="{% url 'sa-person-attendance' person_slug=object.slug %}">All meetings attended</a></p>
-                </div>
-              {% endif %}
+            <h3>Constituency Offices</h3>
+            <ul>
+              {% for office in object.constituency_offices %}
+              <li><a href="{{ office.get_absolute_url }}">{{ office.name }}</a></li>
+              {% empty %}
+              <li>Not associated with any constituency offices</li>
+              {% endfor %}
+            </ul>
 
+            {% if phone_contacts %}
+            <h3>Contact Numbers:</h3>
+            <ul>
+              {% for phone in phone_contacts %}
+              <li><a href="tel:{{ phone }}">{{ phone }}</a></li>
+              {% endfor %}
+            </ul>
             {% endif %}
 
-          </div>
-          <p class="attendance__disclaimer">DISCLAIMER: This information has been obtained via the Parliamentary Monitoring Group. PMG makes every effort to compile reliable and comprehensive information, but does not claim that the data is 100% accurate and complete.
-          </p>
-        </div> <!-- .attendance -->
-      {% endif %}
-
-      {% if past_positions or current_positions %}
-        <div id="experience" class="tab-content ui-tabs-panel ui-widget-content">
-          <div class="person-experience">
-            <h3>Currently</h3>
-            {% block current_positions %}
-              <ul class="current-positions positions">
-                {% if current_positions %}
-                  {% for position in current_positions %}
-                    <li>{% include "core/person_detail_position.html" %}
-                      {% if position.start_date %} since {{ position.start_date }}{% endif %}
-                    </li>
-                  {% endfor %}
-                {% else %}
-                  <li>No current positions recorded.</li>
-                {% endif %}
-              </ul>
-              {% endblock %}
-
-            <h3>Formerly</h3>
-            {% block former_positions %}
-            <ul class="former-positions positions">
-              {% if past_positions %}
-                {% for position in past_positions %}
-                  <li>{% include "core/person_detail_position.html" %}
-                    {% if position.start_date %}
-                      from {{ position.start_date }}
-                    {% endif %}
-                    until {{ position.end_date }}
-                  </li>
-                {% endfor %}
-              {% else %}
-                <li>No former positions recorded.</li>
-              {% endif %}
+            {% if fax_contacts %}
+            <h3>Fax</h3>
+            <ul>
+              {% for fax in fax_contacts %}
+              <li>{{ fax }}</li>
+              {% endfor %}
             </ul>
-            {% endblock %}
-          </div> <!-- .person-experience -->
-        </div> <!-- #experience -->
-      {% endif %}
+            {% endif %}
 
-      {% block person_messages %}
-        {% if person.has_ever_been_member_of_national_assembly %}
-          <h3>Public messages sent to this MP</h3>
-          <div id="messages">
-            <p>Fetching the latest messages to {{ object.name }} …</p>
+            {% if address_contacts %}
+            <h3>Address</h3>
+            <ul>
+              {% for address in address_contacts %}
+              <li>{{ address }}</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+
+            {% if object.aspirant_constituencies.count %}
+            <h3>Aspirant for</h3>
+            <ul class="aspirant-constituencies">
+              {% for constituency in object.aspirant_constituencies %}
+              <li><a href="{{ constituency.get_absolute_url }}">{{ constituency.name }}</a></li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+
+            {% regroup object.constituencies|dictsort:"kind" by kind as constituency_groups %}
+            {% for entry in constituency_groups %}
+            <h3>{{ entry.grouper }}</h3>
+            <ul>
+              {% for area in entry.list %}
+              <li><a {% for identifier in area.identifiers.all %} data-identifier-{{ identifier.scheme
+                  }}="{{ identifier.identifier }}" {%endfor%} href="{{ area.get_absolute_url }}">{{ area.name }}</a>
+              </li>
+              {% endfor %}
+            </ul>
+            {% endfor %}
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-12 col-sm-12">
+      <div class="mp-col">
+        {% with past_positions=person.position_set.all.political.currently_inactive current_positions=person.position_set.all.political.currently_active %}
+        {% block current_politician_positions %}
+        {% if current_positions %}
+        <div class="current">
+          <h3 class="mp-block__title">Current positions:</h3>
+          <ul class="current-positions positions">
+            {% if current_positions %}
+            {% for position in current_positions %}
+            <li>{% include "core/person_detail_position.html" %}
+              {% if position.start_date %} since {{ position.start_date }}{% endif %}
+            </li>
+            {% endfor %}
+            {% else %}
+            <li>No current positions recorded.</li>
+            {% endif %}
+          </ul>
+        </div>
         {% endif %}
-      {% endblock %}
-
-      {% block declaration_of_interests %}
-      {% if object.interests_register_entries.exists %}
-      <h2 class="mp-subheading">Declaration of interests</h2>
-      <div id="membersinterests">
-          <div class="person-interests">
-            <div id="accordion">
-              <div class="info-block">
-                  <div id="headingOne" data-toggle="collapse" data-target="#declaration-of-interests" aria-expanded="true"
-                  aria-controls="declaration-of-interests">
-                    <div class="row">
-                      <div class="col">
-                        <p class="info-block__title">
-                            What are declaration of interests?
-                        </p>
-                      </div>
-                      <div class="col">
-                        <div class="float-right" style="width: 0.8rem; height: 0.8rem;">
-                          <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="caret-down" class="svg-inline--fa fa-caret-down fa-w-10" role="img" viewBox="0 0 320 512"><path fill="currentColor" d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"></path></svg>
-                        </div>
-                      </div>
+        {% endblock %}
+        {% endwith %}
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-12 col-sm-12">
+      <div class="mp-col">
+        {% with past_positions=person.position_set.all.political.currently_inactive current_positions=person.position_set.all.political.currently_active %}
+        {% if past_positions %}
+        <div class="former">
+          <h3 class="mp-block__title">Former positions:</h3>
+          {% block former_politician_positions %}
+          <ul class="former-positions positions">
+            {% if past_positions %}
+            {% for position in past_positions %}
+            <li>{% include "core/person_detail_position.html" %}
+              {% if position.start_date %}
+              from {{ position.start_date }}
+              {% endif %}
+              until {{ position.end_date }}
+            </li>
+            {% endfor %}
+            {% else %}
+            <li>No former positions recorded.</li>
+            {% endif %}
+          </ul>
+          {% endblock %}
+        </div>
+        {% endif %}
+        {% endwith %}
+      </div>
+    </div>
+  </div>
+  <div>
+    {% if person.has_ever_been_member_of_national_assembly %}
+    <h2 class="mp-subheading">Public messages sent to this politician</h2>
+    <div id="messages">
+      <p>Fetching the latest messages to {{ object.name }} …</p>
+    </div>
+    {% endif %}
+  </div>
+  <div>
+    {% block plenary_appearances %}
+    {% if hansard.count or question.count or committee.count %}
+    <h2 class="mp-subheading">Politician Activity</h2>
+    <div class="mb-3">
+      <p class="category-title">Recent meetings attended:</p>
+      {% if latest_meetings_attended %}
+      <div class="row">
+        {% for meeting in latest_meetings_attended|slice:":4" %}
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <div class="mp-item is--half">
+            <div class="mp-meeting w-inline-block">
+              <p class="item-title">
+                {{ meeting.committee_name }}
+              </p>
+              <p class="item-detail">
+                <a href="{{ meeting.url }}">
+                  <span>
+                    {{ meeting.title }}
+                  </span>
+                </a>
+              </p>
+              <p class="item-date">{{ meeting.date }}</p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <p class="mp-block__link">
+        <a href="{% url 'sa-person-attendance' person_slug=object.slug %}">
+          See all meetings attended by this politician
+        </a>
+      </p>
+      {% endif %}
+    </div>
+    <div id="appearances">
+      <div class="row mb-3">
+        <div class="col-lg-6 col-md-12 col-sm-12">
+          <p class="category-title">What they said in committee meetings:</p>
+          <div id="accordion">
+            <div class="info-block">
+              <div id="headingOne" data-toggle="collapse" data-target="#committee-meetings" aria-expanded="true"
+                aria-controls="committee-meetings">
+                <div class="row">
+                  <div class="col-8">
+                    <p class="info-block__title">
+                      What are committee meetings?
+                    </p>
+                  </div>
+                  <div class="col-4">
+                    <div class="float-right" style="width: 0.8rem; height: 0.8rem;">
+                      <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas"
+                        data-icon="caret-down" class="svg-inline--fa fa-caret-down fa-w-10" role="img"
+                        viewBox="0 0 320 512">
+                        <path fill="currentColor"
+                          d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z">
+                        </path>
+                      </svg>
                     </div>
                   </div>
-
-                  <div id="declaration-of-interests" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                      <div class="info-block__content">
-                          Declarations of interests...
-                      </div>
-                  </div>
+                </div>
               </div>
+              <div id="committee-meetings" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="info-block__content">
+                  Committee meetings are the official way of MPs to speak publicly. They are a way of getting MPs to
+                  speak
+                </div>
+              </div>
+            </div>
           </div>
-            {% for release, release_date in interests %}
+
+          {% include "core/person_committee_meetings.html" with speechlist=committee ifempty='<div class="col-12"><div class="mp-question mb-3"><p>No appearances found</p></div></div>' %}
+
+          {% if committee.count %}
+          <p class="mp-block__link">
+            <a href="{% url 'sa-person-appearance' person_slug=object.slug speech_tag='committee' %}">
+              See all committee appearances by this politician
+            </a>
+          </p>
+          {% endif %}
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12">
+          <p class="category-title">Questions asked to ministers:</p>
+          <div id="accordion">
+            <div class="info-block">
+              <div id="headingOne" data-toggle="collapse" data-target="#questions-to-ministers" aria-expanded="true"
+                aria-controls="questions-to-ministers">
+                <div class="row">
+                  <div class="col-8">
+                    <p class="info-block__title">
+                      What are questions asked to ministers?
+                    </p>
+                  </div>
+                  <div class="col-4">
+                    <div class="float-right" style="width: 0.8rem; height: 0.8rem;">
+                      <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas"
+                        data-icon="caret-down" class="svg-inline--fa fa-caret-down fa-w-10" role="img"
+                        viewBox="0 0 320 512">
+                        <path fill="currentColor"
+                          d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z">
+                        </path>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="questions-to-ministers" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="info-block__content">
+                  Minister questions are the official way of MPs to speak publicly. They are a way of getting MPs to
+                  speak
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {% include "core/person_committee_meetings.html" with speechlist=question parent_title=1 ifempty='<div class="col-12"><div class="mp-question mb-3"><p>No questions found</p></div></div>' %}
+
+          {% if question.count %}
+          <p class="mp-block__link">
+            <a href="{% url 'sa-person-appearance' person_slug=object.slug speech_tag='question' %}">
+              See all questions asked by this politician
+            </a>
+          </p>
+          {% endif %}
+        </div>
+      </div>
+      <section class="mp-row is--overline">
+        <p class="category-title">Plenary appearances</p>
+        <div id="accordion">
+          <div class="info-block">
+            <div id="headingOne" data-toggle="collapse" data-target="#plenary-apperances" aria-expanded="true"
+              aria-controls="plenary-apperances">
+              <div class="row">
+                <div class="col-8">
+                  <p class="info-block__title">
+                    What are plenary appearances?
+                  </p>
+                </div>
+                <div class="col-4">
+                  <div class="float-right" style="width: 0.8rem; height: 0.8rem;">
+                    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas"
+                      data-icon="caret-down" class="svg-inline--fa fa-caret-down fa-w-10" role="img"
+                      viewBox="0 0 320 512">
+                      <path fill="currentColor"
+                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z">
+                      </path>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="plenary-apperances" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="info-block__content">
+                Plenary appearances are the official way of MPs to speak publicly. They are a way of getting MPs to
+                speak
+              </div>
+            </div>
+          </div>
+        </div>
+        {% include "core/person_speech_list.html" with speechlist=hansard ifempty='<div class="col-12"><div class="mp-question mb-3"><p>No appearances found</p></div></div>' %}
+
+        {% if hansard.count %}
+        <p class="mp-block__link">
+          <a href="{% url 'sa-person-appearance' person_slug=object.slug speech_tag='hansard' %}">
+            See all plenary appearances for this politician
+          </a>
+        </p>
+        {% endif %}
+      </section>
+    </div>
+    {% endif %}
+    {% endblock %}
+  </div>
+  <div>
+    {% if object.interests_register_entries.exists %}
+    <h2 class="mp-subheading">Declaration of interests</h2>
+    <div id="membersinterests">
+      <div class="person-interests">
+        <div id="accordion">
+          <div class="info-block">
+            <div id="headingOne" data-toggle="collapse" data-target="#declaration-of-interests" aria-expanded="true"
+              aria-controls="declaration-of-interests">
+              <div class="row">
+                <div class="col-8">
+                  <p class="info-block__title">
+                    What are declaration of interests?
+                  </p>
+                </div>
+                <div class="col-4">
+                  <div class="float-right" style="width: 0.8rem; height: 0.8rem;">
+                    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas"
+                      data-icon="caret-down" class="svg-inline--fa fa-caret-down fa-w-10" role="img"
+                      viewBox="0 0 320 512">
+                      <path fill="currentColor"
+                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z">
+                      </path>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="declaration-of-interests" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="info-block__content">
+                Declarations of interests...
+              </div>
+            </div>
+          </div>
+        </div>
+        {% for release, release_date in interests %}
+        <div class="accordion">
+          <div class="mp-year-collapse" data-toggle="collapse" data-target="#{{ release.release_year }}"
+            aria-expanded="false" aria-controls="{{ release.release_year }}">
             <div class="mp-category">
               <h3 class="category-title">
                 {{ release.release_year }}
@@ -274,219 +528,123 @@
               <p class="category-info">
                 {{ release.categories.items|length }} categories
               </p>
+              {% for informationsource in release.informationsource %}
+              <a href="{{ informationsource.source }}" class="is--source" target="_blank"
+                title="{{ informationsource.note }}">
+                Source</a>
+              {% endfor %}
             </div>
-              <div id="accordion" class="mb-4">
-                {% for ckey, category in release.categories.items %}
-                <div class="mp-collapse">
-                  <div
-                    class="collapse-trigger"
-                    data-toggle="collapse" data-target="#{{ category.category_id }}" aria-expanded="false"
-                    aria-controls="{{ category.category_id }}"
-                  >
+          </div>
+          <div id="{{ release.release_year }}" class="collapse" aria-labelledby="{{ release.release_year }}"
+            data-parent="#accordion">
+            <div id="accordion" class="mb-4">
+              {% for ckey, category in release.categories.items %}
+              <div class="mp-collapse">
+                <div class="collapse-trigger" data-toggle="collapse" data-target="#{{ category.category_id }}"
+                  aria-expanded="false" aria-controls="{{ category.category_id }}">
                   <div class="collapse-header">
                     <p class="collapse-title">
-                        {{ category.name }}
+                      {{ category.name }}
                     </p>
                     <p class="collapse-info">
                       {{ category.entries|length }} items
                     </p>
                   </div>
                   <div class="collapse-open">
-                    <div class="svg-icon is--small w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="caret-down" class="svg-inline--fa fa-caret-down fa-w-10" role="img" viewbox="0 0 320 512">
-                        <path fill="currentColor" d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"></path>
+                    <div class="svg-icon is--small w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+                        focusable="false" data-prefix="fas" data-icon="caret-down"
+                        class="svg-inline--fa fa-caret-down fa-w-10" role="img" viewbox="0 0 320 512">
+                        <path fill="currentColor"
+                          d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z">
+                        </path>
                       </svg></div>
                   </div>
-                  </div>
+                </div>
 
-                  <div id="{{ category.category_id }}" class="collapse" aria-labelledby="{{ category.category_id }}" data-parent="#accordion">
-                      <div class="collapse-content">
-                        <div class="mp-table">
-                          <table>
-                            <tr class="table-row is--header">
-                              {% for heading in category.headings %}
-                                <th class="col-text">{{ heading }}</th>
-                              {% endfor %}
-                            </tr>
-                            {% for line in category.entries %}
-                              <tr class="table-row">
-                                {% for cell in line %}
-                                  <td class="col-text">
-                                    <p title="{{ cell }}">
-                                      {{ cell }}
-                                    </p>
-                                  </td>
-                                {% endfor %}
-                              </tr>
-                            {% endfor %}
-                          </table>
-                        </div>
-                      </div>
+                <div id="{{ category.category_id }}" class="collapse" aria-labelledby="{{ category.category_id }}"
+                  data-parent="#accordion">
+                  <div class="collapse-content">
+                    <div class="mp-table">
+                      <table>
+                        <tr class="table-row is--header">
+                          {% for heading in category.headings %}
+                          <th class="col-text">{{ heading }}</th>
+                          {% endfor %}
+                        </tr>
+                        {% for line in category.entries %}
+                        <tr class="table-row">
+                          {% for cell in line %}
+                          <td class="col-text">
+                            <p title="{{ cell }}">
+                              {{ cell }}
+                            </p>
+                          </td>
+                          {% endfor %}
+                        </tr>
+                        {% endfor %}
+                      </table>
+                    </div>
                   </div>
                 </div>
+              </div>
               {% endfor %}
             </div> <!-- #accordion -->
-            {% endfor %}
-          </div> <!-- .person-interests -->
-        </div> <!-- .membersinterests -->
-      {% endif %}
-      {% endblock %}
-
-      {% if hansard.count or question.count or committee.count %}
-        <div id="appearances" class="tab-content ui-tabs-panel ui-widget-content">
-          <section class="person-appearances">
-            <h3>Committee appearances</h3>
-
-            {% include "core/person_speech_list.html" with speechlist=committee ifempty="No appearances found" %}
-
-            {% if committee.count %}
-              <p><a href="{% url 'sa-person-appearance' person_slug=object.slug speech_tag='committee' %}">All Committee Appearances</a></p>
-            {% endif %}
-          </section>
-
-          <section class="person-appearances">
-            <h3>Questions</h3>
-
-            {% include "core/person_speech_list.html" with speechlist=question parent_title=1 ifempty="No questions found" %}
-
-            {% if question.count %}
-              <p><a href="{% url 'sa-person-appearance' person_slug=object.slug speech_tag='question' %}">All Questions and Answers</a></p>
-            {% endif %}
-          </section>
-
-          <section class="person-appearances">
-            <h3>Plenary appearances</h3>
-
-            {% include "core/person_speech_list.html" with speechlist=hansard ifempty="No appearances found" %}
-
-            {% if hansard.count %}
-              <p><a href="{% url 'sa-person-appearance' person_slug=object.slug speech_tag='hansard' %}">All Plenary Appearances</a></p>
-            {% endif %}
-          </section>
+          </div>
         </div>
+        {% endfor %}
+      </div> <!-- .person-interests -->
+    </div> <!-- .membersinterests -->
+    {% endif %}
+  </div>
+  {% if attendance %}
+  <div id="attendance" class="tab-content ui-tabs-panel ui-widget-content">
+    <div class="fifty-fifty-layout">
+
+      {% if attendance == 'UNAVAILABLE' %}
+      <p>Attendance data is currently unavailable.</p>
+      {% else %}
+
+      <div class="column">
+        {% for data in attendance %}
+          <header>
+            <h3 class="attendance__heading">
+              {{ data.year }} committee attendance as {{ data.position }}
+            </h3>
+            {% if data.year == 2014 %}
+              <p>
+                (From the start of the Fifth Parliament)
+              </p>
+            {% endif %}
+          </header>
+          {% if data.position == 'minister/deputy' %}
+            <p class="attendance__number">
+              Attended {{ data.attended }} meeting{{ data.attended|pluralize }}
+            </p>
+          {% else %}
+            <p class="attendance__percentage">
+              {{ data.percentage|floatformat:"0" }}% attendance rate
+            </p>
+            <p class="attendance__context">
+              Attended {{ data.attended }} meeting{{ data.attended|pluralize }} out of {{ data.total }}
+            </p>
+          {% endif %}
+        {% endfor %}
+
+        <p>
+          <a href="{% url 'info_page' slug='attendance-methodology' %}">
+          Attendance Methodology
+          </a>
+        </p>
+      </div>
+
       {% endif %}
 
-    </div> <!-- tabs -->
-    {% endwith %}
-
-    {% comment %}
-       .large-container and .page-wrapper are left open since
-       they're closed in the enclosing template.
-    {% endcomment %}
-{% endblock %}
-
-{% block profile_info %}
-<div>
-  <div>
-    <div class="mp-block">
-      <h3 class="mp-block__title">Political party:</h3>
-      <ul>
-          {% for party in object.parties_and_coalitions %}
-            <li>
-              <a href="{{ party.get_absolute_url }}"
-              {% for identifier in party.identifiers.all %}
-                data-identifier-{{ identifier.scheme }}="{{ identifier.identifier }}"
-              {%endfor%}
-              class="text-link w-inline-block"
-              >
-              <p class="text-link__text">
-                {{ party.name }}
-              </p>
-              <div class="text-link__icon">
-                <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="long-arrow-alt-right" class="svg-inline--fa fa-long-arrow-alt-right fa-w-14" role="img" viewBox="0 0 448 512">
-                    <path fill="currentColor" d="M313.941 216H12c-6.627 0-12 5.373-12 12v56c0 6.627 5.373 12 12 12h301.941v46.059c0 21.382 25.851 32.09 40.971 16.971l86.059-86.059c9.373-9.373 9.373-24.569 0-33.941l-86.059-86.059c-15.119-15.119-40.971-4.411-40.971 16.971V216z"></path>
-                  </svg></div>
-              </div>
-              </a>
-            </li>
-          {% empty %}
-            {% if former_parties %}
-              {% for party in former_parties %}
-                <li><a href="{{ party.get_absolute_url }}" class="party-membership party-membership--{{ party.kind.name | slugify }}">{{ party.name }}</a></li>
-              {% empty %}
-                <li>
-                  <p class="no-data">Not associated with any political party</p>
-                </li>
-              {% endfor %}
-            {% else %}
-              <li>
-                <p class="no-data">Not associated with any political party</p>
-              </li>
-            {% endif %}
-          {% endfor %}
-        </ul>
     </div>
-
-  {% comment %}
-    <!-- Temporary hide MP email addresses. -->
-    {% if person.has_ever_been_member_of_nat_prov_legislature and email_contacts %}
-      <h3>Email</h3>
-      <ul>
-        {% for email in email_contacts %}
-          <li class="email-address{{ email.1|yesno:" preferred," }}">{{ email.0|urlizetrunc:50 }}</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-  {% endcomment %}
-
-    <h3>Constituency Offices</h3>
-    <ul>
-      {% for office in object.constituency_offices %}
-        <li><a href="{{ office.get_absolute_url }}">{{ office.name }}</a></li>
-      {% empty %}
-        <li>Not associated with any constituency offices</li>
-      {% endfor %}
-    </ul>
-
-
-    {% if phone_contacts %}
-      <h3>Contact Numbers:</h3>
-      <ul>
-        {% for phone in phone_contacts %}
-          <li><a href="tel:{{ phone }}">{{ phone }}</a></li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-
-    {% if fax_contacts %}
-      <h3>Fax</h3>
-      <ul>
-        {% for fax in fax_contacts %}
-        <li>{{ fax }}</li>
-      {% endfor %}
-      </ul>
-    {% endif %}
-
-    {% if address_contacts %}
-      <h3>Address</h3>
-      <ul>
-        {% for address in address_contacts %}
-          <li>{{ address }}</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-
-    {% if object.aspirant_constituencies.count %}
-      <h3>Aspirant for</h3>
-      <ul class="aspirant-constituencies">
-        {% for constituency in object.aspirant_constituencies %}
-          <li><a href="{{ constituency.get_absolute_url }}">{{ constituency.name }}</a></li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-
-    {% regroup object.constituencies|dictsort:"kind" by kind as constituency_groups %}
-    {% for entry in constituency_groups %}
-      <h3>{{ entry.grouper }}</h3>
-      <ul>
-        {% for area in entry.list %}
-          <li><a
-            {% for identifier in area.identifiers.all %}
-              data-identifier-{{ identifier.scheme }}="{{ identifier.identifier }}"
-            {%endfor%}
-            href="{{ area.get_absolute_url }}">{{ area.name }}</a></li>
-        {% endfor %}
-      </ul>
-    {% endfor %}
-  </div>
-</div>
+    <p class="attendance__disclaimer">DISCLAIMER: This information has been obtained via the Parliamentary Monitoring
+      Group. PMG makes every effort to compile reliable and comprehensive information, but does not claim that the data
+      is 100% accurate and complete.
+    </p>
+  </div> <!-- .attendance -->
+  {% endif %}
+</div> <!-- tabs -->
 {% endblock %}

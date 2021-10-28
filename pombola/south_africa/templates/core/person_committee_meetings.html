@@ -17,8 +17,8 @@ ifempty - a string shown if there are no speeches to show.
 {% endcomment %}
 
 <div class="row">
-    {% for speech in speechlist|slice:":3" %}
-    <div class="col-lg-6 col-md-6 col-sm-12">
+  {% for speech in speechlist|slice:":3" %}
+    <div class="col-12">
         <div class="mp-item">
             <div class="mp-question w-inline-block">
                 <div class="item-header">
@@ -37,12 +37,12 @@ ifempty - a string shown if there are no speeches to show.
                     </p>
                 </div>
                 <p class="item-detail">
-                    {{ speech.text|bleach|truncatewords_html:30 }}
+                    {{ speech.text|bleach|truncatewords_html:20 }}
                 </p>
             </div>
         </div>
     </div>
-    {% empty %}
-    {% firstof ifempty "No speeches found" %}
-    {% endfor %}
+  {% empty %}
+  {% firstof ifempty "No speeches found" %}
+  {% endfor %}
 </div>

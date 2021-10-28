@@ -9,7 +9,7 @@
     <div class="row">
       <div class="col">
         {% block object_title %}
-        <h1>{{ object.title }} {{ object.name }}</h1>
+        <h1 class="mp-name">{{ object.title }} {{ object.name }}</h1>
       {% endblock %}
       {% block object_tagline %}
         {% endblock %}
@@ -33,22 +33,6 @@
       </div>
     </div>
 
-    {% block title_space %}
-      <div class="title-space">
-        {% block object_menu %}
-        <div class="object_menu">
-          <nav>
-            <ul>
-              {% block object_menu_links %}
-              {% endblock %}
-            </ul>
-          </nav>
-        </div>
-        {% endblock %}
-
-      </div>
-    {% endblock %}
-
     <!-- about -->
     <div class="person-summary mt-3">
       <h2 class="mp-subheading">About {{ object.name }}</h2>
@@ -63,45 +47,8 @@
         </div>
       </div>
     </div>
-      <div class="row">
-        <div class="col">
-          {% block profile_info %}
-          {% endblock %}
-        </div>
-        <div class="col">
-          <h3>Current positions:</h3>
-          {% block current_positions %}
-          {% endblock %}
-        </div>
-        <div class="col">
-          <h3>Former positions:</h3>
-          {% block former_positions %}
-          {% endblock %}
-        </div>
-      </div>
+
     <div>
-      {% block person_messages %}
-      {% endblock %}
-    </div>
-    <div>
-      <h3>Member Activity</h3>
-      {% block member_activity %}
-      {% endblock %}
-    </div>
-    <div>
-      {% block declaration_of_interests %}
-      {% endblock %}
-    </div>
-    <!-- <div class="profile-info">
-
-
-      <div class="social-and-tools">
-          {% include 'core/social_tools.html' %}
-      </div>
-
-    </div> -->
-
-    <div class="large-container">
       {% block subcontent %}
         You should add your own custom content to this layout in a 'subcontent' block.
       {% endblock %}
@@ -109,11 +56,11 @@
 {% endblock %}
 
 
-<!-- {% block extra_attribution %}
+{% block extra_attribution %}
   {# If the object has a summary it may have come from Wikipedia. Display the attribution. #}
   {% if object.summary %}
     {% include 'wikipedia_attribution.html' %}
   {% endif %}
   {# Display any attribution for candidate data #}
   {% include 'candidate_data_attribution.html' %}
-{% endblock %} -->
+{% endblock %}
