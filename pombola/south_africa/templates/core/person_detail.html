@@ -138,9 +138,7 @@
           <div>
             <div class="mp-block">
               <h3 class="mp-block__title">Political party:</h3>
-              <ul>
                 {% for party in object.parties_and_coalitions %}
-                <li>
                   <a href="{{ party.get_absolute_url }}" {% for identifier in party.identifiers.all %}
                     data-identifier-{{ identifier.scheme }}="{{ identifier.identifier }}" {%endfor%}
                     class="text-link w-inline-block">
@@ -157,30 +155,24 @@
                         </svg></div>
                     </div>
                   </a>
-                </li>
                 {% empty %}
                 {% if former_parties %}
                 {% for party in former_parties %}
-                <li><a href="{{ party.get_absolute_url }}"
+                  <a href="{{ party.get_absolute_url }}"
                     class="party-membership party-membership--{{ party.kind.name | slugify }}">{{ party.name }}</a></li>
                 {% empty %}
-                <li>
                   <p class="no-data">Not associated with any political party</p>
-                </li>
                 {% endfor %}
                 {% else %}
-                <li>
                   <p class="no-data">Not associated with any political party</p>
-                </li>
                 {% endif %}
                 {% endfor %}
-              </ul>
             </div>
 
             {% comment %}
             <!-- Temporary hide MP email addresses. -->
             {% if person.has_ever_been_member_of_nat_prov_legislature and email_contacts %}
-            <h3>Email</h3>
+            <h3 class="mp-block__title">Email</h3>
             <ul>
               {% for email in email_contacts %}
               <li class="email-address{{ email.1|yesno:" preferred," }}">{{ email.0|urlizetrunc:50 }}</li>
@@ -189,35 +181,44 @@
             {% endif %}
             {% endcomment %}
 
-            <h3>Constituency Offices</h3>
-            <ul>
-              {% for office in object.constituency_offices %}
-              <li><a href="{{ office.get_absolute_url }}">{{ office.name }}</a></li>
+            <h3 class="mp-block__title">Constituency Offices</h3>
+            {% for office in object.constituency_offices %}
+              <a href="{{ office.get_absolute_url }}" class="text-link w-inline-block">
+                <p class="text-link__text">{{ office.name }}</p>
+                <div class="text-link__icon">
+                  <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="long-arrow-alt-right" class="svg-inline--fa fa-long-arrow-alt-right fa-w-14" role="img" viewBox="0 0 448 512">
+                      <path fill="currentColor" d="M313.941 216H12c-6.627 0-12 5.373-12 12v56c0 6.627 5.373 12 12 12h301.941v46.059c0 21.382 25.851 32.09 40.971 16.971l86.059-86.059c9.373-9.373 9.373-24.569 0-33.941l-86.059-86.059c-15.119-15.119-40.971-4.411-40.971 16.971V216z"></path>
+                    </svg></div>
+                </div>
+              </a>
               {% empty %}
-              <li>Not associated with any constituency offices</li>
-              {% endfor %}
-            </ul>
-
+              <p>Not associated with any constituency offices</p>
+            {% endfor %}
             {% if phone_contacts %}
-            <h3>Contact Numbers:</h3>
-            <ul>
+            <h3 class="mp-block__title">Contact Numbers:</h3>
               {% for phone in phone_contacts %}
-              <li><a href="tel:{{ phone }}">{{ phone }}</a></li>
+              <a href="tel:{{ phone }}" class="text-link w-inline-block">
+                <p class="text-link__text">{{ phone }}</p>
+                <div class="text-link__icon">
+                  <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="phone" class="svg-inline--fa fa-phone fa-w-16" role="img" viewBox="0 0 512 512">
+                      <path fill="currentColor" d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.5 464-464 0-11.2-7.7-20.9-18.6-23.4z"></path>
+                    </svg></div>
+                </div>
+              </a>
               {% endfor %}
-            </ul>
             {% endif %}
 
             {% if fax_contacts %}
-            <h3>Fax</h3>
-            <ul>
+            <h3 class="mp-block__title">Fax:</h3>
               {% for fax in fax_contacts %}
-              <li>{{ fax }}</li>
+              <div class="text-link w-inline-block">
+                <p class="text-link__text">{{ fax }}</p>
+              </div>
               {% endfor %}
-            </ul>
             {% endif %}
 
             {% if address_contacts %}
-            <h3>Address</h3>
+            <h3 class="mp-block__title">Address:</h3>
             <ul>
               {% for address in address_contacts %}
               <li>{{ address }}</li>
@@ -226,7 +227,7 @@
             {% endif %}
 
             {% if object.aspirant_constituencies.count %}
-            <h3>Aspirant for</h3>
+            <h3 class="mp-block__title">Aspirant for:</h3>
             <ul class="aspirant-constituencies">
               {% for constituency in object.aspirant_constituencies %}
               <li><a href="{{ constituency.get_absolute_url }}">{{ constituency.name }}</a></li>
@@ -236,14 +237,13 @@
 
             {% regroup object.constituencies|dictsort:"kind" by kind as constituency_groups %}
             {% for entry in constituency_groups %}
-            <h3>{{ entry.grouper }}</h3>
-            <ul>
+            <h3 class="mp-block__title">{{ entry.grouper }}</h3>
               {% for area in entry.list %}
-              <li><a {% for identifier in area.identifiers.all %} data-identifier-{{ identifier.scheme
-                  }}="{{ identifier.identifier }}" {%endfor%} href="{{ area.get_absolute_url }}">{{ area.name }}</a>
-              </li>
+              <a {% for identifier in area.identifiers.all %} data-identifier-{{ identifier.scheme
+              }}="{{ identifier.identifier }}" {%endfor%} href="{{ area.get_absolute_url }}" class="text-link w-inline-block">
+                <p class="text-link__text">{{ area.name }}</p>
+              </a>
               {% endfor %}
-            </ul>
             {% endfor %}
           </div>
         </div>
@@ -254,19 +254,26 @@
         {% with past_positions=person.position_set.all.political.currently_inactive current_positions=person.position_set.all.political.currently_active %}
         {% block current_politician_positions %}
         {% if current_positions %}
-        <div class="current">
+        <div>
           <h3 class="mp-block__title">Current positions:</h3>
-          <ul class="current-positions positions">
             {% if current_positions %}
             {% for position in current_positions %}
-            <li>{% include "core/person_detail_position.html" %}
-              {% if position.start_date %} since {{ position.start_date }}{% endif %}
-            </li>
+                <div class="text-link">
+                  {% include "core/person_detail_position.html" %}
+                  {% if position.start_date %}
+                  {% endif %}
+                  <div class="text-link__icon">
+                    <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="long-arrow-alt-right" class="svg-inline--fa fa-long-arrow-alt-right fa-w-14" role="img" viewBox="0 0 448 512">
+                        <path fill="currentColor" d="M313.941 216H12c-6.627 0-12 5.373-12 12v56c0 6.627 5.373 12 12 12h301.941v46.059c0 21.382 25.851 32.09 40.971 16.971l86.059-86.059c9.373-9.373 9.373-24.569 0-33.941l-86.059-86.059c-15.119-15.119-40.971-4.411-40.971 16.971V216z"></path>
+                      </svg></div>
+                  </div>
+                </div>
             {% endfor %}
             {% else %}
-            <li>No current positions recorded.</li>
+            <p>
+              No current positions recorded.
+            </p>
             {% endif %}
-          </ul>
         </div>
         {% endif %}
         {% endblock %}
@@ -277,23 +284,25 @@
       <div class="mp-col">
         {% with past_positions=person.position_set.all.political.currently_inactive current_positions=person.position_set.all.political.currently_active %}
         {% if past_positions %}
-        <div class="former">
+        <div>
           <h3 class="mp-block__title">Former positions:</h3>
           {% block former_politician_positions %}
-          <ul class="former-positions positions">
             {% if past_positions %}
             {% for position in past_positions %}
-            <li>{% include "core/person_detail_position.html" %}
-              {% if position.start_date %}
-              from {{ position.start_date }}
-              {% endif %}
-              until {{ position.end_date }}
-            </li>
+              <div class="text-link">
+                {% include "core/person_detail_position.html" %}
+                {% if position.start_date %}
+                {% endif %}
+                <div class="text-link__icon">
+                  <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="long-arrow-alt-right" class="svg-inline--fa fa-long-arrow-alt-right fa-w-14" role="img" viewBox="0 0 448 512">
+                      <path fill="currentColor" d="M313.941 216H12c-6.627 0-12 5.373-12 12v56c0 6.627 5.373 12 12 12h301.941v46.059c0 21.382 25.851 32.09 40.971 16.971l86.059-86.059c9.373-9.373 9.373-24.569 0-33.941l-86.059-86.059c-15.119-15.119-40.971-4.411-40.971 16.971V216z"></path>
+                    </svg></div>
+                </div>
+              </div>
             {% endfor %}
             {% else %}
-            <li>No former positions recorded.</li>
+            <p>No former positions recorded.</p>
             {% endif %}
-          </ul>
           {% endblock %}
         </div>
         {% endif %}
@@ -518,80 +527,91 @@
           </div>
         </div>
         {% for release, release_date in interests %}
-        <div class="accordion">
-          <div class="mp-year-collapse" data-toggle="collapse" data-target="#{{ release.release_year }}"
-            aria-expanded="false" aria-controls="{{ release.release_year }}">
-            <div class="mp-category">
-              <h3 class="category-title">
-                {{ release.release_year }}
-              </h3>
-              <p class="category-info">
-                {{ release.categories.items|length }} categories
-              </p>
-              {% for informationsource in release.informationsource %}
-              <a href="{{ informationsource.source }}" class="is--source" target="_blank"
-                title="{{ informationsource.note }}">
-                Source</a>
-              {% endfor %}
-            </div>
-          </div>
-          <div id="{{ release.release_year }}" class="collapse" aria-labelledby="{{ release.release_year }}"
-            data-parent="#accordion">
-            <div id="accordion" class="mb-4">
-              {% for ckey, category in release.categories.items %}
-              <div class="mp-collapse">
-                <div class="collapse-trigger" data-toggle="collapse" data-target="#{{ category.category_id }}"
-                  aria-expanded="false" aria-controls="{{ category.category_id }}">
-                  <div class="collapse-header">
-                    <p class="collapse-title">
-                      {{ category.name }}
-                    </p>
-                    <p class="collapse-info">
-                      {{ category.entries|length }} items
-                    </p>
-                  </div>
-                  <div class="collapse-open">
-                    <div class="svg-icon is--small w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
-                        focusable="false" data-prefix="fas" data-icon="caret-down"
-                        class="svg-inline--fa fa-caret-down fa-w-10" role="img" viewbox="0 0 320 512">
-                        <path fill="currentColor"
-                          d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z">
-                        </path>
-                      </svg></div>
-                  </div>
-                </div>
-
-                <div id="{{ category.category_id }}" class="collapse" aria-labelledby="{{ category.category_id }}"
-                  data-parent="#accordion">
-                  <div class="collapse-content">
-                    <div class="mp-table">
-                      <table>
-                        <tr class="table-row is--header">
-                          {% for heading in category.headings %}
-                          <th class="col-text">{{ heading }}</th>
-                          {% endfor %}
-                        </tr>
-                        {% for line in category.entries %}
-                        <tr class="table-row">
-                          {% for cell in line %}
-                          <td class="col-text">
-                            <p title="{{ cell }}">
-                              {{ cell }}
-                            </p>
-                          </td>
-                          {% endfor %}
-                        </tr>
-                        {% endfor %}
-                      </table>
-                    </div>
-                  </div>
+          <div class="accordion">
+            <div class="mp-interest-block">
+              <div class="mp-year-collapse" data-toggle="collapse" data-target="#{{ release.release_year }}"
+                aria-expanded="false" aria-controls="{{ release.release_year }}">
+                <h3 class="category-title">
+                  {{ release.release_year }}
+                </h3>
+                <p class="category-info">
+                  {{ release.categories.items|length }} categories
+                  {% for informationsource in release.informationsource %}
+                  <a href="{{ informationsource.source }}" class="is--source" target="_blank"
+                    title="{{ informationsource.note }}">
+                    Source</a>
+                  {% endfor %}
+                </p>
+                <div style="-webkit-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0deg) skew(0, 0);-moz-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0deg) skew(0, 0);-ms-transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0deg) skew(0, 0);transform:translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0deg) skew(0, 0)" class="collapse-open is--year-collapse">
+                  <div class="svg-icon is--small w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="caret-down" class="svg-inline--fa fa-caret-down fa-w-10" role="img" viewbox="0 0 320 512">
+                      <path fill="currentColor" d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"></path>
+                    </svg></div>
                 </div>
               </div>
-              {% endfor %}
-            </div> <!-- #accordion -->
+            </div>
+            <div id="{{ release.release_year }}" class="collapse" aria-labelledby="{{ release.release_year }}"
+              data-parent="#accordion">
+              <div class="mp-interest-block">
+                <div class="mp-year-contents">
+                  <div class="mp-year-contents__inner">
+                <div id="accordion" class="mb-4">
+                  {% for ckey, category in release.categories.items %}
+                  <div class="mp-collapse">
+                    <div class="collapse-trigger" data-toggle="collapse" data-target="#{{ category.category_id }}"
+                      aria-expanded="false" aria-controls="{{ category.category_id }}">
+                      <div class="collapse-header">
+                        <p class="collapse-title">
+                          {{ category.name }}
+                        </p>
+                        <p class="collapse-info">
+                          {{ category.entries|length }} items
+                        </p>
+                      </div>
+                      <div class="collapse-open">
+                        <div class="svg-icon is--small w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+                            focusable="false" data-prefix="fas" data-icon="caret-down"
+                            class="svg-inline--fa fa-caret-down fa-w-10" role="img" viewbox="0 0 320 512">
+                            <path fill="currentColor"
+                              d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z">
+                            </path>
+                          </svg></div>
+                      </div>
+                    </div>
+
+                    <div id="{{ category.category_id }}" class="collapse" aria-labelledby="{{ category.category_id }}"
+                      data-parent="#accordion">
+                      <div class="collapse-content">
+                        <div class="mp-table">
+                          <table>
+                            <tr class="table-row is--header">
+                              {% for heading in category.headings %}
+                              <th class="col-text">{{ heading }}</th>
+                              {% endfor %}
+                            </tr>
+                            {% for line in category.entries %}
+                            <tr class="table-row">
+                              {% for cell in line %}
+                              <td class="col-text">
+                                <p title="{{ cell }}">
+                                  {{ cell }}
+                                </p>
+                              </td>
+                              {% endfor %}
+                            </tr>
+                            {% endfor %}
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div> <!-- #accordion -->
+              </div>
+              </div>
+              </div>
           </div>
-        </div>
-        {% endfor %}
+          </div>
+          {% endfor %}
       </div> <!-- .person-interests -->
     </div> <!-- .membersinterests -->
     {% endif %}

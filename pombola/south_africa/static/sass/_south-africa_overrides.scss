@@ -3723,7 +3723,7 @@ th {
     font-weight: 900;
 }
 .category-info {
-    padding-top: 0.4em;
+    margin-left: auto;
     color: rgba(0, 0, 0, 0.5);
 }
 .mp-subheading {
@@ -3970,6 +3970,7 @@ th {
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
+    width: 100%;
     padding: 1.2em 0.8em 1.2em 1.6em;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
@@ -3979,13 +3980,11 @@ th {
     -webkit-box-align: center;
     -webkit-align-items: center;
     -ms-flex-align: center;
+    justify-content: space-between;
     align-items: center;
     border-radius: 0.3em;
     text-decoration: none;
     cursor: pointer;
-    width: 100%;
-    margin-bottom: 1em;
-    background-color: rgba(0, 0, 0, 0.05);
 }
 
 .mp-year-collapse:hover {
@@ -4117,4 +4116,28 @@ th {
 
 .mp-col h3 {
     text-transform: none;
+}
+.text-link__date {
+    padding-top: 0.4em;
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 0.8em;
+}
+.mp-interest-block {
+    width: 100%;
+    margin-bottom: 1em;
+    border-radius: 0.3em;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.mp-interest-block:hover {
+    border-color: rgba(0, 0, 0, 0.2);
+}
+.mp-year-contents {
+    overflow: hidden;
+}
+
+.mp-year-contents__inner {
+    padding-top: 0.8em;
+    padding-right: 0.8em;
+    padding-left: 0.8em;
 }
