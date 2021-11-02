@@ -115,7 +115,7 @@ class ConstituencyOfficesImportTestCase(WebTest):
             name='Constituency Area')
         self.relationship_kind = models.OrganisationRelationshipKind.objects.create(
             name='has_office')
-            
+
         self.da_organisation = models.Organisation.objects.create(
             name="DA Constituency Area: Rustenburg [Rustenburg] / Kgetlengrivier [Koster]",
             kind=self.area_kind,
@@ -126,19 +126,19 @@ class ConstituencyOfficesImportTestCase(WebTest):
                 kind=self.relationship_kind
         )
         call_command('rebuild_index', verbosity=0, interactive=False)
-            
+
 
     @patch('pombola.south_africa.management.commands.south_africa_update_constituency_offices.geocode', side_effect=fake_constituency_office_geocode)
     def test_import_eff_offices(self, geocode_mock):
         call_command(
-            'south_africa_update_constituency_offices', 
-            'pombola/south_africa/fixtures/test_eff_constituency_offices.json', 
+            'south_africa_update_constituency_offices',
+            'pombola/south_africa/fixtures/test_eff_constituency_offices.json',
             verbose=True,
             end_old_offices=True, party='eff', commit=True
             )
 
         self.assertTrue(models.Organisation.objects.filter(
-                name="EFF Constituency Office: Cape Town", 
+                name="EFF Constituency Office: Cape Town",
                 kind=self.office_kind,
                 started="2019-06-01", ended=ApproximateDate(future=True)
             ).exists())
@@ -159,15 +159,15 @@ class ConstituencyOfficesImportTestCase(WebTest):
     @patch('pombola.south_africa.management.commands.south_africa_update_constituency_offices.geocode', side_effect=fake_constituency_office_geocode)
     def test_import_da_offices(self, geocode_mock):
         call_command(
-            'south_africa_update_constituency_offices', 
-            'pombola/south_africa/fixtures/test_da_constituency_offices.json', 
+            'south_africa_update_constituency_offices',
+            'pombola/south_africa/fixtures/test_da_constituency_offices.json',
             verbose=True,
             end_old_offices=True, party='da', commit=True, search_office=True
             )
-        
+
          # Test one organisation was created
         self.assertTrue(models.Organisation.objects.filter(
-                name__iexact="DA Constituency Area: eMalahleni", 
+                name__iexact="DA Constituency Area: eMalahleni",
                 kind=self.area_kind,
                 started="2019-06-01", ended=ApproximateDate(future=True)
              ).exists())
@@ -186,7 +186,7 @@ class ConstituencyOfficesImportTestCase(WebTest):
 
         # Test the other organisation was reused
         self.assertTrue(models.Organisation.objects.filter(
-                name__iexact="DA Constituency Area: Rustenburg - Kgetlengrivier", 
+                name__iexact="DA Constituency Area: Rustenburg - Kgetlengrivier",
                 kind=self.area_kind,
                 ended=ApproximateDate(future=True)
             ).exists())
@@ -205,7 +205,7 @@ class ConstituencyOfficesImportTestCase(WebTest):
         self.assertTrue(models.Place.objects.filter(
             name__startswith=u'Unknown sub-area of North West ',
             organisation=organisation).exists())
-        
+
         # Test Person was created
         self.assertTrue(models.Person.objects.filter(Q(legal_name="Sonja Boshoff")).exists())
 
@@ -530,14 +530,14 @@ class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
         response = c.get('/person/moomin-finn/')
         self.assertContains(
             response,
-            '<p><span class="position-title">National Assembly</span></p>',
+            '<p class="mp-role">National Assembly</p>',
             count=1,
             html=True,
         )
 
         self.assertContains(
             response,
-            '<p>Formerly: <span class="position-title">Old Assembly</span></p>',
+            '<p class="mp-role">Formerly: <span>Old Assembly</span></p>',
             count=1,
             html=True,
         )
@@ -1762,7 +1762,7 @@ class SACommitteeIndexViewTest(WebTest):
                 view_link = div.find_all('a', text='View messages')
                 self.assertIsNotNone(get_view_messages_link(div))
                 self.assertIsNone(
-                    get_write_message_link(div), 
+                    get_write_message_link(div),
                     "Committee that doesn't have an email address shouldn't be writeable."
                 )
 
@@ -2950,16 +2950,14 @@ class SAParliamentaryTerm(TestCase):
         ]
         for example in examples:
             self.assertEqual(
-                ParliamentaryTerm.get_term_from_date(example[0]).number, 
+                ParliamentaryTerm.get_term_from_date(example[0]).number,
                 example[1],
                 'Term should be %d for %s' % (example[1], str(example[0]))
             )
-            
+
 
     def test_get_term_from_date_for_invalid_parliament(self):
         d = date(2001, 6, 30)
         self.assertRaises(
-            ParliamentaryTerm.DoesNotExist, 
+            ParliamentaryTerm.DoesNotExist,
             ParliamentaryTerm.get_term_from_date, d)
-            
-

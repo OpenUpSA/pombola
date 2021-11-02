@@ -20,10 +20,12 @@
   </h3>
   {% endif %}
   {% if organizations_from_former_important_positions %}
-  <p>
+  <p class="mp-role">
     Formerly:
     {% for organisation in organizations_from_former_important_positions %}
-    <span class="position-title">{{ organisation.name }}</span>
+     <span>
+      {{ organisation.name }}
+     </span>
     {% if not forloop.last %}and{% endif %}
     {% endfor %}
   </p>
