@@ -255,10 +255,9 @@
       <div class="mp-col">
         {% with past_positions=person.position_set.all.political.currently_inactive current_positions=person.position_set.all.political.currently_active %}
         {% block current_politician_positions %}
+        <h3 class="mp-block__title">Current positions:</h3>
         {% if current_positions %}
         <div>
-          <h3 class="mp-block__title">Current positions:</h3>
-            {% if current_positions %}
             {% for position in current_positions %}
                 <div class="text-link">
                   {% include "core/person_detail_position.html" %}
@@ -271,13 +270,12 @@
                   </div>
                 </div>
             {% endfor %}
-            {% else %}
-            <p>
-              No current positions recorded.
-            </p>
-            {% endif %}
-        </div>
-        {% endif %}
+          </div>
+          {% else %}
+          <p>
+            No current positions recorded.
+          </p>
+          {% endif %}
         {% endblock %}
         {% endwith %}
       </div>
@@ -285,7 +283,6 @@
     <div class="col-lg-4 col-md-12 col-sm-12">
       <div class="mp-col">
         {% with past_positions=person.position_set.all.political.currently_inactive current_positions=person.position_set.all.political.currently_active %}
-        {% if past_positions %}
         <div>
           <h3 class="mp-block__title">Former positions:</h3>
           {% block former_politician_positions %}
@@ -307,7 +304,6 @@
             {% endif %}
           {% endblock %}
         </div>
-        {% endif %}
         {% endwith %}
       </div>
     </div>

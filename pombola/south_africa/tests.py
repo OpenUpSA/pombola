@@ -530,7 +530,7 @@ class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
         response = c.get('/person/moomin-finn/')
         self.assertContains(
             response,
-            '<p class="mp-role">National Assembly</p>',
+            '<p class="mp-role">Member of the National Assembly</p>',
             count=1,
             html=True,
         )
@@ -794,25 +794,22 @@ class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
     def test_past_and_current_positions(self):
         self._setup_example_positions(True, True)
         response = self.client.get(reverse('person', args=('moomin-finn',)))
+
         self.assertIn(
-            '<a class="ui-tabs-anchor" href="#experience">Positions held</a>',
+            '<h3 class="mp-block__title">Current positions:</h3>',
             response.content
         )
         self.assertIn(
-            '<h3>Currently</h3>',
+            'National Assembly (Parliament)',
             response.content
-        )
-        self.assertRegexpMatches(
-            response.content,
-            r'Member\s+at <a href="/organisation/national-assembly/">National Assembly \(Parliament\)</a>\s*</li>'
         )
         self.assertIn(
-            '<h3>Formerly</h3>',
+            '<h3 class="mp-block__title">Former positions:</h3>',
             response.content
         )
-        self.assertRegexpMatches(
-            response.content,
-            r'Member\s+at <a href="/organisation/national-assembly/">National Assembly \(Parliament\)</a>\s+from 1st January 2000\s+until 31st December 2005\s*</li>'
+        self.assertIn(
+            'National Assembly (Parliament)',
+            response.content
         )
         # Messages tab should be shown
         self.assertIn(
@@ -827,12 +824,12 @@ class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
     def test_past_but_no_current_positions(self):
         self._setup_example_positions(True, False)
         response = self.client.get(reverse('person', args=('moomin-finn',)))
+        # write response to file
+        print("XXX")
+        with open('test_past_but_no_current_positions.html', 'w') as f:
+            f.write(response.content)
         self.assertIn(
-            '<a class="ui-tabs-anchor" href="#experience">Positions held</a>',
-            response.content
-        )
-        self.assertIn(
-            '<h3>Currently</h3>',
+            '<h3 class="mp-block__title">Current positions:</h3>',
             response.content
         )
         self.assertIn(
@@ -840,12 +837,12 @@ class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
             response.content
         )
         self.assertIn(
-            '<h3>Formerly</h3>',
+            '<h3 class="mp-block__title">Former positions:</h3>',
             response.content
         )
-        self.assertRegexpMatches(
-            response.content,
-            r'Member\s+at <a href="/organisation/national-assembly/">National Assembly \(Parliament\)</a>\s+from 1st January 2000\s+until 31st December 2005\s*</li>'
+        self.assertIn(
+            'National Assembly (Parliament)',
+            response.content
         )
         # Messages tab should be shown
         self.assertIn(
@@ -861,19 +858,15 @@ class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
         self._setup_example_positions(False, True)
         response = self.client.get(reverse('person', args=('moomin-finn',)))
         self.assertIn(
-            '<a class="ui-tabs-anchor" href="#experience">Positions held</a>',
+            '<h3 class="mp-block__title">Current positions:</h3>',
             response.content
         )
         self.assertIn(
-            '<h3>Currently</h3>',
+            'National Assembly (Parliament)',
             response.content
         )
-        self.assertRegexpMatches(
-            response.content,
-            r'Member\s+at <a href="/organisation/national-assembly/">National Assembly \(Parliament\)</a>\s*</li>'
-        )
         self.assertIn(
-            '<h3>Formerly</h3>',
+            '<h3 class="mp-block__title">Former positions:</h3>',
             response.content
         )
         self.assertIn(
@@ -916,9 +909,12 @@ class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
         person.contacts.create(kind=email_contact_kind, value='preferred@example.com', preferred=True)
 
         response = self.client.get(reverse('person', args=('moomin-finn',)))
-
         self.assertIn(
-            '<a href="/write/?person_id=%d">Write a public message to this MP</a>' % person.id,
+            '<a href="/write/?person_id=%d"' % person.id,
+            response.content
+        )
+        self.assertIn(
+            '<p>Write a public message to this politician</p>',
             response.content
         )
 
