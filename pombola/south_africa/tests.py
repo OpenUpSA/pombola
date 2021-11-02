@@ -1384,11 +1384,11 @@ class SAPersonProfileSubPageTest(WebTest):
     def get_person_summary(self, soup):
         return soup.find('div', class_='person-summary')
 
-    def get_positions_tab(self, soup):
-        return soup.find('div', id='experience')
+    def get_former_positions_title(self, soup):
+        return soup.find('h3', text='Former positions:')
 
     def get_profile_info(self, soup):
-        return soup.find('div', class_='profile-info')
+        return soup.find('h3', class_='mp-block__title')
 
     def test_person_death_date(self):
         response = self.app.get('/person/deceased-person/')
@@ -1398,34 +1398,29 @@ class SAPersonProfileSubPageTest(WebTest):
 
     def test_deceased_party_affiliation(self):
         response = self.app.get('/person/deceased-person/')
-        sidebar = self.get_profile_info(response.html)
-        party_heading = sidebar.findNext('div', class_='constituency-party')
-        party_name = party_heading.findNext('h3', text='Party').findNextSibling('ul').text
+        party_div = self.get_profile_info(response.html)
+        party_name = party_div.findNext('a').text
 
         self.assertEqual(party_name.strip(), 'Test Party')
 
     def test_deceased_former_positions(self):
         response = self.app.get('/person/deceased-person/')
-        profile_tab = self.get_positions_tab(response.html)
-
-        former_pos_heading = profile_tab.findNext('h3', text='Formerly')
-        former_pos_list = former_pos_heading.findNextSibling('ul').text
+        former_pos_heading = self.get_former_positions_title(response.html)
+        former_pos_list = former_pos_heading.findNextSibling('div').text
 
         self.assertNotEqual(former_pos_heading, None)
 
         # check for the former MP and Speaker positions
-        self.assertRegexpMatches(former_pos_list, r'Member\s+at National Assembly \(Parliament\)')
-        self.assertRegexpMatches(former_pos_list, r'Speaker\s+at National Assembly \(Parliament\)')
+        self.assertIn("Test Party (Party)", former_pos_list)
 
     def test_former_mp(self):
         response = self.app.get('/person/former-mp/')
-        positions_tab = self.get_positions_tab(response.html)
-        former_pos_heading = positions_tab.findNext('h3', text='Formerly')
-        former_pos_list = former_pos_heading.findNextSibling('ul').text
+        former_pos_heading = self.get_former_positions_title(response.html)
+        former_pos_list = former_pos_heading.findNextSibling('div').text
 
         self.assertNotEqual(former_pos_heading, None)
 
-        self.assertRegexpMatches(former_pos_list, r'Member\s+at National Assembly \(Parliament\)')
+        self.assertIn('National Assembly (Parliament)', former_pos_list)
 
 
 class SAOrganisationPartySubPageTest(TestCase):
