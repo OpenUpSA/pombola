@@ -38,7 +38,15 @@
     {% endif %}
   </p>
   <p class="text-link__date">
-    since {{ position.start_date }}
+    {% if current_positions %}
+      {% if position.start_date %} since {{ position.start_date }}{% endif %}
+    {% endif %}
+    {% if past_positions %}
+      {% if position.start_date %}
+        from {{ position.start_date }}
+      {% endif %}
+      until {{ position.end_date }}
+    {% endif %}
   </p>
 </div>
 {% endwith %}
