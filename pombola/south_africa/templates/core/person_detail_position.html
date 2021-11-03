@@ -1,7 +1,6 @@
 {% load za_election_list_links %}
 
 {% with org=position.organisation %}
-<div class="text-link__info">
   <p class="text-link__text">
     {{ position.title }}
     {% if org %}
@@ -37,16 +36,4 @@
       {% endif %}
     {% endif %}
   </p>
-  <p class="text-link__date">
-    {% if current_positions %}
-      {% if position.start_date %} since {{ position.start_date }}{% endif %}
-    {% endif %}
-    {% if past_positions %}
-      {% if position.start_date %}
-        from {{ position.start_date }}
-      {% endif %}
-      until {{ position.end_date }}
-    {% endif %}
-  </p>
-</div>
 {% endwith %}
