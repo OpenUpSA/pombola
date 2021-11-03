@@ -24,4 +24,16 @@
   {% endblock %}
 
 </div>
+
+{% block issues_and_options %}
+<div class="issues-and-options-footer">
+  <div class="wrapper">
+    <div id="issues-options-embed"></div>
+    <script type="text/javascript" src="https://pym.nprapps.org/pym.v1.min.js"></script>
+    <script>
+      var pymParent = new pym.Parent('issues-options-embed', 'https://issues-and-options.pa.org.za/', {});
+    </script>
+  </div>
+</div>
+{% endblock %}
 {% endblock %}
