@@ -1,40 +1,6 @@
 {
     "offices": [
         {
-            "Title": "ANC Constituency Office 611 Vredenburg",
-            "Party": "ANC",
-            "Type": "office",
-            "Source Note": "ANC 611 Vredenburg Constituency List 2021",
-            "Postal Address": "16 Plein Street, Vredenburg, 7380",
-            "Province": "Western Cape",
-            "Fax": "",
-            "Tel": "",
-            "People": [
-                {
-                    "Cell": "0833958738",
-                    "Position": "Administrator",
-                    "Name": "Zintle Ngewnya"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Zintle Ngewnya"
-                },
-                {
-                    "cell": "",
-                    "Position": "Constituency Leader",
-                    "Name": "Hon. K Magaxa"
-                }
-            ],
-            "identifiers": {
-                "constituency-office/ANC/": ""
-            },
-            "E-Mail": "",
-            "Source URL": "",
-            "Ward": "",
-            "Physical Address": "16 Plein Street, Vredenburg, 7380"
-        },
-        {
             "Title": "ANC Constituency Office 620 Grassy Park",
             "Party": "ANC",
             "Type": "office",
@@ -45,26 +11,21 @@
             "Tel": "021\u00a0701 8386",
             "People": [
                 {
-                    "Cell": "0834010051",
-                    "Position": "Administrator",
-                    "Name": "Cheryl Warely"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Cheryl Warely"
-                },
-                {
                     "cell": "021\u00a0701 8386",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Hon. J Hermans"
+                },
+                {
+                    "cell": "834010051",
+                    "Position": "Office Administrator",
+                    "Name": "Cheryl Warely"
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "Suite 13, 1st Floor, Victoria Mall, Victoria Road, Grassy Park, 7941 (Mall)"
         },
@@ -79,26 +40,21 @@
             "Tel": "",
             "People": [
                 {
-                    "Cell": "0833958286",
-                    "Position": "Administrator",
-                    "Name": "Maureen Quose"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Maureen Quose"
-                },
-                {
                     "cell": "",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Hon. M Skwatsha"
+                },
+                {
+                    "cell": "833958286",
+                    "Position": "Office Administrator",
+                    "Name": "Maureen Quose"
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "42 Barry Street, Riversdale , 6670 "
         },
@@ -113,26 +69,21 @@
             "Tel": "",
             "People": [
                 {
-                    "Cell": "0620708918",
-                    "Position": "Administrator",
-                    "Name": "Lonwabo Peter"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Lonwabo Peter"
-                },
-                {
                     "cell": "",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Hon. B Hadebe"
+                },
+                {
+                    "cell": "620708918",
+                    "Position": "Office Administrator",
+                    "Name": "Lonwabo Peter"
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": ""
         },
@@ -147,26 +98,21 @@
             "Tel": "",
             "People": [
                 {
-                    "Cell": "0617562323",
-                    "Position": "Administrator",
-                    "Name": "Jo-Ann Palmer"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Jo-Ann Palmer"
-                },
-                {
                     "cell": "",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Hon. M Gillion"
+                },
+                {
+                    "cell": "617562323",
+                    "Position": "Office Administrator",
+                    "Name": "Jo-Ann Palmer"
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "12 Donkin Street, Caledon, 7230"
         },
@@ -181,26 +127,21 @@
             "Tel": "067 124 2289",
             "People": [
                 {
-                    "Cell": "072 645 1450",
-                    "Position": "Administrator",
-                    "Name": "Lebohang Ntsoereng "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Lebohang Ntsoereng "
-                },
-                {
                     "cell": "067 124 2289",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Hon. Jabulane Radebe "
+                },
+                {
+                    "cell": "072 645 1450",
+                    "Position": "Office Administrator",
+                    "Name": "Lebohang Ntsoereng "
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "32 Vander Ross, Brent Park, Kroonstad, 9500\u00a0"
         },
@@ -215,31 +156,26 @@
             "Tel": "0829418931",
             "People": [
                 {
-                    "Cell": "073 225 8310",
-                    "Position": "Administrator",
-                    "Name": "Mr Pugisho Gaborone"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Mr Pugisho Gaborone"
-                },
-                {
                     "cell": "0829418931",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Hon. Sarah Moleleki     "
+                },
+                {
+                    "cell": "073 225 8310",
+                    "Position": "Office Administrator",
+                    "Name": "Mr Pugisho Gaborone"
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "1000 Mokoena, Heilbron, 9650 "
         },
         {
-            "Title": "ANC Constituency Office Heilbron",
+            "Title": "ANC Constituency Office Heilbron 14",
             "Party": "ANC",
             "Type": "office",
             "Source Note": "ANC Heilbron Constituency List 2021",
@@ -249,26 +185,21 @@
             "Tel": "0829418932",
             "People": [
                 {
-                    "Cell": "082\u00a0714 3033",
-                    "Position": "Administrator",
-                    "Name": "Hapile Kutoane"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Hapile Kutoane"
-                },
-                {
                     "cell": "0829418932",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Hon. Sarah Moleleki     "
+                },
+                {
+                    "cell": "082\u00a0714 3033",
+                    "Position": "Office Administrator",
+                    "Name": "Hapile Kutoane"
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "1001 Mokoena, Heilbron, 9650 "
         },
@@ -283,31 +214,26 @@
             "Tel": "0716740402",
             "People": [
                 {
-                    "Cell": "084\u00a0562 8166",
-                    "Position": "Administrator",
-                    "Name": "Themba Dlamini "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Themba Dlamini "
-                },
-                {
                     "cell": "0716740402",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Hon. Sisi Ntombela      "
+                },
+                {
+                    "cell": "084\u00a0562 8166",
+                    "Position": "Office Administrator",
+                    "Name": "Themba Dlamini "
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "636 Metsimaholo, Orangeville, 1995"
         },
         {
-            "Title": "ANC Constituency Office Orangeville",
+            "Title": "ANC Constituency Office Orangeville 3",
             "Party": "ANC",
             "Type": "office",
             "Source Note": "ANC Orangeville Constituency List 2021",
@@ -317,26 +243,21 @@
             "Tel": "0716740403",
             "People": [
                 {
-                    "Cell": "078 516 2270  ",
-                    "Position": "Administrator",
-                    "Name": "Nhlanhla"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Nhlanhla"
-                },
-                {
                     "cell": "0716740403",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Hon. Sisi Ntombela      "
+                },
+                {
+                    "cell": "078 516 2270  ",
+                    "Position": "Office Administrator",
+                    "Name": "Nhlanhla"
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "637 Metsimaholo, Orangeville, 1995"
         },
@@ -351,26 +272,21 @@
             "Tel": "0716740404",
             "People": [
                 {
-                    "Cell": "063\u00a0265 4799",
-                    "Position": "Administrator",
-                    "Name": "Tiisetso Sedinyana "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Tiisetso Sedinyana "
-                },
-                {
                     "cell": "0716740404",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Hon. Sisi Ntombela      "
+                },
+                {
+                    "cell": "063\u00a0265 4799",
+                    "Position": "Office Administrator",
+                    "Name": "Tiisetso Sedinyana "
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "249 Lerato Street, Bultfontein, 9670"
         },
@@ -385,31 +301,26 @@
             "Tel": "066 124 2289",
             "People": [
                 {
-                    "Cell": "071\u00a0804 2593",
-                    "Position": "Administrator",
-                    "Name": "Matshidiso Dlamini "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Matshidiso Dlamini "
-                },
-                {
                     "cell": "066 124 2289",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Jabulane Radebe "
+                },
+                {
+                    "cell": "071\u00a0804 2593",
+                    "Position": "Office Administrator",
+                    "Name": "Matshidiso Dlamini "
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "970 Ntanga, Seisoville, Kroonstad"
         },
         {
-            "Title": "ANC Constituency Office Seisoville, Kroonstad",
+            "Title": "ANC Constituency Office Seisoville, Kroonstad 50",
             "Party": "ANC",
             "Type": "office",
             "Source Note": "ANC Seisoville, Kroonstad Constituency List 2021",
@@ -419,31 +330,26 @@
             "Tel": "067 124 2289",
             "People": [
                 {
-                    "Cell": "084 753 7549",
-                    "Position": "Administrator",
-                    "Name": "Dr Phume Moletsane"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Dr Phume Moletsane"
-                },
-                {
                     "cell": "067 124 2289",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Jabulane Radebe "
+                },
+                {
+                    "cell": "084 753 7549",
+                    "Position": "Office Administrator",
+                    "Name": "Dr Phume Moletsane"
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "971 Ntanga, Seisoville, Kroonstad"
         },
         {
-            "Title": "ANC Constituency Office Seisoville, Kroonstad",
+            "Title": "ANC Constituency Office Seisoville, Kroonstad 59",
             "Party": "ANC",
             "Type": "office",
             "Source Note": "ANC Seisoville, Kroonstad Constituency List 2021",
@@ -453,26 +359,21 @@
             "Tel": "068 124 2289",
             "People": [
                 {
-                    "Cell": "078 949 9050",
-                    "Position": "Administrator",
-                    "Name": "Meshack Nocanda "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Meshack Nocanda "
-                },
-                {
                     "cell": "068 124 2289",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Jabulane Radebe "
+                },
+                {
+                    "cell": "078 949 9050",
+                    "Position": "Office Administrator",
+                    "Name": "Meshack Nocanda "
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "972 Ntanga, Seisoville, Kroonstad"
         },
@@ -487,26 +388,21 @@
             "Tel": "079 511 7876",
             "People": [
                 {
-                    "Cell": "(016) 976 0800",
-                    "Position": "Administrator",
-                    "Name": "Amelia De Beer"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Amelia De Beer"
-                },
-                {
                     "cell": "079 511 7876",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Mamiki Qabathe"
+                },
+                {
+                    "cell": "(016) 976 0800",
+                    "Position": "Office Administrator",
+                    "Name": "Amelia De Beer"
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "3273 Tailor Park, Zamdela, 1947"
         },
@@ -521,26 +417,21 @@
             "Tel": "080 511 7876",
             "People": [
                 {
-                    "Cell": "082\u00a0389 0943",
-                    "Position": "Administrator",
-                    "Name": "Rantso Mathapelo "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Rantso Mathapelo "
-                },
-                {
                     "cell": "080 511 7876",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Mamiki Qabathe"
+                },
+                {
+                    "cell": "082\u00a0389 0943",
+                    "Position": "Office Administrator",
+                    "Name": "Rantso Mathapelo "
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": ""
         },
@@ -555,18 +446,8 @@
             "Tel": "081 511 7876",
             "People": [
                 {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": ""
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": ""
-                },
-                {
                     "cell": "081 511 7876",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Mamiki Qabathe"
                 }
             ],
@@ -574,114 +455,41 @@
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "1419 Zenzela Street, Virginia, 9944"
-        },
-        {
-            "Title": "ANC Constituency Office Free State",
-            "Party": "ANC",
-            "Type": "office",
-            "Source Note": "ANC  Constituency List 2021",
-            "Postal Address": "",
-            "Province": "Free State",
-            "Fax": "",
-            "Tel": "",
-            "People": [
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": ""
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": ""
-                },
-                {
-                    "cell": "",
-                    "Position": "Constituency Leader",
-                    "Name": "Nomsa Khubeka "
-                }
-            ],
-            "identifiers": {
-                "constituency-office/ANC/": ""
-            },
-            "E-Mail": "",
-            "Source URL": "",
-            "Ward": "",
-            "Physical Address": ""
-        },
-        {
-            "Title": "ANC Constituency Office Free State",
-            "Party": "ANC",
-            "Type": "office",
-            "Source Note": "ANC  Constituency List 2021",
-            "Postal Address": "",
-            "Province": "Free State",
-            "Fax": "",
-            "Tel": "",
-            "People": [
-                {
-                    "Cell": "081 712 1078",
-                    "Position": "Administrator",
-                    "Name": "Thabo Baleni             "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Thabo Baleni             "
-                },
-                {
-                    "cell": "",
-                    "Position": "Constituency Leader",
-                    "Name": "Tshidi Koloi          "
-                }
-            ],
-            "identifiers": {
-                "constituency-office/ANC/": ""
-            },
-            "E-Mail": "",
-            "Source URL": "",
-            "Ward": "",
-            "Physical Address": ""
         },
         {
             "Title": "ANC Constituency Office Dewetsdorp",
             "Party": "ANC",
             "Type": "office",
             "Source Note": "ANC Dewetsdorp Constituency List 2021",
-            "Postal Address": "11 Oxford Street, Dewetsdorp\n\n\n",
+            "Postal Address": "11 Oxford Street, Dewetsdorp   ",
             "Province": "Free State",
             "Fax": "",
             "Tel": "",
             "People": [
                 {
-                    "Cell": " 083\u00a0583 5389",
-                    "Position": "Administrator",
-                    "Name": "Matshidiso Phatsana"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Matshidiso Phatsana"
-                },
-                {
                     "cell": "",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Tshidi Koloi          "
+                },
+                {
+                    "cell": " 083\u00a0583 5389",
+                    "Position": "Office Administrator",
+                    "Name": "Matshidiso Phatsana"
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
-            "Physical Address": "11 Oxford Street, Dewetsdorp\n\n\n"
+            "Physical Address": "11 Oxford Street, Dewetsdorp   "
         },
         {
-            "Title": "ANC Constituency Office Free State",
+            "Title": "ANC Constituency Office Free State 62",
             "Party": "ANC",
             "Type": "office",
             "Source Note": "ANC  Constituency List 2021",
@@ -691,31 +499,26 @@
             "Tel": "071 728 1121",
             "People": [
                 {
-                    "Cell": "083\u00a0542 9060",
-                    "Position": "Administrator",
-                    "Name": "Kele Diphoko         "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Kele Diphoko         "
-                },
-                {
                     "cell": "071 728 1121",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Mojalefa Buti"
+                },
+                {
+                    "cell": "083\u00a0542 9060",
+                    "Position": "Office Administrator",
+                    "Name": "Kele Diphoko         "
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "Mpbuti5@gmail.com",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "3355 Areyeng Street, Boshoff, 8340"
         },
         {
-            "Title": "ANC Constituency Office Free State",
+            "Title": "ANC Constituency Office Free State 16",
             "Party": "ANC",
             "Type": "office",
             "Source Note": "ANC  Constituency List 2021",
@@ -725,31 +528,26 @@
             "Tel": "082 414 9484",
             "People": [
                 {
-                    "Cell": "078 879 3824",
-                    "Position": "Administrator",
-                    "Name": "Ms Nomathemba Masisi"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Ms Nomathemba Masisi"
-                },
-                {
                     "cell": "082 414 9484",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Thabo Meeko "
+                },
+                {
+                    "cell": "078 879 3824",
+                    "Position": "Office Administrator",
+                    "Name": "Ms Nomathemba Masisi"
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "thaboyl@yahoo.com",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "2339 Manyakeng Loc, Wesselsbron"
         },
         {
-            "Title": "ANC Constituency Office Free State",
+            "Title": "ANC Constituency Office Free State 39",
             "Party": "ANC",
             "Type": "office",
             "Source Note": "ANC  Constituency List 2021",
@@ -759,62 +557,23 @@
             "Tel": "0829747990",
             "People": [
                 {
-                    "Cell": "078 401 2791",
-                    "Position": "Administrator",
-                    "Name": "Yoliswa Gaba "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Yoliswa Gaba "
-                },
-                {
                     "cell": "0829747990",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Sandlana Smit "
+                },
+                {
+                    "cell": "078 401 2791",
+                    "Position": "Office Administrator",
+                    "Name": "Yoliswa Gaba "
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "5 Kiepersol Avenue, Bainsvlei, Mangaung Metro, 9301 "
-        },
-        {
-            "Title": "ANC Constituency Office Free State",
-            "Party": "ANC",
-            "Type": "office",
-            "Source Note": "ANC  Constituency List 2021",
-            "Postal Address": "",
-            "Province": "Free State",
-            "Fax": "",
-            "Tel": "",
-            "People": [
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": ""
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": ""
-                },
-                {
-                    "cell": "",
-                    "Position": "Constituency Leader",
-                    "Name": "Tshidi Koloi          "
-                }
-            ],
-            "identifiers": {
-                "constituency-office/ANC/": ""
-            },
-            "E-Mail": "",
-            "Source URL": "",
-            "Ward": "",
-            "Physical Address": ""
         },
         {
             "Title": "ANC Constituency Office Bloemfontein",
@@ -827,31 +586,26 @@
             "Tel": "076 885 1820",
             "People": [
                 {
-                    "Cell": "073\u00a0321 4155",
-                    "Position": "Administrator",
-                    "Name": "Lucinda Sandt"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Lucinda Sandt"
-                },
-                {
                     "cell": "076 885 1820",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Gadija Brown"
+                },
+                {
+                    "cell": "073\u00a0321 4155",
+                    "Position": "Office Administrator",
+                    "Name": "Lucinda Sandt"
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "Heatherdale Road, Heidedal, Bloemfontein, 9301"
         },
         {
-            "Title": "ANC Constituency Office Bloemfontein",
+            "Title": "ANC Constituency Office Bloemfontein 66",
             "Party": "ANC",
             "Type": "office",
             "Source Note": "ANC Bloemfontein Constituency List 2021",
@@ -861,65 +615,26 @@
             "Tel": "077 885 1820",
             "People": [
                 {
-                    "Cell": "079 529 9444",
-                    "Position": "Administrator",
-                    "Name": "Andrew Visagie           "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Andrew Visagie           "
-                },
-                {
                     "cell": "077 885 1820",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Gadija Brown"
+                },
+                {
+                    "cell": "079 529 9444",
+                    "Position": "Office Administrator",
+                    "Name": "Andrew Visagie           "
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "Heatherdale Road, Heidedal, Bloemfontein, 9302"
         },
         {
-            "Title": "ANC Constituency Office Free State",
-            "Party": "ANC",
-            "Type": "office",
-            "Source Note": "ANC  Constituency List 2021",
-            "Postal Address": "",
-            "Province": "Free State",
-            "Fax": "",
-            "Tel": "073 050 1187",
-            "People": [
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "No information available"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "No information available"
-                },
-                {
-                    "cell": "073 050 1187",
-                    "Position": "Constituency Leader",
-                    "Name": "Dibolele Mahlatsi "
-                }
-            ],
-            "identifiers": {
-                "constituency-office/ANC/": ""
-            },
-            "E-Mail": "",
-            "Source URL": "",
-            "Ward": "",
-            "Physical Address": ""
-        },
-        {
-            "Title": "ANC Constituency Office Bloemfontein",
+            "Title": "ANC Constituency Office Bloemfontein 50",
             "Party": "ANC",
             "Type": "office",
             "Source Note": "ANC Bloemfontein Constituency List 2021",
@@ -929,31 +644,26 @@
             "Tel": "060 605 1000",
             "People": [
                 {
-                    "Cell": "078\u00a0361 6840",
-                    "Position": "Administrator",
-                    "Name": "Nthabiseng  Mangali"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Nthabiseng  Mangali"
-                },
-                {
                     "cell": "060 605 1000",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Lucy Mapena      "
+                },
+                {
+                    "cell": "078\u00a0361 6840",
+                    "Position": "Office Administrator",
+                    "Name": "Nthabiseng  Mangali"
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "Lourier Park Library,  Bloemfontein, 9301"
         },
         {
-            "Title": "ANC Constituency Office Bloemfontein",
+            "Title": "ANC Constituency Office Bloemfontein 98",
             "Party": "ANC",
             "Type": "office",
             "Source Note": "ANC Bloemfontein Constituency List 2021",
@@ -963,26 +673,21 @@
             "Tel": "",
             "People": [
                 {
-                    "Cell": "066 250 2282",
-                    "Position": "Administrator",
-                    "Name": "PA: Mikie"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "PA: Mikie"
-                },
-                {
                     "cell": "",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Lucy Mapena      "
+                },
+                {
+                    "cell": "066 250 2282",
+                    "Position": "Office Administrator",
+                    "Name": "PA: Mikie"
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "Lourier Park Library,  Bloemfontein, 9302"
         },
@@ -997,26 +702,21 @@
             "Tel": "076 554 0205",
             "People": [
                 {
-                    "Cell": "071\u00a0708 9459",
-                    "Position": "Administrator",
-                    "Name": "Puseletso Lesia "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Puseletso Lesia "
-                },
-                {
                     "cell": "076 554 0205",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Hon. Montseng Tsiu   (MPL)"
+                },
+                {
+                    "cell": "071\u00a0708 9459",
+                    "Position": "Office Administrator",
+                    "Name": "Puseletso Lesia "
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "6 Lebatla Str, Qibing, Wepener, 9944"
         },
@@ -1031,128 +731,21 @@
             "Tel": "073 117 1494",
             "People": [
                 {
-                    "Cell": "0765476034",
-                    "Position": "Administrator",
-                    "Name": "Lindi Nkopane          "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Lindi Nkopane          "
-                },
-                {
                     "cell": "073 117 1494",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Hon. Vusimusi Tshabalala (MPL) "
+                },
+                {
+                    "cell": "0765476034",
+                    "Position": "Office Administrator",
+                    "Name": "Lindi Nkopane          "
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
-            "Ward": "",
-            "Physical Address": "Site 54 Motaung Str, Bethlehem"
-        },
-        {
-            "Title": "ANC Constituency Office Bethlehem",
-            "Party": "ANC",
-            "Type": "office",
-            "Source Note": "ANC Bethlehem Constituency List 2021",
-            "Postal Address": "Site 54 Motaung Str, Bethlehem",
-            "Province": "Free State",
-            "Fax": "",
-            "Tel": "074 117 1494",
-            "People": [
-                {
-                    "Cell": "083 507 4007",
-                    "Position": "Administrator",
-                    "Name": "Mr Sekanisi Radebe"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Mr Sekanisi Radebe"
-                },
-                {
-                    "cell": "074 117 1494",
-                    "Position": "Constituency Leader",
-                    "Name": "Hon. Vusimusi Tshabalala (MPL) "
-                }
-            ],
-            "identifiers": {
-                "constituency-office/ANC/": ""
-            },
-            "E-Mail": "",
-            "Source URL": "",
-            "Ward": "",
-            "Physical Address": "Site 54 Motaung Str, Bethlehem"
-        },
-        {
-            "Title": "ANC Constituency Office Bethlehem",
-            "Party": "ANC",
-            "Type": "office",
-            "Source Note": "ANC Bethlehem Constituency List 2021",
-            "Postal Address": "Site 54 Motaung Str, Bethlehem",
-            "Province": "Free State",
-            "Fax": "",
-            "Tel": "075 117 1494",
-            "People": [
-                {
-                    "Cell": "073\u00a0996 1789",
-                    "Position": "Administrator",
-                    "Name": "Zera Mabine"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Zera Mabine"
-                },
-                {
-                    "cell": "075 117 1494",
-                    "Position": "Constituency Leader",
-                    "Name": "Hon. Vusimusi Tshabalala (MPL) "
-                }
-            ],
-            "identifiers": {
-                "constituency-office/ANC/": ""
-            },
-            "E-Mail": "",
-            "Source URL": "",
-            "Ward": "",
-            "Physical Address": "Site 54 Motaung Str, Bethlehem"
-        },
-        {
-            "Title": "ANC Constituency Office Bethlehem",
-            "Party": "ANC",
-            "Type": "office",
-            "Source Note": "ANC Bethlehem Constituency List 2021",
-            "Postal Address": "Site 54 Motaung Str, Bethlehem",
-            "Province": "Free State",
-            "Fax": "",
-            "Tel": "076 117 1494",
-            "People": [
-                {
-                    "Cell": "068 006 5884",
-                    "Position": "Administrator",
-                    "Name": "PA : Semphiwe Mahlangu"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "PA : Semphiwe Mahlangu"
-                },
-                {
-                    "cell": "076 117 1494",
-                    "Position": "Constituency Leader",
-                    "Name": "Hon. Vusimusi Tshabalala (MPL) "
-                }
-            ],
-            "identifiers": {
-                "constituency-office/ANC/": ""
-            },
-            "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "Site 54 Motaung Str, Bethlehem"
         },
@@ -1167,31 +760,26 @@
             "Tel": "066 044 5809",
             "People": [
                 {
-                    "Cell": "073\u00a0599 0448",
-                    "Position": "Administrator",
-                    "Name": "Lefu Motloenya "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Lefu Motloenya "
-                },
-                {
                     "cell": "066 044 5809",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Hon. Zanele Sifuba (MPL)"
+                },
+                {
+                    "cell": "073\u00a0599 0448",
+                    "Position": "Office Administrator",
+                    "Name": "Lefu Motloenya "
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "1728 Zone 2, Meqheleng Location, Ficksburg"
         },
         {
-            "Title": "ANC Constituency Office Ficksburg",
+            "Title": "ANC Constituency Office Ficksburg 41",
             "Party": "ANC",
             "Type": "office",
             "Source Note": "ANC Ficksburg Constituency List 2021",
@@ -1201,31 +789,26 @@
             "Tel": "067 044 5809",
             "People": [
                 {
-                    "Cell": "076 518 7763",
-                    "Position": "Administrator",
-                    "Name": "PA : Lumka Siyoko"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "PA : Lumka Siyoko"
-                },
-                {
                     "cell": "067 044 5809",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Hon. Zanele Sifuba (MPL)"
+                },
+                {
+                    "cell": "076 518 7763",
+                    "Position": "Office Administrator",
+                    "Name": "PA : Lumka Siyoko"
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "1729 Zone 2, Meqheleng Location, Ficksburg"
         },
         {
-            "Title": "ANC Constituency Office Ficksburg",
+            "Title": "ANC Constituency Office Ficksburg 22",
             "Party": "ANC",
             "Type": "office",
             "Source Note": "ANC Ficksburg Constituency List 2021",
@@ -1235,26 +818,21 @@
             "Tel": "068 044 5809",
             "People": [
                 {
-                    "Cell": "083 460 5184",
-                    "Position": "Administrator",
-                    "Name": "Mr Mare Kobeli"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Mr Mare Kobeli"
-                },
-                {
                     "cell": "068 044 5809",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Hon. Zanele Sifuba (MPL)"
+                },
+                {
+                    "cell": "083 460 5184",
+                    "Position": "Office Administrator",
+                    "Name": "Mr Mare Kobeli"
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "1730 Zone 2, Meqheleng Location, Ficksburg"
         },
@@ -1269,31 +847,26 @@
             "Tel": "076 339 8367",
             "People": [
                 {
-                    "Cell": "081 716 1744",
-                    "Position": "Administrator",
-                    "Name": "Tshego Sekete"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Tshego Sekete"
-                },
-                {
                     "cell": "076 339 8367",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Hon. Sam Mashinini (MPL)"
+                },
+                {
+                    "cell": "081 716 1744",
+                    "Position": "Office Administrator",
+                    "Name": "Tshego Sekete"
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "Dihlabe Manucipality, Muller Street 9, Bethlehem, 9700"
         },
         {
-            "Title": "ANC Constituency Office Fouriesburg",
+            "Title": "ANC Constituency Office Fouriesburg 69",
             "Party": "ANC",
             "Type": "office",
             "Source Note": "ANC Fouriesburg Constituency List 2021",
@@ -1303,31 +876,26 @@
             "Tel": "077 339 8367",
             "People": [
                 {
-                    "Cell": "073 688 2179",
-                    "Position": "Administrator",
-                    "Name": "Malefetsane Mofokeng                           "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Malefetsane Mofokeng                           "
-                },
-                {
                     "cell": "077 339 8367",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Hon. Sam Mashinini (MPL)"
+                },
+                {
+                    "cell": "073 688 2179",
+                    "Position": "Office Administrator",
+                    "Name": "Malefetsane Mofokeng                           "
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "3 Municipal Offices, Mashaeng Location, Fouriesburg, 9725"
         },
         {
-            "Title": "ANC Constituency Office Fouriesburg",
+            "Title": "ANC Constituency Office Fouriesburg 1",
             "Party": "ANC",
             "Type": "office",
             "Source Note": "ANC Fouriesburg Constituency List 2021",
@@ -1337,26 +905,21 @@
             "Tel": "078 339 8367",
             "People": [
                 {
-                    "Cell": "076 827 7944",
-                    "Position": "Administrator",
-                    "Name": "MPLO : Maloka                   "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "MPLO : Maloka                   "
-                },
-                {
                     "cell": "078 339 8367",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Hon. Sam Mashinini (MPL)"
+                },
+                {
+                    "cell": "076 827 7944",
+                    "Position": "Office Administrator",
+                    "Name": "MPLO : Maloka                   "
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "4 Municipal Offices, Mashaeng Location, Fouriesburg, 9725"
         },
@@ -1371,60 +934,21 @@
             "Tel": "0829418931",
             "People": [
                 {
-                    "Cell": "081 212 7934",
-                    "Position": "Administrator",
-                    "Name": "PA : Ntsiuoa Pheko"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "PA : Ntsiuoa Pheko"
-                },
-                {
                     "cell": "0829418931",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Hon. Sarah Moleleki     (MPL)"
+                },
+                {
+                    "cell": "081 212 7934",
+                    "Position": "Office Administrator",
+                    "Name": "PA : Ntsiuoa Pheko"
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "sarahmoleleki@gmail.com ",
-            "Source URL": "",
-            "Ward": "",
-            "Physical Address": "House no 20, Kestel"
-        },
-        {
-            "Title": "ANC Constituency Office Kestel",
-            "Party": "ANC",
-            "Type": "office",
-            "Source Note": "ANC Kestel Constituency List 2021",
-            "Postal Address": "House no 20, Kestel",
-            "Province": "Free State",
-            "Fax": "",
-            "Tel": "0829418932",
-            "People": [
-                {
-                    "Cell": "071 730 5534",
-                    "Position": "Administrator",
-                    "Name": "Matau Selepe "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Matau Selepe "
-                },
-                {
-                    "cell": "0829418932",
-                    "Position": "Constituency Leader",
-                    "Name": "Hon. Sarah Moleleki     (MPL)"
-                }
-            ],
-            "identifiers": {
-                "constituency-office/ANC/": ""
-            },
-            "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "House no 20, Kestel"
         },
@@ -1433,34 +957,29 @@
             "Party": "ANC",
             "Type": "office",
             "Source Note": "ANC Ladybrand Constituency List 2021",
-            "Postal Address": "Mantsopa Municipality, Joubert Street 38, Ladybrand\n\n\n\n\n\n",
+            "Postal Address": "Mantsopa Municipality, Joubert Street 38, Ladybrand      ",
             "Province": "Free State",
             "Fax": "",
             "Tel": "",
             "People": [
                 {
-                    "Cell": "076 370 6148",
-                    "Position": "Administrator",
-                    "Name": "MPLO : Nokuthula Sithole   "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "MPLO : Nokuthula Sithole   "
-                },
-                {
                     "cell": "",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Hon. Thembeni Nxangisa (MPL)"
+                },
+                {
+                    "cell": "076 370 6148",
+                    "Position": "Office Administrator",
+                    "Name": "MPLO : Nokuthula Sithole   "
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "mec@fscogta.gov.za",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
-            "Physical Address": "Mantsopa Municipality, Joubert Street 38, Ladybrand\n\n\n\n\n\n"
+            "Physical Address": "Mantsopa Municipality, Joubert Street 38, Ladybrand      "
         },
         {
             "Title": "ANC Constituency Office Tweespruit",
@@ -1473,26 +992,21 @@
             "Tel": "",
             "People": [
                 {
-                    "Cell": "065\u00a0544 1727",
-                    "Position": "Administrator",
-                    "Name": "Thato Chaka"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Thato Chaka"
-                },
-                {
                     "cell": "",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Hon. Thembeni Nxangisa (MPL)"
+                },
+                {
+                    "cell": "065\u00a0544 1727",
+                    "Position": "Office Administrator",
+                    "Name": "Thato Chaka"
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "01 Boroa Location, Tweespruit, 9770"
         },
@@ -1507,62 +1021,23 @@
             "Tel": "076 554 0205",
             "People": [
                 {
-                    "Cell": "076 547 6034",
-                    "Position": "Administrator",
-                    "Name": "MPLO : Lindi Nkopane          "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "MPLO : Lindi Nkopane          "
-                },
-                {
                     "cell": "076 554 0205",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Hon. Montseng Tsiu   (MPL)"
+                },
+                {
+                    "cell": "076 547 6034",
+                    "Position": "Office Administrator",
+                    "Name": "MPLO : Lindi Nkopane          "
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "FDC, Kellner Street, Westdene, Qwaqwa"
-        },
-        {
-            "Title": "ANC Constituency Office Qwaqwa",
-            "Party": "ANC",
-            "Type": "office",
-            "Source Note": "ANC Qwaqwa Constituency List 2021",
-            "Postal Address": "",
-            "Province": "Free State",
-            "Fax": "",
-            "Tel": "077 554 0205",
-            "People": [
-                {
-                    "Cell": " 067\u00a0123 5182",
-                    "Position": "Administrator",
-                    "Name": "Tshidi Rapabi "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Tshidi Rapabi "
-                },
-                {
-                    "cell": "077 554 0205",
-                    "Position": "Constituency Leader",
-                    "Name": "Hon. Montseng Tsiu   (MPL)"
-                }
-            ],
-            "identifiers": {
-                "constituency-office/ANC/": ""
-            },
-            "E-Mail": "",
-            "Source URL": "",
-            "Ward": "",
-            "Physical Address": ""
         },
         {
             "Title": "ANC Constituency Office Westdene",
@@ -1575,31 +1050,26 @@
             "Tel": "",
             "People": [
                 {
-                    "Cell": "083\u00a0967 5879",
-                    "Position": "Administrator",
-                    "Name": "Emily Mahlamba "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Emily Mahlamba "
-                },
-                {
                     "cell": "",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Hon. Zanele Sifuba (MPL)"
+                },
+                {
+                    "cell": "083\u00a0967 5879",
+                    "Position": "Office Administrator",
+                    "Name": "Emily Mahlamba "
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "FDC, Kellner Street, Westdene, Bloemfontein"
         },
         {
-            "Title": "ANC Constituency Office Qwaqwa",
+            "Title": "ANC Constituency Office Qwaqwa 17",
             "Party": "ANC",
             "Type": "office",
             "Source Note": "ANC Qwaqwa Constituency List 2021",
@@ -1609,26 +1079,21 @@
             "Tel": "",
             "People": [
                 {
-                    "Cell": "076 518 7763",
-                    "Position": "Administrator",
-                    "Name": "Lumka Siyoko"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Lumka Siyoko"
-                },
-                {
                     "cell": "",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Hon. Zanele Sifuba (MPL)"
+                },
+                {
+                    "cell": "076 518 7763",
+                    "Position": "Office Administrator",
+                    "Name": "Lumka Siyoko"
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "FDC Building, Tsheseng, Qwaqwa"
         },
@@ -1643,31 +1108,26 @@
             "Tel": "082 944 8351",
             "People": [
                 {
-                    "Cell": "074\u00a0740 2537",
-                    "Position": "Administrator",
-                    "Name": "Thabo Harris "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Thabo Harris "
-                },
-                {
                     "cell": "082 944 8351",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Hon. Tate Makgoe      (MPL)"
+                },
+                {
+                    "cell": "074\u00a0740 2537",
+                    "Position": "Office Administrator",
+                    "Name": "Thabo Harris "
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "tate.makgoe@vodamail.co.za",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "Letsemeng Municipality, Voortrekker Street, Koffiefontein, 9986"
         },
         {
-            "Title": "ANC Constituency Office Koffiefontein",
+            "Title": "ANC Constituency Office Koffiefontein 10",
             "Party": "ANC",
             "Type": "office",
             "Source Note": "ANC Koffiefontein Constituency List 2021",
@@ -1677,26 +1137,21 @@
             "Tel": "083 944 8351",
             "People": [
                 {
-                    "Cell": "083 413 5218",
-                    "Position": "Administrator",
-                    "Name": "MPLO : Jabulani Khumalo       "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "MPLO : Jabulani Khumalo       "
-                },
-                {
                     "cell": "083 944 8351",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Hon. Tate Makgoe      (MPL)"
+                },
+                {
+                    "cell": "083 413 5218",
+                    "Position": "Office Administrator",
+                    "Name": "MPLO : Jabulani Khumalo       "
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "tate.makgoe@vodamail.co.za",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "MPCC Building, Mandela Square, Koffiefontein, 9986"
         },
@@ -1711,62 +1166,52 @@
             "Tel": "072 966 8220",
             "People": [
                 {
-                    "Cell": "063\u00a0344 2227",
-                    "Position": "Administrator",
-                    "Name": "Dineo Nthute                 "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Dineo Nthute                 "
-                },
-                {
                     "cell": "072 966 8220",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Hon. William Bulwane (MPL)"
+                },
+                {
+                    "cell": "063\u00a0344 2227",
+                    "Position": "Office Administrator",
+                    "Name": "Dineo Nthute                 "
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "kwbulwane@vodamail.co.za",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "Boiketlo Street, Bolokanang, Petrusburg, 9932"
         },
         {
-            "Title": "ANC Constituency Office Petrusburg",
+            "Title": "ANC Constituency Office Petrusburg 39",
             "Party": "ANC",
             "Type": "office",
             "Source Note": "ANC Petrusburg Constituency List 2021",
-            "Postal Address": "",
+            "Postal Address": "Boiketlo Street, Bolokanang, Petrusburg, 9933",
             "Province": "Free State",
             "Fax": "",
             "Tel": "",
             "People": [
                 {
-                    "Cell": "083 670 5003",
-                    "Position": "Administrator",
-                    "Name": "Moruti Majola"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Moruti Majola"
-                },
-                {
                     "cell": "",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Hon. William Bulwane (MPL)"
+                },
+                {
+                    "cell": "083 670 5003",
+                    "Position": "Office Administrator",
+                    "Name": "Moruti Majola"
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "kwbulwane@vodamail.co.za",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
-            "Physical Address": ""
+            "Physical Address": "Boiketlo Street, Bolokanang, Petrusburg, 9933"
         },
         {
             "Title": "ANC Constituency Office Trompsburg",
@@ -1779,31 +1224,26 @@
             "Tel": "062 979 7941",
             "People": [
                 {
-                    "Cell": "066 105 0001",
-                    "Position": "Administrator",
-                    "Name": "MPLO : Pule"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "MPLO : Pule"
-                },
-                {
                     "cell": "062 979 7941",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Hon. Makalo Mohale    (MPL)"
+                },
+                {
+                    "cell": "066 105 0001",
+                    "Position": "Office Administrator",
+                    "Name": "MPLO : Pule"
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "makalom@destea.gov.za",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "Kopanong Municipality, Tromspburg, 9913"
         },
         {
-            "Title": "ANC Constituency Office Trompsburg",
+            "Title": "ANC Constituency Office Trompsburg 60",
             "Party": "ANC",
             "Type": "office",
             "Source Note": "ANC Trompsburg Constituency List 2021",
@@ -1813,26 +1253,21 @@
             "Tel": "",
             "People": [
                 {
-                    "Cell": "072\u00a0097 1082",
-                    "Position": "Administrator",
-                    "Name": "Lentikile Kutoane "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Lentikile Kutoane "
-                },
-                {
                     "cell": "",
-                    "Position": "Constituency Leader",
+                    "Position": "Constituency Contact",
                     "Name": "Hon. Makalo Mohale    (MPL)"
+                },
+                {
+                    "cell": "072\u00a0097 1082",
+                    "Position": "Office Administrator",
+                    "Name": "Lentikile Kutoane "
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "Mandela Square, Trompsburg, 9913"
         },
@@ -1847,26 +1282,16 @@
             "Tel": "",
             "People": [
                 {
-                    "Cell": "0625870853",
-                    "Position": "Administrator",
+                    "cell": "0625870853",
+                    "Position": "Office Administrator",
                     "Name": "Rozanne Cloete"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Rozanne Cloete"
-                },
-                {
-                    "cell": "",
-                    "Position": "",
-                    "Name": ""
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": ""
         },
@@ -1881,31 +1306,21 @@
             "Tel": "",
             "People": [
                 {
-                    "Cell": "082 661 7325",
-                    "Position": "Administrator",
+                    "cell": "082 661 7325",
+                    "Position": "Office Administrator",
                     "Name": "Veronica Magopa"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Veronica Magopa"
-                },
-                {
-                    "cell": "",
-                    "Position": "",
-                    "Name": ""
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "Postal Address  Box 185, Dingleton, 8445"
         },
         {
-            "Title": "ANC Constituency Office Northern Cape",
+            "Title": "ANC Constituency Office Northern Cape 66",
             "Party": "ANC",
             "Type": "office",
             "Source Note": "ANC  Constituency List 2021",
@@ -1915,31 +1330,21 @@
             "Tel": "",
             "People": [
                 {
-                    "Cell": "0721708840",
-                    "Position": "Administrator",
+                    "cell": "0721708840",
+                    "Position": "Office Administrator",
                     "Name": "Leatile Atisang "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Leatile Atisang "
-                },
-                {
-                    "cell": "",
-                    "Position": "",
-                    "Name": ""
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": ""
         },
         {
-            "Title": "ANC Constituency Office Northern Cape",
+            "Title": "ANC Constituency Office Northern Cape 61",
             "Party": "ANC",
             "Type": "office",
             "Source Note": "ANC  Constituency List 2021",
@@ -1949,18 +1354,13 @@
             "Tel": "",
             "People": [
                 {
-                    "Cell": "061 298 3949",
-                    "Position": "Administrator",
+                    "cell": "061 298 3949",
+                    "Position": "Office Administrator",
                     "Name": "Johannes R Visser"
                 },
                 {
-                    "Cell": 842618797.0,
+                    "Cell": "842618797",
                     "Position": "Administrator",
-                    "Name": "Johannes R Visser"
-                },
-                {
-                    "cell": "",
-                    "Position": "",
                     "Name": ""
                 }
             ],
@@ -1968,12 +1368,12 @@
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "No 9 Charl Colliers Street, Old Library Building, Douglas, 8730 "
         },
         {
-            "Title": "ANC Constituency Office Northern Cape",
+            "Title": "ANC Constituency Office Northern Cape 11",
             "Party": "ANC",
             "Type": "office",
             "Source Note": "ANC  Constituency List 2021",
@@ -1983,31 +1383,21 @@
             "Tel": "",
             "People": [
                 {
-                    "Cell": "074 796 3905",
-                    "Position": "Administrator",
+                    "cell": "074 796 3905",
+                    "Position": "Office Administrator",
                     "Name": "Basil Barron  "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Basil Barron  "
-                },
-                {
-                    "cell": "",
-                    "Position": "",
-                    "Name": ""
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": ""
         },
         {
-            "Title": "ANC Constituency Office Northern Cape",
+            "Title": "ANC Constituency Office Northern Cape 38",
             "Party": "ANC",
             "Type": "office",
             "Source Note": "ANC  Constituency List 2021",
@@ -2017,26 +1407,16 @@
             "Tel": "",
             "People": [
                 {
-                    "Cell": "083 392 0555",
-                    "Position": "Administrator",
+                    "cell": "083 392 0555",
+                    "Position": "Office Administrator",
                     "Name": "Anneline Mouers"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Anneline Mouers"
-                },
-                {
-                    "cell": "",
-                    "Position": "",
-                    "Name": ""
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "Corner Hanau and Victoria Street,  Carnavorn"
         },
@@ -2051,26 +1431,16 @@
             "Tel": "",
             "People": [
                 {
-                    "Cell": "066 199 2197 ",
-                    "Position": "Administrator",
+                    "cell": "066 199 2197 ",
+                    "Position": "Office Administrator",
                     "Name": "Francis Gasenamore   "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Francis Gasenamore   "
-                },
-                {
-                    "cell": "",
-                    "Position": "",
-                    "Name": ""
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "Cnr Voortrekker & Main Street, Sancam Building, 8460"
         },
@@ -2085,26 +1455,16 @@
             "Tel": "",
             "People": [
                 {
-                    "Cell": 728172088,
-                    "Position": "Administrator",
+                    "cell": "728172088",
+                    "Position": "Office Administrator",
                     "Name": "Adrian Meyer   "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Adrian Meyer   "
-                },
-                {
-                    "cell": "",
-                    "Position": "",
-                    "Name": ""
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "63 Loubos Road, Rietfontein, Mier"
         },
@@ -2119,26 +1479,16 @@
             "Tel": "",
             "People": [
                 {
-                    "Cell": "078 591 8530",
-                    "Position": "Administrator",
+                    "cell": "078 591 8530",
+                    "Position": "Office Administrator",
                     "Name": "Xola Nkabalaza"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Xola Nkabalaza"
-                },
-                {
-                    "cell": "",
-                    "Position": "",
-                    "Name": ""
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "59 Piet Ritief Streets, Old Clinic Building, Noupoort"
         },
@@ -2153,26 +1503,16 @@
             "Tel": "",
             "People": [
                 {
-                    "Cell": "067 7795 4304",
-                    "Position": "Administrator",
+                    "cell": "067 7795 4304",
+                    "Position": "Office Administrator",
                     "Name": "Jack, Sizwe "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Jack, Sizwe "
-                },
-                {
-                    "cell": "",
-                    "Position": "",
-                    "Name": ""
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "33 Community Road, Florianville,  Kimberley"
         },
@@ -2187,26 +1527,16 @@
             "Tel": "",
             "People": [
                 {
-                    "Cell": "072 493 0743",
-                    "Position": "Administrator",
+                    "cell": "072 493 0743",
+                    "Position": "Office Administrator",
                     "Name": "Olga Angelina Bosman "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Olga Angelina Bosman "
-                },
-                {
-                    "cell": "",
-                    "Position": "",
-                    "Name": ""
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "Van Riebeek Laan, Prieska"
         },
@@ -2219,33 +1549,17 @@
             "Province": "Northern Cape",
             "Fax": "",
             "Tel": "",
-            "People": [
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Bonakele Plata"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Bonakele Plata"
-                },
-                {
-                    "cell": "",
-                    "Position": "",
-                    "Name": ""
-                }
-            ],
+            "People": [],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "PO Box 73, Warrenton, 8530"
         },
         {
-            "Title": "ANC Constituency Office Frances Baard District",
+            "Title": "ANC Constituency Office Frances Baard District 35",
             "Party": "ANC",
             "Type": "office",
             "Source Note": "ANC Frances Baard District Constituency List 2021",
@@ -2255,31 +1569,21 @@
             "Tel": "",
             "People": [
                 {
-                    "Cell": "078 276 2780",
-                    "Position": "Administrator",
+                    "cell": "078 276 2780",
+                    "Position": "Office Administrator",
                     "Name": "Mosetsanagape Theletsane "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Mosetsanagape Theletsane "
-                },
-                {
-                    "cell": "",
-                    "Position": "",
-                    "Name": ""
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "PO Box 73, Warrenton, 8531"
         },
         {
-            "Title": "ANC Constituency Office Northern Cape",
+            "Title": "ANC Constituency Office Northern Cape 40",
             "Party": "ANC",
             "Type": "office",
             "Source Note": "ANC  Constituency List 2021",
@@ -2287,28 +1591,12 @@
             "Province": "Northern Cape",
             "Fax": "",
             "Tel": "",
-            "People": [
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Derrick Swarts"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Derrick Swarts"
-                },
-                {
-                    "cell": "",
-                    "Position": "",
-                    "Name": ""
-                }
-            ],
+            "People": [],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "125 Namelang Street, Magareng Municipality Bldng, Ikhutseng Location,    Warrenton, "
         },
@@ -2323,26 +1611,16 @@
             "Tel": "",
             "People": [
                 {
-                    "Cell": "082 397 7659",
-                    "Position": "Administrator",
+                    "cell": "082 397 7659",
+                    "Position": "Office Administrator",
                     "Name": "Pabalelo Changkane"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Pabalelo Changkane"
-                },
-                {
-                    "cell": "",
-                    "Position": "",
-                    "Name": ""
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "Postal Address : P.O. Box 492, Kuruman, 8460"
         },
@@ -2357,26 +1635,16 @@
             "Tel": "",
             "People": [
                 {
-                    "Cell": "072 319 5204",
-                    "Position": "Administrator",
+                    "cell": "072 319 5204",
+                    "Position": "Office Administrator",
                     "Name": "Terry Malgas"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Terry Malgas"
-                },
-                {
-                    "cell": "",
-                    "Position": "",
-                    "Name": ""
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "Voortrekker Street, De Aar, 7000"
         },
@@ -2391,26 +1659,16 @@
             "Tel": "",
             "People": [
                 {
-                    "Cell": "079 955 9482",
-                    "Position": "Administrator",
+                    "cell": "079 955 9482",
+                    "Position": "Office Administrator",
                     "Name": " Alinda Cloete"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": " Alinda Cloete"
-                },
-                {
-                    "cell": "",
-                    "Position": "",
-                    "Name": ""
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "No 3 Phillips Street, Springbok, 8240"
         },
@@ -2425,26 +1683,16 @@
             "Tel": "",
             "People": [
                 {
-                    "Cell": "079 471 3349",
-                    "Position": "Administrator",
+                    "cell": "079 471 3349",
+                    "Position": "Office Administrator",
                     "Name": "Nelmarie Van Wyk "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Nelmarie Van Wyk "
-                },
-                {
-                    "cell": "",
-                    "Position": "",
-                    "Name": ""
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "No 42 Telkom Building, Schroder Street, 8801"
         },
@@ -2459,18 +1707,13 @@
             "Tel": "072 499 3391",
             "People": [
                 {
-                    "Cell": "072 499 3391",
-                    "Position": "Administrator",
+                    "cell": "072 499 3391",
+                    "Position": "Office Administrator",
                     "Name": "Esther Zwane"
                 },
                 {
                     "Cell": "017 685 2815",
                     "Position": "Administrator",
-                    "Name": "Esther Zwane"
-                },
-                {
-                    "cell": "072 499 3391",
-                    "Position": "",
                     "Name": ""
                 }
             ],
@@ -2478,7 +1721,7 @@
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "estherzwane@gmail.com",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "Old Mutual Building, Horwood Street,Secunda 2302"
         },
@@ -2493,18 +1736,13 @@
             "Tel": "072 761 9897",
             "People": [
                 {
-                    "Cell": "072 761 9897",
-                    "Position": "Administrator",
+                    "cell": "072 761 9897",
+                    "Position": "Office Administrator",
                     "Name": "Prince Nkosi"
                 },
                 {
                     "Cell": "013 794 7023",
                     "Position": "Administrator",
-                    "Name": "Prince Nkosi"
-                },
-                {
-                    "cell": "072 761 9897",
-                    "Position": "",
                     "Name": ""
                 }
             ],
@@ -2512,7 +1750,7 @@
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "princenkosi1@gmail.com",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "Community Hall Centre, Thembisa Section, Daantjie, 1200"
         },
@@ -2527,18 +1765,13 @@
             "Tel": "073 740 5449",
             "People": [
                 {
-                    "Cell": "073 740 5449",
-                    "Position": "Administrator",
+                    "cell": "073 740 5449",
+                    "Position": "Office Administrator",
                     "Name": "Albertina Thabethe"
                 },
                 {
                     "Cell": "013 235 3684",
                     "Position": "Administrator",
-                    "Name": "Albertina Thabethe"
-                },
-                {
-                    "cell": "073 740 5449",
-                    "Position": "",
                     "Name": ""
                 }
             ],
@@ -2546,7 +1779,7 @@
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "suzanthabethe@gmail.com",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "8 Voortrekker Street, Lydenburg, 1120"
         },
@@ -2561,18 +1794,13 @@
             "Tel": "071 273 6928",
             "People": [
                 {
-                    "Cell": "071 273 6928",
-                    "Position": "Administrator",
+                    "cell": "071 273 6928",
+                    "Position": "Office Administrator",
                     "Name": "Ndumiso Nkosi"
                 },
                 {
                     "Cell": "013 787 0081",
                     "Position": "Administrator",
-                    "Name": "Ndumiso Nkosi"
-                },
-                {
-                    "cell": "071 273 6928",
-                    "Position": "",
                     "Name": ""
                 }
             ],
@@ -2580,7 +1808,7 @@
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "simelane nomthandazof@gmail.com",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "Matsamo Lake Beneficiary Building,Shongwe Mission,1331"
         },
@@ -2595,26 +1823,16 @@
             "Tel": "0605821443",
             "People": [
                 {
-                    "Cell": "0605821443",
-                    "Position": "Administrator",
-                    "Name": "MAITE NKOANA-MASHABANE (MP)"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "MAITE NKOANA-MASHABANE (MP)"
-                },
-                {
                     "cell": "0605821443",
-                    "Position": "",
-                    "Name": ""
+                    "Position": "Office Administrator",
+                    "Name": "MAITE NKOANA-MASHABANE (MP)"
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "Lekwa PCO 213"
         },
@@ -2629,26 +1847,16 @@
             "Tel": "0837878810",
             "People": [
                 {
-                    "Cell": "0837878810",
-                    "Position": "Administrator",
-                    "Name": "MOSEBENZI ZWANE (MP)"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "MOSEBENZI ZWANE (MP)"
-                },
-                {
                     "cell": "0837878810",
-                    "Position": "",
-                    "Name": ""
+                    "Position": "Office Administrator",
+                    "Name": "MOSEBENZI ZWANE (MP)"
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "mosebenziz.mail@gmail.com",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "Lekwa PCO 214"
         },
@@ -2661,28 +1869,12 @@
             "Province": "",
             "Fax": "",
             "Tel": "",
-            "People": [
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Gugulakhe Simelane "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Gugulakhe Simelane "
-                },
-                {
-                    "cell": "",
-                    "Position": "",
-                    "Name": ""
-                }
-            ],
+            "People": [],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": ""
         },
@@ -2697,26 +1889,16 @@
             "Tel": "0727335995",
             "People": [
                 {
-                    "Cell": "0727335995",
-                    "Position": "Administrator",
-                    "Name": "Mashele Timothy"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Mashele Timothy"
-                },
-                {
                     "cell": "0727335995",
-                    "Position": "",
-                    "Name": ""
+                    "Position": "Office Administrator",
+                    "Name": "Mashele Timothy"
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": ""
         },
@@ -2729,28 +1911,12 @@
             "Province": "",
             "Fax": "",
             "Tel": "",
-            "People": [
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Gugulakhe Simelane "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Gugulakhe Simelane "
-                },
-                {
-                    "cell": "",
-                    "Position": "",
-                    "Name": ""
-                }
-            ],
+            "People": [],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": ""
         },
@@ -2765,18 +1931,13 @@
             "Tel": "0828270341",
             "People": [
                 {
-                    "Cell": "0828270341",
-                    "Position": "Administrator",
+                    "cell": "0828270341",
+                    "Position": "Office Administrator",
                     "Name": "Manzini Sasekani "
                 },
                 {
                     "Cell": "017 735 4671",
                     "Position": "Administrator",
-                    "Name": "Manzini Sasekani "
-                },
-                {
-                    "cell": "0828270341",
-                    "Position": "",
                     "Name": ""
                 }
             ],
@@ -2784,7 +1945,7 @@
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": ""
         },
@@ -2797,28 +1958,12 @@
             "Province": "",
             "Fax": "",
             "Tel": "",
-            "People": [
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Mavis Mbambo"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Mavis Mbambo"
-                },
-                {
-                    "cell": "",
-                    "Position": "",
-                    "Name": ""
-                }
-            ],
+            "People": [],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": ""
         },
@@ -2833,26 +1978,16 @@
             "Tel": "0765115658",
             "People": [
                 {
-                    "Cell": "0765115658",
-                    "Position": "Administrator",
-                    "Name": "Gabisile Cynthia Shabalala "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Gabisile Cynthia Shabalala "
-                },
-                {
                     "cell": "0765115658",
-                    "Position": "",
-                    "Name": ""
+                    "Position": "Office Administrator",
+                    "Name": "Gabisile Cynthia Shabalala "
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "Constituency: ANC Seme Parliamentary Constituency Office ( PCO 257) "
         },
@@ -2867,26 +2002,16 @@
             "Tel": "082 555 8005",
             "People": [
                 {
-                    "Cell": "082 555 8005",
-                    "Position": "Administrator",
-                    "Name": "Mahlangu DG "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": "Mahlangu DG "
-                },
-                {
                     "cell": "082 555 8005",
-                    "Position": "",
-                    "Name": ""
+                    "Position": "Office Administrator",
+                    "Name": "Mahlangu DG "
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "dikeledimahlangu57@gmail.com",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "KWamhlanga PCO 222 in Mpumalanga , Nkangala District, Thembisile Hani"
         },
@@ -2901,26 +2026,16 @@
             "Tel": "073 288 1871",
             "People": [
                 {
-                    "Cell": "073 288 1871",
-                    "Position": "Administrator",
-                    "Name": " Skosana GJ"
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": " Skosana GJ"
-                },
-                {
                     "cell": "073 288 1871",
-                    "Position": "",
-                    "Name": ""
+                    "Position": "Office Administrator",
+                    "Name": " Skosana GJ"
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "gijimanis89@gmail.com",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "KWamhlanga PCO 222 in Mpumalanga , Nkangala District, Thembisile Hani"
         },
@@ -2935,26 +2050,16 @@
             "Tel": " 060 938 7643  ",
             "People": [
                 {
-                    "Cell": " 060 938 7643  ",
-                    "Position": "Administrator",
-                    "Name": " Hlope NE "
-                },
-                {
-                    "Cell": "",
-                    "Position": "Administrator",
-                    "Name": " Hlope NE "
-                },
-                {
                     "cell": " 060 938 7643  ",
-                    "Position": "",
-                    "Name": ""
+                    "Position": "Office Administrator",
+                    "Name": " Hlope NE "
                 }
             ],
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "nompumelelohlophe4@gmail.com",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "KWamhlanga PCO 222 in Mpumalanga , Nkangala District, Thembisile Hani"
         },
@@ -2969,18 +2074,13 @@
             "Tel": "",
             "People": [
                 {
-                    "Cell": "0818586 781",
-                    "Position": "Administrator",
+                    "cell": "0818586 781",
+                    "Position": "Office Administrator",
                     "Name": "Mnisi Sylvia Magauta"
                 },
                 {
                     "Cell": "078343 8070",
                     "Position": "Administrator",
-                    "Name": "Mnisi Sylvia Magauta"
-                },
-                {
-                    "cell": "",
-                    "Position": "",
                     "Name": ""
                 }
             ],
@@ -2988,11 +2088,11 @@
                 "constituency-office/ANC/": ""
             },
             "E-Mail": "",
-            "Source URL": "",
+            "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
             "Ward": "",
             "Physical Address": "KWamhlanga PCO 222 in Mpumalanga , Nkangala District, Thembisile Hani"
         }
     ],
-    "start_date": "2017-01-01",
-    "end_date": "2017-12-31"
+    "start_date": "2021-11-01",
+    "end_date": "2021-11-31"
 }
