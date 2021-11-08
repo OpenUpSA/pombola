@@ -4,11 +4,32 @@ import os
 import pprint
 import string
 import re
+import time
+import logging
+
+import mammoth
+import scraperwiki
 
 from bs4 import BeautifulSoup
 import lxml.etree
-import mammoth
-import scraperwiki
+
+
+class Logger():
+    def __init__(self, log_file_name):
+        self.log_file_name = log_file_name
+
+    def initialize_logger(self):
+        logging.basicConfig(level=logging.INFO, filemode="a", encoding="utf-8")
+        formatter = logging.Formatter("%(asctime)s | %(levelname)s | %(message)s")
+        logger = logging.getLogger(__name__)
+        file_handler = logging.FileHandler(self.log_file_name)
+        file_handler.setFormatter(formatter)
+        logger.addHandler(file_handler)
+        return logger
+
+    def log(self, message):
+        if self.verbose:
+            print(message)
 
 
 class InterestScraper(object):
@@ -17,6 +38,7 @@ class InterestScraper(object):
         self.output = args.output
         self.year = args.year
         self.source = args.source
+        self.logger = Logger(args.log_file).initialize_logger()
 
     def strip_bold(self, text):
         if re.match('(?s)<b.*?>(.*?)</b>', text):
@@ -118,23 +140,43 @@ class InterestScraper(object):
                                 self.data[namecount-1][currentsection][len(
                                     self.data[namecount-1][currentsection])-1][curtable[el.attrib['left']]] = text_element
 
-    def extract_content_from_document(self):
+    def extract_content_from_document(self, doc_file_path):
         """ Extract content from a .docx file and return a (text, html) tuple.
         """
-        filename = self.input
+        filename = doc_file_path
         ext = os.path.splitext(filename)[1]
         if ext == '.docx':
+            html = ""
             with open(filename, "rb") as f:
                 html = mammoth.convert_to_html(f).value
-                # Before returning html, clean it up a bit
-                # ================================
-                # with open(self.output, 'w') as writer:
-                #     writer.writelines(str(html.encode("utf8")))
-                # ================================
             return html
         else:
-            # TODO: handle .doc
             raise ValueError("Can only handle .docx files, but got %s" % ext)
+
+    def read_and_merge_html(self, file_path):
+        """
+        Reads the contents of multiple small files and merges it into one big file.
+        """
+        self.logger.info("Reading and merging html files from {}".format(file_path))
+        main_html = ""
+
+        files = os.listdir(file_path)
+        # sort files by name
+        files_dict = {f.split('-')[1].split('.')[0]: f for f in files}
+        sorted_files = [files_dict[str(f)] for f in sorted([int(x) for x in files_dict.keys()])]
+        processed_files = 0
+        # Hmmm, I can try threading here and observe how it works
+        for file in sorted_files:
+            if file.endswith(".docx"):
+                processed_files += 1
+                full_file_path = os.path.join(file_path, file)
+                start_time = time.time()
+                extracted_html = self.extract_content_from_document(full_file_path)
+                end_time = time.time() - start_time
+                main_html += extracted_html
+                self.logger.info("Read {} in {} seconds".format(full_file_path, end_time))
+        self.logger.info("Finished reading and merging html {} dir".format(processed_files))
+        return main_html
 
     def parse_html_generated_from_doc(self, html):
         """
@@ -261,6 +303,10 @@ class InterestScraper(object):
             if el.tag == "fontspec":
                 print(el.items())
 
+    def write_html_to_file(self, html_str):
+        with open("main_html_file.html", 'w') as outfile:
+            outfile.write(html_str.encode('utf-8'))
+            self.logger.info("Wrote html to %s" % self.output)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
@@ -271,6 +317,7 @@ if __name__ == "__main__":
     parser.add_argument('--source', help='Source of pdf file')
     parser.add_argument('--print-font-ids',
                         help='Print the font ids used in the document')
+    parser.add_argument('--log_file', help='File to write log messages to')
 
     args = parser.parse_args()
 
@@ -280,11 +327,16 @@ if __name__ == "__main__":
         scraper.print_font_ids()
         exit()
 
-    # Not Applicapable to 2019
+    # Not Applicapable to 2019 and 2020
     # scraper.scrape_pdf()
 
     # Read and parse the word doc
-    html = scraper.extract_content_from_document()
+    start_time = time.time()
+    master_html = scraper.read_and_merge_html("docx files")
 
+    # write master_html to file
+    scraper.write_html_to_file(master_html)
+
+    print("--- %s seconds ---" % (time.time() - start_time))
     soup_text = scraper.parse_html_generated_from_doc(html)
     scraper.write_results()
