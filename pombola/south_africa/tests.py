@@ -1381,18 +1381,18 @@ class SAPersonProfileSubPageTest(WebTest):
                 )
 
 
-    def get_person_summary(self, soup):
-        return soup.find('div', class_='person-summary')
-
     def get_former_positions_title(self, soup):
         return soup.find('h3', text='Former positions:')
 
     def get_profile_info(self, soup):
         return soup.find('h3', class_='mp-block__title')
 
+    def get_deceased_info(self, soup):
+        return soup.find('div', class_='person-deceased')
+
     def test_person_death_date(self):
         response = self.app.get('/person/deceased-person/')
-        summary = self.get_person_summary(response.html)
+        summary = self.get_deceased_info(response.html)
 
         self.assertEqual(summary.findNext('p').contents[0], 'Died 1st January 2010')
 
