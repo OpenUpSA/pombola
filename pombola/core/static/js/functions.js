@@ -1,7 +1,16 @@
 $(function () {
+
+  // toggle former positions button on /person/person-slug/
+  const toggleElement = $('#toggle-former-positions');
+  toggleElement.on('click', function (e) {
+    e.preventDefault();
+    var collapseElement = document.getElementById("truncate-section");
+    collapseElement.classList.toggle("truncate-div");
+  });
+
   /*
-   * auto complete
-   */
+  * auto complete
+  */
   const search_input = $('input.search-autocomplete-name');
   if (search_input.length) {
     search_input.each(function () {

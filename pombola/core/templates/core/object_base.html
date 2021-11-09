@@ -5,17 +5,19 @@
 
 {% block content %}
     {% include "disqus_javascript.html" %}
-
-    <div class="mp-profile">
-      <div class="mp-info">
-        {% block object_title %}
-          <h1 class="mp-name">{{ object.title }} {{ object.name }}</h1>
-        {% endblock %}
-      </div>
-      {% thumbnail object.primary_image "100x100" crop="center" as sm %}
+    <div class="webf-container">
+      <div class="mp-profile">
+        <div class="mp-info">
+          {% block object_title %}
+            <h1 class="mp-name">{{ object.title }} {{ object.name }}</h1>
+          {% endblock %}
+          {% block object_tagline %}
+          {% endblock %}
+        </div>
+        {% thumbnail object.primary_image "100x100" crop="center" as sm %}
         <img src="{{ sm.url }}" class="mp-image"
           {% empty %}
-            <img src="{{STATIC_URL}}images/{{object.css_class}}-210x210.jpg"
+            <img src="{{STATIC_URL}}images/{{object.css_class}}-210x210.jpg" class="mp-image"
           {% endthumbnail %}
           {% thumbnail object.primary_image "210x210" crop="center" as lg %}
               srcset="{{ lg.url }} 640w"
@@ -23,19 +25,21 @@
               srcset="{{STATIC_URL}}images/{{object.css_class}}-210x210.jpg"
           {% endthumbnail %}
           alt="{{ object.name }}">
+      </div>
+
+      {% block socials %}
+      {% endblock %}
     </div>
 
-
-    {% block object_tagline %}
-    {% endblock %}
-
     <!-- about -->
-    <div class="person-summary mt-3">
+    <div>
       <h2 class="mp-subheading">About {{ object.name }}</h2>
       {% if person.date_of_death %}
-        <p>Died {{ person.date_of_death }}</p>
+        <div class="mp-deceased">
+          <p>Died {{ person.date_of_death }}</p>
+        </div>
       {% endif %}
-      <div class="mp-col">
+      <div class="mp-col is--full">
         <div class="mp-block is--underlined">
           <p>
             {{ person.summary }}
