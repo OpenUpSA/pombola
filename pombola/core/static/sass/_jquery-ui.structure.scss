@@ -171,8 +171,8 @@
 
 .ui-autocomplete {
   position: absolute;
-  top: 0;
-  left: 0;
+  width: inherit;
+  max-width: 380px;
   cursor: default;
 }
 
