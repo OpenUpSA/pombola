@@ -685,6 +685,11 @@ menu#mobile-top-tools,
             background-color: #eee;
         }
     }
+
+    input:focus {
+        border: none;
+        outline: none;
+    }
 }
 
 .tertiary-menu {

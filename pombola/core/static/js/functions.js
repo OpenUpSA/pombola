@@ -9,34 +9,34 @@ $(function () {
   });
 
   /*
-  * auto complete
-  */
-  const search_input = $('input.search-autocomplete-name');
-  if (search_input.length) {
-    search_input.each(function () {
-      var element = $(this);
-      var source = element.data('source') || "/search/autocomplete/";
-      element && element.autocomplete && element.autocomplete({
-        source: source,
-        minLength: 2,
-        html: true,
-        select: function (event, ui) {
-          if (ui.item) return window.location = ui.item.url;
-        }
-      });
-      element.data('uiAutocomplete')._renderItem = function (ul, item) {
-        var itemElement = $('<li>'), imageElement = $('<img>');
-        imageElement.attr('src', item.image_url);
-        imageElement.attr('width', '16');
-        imageElement.attr('height', '16');
-        itemElement.append(imageElement).append(' ' + item.name);
-        if (item.extra_data) {
-          itemElement.append(' ').append($('<i>').append(item.extra_data));
-        }
-        return itemElement.appendTo(ul);
-      };
+   * auto complete
+   */
+  const searchInput = $('input.search-autocomplete-name');
+  searchInput.each(function () {
+    var element = $(this);
+    var source = element.data('source') || "/search/autocomplete/";
+    element.autocomplete({
+      source: source,
+      minLength: 2,
+      html: true,
+      select: function (event, ui) {
+        if (ui.item) return window.location = ui.item.url;
+      }
     });
-  }
+    const elementAutocomplete = element.data('uiAutocomplete');
+    elementAutocomplete._renderItem = function (ul, item) {
+      var itemElement = $('<li>'), imageElement = $('<img>');
+      imageElement.attr('src', item.image_url);
+      imageElement.attr('width', '16');
+      imageElement.attr('height', '16');
+      itemElement.append(imageElement).append(' ' + item.name);
+      if (item.extra_data) {
+        itemElement.append(' ').append($('<i>').append(item.extra_data));
+      }
+      return itemElement.appendTo(ul);
+    };
+  });
+
 
   // auto-advance cycles through featured MPs; it also immediately replaces the
   // featured MP in the page (since we assume that has been frozen by caching)
