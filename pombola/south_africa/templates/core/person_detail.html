@@ -255,29 +255,50 @@
         {% with past_positions=person.position_set.all.political.currently_inactive current_positions=person.position_set.all.political.currently_active %}
         {% block current_politician_positions %}
         <h3 class="mp-block__title">Current positions:</h3>
-        {% if current_positions %}
-        <div>
+        <div id="truncate-current-section" class="current-mp-positions truncate-div">
+          {% if current_positions %}
             {% for position in current_positions %}
-                <div class="text-link">
-                  <div class="text-link__info">
-                    {% include "core/person_detail_position.html" %}
-                    <p class="text-link__date">
-                      {% if position.start_date %} since {{ position.start_date }}{% endif %}
-                    </p>
-                  </div>
-                  <div class="text-link__icon">
-                    <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="long-arrow-alt-right" class="svg-inline--fa fa-long-arrow-alt-right fa-w-14" role="img" viewBox="0 0 448 512">
-                        <path fill="currentColor" d="M313.941 216H12c-6.627 0-12 5.373-12 12v56c0 6.627 5.373 12 12 12h301.941v46.059c0 21.382 25.851 32.09 40.971 16.971l86.059-86.059c9.373-9.373 9.373-24.569 0-33.941l-86.059-86.059c-15.119-15.119-40.971-4.411-40.971 16.971V216z"></path>
-                      </svg></div>
-                  </div>
+              <div class="text-link">
+                <div class="text-link__info">
+                  {% include "core/person_detail_position.html" %}
+                  <p class="text-link__date">
+                    {% if position.start_date %} since {{ position.start_date }}{% endif %}
+                  </p>
                 </div>
+                <div class="text-link__icon">
+                  <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="long-arrow-alt-right" class="svg-inline--fa fa-long-arrow-alt-right fa-w-14" role="img" viewBox="0 0 448 512">
+                      <path fill="currentColor" d="M313.941 216H12c-6.627 0-12 5.373-12 12v56c0 6.627 5.373 12 12 12h301.941v46.059c0 21.382 25.851 32.09 40.971 16.971l86.059-86.059c9.373-9.373 9.373-24.569 0-33.941l-86.059-86.059c-15.119-15.119-40.971-4.411-40.971 16.971V216z"></path>
+                    </svg></div>
+                </div>
+              </div>
             {% endfor %}
-          </div>
           {% else %}
-          <p>
-            No current positions recorded.
-          </p>
+            <p>
+              No current positions recorded.
+            </p>
           {% endif %}
+        </div>
+        <div class="list-collapse__wrapper" id="toggle-current-positions">
+          <a class="list-expand w-inline-block">
+            <p style="display: block;" class="list-expand__text is--closed" id="show-current-positions-text">
+              Show all {{ current_positions|length }} current positions
+            </p>
+            <p style="display: none;" class="list-expand__text is--open" id="hide-current-positions-text">
+              Hide current positions
+            </p>
+            <div style="display: none;" class="text-link__icon is--open" id="hide-current-positions-icon">
+              <div class="svg-icon is--small w-embed">
+                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="minus" class="svg-inline--fa fa-minus fa-w-14" role="img" viewBox="0 0 448 512"><path fill="currentColor" d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg>
+              </div>
+            </div>
+            <div style="display: flex;" class="text-link__icon is--closed" id="show-current-positions-icon">
+              <div class="svg-icon is--small w-embed">
+                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus" class="svg-inline--fa fa-plus fa-w-14" role="img" viewBox="0 0 448 512"><path fill="currentColor" d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path>
+                </svg>
+              </div>
+            </div>
+          </a>
+        </div>
         {% endblock %}
         {% endwith %}
       </div>
@@ -288,7 +309,7 @@
         <div>
           {% block former_politician_positions %}
           <h3 class="mp-block__title">Former positions:</h3>
-          <div id="truncate-section" class="former-mp-positions truncate-div">
+          <div id="truncate-former-section" class="former-mp-positions truncate-div">
             {% if past_positions %}
               {% for position in past_positions %}
                 <div class="text-link">
@@ -331,8 +352,8 @@
                   </svg>
                 </div>
               </div>
-              </a>
-            </div>
+            </a>
+          </div>
             {% endblock %}
         </div>
         {% endwith %}
@@ -564,7 +585,7 @@
                 </div>
               </div>
           </div>
-          <div class="mp-item">
+          <div class="mp-item is--full">
             {% include "core/person_speech_list.html" with speechlist=hansard ifempty='<div class="col"><div class="mp-question mb-3"><p>No appearances found</p></div></div>' %}
 
             {% if hansard.count %}
@@ -586,32 +607,30 @@
     <div id="membersinterests">
       <div class="person-interests">
         <div id="accordion" class="appearance-accordion">
-          <div class="info-block">
-            <div id="headingOne" data-toggle="collapse" data-target="#declaration-of-interests" aria-expanded="true"
-              aria-controls="declaration-of-interests">
-              <div class="row">
-                <div class="col-8">
-                  <p class="info-block__title">
-                    What are declaration of interests?
-                  </p>
-                </div>
-                <div class="col-4">
-                  <div class="float-right" style="width: 0.8rem; height: 0.8rem;">
-                    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas"
-                      data-icon="caret-down" class="svg-inline--fa fa-caret-down fa-w-10" role="img"
-                      viewBox="0 0 320 512">
-                      <path fill="currentColor"
-                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z">
-                      </path>
-                    </svg>
-                  </div>
+          <div class="info-block" id="headingOne" data-toggle="collapse" data-target="#declaration-of-interests" aria-expanded="true"
+            aria-controls="declaration-of-interests">
+            <div class="row">
+              <div class="col-8">
+                <p class="info-block__title">
+                  What are declaration of interests?
+                </p>
+              </div>
+              <div class="col-4">
+                <div class="float-right" style="width: 0.8rem; height: 0.8rem;">
+                  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas"
+                    data-icon="caret-down" class="svg-inline--fa fa-caret-down fa-w-10" role="img"
+                    viewBox="0 0 320 512">
+                    <path fill="currentColor"
+                      d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z">
+                    </path>
+                  </svg>
                 </div>
               </div>
             </div>
-            <div id="declaration-of-interests" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-              <div class="info-block__content">
-                Annually, MPs are required by parliament to register their financial interests and gifts received in their official capacity. Due to the significant influence of the role that MPs take on, there may be times when their personal or business interests become in conflict with the duty prescribed to them as elected officials representing the public interest. You can see what interests your MPs declared here.
-              </div>
+          </div>
+          <div id="declaration-of-interests" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="info-block__content">
+              Annually, MPs are required by parliament to register their financial interests and gifts received in their official capacity. Due to the significant influence of the role that MPs take on, there may be times when their personal or business interests become in conflict with the duty prescribed to them as elected officials representing the public interest. You can see what interests your MPs declared here.
             </div>
           </div>
         </div>
