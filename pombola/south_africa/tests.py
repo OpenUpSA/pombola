@@ -824,10 +824,6 @@ class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
     def test_past_but_no_current_positions(self):
         self._setup_example_positions(True, False)
         response = self.client.get(reverse('person', args=('moomin-finn',)))
-        # write response to file
-        print("XXX")
-        with open('test_past_but_no_current_positions.html', 'w') as f:
-            f.write(response.content)
         self.assertIn(
             '<h3 class="mp-block__title">Current positions:</h3>',
             response.content
@@ -1388,7 +1384,7 @@ class SAPersonProfileSubPageTest(WebTest):
         return soup.find('h3', class_='mp-block__title')
 
     def get_deceased_info(self, soup):
-        return soup.find('div', class_='person-deceased')
+        return soup.find('div', class_='mp-deceased')
 
     def test_person_death_date(self):
         response = self.app.get('/person/deceased-person/')
