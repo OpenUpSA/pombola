@@ -161,11 +161,9 @@ class InterestScraper(object):
         main_html = ""
 
         files = os.listdir(file_path)
-        # sort files by name
         files_dict = {f.split('-')[1].split('.')[0]: f for f in files}
         sorted_files = [files_dict[str(f)] for f in sorted([int(x) for x in files_dict.keys()])]
         processed_files = 0
-        # Hmmm, I can try threading here and observe how it works
         for file in sorted_files:
             if file.endswith(".docx"):
                 processed_files += 1
@@ -332,11 +330,9 @@ if __name__ == "__main__":
 
     # Read and parse the word doc
     start_time = time.time()
-    master_html = scraper.read_and_merge_html("docx files")
-
+    master_html = scraper.read_and_merge_html(file_path="docx_files")
     # write master_html to file
     scraper.write_html_to_file(master_html)
-
     print("--- %s seconds ---" % (time.time() - start_time))
     soup_text = scraper.parse_html_generated_from_doc(html)
     scraper.write_results()
