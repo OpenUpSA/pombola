@@ -242,11 +242,11 @@ class InterestScraper(object):
         category_entries = []
         for div in main_div.findChildren(recursive=False):
             div_text = str(div.get_text().encode("utf-8").strip())
-            if re.match('[0-9]+[.][0-9]+[.]', div_text):
+            if re.match('[0-9]+[.][0-9]', div_text):
+                # in 2020, the MP's name is in the div with the number example 1.2GALO MANDLENKOSI PHILLIP
                 # This is the mp name
-                self.mp = ' '.join(div_text.replace(
-                    "\xe2\x80\x93", "-").split(' ')[1:]).replace(
-                        ',', '').replace(' -', ',')
+                strip_content_number = ''.join([i for i in div_text if not i.isdigit()]).replace('.', '')
+                self.mp = ' '.join(strip_content_number.replace("\xe2\x80\x93", "-").split(' ')).replace(',', '').replace(' -', ',').strip()
                 self.mps_count = self.mps_count + 1
                 self.mps_names.append(self.mp)
                 if self.mp not in single_mp_interests:
@@ -257,6 +257,8 @@ class InterestScraper(object):
                 in_table = False
                 category_entries = []
             if div.name == 'table':
+                if 'Surname' in div_text:
+                    continue
                 table = div
                 if table is not None:
                     if in_table:
@@ -308,8 +310,6 @@ class InterestScraper(object):
             },
                 outfile, indent=1)
 
-        pprint.pprint(self.data)
-
     def print_font_ids(self):
         pdfdata = open(self.input, 'r').read()
         xmldata = scraperwiki.pdftoxml(pdfdata).encode('utf8')
@@ -351,11 +351,10 @@ if __name__ == "__main__":
     # scraper.scrape_pdf()
 
     # Read and parse the word doc
-    # master_html = scraper.read_and_merge_html(file_path="docx_files")
+    master_html = scraper.read_and_merge_html(file_path="docx_files")
     # write master_html to file
-    # scraper.write_html_to_file(master_html)
+    scraper.write_html_to_file(master_html)
     start_time = time.time()
-    html = open("main.html", 'r').read()
     print("--- %s seconds ---" % (time.time() - start_time))
-    scraper.parse_html_generated_from_doc(html)
-    # scraper.write_results()
+    scraper.parse_html_generated_from_doc(master_html)
+    scraper.write_results()
