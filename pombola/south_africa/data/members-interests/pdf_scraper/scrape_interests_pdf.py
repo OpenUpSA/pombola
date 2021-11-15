@@ -7,6 +7,8 @@ import re
 import time
 import logging
 
+import cachetools.func
+
 import mammoth
 import scraperwiki
 
@@ -176,6 +178,23 @@ class InterestScraper(object):
         self.logger.info("Finished reading and merging html {} dir".format(processed_files))
         return main_html
 
+    @cachetools.func.ttl_cache(maxsize=100000, ttl=1000 * 6000)
+    def get_soup(self, html):
+        return BeautifulSoup(html, 'html.parser')
+
+    def clean_up_soup(self, soup):
+        """
+        Remove all the unwanted tags from the soup.
+        """
+        all_children = soup.findChildren(recursive=False)
+        for child_tag in all_children:
+            if child_tag.name == 'p':
+                child_div = child_tag.findChild()
+                if child_div and child_div.name == "img":
+                    child_tag.decompose()
+
+        return soup
+
     def parse_html_generated_from_doc(self, html):
         """
             Parse the HTML to get the text.
@@ -212,8 +231,11 @@ class InterestScraper(object):
         self.all_sections = {}
         in_table = False
 
-        soup = BeautifulSoup(html, 'html.parser')
-        main_div = soup.find("div", {'id': "content"})
+        start_time = time.time()
+        soup = self.get_soup(html)
+        print("Parsing html took {} seconds".format(time.time() - start_time))
+        cleaned_up_soup = self.clean_up_soup(soup)
+        main_div = cleaned_up_soup.find("div", {'id': "content"})
         if main_div is None:
             raise ValueError("Could not find main content div")
         table_headers = []
@@ -329,10 +351,11 @@ if __name__ == "__main__":
     # scraper.scrape_pdf()
 
     # Read and parse the word doc
-    start_time = time.time()
-    master_html = scraper.read_and_merge_html(file_path="docx_files")
+    # master_html = scraper.read_and_merge_html(file_path="docx_files")
     # write master_html to file
-    scraper.write_html_to_file(master_html)
+    # scraper.write_html_to_file(master_html)
+    start_time = time.time()
+    html = open("main.html", 'r').read()
     print("--- %s seconds ---" % (time.time() - start_time))
-    soup_text = scraper.parse_html_generated_from_doc(html)
-    scraper.write_results()
+    scraper.parse_html_generated_from_doc(html)
+    # scraper.write_results()
