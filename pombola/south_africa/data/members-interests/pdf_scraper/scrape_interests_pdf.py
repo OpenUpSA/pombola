@@ -259,6 +259,9 @@ class InterestScraper(object):
             if div.name == 'table':
                 if 'Surname' in div_text:
                     continue
+                # check if a party name is also in text
+                if any(s for s in ['EFF'] if s in div_text):
+                    continue
                 table = div
                 if table is not None:
                     if in_table:

@@ -395,6 +395,9 @@ class Converter(object):
         "lusizo-sharon-makhubele-mashele": "lusizo-sharon-makhubela-mashele",
         "ntombovuyo-veronica-mente": "ntombovuyo-veronica-nqweniso",
         "freitas-manuel-simao-franca-de": "manuel-simao-franca-de-freitas",
+        "khalipha-thanduxolo-david": "thanduxolo-david-khalipha",
+        "maake-jerome-joseph": "jerome-joseph-maake",
+        "swarts-malaba-bernice": "bernice-swarts",
         # name changes confirmed in National Assembly membership document
         "buyiswa-blaai": "buyiswa-cornelia-diemu",
         "sanna-keikantseeng-molao": "sanna-keikantseeng-plaatjie",
@@ -517,13 +520,14 @@ class Converter(object):
             # break # just for during dev
 
     def mp_to_person_slug(self, mp):
-        regex_match = re.search(r'^(.*)\s\(+(.*?)\)+', mp)
-        if not regex_match:
-            print("Could not extract person name from MP name: {0}".format(mp))
-            return None
-        muddled_name, party = regex_match.groups()
-        name = re.sub(r'(.*?), (.*)', r'\2 \1', muddled_name)
-        slug = slugify(name)
+        # 2020 no longer has the party in the name
+        # regex_match = re.search(r'^(.*)\s\(+(.*?)\)+', mp)
+        # if not regex_match:
+        #     print("Could not extract person name from MP name: {0}".format(mp))
+        #     return None
+        # muddled_name, _ = regex_match.groups()
+        # name = re.sub(r'(.*?), (.*)', r'\2 \1', muddled_name)
+        slug = slugify(mp)
 
         # Check if there is a known correction for this slug
         slug = self.slug_corrections.get(slug, slug)
@@ -537,7 +541,7 @@ class Converter(object):
             return person.slug
         except Person.DoesNotExist:
             try:
-                name_base = re.findall(r'(.*?), (.*)', muddled_name.replace('-', ','))
+                name_base = re.findall(r'(.*?), (.*)', mp.replace('-', ','))
                 if name_base:
                     name_parts = name_base[0]
                     try:
@@ -546,7 +550,7 @@ class Converter(object):
                     except Person.MultipleObjectsReturned:
                         return None
             except Person.DoesNotExist:
-                last_name = name.split(' ')[-1]
+                last_name = mp.split(' ')[-1]
 
                 possible_persons = Person.objects.filter(
                     legal_name__icontains=last_name)
