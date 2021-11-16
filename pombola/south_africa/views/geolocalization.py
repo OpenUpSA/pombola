@@ -87,7 +87,7 @@ class LatLonDetailBaseView(BaseDetailView):
 
     def get_ward_councillors(self, location):
         # Look up the ward on MapIt:
-        url = 'http://mapit.code4sa.org/point/4326/{lon},{lat}?type=WD,MN&generations=3'.format(
+        url = 'http://mapit.code4sa.org/point/4326/{lon},{lat}?type=WD,MN&generation=3'.format(
             lon=location.x, lat=location.y
         )
 
