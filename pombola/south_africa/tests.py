@@ -888,6 +888,15 @@ class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
         person.contacts.create(kind=email_contact_kind, value='preferred@example.com', preferred=True)
 
         response = self.client.get(reverse('person', args=('moomin-finn',)))
+        # Email addresses should be shown
+        self.assertIn(
+            '<li class="email-address"><a href="mailto:not-preferred@example.com">not-preferred@example.com</a></li>',
+            response.content
+        )
+        self.assertIn(
+            '<li class="email-address preferred"><a href="mailto:preferred@example.com">preferred@example.com</a></li>',
+            response.content
+        )
         self.assertFalse(person.is_current_member_of_national_assembly)
 
         # Write in Public button should not be shown
@@ -905,6 +914,17 @@ class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
         person.contacts.create(kind=email_contact_kind, value='preferred@example.com', preferred=True)
 
         response = self.client.get(reverse('person', args=('moomin-finn',)))
+
+        # Email addresses should still be shown
+        self.assertIn(
+            '<li class="email-address preferred"><a href="mailto:preferred@example.com">preferred@example.com</a></li>',
+            response.content
+        )
+        self.assertIn(
+            '<li class="email-address"><a href="mailto:not-preferred@example.com">not-preferred@example.com</a></li>',
+            response.content
+        )
+        # Write in Public button should be shown
         self.assertIn(
             '<a href="/write/?person_id=%d"' % person.id,
             response.content
@@ -938,6 +958,15 @@ class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
 
         response = self.client.get(reverse('person', args=('moomin-finn',)))
 
+        # Email addresses should be shown
+        self.assertIn(
+            '<li class="email-address preferred"><a href="mailto:preferred@example.com">preferred@example.com</a></li>',
+            response.content
+        )
+        self.assertIn(
+            '<li class="email-address"><a href="mailto:not-preferred@example.com">not-preferred@example.com</a></li>',
+            response.content
+        )
         # Write in Public button should not be shown
         self.assertNotIn(
             '<a href="/write/?person_id=%d">Write a public message to this MP</a>' % person.id,
@@ -969,6 +998,15 @@ class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
         person.contacts.create(kind=email_contact_kind, value='preferred@example.com', preferred=True)
 
         response = self.client.get(reverse('person', args=('moomin-finn',)))
+        # Email addresses should be shown
+        self.assertIn(
+            '<li class="email-address preferred"><a href="mailto:preferred@example.com">preferred@example.com</a></li>',
+            response.content
+        )
+        self.assertIn(
+            '<li class="email-address"><a href="mailto:not-preferred@example.com">not-preferred@example.com</a></li>',
+            response.content
+        )
 
         person = models.Person.objects.get(slug='moomin-finn')
         person.position_set.all().delete()
@@ -977,7 +1015,11 @@ class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
 
         # Email addresses should not be shown
         self.assertNotIn(
-            '<li class="email-address preferred"><a href="mailto:preferred@example.com">preferred@example.com</a></li>\n        \n          <li class="email-address"><a href="mailto:not-preferred@example.com">not-preferred@example.com</a></li>',
+            '<li class="email-address preferred"><a href="mailto:preferred@example.com">preferred@example.com</a></li>',
+            response.content
+        )
+        self.assertNotIn(
+            '<li class="email-address"><a href="mailto:not-preferred@example.com">not-preferred@example.com</a></li>',
             response.content
         )
 

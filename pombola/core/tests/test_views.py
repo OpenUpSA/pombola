@@ -297,4 +297,3 @@ class PositionViewTest(WebTest):
         link = ol.find('a', text='P')['href']
         self.assertEqual(link, '?a=1&order=name&letter=P')
         self.assertTrue(response.context['alphabetical_link_from_query_parameter'])
-

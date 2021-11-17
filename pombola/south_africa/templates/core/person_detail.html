@@ -168,8 +168,6 @@
                 {% endfor %}
             </div>
 
-            {% comment %}
-            <!-- Temporary hide MP email addresses. -->
             {% if person.has_ever_been_member_of_nat_prov_legislature and email_contacts %}
             <h3 class="mp-block__title">Email</h3>
             <ul>
@@ -178,7 +176,6 @@
               {% endfor %}
             </ul>
             {% endif %}
-            {% endcomment %}
 
             <h3 class="mp-block__title">Constituency Offices</h3>
             {% for office in object.constituency_offices %}
