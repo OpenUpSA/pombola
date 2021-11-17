@@ -162,7 +162,7 @@ class PositionViewTest(WebTest):
 
     def test_organisation_page(self):
         self.app.get('/organisation/missing-org/', status=404)
-        with self.assertNumQueries(14):
+        with self.assertNumQueries(15):
             resp = self.app.get('/organisation/test-org/')
         resp.mustcontain('Test Org')
         resp = self.app.get('/organisation/test-org/people/')
@@ -297,4 +297,3 @@ class PositionViewTest(WebTest):
         link = ol.find('a', text='P')['href']
         self.assertEqual(link, '?a=1&order=name&letter=P')
         self.assertTrue(response.context['alphabetical_link_from_query_parameter'])
-
