@@ -662,10 +662,10 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
 
             if not pombola_person:
                 if person.get('Position') == 'Constituency Contact':
-                    personnotfound.append([office['Title'], person['Name'], person['Position']])
+                    personnotfound.append([office['Title'], person['Name']])
                     print 'Failed to match representative', person['Name']
                 else:
-                    personnotfound.append([office['Title'], person['Name'], person['Position']])
+                    personnotfound.append([office['Title'], person['Name']])
 
     #find the positions to end
     if organisation:
@@ -813,7 +813,7 @@ class Command(BaseCommand):
         if num_people_not_found:
             logger.info('{} People not found:'.format(num_people_not_found))
             for index, person in enumerate(personnotfound, start=1):
-                logger.info("\t Person {}: {} Office: {} Position: {}".format(index, person[1], person[0], person[2]))
+                logger.info("\t Person {}: {} Office: {}".format(index, person[1], person[0]))
 
         num_locations_not_found = len(locationsnotfound)
         if num_locations_not_found:
