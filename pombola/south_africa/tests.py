@@ -890,7 +890,11 @@ class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
         response = self.client.get(reverse('person', args=('moomin-finn',)))
         # Email addresses should be shown
         self.assertIn(
-            '<li class="email-address preferred"><a href="mailto:preferred@example.com">preferred@example.com</a></li>\n        \n          <li class="email-address"><a href="mailto:not-preferred@example.com">not-preferred@example.com</a></li>',
+            '<li class="email-address"><a href="mailto:not-preferred@example.com">not-preferred@example.com</a></li>',
+            response.content
+        )
+        self.assertIn(
+            '<li class="email-address preferred"><a href="mailto:preferred@example.com">preferred@example.com</a></li>',
             response.content
         )
         self.assertFalse(person.is_current_member_of_national_assembly)
