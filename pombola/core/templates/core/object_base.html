@@ -6,57 +6,45 @@
 {% block content %}
     {% include "disqus_javascript.html" %}
 
-    {% block title_space %}
-      <div class="title-space">
-
+    <div class="mp-profile">
+      <div class="mp-info">
         {% block object_title %}
-          <h1>{{ object.title }} {{ object.name }}</h1>
+          <h1 class="mp-name">{{ object.title }} {{ object.name }}</h1>
         {% endblock %}
-
-        {% block object_tagline %}
-        {% endblock %}
-
-        {% block object_menu %}
-        <div class="object_menu">
-          <nav>
-            <ul>
-              {% block object_menu_links %}
-              {% endblock %}
-            </ul>
-          </nav>
-        </div>
-        {% endblock %}
-
       </div>
-    {% endblock %}
-
-    {% block profile_pic %}
-      <div class="profile-pic">
-        {% thumbnail object.primary_image "100x100" crop="center" as sm %}
-          <img src="{{ sm.url }}"
-        {% empty %}
-          <img src="{{STATIC_URL}}images/{{object.css_class}}-210x210.jpg"
-        {% endthumbnail %}
-        {% thumbnail object.primary_image "210x210" crop="center" as lg %}
-            srcset="{{ lg.url }} 640w"
-        {% empty %}
-            srcset="{{STATIC_URL}}images/{{object.css_class}}-210x210.jpg"
-        {% endthumbnail %}
-            alt="{{ object.name }}">
-      </div>
-    {% endblock %}
-
-    <div class="profile-info">
-      {% block profile_info %}
-      {% endblock %}
-
-      <div class="social-and-tools">
-          {% include 'core/social_tools.html' %}
-      </div>
-
+      {% thumbnail object.primary_image "100x100" crop="center" as sm %}
+        <img src="{{ sm.url }}" class="mp-image"
+          {% empty %}
+            <img src="{{STATIC_URL}}images/{{object.css_class}}-210x210.jpg"
+          {% endthumbnail %}
+          {% thumbnail object.primary_image "210x210" crop="center" as lg %}
+              srcset="{{ lg.url }} 640w"
+          {% empty %}
+              srcset="{{STATIC_URL}}images/{{object.css_class}}-210x210.jpg"
+          {% endthumbnail %}
+          alt="{{ object.name }}">
     </div>
 
-    <div class="large-container">
+
+    {% block object_tagline %}
+    {% endblock %}
+
+    <!-- about -->
+    <div class="person-summary mt-3">
+      <h2 class="mp-subheading">About {{ object.name }}</h2>
+      {% if person.date_of_death %}
+        <p>Died {{ person.date_of_death }}</p>
+      {% endif %}
+      <div class="mp-col">
+        <div class="mp-block is--underlined">
+          <p>
+            {{ person.summary }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div>
       {% block subcontent %}
         You should add your own custom content to this layout in a 'subcontent' block.
       {% endblock %}

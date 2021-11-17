@@ -115,7 +115,7 @@ class ConstituencyOfficesImportTestCase(WebTest):
             name='Constituency Area')
         self.relationship_kind = models.OrganisationRelationshipKind.objects.create(
             name='has_office')
-            
+
         self.da_organisation = models.Organisation.objects.create(
             name="DA Constituency Area: Rustenburg [Rustenburg] / Kgetlengrivier [Koster]",
             kind=self.area_kind,
@@ -126,19 +126,19 @@ class ConstituencyOfficesImportTestCase(WebTest):
                 kind=self.relationship_kind
         )
         call_command('rebuild_index', verbosity=0, interactive=False)
-            
+
 
     @patch('pombola.south_africa.management.commands.south_africa_update_constituency_offices.geocode', side_effect=fake_constituency_office_geocode)
     def test_import_eff_offices(self, geocode_mock):
         call_command(
-            'south_africa_update_constituency_offices', 
-            'pombola/south_africa/fixtures/test_eff_constituency_offices.json', 
+            'south_africa_update_constituency_offices',
+            'pombola/south_africa/fixtures/test_eff_constituency_offices.json',
             verbose=True,
             end_old_offices=True, party='eff', commit=True
             )
 
         self.assertTrue(models.Organisation.objects.filter(
-                name="EFF Constituency Office: Cape Town", 
+                name="EFF Constituency Office: Cape Town",
                 kind=self.office_kind,
                 started="2019-06-01", ended=ApproximateDate(future=True)
             ).exists())
@@ -159,15 +159,15 @@ class ConstituencyOfficesImportTestCase(WebTest):
     @patch('pombola.south_africa.management.commands.south_africa_update_constituency_offices.geocode', side_effect=fake_constituency_office_geocode)
     def test_import_da_offices(self, geocode_mock):
         call_command(
-            'south_africa_update_constituency_offices', 
-            'pombola/south_africa/fixtures/test_da_constituency_offices.json', 
+            'south_africa_update_constituency_offices',
+            'pombola/south_africa/fixtures/test_da_constituency_offices.json',
             verbose=True,
             end_old_offices=True, party='da', commit=True, search_office=True
             )
-        
+
          # Test one organisation was created
         self.assertTrue(models.Organisation.objects.filter(
-                name__iexact="DA Constituency Area: eMalahleni", 
+                name__iexact="DA Constituency Area: eMalahleni",
                 kind=self.area_kind,
                 started="2019-06-01", ended=ApproximateDate(future=True)
              ).exists())
@@ -186,7 +186,7 @@ class ConstituencyOfficesImportTestCase(WebTest):
 
         # Test the other organisation was reused
         self.assertTrue(models.Organisation.objects.filter(
-                name__iexact="DA Constituency Area: Rustenburg - Kgetlengrivier", 
+                name__iexact="DA Constituency Area: Rustenburg - Kgetlengrivier",
                 kind=self.area_kind,
                 ended=ApproximateDate(future=True)
             ).exists())
@@ -205,7 +205,7 @@ class ConstituencyOfficesImportTestCase(WebTest):
         self.assertTrue(models.Place.objects.filter(
             name__startswith=u'Unknown sub-area of North West ',
             organisation=organisation).exists())
-        
+
         # Test Person was created
         self.assertTrue(models.Person.objects.filter(Q(legal_name="Sonja Boshoff")).exists())
 
@@ -530,14 +530,14 @@ class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
         response = c.get('/person/moomin-finn/')
         self.assertContains(
             response,
-            '<p><span class="position-title">National Assembly</span></p>',
+            '<p class="mp-role">Member of the National Assembly</p>',
             count=1,
             html=True,
         )
 
         self.assertContains(
             response,
-            '<p>Formerly: <span class="position-title">Old Assembly</span></p>',
+            '<p class="mp-role">Formerly: <span>Old Assembly</span></p>',
             count=1,
             html=True,
         )
@@ -794,25 +794,22 @@ class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
     def test_past_and_current_positions(self):
         self._setup_example_positions(True, True)
         response = self.client.get(reverse('person', args=('moomin-finn',)))
+
         self.assertIn(
-            '<a class="ui-tabs-anchor" href="#experience">Positions held</a>',
+            '<h3 class="mp-block__title">Current positions:</h3>',
             response.content
         )
         self.assertIn(
-            '<h3>Currently</h3>',
+            'National Assembly (Parliament)',
             response.content
-        )
-        self.assertRegexpMatches(
-            response.content,
-            r'Member\s+at <a href="/organisation/national-assembly/">National Assembly \(Parliament\)</a>\s*</li>'
         )
         self.assertIn(
-            '<h3>Formerly</h3>',
+            '<h3 class="mp-block__title">Former positions:</h3>',
             response.content
         )
-        self.assertRegexpMatches(
-            response.content,
-            r'Member\s+at <a href="/organisation/national-assembly/">National Assembly \(Parliament\)</a>\s+from 1st January 2000\s+until 31st December 2005\s*</li>'
+        self.assertIn(
+            'National Assembly (Parliament)',
+            response.content
         )
         # Messages tab should be shown
         self.assertIn(
@@ -827,12 +824,12 @@ class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
     def test_past_but_no_current_positions(self):
         self._setup_example_positions(True, False)
         response = self.client.get(reverse('person', args=('moomin-finn',)))
+        # write response to file
+        print("XXX")
+        with open('test_past_but_no_current_positions.html', 'w') as f:
+            f.write(response.content)
         self.assertIn(
-            '<a class="ui-tabs-anchor" href="#experience">Positions held</a>',
-            response.content
-        )
-        self.assertIn(
-            '<h3>Currently</h3>',
+            '<h3 class="mp-block__title">Current positions:</h3>',
             response.content
         )
         self.assertIn(
@@ -840,12 +837,12 @@ class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
             response.content
         )
         self.assertIn(
-            '<h3>Formerly</h3>',
+            '<h3 class="mp-block__title">Former positions:</h3>',
             response.content
         )
-        self.assertRegexpMatches(
-            response.content,
-            r'Member\s+at <a href="/organisation/national-assembly/">National Assembly \(Parliament\)</a>\s+from 1st January 2000\s+until 31st December 2005\s*</li>'
+        self.assertIn(
+            'National Assembly (Parliament)',
+            response.content
         )
         # Messages tab should be shown
         self.assertIn(
@@ -861,19 +858,15 @@ class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
         self._setup_example_positions(False, True)
         response = self.client.get(reverse('person', args=('moomin-finn',)))
         self.assertIn(
-            '<a class="ui-tabs-anchor" href="#experience">Positions held</a>',
+            '<h3 class="mp-block__title">Current positions:</h3>',
             response.content
         )
         self.assertIn(
-            '<h3>Currently</h3>',
+            'National Assembly (Parliament)',
             response.content
         )
-        self.assertRegexpMatches(
-            response.content,
-            r'Member\s+at <a href="/organisation/national-assembly/">National Assembly \(Parliament\)</a>\s*</li>'
-        )
         self.assertIn(
-            '<h3>Formerly</h3>',
+            '<h3 class="mp-block__title">Former positions:</h3>',
             response.content
         )
         self.assertIn(
@@ -929,7 +922,11 @@ class SAPersonDetailViewTest(PersonSpeakerMappingsMixin, TestCase):
         )
         # Write in Public button should be shown
         self.assertIn(
-            '<a href="/write/?person_id=%d">Write a public message to this MP</a>' % person.id,
+            '<a href="/write/?person_id=%d"' % person.id,
+            response.content
+        )
+        self.assertIn(
+            '<p>Write a public message to this politician</p>',
             response.content
         )
 
@@ -1410,11 +1407,11 @@ class SAPersonProfileSubPageTest(WebTest):
     def get_person_summary(self, soup):
         return soup.find('div', class_='person-summary')
 
-    def get_positions_tab(self, soup):
-        return soup.find('div', id='experience')
+    def get_former_positions_title(self, soup):
+        return soup.find('h3', text='Former positions:')
 
     def get_profile_info(self, soup):
-        return soup.find('div', class_='profile-info')
+        return soup.find('h3', class_='mp-block__title')
 
     def test_person_death_date(self):
         response = self.app.get('/person/deceased-person/')
@@ -1424,34 +1421,29 @@ class SAPersonProfileSubPageTest(WebTest):
 
     def test_deceased_party_affiliation(self):
         response = self.app.get('/person/deceased-person/')
-        sidebar = self.get_profile_info(response.html)
-        party_heading = sidebar.findNext('div', class_='constituency-party')
-        party_name = party_heading.findNext('h3', text='Party').findNextSibling('ul').text
+        party_div = self.get_profile_info(response.html)
+        party_name = party_div.findNext('a').text
 
         self.assertEqual(party_name.strip(), 'Test Party')
 
     def test_deceased_former_positions(self):
         response = self.app.get('/person/deceased-person/')
-        profile_tab = self.get_positions_tab(response.html)
-
-        former_pos_heading = profile_tab.findNext('h3', text='Formerly')
-        former_pos_list = former_pos_heading.findNextSibling('ul').text
+        former_pos_heading = self.get_former_positions_title(response.html)
+        former_pos_list = former_pos_heading.findNextSibling('div').text
 
         self.assertNotEqual(former_pos_heading, None)
 
         # check for the former MP and Speaker positions
-        self.assertRegexpMatches(former_pos_list, r'Member\s+at National Assembly \(Parliament\)')
-        self.assertRegexpMatches(former_pos_list, r'Speaker\s+at National Assembly \(Parliament\)')
+        self.assertIn("Test Party (Party)", former_pos_list)
 
     def test_former_mp(self):
         response = self.app.get('/person/former-mp/')
-        positions_tab = self.get_positions_tab(response.html)
-        former_pos_heading = positions_tab.findNext('h3', text='Formerly')
-        former_pos_list = former_pos_heading.findNextSibling('ul').text
+        former_pos_heading = self.get_former_positions_title(response.html)
+        former_pos_list = former_pos_heading.findNextSibling('div').text
 
         self.assertNotEqual(former_pos_heading, None)
 
-        self.assertRegexpMatches(former_pos_list, r'Member\s+at National Assembly \(Parliament\)')
+        self.assertIn('National Assembly (Parliament)', former_pos_list)
 
 
 class SAOrganisationPartySubPageTest(TestCase):
@@ -1784,7 +1776,7 @@ class SACommitteeIndexViewTest(WebTest):
                 view_link = div.find_all('a', text='View messages')
                 self.assertIsNotNone(get_view_messages_link(div))
                 self.assertIsNone(
-                    get_write_message_link(div), 
+                    get_write_message_link(div),
                     "Committee that doesn't have an email address shouldn't be writeable."
                 )
 
@@ -2972,16 +2964,14 @@ class SAParliamentaryTerm(TestCase):
         ]
         for example in examples:
             self.assertEqual(
-                ParliamentaryTerm.get_term_from_date(example[0]).number, 
+                ParliamentaryTerm.get_term_from_date(example[0]).number,
                 example[1],
                 'Term should be %d for %s' % (example[1], str(example[0]))
             )
-            
+
 
     def test_get_term_from_date_for_invalid_parliament(self):
         d = date(2001, 6, 30)
         self.assertRaises(
-            ParliamentaryTerm.DoesNotExist, 
+            ParliamentaryTerm.DoesNotExist,
             ParliamentaryTerm.get_term_from_date, d)
-            
-

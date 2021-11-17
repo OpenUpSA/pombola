@@ -18,11 +18,12 @@ ifempty - a string shown if there are no speeches to show.
 
 <div class="row">
     {% for speech in speechlist|slice:":3" %}
-    <div class="col-lg-6 col-md-6 col-sm-12">
+    <div class="col-12">
         <div class="mp-item">
             <div class="mp-question w-inline-block">
                 <div class="item-header">
-                    <p class="item-title"><strong>
+                    <p class="item-title">
+                        <strong>
                             <a href="{% url 'speeches:section-view' speech.section.get_path %}#s{{ speech.id }}">
                                 {% if parent_title %}
                                 {{ speech.section.parent.title }}
@@ -37,7 +38,7 @@ ifempty - a string shown if there are no speeches to show.
                     </p>
                 </div>
                 <p class="item-detail">
-                    {{ speech.text|bleach|truncatewords_html:30 }}
+                    {{ speech.text|bleach|truncatewords_html:20 }}
                 </p>
             </div>
         </div>
