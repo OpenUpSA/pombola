@@ -1,4 +1,32 @@
 $(function () {
+
+  // toggle former positions button on /person/person-slug/
+  const toggleElement = $('#toggle-former-positions');
+  const showFormerPositionsText = $('#show-former-positions-text');
+  const hideFormerPositionsText = $('#hide-former-positions-text');
+  const hideFormerPositionsIcon = $('#hide-former-positions-icon');
+  const showFormerPositionsIcon = $('#show-former-positions-icon');
+  let showingAll = false;
+  toggleElement.on('click', function (e) {
+    e.preventDefault();
+    showingAll = !showingAll;
+    if (showingAll) {
+      showFormerPositionsText[0].style.display = 'none';
+      showFormerPositionsIcon[0].style.display = 'none';
+
+      hideFormerPositionsText[0].style.display = 'block';
+      hideFormerPositionsIcon[0].style.display = 'flex';
+    } else {
+      showFormerPositionsText[0].style.display = 'block';
+      hideFormerPositionsText[0].style.display = 'none';
+
+      showFormerPositionsIcon[0].style.display = 'flex';
+      hideFormerPositionsIcon[0].style.display = 'none';
+    }
+    var collapseElement = document.getElementById("truncate-section");
+    collapseElement.classList.toggle("truncate-div");
+  });
+
   /*
    * auto complete
    */

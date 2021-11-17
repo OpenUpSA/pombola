@@ -5,51 +5,54 @@
 {% block content %}
   <div class="js-person-messages-all">
     <div class="row">
-      {% for message in messages %}
-      <div class="col-lg-6 col-md-6 col-sm-12">
-        <div class="mp-item is--half">
-          <div class="mp-message w-inline-block">
+    {% for message in messages %}
+    <div class="col-lg-6 col-md-6 col-sm-12" style="padding-left: 0em; padding-right: 0em;">
+      <div class="mp-item is--full" style="padding-left: 1em;">
+        <div class="mp-message w-inline-block">
           <div class="item-header">
-              <p class="message-title">
-                <a href="{% url 'writeinpublic:writeinpublic-message' message_id=message.id %}">
-                  {{ message.subject }}
-                </a>
-              </p>
-              <p class="message-date">{{ message.created_at|date:"d M Y" }}</p>
-            </div>
-            <p class="item-text">
-              {{ message.content|truncatewords:30 }}
+            <p class="message-title">
               <a href="{% url 'writeinpublic:writeinpublic-message' message_id=message.id %}">
-                <span class="read-more">read more</span>
+                {{ message.subject }}
               </a>
             </p>
+            <p class="message-date">{{ message.created_at|date:"d M Y" }}</p>
           </div>
-        </div>
-      </div>
-        {% empty %}
-        <p>Nothing here!</p>
-      {% endfor %}
-    </div>
-    <div class="mp-col is--footer mb-3">
-      <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-12">
-          <p class="mp-block__link">
-            <a href="/person/{{person.slug}}/messages/">See all public messages to this politician</a>
+          <p class="item-text">
+            {{ message.content|truncatewords:30 }}
+            <a href="{% url 'writeinpublic:writeinpublic-message' message_id=message.id %}">
+              <span class="read-more">read more</span>
+            </a>
           </p>
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="float-right">
-            <a href="{% url 'writeinpublic-mps:writeinpublic-new-message' %}?person_id={{ person.pk }}" class="webf-button is--orange w-inline-block">
-              <div class="button-icon">
-                <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="pencil-alt" class="svg-inline--fa fa-pencil-alt fa-w-16" role="img" viewBox="0 0 512 512">
-                    <path fill="currentColor" d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"></path>
-                  </svg></div>
-              </div>
-              <p>Write a public message to this politician</p>
-            </a>
-          </div>
-        </div>
       </div>
     </div>
+    {% empty %}
+    <div class="mp-item">
+      <p class="item-text">No messages!</p>
+    </div>
+    {% endfor %}
+    </div>
+  <div class="mp-col is--footer">
+    <p class="mp-block__link">
+      <a href="/person/{{person.slug}}/messages/">
+        See all public messages to this politician
+      </a>
+    </p>
+    <a href="{% url 'writeinpublic-mps:writeinpublic-new-message' %}?person_id={{ person.pk }}"
+      class="webf-button is--orange w-inline-block">
+      <div class="button-icon">
+        <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"
+            data-prefix="fas" data-icon="pencil-alt" class="svg-inline--fa fa-pencil-alt fa-w-16" role="img"
+            viewBox="0 0 512 512">
+            <path fill="currentColor"
+              d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z">
+            </path>
+          </svg></div>
+      </div>
+      <p>
+        Write a public message to this politician
+      </p>
+    </a>
   </div>
+</div>
 {% endblock %}

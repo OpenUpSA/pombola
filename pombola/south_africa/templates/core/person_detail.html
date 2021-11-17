@@ -8,32 +8,27 @@
 {% endblock %}
 
 {% block object_tagline %}
-<div class="important-positions">
-  {% if organizations_from_important_positions %}
-  <h3 class="text-success">
-    {% for o in organizations_from_important_positions %}
-    <p class="mp-role">
-      Member of the {{ o.name }}
-    </p>
-    {% if not forloop.last %}and{% endif %}
-    {% endfor %}
-  </h3>
-  {% endif %}
-  {% if organizations_from_former_important_positions %}
+{% if organizations_from_important_positions %}
+  {% for o in organizations_from_important_positions %}
+  <p class="mp-role">
+    Member of the {{ o.name }}
+  </p>
+  {% if not forloop.last %}and{% endif %}
+  {% endfor %}
+{% endif %}
+{% if organizations_from_former_important_positions %}
   <p class="mp-role">
     Formerly:
     {% for organisation in organizations_from_former_important_positions %}
-     <span>
+      <span>
       {{ organisation.name }}
-     </span>
+      </span>
     {% if not forloop.last %}and{% endif %}
     {% endfor %}
   </p>
-  {% endif %}
-</div>
+{% endif %}
 
-<div>
-  {% if person.is_current_member_of_national_assembly and email_contacts %}
+{% if person.is_current_member_of_national_assembly %}
   <a href="{% url 'writeinpublic-mps:writeinpublic-new-message' %}?person_id={{ person.pk }}"
     class="webf-button is--orange w-inline-block">
     <div class="button-icon">
@@ -47,98 +42,100 @@
     </div>
     <p>Write a public message to this politician</p>
   </a>
-  <div class="mp-socials">
-    <p class="mp-socials__title">
-      {{ object.title }} {{ object.name }} on social media:
-    </p>
-    {% if twitter_contacts %}
-    {% for twitter in twitter_contacts %}
-    <a href="https://twitter.com/{{ twitter|cut:" @"|cut:" " }}" class="webf-button is--social is--twitter w-inline-block">
-      <div class="button-icon">
-        <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"
-            data-prefix="fab" data-icon="twitter" class="svg-inline--fa fa-twitter fa-w-16" role="img"
-            viewBox="0 0 512 512">
-            <path fill="currentColor"
-              d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z">
-            </path>
-          </svg></div>
-      </div>
-      <p>@{{ twitter|cut:"@"|cut:" " }}</p>
-    </a>
-    {% endfor %}
-    {% endif %}
-
-    {% if facebook_contacts %}
-    {% for facebook in facebook_contacts %}
-    <a href="{{ facebook }}" class="webf-button is--social is--facebook w-inline-block">
-      <div class="button-icon">
-        <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"
-            data-prefix="fab" data-icon="facebook-square" class="svg-inline--fa fa-facebook-square fa-w-14" role="img"
-            viewbox="0 0 448 512">
-            <path fill="currentColor"
-              d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z">
-            </path>
-          </svg></div>
-      </div>
-      <p>Facebook</p>
-    </a>
-    {% endfor %}
-    {% endif %}
-
-    {% if whoswhosa_contacts %}
-    {% for whoswhosa in whoswhosa_contacts %}
-    <a href="{{ whoswhosa }}" class="webf-button is--social is--whoswho w-inline-block">
-      Who&rsquo;s Who
-    </a>
-    {% endfor %}
-    {% endif %}
-
-    {% if youtube_contacts %}
-    {% for youtube in youtube_contacts %}
-    <a href="{{ youtube }}" class="webf-button is--social is--youtube w-inline-block">
-      <div class="button-icon">
-        <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"
-            data-prefix="fab" data-icon="youtube" class="svg-inline--fa fa-youtube fa-w-18" role="img"
-            viewbox="0 0 576 512">
-            <path fill="currentColor"
-              d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z">
-            </path>
-          </svg></div>
-      </div>
-      <p>Youtube</p>
-    </a>
-    {% endfor %}
-    {% endif %}
-
-    {% if linkedin_contacts %}
-    {% for linkedin in linkedin_contacts %}
-    <a href="{{ linkedin }}" class="webf-button is--social is--linkedin w-inline-block">
-      <div class="button-icon">
-        <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"
-            data-prefix="fab" data-icon="linkedin" class="svg-inline--fa fa-linkedin fa-w-14" role="img"
-            viewbox="0 0 448 512">
-            <path fill="currentColor"
-              d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z">
-            </path>
-          </svg></div>
-      </div>
-      <p>LinkedIn</p>
-    </a>
-    {% endfor %}
-    {% endif %}
-  </div>
   {% endif %}
-</div>
 {% endblock object_tagline %}
 
+{% block socials %}
+{% if person.is_current_member_of_national_assembly %}
+<div class="mp-socials">
+  <p class="mp-socials__title">
+    {{ object.title }} {{ object.name }} on social media:
+  </p>
+  {% if twitter_contacts %}
+  {% for twitter in twitter_contacts %}
+  <a href="https://twitter.com/{{ twitter|cut:" @"|cut:" " }}" class="webf-button is--social is--twitter w-inline-block">
+    <div class="button-icon">
+      <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"
+          data-prefix="fab" data-icon="twitter" class="svg-inline--fa fa-twitter fa-w-16" role="img"
+          viewBox="0 0 512 512">
+          <path fill="currentColor"
+            d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z">
+          </path>
+        </svg></div>
+    </div>
+    <p>@{{ twitter|cut:"@"|cut:" " }}</p>
+  </a>
+  {% endfor %}
+  {% endif %}
+
+  {% if facebook_contacts %}
+  {% for facebook in facebook_contacts %}
+  <a href="{{ facebook }}" class="webf-button is--social is--facebook w-inline-block">
+    <div class="button-icon">
+      <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"
+          data-prefix="fab" data-icon="facebook-square" class="svg-inline--fa fa-facebook-square fa-w-14" role="img"
+          viewbox="0 0 448 512">
+          <path fill="currentColor"
+            d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z">
+          </path>
+        </svg></div>
+    </div>
+    <p>Facebook</p>
+  </a>
+  {% endfor %}
+  {% endif %}
+
+  {% if whoswhosa_contacts %}
+  {% for whoswhosa in whoswhosa_contacts %}
+  <a href="{{ whoswhosa }}" class="webf-button is--social is--whoswho w-inline-block">
+    Who&rsquo;s Who
+  </a>
+  {% endfor %}
+  {% endif %}
+
+  {% if youtube_contacts %}
+  {% for youtube in youtube_contacts %}
+  <a href="{{ youtube }}" class="webf-button is--social is--youtube w-inline-block">
+    <div class="button-icon">
+      <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"
+          data-prefix="fab" data-icon="youtube" class="svg-inline--fa fa-youtube fa-w-18" role="img"
+          viewbox="0 0 576 512">
+          <path fill="currentColor"
+            d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z">
+          </path>
+        </svg></div>
+    </div>
+    <p>Youtube</p>
+  </a>
+  {% endfor %}
+  {% endif %}
+  {% if linkedin_contacts %}
+  {% for linkedin in linkedin_contacts %}
+  <a href="{{ linkedin }}" class="webf-button is--social is--linkedin w-inline-block">
+    <div class="button-icon">
+      <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"
+          data-prefix="fab" data-icon="linkedin" class="svg-inline--fa fa-linkedin fa-w-14" role="img"
+          viewbox="0 0 448 512">
+          <path fill="currentColor"
+            d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z">
+          </path>
+        </svg></div>
+    </div>
+    <p>LinkedIn</p>
+  </a>
+  {% endfor %}
+  {% endif %}
+</div>
+{% endif %}
+{% endblock socials %}
+
 {% block subcontent %}
-<div class="mt-3">
   <div class="row">
     <div class="col-lg-4 col-md-12 col-sm-12">
       <div class="mp-col">
         <div>
           <div>
-            <div class="mp-block">
+            <div class="mp-block" style="padding-right: 0em;">
               <h3 class="mp-block__title">Political party:</h3>
                 {% for party in object.parties_and_coalitions %}
                   <a href="{{ party.get_absolute_url }}" {% for identifier in party.identifiers.all %}
@@ -221,11 +218,13 @@
 
             {% if address_contacts %}
             <h3 class="mp-block__title">Address:</h3>
-            <ul>
               {% for address in address_contacts %}
-              <li>{{ address }}</li>
+              <p class="text-link">
+                <div class="text-link__text">
+                  {{ address }}
+                </div>
+              </p>
               {% endfor %}
-            </ul>
             {% endif %}
 
             {% if object.aspirant_constituencies.count %}
@@ -287,31 +286,54 @@
       <div class="mp-col">
         {% with past_positions=person.position_set.all.political.currently_inactive current_positions=person.position_set.all.political.currently_active %}
         <div>
-          <h3 class="mp-block__title">Former positions:</h3>
           {% block former_politician_positions %}
+          <h3 class="mp-block__title">Former positions:</h3>
+          <div id="truncate-section" class="former-mp-positions truncate-div">
             {% if past_positions %}
-            {% for position in past_positions %}
-              <div class="text-link">
-                <div class="text-link__info">
-                  {% include "core/person_detail_position.html" %}
-                  <p class="text-link__date">
-                    {% if position.start_date %}
-                      from {{ position.start_date }}
-                    {% endif %}
-                    until {{ position.end_date }}
-                  </p>
+              {% for position in past_positions %}
+                <div class="text-link">
+                  <div class="text-link__info">
+                    {% include "core/person_detail_position.html" %}
+                    <p class="text-link__date">
+                      {% if position.start_date %}
+                        from {{ position.start_date }}
+                      {% endif %}
+                      until {{ position.end_date }}
+                    </p>
+                  </div>
+                  <div class="text-link__icon">
+                    <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="long-arrow-alt-right" class="svg-inline--fa fa-long-arrow-alt-right fa-w-14" role="img" viewBox="0 0 448 512">
+                        <path fill="currentColor" d="M313.941 216H12c-6.627 0-12 5.373-12 12v56c0 6.627 5.373 12 12 12h301.941v46.059c0 21.382 25.851 32.09 40.971 16.971l86.059-86.059c9.373-9.373 9.373-24.569 0-33.941l-86.059-86.059c-15.119-15.119-40.971-4.411-40.971 16.971V216z"></path>
+                      </svg></div>
+                  </div>
                 </div>
-                <div class="text-link__icon">
-                  <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="long-arrow-alt-right" class="svg-inline--fa fa-long-arrow-alt-right fa-w-14" role="img" viewBox="0 0 448 512">
-                      <path fill="currentColor" d="M313.941 216H12c-6.627 0-12 5.373-12 12v56c0 6.627 5.373 12 12 12h301.941v46.059c0 21.382 25.851 32.09 40.971 16.971l86.059-86.059c9.373-9.373 9.373-24.569 0-33.941l-86.059-86.059c-15.119-15.119-40.971-4.411-40.971 16.971V216z"></path>
-                    </svg></div>
+              {% endfor %}
+              {% else %}
+              <p>No former positions recorded.</p>
+              {% endif %}
+          </div>
+          <div class="list-collapse__wrapper" id="toggle-former-positions">
+            <a class="list-expand w-inline-block">
+              <p style="display: block;" class="list-expand__text is--closed" id="show-former-positions-text">
+                Show all {{ past_positions|length }} former positions
+              </p>
+              <p style="display: none;" class="list-expand__text is--open" id="hide-former-positions-text">
+                Hide former positions
+              </p>
+              <div style="display: none;" class="text-link__icon is--open" id="hide-former-positions-icon">
+                <div class="svg-icon is--small w-embed">
+                  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="minus" class="svg-inline--fa fa-minus fa-w-14" role="img" viewBox="0 0 448 512"><path fill="currentColor" d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg>
                 </div>
               </div>
-            {% endfor %}
-            {% else %}
-            <p>No former positions recorded.</p>
-            {% endif %}
-          {% endblock %}
+              <div style="display: flex;" class="text-link__icon is--closed" id="show-former-positions-icon">
+                <div class="svg-icon is--small w-embed">
+                  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus" class="svg-inline--fa fa-plus fa-w-14" role="img" viewBox="0 0 448 512"><path fill="currentColor" d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path>
+                  </svg>
+                </div>
+              </div>
+              </a>
+            </div>
+            {% endblock %}
         </div>
         {% endwith %}
       </div>
@@ -322,13 +344,15 @@
       <div id="ajax-link" style="display: none;">
         <a class="js-person-messages-ajax" href="#messages" data-ajax-url="{% url 'sa-person-write-all' person_slug=person.slug %}">Messages</a>
       </div>
-      <h2 class="mp-subheading">Public messages sent to this politician</h2>
-      <div id="messages">
-        <p>Fetching the latest messages to {{ object.name }} …</p>
+      <div class="webf-container" style="padding-top: 3em;">
+        <h2 class="mp-subheading">Public messages sent to this politician</h2>
+        <div id="messages">
+          <p>Fetching the latest messages to {{ object.name }} …</p>
+        </div>
       </div>
     {% endif %}
   </div>
-  <div>
+  <div style="padding-top: 3em;">
     {% block plenary_appearances %}
     {% if hansard.count or question.count or committee.count %}
     <h2 class="mp-subheading">Politician Activity</h2>
@@ -340,29 +364,31 @@
           </div>
         {% else %}
           <div class="mb-3">
-            <p class="category-title">Attendance of committee meetings:</p>
+            <h3 class="mp-block__title">Attendance of committee meetings:</h3>
             <div class="row">
               {% for data in attendance %}
-              <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
-                <div class="metric-top">
-                  <div class="metric-item">
-                    <p class="metric-title">
-                      {{ data.year }} committee attendance as {{ data.position }}
-                    </p>
-                    {% if data.year == 2014 %}
-                      <p class="metric-value">
-                        (From the start of the Fifth Parliament)
+              <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="metric">
+                  <div class="metric-top">
+                    <div class="metric-item">
+                      <p class="metric-title">
+                        {{ data.year }} committee attendance as {{ data.position }}
                       </p>
-                    {% endif %}
-                    {% if data.position == 'minister/deputy' %}
-                      <p class="metric-value">
-                        Attended {{ data.attended }} meeting{{ data.attended|pluralize }}
-                      </p>
-                    {% else %}
-                      <p class="metric-value is--title">
-                        {{ data.percentage|floatformat:"0" }}% attendance rate ({{ data.attended }} of {{ data.total }} )
-                      </p>
-                    {% endif %}
+                      {% if data.year == 2014 %}
+                        <p class="metric-value">
+                          (From the start of the Fifth Parliament)
+                        </p>
+                      {% endif %}
+                      {% if data.position == 'minister/deputy' %}
+                        <p class="metric-value">
+                          Attended {{ data.attended }} meeting{{ data.attended|pluralize }}
+                        </p>
+                      {% else %}
+                        <p class="metric-value is--title">
+                          {{ data.percentage|floatformat:"0" }}% attendance rate ({{ data.attended }} of {{ data.total }} )
+                        </p>
+                      {% endif %}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -382,73 +408,72 @@
       </p>
       {% endif %}
     </div>
-    <div class="mb-3">
-      {% if latest_meetings_attended %}
-      <p class="category-title">Recent meetings attended:</p>
-      <div class="row">
+    {% if latest_meetings_attended %}
+    <div class="mp-row is--overline">
+      <h3 class="mp-block__title">Recent meetings attended:</h3>
+      <div class="mp-col is--full">
         {% for meeting in latest_meetings_attended|slice:":4" %}
-        <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="mp-item is--half">
-            <div class="mp-meeting w-inline-block">
+            <a href="{{ meeting.url }}" class="mp-meeting w-inline-block">
               <p class="item-title">
                 {{ meeting.committee_name }}
               </p>
               <p class="item-detail">
-                <a href="{{ meeting.url }}">
-                  <span>
-                    {{ meeting.title }}
-                  </span>
-                </a>
+                {{ meeting.title }}
               </p>
-              <p class="item-date">{{ meeting.date }}</p>
-            </div>
+              <p class="item-date">
+                {{ meeting.date }}
+              </p>
+            </a>
           </div>
-        </div>
         {% endfor %}
-      </div>
+
+       </div>
       <p class="mp-block__link">
         <a href="{% url 'sa-person-attendance' person_slug=object.slug %}">
           See all meetings attended by this politician
         </a>
       </p>
-      {% endif %}
     </div>
+      {% endif %}
     <div id="appearances">
-      <div class="row mb-3">
-        <div class="col-lg-6 col-md-12 col-sm-12">
-          <p class="category-title">What they said in committee meetings:</p>
-          <div id="accordion">
-            <div class="info-block">
-              <div id="committee-meetings-title" data-toggle="collapse" data-target="#committee-meetings" aria-expanded="true"
-                aria-controls="committee-meetings">
-                <div class="row">
-                  <div class="col-8">
-                    <p class="info-block__title">
-                      What are committee meetings?
-                    </p>
-                  </div>
-                  <div class="col-4">
-                    <div class="float-right" style="width: 0.8rem; height: 0.8rem;">
-                      <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas"
-                        data-icon="caret-down" class="svg-inline--fa fa-caret-down fa-w-10" role="img"
-                        viewBox="0 0 320 512">
-                        <path fill="currentColor"
-                          d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z">
-                        </path>
-                      </svg>
+      <div class="mp-row is--overline">
+        <div class="mp-col is--half">
+          <h3 class="mp-block__title">What they said in committee meetings:</h3>
+          <div class="mp-item is--underlined">
+            <div id="accordion" class="appearance-accordion">
+                <div class="info-block" id="committee-meetings-title" data-toggle="collapse" data-target="#committee-meetings" aria-expanded="true"
+                  aria-controls="committee-meetings">
+                  <div class="row">
+                    <div class="col-8">
+                      <p class="info-block__title is--expand">
+                        What are committee meetings?
+                      </p>
+                    </div>
+                    <div class="col-4">
+                      <div class="float-right" style="width: 0.8rem; height: 0.8rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas"
+                          data-icon="caret-down" class="svg-inline--fa fa-caret-down fa-w-10" role="img"
+                          viewBox="0 0 320 512">
+                          <path fill="currentColor"
+                            d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z">
+                          </path>
+                        </svg>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div id="committee-meetings" class="collapse" aria-labelledby="committee-meetings-title" data-parent="#committee-meetings">
-                <div class="info-block__content">
-                  Committee meetings are planned events where real-world impactful work happens such as law-making, oversight and public participation - which are all cornerstones of the work our MPs do. Although often citizens focus on the public debate taking place in main chambers, the majority of MPs' time is spent working within committees. Here is a place to see what your committee is saying.
+                <div id="committee-meetings" class="collapse" aria-labelledby="committee-meetings-title" data-parent="#committee-meetings">
+                  <div class="info-block__inner">
+                    <p class="info-block__content">
+                      Committee meetings are planned events where real-world impactful work happens such as law-making, oversight and public participation - which are all cornerstones of the work our MPs do. Although often citizens focus on the public debate taking place in main chambers, the majority of MPs' time is spent working within committees. Here is a place to see what your committee is saying.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {% include "core/person_committee_meetings.html" with speechlist=committee ifempty='<div class="col-12"><div class="mp-question mb-3"><p>No appearances found</p></div></div>' %}
+          {% include "core/person_committee_meetings.html" with speechlist=committee ifempty='<div class="col"><div class="mp-question mb-3"><p>No appearances found</p></div></div>' %}
 
           {% if committee.count %}
           <p class="mp-block__link">
@@ -458,40 +483,41 @@
           </p>
           {% endif %}
         </div>
-        <div class="col-lg-6 col-md-12 col-sm-12">
-          <p class="category-title">Questions asked to ministers:</p>
-          <div id="accordion">
-            <div class="info-block">
-              <div id="minister-questions-title" data-toggle="collapse" data-target="#questions-to-ministers" aria-expanded="true"
-                aria-controls="questions-to-ministers">
-                <div class="row">
-                  <div class="col-8">
-                    <p class="info-block__title">
-                      What are questions asked to ministers?
-                    </p>
-                  </div>
-                  <div class="col-4">
-                    <div class="float-right" style="width: 0.8rem; height: 0.8rem;">
-                      <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas"
-                        data-icon="caret-down" class="svg-inline--fa fa-caret-down fa-w-10" role="img"
-                        viewBox="0 0 320 512">
-                        <path fill="currentColor"
-                          d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z">
-                        </path>
-                      </svg>
+        <div class="mp-col is--half">
+          <h3 class="mp-block__title">Questions asked to ministers:</h3>
+          <div class="mp-item is--underlined">
+              <div id="accordion" class="appearance-accordion">
+                <div class="info-block" id="minister-questions-title" data-toggle="collapse" data-target="#questions-to-ministers" aria-expanded="true"
+                  aria-controls="questions-to-ministers">
+                  <div class="row">
+                    <div class="col-8">
+                      <p class="info-block__title is--expand">
+                        What are questions asked to ministers?
+                      </p>
+                    </div>
+                    <div class="col-4">
+                      <div class="float-right" style="width: 0.8rem; height: 0.8rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas"
+                          data-icon="caret-down" class="svg-inline--fa fa-caret-down fa-w-10" role="img"
+                          viewBox="0 0 320 512">
+                          <path fill="currentColor"
+                            d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z">
+                          </path>
+                        </svg>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div id="questions-to-ministers" class="collapse" aria-labelledby="minister-questions-title" data-parent="#questions-to-ministers">
-                <div class="info-block__content">
-                  Written questions and feedback are essential tools used by MPs for oversight and hold the executive accountable. This oversight mechanism allows MPs’ to extract detailed information that would normally be difficult to comprehend through oral engagement. You can see the questions that your MPs are asking here.
+                <div id="questions-to-ministers" class="collapse" aria-labelledby="minister-questions-title" data-parent="#questions-to-ministers">
+                  <div class="info-block__inner">
+                    <p class="info-block__content">
+                      Written questions and feedback are essential tools used by MPs for oversight and hold the executive accountable. This oversight mechanism allows MPs’ to extract detailed information that would normally be difficult to comprehend through oral engagement. You can see the questions that your MPs are asking here.
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
           </div>
-
-          {% include "core/person_committee_meetings.html" with speechlist=question parent_title=1 ifempty='<div class="col-12"><div class="mp-question mb-3"><p>No questions found</p></div></div>' %}
+          {% include "core/person_committee_meetings.html" with speechlist=question parent_title=1 ifempty='<div class="col"><div class="mp-question mb-3"><p>No questions found</p></div></div>' %}
 
           {% if question.count %}
           <p class="mp-block__link">
@@ -500,60 +526,66 @@
             </a>
           </p>
           {% endif %}
+          </div>
         </div>
       </div>
       <section class="mp-row is--overline">
-        <p class="category-title">Plenary appearances</p>
-        <div id="accordion">
-          <div class="info-block">
-            <div id="headingOne" data-toggle="collapse" data-target="#plenary-apperances" aria-expanded="true"
-              aria-controls="plenary-apperances">
-              <div class="row">
-                <div class="col-8">
-                  <p class="info-block__title">
-                    What are plenary appearances?
-                  </p>
+        <h3 class="mp-block__title">Plenary appearances:</h3>
+        <div class="mp-col is--full">
+          <div class="mp-item is--full">
+              <div id="accordion" class="appearance-accordion">
+                <div class="info-block" id="headingOne" data-toggle="collapse" data-target="#plenary-apperances" aria-expanded="true"
+                  aria-controls="plenary-apperances">
+                  <div class="row">
+                    <div class="col-8">
+                      <p class="info-block__title is--expand">
+                        What are plenary appearances?
+                      </p>
+                    </div>
+                    <div class="col-4">
+                      <div class="float-right" style="width: 0.8rem; height: 0.8rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas"
+                          data-icon="caret-down" class="svg-inline--fa fa-caret-down fa-w-10" role="img"
+                          viewBox="0 0 320 512">
+                          <path fill="currentColor"
+                            d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z">
+                          </path>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="col-4">
-                  <div class="float-right" style="width: 0.8rem; height: 0.8rem;">
-                    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas"
-                      data-icon="caret-down" class="svg-inline--fa fa-caret-down fa-w-10" role="img"
-                      viewBox="0 0 320 512">
-                      <path fill="currentColor"
-                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z">
-                      </path>
-                    </svg>
+                <div id="plenary-apperances" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                  <div class="info-block__inner">
+                    <p class="info-block__content">
+                      Plenary sessions are forums that have been created for the purpose of public debate and decision-making. This mechanism is used to convey the messages of our MPs within main chambers on important decisions, like how they vote.
+                    </p>
                   </div>
                 </div>
               </div>
-            </div>
-            <div id="plenary-apperances" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-              <div class="info-block__content">
-                Plenary sessions are forums that have been created for the purpose of public debate and decision-making. This mechanism is used to convey the messages of our MPs within main chambers on important decisions, like how they vote.
-              </div>
-            </div>
+          </div>
+          <div class="mp-item">
+            {% include "core/person_speech_list.html" with speechlist=hansard ifempty='<div class="col"><div class="mp-question mb-3"><p>No appearances found</p></div></div>' %}
+
+            {% if hansard.count %}
+            <p class="mp-block__link">
+              <a href="{% url 'sa-person-appearance' person_slug=object.slug speech_tag='hansard' %}">
+                See all plenary appearances for this politician
+              </a>
+            </p>
+            {% endif %}
           </div>
         </div>
-        {% include "core/person_speech_list.html" with speechlist=hansard ifempty='<div class="col-12"><div class="mp-question mb-3"><p>No appearances found</p></div></div>' %}
-
-        {% if hansard.count %}
-        <p class="mp-block__link">
-          <a href="{% url 'sa-person-appearance' person_slug=object.slug speech_tag='hansard' %}">
-            See all plenary appearances for this politician
-          </a>
-        </p>
-        {% endif %}
       </section>
     </div>
     {% endif %}
     {% endblock %}
-  </div>
   <div>
     {% if object.interests_register_entries.exists %}
     <h2 class="mp-subheading">Declaration of interests</h2>
     <div id="membersinterests">
       <div class="person-interests">
-        <div id="accordion">
+        <div id="accordion" class="appearance-accordion">
           <div class="info-block">
             <div id="headingOne" data-toggle="collapse" data-target="#declaration-of-interests" aria-expanded="true"
               aria-controls="declaration-of-interests">
@@ -683,5 +715,4 @@
     </div> <!-- .membersinterests -->
     {% endif %}
   </div>
-  </div> <!-- tabs -->
 {% endblock %}
