@@ -206,8 +206,7 @@ class ConstituencyOfficesImportTestCase(WebTest):
             name__startswith=u'Unknown sub-area of North West ',
             organisation=organisation).exists())
 
-        # Test Person was created
-        self.assertTrue(models.Person.objects.filter(Q(legal_name="Sonja Boshoff")).exists())
+
 
 
 class ConstituencyOfficesTestCase(WebTest):

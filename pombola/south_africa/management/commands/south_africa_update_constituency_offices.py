@@ -6,6 +6,7 @@
 # (omitted) offices and areas.
 
 import json
+import logging
 import re
 
 from django.contrib.contenttypes.models import ContentType
@@ -43,6 +44,28 @@ personnotfound = []
 nonexistent_phone_number = '000 000 0000'
 
 VERBOSE = False
+
+
+class Logger():
+    def __init__(self, log_file_name):
+        self.log_file_name = log_file_name
+
+    def initialize_logger(self):
+        logging.basicConfig(level=logging.INFO, filemode="a", encoding="utf-8")
+        formatter = logging.Formatter("%(asctime)s | %(levelname)s | %(message)s")
+        logger = logging.getLogger(__name__)
+        file_handler = logging.FileHandler(self.log_file_name)
+        file_handler.setFormatter(formatter)
+        logger.addHandler(file_handler)
+        return logger
+
+    def log(self, message):
+        if self.verbose:
+            print(message)
+
+
+logger = Logger("missing_or_unmatched_people.log").initialize_logger()
+
 
 def process_office(office, commit, start_date, end_date, na_member_lookup, geocode_cache, search_office):
     print("Processing office %s" % office['Title'])
@@ -203,7 +226,7 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
                     organisation = identifier.content_object
         except ObjectDoesNotExist:
             pass
-    
+
     if search_office and not organisation: # Search for a similar name
         search = SearchQuerySet().models(Organisation).\
             filter(content=office['Title'])
@@ -263,7 +286,7 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
     try:
         party = Organisation.objects.get(slug=office['Party'].lower())
     except (ObjectDoesNotExist, AttributeError):
-        raise Exception('Party %s does not exist for organisation %s' % (party, office['Title']))
+        raise Exception('Party %s does not exist for organisation %s' % (office['Party'], office['Title']))
 
     try:
         OrganisationRelationship.objects.get(
@@ -642,44 +665,7 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
                     personnotfound.append([office['Title'], person['Name']])
                     print 'Failed to match representative', person['Name']
                 else:
-                    print 'Creating person (%s) with position (%s)' % (person['Name'], person.get('Position'))
-
-                    if commit:
-                        create_person = Person.objects.create(
-                            legal_name=person['Name'],
-                            slug=slugify(person['Name']))
-
-                        position = Position.objects.create(
-                            person=create_person,
-                            organisation=organisation,
-                            start_date=start_date,
-                            end_date='future')
-                        
-                        # Allow positions to be created without titles because we
-                        # don't always have the data.
-                        if person.get('Position') and position_titles.get(person.get('Position')):
-                            position.title = position_titles[person.get('Position')]
-                            position.save()
-
-                    if 'Cell' in person:
-                        print 'Adding cell number %s' % (person['Cell'])
-
-                        if commit:
-                            Contact.objects.create(
-                                object_id=create_person.id,
-                                content_type=person_content_type,
-                                kind=ck_telephone,
-                                value=person['Cell'],
-                                preferred=True,
-                                source=source_url)
-
-                    if 'Alternative Name' in person:
-                        print 'Adding alternative name %s' % (unicode(person['Alternative Name'], 'utf-8'))
-
-                        if commit:
-                            AlternativePersonName.objects.create(
-                                person=create_person,
-                                alternative_name=person['Alternative Name'])
+                    personnotfound.append([office['Title'], person['Name']])
 
     #find the positions to end
     if organisation:
@@ -823,13 +809,14 @@ class Command(BaseCommand):
                             position.save()
 
         #print people and locations not found for checking
-        if len(personnotfound):
-            print 'People not found:'
-            for person in personnotfound:
-                print person[0], "\t", person[1]
+        num_people_not_found = len(personnotfound)
+        if num_people_not_found:
+            logger.info('{} People not found:'.format(num_people_not_found))
+            for index, person in enumerate(personnotfound, start=1):
+                logger.info("\t Person {}: {} Office: {}".format(index, person[1], person[0]))
 
-        if len(locationsnotfound):
-            print 'Locations not found:'
+        num_locations_not_found = len(locationsnotfound)
+        if num_locations_not_found:
+            logger.info('{} Locations not found:'.format(num_locations_not_found))
             for location in locationsnotfound:
-                print location[0], "\t", location[1]
-                print ''
+                logger.info("\t Location: {} Office: {}".format(location[1], location[0]))
