@@ -4033,6 +4033,9 @@ h3.mp-block__title {
 .mp-item {
     padding-right: 1em;
     padding-bottom: 1em;
+    @media (max-width: 640px) {
+        padding-right: 0;
+    }
 }
 
 .mp-item.is--half {
@@ -4469,6 +4472,11 @@ p.metric-value.is--title {
     margin-bottom: 1em;
     border-radius: 0px 0px 0.3em 0.3em;
 }
+.current-mp-positions {
+    overflow: hidden;
+    margin-bottom: 1em;
+    border-radius: 0px 0px 0.3em 0.3em;
+}
 .truncate-div {
     max-height: 320px;
 }
@@ -4544,6 +4552,9 @@ p.item-text {
 .mp-col {
     padding-bottom: 1em;
     padding-right: 1em;
+    @media (max-width: 640px) {
+        padding-right: 0;
+    }
 }
 .mp-col.is--full {
     display: -webkit-box;

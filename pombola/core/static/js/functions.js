@@ -1,16 +1,16 @@
 $(function () {
 
   // toggle former positions button on /person/person-slug/
-  const toggleElement = $('#toggle-former-positions');
+  const toggleFormerElement = $('#toggle-former-positions');
   const showFormerPositionsText = $('#show-former-positions-text');
   const hideFormerPositionsText = $('#hide-former-positions-text');
   const hideFormerPositionsIcon = $('#hide-former-positions-icon');
   const showFormerPositionsIcon = $('#show-former-positions-icon');
-  let showingAll = false;
-  toggleElement.on('click', function (e) {
+  var showingAllFormerPositions = false;
+  toggleFormerElement.on('click', function (e) {
     e.preventDefault();
-    showingAll = !showingAll;
-    if (showingAll) {
+    showingAllFormerPositions = !showingAllFormerPositions;
+    if (showingAllFormerPositions) {
       showFormerPositionsText[0].style.display = 'none';
       showFormerPositionsIcon[0].style.display = 'none';
 
@@ -23,7 +23,33 @@ $(function () {
       showFormerPositionsIcon[0].style.display = 'flex';
       hideFormerPositionsIcon[0].style.display = 'none';
     }
-    var collapseElement = document.getElementById("truncate-section");
+    var collapseElement = document.getElementById("truncate-former-section");
+    collapseElement.classList.toggle("truncate-div");
+  });
+  // toggle current positions button on /person/person-slug/
+  const toggleCurrentElement = $('#toggle-current-positions');
+  const showCurrentPositionsText = $('#show-current-positions-text');
+  const hideCurrentPositionsText = $('#hide-current-positions-text');
+  const hideCurrentPositionsIcon = $('#hide-current-positions-icon');
+  const showCurrentPositionsIcon = $('#show-current-positions-icon');
+  var showingAllCurrentPositions = false;
+  toggleCurrentElement.on('click', function (e) {
+    e.preventDefault();
+    showingAllCurrentPositions = !showingAllCurrentPositions;
+    if (showingAllCurrentPositions) {
+      showCurrentPositionsText[0].style.display = 'none';
+      showCurrentPositionsIcon[0].style.display = 'none';
+
+      hideCurrentPositionsText[0].style.display = 'block';
+      hideCurrentPositionsIcon[0].style.display = 'flex';
+    } else {
+      showCurrentPositionsText[0].style.display = 'block';
+      hideCurrentPositionsText[0].style.display = 'none';
+
+      showCurrentPositionsIcon[0].style.display = 'flex';
+      hideCurrentPositionsIcon[0].style.display = 'none';
+    }
+    var collapseElement = document.getElementById("truncate-current-section");
     collapseElement.classList.toggle("truncate-div");
   });
 
