@@ -6,7 +6,7 @@ $(function () {
   const hideFormerPositionsText = $('#hide-former-positions-text');
   const hideFormerPositionsIcon = $('#hide-former-positions-icon');
   const showFormerPositionsIcon = $('#show-former-positions-icon');
-  let showingAllFormerPositions = false;
+  var showingAllFormerPositions = false;
   toggleFormerElement.on('click', function (e) {
     e.preventDefault();
     showingAllFormerPositions = !showingAllFormerPositions;
@@ -32,7 +32,7 @@ $(function () {
   const hideCurrentPositionsText = $('#hide-current-positions-text');
   const hideCurrentPositionsIcon = $('#hide-current-positions-icon');
   const showCurrentPositionsIcon = $('#show-current-positions-icon');
-  let showingAllCurrentPositions = false;
+  var showingAllCurrentPositions = false;
   toggleCurrentElement.on('click', function (e) {
     e.preventDefault();
     showingAllCurrentPositions = !showingAllCurrentPositions;
