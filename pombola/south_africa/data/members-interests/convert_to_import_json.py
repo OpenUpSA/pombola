@@ -397,7 +397,7 @@ class Converter(object):
         "freitas-manuel-simao-franca-de": "manuel-simao-franca-de-freitas",
         "khalipha-thanduxolo-david": "thanduxolo-david-khalipha",
         "maake-jerome-joseph": "jerome-joseph-maake",
-        "swarts-malaba-bernice": "bernice-swarts",
+        "malaba-bernice-swarts": "bernice-swarts",
         # name changes confirmed in National Assembly membership document
         "buyiswa-blaai": "buyiswa-cornelia-diemu",
         "sanna-keikantseeng-molao": "sanna-keikantseeng-plaatjie",
@@ -516,19 +516,14 @@ class Converter(object):
                 }
 
                 self.groupings.append(grouping)
-
             # break # just for during dev
 
     def mp_to_person_slug(self, mp):
-        # 2020 no longer has the party in the name
-        # regex_match = re.search(r'^(.*)\s\(+(.*?)\)+', mp)
-        # if not regex_match:
-        #     print("Could not extract person name from MP name: {0}".format(mp))
-        #     return None
-        # muddled_name, _ = regex_match.groups()
-        # name = re.sub(r'(.*?), (.*)', r'\2 \1', muddled_name)
+        # NOTE: 2020 no longer has the party in the name and the names are rearranged
         slug = slugify(mp)
-
+        surname = slug.split("-")[1:]
+        other_names = slug.split("-")[:1]
+        slug = "-".join(surname + other_names)
         # Check if there is a known correction for this slug
         slug = self.slug_corrections.get(slug, slug)
 
