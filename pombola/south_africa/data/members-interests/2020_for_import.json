@@ -60544,6 +60544,256 @@
     },
     {
         "category": {
+            "name": "BENEFITS",
+            "sort_order": 7
+        },
+        "entries": [
+            {
+                "Description of Benefit": "N/A",
+                "Source": "N/A"
+            }
+        ],
+        "person": {
+            "slug": "nombuyiselo-gladys-adoons"
+        },
+        "release": {
+            "date": "2020-12-31",
+            "name": "Parliament Register of Members' Interests 2020",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "CONSULTANCIES OR RETAINERSHIPS",
+            "sort_order": 4
+        },
+        "entries": [
+            {
+                "Name of Organisation": "N/A",
+                "Type of Business \nActivity": "N/A",
+                "Value of any Benefits \nderived": "N/A"
+            }
+        ],
+        "person": {
+            "slug": "nombuyiselo-gladys-adoons"
+        },
+        "release": {
+            "date": "2020-12-31",
+            "name": "Parliament Register of Members' Interests 2020",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "CONTRACTS",
+            "sort_order": 11
+        },
+        "entries": [
+            {
+                "Details of Contract and Management \nthereof": "N/A",
+                "Name of State Entity": "N/A",
+                "Period of Contract": "N/A",
+                "Value of \nContract": "N/A"
+            }
+        ],
+        "person": {
+            "slug": "nombuyiselo-gladys-adoons"
+        },
+        "release": {
+            "date": "2020-12-31",
+            "name": "Parliament Register of Members' Interests 2020",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "DIRECTORSHIP AND PARTNERSHIPS",
+            "sort_order": 3
+        },
+        "entries": [
+            {
+                "Directorship/Partnership in any Corporate Body": "N/A",
+                "Type of Business Activity": "N/A"
+            }
+        ],
+        "person": {
+            "slug": "nombuyiselo-gladys-adoons"
+        },
+        "release": {
+            "date": "2020-12-31",
+            "name": "Parliament Register of Members' Interests 2020",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "GIFTS AND HOSPITALITY",
+            "sort_order": 6
+        },
+        "entries": [
+            {
+                "Description": "N/A",
+                "Source": "N/A",
+                "Value": "N/A"
+            }
+        ],
+        "person": {
+            "slug": "nombuyiselo-gladys-adoons"
+        },
+        "release": {
+            "date": "2020-12-31",
+            "name": "Parliament Register of Members' Interests 2020",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "LAND AND PROPERTY",
+            "sort_order": 9
+        },
+        "entries": [
+            {
+                "Description of Property": "STAND / HOUSE",
+                "Extent of the Property": "830 m2",
+                "Location \u2013 Area": "NORTH WEST \nKLERKSDORP"
+            }
+        ],
+        "person": {
+            "slug": "nombuyiselo-gladys-adoons"
+        },
+        "release": {
+            "date": "2020-12-31",
+            "name": "Parliament Register of Members' Interests 2020",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "PENSIONS",
+            "sort_order": 10
+        },
+        "entries": [
+            {
+                "Public/Private": "N/A",
+                "Source": "N/A"
+            }
+        ],
+        "person": {
+            "slug": "nombuyiselo-gladys-adoons"
+        },
+        "release": {
+            "date": "2020-12-31",
+            "name": "Parliament Register of Members' Interests 2020",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "REMUNERATED EMPLOYMENT OUTSIDE PARLIAMENT",
+            "sort_order": 2
+        },
+        "entries": [
+            {
+                "Name of Employer": "N/A",
+                "Type of Business": "N/A"
+            }
+        ],
+        "person": {
+            "slug": "nombuyiselo-gladys-adoons"
+        },
+        "release": {
+            "date": "2020-12-31",
+            "name": "Parliament Register of Members' Interests 2020",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "SHARES AND OTHER FINANCIAL INTERESTS",
+            "sort_order": 1
+        },
+        "entries": [
+            {
+                "Name of Company": "N/A",
+                "Nature": "N/A",
+                "Nominal Value": "N/A",
+                "Number of Shares": "N/A"
+            }
+        ],
+        "person": {
+            "slug": "nombuyiselo-gladys-adoons"
+        },
+        "release": {
+            "date": "2020-12-31",
+            "name": "Parliament Register of Members' Interests 2020",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "SPONSORSHIPS",
+            "sort_order": 5
+        },
+        "entries": [
+            {
+                "Description of \nAssistance/Sponsorship": "N/A",
+                "Extent": "N/A",
+                "Source of Sponsorship": "N/A"
+            }
+        ],
+        "person": {
+            "slug": "nombuyiselo-gladys-adoons"
+        },
+        "release": {
+            "date": "2020-12-31",
+            "name": "Parliament Register of Members' Interests 2020",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "TRAVEL",
+            "sort_order": 8
+        },
+        "entries": [
+            {
+                "Description of Journey": "N/A",
+                "Sponsor": "N/A"
+            }
+        ],
+        "person": {
+            "slug": "nombuyiselo-gladys-adoons"
+        },
+        "release": {
+            "date": "2020-12-31",
+            "name": "Parliament Register of Members' Interests 2020",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "TRUSTS",
+            "sort_order": 12
+        },
+        "entries": [
+            {
+                "Details of all \nbenefits derived": "N/A",
+                "Name of Trust": "N/A",
+                "Registration \nNumber": "N/A",
+                "Trustee/Beneficiary": "N/A"
+            }
+        ],
+        "person": {
+            "slug": "nombuyiselo-gladys-adoons"
+        },
+        "release": {
+            "date": "2020-12-31",
+            "name": "Parliament Register of Members' Interests 2020",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
+        }
+    },
+    {
+        "category": {
             "name": "LAND AND PROPERTY",
             "sort_order": 9
         },
