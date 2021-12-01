@@ -6175,256 +6175,6 @@
             }
         ],
         "person": {
-            "slug": "bernice-swarts"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "CONSULTANCIES OR RETAINERSHIPS",
-            "sort_order": 4
-        },
-        "entries": [
-            {
-                "Name of Organisation": "None",
-                "Type of Business Activity": "None",
-                "Value of any Benefits derived": "None"
-            }
-        ],
-        "person": {
-            "slug": "bernice-swarts"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "CONTRACTS",
-            "sort_order": 11
-        },
-        "entries": [
-            {
-                "Details of Contract and Management thereof": "None",
-                "Name of State Entity": "None",
-                "Period of Contract": "None",
-                "Value of \nContract": "None"
-            }
-        ],
-        "person": {
-            "slug": "bernice-swarts"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "DIRECTORSHIP AND PARTNERSHIPS",
-            "sort_order": 3
-        },
-        "entries": [
-            {
-                "Directorship/Partnership in any Corporate Body": "Director",
-                "Type of Business Activity": "Tomberry Trading Enterprises: Consulting, training, supply and delivery etc"
-            }
-        ],
-        "person": {
-            "slug": "bernice-swarts"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "GIFTS AND HOSPITALITY",
-            "sort_order": 6
-        },
-        "entries": [
-            {
-                "Description": "None",
-                "Source": "None",
-                "Value": "None"
-            }
-        ],
-        "person": {
-            "slug": "bernice-swarts"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "LAND AND PROPERTY",
-            "sort_order": 9
-        },
-        "entries": [
-            {
-                "Description of Property": "Private home",
-                "Extent of the Property": "Residenial home",
-                "Location \u2013 Area": "Nelspruit, Mpumalanga"
-            }
-        ],
-        "person": {
-            "slug": "bernice-swarts"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "PENSIONS",
-            "sort_order": 10
-        },
-        "entries": [
-            {
-                "Public/Private": "None",
-                "Source": "None"
-            }
-        ],
-        "person": {
-            "slug": "bernice-swarts"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "REMUNERATED EMPLOYMENT OUTSIDE PARLIAMENT",
-            "sort_order": 2
-        },
-        "entries": [
-            {
-                "Name of Employer": "None",
-                "Type of Business": "None"
-            }
-        ],
-        "person": {
-            "slug": "bernice-swarts"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "SHARES AND OTHER FINANCIAL INTERESTS",
-            "sort_order": 1
-        },
-        "entries": [
-            {
-                "Name of Company": "None",
-                "Nature": "None",
-                "Nominal Value": "None",
-                "Number of Shares": "None"
-            }
-        ],
-        "person": {
-            "slug": "bernice-swarts"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "SPONSORSHIPS",
-            "sort_order": 5
-        },
-        "entries": [
-            {
-                "Description of \nAssistance/Sponsorship": "None.",
-                "Extent": "None",
-                "Source of Sponsorship": "None"
-            }
-        ],
-        "person": {
-            "slug": "bernice-swarts"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "TRAVEL",
-            "sort_order": 8
-        },
-        "entries": [
-            {
-                "Description of Journey": "None",
-                "Sponsor": "None"
-            }
-        ],
-        "person": {
-            "slug": "bernice-swarts"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "TRUSTS",
-            "sort_order": 12
-        },
-        "entries": [
-            {
-                "Details of all \nbenefits derived": "None",
-                "Name of Trust": "None",
-                "Registration \nNumber": "None",
-                "Trustee/Beneficiary": "None"
-            }
-        ],
-        "person": {
-            "slug": "bernice-swarts"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "BENEFITS",
-            "sort_order": 7
-        },
-        "entries": [
-            {
-                "Description of Benefit": "None",
-                "Source": "None"
-            }
-        ],
-        "person": {
             "slug": "bheki-mathews-hadebe"
         },
         "release": {
@@ -31829,266 +31579,6 @@
         ],
         "person": {
             "slug": "jane-seboletswe-mananiso"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "BENEFITS",
-            "sort_order": 7
-        },
-        "entries": [
-            {
-                "Description of Benefit": "N\\A",
-                "Source": "N\\A"
-            }
-        ],
-        "person": {
-            "slug": "jerome-joseph-maake"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "CONSULTANCIES OR RETAINERSHIPS",
-            "sort_order": 4
-        },
-        "entries": [
-            {
-                "Name of Organisation": "N/A",
-                "Type of Business \nActivity": "N\\A",
-                "Value of any Benefits \nderived": "N\\A"
-            }
-        ],
-        "person": {
-            "slug": "jerome-joseph-maake"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "CONTRACTS",
-            "sort_order": 11
-        },
-        "entries": [
-            {
-                "Details of Contract and Management \nthereof": "N\\A",
-                "Name of State Entity": "N\\A",
-                "Period of Contract": "N\\A",
-                "Value of \nContract": "N\\A"
-            }
-        ],
-        "person": {
-            "slug": "jerome-joseph-maake"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "DIRECTORSHIP AND PARTNERSHIPS",
-            "sort_order": 3
-        },
-        "entries": [
-            {
-                "Directorship/Partnership in any Corporate Body": "N\\A",
-                "Type of Business Activity": "N\\A"
-            }
-        ],
-        "person": {
-            "slug": "jerome-joseph-maake"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "GIFTS AND HOSPITALITY",
-            "sort_order": 6
-        },
-        "entries": [
-            {
-                "Description": "N\\A",
-                "Source": "N\\A",
-                "Value": "N\\A"
-            }
-        ],
-        "person": {
-            "slug": "jerome-joseph-maake"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "LAND AND PROPERTY",
-            "sort_order": 9
-        },
-        "entries": [
-            {
-                "Description of Property": "6637 BASBOOM STREET, OCHARDS ,Extension 33",
-                "Extent of the Property": "5 BEDROOMED HOUSE",
-                "Location \u2013 Area": "PRETORIA NORTH"
-            },
-            {
-                "Description of Property": "17 MOPANE STREET, FLORA PARK",
-                "Extent of the Property": "3 BEDROOMED HOUSE",
-                "Location \u2013 Area": "POLOKWANE"
-            },
-            {
-                "Description of Property": "SHILUVANE",
-                "Extent of the Property": "2 BEDROOMED HOUSE",
-                "Location \u2013 Area": "TZANEEN LOCATION"
-            }
-        ],
-        "person": {
-            "slug": "jerome-joseph-maake"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "PENSIONS",
-            "sort_order": 10
-        },
-        "entries": [
-            {
-                "Public/Private": "N\\A",
-                "Source": "N\\A"
-            }
-        ],
-        "person": {
-            "slug": "jerome-joseph-maake"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "REMUNERATED EMPLOYMENT OUTSIDE PARLIAMENT",
-            "sort_order": 2
-        },
-        "entries": [
-            {
-                "Name of Employer": "N/A",
-                "Type of Business": "N/A"
-            }
-        ],
-        "person": {
-            "slug": "jerome-joseph-maake"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "SHARES AND OTHER FINANCIAL INTERESTS",
-            "sort_order": 1
-        },
-        "entries": [
-            {
-                "Name of Company": "N\\A",
-                "Nature": "N/A",
-                "Nominal Value": "N\\A",
-                "Number of Shares": "N/A"
-            }
-        ],
-        "person": {
-            "slug": "jerome-joseph-maake"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "SPONSORSHIPS",
-            "sort_order": 5
-        },
-        "entries": [
-            {
-                "Description of \nAssistance/Sponsorship": "N\\A",
-                "Extent": "N\\A",
-                "Source of Sponsorship": "N\\A"
-            }
-        ],
-        "person": {
-            "slug": "jerome-joseph-maake"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "TRAVEL",
-            "sort_order": 8
-        },
-        "entries": [
-            {
-                "Description of Journey": "N\\A",
-                "Sponsor": "N\\A"
-            }
-        ],
-        "person": {
-            "slug": "jerome-joseph-maake"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "TRUSTS",
-            "sort_order": 12
-        },
-        "entries": [
-            {
-                "Details of all \nbenefits derived": "N/A",
-                "Name of Trust": "N/A",
-                "Registration \nNumber": "N/A",
-                "Trustee/Beneficiary": "N/A"
-            }
-        ],
-        "person": {
-            "slug": "jerome-joseph-maake"
         },
         "release": {
             "date": "2020-12-31",
@@ -61102,6 +60592,261 @@
         },
         "entries": [
             {
+                "Description of Benefit": "Lounge Excess \nLounge Excess",
+                "Source": "SAA \nBritish Airways"
+            }
+        ],
+        "person": {
+            "slug": "nomsa-innocencia-tarabella-marchesi"
+        },
+        "release": {
+            "date": "2020-12-31",
+            "name": "Parliament Register of Members' Interests 2020",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "CONSULTANCIES OR RETAINERSHIPS",
+            "sort_order": 4
+        },
+        "entries": [
+            {
+                "Name of Organisation": "N/A",
+                "Type of Business \nActivity": "",
+                "Value of any Benefits \nderived": ""
+            }
+        ],
+        "person": {
+            "slug": "nomsa-innocencia-tarabella-marchesi"
+        },
+        "release": {
+            "date": "2020-12-31",
+            "name": "Parliament Register of Members' Interests 2020",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "CONTRACTS",
+            "sort_order": 11
+        },
+        "entries": [
+            {
+                "Details of Contract and Management \nthereof": "",
+                "Name of State Entity": "",
+                "Period of Contract": "N/A",
+                "Value of \nContract": ""
+            }
+        ],
+        "person": {
+            "slug": "nomsa-innocencia-tarabella-marchesi"
+        },
+        "release": {
+            "date": "2020-12-31",
+            "name": "Parliament Register of Members' Interests 2020",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "DIRECTORSHIP AND PARTNERSHIPS",
+            "sort_order": 3
+        },
+        "entries": [
+            {
+                "Directorship/Partnership in any Corporate Body": "Inzuzo Financial Co-operative \nDupla Agricultural Co-op \nCorpclo 784 cc \nFamba Group Coop \nMpilo Clinical Research \nNational Association for Coop \nTizarex Ltd",
+                "Type of Business Activity": "None/ Companies never traded or in the process of deregistration"
+            }
+        ],
+        "person": {
+            "slug": "nomsa-innocencia-tarabella-marchesi"
+        },
+        "release": {
+            "date": "2020-12-31",
+            "name": "Parliament Register of Members' Interests 2020",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "GIFTS AND HOSPITALITY",
+            "sort_order": 6
+        },
+        "entries": [
+            {
+                "Description": "Gifts",
+                "Source": "Government of Taiwan",
+                "Value": "R1000"
+            },
+            {
+                "Description": "Plane Ticket to Taiwan \nSAA \nVoyager",
+                "Source": "Government of Taiwan \nSAA/ Flights \nBritish Airways",
+                "Value": "R45 000 \nR 5000 \nR1000"
+            }
+        ],
+        "person": {
+            "slug": "nomsa-innocencia-tarabella-marchesi"
+        },
+        "release": {
+            "date": "2020-12-31",
+            "name": "Parliament Register of Members' Interests 2020",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "LAND AND PROPERTY",
+            "sort_order": 9
+        },
+        "entries": [
+            {
+                "Description of Property": "Vacant Land \nFamily Home",
+                "Extent of the Property": "11 Hectors \n4 Hectors",
+                "Location \u2013 Area": "Bloemfontein \nBloemfontein"
+            }
+        ],
+        "person": {
+            "slug": "nomsa-innocencia-tarabella-marchesi"
+        },
+        "release": {
+            "date": "2020-12-31",
+            "name": "Parliament Register of Members' Interests 2020",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "PENSIONS",
+            "sort_order": 10
+        },
+        "entries": [
+            {
+                "Public/Private": "",
+                "Source": "N/A"
+            }
+        ],
+        "person": {
+            "slug": "nomsa-innocencia-tarabella-marchesi"
+        },
+        "release": {
+            "date": "2020-12-31",
+            "name": "Parliament Register of Members' Interests 2020",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "REMUNERATED EMPLOYMENT OUTSIDE PARLIAMENT",
+            "sort_order": 2
+        },
+        "entries": [
+            {
+                "Name of Employer": "N/A",
+                "Type of Business": ""
+            }
+        ],
+        "person": {
+            "slug": "nomsa-innocencia-tarabella-marchesi"
+        },
+        "release": {
+            "date": "2020-12-31",
+            "name": "Parliament Register of Members' Interests 2020",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "SHARES AND OTHER FINANCIAL INTERESTS",
+            "sort_order": 1
+        },
+        "entries": [
+            {
+                "Name of Company": "",
+                "Nature": "",
+                "Nominal Value": "",
+                "Number of Shares": "N/A"
+            }
+        ],
+        "person": {
+            "slug": "nomsa-innocencia-tarabella-marchesi"
+        },
+        "release": {
+            "date": "2020-12-31",
+            "name": "Parliament Register of Members' Interests 2020",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "SPONSORSHIPS",
+            "sort_order": 5
+        },
+        "entries": [
+            {
+                "Description of \nAssistance/Sponsorship": "",
+                "Extent": "",
+                "Source of Sponsorship": "N/A"
+            }
+        ],
+        "person": {
+            "slug": "nomsa-innocencia-tarabella-marchesi"
+        },
+        "release": {
+            "date": "2020-12-31",
+            "name": "Parliament Register of Members' Interests 2020",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "TRAVEL",
+            "sort_order": 8
+        },
+        "entries": [
+            {
+                "Description of Journey": "Visit Basic Education Institutions in Taiwan",
+                "Sponsor": "Government of TAIWAN"
+            }
+        ],
+        "person": {
+            "slug": "nomsa-innocencia-tarabella-marchesi"
+        },
+        "release": {
+            "date": "2020-12-31",
+            "name": "Parliament Register of Members' Interests 2020",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "TRUSTS",
+            "sort_order": 12
+        },
+        "entries": [
+            {
+                "Details of all \nbenefits derived": "",
+                "Name of Trust": "N/A",
+                "Registration \nNumber": "",
+                "Trustee/Beneficiary": ""
+            }
+        ],
+        "person": {
+            "slug": "nomsa-innocencia-tarabella-marchesi"
+        },
+        "release": {
+            "date": "2020-12-31",
+            "name": "Parliament Register of Members' Interests 2020",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "BENEFITS",
+            "sort_order": 7
+        },
+        "entries": [
+            {
                 "Description of Benefit": "",
                 "Source": ""
             }
@@ -77484,256 +77229,6 @@
         ],
         "person": {
             "slug": "thandiwe-rose-marry-zungu"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "BENEFITS",
-            "sort_order": 7
-        },
-        "entries": [
-            {
-                "Description of Benefit": "None",
-                "Source": "None"
-            }
-        ],
-        "person": {
-            "slug": "thanduxolo-david-khalipha"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "CONSULTANCIES OR RETAINERSHIPS",
-            "sort_order": 4
-        },
-        "entries": [
-            {
-                "Name of Organisation": "None",
-                "Type of Business \nActivity": "None",
-                "Value of any Benefits \nderived": "None"
-            }
-        ],
-        "person": {
-            "slug": "thanduxolo-david-khalipha"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "CONTRACTS",
-            "sort_order": 11
-        },
-        "entries": [
-            {
-                "Details of Contract and Management \nthereof": "None",
-                "Name of State Entity": "None",
-                "Period of Contract": "None",
-                "Value of \nContract": "None"
-            }
-        ],
-        "person": {
-            "slug": "thanduxolo-david-khalipha"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "DIRECTORSHIP AND PARTNERSHIPS",
-            "sort_order": 3
-        },
-        "entries": [
-            {
-                "Directorship/Partnership in any Corporate Body": "None",
-                "Type of Business Activity": "None."
-            }
-        ],
-        "person": {
-            "slug": "thanduxolo-david-khalipha"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "GIFTS AND HOSPITALITY",
-            "sort_order": 6
-        },
-        "entries": [
-            {
-                "Description": "None",
-                "Source": "None",
-                "Value": "None"
-            }
-        ],
-        "person": {
-            "slug": "thanduxolo-david-khalipha"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "LAND AND PROPERTY",
-            "sort_order": 9
-        },
-        "entries": [
-            {
-                "Description of Property": "House",
-                "Extent of the Property": "6 rooms*",
-                "Location \u2013 Area": "Free state, Welkom"
-            }
-        ],
-        "person": {
-            "slug": "thanduxolo-david-khalipha"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "PENSIONS",
-            "sort_order": 10
-        },
-        "entries": [
-            {
-                "Public/Private": "none",
-                "Source": "None"
-            }
-        ],
-        "person": {
-            "slug": "thanduxolo-david-khalipha"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "REMUNERATED EMPLOYMENT OUTSIDE PARLIAMENT",
-            "sort_order": 2
-        },
-        "entries": [
-            {
-                "Name of Employer": "None",
-                "Type of Business": "None"
-            }
-        ],
-        "person": {
-            "slug": "thanduxolo-david-khalipha"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "SHARES AND OTHER FINANCIAL INTERESTS",
-            "sort_order": 1
-        },
-        "entries": [
-            {
-                "Name of Company": "Amampevu, Basakha trading",
-                "Nature": "",
-                "Nominal Value": "",
-                "Number of Shares": "Not active"
-            }
-        ],
-        "person": {
-            "slug": "thanduxolo-david-khalipha"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "SPONSORSHIPS",
-            "sort_order": 5
-        },
-        "entries": [
-            {
-                "Description of \nAssistance/Sponsorship": "None",
-                "Extent": "None",
-                "Source of Sponsorship": "None"
-            }
-        ],
-        "person": {
-            "slug": "thanduxolo-david-khalipha"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "TRAVEL",
-            "sort_order": 8
-        },
-        "entries": [
-            {
-                "Description of Journey": "None",
-                "Sponsor": "None"
-            }
-        ],
-        "person": {
-            "slug": "thanduxolo-david-khalipha"
-        },
-        "release": {
-            "date": "2020-12-31",
-            "name": "Parliament Register of Members' Interests 2020",
-            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/2020_Members_Interests_Register_final_1.pdf"
-        }
-    },
-    {
-        "category": {
-            "name": "TRUSTS",
-            "sort_order": 12
-        },
-        "entries": [
-            {
-                "Details of all \nbenefits derived": "None",
-                "Name of Trust": "None",
-                "Registration \nNumber": "None",
-                "Trustee/Beneficiary": "None"
-            }
-        ],
-        "person": {
-            "slug": "thanduxolo-david-khalipha"
         },
         "release": {
             "date": "2020-12-31",
