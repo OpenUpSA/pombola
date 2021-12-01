@@ -18,7 +18,11 @@ class Command(LabelCommand):
         with open(input_filename) as fp:
             data = json.load(fp)
             for grouping in data:
-                self.handle_grouping(grouping)
+                try:
+                    self.handle_grouping(grouping)
+                except Exception as e:
+                    if "Found existing entries" in str(e):
+                        continue
 
     def handle_grouping(self, grouping):
         # print grouping
