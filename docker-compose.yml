@@ -13,7 +13,7 @@ services:
       - ./data:/app-data
       - .:/app
     environment:
-      - DATABASE_URL=postgresql://pombola:pombola@db/pombola
+      - DATABASE_URL=postgresql://pombola:pombola@pgbouncer/pombola
       - DATABASE_NAME=pombola
       - POMBOLA_DATADIR=/app-data
       - DJANGO_DEBUG=TRUE
@@ -38,6 +38,20 @@ services:
       - POSTGRES_DB=pombola
     volumes:
       - db-data:/var/lib/postgresql/data
+  
+  pgbouncer:
+    image: edoburu/pgbouncer
+    environment:
+       - DB_USER=pombola
+       - DB_PASSWORD=pombola
+       - DB_HOST=db
+       - DB_NAME=pombola
+       - POOL_MODE=transaction
+       - ADMIN_USERS=postgres,dbuser
+    ports:
+      - "5432:5432"
+    depends_on:
+      - db
 
   elasticsearch:
     image: elasticsearch:1
