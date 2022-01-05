@@ -200,7 +200,7 @@
                 <h3 class="mp-block__title">Contact Numbers:</h3>
               {% endif %}
               {% for email in email_contacts %}
-                <a href="mailto:{{ email.0 }}" class="text-link w-inline-block">
+                <a class="text-link w-inline-block" href="mailto:{{ email.0 }}">
                   <p class="text-link__text truncate">
                     {{ email.0 }}
                   </p>
