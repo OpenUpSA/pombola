@@ -47,7 +47,7 @@ services:
        - DB_HOST=db
        - DB_NAME=pombola
        - POOL_MODE=transaction
-       - ADMIN_USERS=postgres,dbuser
+       - ADMIN_USERS=pombola
     ports:
       - "5432:5432"
     depends_on:
