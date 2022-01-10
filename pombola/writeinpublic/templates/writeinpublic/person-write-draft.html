@@ -40,18 +40,19 @@
           </div>
           <div class="message-form">
             <label for="{{ form.subject.auto_id }}" class="field-label">Subject:</label>
-            <p class="form-group">
+            <p style="margin-bottom: 0px;">
               {{ form.subject.errors }}
             </p>
-            <input type="text" class="form-field w-input" maxlength="256" name="draft-subject"
-              data-name="Subject" placeholder="Write a short, descriptive subject..." id="form.subject.auto_id"
-              required>
+            <input type="text" class="form-field w-input" maxlength="256" name="draft-subject" data-name="Subject"
+              placeholder="Write a short, descriptive subject..." id="form.subject.auto_id" required>
             <label for="{{ form.content.auto_id }}" class="field-label">Your message:</label>
-            <p class="form-group">
+            <p style="margin-bottom: 0px;">
               {{ form.content.errors }}
             </p>
-            <textarea placeholder="Dear Ms Phoebe Abrahams" maxlength="5000" id="{{ form.content.auto_id }}"
-              name="draft-content" data-name="field" class="form-field is--large w-input" required></textarea>
+            <textarea
+              placeholder="Dear {% if persons|length > 1 %}{% for person in persons %} {{ person }} {% if forloop.last %}{%else%} and {%endif%}{% endfor %}{% else %}{% for person in persons %} {{ person }} {% endfor %}{% endif %}"
+              maxlength="5000" id="{{ form.content.auto_id }}" name="draft-content" data-name="field"
+              class="form-field is--large w-input" required></textarea>
           </div>
           <div class="info__expand">
             <a data-w-id="00a4eab4-5de1-0aa7-1f64-345242470e01" class="info-expand__trigger w-inline-block"
@@ -79,13 +80,13 @@
               </div>
             </a>
             <div class="collapse info-expand__content" id="exemplary-messages">
-              <div class="info-expand__inner">
-                <div class="example-messages">
-                  <div class="example-message__wrapper">
-                    <div class="example-message__modal">
+              <div class="example-messages">
+                <div class="example-message__wrapper">
+                  <div class="example-message__modal modal fade" id="message1" tabindex="-1" role="dialog"
+                    aria-labelledby="message1Label" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
                       <div class="container">
-                        <div class="modal__close"></div>
-                        <div class="modal">
+                        <div class="custom-modal">
                           <div class="modal__header">
                             <h1 class="modal-title">Example letter</h1>
                             <a href="#" class="modal__close is--button w-inline-block">
@@ -99,57 +100,28 @@
                             </a>
                           </div>
                           <div class="modal__message w-richtext">
-                            <p>Dear My Rhamaposa</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean et odio tristique,
-                              ultricies nibh et, ornare nunc. Proin leo orci, consectetur eget euismod placerat,
-                              scelerisque vel urna. Duis ut libero lacus. Aliquam vitae interdum purus. Vestibulum ac
-                              dui id mi ornare laoreet quis a ex. Vestibulum mollis dolor eu auctor bibendum. Nam
-                              facilisis, felis sed posuere sodales, felis elit feugiat tortor, eget aliquam diam nunc
-                              vitae nulla. Ut ullamcorper gravida risus, nec tristique leo sagittis vel. Quisque congue
-                              arcu quis feugiat euismod. Nulla ullamcorper nibh interdum dapibus bibendum. Suspendisse
-                              cursus erat sed lectus tempor, ac tempor metus fermentum. Donec ullamcorper purus et justo
-                              egestas varius. Praesent porta ante augue, id volutpat tortor tempor gravida.</p>
-                            <p>Warmly,<br>Jane Smith</p>
-                          </div>
-                          <div class="modal__buttons">
-                            <a href="#" class="button is--modal-previous w-inline-block">
-                              <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
-                                  focusable="false" data-prefix="fas" data-icon="arrow-left"
-                                  class="svg-inline--fa fa-arrow-left fa-w-14" role="img" viewbox="0 0 448 512">
-                                  <path fill="currentColor"
-                                    d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z">
-                                  </path>
-                                </svg></div>
-                              <p>Previous example</p>
-                            </a>
-                            <p>Example 1 of 12 </p>
-                            <a href="#" class="button is--modal-next w-inline-block">
-                              <p>Next example</p>
-                              <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
-                                  focusable="false" data-prefix="fas" data-icon="arrow-right"
-                                  class="svg-inline--fa fa-arrow-right fa-w-14" role="img" viewbox="0 0 448 512">
-                                  <path fill="currentColor"
-                                    d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z">
-                                  </path>
-                                </svg></div>
-                            </a>
+                            <p>Dear Michele,</p>
+                            <p>
+                              Thank you very much for your question to the minister regarding unqualified government officials. I must say that the reaction in the media shows that this problem is of national importance and that it is not a new phenomenon. I was wondering if you could also ask how many unqualified officials or cadres are employed in state-owned enterprises? I worked for more than ten years at the CSIR and have seen how cadres with qualifications are employed by the council who are incompetent in research and innovation. Said differently, they are often appointed as managers, but since they have either no or only a rudimentary knowledge of research and innovation processes, their decisions often leads to misallocation of research funding, the development of already existing research projects (in other words, they copy-cat initiatives and then describe these as ground breaking) or don't do enough oversight of projects and so much so that research projects often run at a loss. These losses can be in the millions depending on the size of the project and often involve Parliamentary Grant funding.
+                            </p>
+                            <p>Kind regards,<br>Prof. Richard Meissner</p>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <a href="#" class="example-message w-inline-block">
-                      <p class="example-message__title">Dear Mr Rhamaposa</p>
-                      <p class="example-message__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-                        aliquam, magna non tristique molestie, magna turpis pretium turpis, ac sollicitudin purus tortor
-                        a enim. Nunc id leo ac purus tristique...</p>
-                      <p class="example-message__see-more">Click to see this entire message</p>
-                    </a>
                   </div>
-                  <div class="example-message__wrapper">
-                    <div class="example-message__modal">
+                  <a href="#" class="example-message w-inline-block" data-toggle="modal" data-target="#message1">
+                    <p class="example-message__title">Dear Michele,</p>
+                    <p class="example-message__text">Thank you very much for your question to the minister regarding unqualified government officials. I must say that the reaction in the media shows that this problem is of national importance and that...</p>
+                    <p class="example-message__see-more">Click to see this entire message</p>
+                  </a>
+                </div>
+                <div class="example-message__wrapper">
+                  <div class="example-message__modal modal fade" id="message2" tabindex="-1" role="dialog"
+                    aria-labelledby="message2Label" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
                       <div class="container">
-                        <div class="modal__close"></div>
-                        <div class="modal">
+                        <div class="custom-modal">
                           <div class="modal__header">
                             <h1 class="modal-title">Example letter</h1>
                             <a href="#" class="modal__close is--button w-inline-block">
@@ -163,52 +135,21 @@
                             </a>
                           </div>
                           <div class="modal__message w-richtext">
-                            <p>Dear My Rhamaposa</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean et odio tristique,
-                              ultricies nibh et, ornare nunc. Proin leo orci, consectetur eget euismod placerat,
-                              scelerisque vel urna. Duis ut libero lacus. Aliquam vitae interdum purus. Vestibulum ac
-                              dui id mi ornare laoreet quis a ex. Vestibulum mollis dolor eu auctor bibendum. Nam
-                              facilisis, felis sed posuere sodales, felis elit feugiat tortor, eget aliquam diam nunc
-                              vitae nulla. Ut ullamcorper gravida risus, nec tristique leo sagittis vel. Quisque congue
-                              arcu quis feugiat euismod. Nulla ullamcorper nibh interdum dapibus bibendum. Suspendisse
-                              cursus erat sed lectus tempor, ac tempor metus fermentum. Donec ullamcorper purus et justo
-                              egestas varius. Praesent porta ante augue, id volutpat tortor tempor gravida.</p>
-                            <p>Warmly,<br>Jane Smith</p>
-                          </div>
-                          <div class="modal__buttons">
-                            <a href="#" class="button is--modal-previous w-inline-block">
-                              <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
-                                  focusable="false" data-prefix="fas" data-icon="arrow-left"
-                                  class="svg-inline--fa fa-arrow-left fa-w-14" role="img" viewbox="0 0 448 512">
-                                  <path fill="currentColor"
-                                    d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z">
-                                  </path>
-                                </svg></div>
-                              <p>Previous example</p>
-                            </a>
-                            <p>Example 1 of 12 </p>
-                            <a href="#" class="button is--modal-next w-inline-block">
-                              <p>Next example</p>
-                              <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
-                                  focusable="false" data-prefix="fas" data-icon="arrow-right"
-                                  class="svg-inline--fa fa-arrow-right fa-w-14" role="img" viewbox="0 0 448 512">
-                                  <path fill="currentColor"
-                                    d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z">
-                                  </path>
-                                </svg></div>
-                            </a>
+                            <p>Dear Mr Mogamad,</p>
+                            <p>
+                              My grandson Nur Niaz 5 yrs old was refused a right to education because Home Affairs is taking 3 years to issue him a birth certificate. I went with my daughter to Cape Town and Bellville on several occasions for the past 3 years. Must this innocent child make a living on the street by selling stuff when he grows up or should he be educated as any other child. Please help Nur Niaz to get a birth certificate.
+                            </p>
+                            <p>Warmly,<br>Abdul</p>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <a href="#" class="example-message w-inline-block">
-                      <p class="example-message__title">Dear Mr Rhamaposa</p>
-                      <p class="example-message__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-                        aliquam, magna non tristique molestie, magna turpis pretium turpis, ac sollicitudin purus tortor
-                        a enim. Nunc id leo ac purus tristique...</p>
-                      <p class="example-message__see-more">Click to see this entire message</p>
-                    </a>
                   </div>
+                  <a href="#" class="example-message w-inline-block" data-toggle="modal" data-target="#message2">
+                    <p class="example-message__title">Dear Mr Mogamad</p>
+                    <p class="example-message__text">My grandson Nur Niaz 5 yrs old was refused a right to education because Home Affairs is taking 3 years to issue him a birth certificate. I went with my daughter to Cape Town and Bellville on several...</p>
+                    <p class="example-message__see-more">Click to see this entire message</p>
+                  </a>
                 </div>
               </div>
             </div>
@@ -217,7 +158,7 @@
             <div class="form-col is--1-2">
               <p class="form-group">
                 {{ form.author_name.errors }}
-            </p>
+              </p>
               <label for="{{ form.author_name.auto_id }}" class="field-label">Your name:</label>
               <input type="text" class="form-field w-input" maxlength="256" name="draft-author_name"
                 placeholder="eg. Jane Smith" id="{{ form.author_name.auto_id }}" required>
@@ -228,10 +169,9 @@
             <div class="form-col is--1-2">
               <p class="form-group">
                 {{ form.author_email.errors }}
-            </p>
+              </p>
               <label for="{{ form.author_email.auto_id }}" class="field-label">Your email address:</label>
-              <input
-                type="email" class="form-field w-input" maxlength="256" name="draft-author_email"
+              <input type="email" class="form-field w-input" maxlength="256" name="draft-author_email"
                 placeholder="eg. jane@email.com" id="{{ form.author_email.auto_id }}" required>
               <p class="field-label is--field-info">
                 This is where any responses will be sent. This email address will
@@ -243,7 +183,30 @@
         </form>
       </div>
       <div class="write-main__wrapper-tools">
-        <div class="wrapper-tools__message-tips">
+        <a id="show-message-tools-toggle" data-w-id="6e2f74f3-e9b2-1089-7eea-0ea37bbeb241" href="#" class="show-message-tools w-inline-block">
+          <div class="info-expand__icon">
+            <div class="svg-icon is--large w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+                focusable="false" data-prefix="fas" data-icon="info-circle"
+                class="svg-inline--fa fa-info-circle fa-w-16" role="img" viewBox="0 0 512 512">
+                <path fill="currentColor"
+                  d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z">
+                </path>
+              </svg></div>
+          </div>
+          <p>Show 6 tips for writing a message</p>
+          <div class="info-expand__arrow">
+            <div data-w-id="3c80b188-2cf8-70cb-f1eb-f5cf62e42f58" class="svg-icon is--arrow-toggle w-embed"
+              style="transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;">
+              <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas"
+                data-icon="chevron-down" class="svg-inline--fa fa-chevron-down fa-w-14" role="img"
+                viewBox="0 0 448 512">
+                <path fill="currentColor"
+                  d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z">
+                </path>
+              </svg></div>
+          </div>
+        </a>
+        <div class="wrapper-tools__message-tips" id="message-tips-container">
           <div class="wrapper-tools__message tips-title">Tips for writing your message:</div>
           <div class="info__expand">
             <a data-w-id="f100b020-c9d6-942c-9ffa-bd109414baab" class="info-expand__trigger" data-toggle="collapse"
