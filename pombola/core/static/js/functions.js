@@ -219,5 +219,38 @@ $(function () {
   showMessageToolsId.click(function (e) {
     e.preventDefault()
     messagesContainer.toggle()
-  })
+  });
+
+  // Add input placeholder text to search form
+  const subjectInputId = "id_draft-subject"
+  const placeholder = "Write a short, descriptive subject..."
+  const input = $("#" + subjectInputId)
+  if (input) {
+    input.attr("placeholder", placeholder)
+    input.attr("required", "")
+    input.attr("maxlength", "256")
+  }
+
+  const memberSalutationId = "member-salutation"
+  const memberSalutation = $("#" + memberSalutationId).text()
+  const bodyInputId = "id_draft-content"
+  const bodyInput = $("#" + bodyInputId)
+  if (bodyInput) {
+    bodyInput.attr("placeholder", memberSalutation)
+    bodyInput.attr("required", "")
+    bodyInput.attr("maxlength", "5000")
+  }
+
+  const nameAndEmailIds = ["id_draft-author_name", "id_draft-author_email"]
+  const nameAndEmailPlaceholders = ["eg. Jane Smith", "eg. jane@email.com"]
+
+  for (let i = 0; i < nameAndEmailIds.length; i++) {
+    const input = $("#" + nameAndEmailIds[i])
+    if (input) {
+      input.attr("placeholder", nameAndEmailPlaceholders[i])
+      input.attr("required", "")
+      input.attr("maxlength", "256")
+    }
+  }
+
 });

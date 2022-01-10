@@ -43,18 +43,15 @@
             <p style="margin-bottom: 0px;">
               {{ form.subject.errors }}
             </p>
-            <input type="text" class="form-field w-input" maxlength="256" name="draft-subject" data-name="Subject"
-              placeholder="Write a short, descriptive subject..." id="form.subject.auto_id" required>
+            {{ form.subject }}
             <label for="{{ form.content.auto_id }}" class="field-label">Your message:</label>
             <p style="margin-bottom: 0px;">
               {{ form.content.errors }}
             </p>
-            <textarea
-              placeholder="Dear {% if persons|length > 1 %}{% for person in persons %} {{ person }} {% if forloop.last %}{%else%} and {%endif%}{% endfor %}{% else %}{% for person in persons %} {{ person }} {% endfor %}{% endif %}"
-              maxlength="5000" id="{{ form.content.auto_id }}" name="draft-content" data-name="field"
-              class="form-field is--large w-input" required></textarea>
+            {{ form.content }}
+            <p style="display: none;" id="member-salutation">Dear {% if persons|length > 1 %}{% for person in persons %} {{ person }} {% if forloop.last %}{%else%} and {%endif%}{% endfor %}{% else %}{% for person in persons %} {{ person }} {% endfor %}{% endif %}</p>
           </div>
-          <div class="info__expand">
+          <div class="info__expand" style="margin-bottom: 1em;">
             <a data-w-id="00a4eab4-5de1-0aa7-1f64-345242470e01" class="info-expand__trigger w-inline-block"
               data-toggle="collapse" href="#exemplary-messages" aria-expanded="false">
               <div class="info-expand__icon">
@@ -156,23 +153,21 @@
           </div>
           <div class="form-col__wrapper">
             <div class="form-col is--1-2">
-              <p class="form-group">
+              <label for="{{ form.author_name.auto_id }}" class="field-label">Your name:</label>
+              <p style="margin-bottom: 0px;">
                 {{ form.author_name.errors }}
               </p>
-              <label for="{{ form.author_name.auto_id }}" class="field-label">Your name:</label>
-              <input type="text" class="form-field w-input" maxlength="256" name="draft-author_name"
-                placeholder="eg. Jane Smith" id="{{ form.author_name.auto_id }}" required>
+              {{ form.author_name }}
               <p class="field-label is--field-info">Your name will be made public on this website along with your
                 message. <a href="#">Learn more</a>
               </p>
             </div>
             <div class="form-col is--1-2">
-              <p class="form-group">
+              <label for="{{ form.author_email.auto_id }}" class="field-label">Your email address:</label>
+              <p style="margin-bottom: 0px;">
                 {{ form.author_email.errors }}
               </p>
-              <label for="{{ form.author_email.auto_id }}" class="field-label">Your email address:</label>
-              <input type="email" class="form-field w-input" maxlength="256" name="draft-author_email"
-                placeholder="eg. jane@email.com" id="{{ form.author_email.auto_id }}" required>
+              {{ form.author_email }}
               <p class="field-label is--field-info">
                 This is where any responses will be sent. This email address will
                 never be shared with any third parties.
