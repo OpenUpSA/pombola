@@ -8,6 +8,7 @@ services:
     image: pombola
     depends_on:
       - db
+      - pgbouncer
       - elasticsearch
     volumes:
       - ./data:/app-data
