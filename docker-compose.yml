@@ -40,7 +40,8 @@ services:
       - db-data:/var/lib/postgresql/data
   
   pgbouncer:
-    context: edoburu/pgbouncer
+    build:
+      context: docker/pgbouncer
     image: edoburu/pgbouncer
     environment:
        - DB_USER=pombola
