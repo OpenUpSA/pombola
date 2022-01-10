@@ -29,7 +29,7 @@ services:
     command: bin/wait-for-deps.sh python manage.py runserver 0.0.0.0:8000
 
   db:
-    image: postgres-9.6-postgis-2.3
+    image: openup/postgres-9.6-postgis-2.3
     environment:
       - POSTGRES_USER=pombola
       - POSTGRES_PASSWORD=pombola
