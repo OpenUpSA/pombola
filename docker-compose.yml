@@ -13,7 +13,7 @@ services:
       - ./data:/app-data
       - .:/app
     environment:
-      - DATABASE_URL=postgresql://pombola:pombola@pgbouncer/pombola
+      - DATABASE_URL=postgresql://pombola:pombola@pgbouncer:6432/pombola
       - DATABASE_NAME=pombola
       - POMBOLA_DATADIR=/app-data
       - DJANGO_DEBUG=TRUE
@@ -29,8 +29,6 @@ services:
     command: bin/wait-for-deps.sh python manage.py runserver 0.0.0.0:8000
 
   db:
-    build:
-      context: docker/db
     image: postgres-9.6-postgis-2.3
     environment:
       - POSTGRES_USER=pombola
@@ -40,18 +38,15 @@ services:
       - db-data:/var/lib/postgresql/data
   
   pgbouncer:
-    build:
-      context: docker/pgbouncer
-    image: edoburu/pgbouncer
-    environment:
-       - DB_USER=pombola
-       - DB_PASSWORD=pombola
-       - DB_HOST=db
-       - DB_NAME=pombola
-       - POOL_MODE=transaction
-       - ADMIN_USERS=pombola
+    image: docker.io/bitnami/pgbouncer:1
     ports:
-      - "5432:5432"
+      - 6432:6432
+    environment:
+       - POSTGRESQL_PASSWORD=pombola
+       - POSTGRESQL_USERNAME=pombola
+       - POSTGRESQL_DATABASE=pombola
+       - POSTGRESQL_HOST=db
+       - PGBOUNCER_DATABASE=pombola
     depends_on:
       - db
 
