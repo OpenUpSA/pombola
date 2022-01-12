@@ -202,14 +202,15 @@ $(function () {
   const showMessageToolsId = $("#show-message-tools-toggle")
   const messagesContainer = $("#message-tips-container")
 
+  const pageResponsiveWidth = 991;
   // hide element initially if page width is smaller than 991px
-  if (window.innerWidth < 991) {
+  if (window.innerWidth < pageResponsiveWidth) {
     messagesContainer.hide()
   }
 
   // check for window resize actions and toggle show message tools
   window.addEventListener('resize', function(event){
-    if (window.innerWidth < 991) {
+    if (window.innerWidth < pageResponsiveWidth) {
       messagesContainer.hide()
     } else {
       messagesContainer.show()
@@ -253,4 +254,15 @@ $(function () {
     }
   }
 
+  // Toggle rotation on accordion icons
+  const toggleButton = $(".info-expand__trigger").add("#show-message-tools-toggle")
+  const svgIconClass = ".is--arrow-toggle"
+  toggleButton.click(function (e) {
+    e.preventDefault();
+    $(this).find(svgIconClass).toggleClass("info-expand__trigger--open");
+  });
+
+  if (window.location.pathname == "/write-committees/draft/") {
+    $(".page-wrapper").css("display", "block");
+  }
 });

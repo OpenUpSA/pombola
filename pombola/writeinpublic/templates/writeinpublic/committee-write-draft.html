@@ -3,55 +3,77 @@
 {% block title %}Draft your message{% endblock %}
 
 {% block content %}
-<form action="" method="post" class="person-write-form">{% csrf_token %}
-  {{ wizard.management_form }}
-
-    <p class="form-group">
-        <label for="recipients">To</label>
-        <a class="button pull-right change-recipients" href="{% url 'writeinpublic:writeinpublic-new-message-step' step='recipients' %}">Change recipients</a>
-        <input type="text" disabled id="recipients" value="{{ persons }}">
-    </p>
-
-    <p class="form-group">
-        <label for="{{ form.subject.auto_id }}">Subject</label>
-        {{ form.subject.errors }}
-        {{ form.subject }}
-    </p>
-
-    <p class="form-group">
-        <label for="{{ form.content.auto_id }}">
-          Your message
-          <small>This will be published, on this site.</small>
-        </label>
-        {{ form.content.errors }}
-        {{ form.content }}
-    </p>
-
-    <div class="row">
-        <div class="col-sm-6">
-            <p class="form-group">
-                <label for="{{ form.author_name.auto_id }}">
-                    Your name
-                    <small>This will be published, on this site.</small>
-                </label>
-                {{ form.author_name.errors }}
-                {{ form.author_name }}
-            </p>
-        </div>
-        <div class="col-sm-6">
-            <p class="form-group">
-                <label for="{{ form.author_email.auto_id }}">
-                    Your email
-                    <small>Nobody will see this, ever.</small>
-                </label>
-                {{ form.author_email.errors }}
-                {{ form.author_email }}
-            </p>
+<section class="write-main">
+    <div class="write-main__panel">
+        <h1 class="write-main__title">Draft your message</h1>
+        <div class="write-main__wrapper">
+            <div class="write-main__wrapper-message">
+                <form class="wrapper-message__form" action="" method="post">
+                    {% csrf_token %}
+                    {{ wizard.management_form }}
+                    <label for="name" class="field-label">You are writing to:</label>
+                    <div class="message-recipients">
+                        <!-- <input type="text" disabled id="recipients" value="{{ persons }}"> -->
+                        <div class="committee-recipient is--current">
+                            <p class="recipient-name">{{ persons }}</p>
+                        </div>
+                        <a class="add-recipient is--current w-inline-block"
+                            href="{% url 'writeinpublic:writeinpublic-new-message-step' step='recipients' %}">
+                            <div class="tooltip">
+                                <div class="tooltip-chip"></div>
+                                <p class="tooltip-text">Change recipients</p>
+                            </div>
+                            <p class="add-recipient__text is--current">Change recipients</p>
+                        </a>
+                    </div>
+                    <div class="message-form">
+                        <label for="{{ form.subject.auto_id }}" class="field-label">Subject:</label>
+                        <p style="margin-bottom: 0px;">
+                            {{ form.subject.errors }}
+                        </p>
+                        {{ form.subject }}
+                        <label for="{{ form.content.auto_id }}" class="field-label">Your message:</label>
+                        <p style="margin-bottom: 0px;">
+                            {{ form.content.errors }}
+                        </p>
+                        {{ form.content }}
+                        <p style="display: none;" id="member-salutation">
+                            {{ persons }}
+                        </p>
+                    </div>
+                    {% include "writeinpublic/well-written-messages.html" %}
+                    <div class="form-col__wrapper">
+                        <div class="form-col is--1-2">
+                            <label for="{{ form.author_name.auto_id }}" class="field-label">Your name:</label>
+                            <p style="margin-bottom: 0px;">
+                                {{ form.author_name.errors }}
+                            </p>
+                            {{ form.author_name }}
+                            <p class="field-label is--field-info">Your name will be made public on this website along
+                                with your
+                                message. <a href="#">Learn more</a>
+                            </p>
+                        </div>
+                        <div class="form-col is--1-2">
+                            <label for="{{ form.author_email.auto_id }}" class="field-label">Your email address:</label>
+                            <p style="margin-bottom: 0px;">
+                                {{ form.author_email.errors }}
+                            </p>
+                            {{ form.author_email }}
+                            <p class="field-label is--field-info">
+                                This is where any responses will be sent. This email address will
+                                never be shared with any third parties.
+                            </p>
+                        </div>
+                    </div>
+                    <input type="submit" class="message-submit w-inline-block" value="Preview your message">
+                </form>
+            </div>
+            {% include "writeinpublic/write-message-guide.html" %}
         </div>
     </div>
+</section>
 
-    <input type="submit" value="Preview message" class="button pull-right">
-</form>
 {% endblock %}
 
 {% block correct_this_page %}
