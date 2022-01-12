@@ -49,9 +49,7 @@
               {{ form.content.errors }}
             </p>
             {{ form.content }}
-            <p style="display: none;" id="member-salutation">Dear {% if persons|length > 1 %}{% for person in persons %}
-              {{ person }} {% if forloop.last %}{%else%} and {%endif%}{% endfor %}{% else %}{% for person in persons %}
-              {{ person }} {% endfor %}{% endif %}</p>
+            <p style="display: none;" id="member-salutation">Dear {% if persons|length > 1 %}{% for person in persons %} {{ person }} {% if forloop.last %}{%else%} and {%endif%}{% endfor %}{% else %}{% for person in persons %} {{ person }} {% endfor %}{% endif %}</p>
           </div>
           {% include "writeinpublic/well-written-messages.html" %}
           <div class="form-col__wrapper">
