@@ -13,8 +13,7 @@
                     {{ wizard.management_form }}
                     <label for="name" class="field-label">You are writing to:</label>
                     <div class="message-recipients">
-                        <!-- <input type="text" disabled id="recipients" value="{{ persons }}"> -->
-                        <div class="committee-recipient is--current">
+                        <div class="committee-recipient is--current" title="{{ persons }}">
                             <p class="recipient-name">{{ persons }}</p>
                         </div>
                         <a class="add-recipient is--current w-inline-block"

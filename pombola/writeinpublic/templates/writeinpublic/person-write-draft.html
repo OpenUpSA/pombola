@@ -25,7 +25,7 @@
           <label for="name" class="field-label">You are writing to:</label>
           <div class="message-recipients">
             {% for person in persons %}
-            <div class="recipient is--current">
+            <div class="recipient is--current" title="{{ person }}">
               <p class="recipient-name">{{ person }}</p>
             </div>
             {% endfor %}
