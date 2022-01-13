@@ -10,7 +10,7 @@ psycogreen==1.0.1
 ### General useful bits
 py-bcrypt==0.4
 PyYAML==5.1
-Pillow==6.1.0
+Pillow==9.0.0
 
 ### Database drivers
 psycopg2==2.8.2
