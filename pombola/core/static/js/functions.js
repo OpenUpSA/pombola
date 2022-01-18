@@ -202,21 +202,6 @@ $(function () {
   const showMessageToolsId = $("#show-message-tools-toggle")
   const messagesContainer = $("#message-tips-container")
 
-  const pageResponsiveWidth = 991;
-  // hide element initially if page width is smaller than 991px
-  if (window.innerWidth < pageResponsiveWidth) {
-    messagesContainer.hide()
-  }
-
-  // check for window resize actions and toggle show message tools
-  window.addEventListener('resize', function(event){
-    if (window.innerWidth < pageResponsiveWidth) {
-      messagesContainer.hide()
-    } else {
-      messagesContainer.show()
-    }
-  });
-
   showMessageToolsId.click(function (e) {
     e.preventDefault()
     messagesContainer.toggle()

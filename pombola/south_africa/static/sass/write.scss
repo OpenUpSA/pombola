@@ -934,6 +934,9 @@ body {
                 position: static;
                 width: 100%;
                 padding-left: 0em;
+                .wrapper-tools__message-tips {
+                    display: none;
+                }
             }
         }
     }
