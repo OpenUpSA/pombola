@@ -66,6 +66,8 @@ class SAPersonDetail(PersonSpeakerMappingsMixin, PersonDetail):
 
         for entry in interests:
             release = entry.release
+            release_name = release.name
+            release_year = release_name[-4:]
             category = entry.category
 
             if release.id not in tabulated:
@@ -73,11 +75,11 @@ class SAPersonDetail(PersonSpeakerMappingsMixin, PersonDetail):
                     content_type=release_content_type,
                     object_id=release.id
                 )
-
                 tabulated[release.id] = {
-                    'name': release.name,
+                    'name': release_name,
                     'categories': {},
-                    'informationsource': sources
+                    'informationsource': sources,
+                    'release_year': release_name[-4:]
                 }
 
             if category.id not in tabulated[release.id]['categories']:
@@ -86,7 +88,10 @@ class SAPersonDetail(PersonSpeakerMappingsMixin, PersonDetail):
                     'headings': [],
                     'headingindex': {},
                     'headingcount': 1,
-                    'entries': []
+                    'entries': [],
+                    'category_id': "{}_{}".format(
+                        release_name, category.name
+                    ),
                 }
 
             #create row list
@@ -109,16 +114,16 @@ class SAPersonDetail(PersonSpeakerMappingsMixin, PersonDetail):
                 #record the 'cell' in the correct position in the row list
                 tabulated[release.id]['categories'][category.id]['entries'][-1][tabulated[release.id]['categories'][category.id]['headingindex'][entrylistitem.key]] = entrylistitem.value
 
-        ret = []
+        tabulated_interests = []
 
         for release_id, release_data in tabulated.items():
             release = Release.objects.get(pk=release_id)
 
-            ret.append((release_data, release.date))
+            tabulated_interests.append((release_data, release.date))
 
-        ret.sort(key=lambda x: x[1], reverse=True)
+        tabulated_interests.sort(key=lambda x: x[1], reverse=True)
 
-        return ret
+        return tabulated_interests
 
     def list_contacts_by_kind(self, kind_slugs):
         return self.object.contacts \
