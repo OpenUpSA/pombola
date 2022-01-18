@@ -45,7 +45,7 @@ def process_rows(logger, xls):
     all_offices = {
         "offices": [],
         "start_date": "2021-11-01",
-        "end_date": "2021-11-31"
+        "end_date": "2021-11-30"
     }
     track_offices = {}
     entries_count = 0
