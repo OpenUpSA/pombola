@@ -230,9 +230,8 @@ $(function () {
   const nameAndEmailIds = ["id_draft-author_name", "id_draft-author_email"]
   const nameAndEmailPlaceholders = ["eg. Jane Smith", "eg. jane@email.com"]
 
-  for (let i = 0; i < nameAndEmailIds.length; i++) {
-    const input = $("#" + nameAndEmailIds[i])
-    if (input) {
+  for (var i = 0; i < nameAndEmailIds.length; i++) {
+    if ($("#" + nameAndEmailIds[i])) {
       input.attr("placeholder", nameAndEmailPlaceholders[i])
       input.attr("required", "")
       input.attr("maxlength", "256")
