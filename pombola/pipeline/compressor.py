@@ -6,7 +6,7 @@ class LoggingYUICompressor(YUICompressor):
       try:
           return super(LoggingYUICompressor, self).compress_js(js)
       except Exception, e:
-          print("Error in:\n")
+          print("Error in the following content (this might be a bundle and not a source file):\n")
           print(js)
           raise e
 
@@ -14,6 +14,6 @@ class LoggingYUICompressor(YUICompressor):
       try:
           return super(LoggingYUICompressor, self).compress_css(css)
       except Exception, e:
-          print("Error in:\n")
+          print("Error in the following content (this might be a bundle and not a source file):\n")
           print(css)
           raise e
