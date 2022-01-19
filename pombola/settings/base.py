@@ -495,8 +495,8 @@ def make_enabled_features(installed_apps, all_optional_apps):
 
 PIPELINE = {
     'COMPILERS' : ("pipeline_compass.compass.CompassCompiler",),
-    'CSS_COMPRESSOR': "pipeline.compressors.yui.YUICompressor",
-    'JS_COMPRESSOR': "pipeline.compressors.yui.YUICompressor",
+    'CSS_COMPRESSOR': "pombola.pipeline.compressor.LoggingYUICompressor",
+    'JS_COMPRESSOR': "pombola.pipeline.compressor.LoggingYUICompressor",
     'YUI_BINARY': "/usr/bin/env yui-compressor",
     'DISABLE_WRAPPER': True
 }
@@ -516,7 +516,7 @@ PIPELINE['STYLESHEETS'] = {
             'sass/countdown.scss',
         ),
         'output_filename': 'css/countdown.css',
-        'extra_context': default_stylesheet_extra_content, 
+        'extra_context': default_stylesheet_extra_content,
     },
     'admin': {
         'source_filenames': (
@@ -524,7 +524,7 @@ PIPELINE['STYLESHEETS'] = {
             'sass/admin.scss',
         ),
         'output_filename': 'css/admin.css',
-        'extra_context': default_stylesheet_extra_content, 
+        'extra_context': default_stylesheet_extra_content,
     },
 }
 
@@ -544,69 +544,69 @@ PIPELINE['JAVASCRIPT'] = {
             'js/analytics.js',
         ),
         'output_filename': 'js/base.js',
-        'extra_context': default_js_extra_content, 
+        'extra_context': default_js_extra_content,
     },
     'load-appearances': {
         'source_filenames': (
             'js/load-appearances.html',
         ),
         'output_filename': 'js/load-appearances.js',
-        'extra_context': default_js_extra_content, 
+        'extra_context': default_js_extra_content,
     },
     'feeds': {
         'source_filenames': (
             'js/feeds.js',
         ),
         'output_filename': 'js/feeds.js',
-        'extra_context': default_js_extra_content, 
+        'extra_context': default_js_extra_content,
     },
     'responsive-carousel': {
         'source_filenames': (
             'js/libs/responsive-carousel.js',
         ),
         'output_filename': 'js/responsive-carousel.js',
-        'extra_context': default_js_extra_content, 
+        'extra_context': default_js_extra_content,
     },
     'map': {
         'source_filenames': (
             'js/map-drilldown.js',
         ),
         'output_filename': 'js/base-map-drilldown.js',
-        'extra_context': default_js_extra_content, 
+        'extra_context': default_js_extra_content,
     },
     'ui-test': {
         'source_filenames': (
             'js/ui-test.js',
         ),
         'output_filename': 'js/ui-test.js',
-        'extra_context': default_js_extra_content, 
+        'extra_context': default_js_extra_content,
     },
     'google-map': {
         'source_filenames': (
             'js/map.js',
         ),
         'output_filename': 'js/google-map.js',
-        'extra_context': default_js_extra_content, 
+        'extra_context': default_js_extra_content,
     },
     'modernizr': {
         'source_filenames': ('js/libs/modernizr.js',),
         'output_filename': 'js/modernizr.js',
-        'extra_context': default_js_extra_content, 
+        'extra_context': default_js_extra_content,
     },
     'respond': {
         'source_filenames': ('js/libs/respond.1.4.2.js',),
         'output_filename': 'js/respond.js',
-        'extra_context': default_js_extra_content, 
+        'extra_context': default_js_extra_content,
     },
     'hide-reveal': {
         'source_filenames': ('js/hide-reveal.js',),
         'output_filename': 'js/hide-reveal.js',
-        'extra_context': default_js_extra_content, 
+        'extra_context': default_js_extra_content,
     },
     'survey': {
         'source_filenames': ('js/survey.js',),
         'output_filename': 'js/survey.js',
-        'extra_context': default_js_extra_content, 
+        'extra_context': default_js_extra_content,
     },
 }
 
