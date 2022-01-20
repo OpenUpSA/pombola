@@ -159,8 +159,22 @@
                 {% empty %}
                 {% if former_parties %}
                 {% for party in former_parties %}
-                  <a href="{{ party.get_absolute_url }}"
-                    class="party-membership party-membership--{{ party.kind.name | slugify }}">{{ party.name }}</a></li>
+                  <a href="{{ party.get_absolute_url }}" {% for identifier in party.identifiers.all %}
+                    data-identifier-{{ identifier.scheme }}="{{ identifier.identifier }}" {%endfor%}
+                    class="text-link w-inline-block">
+                    <p class="text-link__text">
+                      {{ party.name }}
+                    </p>
+                    <div class="text-link__icon">
+                      <div class="svg-icon w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+                          focusable="false" data-prefix="fas" data-icon="long-arrow-alt-right"
+                          class="svg-inline--fa fa-long-arrow-alt-right fa-w-14" role="img" viewBox="0 0 448 512">
+                          <path fill="currentColor"
+                            d="M313.941 216H12c-6.627 0-12 5.373-12 12v56c0 6.627 5.373 12 12 12h301.941v46.059c0 21.382 25.851 32.09 40.971 16.971l86.059-86.059c9.373-9.373 9.373-24.569 0-33.941l-86.059-86.059c-15.119-15.119-40.971-4.411-40.971 16.971V216z">
+                          </path>
+                        </svg></div>
+                    </div>
+                  </a>
                 {% empty %}
                   <p class="no-data">Not associated with any political party</p>
                 {% endfor %}
