@@ -1,11 +1,23 @@
+"""
+    This script will extract the data from an excel file and write it to a json
+    file.
+
+    How to run the script:
+    python constituency_offices.py --excel_file "Standard Template for constituency Info.xlsx" --source_url "http:test.com" --source_note "test notes" --output_json "test.json"
+
+    Example command to load data after running this script:
+
+    docker-compose run --rm app ./manage.py \
+    south_africa_update_constituency_offices --verbose \
+    anc_constituency_offices.json --party ANC --commit --end-old-offices
+"""
+
+import argparse
 import json
 import logging
+import math
 
 import pandas as pd
-
-
-# constants
-JSON_OUTPUT_FILE_NAME = 'pombola/south_africa/data/constituencies_and_offices/source_data/2021/anc/anc-2021-data.json'
 
 
 def extract_excel_file_data(logger, file_name):
@@ -16,16 +28,19 @@ def extract_excel_file_data(logger, file_name):
 
 
 def clean_up_data_point(data_point):
-    # check if data_point is a float and a nan
-    import math
+    """
+        This function will clean up a data point and return a string in utf
+        format
+    """
     if isinstance(data_point, float):
-        if math.isnan(data_point):
+        if math.isnan(data_point):  # we remove nan values and replace with ''
             data_point = ''
         else:
             data_point = str(int(data_point))
     if isinstance(data_point, int):
         data_point = str(data_point)
     data_point_without_isnan = '' if data_point != data_point else data_point
+    # remove line breaks ('\n') and '\r' - used as an end-of-line terminator in Mac text files
     data_point = data_point_without_isnan.replace('\n', ' ').replace('\r', '')
     # utf encoding
     data_point = data_point.encode('utf-8')
@@ -33,15 +48,17 @@ def clean_up_data_point(data_point):
 
 
 def write_to_json(logger, json_file_name, all_offices):
-    with open(json_file_name, 'w') as outfile:
+    logger.info('Writing data to json file: {}'.format(json_file_name))
+    with open(json_file_name, 'a+') as outfile:
         json.dump(all_offices, outfile)
     logger.info('Wrote to json file: {}'.format(json_file_name))
 
 
-def process_rows(logger, xls):
+def process_rows_in_excel_file(logger, xls, **kwargs):
     sheet_names = xls.sheet_names
     logger.info('Found {} sheets for processing: {}'.format(
-        len(sheet_names), sheet_names))
+        len(sheet_names), sheet_names)
+    )
     all_offices = {
         "offices": [],
         "start_date": "2021-11-01",
@@ -65,7 +82,6 @@ def process_rows(logger, xls):
             party = clean_up_data_point(row[7])
             province = sheet_name
 
-
             office_unique_identifier = ''
 
             if province:
@@ -77,16 +93,16 @@ def process_rows(logger, xls):
 
             if office_contact_name:
                 office_admin1 = {
-                        "Tel": office_contact_telephone,
-                        "Name": office_contact_name,
-                        "Email": office_contact_email,
-                        "Position": office_contact_role
-                    }
+                    "Tel": office_contact_telephone,
+                    "Name": office_contact_name,
+                    "Email": office_contact_email,
+                    "Position": office_contact_role
+                }
 
             if track_offices.get(office_title):
                 already_added_office = track_offices.get(office_title)[0]
                 if already_added_office['Title'] == office_title:
-                    # check if address is same
+                    # check if address is same as existing address to signify same office
                     if already_added_office['Physical Address'] == postal_address:
                         already_added_office['People'].append(office_admin1)
                         continue
@@ -103,8 +119,8 @@ def process_rows(logger, xls):
                     "Title": office_title,
                     "Party": party,
                     "Type": "office",
-                    "Source URL": "https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx",
-                    "Source Note": "ACDP Constituency Offices 2021",
+                    "Source URL": kwargs['source_url'],
+                    "Source Note": kwargs['source_note'],
                     "People": []
                 }
                 track_offices[office_title] = [output]
@@ -114,7 +130,7 @@ def process_rows(logger, xls):
             entries_count += 1
         logger.info('Processed {} rows for sheet: {}'.format(
             row_count, sheet_name))
-        write_to_json(logger, JSON_OUTPUT_FILE_NAME, all_offices)
+        write_to_json(logger, kwargs['output_json'], all_offices)
     logger.info("processed {} entries from excel".format(entries_count))
     return entries_count
 
@@ -142,17 +158,32 @@ def verify_json_entries(logger, rows_processed, json_file_name):
 
 
 if __name__ == '__main__':
-    """
-        This script will extract the data from the excel file and write it to a json file.
-        Example command to load data after running this script:
+    parser = argparse.ArgumentParser(
+        description='Process excel file and create json file'
+    )
+    parser.add_argument('--excel_file', help='The excel file to process')
+    parser.add_argument(
+        '--source_url',
+        help='source url e.g https://www.pa.org.za/media_root/file_archive/ANC_Constituency_Offices_2021.xlsx',
+        required=True
+    )
+    parser.add_argument(
+        '--source_note', help='source note e.g ACDP Constituency Offices 2021',
+        required=True
+    )
+    parser.add_argument(
+        '--output_json', help='The json file to write the extracted data to e.g anc/anc-2021-data.json',
+        required=True
+    )
 
-        docker-compose run --rm app ./manage.py \
-        south_africa_update_constituency_offices --verbose \
-        anc_constituency_offices.json --party ANC --commit --end-old-offices
-    """
+    args = parser.parse_args()
+
     logger = create_logger('file.log')
     xls = extract_excel_file_data(
-        logger, 'Standard Template for constituency members info.xlsx')
-    rows_processed = process_rows(logger, xls)
-
-    verify_json_entries(logger, rows_processed, JSON_OUTPUT_FILE_NAME)
+        logger, args.excel_file
+    )
+    rows_processed = process_rows_in_excel_file(
+        logger, xls, source_url=args.source_url, source_note=args.source_note,
+        output_json=args.output_json
+    )
+    verify_json_entries(logger, rows_processed, args.output_json)
