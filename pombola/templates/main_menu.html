@@ -1,9 +1,7 @@
-<div id="main-menu">
-    <nav class="wrapper">
-        <ul role="menubar" aria-label="Main menu">
-            {% with include_sub_menu_entries=1 %}
-                {% include 'menu_entries.html' %}
-            {% endwith %}
-        </ul>
+<div id="main-menu" class="is--subnav">
+    <nav id="wrapper-subnav" class="wrapper is--subnav">
+        <div class="subnav-links">
+            {% include 'menu_entries.html' %}
+        </div>
     </nav>
 </div>

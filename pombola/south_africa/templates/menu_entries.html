@@ -1,85 +1,261 @@
-{% comment %}
-
-    Menu entries - for both desktop and mobile.
-
-    We use the same menu structure twice - once in the header and once in the
-    footer. However the footer does not require the drill down, nor the search box, so there is a way
-    to specifically request it. This is all here in a separate file so that we
-    won't forget to keep the two in sync when doing edits.
-
-{% endcomment %}
-
-<li><a href="{% url "home" %}" role="menuitem">Home</a></li>
-
-<li><a href="{% url "core_geocoder_search" %}" role="menuitem">Rep Locator</a></li>
-
-<li>
-  <a class="has-dropdown" role="menuitem" {% if include_sub_menu_entries %}aria-haspopup="true"{% endif %}>People</a>
-  {% if include_sub_menu_entries %}
-    <ul id="parliament-overview" class="js-hover-dropdown" role="menu">
-      <li><a href="{% url "core_search" %}?section=persons" role="menuitem">Find by name</a></li>
-      <li><a href="{% url "organisation_kind" slug="parliament" %}" role="menuitem">Parliament</a>
-        <ul>
-          <li><a href="{% url "organisation" slug="national-assembly" %}" role="menuitem">National Assembly</a></li>
-          <li><a href="{% url "organisation" slug="ncop" %}" role="menuitem">National Council of Provinces</a></li>
-        </ul>
-      </li>
-      <li><a href="{% url "place_kind" slug="province" %}" role="menuitem">Provinces</a>
-        <ul id="provinces-overview">
-          <li><a href="{% url "place" slug="eastern-cape" %}" role="menuitem">Eastern Cape</a></li>
-          <li><a href="{% url "place" slug="free-state" %}" role="menuitem">Free State</a></li>
-          <li><a href="{% url "place" slug="gauteng" %}" role="menuitem">Gauteng</a></li>
-          <li><a href="{% url "place" slug="kwazulu-natal" %}" role="menuitem">KwaZulu-Natal</a></li>
-          <li><a href="{% url "place" slug="limpopo" %}" role="menuitem">Limpopo</a></li>
-          <li><a href="{% url "place" slug="mpumalanga" %}" role="menuitem">Mpumalanga</a></li>
-          <li><a href="{% url "place" slug="northern-cape" %}" role="menuitem">Northern Cape</a></li>
-          <li><a href="{% url "place" slug="north-west" %}" role="menuitem">North West</a></li>
-          <li><a href="{% url "place" slug="western-cape" %}" role="menuitem">Western Cape</a></li>
-        </ul>
-      </li>
-    </ul>
-  {% endif %}
-</li>
-
-<li><a href="{% url 'info_blog_list' %}" role="menuitem">Blog</a></li>
-
-<li><a href="{% url 'position_pt_ok' pt_slug='member' ok_slug='parliament' %}?order=name&amp;a=1" role="menuitem">MP Profiles</a></li>
-<li><a href="{% url 'mp-attendance' %}" role="menuitem">MP Attendance</a></li>
-<li>
-  <a href="{% url "info_page" slug="public-participation" %}" class="has-dropdown" role="menuitem" {% if include_sub_menu_entries %}aria-haspopup="true"{% endif %}>Public Participation</a>
-  {% if include_sub_menu_entries %}
-    <ul id="extras-overview" class="js-hover-dropdown" role="menu">
-      <li><a href="{% url "info_page" slug="make-yourself-heard" %}" role="menuitem">Make yourself heard</a></li>
-      <li>
-        <a href="{% url "info_page" slug="elections" %}" role="menuitem">Elections</a>
-        <ul>
-          <li><a href="{% url "sa-election-overview-year" election_year="2014" %}" role="menuitem">Election 2014 Candidates</a></li>
-          <li><a href="{% url "sa-election-overview-year" election_year="2019" %}" role="menuitem">Election 2019 Candidates</a></li>
-        </ul>
-      </li>
-      <li><a href="{% url "info_page" slug="petitions" %}" role="menuitem">Petitions</a></li>
-      <li><a href="{% url "sa-committees-list" %}" role="menuitem">Write to a Committee</a></li>
-    </ul>
-  {% endif %}
-</li>
-
-<li>
-  <a href="{% url "info_page" slug="hot-topics" %}" class="has-dropdown" role="menuitem" {% if include_sub_menu_entries %}aria-haspopup="true"{% endif %}>Hot Topics</a>
-  {% if include_sub_menu_entries %}
-    <ul id="extras-overview" class="js-hover-dropdown" role="menu">
-      <li><a href="{% url "section-list-question" %}" role="menuitem">Questions</a></li>
-      <li><a href="{% url 'sa-interests-index' %}" role="menuitem">MP Assets</a></li>
-      <li><a href="{% url 'info_blog_category' slug='mp-corner' %}" role="menuitem">MP Corner</a></li>
-      <li><a href="{% url 'info_page' slug="infographics" %}" role="menuitem">Infographics</a></li>
-    </ul>
-  {% endif %}
-</li>
-
-{% if include_sub_menu_entries %}
-<li class="header-search" role="search">
-  <form action="{% url "core_search" %}" method="get" id="header-search">
-      <input class="search-autocomplete-name" type="text" name="q" placeholder="Search pa.org.za" />
-      <button type="submit">Submit</button>
-  </form>
-</li>
-{% endif %}
+<div class="dropdown">
+  <a href="#" class="subnav-link w-inline-block">
+    <div class="nav-link__inner">
+      <p class="nav-link__text">Find my representatives</p>
+      <p class="nav-link__description">
+        Find those who have been elected to represent you in government
+      </p>
+    </div>
+    <div class="nav-link__icon">
+      <div class="svg-icon is--small w-embed">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas"
+          data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" viewBox="0 0 320 512">
+          <path fill="currentColor"
+            d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z">
+          </path>
+        </svg>
+      </div>
+    </div>
+    <div class="nav-link__bg" style="background-color: rgba(255, 255, 255, 0);"></div>
+  </a>
+  <div class="js-hover-dropdown dropdown-content">
+    <div class="container is--dropdown">
+      <div class="dropdown-col is--feature">
+        <div class="dropdown__feature-block">
+          <p class="dropdown__feature-text">Find those who have been elected to represent you in government</p>
+          <a href="/search/location/" class="dropdown-link is--feature w-inline-block">
+            <p>Find representatives for my location</p>
+          </a>
+        </div>
+      </div>
+      <div class="dropdown-col is--1">
+        <p class="dropdown-heading">Find representatives</p>
+        <a href="/position/member/parliament/" class="dropdown-link w-inline-block">
+          <p>Members of parliament (MPs) by name</p>
+        </a>
+        <a href="/committees/" class="dropdown-link w-inline-block">
+          <p>Committees</p>
+        </a>
+        <a href="/search/?section=persons" class="dropdown-link w-inline-block">
+          <p>Search MPs and MPLs</p>
+        </a>
+      </div>
+      <div class="dropdown-col">
+        <p class="dropdown-heading">Legislatures</p>
+        <a href="/organisation/is/parliament/" class="dropdown-link w-inline-block">
+          <p>Members of parliament (MPs)</p>
+        </a>
+        <div class="dropdown__indent-list">
+          <a href="/organisation/national-assembly/" class="dropdown-link w-inline-block">
+            <p>National Assembly</p>
+          </a>
+          <a href="/organisation/ncop/" class="dropdown-link w-inline-block">
+            <p>National Council of Provinces</p>
+          </a>
+        </div>
+        <a href="/place/is/province/" class="dropdown-link w-inline-block">
+          <p>Members of Provincial legislatures (MPLs)</p>
+        </a>
+      </div>
+      <div class="dropdown-col is--3">
+        <p class="dropdown-heading">Browse by province</p>
+        <a href="/place/eastern-cape/" class="dropdown-link w-inline-block">
+          <p>Eastern Cape</p>
+        </a>
+        <a href="/place/free-state/" class="dropdown-link w-inline-block">
+          <p>Free State</p>
+        </a>
+        <a href="/place/gauteng/" class="dropdown-link w-inline-block">
+          <p>Gauteng</p>
+        </a>
+        <a href="/place/kwazulu-natal/" class="dropdown-link w-inline-block">
+          <p>Kwazulu-Natal</p>
+        </a>
+        <a href="/place/limpopo/" class="dropdown-link w-inline-block">
+          <p>Limpopo</p>
+        </a>
+        <a href="/place/mpumalanga/" class="dropdown-link w-inline-block">
+          <p>Mpumalanga</p>
+        </a>
+        <a href="/place/northern-cape/" class="dropdown-link w-inline-block">
+          <p>Northern Cape</p>
+        </a>
+        <a href="/place/northern-west/" class="dropdown-link w-inline-block">
+          <p>North West</p>
+        </a>
+        <a href="/place/western-cape/" class="dropdown-link w-inline-block">
+          <p>Western Cape</p>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="dropdown">
+  <a href="#" class="has-dropdown subnav-link w-inline-block">
+    <div class="nav-link__inner">
+      <p class="nav-link__text">Accountability & performance</p>
+      <p class="nav-link__description">
+        Follow the activities of representatives and hold them accountable
+      </p>
+    </div>
+    <div class="nav-link__icon">
+      <div class="svg-icon is--small w-embed">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas"
+          data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" viewBox="0 0 320 512">
+          <path fill="currentColor"
+            d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z">
+          </path>
+        </svg>
+      </div>
+    </div>
+    <div class="nav-link__bg" style="background-color: rgba(255, 255, 255, 0);"></div>
+  </a>
+  <div class="js-hover-dropdown dropdown-content">
+    <div class="container is--dropdown">
+      <div class="dropdown-col is--feature is--hidden-mobile">
+        <div class="dropdown__feature-block">
+          <p class="dropdown__feature-text">
+            Follow the activities of representatives and hold them accountable
+          </p>
+        </div>
+      </div>
+      <div class="dropdown-col is--1">
+        <p class="dropdown-heading">Activities</p>
+        <a href="/question/" class="dropdown-link w-inline-block">
+          <p>Questions to ministers</p>
+        </a>
+      </div>
+      <div class="dropdown-col">
+        <p class="dropdown-heading">Hold representatives accountable</p>
+        <div class="dropdown-link__wrapper">
+          <a href="/interests/" class="dropdown-link is--info-link w-inline-block">
+            <p>Declarations of interests</p>
+          </a>
+          <a href="#" class="dropdown-link__info w-inline-block">
+            <div class="svg-icon w-embed" data-toggle="tooltip" data-placement="top"
+              title="Gifts and other potential influence on MP decisions">
+              <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas"
+                data-icon="info-circle" class="svg-inline--fa fa-info-circle fa-w-16" role="img" viewBox="0 0 512 512">
+                <path fill="currentColor"
+                  d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z">
+                </path>
+              </svg>
+            </div>
+          </a>
+        </div>
+        <a href="/info/elections" class="dropdown-link w-inline-block">
+          <p>Elections</p>
+        </a>
+        <div class="dropdown__indent-list">
+          <a href="/election/2019/" class="dropdown-link is--indent w-inline-block">
+            <p>2019 National and provincial election<br></p>
+          </a>
+          <a href="/election/2014/" class="dropdown-link w-inline-block">
+            <p>2014 National and provincial election<br></p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="dropdown">
+  <a href="#" class="has-dropdown subnav-link w-inline-block">
+    <div class="nav-link__inner">
+      <p class="nav-link__text">Resources & learning</p>
+      <p class="nav-link__description">Learn more about governance in South Africa and ensure you are represented
+        properly</p>
+    </div>
+    <div class="nav-link__icon">
+      <div class="svg-icon is--small w-embed">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas"
+          data-icon="angle-down" class="svg-inline--fa fa-angle-down fa-w-10" role="img" viewBox="0 0 320 512">
+          <path fill="currentColor"
+            d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z">
+          </path>
+        </svg>
+      </div>
+    </div>
+    <div class="nav-link__bg" style="background-color: rgba(255, 255, 255, 0);"></div>
+  </a>
+  <div class="js-hover-dropdown dropdown-content">
+    <div class="container is--dropdown">
+      <div class="dropdown-col is--feature is--hidden-mobile">
+        <div class="dropdown__feature-block">
+          <p class="dropdown__feature-text">Learn more about governance in South Africa and ensure you are represented
+            properly</p>
+        </div>
+      </div>
+      <div class="dropdown-col is--1">
+        <p class="dropdown-heading">From our blog</p>
+        <a href="/info/infographics" class="dropdown-link w-inline-block">
+          <p>Infographics</p>
+        </a>
+        <div class="dropdown-link__wrapper">
+          <a href="/blog/category/mp-corner" class="dropdown-link is--info-link w-inline-block">
+            <p>MP&nbsp;Corner</p>
+          </a>
+          <a href="#" class="dropdown-link__info w-inline-block">
+            <div class="svg-icon w-embed" data-toggle="tooltip" data-placement="top"
+              title="Find out how these MPs got into politics and what their message is for you.">
+              <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas"
+                data-icon="info-circle" class="svg-inline--fa fa-info-circle fa-w-16" role="img" viewBox="0 0 512 512">
+                <path fill="currentColor"
+                  d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z">
+                </path>
+              </svg>
+            </div>
+          </a>
+        </div>
+        <a href="/blog/" class="dropdown-link w-inline-block">
+          <p>All articles</p>
+        </a>
+      </div>
+      <div class="dropdown-col">
+        <p class="dropdown-heading">How to take action</p>
+        <a href="/info/petitions" class="dropdown-link w-inline-block">
+          <p>Petitions</p>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="nav-links is--subnav">
+  <a href="/info/about" class="nav-link w-inline-block">
+    <p class="nav-link__text">About</p>
+  </a>
+  <a href="/info/contact-us" class="nav-link w-inline-block">
+    <p class="nav-link__text">Contact</p>
+  </a>
+  <div class="nav-social is--subnav">
+    <a href="https://www.facebook.com/peoplesassemblysa" class="nav-link is--social w-inline-block">
+      <div class="svg-icon is--social w-embed">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fab"
+          data-icon="facebook" class="svg-inline--fa fa-facebook fa-w-16" role="img" viewBox="0 0 512 512">
+          <path fill="currentColor"
+            d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z">
+          </path>
+        </svg>
+      </div>
+    </a>
+    <a href="https://twitter.com/PeoplesAssem_SA" class="nav-link is--social w-inline-block">
+      <div class="svg-icon is--social w-embed">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fab"
+          data-icon="twitter" class="svg-inline--fa fa-twitter fa-w-16" role="img" viewBox="0 0 512 512">
+          <path fill="currentColor"
+            d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z">
+          </path>
+        </svg>
+      </div>
+    </a>
+    <a href="https://www.instagram.com/peoplesassemblysa/" class="nav-link is--social w-inline-block">
+      <div class="svg-icon is--social w-embed">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fab"
+          data-icon="instagram" class="svg-inline--fa fa-instagram fa-w-14" role="img" viewBox="0 0 448 512">
+          <path fill="currentColor"
+            d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z">
+          </path>
+        </svg>
+      </div>
+    </a>
+  </div>
+</div>

@@ -1,18 +1,9 @@
 {% load staticfiles %}
 
 <header id="site-header">
-    <div class="wrapper">
-
-        {% include "site_header_logo.html" %}
-
-        <menu id="mobile-top-tools">
-            <ul>
-                <li><a href="#footer-menu" class="m-icon-nav">menu</a></li>
-                <li><a href="{% url "core_search" %}" class="icon-search"><img src="{% static 'images/search-icon.png' %}" alt="search"/></a></li>
-            </ul>
-        </menu>
-
-        {% include "site_header_search.html" %}
-
+    <div class="wrapper is--nav">
+        {% with include_sub_menu_entries=1 %}
+            {% include "site_header_logo.html" %}
+        {% endwith %}
     </div>
 </header>

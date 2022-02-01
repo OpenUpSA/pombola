@@ -1,5 +1,8 @@
 $(function () {
 
+  //Initialize tooltips
+  $('[data-toggle="tooltip"]').tooltip()
+
   // toggle former positions button on /person/person-slug/
   const toggleFormerElement = $('#toggle-former-positions');
   const showFormerPositionsText = $('#show-former-positions-text');
@@ -249,4 +252,21 @@ $(function () {
   if (window.location.pathname == "/write-committees/draft/") {
     $(".page-wrapper").css("display", "block");
   }
+  const navOpen = $("#nav-open");
+  const navClose = $("#nav-close");
+  const wrapperSubnav = $("#main-menu");
+  navOpen.click(function (e) {
+    e.preventDefault();
+    navOpen.hide();
+    navClose.show();
+    wrapperSubnav.show(300);
+    $("body").css("overflow", "hidden");
+  });
+  navClose.click(function (e) {
+    e.preventDefault();
+    navOpen.show();
+    navClose.hide();
+    wrapperSubnav.hide(300);
+    $("body").css("overflow", "scroll");
+  });
 });
