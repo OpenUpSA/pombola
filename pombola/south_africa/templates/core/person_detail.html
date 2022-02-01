@@ -183,6 +183,10 @@
             {% endfor %}
 
             <h3 class="mp-block__title">Contact Details:</h3>
+            {% if not phone_contacts and not email_contacts %}
+              <p>None available.</p>
+            {% endif %}
+
             {% if phone_contacts %}
               {% for phone in phone_contacts %}
               <a href="tel:{{ phone }}" class="text-link w-inline-block">
