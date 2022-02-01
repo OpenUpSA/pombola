@@ -532,12 +532,16 @@ $logo-width-large: 184px;
                     color: #000;
                     text-decoration: none;
 
+                    -webkit-transition: color 200ms ease;
+                    transition: color 200ms ease;
+
                     p.nav-link__text {
                         margin-bottom: 0em;
                         color: inherit;
                     }
                     &:hover {
                         background-color: rgba(0, 0, 0, 0.03);
+                        color: #277c58;
                     }
                 }
                 .nav-link.is--social {
@@ -622,6 +626,7 @@ $logo-width-large: 184px;
                     color: #277c58;
                     height: 100%;
                     outline: none;
+                    cursor: pointer;
                     .svg-icon {
                         width: 1.2em;
                         height: 1.2em;
@@ -950,6 +955,9 @@ $logo-width-large: 184px;
                         -ms-flex-align: center;
                         align-items: center;
                         color: hsla(0, 0%, 100%, 0.5);
+                        @media screen and (max-width: 767px) {
+                            margin-left: auto;
+                        }
                         .svg-icon {
                             width: 0.8em;
                             height: 0.8em;
@@ -1100,6 +1108,9 @@ $logo-width-large: 184px;
                                 align-items: center;
                                 border-radius: 0.3em;
                                 color: hsla(0, 0%, 100%, 0.63);
+                                @media screen and (max-width: 767px) {
+                                    width: 3.8em;
+                                }
                             }
                         }
                         .dropdown-col.is--feature {
