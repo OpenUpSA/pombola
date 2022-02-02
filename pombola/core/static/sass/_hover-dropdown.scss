@@ -8,6 +8,6 @@
     :hover + &, // show when trigger is hovered
     :focus + & // show when trigger is focussed
     {
-        display: block;
+        display: block !important;
     }
 }
