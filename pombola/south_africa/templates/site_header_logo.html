@@ -47,7 +47,7 @@
             </div>
         </a>
     </div>
-    <form class="nav-search w-form" action="{% url 'core_search' %}" method="get" id="header-search">
+    <form class="nav-search w-form" action="{% url 'core_search' %}" method="get" id="header-search" novalidate>
         <input type="search" class="search-input w-input search-autocomplete-name" maxlength="256" name="q"
             placeholder="Type to search site..." id="search" required="" type="text">
         <button class="search-icon w-inline-block" type="submit">
