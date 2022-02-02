@@ -282,6 +282,7 @@ $(function () {
     $(".dropdown").on("mouseenter", function () {
       var dropdown = $(this).find(".dropdown-content-nav").html();
       $("#sub-menu-placeholder .dropdown-content-nav").html(dropdown);
+      $('[data-toggle="tooltip"]').tooltip()
       $("#sub-menu-placeholder").show();
       $("#sub-menu-placeholder .dropdown-content-nav").show();
     }).on("mouseleave", function () {
@@ -297,8 +298,8 @@ $(function () {
       $(this).find(".dropdown-content-nav").hide();
     });
   } else {
-    $(".dropdown").on("click", function () {
-      $(this).find(".dropdown-content-nav").toggle();
+    $(".subnav-link").on("click", function () {
+      $(this).next(".dropdown-content-nav").toggle();
     })
   }
 
