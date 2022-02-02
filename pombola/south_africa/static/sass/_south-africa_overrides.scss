@@ -772,6 +772,12 @@ $logo-width-large: 184px;
 .info-expand__trigger--open {
     transform: rotateZ(180deg);
 }
+.active-nav-hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    @media screen and (max-width: 767px) {
+        background-color: inherit;
+    }
+}
 #main-menu {
     position: relative;
     z-index: 3;
