@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <div class="dropdown">
   <a class="subnav-link w-inline-block">
     <div class="nav-link__inner">
@@ -22,9 +23,15 @@
     <div class="container is--dropdown">
       <div class="dropdown-col is--feature">
         <div class="dropdown__feature-block">
-          <p class="dropdown__feature-text">Find those who have been elected to represent you</p>
-          <a href="/search/location/" class="dropdown-link is--feature w-inline-block">
-            <p>Find representatives for my location</p>
+          <p class="dropdown__feature-text">
+            Find those who have been elected to represent you in government
+          </p>
+        </div>
+        <div class="dropdown__feature-button">
+          <a href="#" class="dropdown-link is--feature w-inline-block">
+            <p style="width: 100%;">
+              Find representatives for my location
+            </p>
           </a>
         </div>
       </div>
@@ -37,7 +44,7 @@
           <p>Find by committee</p>
         </a>
         <a href="/search/?section=persons" class="dropdown-link w-inline-block">
-          <p>Search MPs and MPLs</p>
+          <p>Search for MPs and MPLs</p>
         </a>
       </div>
       <div class="dropdown-col">
@@ -121,12 +128,28 @@
       </div>
       <div class="dropdown-col is--1">
         <p class="dropdown-heading">Activities & Performance</p>
-        <a href="https://pmg.org.za/question_replies/" class="dropdown-link w-inline-block">
-          <p>Questions to ministers</p>
-        </a>
-        <a href="https://pmg.org.za/committees/" class="dropdown-link w-inline-block">
-          <p>Parliamentary committees</p>
-        </a>
+        <div class="dropdown-link__wrapper">
+          <a href="https://pmg.org.za/question_replies/" class="dropdown-link w-inline-block">
+            <p>Questions to ministers</p>
+          </a>
+          <a href="#" class="dropdown-link__info w-inline-block">
+            <div class="svg-icon w-embed svg-small">
+              <img src="{% static 'images/navbar/external-link-alt-solid.svg' %}" loading="lazy" alt=""
+                class="nav__logo-img">
+            </div>
+          </a>
+        </div>
+        <div class="dropdown-link__wrapper">
+          <a href="https://pmg.org.za/committees/" class="dropdown-link w-inline-block">
+            <p>Parliamentary committees</p>
+          </a>
+          <a href="#" class="dropdown-link__info w-inline-block">
+            <div class="svg-icon w-embed svg-small">
+              <img src="{% static 'images/navbar/external-link-alt-solid.svg' %}" loading="lazy" alt=""
+                class="nav__logo-img">
+            </div>
+          </a>
+        </div>
         <div class="dropdown-link__wrapper">
           <a href="/blog/category/mp-corner" class="dropdown-link w-inline-block">
             <p>MP Corner</p>
@@ -146,8 +169,11 @@
       </div>
       <div class="dropdown-col">
         <p class="dropdown-heading">Transparency</p>
+        <a href="/interests/" class="dropdown-link is--info-link w-inline-block">
+          <p>Attendance of meetings</p>
+        </a>
         <div class="dropdown-link__wrapper">
-          <a href="/interests/" class="dropdown-link is--info-link w-inline-block">
+          <a href="/mp-attendance/" class="dropdown-link is--info-link w-inline-block">
             <p>Members' interests</p>
           </a>
           <a href="#" class="dropdown-link__info w-inline-block">
@@ -162,9 +188,17 @@
             </div>
           </a>
         </div>
-        <a href="https://pmg.org.za/page/code-of-ethical-conduct" class="dropdown-link is--info-link w-inline-block">
-          <p>Code of conduct</p>
-        </a>
+        <div class="dropdown-link__wrapper">
+          <a href="https://pmg.org.za/page/code-of-ethical-conduct" class="dropdown-link is--info-link w-inline-block">
+            <p>Code of conduct</p>
+          </a>
+          <a href="#" class="dropdown-link__info w-inline-block">
+            <div class="svg-icon w-embed svg-small">
+              <img src="{% static 'images/navbar/external-link-alt-solid.svg' %}" loading="lazy" alt=""
+                class="nav__logo-img">
+            </div>
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -174,7 +208,7 @@
     <div class="nav-link__inner">
       <p class="nav-link__text">Civic Education</p>
       <p class="nav-link__description">
-        Learn more about governance in South Africa and ensure you are represented properly
+        Learn more about governance in South Africa and your representatives
       </p>
     </div>
     <div class="nav-link__icon">
@@ -207,13 +241,61 @@
           <p>All articles</p>
         </a>
       </div>
+      <div class="dropdown-col">
+        <p class="dropdown-heading">Understanding government</p>
+        <div class="dropdown-link__wrapper">
+          <a href="https://pmg.org.za/page/central-tenets" class="dropdown-link w-inline-block">
+            <p>Central Tenets of Government</p>
+          </a>
+          <a href="#" class="dropdown-link__info w-inline-block">
+            <div class="svg-icon w-embed svg-small">
+              <img src="{% static 'images/navbar/external-link-alt-solid.svg' %}" loading="lazy" alt=""
+                class="nav__logo-img">
+            </div>
+          </a>
+        </div>
+        <div class="dropdown-link__wrapper">
+          <a href="https://pmg.org.za/page/structure-of-government" class="dropdown-link w-inline-block">
+            <p>Structure of Government</p>
+          </a>
+          <a href="#" class="dropdown-link__info w-inline-block">
+            <div class="svg-icon w-embed svg-small">
+              <img src="{% static 'images/navbar/external-link-alt-solid.svg' %}" loading="lazy" alt=""
+                class="nav__logo-img">
+            </div>
+          </a>
+        </div>
+        <div class="dropdown-link__wrapper">
+          <a href="https://pmg.org.za/page/legislative-process" class="dropdown-link w-inline-block">
+            <p>The Legislative Process</p>
+          </a>
+          <a href="#" class="dropdown-link__info w-inline-block">
+            <div class="svg-icon w-embed svg-small">
+              <img src="{% static 'images/navbar/external-link-alt-solid.svg' %}" loading="lazy" alt=""
+                class="nav__logo-img">
+            </div>
+          </a>
+        </div>
+        <div class="dropdown-link__wrapper">
+          <a href="https://pmg.org.za/page/state-institutions-supporting-democracy"
+            class="dropdown-link w-inline-block">
+            <p>State Institutions Supporting Democracy</p>
+          </a>
+          <a href="#" class="dropdown-link__info w-inline-block">
+            <div class="svg-icon w-embed svg-small">
+              <img src="{% static 'images/navbar/external-link-alt-solid.svg' %}" loading="lazy" alt=""
+                class="nav__logo-img">
+            </div>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 <div class="dropdown">
   <a class="subnav-link w-inline-block">
     <div class="nav-link__inner">
-      <p class="nav-link__text">Public participation</p>
+      <p class="nav-link__text">Take action</p>
       <p class="nav-link__description">
         Find the actions you can take to participate in governance
       </p>

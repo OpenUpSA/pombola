@@ -291,16 +291,20 @@ $(function () {
       $(this).hide();
       $(this).find(".dropdown-content-nav").hide();
       $(".dropdown").removeClass("active-nav-hover");
+      $("#sub-menu-placeholder .dropdown-content-nav").html("");
     });
   }
   function mobileMenuTouchActions() {
     $(".subnav-link").on("click", function () {
       $(this).next(".dropdown-content-nav").toggle();
+      $(this).find(".svg-icon").toggleClass("info-expand__trigger--open");
+
     })
   }
 
   $("#nav-section").on('mouseleave', function () {
     $(".dropdown").removeClass("active-nav-hover");
+    $("#sub-menu-placeholder .dropdown-content-nav").html("");
   })
   window.addEventListener('resize', function (event) {
     if (window.innerWidth > 767) {
@@ -309,6 +313,7 @@ $(function () {
       menuHoverActions();
     } else {
       $("body").css("overflow", "hidden");
+      $(".dropdown-content-nav").hide();
       mobileMenuTouchActions()
     }
   }, true);
