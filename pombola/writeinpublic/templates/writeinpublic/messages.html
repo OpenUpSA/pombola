@@ -38,7 +38,7 @@
         See all public messages to this politician
       </a>
     </p>
-    {% if person.is_current_member_of_national_assembly %}
+    {% if not person.date_of_death %}
       <a href="{% url 'writeinpublic-mps:writeinpublic-new-message' %}?person_id={{ person.pk }}"
         class="webf-button is--orange w-inline-block">
         <div class="button-icon">
