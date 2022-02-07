@@ -1,35 +1,19 @@
-#site-header {
-  clear: both;
-  background: $colour_primary;
-  @include background(linear-gradient($colour_primary / 0.75, $colour_primary));
-  .wrapper {
-    overflow: hidden; } }
-
 #ms_srv_wrapper {
   background-color: #444;
-  color: #FFF;
+  color: #fff;
   font-size: 12px;
   line-height: 14px;
   padding: 10px;
   text-align: center;
 
   a {
-    color: #EEE;
+    color: #eee;
 
     &:hover {
-      color: #FFF;
+      color: #fff;
     }
   }
 }
-
-@media only all and (min-width: 640px), print {
-  #site-header {
-    height: 60px;
-    &.down {
-      height: 80px; }
-    .wrapper {
-      position: relative;
-      overflow: visible; } } }
 
 // ------------------------------------------------------
 
@@ -51,54 +35,7 @@
     &.down {
       width: 600px;
       height: 50px;
-      background: url(../images/down-logo.png) 0 center no-repeat; } } }
-
-// ------------------------------------------------------
-
-menu#mobile-top-tools {
-  @media only all and (min-width: 640px), print {
-    display: none; }
-  float: right;
-  ul {
-    @include list-reset;
-    li {
-      padding: 0.5em 1em 0 0;
-      a {
-        color: $colour_white;
-        img {
-          vertical-align: middle; } } } } }
-
-// ------------------------------------------------------
-
-#header-search {
-  display: none;
-
-  @media only all and (min-width: 640px), print {
-    display: block; }
-
-  @media print { display: none; }
-
-  float: right;
-  background: transparent;
-  margin: 5px 5px 5px 15px;
-  height: auto;
-  border: none;
-  input {
-    padding: 1px 4px 1px 8px;
-    border: 1px solid $colour_grey;
-    height: 22px;
-    @include border-radius(5px 0 0 5px);
-    float: left;
-    width: 10em;
-    border: 1px solid $colour_black;
-    font-size: 14px; }
-  button {
-    float: left;
-    @include button-reset;
-    background: $colour_black url(../images/search-icon.png) center no-repeat;
-    width: 26px;
-    height: 26px;
-    margin: 0 0 0 0;
-    @include border-radius(0 5px 5px 0);
-    &:hover {
-      background-color: $colour_blackish; } } }
+      background: url(../images/down-logo.png) 0 center no-repeat;
+    }
+  }
+}
