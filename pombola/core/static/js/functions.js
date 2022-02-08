@@ -312,7 +312,6 @@ $(function () {
       wrapperSubnav.show();
       menuHoverActions();
     } else {
-      $("body").css("overflow", "hidden");
       $(".dropdown-content-nav").hide();
       mobileMenuTouchActions()
     }
