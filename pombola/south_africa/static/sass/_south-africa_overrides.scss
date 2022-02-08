@@ -1173,6 +1173,9 @@ $logo-width-large: 184px;
                     line-height: 1.4;
                     letter-spacing: 0.01em;
                     width: 95%;
+                    @media screen and (max-width: 479px) {
+                        max-width: 80%;
+                    }
                 }
                 &:hover {
                     background-color: hsla(0, 0%, 100%, 0.05);
