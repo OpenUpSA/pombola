@@ -1,5 +1,6 @@
 {% extends 'core/person_base.html' %}
 {% load pipeline %}
+{% load staticfiles %}
 
 {% block js_end_of_body %}
 {{ block.super }}
@@ -159,8 +160,18 @@
                 {% empty %}
                 {% if former_parties %}
                 {% for party in former_parties %}
-                  <a href="{{ party.get_absolute_url }}"
-                    class="party-membership party-membership--{{ party.kind.name | slugify }}">{{ party.name }}</a></li>
+                  <a href="{{ party.get_absolute_url }}" {% for identifier in party.identifiers.all %}
+                    data-identifier-{{ identifier.scheme }}="{{ identifier.identifier }}" {%endfor%}
+                    class="text-link w-inline-block">
+                    <p class="text-link__text">
+                      {{ party.name }}
+                    </p>
+                    <div class="text-link__icon">
+                      <div class="svg-icon w-embed">
+                        <img src="{% static 'images/long-arrow.svg' %}" alt="party name icon">
+                      </div>
+                    </div>
+                  </a>
                 {% empty %}
                   <p class="no-data">Not associated with any political party</p>
                 {% endfor %}

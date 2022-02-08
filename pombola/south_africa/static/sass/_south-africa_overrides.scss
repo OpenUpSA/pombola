@@ -5310,6 +5310,9 @@ p.metric-value.is--title {
     padding: 0.5em 0.8em;
     border-radius: 0.3em;
     background-color: rgba(226, 61, 41, 0.1);
+    p {
+        margin-bottom: 0em;
+    }
 }
 p.item-text {
     letter-spacing: 0.01em;
