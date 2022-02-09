@@ -2,10 +2,30 @@
 
 {% block title %}WriteInPublic messages to {{ person.name }}{% endblock %}
 
-{% block content %}
-  <div class="js-person-messages-all">
-    <div class="row">
+  {% block content %}
+  <div>
     {% for message in messages %}
+      <div>
+          <h3>
+              <a href="{% url 'writeinpublic:writeinpublic-message' message_id=message.id %}">{{ message.subject }}</a>
+              &ndash; <small>{{ message.created_at|date:"d M Y" }}</small>
+          </h3>
+          <p>
+              {{ message.content|truncatewords:30 }}
+              <a href="{% url 'writeinpublic:writeinpublic-message' message_id=message.id %}">(Read more)</a>
+          </p>
+      </div>
+    {% empty %}
+      {% comment %}
+        TODO: Just hide this panel completely if there are no messages?
+      {% endcomment %}
+      <p>Nothing here!</p>
+    {% endfor %}
+  </div>
+  <!-- Component below is displayed on member profile page only -->
+  <div class="js-person-messages-all" style="display: none;">
+    <div class="row">
+    {% for message in messages|slice:":4" %}
     <div class="col-lg-6 col-md-6 col-sm-12" style="padding-left: 0em; padding-right: 0em;">
       <div class="mp-item is--full" style="padding-left: 1em;">
         <div class="mp-message w-inline-block">
@@ -56,5 +76,5 @@
       </a>
     {% endif %}
   </div>
-</div>
-{% endblock %}
+  </div>
+  {% endblock content %}

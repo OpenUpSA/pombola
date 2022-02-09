@@ -8,7 +8,9 @@ $(function () {
     $.ajax({
       url: url
     }).done(function (html) {
-      $panel.html($(html).find(messagesSelector));
+      var content = $(html).find(messagesSelector);
+      content[0].style.display = 'block';
+      $panel.html(content);
     }).fail(function () {
       $panel.html('<p>Error: Unable to load messages at this time. Please try again later.</p>');
     });
