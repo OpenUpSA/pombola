@@ -5,6 +5,8 @@
 {% block js_end_of_body %}
 {{ block.super }}
 {% javascript 'tabs' %}
+{% javascript 'track-profile-analytics' %}
+{% javascript 'jquery-inview-min' %}
 {% javascript 'person-messages-ajax' %}
 {% endblock %}
 
@@ -133,7 +135,7 @@
 {% endblock socials %}
 
 {% block subcontent %}
-  <div class="row">
+  <div class="row" id="member-experience">
     <div class="col-lg-4 col-md-12 col-sm-12">
       <div class="mp-col">
         <div>
@@ -370,7 +372,7 @@
       </div>
     </div>
   </div>
-  <div>
+  <div id="messages-section">
     {% if person.has_ever_been_member_of_national_assembly %}
       <div id="ajax-link" style="display: none;">
         <a class="js-person-messages-ajax" href="#messages" data-ajax-url="{% url 'sa-person-write-all' person_slug=person.slug %}">Messages</a>
@@ -440,7 +442,7 @@
       {% endif %}
     </div>
     {% if latest_meetings_attended %}
-    <div class="mp-row is--overline">
+    <div class="mp-row is--overline" id="attendance">
       <h3 class="mp-block__title">Recent meetings attended:</h3>
       <div class="mp-col is--full">
         {% for meeting in latest_meetings_attended|slice:":4" %}
@@ -560,12 +562,12 @@
           </div>
         </div>
       </div>
-      <section class="mp-row is--overline">
+      <section class="mp-row is--overline" id="apperances">
         <h3 class="mp-block__title">Plenary appearances:</h3>
         <div class="mp-col is--full">
           <div class="mp-item is--full">
               <div id="accordion" class="appearance-accordion">
-                <div class="info-block" id="headingOne" data-toggle="collapse" data-target="#plenary-apperances" aria-expanded="true"
+                <div class="info-block" id="plenary-apperances-section" data-toggle="collapse" data-target="#plenary-apperances" aria-expanded="true"
                   aria-controls="plenary-apperances">
                   <div class="row">
                     <div class="col-8">
@@ -586,7 +588,7 @@
                     </div>
                   </div>
                 </div>
-                <div id="plenary-apperances" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                <div id="plenary-apperances" class="collapse" aria-labelledby="plenary-apperances" data-parent="#accordion">
                   <div class="info-block__inner">
                     <p class="info-block__content">
                       Plenary sessions are forums that have been created for the purpose of public debate and decision-making. This mechanism is used to convey the messages of our MPs within main chambers on important decisions, like how they vote.
@@ -617,7 +619,7 @@
     <div id="membersinterests">
       <div class="person-interests">
         <div id="accordion" class="appearance-accordion">
-          <div class="info-block" id="headingOne" data-toggle="collapse" data-target="#declaration-of-interests" aria-expanded="true"
+          <div class="info-block" id="members-interests-section" data-toggle="collapse" data-target="#declaration-of-interests" aria-expanded="true"
             aria-controls="declaration-of-interests">
             <div class="row">
               <div class="col-8">
@@ -638,7 +640,7 @@
               </div>
             </div>
           </div>
-          <div id="declaration-of-interests" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+          <div id="declaration-of-interests" class="collapse" aria-labelledby="declaration-of-interests" data-parent="#accordion">
             <div class="info-block__content">
               Annually, MPs are required by parliament to register their financial interests and gifts received in their official capacity. Due to the significant influence of the role that MPs take on, there may be times when their personal or business interests become in conflict with the duty prescribed to them as elected officials representing the public interest. You can see what interests your MPs declared here.
             </div>
