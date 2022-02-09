@@ -181,15 +181,6 @@
                 {% endfor %}
             </div>
 
-            {% if person.has_ever_been_member_of_nat_prov_legislature and email_contacts %}
-            <h3 class="mp-block__title">Email</h3>
-            <ul>
-              {% for email in email_contacts %}
-              <li class="email-address{{ email.1|yesno:" preferred," }}">{{ email.0|urlizetrunc:50 }}</li>
-              {% endfor %}
-            </ul>
-            {% endif %}
-
             <h3 class="mp-block__title">Constituency Offices</h3>
             {% for office in object.constituency_offices %}
               <a href="{{ office.get_absolute_url }}" class="text-link w-inline-block">
@@ -203,8 +194,13 @@
               {% empty %}
               <p>Not associated with any constituency offices</p>
             {% endfor %}
+
+            <h3 class="mp-block__title">Contact Details:</h3>
+            {% if not phone_contacts and not email_contacts %}
+              <p>None available.</p>
+            {% endif %}
+
             {% if phone_contacts %}
-            <h3 class="mp-block__title">Contact Numbers:</h3>
               {% for phone in phone_contacts %}
               <a href="tel:{{ phone }}" class="text-link w-inline-block">
                 <p class="text-link__text">{{ phone }}</p>
@@ -214,6 +210,21 @@
                     </svg></div>
                 </div>
               </a>
+              {% endfor %}
+            {% endif %}
+
+            {% if person.has_ever_been_member_of_nat_prov_legislature and email_contacts %}
+              {% for email in email_contacts %}
+                <a class="text-link w-inline-block" href="mailto:{{ email.0 }}">
+                  <p class="text-link__text truncate">
+                    {{ email.0 }}
+                  </p>
+                  <div class="text-link__icon">
+                    <div class="svg-icon w-embed">
+                      <img src="{% static 'images/envelope.svg' %}" alt="person email">
+                    </div>
+                  </div>
+                </a>
               {% endfor %}
             {% endif %}
 
