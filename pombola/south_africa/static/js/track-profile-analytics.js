@@ -1,7 +1,8 @@
 $(function () {
   // If Google Analytics is loaded, try send events when elements are visible in viewport
   if (typeof ga === 'function') {
-    const TIMEOUT_BEFORE_FIRING_ANALYTICS = 1000;
+    // The timeout is set to 5 seconds to allow us to track actual engagement
+    const TIMEOUT_BEFORE_FIRING_ANALYTICS = 5000;
     var elementsToTrackScrollEvents = {
       "#membersinterests": {
         "category": "person-page-tab-membersinterests",
