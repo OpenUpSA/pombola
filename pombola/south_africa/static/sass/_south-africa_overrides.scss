@@ -1243,7 +1243,6 @@ $logo-width-large: 184px;
             .dropdown-link__info {
                 position: relative;
                 left: auto;
-                top: 25%;
                 right: 0%;
                 bottom: 0%;
                 z-index: 1;
@@ -1263,6 +1262,7 @@ $logo-width-large: 184px;
                 align-items: center;
                 border-radius: 0.3em;
                 color: hsla(0, 0%, 100%, 0.63);
+                height: 100%;
                 @media screen and (max-width: 767px) {
                     width: 3.8em;
                 }
