@@ -128,43 +128,56 @@
       </div>
       <div class="dropdown-col is--1">
         <p class="dropdown-heading">Activities & Performance</p>
-        <div class="dropdown-link__wrapper">
-          <a target="_blank" href="https://pmg.org.za/question_replies/" class="dropdown-link w-inline-block">
-            <p>Questions to ministers</p>
-          </a>
-          <a href="#" class="dropdown-link__info w-inline-block">
-            <div class="svg-icon w-embed svg-small">
-              <img src="{% static 'images/navbar/external-link-alt-solid.svg' %}" loading="lazy" alt="pmg external link icon"
-                class="nav__logo-img">
-            </div>
-          </a>
+        <div class="dropdown-link__wrapper text-wrapper">
+          <div>
+            <a target="_blank" href="https://pmg.org.za/question_replies/" class="dropdown-link w-inline-block">
+              <p>Questions to ministers</p>
+            </a>
+          </div>
+          <span>
+            <a href="#" class="dropdown-link__info w-inline-block">
+              <div class="svg-icon w-embed svg-small">
+                <img src="{% static 'images/navbar/external-link-alt-solid.svg' %}" loading="lazy"
+                  alt="pmg external link icon" class="nav__logo-img">
+              </div>
+            </a>
+          </span>
         </div>
-        <div class="dropdown-link__wrapper">
-          <a target="_blank" href="https://pmg.org.za/committees/" class="dropdown-link w-inline-block">
-            <p>Parliamentary committees</p>
-          </a>
-          <a href="#" class="dropdown-link__info w-inline-block">
-            <div class="svg-icon w-embed svg-small">
-              <img src="{% static 'images/navbar/external-link-alt-solid.svg' %}" loading="lazy" alt="pmg external link icon"
-                class="nav__logo-img">
-            </div>
-          </a>
+        <div class="dropdown-link__wrapper text-wrapper">
+          <div>
+            <a target="_blank" href="https://pmg.org.za/committees/" class="dropdown-link w-inline-block">
+              <p>Parliamentary committees</p>
+            </a>
+          </div>
+          <div>
+            <a href="#" class="dropdown-link__info w-inline-block">
+              <div class="svg-icon w-embed svg-small">
+                <img src="{% static 'images/navbar/external-link-alt-solid.svg' %}" loading="lazy"
+                  alt="pmg external link icon" class="nav__logo-img">
+              </div>
+            </a>
+          </div>
         </div>
-        <div class="dropdown-link__wrapper">
-          <a href="/blog/category/mp-corner" class="dropdown-link w-inline-block">
-            <p>MP Corner</p>
-          </a>
-          <a href="#" class="dropdown-link__info w-inline-block">
-            <div class="svg-icon w-embed" data-toggle="tooltip" data-placement="top"
-              title="Find out how these MPs got into politics and what their message is for you.">
-              <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas"
-                data-icon="info-circle" class="svg-inline--fa fa-info-circle fa-w-16" role="img" viewBox="0 0 512 512">
-                <path fill="currentColor"
-                  d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z">
-                </path>
-              </svg>
-            </div>
-          </a>
+        <div class="dropdown-link__wrapper text-wrapper">
+          <div>
+            <a href="/blog/category/mp-corner" class="dropdown-link w-inline-block">
+              <p>MP Corner</p>
+            </a>
+          </div>
+          <div>
+            <a href="#" class="dropdown-link__info w-inline-block">
+              <div class="svg-icon w-embed" data-toggle="tooltip" data-placement="top"
+                title="Find out how these MPs got into politics and what their message is for you.">
+                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas"
+                  data-icon="info-circle" class="svg-inline--fa fa-info-circle fa-w-16" role="img"
+                  viewBox="0 0 512 512">
+                  <path fill="currentColor"
+                    d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z">
+                  </path>
+                </svg>
+              </div>
+            </a>
+          </div>
         </div>
       </div>
       <div class="dropdown-col">
@@ -172,32 +185,42 @@
         <a href="/mp-attendance/" class="dropdown-link is--info-link w-inline-block">
           <p>Attendance of meetings</p>
         </a>
-        <div class="dropdown-link__wrapper">
-          <a href="/interests/" class="dropdown-link is--info-link w-inline-block">
-            <p>Members' interests</p>
-          </a>
-          <a href="#" class="dropdown-link__info w-inline-block">
-            <div class="svg-icon w-embed" data-toggle="tooltip" data-placement="top"
-              title="Gifts and other potential influence on MP decisions">
-              <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas"
-                data-icon="info-circle" class="svg-inline--fa fa-info-circle fa-w-16" role="img" viewBox="0 0 512 512">
-                <path fill="currentColor"
-                  d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z">
-                </path>
-              </svg>
-            </div>
-          </a>
+        <div class="dropdown-link__wrapper text-wrapper">
+          <div>
+            <a href="/interests/" class="dropdown-link is--info-link w-inline-block">
+              <p>Members' interests</p>
+            </a>
+          </div>
+          <div>
+            <a href="#" class="dropdown-link__info w-inline-block">
+              <div class="svg-icon w-embed" data-toggle="tooltip" data-placement="top"
+                title="Gifts and other potential influence on MP decisions">
+                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas"
+                  data-icon="info-circle" class="svg-inline--fa fa-info-circle fa-w-16" role="img"
+                  viewBox="0 0 512 512">
+                  <path fill="currentColor"
+                    d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z">
+                  </path>
+                </svg>
+              </div>
+            </a>
+          </div>
         </div>
-        <div class="dropdown-link__wrapper">
-          <a target="_blank" href="https://pmg.org.za/page/code-of-ethical-conduct" class="dropdown-link is--info-link w-inline-block">
-            <p>Code of conduct</p>
-          </a>
-          <a href="#" class="dropdown-link__info w-inline-block">
-            <div class="svg-icon w-embed svg-small">
-              <img src="{% static 'images/navbar/external-link-alt-solid.svg' %}" loading="lazy" alt="pmg external link icon"
-                class="nav__logo-img">
-            </div>
-          </a>
+        <div class="dropdown-link__wrapper text-wrapper">
+          <div>
+            <a target="_blank" href="https://pmg.org.za/page/code-of-ethical-conduct"
+              class="dropdown-link is--info-link w-inline-block">
+              <p>Code of conduct</p>
+            </a>
+          </div>
+          <div>
+            <a href="#" class="dropdown-link__info w-inline-block">
+              <div class="svg-icon w-embed svg-small">
+                <img src="{% static 'images/navbar/external-link-alt-solid.svg' %}" loading="lazy"
+                  alt="pmg external link icon" class="nav__logo-img">
+              </div>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -243,50 +266,67 @@
       </div>
       <div class="dropdown-col">
         <p class="dropdown-heading">Understanding government</p>
-        <div class="dropdown-link__wrapper">
-          <a target="_blank" href="https://pmg.org.za/page/central-tenets" class="dropdown-link w-inline-block">
-            <p>Central Tenets of Government</p>
-          </a>
-          <a href="#" class="dropdown-link__info w-inline-block">
-            <div class="svg-icon w-embed svg-small">
-              <img src="{% static 'images/navbar/external-link-alt-solid.svg' %}" loading="lazy" alt="pmg external link icon"
-                class="nav__logo-img">
-            </div>
-          </a>
+        <div class="dropdown-link__wrapper text-wrapper">
+          <div>
+            <a target="_blank" href="https://pmg.org.za/page/central-tenets" class="dropdown-link w-inline-block">
+              <p>Central Tenets of Government</p>
+            </a>
+          </div>
+          <div>
+            <a href="#" class="dropdown-link__info w-inline-block">
+              <div class="svg-icon w-embed svg-small">
+                <img src="{% static 'images/navbar/external-link-alt-solid.svg' %}" loading="lazy"
+                  alt="pmg external link icon" class="nav__logo-img">
+              </div>
+            </a>
+          </div>
         </div>
-        <div class="dropdown-link__wrapper">
-          <a target="_blank" href="https://pmg.org.za/page/structure-of-government" class="dropdown-link w-inline-block">
-            <p>Structure of Government</p>
-          </a>
-          <a href="#" class="dropdown-link__info w-inline-block">
-            <div class="svg-icon w-embed svg-small">
-              <img src="{% static 'images/navbar/external-link-alt-solid.svg' %}" loading="lazy" alt="pmg external link icon"
-                class="nav__logo-img">
-            </div>
-          </a>
+        <div class="dropdown-link__wrapper text-wrapper">
+          <div>
+            <a target="_blank" href="https://pmg.org.za/page/structure-of-government"
+              class="dropdown-link w-inline-block">
+              <p>Structure of Government</p>
+            </a>
+          </div>
+          <div>
+            <a href="#" class="dropdown-link__info w-inline-block">
+              <div class="svg-icon w-embed svg-small">
+                <img src="{% static 'images/navbar/external-link-alt-solid.svg' %}" loading="lazy"
+                  alt="pmg external link icon" class="nav__logo-img">
+              </div>
+            </a>
+          </div>
         </div>
-        <div class="dropdown-link__wrapper">
-          <a target="_blank" href="https://pmg.org.za/page/legislative-process" class="dropdown-link w-inline-block">
-            <p>The Legislative Process</p>
-          </a>
-          <a href="#" class="dropdown-link__info w-inline-block">
-            <div class="svg-icon w-embed svg-small">
-              <img src="{% static 'images/navbar/external-link-alt-solid.svg' %}" loading="lazy" alt="pmg external link icon"
-                class="nav__logo-img">
-            </div>
-          </a>
+        <div class="dropdown-link__wrapper text-wrapper">
+          <div>
+            <a target="_blank" href="https://pmg.org.za/page/legislative-process" class="dropdown-link w-inline-block">
+              <p>The Legislative Process</p>
+            </a>
+          </div>
+          <div>
+            <a href="#" class="dropdown-link__info w-inline-block">
+              <div class="svg-icon w-embed svg-small">
+                <img src="{% static 'images/navbar/external-link-alt-solid.svg' %}" loading="lazy"
+                  alt="pmg external link icon" class="nav__logo-img">
+              </div>
+            </a>
+          </div>
         </div>
-        <div class="dropdown-link__wrapper">
-          <a target="_blank" href="https://pmg.org.za/page/state-institutions-supporting-democracy"
-            class="dropdown-link w-inline-block">
-            <p>State Institutions Supporting Democracy</p>
-          </a>
-          <a href="#" class="dropdown-link__info w-inline-block">
-            <div class="svg-icon w-embed svg-small">
-              <img src="{% static 'images/navbar/external-link-alt-solid.svg' %}" loading="lazy" alt="pmg external link icon"
-                class="nav__logo-img">
-            </div>
-          </a>
+        <div class="dropdown-link__wrapper text-wrapper">
+          <div>
+            <a target="_blank" href="https://pmg.org.za/page/state-institutions-supporting-democracy"
+              class="dropdown-link w-inline-block">
+              <p>State Institutions Supporting Democracy</p>
+            </a>
+          </div>
+          <div>
+            <a href="#" class="dropdown-link__info w-inline-block">
+              <div class="svg-icon w-embed svg-small">
+                <img src="{% static 'images/navbar/external-link-alt-solid.svg' %}" loading="lazy"
+                  alt="pmg external link icon" class="nav__logo-img">
+              </div>
+            </a>
+          </div>
         </div>
       </div>
     </div>
