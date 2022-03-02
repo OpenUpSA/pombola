@@ -240,11 +240,12 @@
             {% if address_contacts %}
             <h3 class="mp-block__title">Address:</h3>
               {% for address in address_contacts %}
-              <p class="text-link">
-                <div class="text-link__text">
+              <div class="text-link w-inline-block">
+              <p class="text-link__text">
                   {{ address }}
-                </div>
               </p>
+            </div>
+
               {% endfor %}
             {% endif %}
 
