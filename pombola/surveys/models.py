@@ -7,6 +7,7 @@ class Survey(models.Model):
   label = models.CharField(max_length=200, help_text="For your reference only. This label isn't displayed on the public website.")
   image = ImageField(upload_to='surveys')
   url = models.URLField()
+  hide = models.BooleanField(default=False)
   created = models.DateTimeField(auto_now_add=True)
   updated = models.DateTimeField(auto_now=True)
 
