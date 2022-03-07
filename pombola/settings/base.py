@@ -64,6 +64,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "pombola.core.context_processors.add_settings",
                 "pombola.core.context_processors.site_processor",
+                "constance.context_processors.config"
             ],
             'debug': DEBUG,
             # List of callables that know how to import templates from various sources.
@@ -419,6 +420,9 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'django.contrib.gis',
 
+    'constance.backends.database',
+    'constance',
+
     'pombola.admin_additions',
     'autocomplete_light',
     'django.contrib.admin',
@@ -462,6 +466,9 @@ INSTALLED_APPS = (
     'django_extensions',
 
     'rest_framework',
+
+    
+    
 )
 if os.environ.get("DJANGO_DEBUG_TOOLBAR", "true").lower() == "true":
     INSTALLED_APPS += ("debug_toolbar",)
@@ -691,6 +698,12 @@ def show_toolbar(request):
 
 DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': show_toolbar,
+}
+
+# Constance
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+CONSTANCE_CONFIG = {
+    'SHOW_SURVEY': (False, 'Show survey link on homepage'),
 }
 
 # Sentry

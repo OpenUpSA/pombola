@@ -102,6 +102,9 @@ coverage==3.7.1
 django-debug-toolbar==1.11
 django-extensions==1.7.4
 
+# Constance
+django-constance[database]==2.0
+
 ## votematch
 django-model-utils==2.3.1
 
