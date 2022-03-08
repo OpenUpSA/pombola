@@ -1,0 +1,26 @@
+[
+    {
+      "fields": {
+        "username": "za-admin",
+        "url": "http://writeinpublic.pa.org.za",
+        "instance_id": 4,
+        "person_uuid_prefix": "https://www.pa.org.za/api/national-assembly/popolo.json#person-{}",
+        "api_key": "123",
+        "slug": "south-africa-assembly"
+      },
+      "model": "writeinpublic.configuration",
+      "pk": 1
+    },
+    {
+      "fields": {
+        "username": "za-admin",
+        "url": "http://writeinpublic.pa.org.za",
+        "instance_id": 8,
+        "person_uuid_prefix": "https://www.pa.org.za/api/committees/popolo.json#person-{}",
+        "api_key": "123",
+        "slug": "south-africa-committees"
+      },
+      "model": "writeinpublic.configuration",
+      "pk": 2
+    }
+]

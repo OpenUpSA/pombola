@@ -41,6 +41,10 @@ Load [demo data](#demo-data) for easy dev setup. (See also [loading a production
 docker-compose run --rm app python manage.py loaddata demodata.json
 ```
 
+```
+docker-compose run --rm app python manage.py loaddata writeinpublic.json
+```
+
 Start the app, DB and search index:
 
 ```
