@@ -28,6 +28,14 @@ $(function () {
     }
     var collapseElement = document.getElementById("truncate-former-section");
     collapseElement.classList.toggle("truncate-div");
+    if (typeof ga === 'function') {
+      ga('send', {
+        hitType: 'event',
+        eventCategory: 'collapsed-items',
+        eventAction: showingAllFormerPositions ? 'expand' : 'collapse',
+        eventLabel: 'former-positions'
+      });
+    }
   });
   // toggle current positions button on /person/person-slug/
   const toggleCurrentElement = $('#toggle-current-positions');
@@ -54,6 +62,14 @@ $(function () {
     }
     var collapseElement = document.getElementById("truncate-current-section");
     collapseElement.classList.toggle("truncate-div");
+    if (typeof ga === 'function') {
+      ga('send', {
+        hitType: 'event',
+        eventCategory: 'collapsed-items',
+        eventAction: showingAllCurrentPositions ? 'expand' : 'collapse',
+        eventLabel: 'current-positions'
+      });
+    }
   });
 
   /*
