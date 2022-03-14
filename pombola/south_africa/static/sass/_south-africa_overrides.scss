@@ -2587,7 +2587,16 @@ a.alphabet-links__link {
     }
 
     &.person-write {
-        background-image: url("/static/images/splash-mps.jpg");
+        background-color: transparent;
+        height: 3em;
+
+        .house-title {
+            padding: 0;    
+            h1 {
+                color: $colour_black;
+            }
+        }
+
     }
 
     &.committee-write {
