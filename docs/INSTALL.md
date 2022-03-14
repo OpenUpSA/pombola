@@ -41,6 +41,9 @@ Load [demo data](#demo-data) for easy dev setup. (See also [loading a production
 docker-compose run --rm app python manage.py loaddata demodata.json
 ```
 
+Load WriteInPublic fixtures - these will let you draft messages but not send them, just to enable trying out the write-to flows locally. Change the slugs and keys to the sandbox ones to send actual messages from your dev environment. 
+
+    docker-compose run --rm app python manage.py loaddata writeinpublic.json
 Start the app, DB and search index:
 
 ```
