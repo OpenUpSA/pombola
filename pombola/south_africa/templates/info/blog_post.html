@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load pipeline %}
 
 {% block title %}
     {{ object.title }}
@@ -26,6 +27,12 @@
 
   <p class="meta">{{ object.publication_date|date }} ({{ object.publication_date|timesince }} ago)</p>
 
+  <div class="featured-image">
+    <a href="{{ object.featured_image_file.file.url }}" data-fancybox="gallery">
+      <img src="{{ object.featured_image_file.file.url }}"/>
+    </a>
+  </div>
+
   {{ object.content_as_html|safe }}
 
   {% include "info/_blog_tags.html" %}
@@ -34,9 +41,13 @@
 
     </div>
     <div class="minor-column">
-
       {% include "info/_blog_sidebar.html"%}
 
     </div>
   </div>
+{% endblock %}
+
+{% block js_end_of_body %}
+  {{ block.super }}
+  {% javascript 'fancybox' %}
 {% endblock %}
