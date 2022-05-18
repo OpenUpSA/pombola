@@ -150,11 +150,11 @@ COUNTRY_JS = {
         'output_filename': 'js/mps-download-tracking.js',
         'extra_context': default_js_extra_content, 
     },
-    'fancybox': {
+    'invoke-fancybox': {
         'source_filenames': (
-            'js/fancybox.js',
+            'js/invoke-fancybox.js',
         ),
-        'output_filename': 'js/fancybox.js',
+        'output_filename': 'js/invoke-fancybox.js',
         'extra_context': default_js_extra_content, 
     },
 }
