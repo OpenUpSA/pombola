@@ -3262,6 +3262,8 @@ ul.attendance__notes {
             width: 40%;
         }
 
+
+
         .blog-content {
             float: right;
             width: 60%;
@@ -3273,6 +3275,22 @@ ul.attendance__notes {
 
         }
 
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .blog-list {
+        .blog-in-a-list {
+            .blog-thumbnail {
+                float: unset;
+                width: 100%;
+            }
+
+            .blog-content {
+                float: unset;
+                width: 100%;
+            }
+        }
     }
 }
 
