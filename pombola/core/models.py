@@ -578,6 +578,10 @@ class Person(ModelBase, HasImageMixin, ScorecardMixin, IdentifierMixin):
         return self.position_set.provincial_legislature().exists()
 
     @property
+    def is_current_member_of_prov_legislature(self):
+        return self.position_set.provincial_legislature().currently_active().exists()
+
+    @property
     def has_ever_been_member_of_nat_prov_legislature(self):
         return (
             self.has_ever_been_member_of_ncop_or_national_assembly or
