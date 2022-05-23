@@ -150,6 +150,13 @@ COUNTRY_JS = {
         'output_filename': 'js/mps-download-tracking.js',
         'extra_context': default_js_extra_content, 
     },
+    'invoke-fancybox': {
+        'source_filenames': (
+            'js/invoke-fancybox.js',
+        ),
+        'output_filename': 'js/invoke-fancybox.js',
+        'extra_context': default_js_extra_content, 
+    },
 }
 
 INFO_PAGES_ALLOW_RAW_HTML = True

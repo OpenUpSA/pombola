@@ -353,7 +353,7 @@ small {
 
 .social-links-list {
     padding-left: 0;
-    margin-bottom: 0;
+    margin: 1em 0 !important;
 
     li {
         display: inline;
@@ -362,6 +362,7 @@ small {
     li + li {
         margin-left: 8px !important; // override `#site-footer ul li`
     }
+
 }
 
 .social-icon {
@@ -3241,17 +3242,69 @@ ul.attendance__notes {
 .blog-post {
     ul,
     p {
-        max-width: 580px;
         font-size: 0.9rem;
+    }
+    img {
+        max-width: 100%;
     }
 }
 
 .blog-list {
     .blog-in-a-list {
+        background: #efefef;
         border-bottom: 1px solid #d2d2ce;
         margin-bottom: 2em;
+        overflow: hidden;
+        border-radius: 5px;
+
+        .blog-thumbnail {
+            float: left;
+            width: 40%;
+        }
+
+
+
+        .blog-content {
+            float: right;
+            width: 60%;
+            padding: 1em;
+
+            h2 a {
+                text-decoration: none;
+            }
+
+        }
+
     }
 }
+
+@media screen and (max-width: 600px) {
+    .blog-list {
+        .blog-in-a-list {
+            .blog-thumbnail {
+                float: unset;
+                width: 100%;
+            }
+
+            .blog-content {
+                float: unset;
+                width: 100%;
+            }
+        }
+    }
+}
+
+.featured-image {
+    float: left; 
+    margin: 0 1em 1em 0; 
+    max-width: 250px;
+
+    img {
+        width: 100%;
+        display: block;
+    }
+}
+
 
 /* Error and status pages */
 
