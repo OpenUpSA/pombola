@@ -2,22 +2,17 @@
 
 There are several files in this directory:
 
-## PDF scraper
-In [/pdf_scraper](https://github.com/mysociety/pombola/tree/master/pombola/south_africa/data/members-interests/interests/scraper) there's a script and requirements file you will need to be able to scrape the member's interests PDF as released by Parliament.
+## DOCX scraper
 
-You will need poppler installed on your system, e.g.
-`brew install poppler` or `apt-get install python-poppler`
+The scraper currently scrapes `.docx` files.
+To prepare the file:
 
-Create a virtual environment, activate and install packages in requirements.txt
-
-Get the fontspec ids which are used to determine what content we are looking at:
-`python scrape_interests_pdf.py --input <filename>.pdf --print-font-ids=True`
-
-Set the `font_id_*` vars with these values in `scrape_interests_pdf.py`.
-These values can change from year to year, and a trail and error approach is used to use the correct values.
+1. Open `PDF` in Google Docs
+2. Download document as `.docx`
+3. Move file to `./docx_files/`
 
 Run the script with the necessary arguments, e.g.
-`python scrape_interests_pdf.py --input 2017.pdf --output 2017.json --year 2017 --source https://www.parliament.gov.za/storage/app/media/Ethics/2017Register.pdf`
+`python scrape_interests_docx.py --input ./docx_files/ --output ../2021.json --year 2021 --source https://static.pmg.org.za/Register_of_Members_Interests_2021.pdf`
 
 Use the output file becomes one of the raw data files below.
 
