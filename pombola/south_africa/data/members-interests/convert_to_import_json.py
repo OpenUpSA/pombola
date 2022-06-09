@@ -401,6 +401,13 @@ class Converter(object):
         # name changes confirmed in National Assembly membership document
         "buyiswa-blaai": "buyiswa-cornelia-diemu",
         "sanna-keikantseeng-molao": "sanna-keikantseeng-plaatjie",
+        # 2021
+        "steven-m-jafta": "steven-mahlubanzima-jafta",
+        "adoonsnombuyiselo": "nombuyiselo-gladys-adoons",
+        "ncamashe-zolile-burns": "zolile-burns-ncamashe",
+        "phoebe-noxolo-abraham": "noxolo-abraham-ntantiso",
+        "price-mike-basopu": "mike-basopu",
+
         # Garbage entries
         "control-flag-ict": None,
     }
@@ -521,9 +528,10 @@ class Converter(object):
     def mp_to_person_slug(self, mp):
         # NOTE: 2020 no longer has the party in the name and the names are rearranged
         slug = slugify(mp)
-        surname = slug.split("-")[1:]
-        other_names = slug.split("-")[:1]
-        slug = "-".join(surname + other_names)
+        surname = slug.split("-")[:1]
+        other_names = slug.split("-")[1:][:-1]
+        slug = "-".join(other_names + surname)
+
         # Check if there is a known correction for this slug
         slug = self.slug_corrections.get(slug, slug)
 
@@ -539,11 +547,10 @@ class Converter(object):
                 name_base = re.findall(r'(.*?), (.*)', mp.replace('-', ','))
                 if name_base:
                     name_parts = name_base[0]
-                    try:
-                        person = Person.objects.get(Q(slug__contains=slugify(name_parts[0])) & Q(slug__contains=slugify(name_parts[1])))
-                        return person.slug
-                    except Person.MultipleObjectsReturned:
-                        return None
+                    person = Person.objects.get(Q(slug__contains=slugify(name_parts[0])) & Q(slug__contains=slugify(name_parts[1])))
+                    return person.slug
+                else:
+                    return None
             except Person.DoesNotExist:
                 last_name = mp.split(' ')[-1]
 
