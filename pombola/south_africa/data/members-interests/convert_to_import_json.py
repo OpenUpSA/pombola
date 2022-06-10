@@ -407,6 +407,7 @@ class Converter(object):
         "ncamashe-zolile-burns": "zolile-burns-ncamashe",
         "phoebe-noxolo-abraham": "noxolo-abraham-ntantiso",
         "price-mike-basopu": "mike-basopu",
+        "mpeko-zoliswa-albertina-kota":"zoliswa-albertina-kota-fredericks",
 
         # Garbage entries
         "control-flag-ict": None,
