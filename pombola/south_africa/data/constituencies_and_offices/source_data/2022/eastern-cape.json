@@ -1,0 +1,182 @@
+{
+    "offices": [
+        {
+            "Title": "ANC Constituency Office: Centane (725)",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "ANC",
+            "Type": "office",
+            "Province": "Eastern Cape",
+            "Physical Address": "Centane",
+            "E-mail": "bulelanimtsi5@gmail.com",
+            "Tel": "079 266 6888/047 499 1275",
+            "identifiers": {
+                "constituency-office/ANC/": ""
+            },
+            "People": [
+                {
+                    "Name": "Bulelani Mtsi",
+                    "Tel": "079 266 6888/047 499 1275",
+                    "Email": "bulelanimtsi5@gmail.com",
+                    "Position": "Administrator"
+                }
+            ]
+        },
+        {
+            "Title": "ANC Constituency Office: Engcobo (731)",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "ANC",
+            "Type": "office",
+            "Province": "Eastern Cape",
+            "Physical Address": "Engcobo",
+            "E-mail": "engobo@ecleg.gov.za",
+            "Tel": "072 012 3596/047 548 0113",
+            "identifiers": {
+                "constituency-office/ANC/": ""
+            },
+            "People": [
+                {
+                    "Name": "Nomalizo Gedeni",
+                    "Tel": "072 012 3596/047 548 0113",
+                    "Email": "engobo@ecleg.gov.za",
+                    "Position": "Administrator"
+                }
+            ]
+        },
+        {
+            "Title": "ANC Constituency Office: Willowvale (752)",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "ANC",
+            "Type": "office",
+            "Province": "Eastern Cape",
+            "Physical Address": "Willowvale",
+            "E-mail": "willowvale@ecleg.gov.za/sijadu62@workmail.co.za",
+            "Tel": "071 214 9344/047 499 1275",
+            "identifiers": {
+                "constituency-office/ANC/": ""
+            },
+            "People": [
+                {
+                    "Name": "S  Mhaga",
+                    "Tel": "071 214 9344/047 499 1275",
+                    "Email": "willowvale@ecleg.gov.za/sijadu62@workmail.co.za",
+                    "Position": "Administrator"
+                }
+            ]
+        },
+        {
+            "Title": "ANC Constituency Office: Tsolwana (758)",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "ANC",
+            "Type": "office",
+            "Province": "Eastern Cape",
+            "Physical Address": "Queenstown",
+            "E-mail": "tsolwana@ecleg.gov.za/tbonisile766@gmail.com",
+            "Tel": "716 371 028",
+            "identifiers": {
+                "constituency-office/ANC/": ""
+            },
+            "People": [
+                {
+                    "Name": "Buyisile Toko",
+                    "Tel": "716 371 028",
+                    "Email": "tsolwana@ecleg.gov.za/tbonisile766@gmail.com",
+                    "Position": "Administrator"
+                }
+            ]
+        },
+        {
+            "Title": "ANC Constituency Office: Kidds Beach (763)",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "ANC",
+            "Type": "office",
+            "Province": "Eastern Cape",
+            "Physical Address": "East London",
+            "E-mail": "asandapinapi6@gmail.com/ nozuko2008@gmail.com",
+            "Tel": "833 953 383",
+            "identifiers": {
+                "constituency-office/ANC/": ""
+            },
+            "People": [
+                {
+                    "Name": "Wendy Timothy",
+                    "Tel": "833 953 383",
+                    "Email": "asandapinapi6@gmail.com/ nozuko2008@gmail.com",
+                    "Position": "Fieldworker"
+                }
+            ]
+        },
+        {
+            "Title": "ANC Constituency Office: Mt Frere (769)",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "ANC",
+            "Type": "office",
+            "Province": "Eastern Cape",
+            "Physical Address": "Mt Frere",
+            "E-mail": "angeziwem@gmail.com",
+            "Tel": "711 370 686",
+            "identifiers": {
+                "constituency-office/ANC/": ""
+            },
+            "People": [
+                {
+                    "Name": "Angeziwe Myeki",
+                    "Tel": "711 370 686",
+                    "Email": "angeziwem@gmail.com",
+                    "Position": "Administrator"
+                }
+            ]
+        },
+        {
+            "Title": "ANC Constituency Office: Queenstown (772)",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "ANC",
+            "Type": "office",
+            "Province": "Eastern Cape",
+            "Physical Address": "40 Ebden Street",
+            "E-mail": "zamakamva@gmail.com/queenstown@ecleg.gov.za",
+            "Tel": "784 472 709",
+            "identifiers": {
+                "constituency-office/ANC/": ""
+            },
+            "People": [
+                {
+                    "Name": "Zama Njenjani",
+                    "Tel": "784 472 709",
+                    "Email": "zamakamva@gmail.com/queenstown@ecleg.gov.za",
+                    "Position": "Administrator"
+                }
+            ]
+        },
+        {
+            "Title": "ANC Constituency Office: Mbizana (773)",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "ANC",
+            "Type": "office",
+            "Province": "Eastern Cape",
+            "Physical Address": "Mbizana",
+            "E-mail": "thembeka.mzana@gmail.com",
+            "Tel": "073 321 6001/039 251 0048",
+            "identifiers": {
+                "constituency-office/ANC/": ""
+            },
+            "People": [
+                {
+                    "Name": "Thembeka Mzana",
+                    "Tel": "073 321 6001/039 251 0048",
+                    "Email": "thembeka.mzana@gmail.com",
+                    "Position": "Administrator"
+                }
+            ]
+        }
+    ],
+    "start_date": "2022-08-01",
+    "end_date": "2022-07-31"
+}
