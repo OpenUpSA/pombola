@@ -261,6 +261,7 @@ def process_office(office, commit, start_date, end_date, na_member_lookup, geoco
                 organisation.save()
 
     else:
+        logger.info('Creating new office %s' % office['Title'])
         print 'Creating new %s' % (office['Type'])
 
         if commit:
