@@ -1,13 +1,13 @@
 {
     "offices": [
         {
-            "Title": "ANC Constituency Office: Centane (725)",
+            "Title": "Centane (725)",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
             "Province": "Eastern Cape",
-            "Physical Address": "Centane",
+            "Physical Address": "15 Bell Avenue, Centane",
             "E-mail": "bulelanimtsi5@gmail.com",
             "Tel": "079 266 6888/047 499 1275",
             "identifiers": {
@@ -23,13 +23,13 @@
             ]
         },
         {
-            "Title": "ANC Constituency Office: Engcobo (731)",
+            "Title": "Engcobo (731)",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
             "Province": "Eastern Cape",
-            "Physical Address": "Engcobo",
+            "Physical Address": "Gunuza Building, 90 High Street, Engcobo",
             "E-mail": "engobo@ecleg.gov.za",
             "Tel": "072 012 3596/047 548 0113",
             "identifiers": {
@@ -45,13 +45,13 @@
             ]
         },
         {
-            "Title": "ANC Constituency Office: Willowvale (752)",
+            "Title": "Willowvale (752)",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
             "Province": "Eastern Cape",
-            "Physical Address": "Willowvale",
+            "Physical Address": "Mjongile Business Complex, Main Street, Willowvale",
             "E-mail": "willowvale@ecleg.gov.za/sijadu62@workmail.co.za",
             "Tel": "071 214 9344/047 499 1275",
             "identifiers": {
@@ -67,13 +67,13 @@
             ]
         },
         {
-            "Title": "ANC Constituency Office: Tsolwana (758)",
+            "Title": "Tsolwana (758)",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
             "Province": "Eastern Cape",
-            "Physical Address": "Queenstown",
+            "Physical Address": "Tenteergate Village ( next to Sassa), Thornhill, Queenstown",
             "E-mail": "tsolwana@ecleg.gov.za/tbonisile766@gmail.com",
             "Tel": "716 371 028",
             "identifiers": {
@@ -89,13 +89,13 @@
             ]
         },
         {
-            "Title": "ANC Constituency Office: Kidds Beach (763)",
+            "Title": "Kidds Beach (763)",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
             "Province": "Eastern Cape",
-            "Physical Address": "East London",
+            "Physical Address": "1 Main Road, Top Shop, Kidds Beach, East London, 5200",
             "E-mail": "asandapinapi6@gmail.com/ nozuko2008@gmail.com",
             "Tel": "833 953 383",
             "identifiers": {
@@ -111,13 +111,13 @@
             ]
         },
         {
-            "Title": "ANC Constituency Office: Mt Frere (769)",
+            "Title": "Mt Frere (769)",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
             "Province": "Eastern Cape",
-            "Physical Address": "Mt Frere",
+            "Physical Address": "Socikwa Building, 107 Canca Street, Mt Frere",
             "E-mail": "angeziwem@gmail.com",
             "Tel": "711 370 686",
             "identifiers": {
@@ -133,7 +133,7 @@
             ]
         },
         {
-            "Title": "ANC Constituency Office: Queenstown (772)",
+            "Title": "Queenstown (772)",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
@@ -155,13 +155,13 @@
             ]
         },
         {
-            "Title": "ANC Constituency Office: Mbizana (773)",
+            "Title": "Mbizana (773)",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
             "Province": "Eastern Cape",
-            "Physical Address": "Mbizana",
+            "Physical Address": "Fin House Building; Main St, Mbizana 4800",
             "E-mail": "thembeka.mzana@gmail.com",
             "Tel": "073 321 6001/039 251 0048",
             "identifiers": {
