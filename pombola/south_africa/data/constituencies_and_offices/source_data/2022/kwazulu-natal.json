@@ -1,1168 +1,684 @@
 {
     "offices": [
         {
-            "Title": "",
+            "Title": "FF+ Constituency Office: ",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "FF+",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "256 Beyers Naude Rusternburg",
+            "E-mail": "cornetvt@vfplus.org.za",
+            "Tel": "018 484 1086",
+            "identifiers": {
+                "constituency-office/FF+/": ""
+            },
+            "People": [
+                {
+                    "Name": "Cornet Van Tonder",
+                    "Tel": "018 484 1086",
+                    "Email": "cornetvt@vfplus.org.za",
+                    "Position": ""
+                }
+            ]
+        },
+        {
+            "Title": "FF+ Constituency Office: Buffelspark",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "FF+",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "Office 14, Flamwood Klerksdorp",
+            "E-mail": "cornetvt@vfplus.org.za",
+            "Tel": "018 484 1086",
+            "identifiers": {
+                "constituency-office/FF+/": ""
+            },
+            "People": [
+                {
+                    "Name": "Cornet Van Tonder",
+                    "Tel": "018 484 1086",
+                    "Email": "cornetvt@vfplus.org.za",
+                    "Position": ""
+                }
+            ]
+        },
+        {
+            "Title": "ANC Constituency Office: Mafikeng",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
             "Province": "Kwazulu-Natal",
-            "Physical Address": "7 Musgrave Street, Harding",
+            "Physical Address": "09 Victoria Street, Build It Building",
             "E-mail": "",
-            "Tel": "072 363 6007/ 033 996 0473",
+            "Tel": "082 455 0230/0183814221",
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "People": [
                 {
-                    "Name": "Thabani W Zuma",
-                    "Tel": "072 363 6007/ 033 996 0473",
+                    "Name": "Malebo Nkoliswa",
+                    "Tel": "082 455 0230/0183814221",
                     "Email": "",
-                    "Position": "Administrator"
+                    "Position": "Adminstrator"
                 }
             ]
         },
         {
-            "Title": "",
+            "Title": "ANC Constituency Office: Ramotshere (Zeerust)",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
             "Province": "Kwazulu-Natal",
-            "Physical Address": "321 Anthony Lembede Street 7th Floor SADTU HOUSE Durban 4001, (SACP OFFICE)",
+            "Physical Address": "Maritz & Coetzee, Zeerust",
             "E-mail": "",
-            "Tel": "079 054 1026/ 031 301 3806",
+            "Tel": "078 945 0318/ 018 642 1535",
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "People": [
                 {
-                    "Name": "Jabulani Derrick Magula",
-                    "Tel": "079 054 1026/ 031 301 3806",
+                    "Name": "Tiny Rakgodi",
+                    "Tel": "078 945 0318/ 018 642 1535",
                     "Email": "",
-                    "Position": "Administrator"
+                    "Position": "Adminstrator"
                 }
             ]
         },
         {
-            "Title": "",
+            "Title": "ANC Constituency Office: Ditsobotla (Lichtenburg)",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
             "Province": "Kwazulu-Natal",
-            "Physical Address": "201 Mafahleni Street Impendle, 3227",
+            "Physical Address": "54 Nelson Mandela Street, Old Bankun Bldng Lichtenburg",
             "E-mail": "",
-            "Tel": "072 363 6007/  033 996 0473",
+            "Tel": "076 993 1939/ 018 632 0857",
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "People": [
                 {
-                    "Name": "Thabani W Zuma",
-                    "Tel": "072 363 6007/  033 996 0473",
+                    "Name": "Tlamelo Mancwe",
+                    "Tel": "076 993 1939/ 018 632 0857",
                     "Email": "",
-                    "Position": "Administrator"
+                    "Position": "Adminstrator"
                 }
             ]
         },
         {
-            "Title": "",
+            "Title": "ANC Constituency Office: Tswaing (Delaryville)",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
             "Province": "Kwazulu-Natal",
-            "Physical Address": "Shop 5, Morram Building, 375 Kingsway, Amanzimtoti, 4126",
+            "Physical Address": "23 Gen Delarey Contact Point Delaryville",
             "E-mail": "",
-            "Tel": "072 188 5796/031 903 4851",
+            "Tel": "073 073 7859/ 018 948 0744/1570",
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "People": [
                 {
-                    "Name": "Nonhlanhla Malinga",
-                    "Tel": "072 188 5796/031 903 4851",
+                    "Name": "Mpho Kgalapa",
+                    "Tel": "073 073 7859/ 018 948 0744/1570",
                     "Email": "",
-                    "Position": "Administrator"
+                    "Position": "Adminstrator"
                 }
             ]
         },
         {
-            "Title": "",
+            "Title": "ANC Constituency Office: Ratlou (Setlagole)",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
             "Province": "Kwazulu-Natal",
-            "Physical Address": "860 Curnick Ndlovu Highway Inanda, 4310",
+            "Physical Address": "Setlagole Shopping Mall",
             "E-mail": "",
-            "Tel": "073 536 7785/031 519 0955",
+            "Tel": "073 555 0553/ 018 100 0027",
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "People": [
                 {
-                    "Name": "Zama Hlongwane",
-                    "Tel": "073 536 7785/031 519 0955",
+                    "Name": "Lenjone Gaboutlwelwe",
+                    "Tel": "073 555 0553/ 018 100 0027",
                     "Email": "",
-                    "Position": "Administrator"
+                    "Position": "Adminstrator"
                 }
             ]
         },
         {
-            "Title": "",
+            "Title": "ANC Constituency Office: Rustenburg",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
             "Province": "Kwazulu-Natal",
-            "Physical Address": "KFC Building, Office No. 47, Commercial Centre, Cnr Green and Yellow Street, Isithebe",
+            "Physical Address": "111 Chruch Street, Rustenburg 0300",
             "E-mail": "",
-            "Tel": "032 495 3170/ 1506/ 3183",
+            "Tel": "072 765 8325/ 014 592 3537",
+            "identifiers": {
+                "constituency-office/ANC/": ""
+            },
+            "People": [
+                {
+                    "Name": "Kgomotso Mthembu",
+                    "Tel": "072 765 8325/ 014 592 3537",
+                    "Email": "",
+                    "Position": "Adminstrator"
+                }
+            ]
+        },
+        {
+            "Title": "ANC Constituency Office: Marikana",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "ANC",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "Shop no.08 Marikana Mall",
+            "E-mail": "",
+            "Tel": "076 942 1736",
+            "identifiers": {
+                "constituency-office/ANC/": ""
+            },
+            "People": [
+                {
+                    "Name": "Sammy Lobelo",
+                    "Tel": "076 942 1736",
+                    "Email": "",
+                    "Position": "Adminstrator"
+                }
+            ]
+        },
+        {
+            "Title": "ANC Constituency Office: Kgetleng (Swaartruggens)",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "ANC",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "3 Kort Street, Swaartruggens",
+            "E-mail": "",
+            "Tel": "072 690 8086/ 014 544 0066",
+            "identifiers": {
+                "constituency-office/ANC/": ""
+            },
+            "People": [
+                {
+                    "Name": "Potso Makone",
+                    "Tel": "072 690 8086/ 014 544 0066",
+                    "Email": "",
+                    "Position": "Adminstrator"
+                }
+            ]
+        },
+        {
+            "Title": "ANC Constituency Office: Madibeng (Brits)",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "ANC",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "13 Murry Ave, Brits",
+            "E-mail": "",
+            "Tel": "078 482 8807/ 012 252 5294",
+            "identifiers": {
+                "constituency-office/ANC/": ""
+            },
+            "People": [
+                {
+                    "Name": "Dan Kgasi",
+                    "Tel": "078 482 8807/ 012 252 5294",
+                    "Email": "",
+                    "Position": "Adminstrator"
+                }
+            ]
+        },
+        {
+            "Title": "ANC Constituency Office: Moses Kotane (Mogwase)",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "ANC",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "Moses Kotane (Mogwase)",
+            "E-mail": "",
+            "Tel": "084 438 0406/ 014 555 6301",
+            "identifiers": {
+                "constituency-office/ANC/": ""
+            },
+            "People": [
+                {
+                    "Name": "Annie Molefe",
+                    "Tel": "084 438 0406/ 014 555 6301",
+                    "Email": "",
+                    "Position": "Adminstrator"
+                }
+            ]
+        },
+        {
+            "Title": "ANC Constituency Office: Moses Kotane (Madikwe)",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "ANC",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "Shop no.7 Madikwe Shopping Centre",
+            "E-mail": "",
+            "Tel": "014 553 2332/ F: 014 553 2333",
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "People": [
                 {
                     "Name": "",
-                    "Tel": "032 495 3170/ 1506/ 3183",
+                    "Tel": "014 553 2332/ F: 014 553 2333",
                     "Email": "",
                     "Position": ""
                 }
             ]
         },
         {
-            "Title": "",
+            "Title": "ANC Constituency Office: Moretelle (Themba)",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
             "Province": "Kwazulu-Natal",
-            "Physical Address": "Ithala Centre Shop D, Malandela Road, Kwa-Mashu, 4370",
-            "E-mail": "bhekimsane@gmail.com",
-            "Tel": "084 403 8469/031 503 3169",
-            "identifiers": {
-                "constituency-office/ANC/": ""
-            },
-            "People": [
-                {
-                    "Name": "Bheki Msani",
-                    "Tel": "084 403 8469/031 503 3169",
-                    "Email": "bhekimsane@gmail.com",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "ANC",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "279 Muchison Street, Ladysmith",
+            "Physical Address": "Stand No 4065 Mathibestadt",
             "E-mail": "",
-            "Tel": "073 838 9667/036 635 4701",
-            "identifiers": {
-                "constituency-office/ANC/": ""
-            },
-            "People": [
-                {
-                    "Name": "Nonkululeko Bedi",
-                    "Tel": "073 838 9667/036 635 4701",
-                    "Email": "",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "ANC",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "41 Bishop Street, Camperdown",
-            "E-mail": "",
-            "Tel": "084 697 7775/031 785 2159",
-            "identifiers": {
-                "constituency-office/ANC/": ""
-            },
-            "People": [
-                {
-                    "Name": "Maria Mwelase",
-                    "Tel": "084 697 7775/031 785 2159",
-                    "Email": "",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "ANC",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "Office No. 3, 50 Ann\u00ef\u00bf\u00bds Property Voor Street Utrecht, 2980",
-            "E-mail": "",
-            "Tel": "084 878 3930/034 331 4459",
-            "identifiers": {
-                "constituency-office/ANC/": ""
-            },
-            "People": [
-                {
-                    "Name": "Bongokuhle Ngubeni",
-                    "Tel": "084 878 3930/034 331 4459",
-                    "Email": "",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "ANC",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "Dr Pixley Ka Isaka Seme Building 190 Stalwart Simelane Street Durban 4001",
-            "E-mail": "",
-            "Tel": "071 921 7511/031 372 2000",
-            "identifiers": {
-                "constituency-office/ANC/": ""
-            },
-            "People": [
-                {
-                    "Name": "Samkelisiwe Majiya",
-                    "Tel": "071 921 7511/031 372 2000",
-                    "Email": "",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "Estcourt",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "ANC",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "96 Keate Street, Escourt, 3310",
-            "E-mail": "",
-            "Tel": "078 374 2556/036 352 5254",
-            "identifiers": {
-                "constituency-office/ANC/": ""
-            },
-            "People": [
-                {
-                    "Name": "Thami Mazibuko",
-                    "Tel": "078 374 2556/036 352 5254",
-                    "Email": "",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "Chatsworth",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "ANC",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "Office 15, Ayesha Centre, 50 Joyhurst Street, Chatsworth, 4092",
-            "E-mail": "804ancpco@telkomsa.net",
-            "Tel": "061 152 9241/031 403 3603",
-            "identifiers": {
-                "constituency-office/ANC/": ""
-            },
-            "People": [
-                {
-                    "Name": "Raj Morar",
-                    "Tel": "061 152 9241/031 403 3603",
-                    "Email": "804ancpco@telkomsa.net",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "ANC",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "Office 10, Dr Murugan Building, 5 Main Street Eshowe, 3815",
-            "E-mail": "",
-            "Tel": "072 104 3692/035 474 5653",
-            "identifiers": {
-                "constituency-office/ANC/": ""
-            },
-            "People": [
-                {
-                    "Name": "Bridget Shange",
-                    "Tel": "072 104 3692/035 474 5653",
-                    "Email": "",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "ANC",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "J1126, Mhloshana Street, Eskhawini, 3887",
-            "E-mail": "",
-            "Tel": "066 208 4813/035 796 1984",
-            "identifiers": {
-                "constituency-office/ANC/": ""
-            },
-            "People": [
-                {
-                    "Name": "Thandeka Caluza",
-                    "Tel": "066 208 4813/035 796 1984",
-                    "Email": "",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "ANC",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "Phungashe S/Centre, Phepheni Road, Ophepheni",
-            "E-mail": "",
-            "Tel": "083 330 2458/039 835 0608",
-            "identifiers": {
-                "constituency-office/ANC/": ""
-            },
-            "People": [
-                {
-                    "Name": "Thina Mchunu",
-                    "Tel": "083 330 2458/039 835 0608",
-                    "Email": "",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "ANC",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "22/24 Delmore, Road Hillcrest, 3650",
-            "E-mail": "",
-            "Tel": "084 807 6763/031 765 3088",
-            "identifiers": {
-                "constituency-office/ANC/": ""
-            },
-            "People": [
-                {
-                    "Name": "Thabile Mazibuko",
-                    "Tel": "084 807 6763/031 765 3088",
-                    "Email": "",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "ANC",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "Shop2 122 Old Main Road Isiphingo 4110",
-            "E-mail": "",
-            "Tel": "072 253 8120/031 902 3238",
-            "identifiers": {
-                "constituency-office/ANC/": ""
-            },
-            "People": [
-                {
-                    "Name": "Thola Mbhele",
-                    "Tel": "072 253 8120/031 902 3238",
-                    "Email": "",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "ANC",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "Shop 22 GLH Building Main Street Mkuze, 3965",
-            "E-mail": "",
-            "Tel": "072 937 1694/035 573 1430",
-            "identifiers": {
-                "constituency-office/ANC/": ""
-            },
-            "People": [
-                {
-                    "Name": "Sanele Myeni",
-                    "Tel": "072 937 1694/035 573 1430",
-                    "Email": "",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "ANC",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "34 St Lucia Street, Office 3, 2nd Floor KFC Building Hluhluwe, 3960",
-            "E-mail": "",
-            "Tel": "073 706 8803/ 035 562 3960",
-            "identifiers": {
-                "constituency-office/ANC/": ""
-            },
-            "People": [
-                {
-                    "Name": "Sizakele Mhlanga",
-                    "Tel": "073 706 8803/ 035 562 3960",
-                    "Email": "",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "ANC",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "Pixley Ka Isaiah Seme Building, 190 Stalwart Simelane Street, North Beach Durban, 4001",
-            "E-mail": "",
-            "Tel": "073 298 8739/031 372 2000",
-            "identifiers": {
-                "constituency-office/ANC/": ""
-            },
-            "People": [
-                {
-                    "Name": "Sanele Shangase",
-                    "Tel": "073 298 8739/031 372 2000",
-                    "Email": "",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "ANC",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "Sizakala Centre, G7 Shezi Road, Mpumalanga T/ship, Hammersdale",
-            "E-mail": "",
-            "Tel": "072 363 6007/033 996 0473",
-            "identifiers": {
-                "constituency-office/ANC/": ""
-            },
-            "People": [
-                {
-                    "Name": "Thembi Thango",
-                    "Tel": "072 363 6007/033 996 0473",
-                    "Email": "",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "ANC",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "170 Pine Street, Greytown, 3250",
-            "E-mail": "",
-            "Tel": "079 486 5352/033 417 1613/ 413 1093",
-            "identifiers": {
-                "constituency-office/ANC/": ""
-            },
-            "People": [
-                {
-                    "Name": "Skhumbuzo Enoch Mngoma",
-                    "Tel": "079 486 5352/033 417 1613/ 413 1093",
-                    "Email": "",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "ANC",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "1st Floor Post Office Building, 38 Beaconsfield Street, Dundee, 3000",
-            "E-mail": "",
-            "Tel": "063 678 8488/034 218 1119",
-            "identifiers": {
-                "constituency-office/ANC/": ""
-            },
-            "People": [
-                {
-                    "Name": "Andile Mabaso",
-                    "Tel": "063 678 8488/034 218 1119",
-                    "Email": "",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "ANC",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "30 Jan Smuts Avenue, Unit 5a/2, 5ab/2, Oriole Centre Building, Mtubatuba, 3935",
-            "E-mail": "",
-            "Tel": "079 268 4108/035 550 0207",
-            "identifiers": {
-                "constituency-office/ANC/": ""
-            },
-            "People": [
-                {
-                    "Name": "Buyisiwe Mvubu",
-                    "Tel": "079 268 4108/035 550 0207",
-                    "Email": "",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "ANC",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "No. 44 City Insurance Building, Office 1 Wooley Street, Port Shepstone, 4240",
-            "E-mail": "",
-            "Tel": "079 909 8097/039 684 3138",
-            "identifiers": {
-                "constituency-office/ANC/": ""
-            },
-            "People": [
-                {
-                    "Name": "Phamela Cwele",
-                    "Tel": "079 909 8097/039 684 3138",
-                    "Email": "",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "ANC",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "Shop L7 Ithala Building, Umlazi Shopping Centre, Umlazi, 4031",
-            "E-mail": "",
-            "Tel": "083 493 7444/031 907 1228",
-            "identifiers": {
-                "constituency-office/ANC/": ""
-            },
-            "People": [
-                {
-                    "Name": "Sanele Dlungele",
-                    "Tel": "083 493 7444/031 907 1228",
-                    "Email": "",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "ANC",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "Dlovinga Road Izingolweni 4260",
-            "E-mail": "",
-            "Tel": "082 499 2716/039 534 5227",
-            "identifiers": {
-                "constituency-office/ANC/": ""
-            },
-            "People": [
-                {
-                    "Name": "Sibusiso Nzimande",
-                    "Tel": "082 499 2716/039 534 5227",
-                    "Email": "",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "ANC",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "7 Webearsol 1/98, 206 Utrecht Street, Behind Spur Vryheid, 3100",
-            "E-mail": "",
-            "Tel": "083 765 5036/034 982 1433",
-            "identifiers": {
-                "constituency-office/ANC/": ""
-            },
-            "People": [
-                {
-                    "Name": "Johannes Myeni",
-                    "Tel": "083 765 5036/034 982 1433",
-                    "Email": "",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "ANC",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "115 & 117 Ithala Centre Ulundi, 3838",
-            "E-mail": "",
-            "Tel": "035 870 3472",
+            "Tel": "012 711 8927",
             "identifiers": {
                 "constituency-office/ANC/": ""
             },
             "People": [
                 {
                     "Name": "",
-                    "Tel": "035 870 3472",
+                    "Tel": "012 711 8927",
                     "Email": "",
                     "Position": ""
                 }
             ]
         },
         {
-            "Title": "",
+            "Title": "ANC Constituency Office: Matlosana (Klerksdorp)",
             "Source URL": "",
             "Source Note": "",
-            "Party": "IFP",
+            "Party": "ANC",
             "Type": "office",
             "Province": "Kwazulu-Natal",
-            "Physical Address": "2 King Edward Street, Dundee, 3000",
-            "E-mail": "mthethwanomvula@gmail.com",
-            "Tel": "071 734 4190/034 212 1756",
-            "identifiers": {
-                "constituency-office/IFP/": ""
-            },
-            "People": [
-                {
-                    "Name": "Nomvula Mthethwa",
-                    "Tel": "071 734 4190/034 212 1756",
-                    "Email": "mthethwanomvula@gmail.com",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "IFP",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "NO 224F Murchiston Street, Ladysmith, 3370",
+            "Physical Address": "51 Boom Street 216, 2nd Floor Klerksdorp",
             "E-mail": "",
-            "Tel": "073 012 9482/034 312 8905",
+            "Tel": "078 738 7191/ 018 462 8489",
             "identifiers": {
-                "constituency-office/IFP/": ""
+                "constituency-office/ANC/": ""
             },
             "People": [
                 {
-                    "Name": "Bongiwe Mdlalose",
-                    "Tel": "073 012 9482/034 312 8905",
+                    "Name": "Tlaleng Beng",
+                    "Tel": "078 738 7191/ 018 462 8489",
                     "Email": "",
-                    "Position": "Administrator"
+                    "Position": "Adminstrator"
                 }
             ]
         },
         {
-            "Title": "",
+            "Title": "ANC Constituency Office: Tlokwe (Potchefstroom)",
             "Source URL": "",
             "Source Note": "",
-            "Party": "IFP",
+            "Party": "ANC",
             "Type": "office",
             "Province": "Kwazulu-Natal",
-            "Physical Address": "250 Jabu Ndlovu Street, PMB, 3251",
+            "Physical Address": "6481 Lekhele Str Ikageng T/Ship 2531",
             "E-mail": "",
-            "Tel": "071 284 7218/ 076 340 7118",
+            "Tel": "018 259 3363/ F: 018 295 0196",
             "identifiers": {
-                "constituency-office/IFP/": ""
-            },
-            "People": [
-                {
-                    "Name": "Ms. M Mnguni",
-                    "Tel": "071 284 7218/ 076 340 7118",
-                    "Email": "",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "IFP",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "No. 2A Durban Club Place, Durban",
-            "E-mail": "",
-            "Tel": "031 365 1350",
-            "identifiers": {
-                "constituency-office/IFP/": ""
-            },
-            "People": [
-                {
-                    "Name": "Gjina Zulu",
-                    "Tel": "031 365 1350",
-                    "Email": "",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "IFP",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "200 Florence Nightingale road, Westcliff, Chatsworth",
-            "E-mail": "",
-            "Tel": "074 458 9804",
-            "identifiers": {
-                "constituency-office/IFP/": ""
-            },
-            "People": [
-                {
-                    "Name": "Selvan Govender",
-                    "Tel": "074 458 9804",
-                    "Email": "",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "IFP",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "Temple Chambers Suite 7 37 Moss Street, Verulam",
-            "E-mail": "",
-            "Tel": "073 583 8585/031 365 1300",
-            "identifiers": {
-                "constituency-office/IFP/": ""
-            },
-            "People": [
-                {
-                    "Name": "Zama Sithole",
-                    "Tel": "073 583 8585/031 365 1300",
-                    "Email": "",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "IFP",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "No.1 Garfield House, 44 Bisset Street, Port Shepstone, 4240",
-            "E-mail": "",
-            "Tel": "039 682 0770",
-            "identifiers": {
-                "constituency-office/IFP/": ""
+                "constituency-office/ANC/": ""
             },
             "People": [
                 {
                     "Name": "",
-                    "Tel": "039 682 0770",
+                    "Tel": "018 259 3363/ F: 018 295 0196",
                     "Email": "",
                     "Position": ""
                 }
             ]
         },
         {
-            "Title": "",
+            "Title": "ANC Constituency Office: Ventersdorp",
             "Source URL": "",
             "Source Note": "",
-            "Party": "IFP",
+            "Party": "ANC",
             "Type": "office",
             "Province": "Kwazulu-Natal",
-            "Physical Address": "IFP Constituency Office, Margaret Road, Ixopo",
+            "Physical Address": "Carmichael Str Old Hotel Building 1st Floor",
             "E-mail": "",
-            "Tel": "",
+            "Tel": "018 264 3314/2346",
             "identifiers": {
-                "constituency-office/IFP/": ""
+                "constituency-office/ANC/": ""
             },
             "People": [
                 {
                     "Name": "",
-                    "Tel": "",
+                    "Tel": "018 264 3314/2346",
                     "Email": "",
                     "Position": ""
                 }
             ]
         },
         {
-            "Title": "",
+            "Title": "ANC Constituency Office: Maquassi Hills (Wolmaranstad)",
             "Source URL": "",
             "Source Note": "",
-            "Party": "IFP",
+            "Party": "ANC",
             "Type": "office",
             "Province": "Kwazulu-Natal",
-            "Physical Address": "Office no. 14, Ithala Building, Princess Magogo Street, Ulundi",
+            "Physical Address": "23 Broadbent Algane Property P.O.Box 649 Wolmaranstad",
             "E-mail": "",
-            "Tel": "076 557 8096/074 259 0820",
+            "Tel": "071 772 7476/ 018 596 1545",
             "identifiers": {
-                "constituency-office/IFP/": ""
+                "constituency-office/ANC/": ""
             },
             "People": [
                 {
-                    "Name": "Nolwazi Mbatha",
-                    "Tel": "076 557 8096/074 259 0820",
+                    "Name": "Dipuo Mokoto",
+                    "Tel": "071 772 7476/ 018 596 1545",
                     "Email": "",
-                    "Position": "Administrator"
+                    "Position": "Adminstrator"
                 }
             ]
         },
         {
-            "Title": "",
+            "Title": "ANC Constituency Office: Kagisano (Ganyesa)",
             "Source URL": "",
             "Source Note": "",
-            "Party": "IFP",
+            "Party": "ANC",
             "Type": "office",
             "Province": "Kwazulu-Natal",
-            "Physical Address": "Smax Building, Main Road, Jozini Umkhanyakude",
+            "Physical Address": "Building near post off. P.O.Box 1518 Ganyesa 8613",
             "E-mail": "",
-            "Tel": "035 572 1008",
+            "Tel": "053 998 4068",
             "identifiers": {
-                "constituency-office/IFP/": ""
-            },
-            "People": [
-                {
-                    "Name": "Sindi Nkosi",
-                    "Tel": "035 572 1008",
-                    "Email": "",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "IFP",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "121 Mahatma Ghandi Street, KwaDukuza, 4450",
-            "E-mail": "",
-            "Tel": "032 551 6813",
-            "identifiers": {
-                "constituency-office/IFP/": ""
+                "constituency-office/ANC/": ""
             },
             "People": [
                 {
                     "Name": "",
-                    "Tel": "032 551 6813",
+                    "Tel": "053 998 4068",
                     "Email": "",
                     "Position": ""
                 }
             ]
         },
         {
-            "Title": "",
+            "Title": "ANC Constituency Office: Tosca (Molopo)",
             "Source URL": "",
             "Source Note": "",
-            "Party": "DA",
+            "Party": "ANC",
             "Type": "office",
             "Province": "Kwazulu-Natal",
-            "Physical Address": "Umgungundlovu East, Pietermaritzburg, 3201",
+            "Physical Address": "18 Vryburg Road, Tosca",
             "E-mail": "",
-            "Tel": "072 240 7061/033 355 7700/7753",
+            "Tel": "082 295 5155/ 053 933 0037",
             "identifiers": {
-                "constituency-office/DA/": ""
+                "constituency-office/ANC/": ""
             },
             "People": [
                 {
-                    "Name": "Nobuhle Dlamini",
-                    "Tel": "072 240 7061/033 355 7700/7753",
+                    "Name": "Piet Selotlego",
+                    "Tel": "082 295 5155/ 053 933 0037",
                     "Email": "",
-                    "Position": "Administrator"
+                    "Position": "Adminstrator"
                 }
             ]
         },
         {
-            "Title": "",
+            "Title": "ANC Constituency Office: Lekwa Teemane (Bloemhof)",
             "Source URL": "",
             "Source Note": "",
-            "Party": "DA",
+            "Party": "ANC",
             "Type": "office",
             "Province": "Kwazulu-Natal",
-            "Physical Address": "1 Scott Street, Port Shepstone, 4240",
-            "E-mail": "dlaminib@kznleg.gov.za",
-            "Tel": "072 240 7061",
-            "identifiers": {
-                "constituency-office/DA/": ""
-            },
-            "People": [
-                {
-                    "Name": "Nobuhle Dlamini",
-                    "Tel": "072 240 7061",
-                    "Email": "dlaminib@kznleg.gov.za",
-                    "Position": "PA/Assistant"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "EFF",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "EFF KZN PRrovincial Office, 86 Bulwer Road, Glenwood, Durban, 4001",
-            "E-mail": "moodleyd@kznlegislature.gov.za",
-            "Tel": "079 494 9940/033 355 7074",
-            "identifiers": {
-                "constituency-office/EFF/": ""
-            },
-            "People": [
-                {
-                    "Name": "Dees Moodley",
-                    "Tel": "079 494 9940/033 355 7074",
-                    "Email": "moodleyd@kznlegislature.gov.za",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "EFF",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "EFF Amajuba Regional Office Shop 61 & 62 Allen Street, Newcastle, 2940",
-            "E-mail": "moodleyd@kznlegislature.gov.za",
-            "Tel": "079 494 9940/033 355 7074",
-            "identifiers": {
-                "constituency-office/EFF/": ""
-            },
-            "People": [
-                {
-                    "Name": "Dees Moodley",
-                    "Tel": "079 494 9940/033 355 7074",
-                    "Email": "moodleyd@kznlegislature.gov.za",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "EFF",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "EFF UMKHANYAKUDE REGIONAL OFFICE SHOP 22C MKUZE PLAZA OLD MAIN ROAD MKUZE, 3965",
-            "E-mail": "moodleyd@kznlegislature.gov.za",
-            "Tel": "079 494 9940/033 355 7074",
-            "identifiers": {
-                "constituency-office/EFF/": ""
-            },
-            "People": [
-                {
-                    "Name": "Dees Moodley",
-                    "Tel": "079 494 9940/033 355 7074",
-                    "Email": "moodleyd@kznlegislature.gov.za",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "EFF",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "EFF HARRY GWALA REGIONAL OFFICE SHOP 15 DE BRUYN PLAZA UMZIMKHULU, 3297",
-            "E-mail": "moodleyd@kznlegislature.gov.za",
-            "Tel": "079 494 9940/033 355 7074",
-            "identifiers": {
-                "constituency-office/EFF/": ""
-            },
-            "People": [
-                {
-                    "Name": "Dees Moodley",
-                    "Tel": "079 494 9940/033 355 7074",
-                    "Email": "moodleyd@kznlegislature.gov.za",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "EFF",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "EFF UMGUNGUNDLOVU REGIONAL OFFICE 95 BOOM STREET PIETERMARITZBURG, 3200",
-            "E-mail": "moodleyd@kznlegislature.gov.za",
-            "Tel": "079 494 9940/033 355 7074",
-            "identifiers": {
-                "constituency-office/EFF/": ""
-            },
-            "People": [
-                {
-                    "Name": "Dees Moodley",
-                    "Tel": "079 494 9940/033 355 7074",
-                    "Email": "moodleyd@kznlegislature.gov.za",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "EFF",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "EFF UMZINYATHI AND AMAJUBA REGIONAL OFFICE 48 WILSON STREET DUNDEE, 3000",
-            "E-mail": "moodleyd@kznlegislature.gov.za",
-            "Tel": "079 494 9940/033 355 7074",
-            "identifiers": {
-                "constituency-office/EFF/": ""
-            },
-            "People": [
-                {
-                    "Name": "Dees Moodley",
-                    "Tel": "079 494 9940/033 355 7074",
-                    "Email": "moodleyd@kznlegislature.gov.za",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "EFF",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "EFF ZULULAND REGIONAL OFFICE 6 VAN RIEBEECK STRET VRYHEID, 3100",
-            "E-mail": "moodleyd@kznlegislature.gov.za",
-            "Tel": "079 494 9940/033 355 7074",
-            "identifiers": {
-                "constituency-office/EFF/": ""
-            },
-            "People": [
-                {
-                    "Name": "Dees Moodley",
-                    "Tel": "079 494 9940/033 355 7074",
-                    "Email": "moodleyd@kznlegislature.gov.za",
-                    "Position": "Administrator"
-                }
-            ]
-        },
-        {
-            "Title": "",
-            "Source URL": "",
-            "Source Note": "",
-            "Party": "Minority Front",
-            "Type": "office",
-            "Province": "Kwazulu-Natal",
-            "Physical Address": "76 Trisula Avenue Arena PARK Chatsworth 4092",
+            "Physical Address": "5B Mark Street, Bloemhof",
             "E-mail": "",
-            "Tel": "033 355 7638",
+            "Tel": "073 229 9004/ 053 433 0683",
             "identifiers": {
-                "constituency-office/Minority Front/": ""
+                "constituency-office/ANC/": ""
             },
             "People": [
                 {
-                    "Name": "Priyanka Nunkumar",
-                    "Tel": "033 355 7638",
+                    "Name": "Obakeng Polori",
+                    "Tel": "073 229 9004/ 053 433 0683",
                     "Email": "",
-                    "Position": "Administrator"
+                    "Position": "Adminstrator"
                 }
             ]
         },
         {
-            "Title": "",
+            "Title": "ANC Constituency Office: Greater Taung (Taung 420)",
             "Source URL": "",
             "Source Note": "",
-            "Party": "ATM",
+            "Party": "ANC",
             "Type": "office",
             "Province": "Kwazulu-Natal",
-            "Physical Address": "Suite 501, Chatter House 75 Crompton Street, Pinetown",
+            "Physical Address": "93 Lesedi Bldng Taung Station 8580",
             "E-mail": "",
-            "Tel": "083 691 4630",
+            "Tel": "053 994 1411",
             "identifiers": {
-                "constituency-office/ATM/": ""
+                "constituency-office/ANC/": ""
             },
             "People": [
                 {
-                    "Name": "Gugu Xulu",
-                    "Tel": "083 691 4630",
+                    "Name": "Masego Mokua",
+                    "Tel": "053 994 1411",
                     "Email": "",
-                    "Position": "Administrator"
+                    "Position": "Adminstrator"
                 }
             ]
         },
         {
-            "Title": "",
+            "Title": "ANC Constituency Office: Greater Taung(Sekhing)",
             "Source URL": "",
             "Source Note": "",
-            "Party": "ACDP",
+            "Party": "ANC",
             "Type": "office",
             "Province": "Kwazulu-Natal",
-            "Physical Address": "108 Bougainville Street Zevopix Building, Office Mtubatuba",
-            "E-mail": "nk.zikhali43@gmail.com",
-            "Tel": "071 4415 339/072 552 2252",
+            "Physical Address": "597 Block H Sekhing Village",
+            "E-mail": "",
+            "Tel": "073 843 9542/ 082 523 2755",
             "identifiers": {
-                "constituency-office/ACDP/": ""
+                "constituency-office/ANC/": ""
             },
             "People": [
                 {
-                    "Name": "Thembelihle Zikhali",
-                    "Tel": "071 4415 339/072 552 2252",
-                    "Email": "nk.zikhali43@gmail.com",
-                    "Position": "Administrator"
+                    "Name": "Fredah Mahura",
+                    "Tel": "073 843 9542/ 082 523 2755",
+                    "Email": "",
+                    "Position": "Adminstrator"
+                }
+            ]
+        },
+        {
+            "Title": "ANC Constituency Office: Naledi (Vryburg)",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "ANC",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "Sanlam Centre Shop 23 P.O.Box 2949 Vryburg",
+            "E-mail": "",
+            "Tel": "053 927 0118/1053",
+            "identifiers": {
+                "constituency-office/ANC/": ""
+            },
+            "People": [
+                {
+                    "Name": "",
+                    "Tel": "053 927 0118/1053",
+                    "Email": "",
+                    "Position": ""
+                }
+            ]
+        },
+        {
+            "Title": "ANC Constituency Office: Mamusa (Schweizer Reneke)",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "ANC",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "Shop no.4 Indian Centre Amalia Road",
+            "E-mail": "",
+            "Tel": "078 145 0527/ 053 963 2381",
+            "identifiers": {
+                "constituency-office/ANC/": ""
+            },
+            "People": [
+                {
+                    "Name": "Nonofo Lechuti",
+                    "Tel": "078 145 0527/ 053 963 2381",
+                    "Email": "",
+                    "Position": "Adminstrator"
+                }
+            ]
+        },
+        {
+            "Title": "EFF Constituency Office: Vryburg",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "EFF",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "61 Stella Street",
+            "E-mail": "",
+            "Tel": "061 452 9791",
+            "identifiers": {
+                "constituency-office/EFF/": ""
+            },
+            "People": [
+                {
+                    "Name": "",
+                    "Tel": "061 452 9791",
+                    "Email": "",
+                    "Position": ""
+                }
+            ]
+        },
+        {
+            "Title": "EFF Constituency Office: Rustenburg",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "EFF",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "Shop no. 1 Bethlehem Street",
+            "E-mail": "",
+            "Tel": "082 555 8281",
+            "identifiers": {
+                "constituency-office/EFF/": ""
+            },
+            "People": [
+                {
+                    "Name": "",
+                    "Tel": "082 555 8281",
+                    "Email": "",
+                    "Position": ""
+                }
+            ]
+        },
+        {
+            "Title": "EFF Constituency Office: Rustenburg",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "EFF",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "Shop no. 1 Bethlehem Street",
+            "E-mail": "",
+            "Tel": "082 555 8281",
+            "identifiers": {
+                "constituency-office/EFF/": ""
+            },
+            "People": [
+                {
+                    "Name": "",
+                    "Tel": "082 555 8281",
+                    "Email": "",
+                    "Position": ""
+                }
+            ]
+        },
+        {
+            "Title": "EFF Constituency Office: Mahikeng",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "EFF",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "Shop no. 10 Crystal Building",
+            "E-mail": "",
+            "Tel": "061 838 6135",
+            "identifiers": {
+                "constituency-office/EFF/": ""
+            },
+            "People": [
+                {
+                    "Name": "",
+                    "Tel": "061 838 6135",
+                    "Email": "",
+                    "Position": ""
+                }
+            ]
+        },
+        {
+            "Title": "EFF Constituency Office: Mahikeng",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "EFF",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "Shop no. 10 Crystal Building",
+            "E-mail": "",
+            "Tel": "078 332 8831",
+            "identifiers": {
+                "constituency-office/EFF/": ""
+            },
+            "People": [
+                {
+                    "Name": "",
+                    "Tel": "078 332 8831",
+                    "Email": "",
+                    "Position": ""
+                }
+            ]
+        },
+        {
+            "Title": "EFF Constituency Office: Klerksdorp",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "EFF",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "Shop no. 207 Leasik Street",
+            "E-mail": "",
+            "Tel": "082 555 8480",
+            "identifiers": {
+                "constituency-office/EFF/": ""
+            },
+            "People": [
+                {
+                    "Name": "",
+                    "Tel": "082 555 8480",
+                    "Email": "",
+                    "Position": ""
                 }
             ]
         }

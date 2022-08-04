@@ -1,12 +1,12 @@
 {
     "offices": [
         {
-            "Title": "",
+            "Title": "FF+ Constituency Office: ",
             "Source URL": "",
             "Source Note": "",
             "Party": "FF+",
             "Type": "office",
-            "Province": "Kwazulu-Natal",
+            "Province": "North-West",
             "Physical Address": "256 Beyers Naude Rusternburg",
             "E-mail": "cornetvt@vfplus.org.za",
             "Tel": "018 484 1086",
@@ -23,12 +23,12 @@
             ]
         },
         {
-            "Title": "Buffelspark",
+            "Title": "FF+ Constituency Office: Buffelspark",
             "Source URL": "",
             "Source Note": "",
             "Party": "FF+",
             "Type": "office",
-            "Province": "Kwazulu-Natal",
+            "Province": "North-West",
             "Physical Address": "Office 14, Flamwood Klerksdorp",
             "E-mail": "cornetvt@vfplus.org.za",
             "Tel": "018 484 1086",
@@ -45,12 +45,12 @@
             ]
         },
         {
-            "Title": "Mafikeng",
+            "Title": "ANC Constituency Office: Mafikeng",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
-            "Province": "Kwazulu-Natal",
+            "Province": "North-West",
             "Physical Address": "09 Victoria Street, Build It Building",
             "E-mail": "",
             "Tel": "082 455 0230/0183814221",
@@ -67,12 +67,12 @@
             ]
         },
         {
-            "Title": "Ramotshere (Zeerust)",
+            "Title": "ANC Constituency Office: Ramotshere (Zeerust)",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
-            "Province": "Kwazulu-Natal",
+            "Province": "North-West",
             "Physical Address": "Maritz & Coetzee, Zeerust",
             "E-mail": "",
             "Tel": "078 945 0318/ 018 642 1535",
@@ -89,12 +89,12 @@
             ]
         },
         {
-            "Title": "Ditsobotla (Lichtenburg)",
+            "Title": "ANC Constituency Office: Ditsobotla (Lichtenburg)",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
-            "Province": "Kwazulu-Natal",
+            "Province": "North-West",
             "Physical Address": "54 Nelson Mandela Street, Old Bankun Bldng Lichtenburg",
             "E-mail": "",
             "Tel": "076 993 1939/ 018 632 0857",
@@ -111,12 +111,12 @@
             ]
         },
         {
-            "Title": "Tswaing (Delaryville)",
+            "Title": "ANC Constituency Office: Tswaing (Delaryville)",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
-            "Province": "Kwazulu-Natal",
+            "Province": "North-West",
             "Physical Address": "23 Gen Delarey Contact Point Delaryville",
             "E-mail": "",
             "Tel": "073 073 7859/ 018 948 0744/1570",
@@ -133,12 +133,12 @@
             ]
         },
         {
-            "Title": "Ratlou (Setlagole)",
+            "Title": "ANC Constituency Office: Ratlou (Setlagole)",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
-            "Province": "Kwazulu-Natal",
+            "Province": "North-West",
             "Physical Address": "Setlagole Shopping Mall",
             "E-mail": "",
             "Tel": "073 555 0553/ 018 100 0027",
@@ -155,12 +155,12 @@
             ]
         },
         {
-            "Title": "Rustenburg",
+            "Title": "ANC Constituency Office: Rustenburg",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
-            "Province": "Kwazulu-Natal",
+            "Province": "North-West",
             "Physical Address": "111 Chruch Street, Rustenburg 0300",
             "E-mail": "",
             "Tel": "072 765 8325/ 014 592 3537",
@@ -177,12 +177,12 @@
             ]
         },
         {
-            "Title": "Marikana",
+            "Title": "ANC Constituency Office: Marikana",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
-            "Province": "Kwazulu-Natal",
+            "Province": "North-West",
             "Physical Address": "Shop no.08 Marikana Mall",
             "E-mail": "",
             "Tel": "076 942 1736",
@@ -199,12 +199,12 @@
             ]
         },
         {
-            "Title": "Kgetleng (Swaartruggens)",
+            "Title": "ANC Constituency Office: Kgetleng (Swaartruggens)",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
-            "Province": "Kwazulu-Natal",
+            "Province": "North-West",
             "Physical Address": "3 Kort Street, Swaartruggens",
             "E-mail": "",
             "Tel": "072 690 8086/ 014 544 0066",
@@ -221,12 +221,12 @@
             ]
         },
         {
-            "Title": "Madibeng (Brits)",
+            "Title": "ANC Constituency Office: Madibeng (Brits)",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
-            "Province": "Kwazulu-Natal",
+            "Province": "North-West",
             "Physical Address": "13 Murry Ave, Brits",
             "E-mail": "",
             "Tel": "078 482 8807/ 012 252 5294",
@@ -243,12 +243,12 @@
             ]
         },
         {
-            "Title": "Moses Kotane (Mogwase)",
+            "Title": "ANC Constituency Office: Moses Kotane (Mogwase)",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
-            "Province": "Kwazulu-Natal",
+            "Province": "North-West",
             "Physical Address": "Moses Kotane (Mogwase)",
             "E-mail": "",
             "Tel": "084 438 0406/ 014 555 6301",
@@ -265,12 +265,12 @@
             ]
         },
         {
-            "Title": "Moses Kotane (Madikwe)",
+            "Title": "ANC Constituency Office: Moses Kotane (Madikwe)",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
-            "Province": "Kwazulu-Natal",
+            "Province": "North-West",
             "Physical Address": "Shop no.7 Madikwe Shopping Centre",
             "E-mail": "",
             "Tel": "014 553 2332/ F: 014 553 2333",
@@ -287,12 +287,12 @@
             ]
         },
         {
-            "Title": "Moretelle (Themba)",
+            "Title": "ANC Constituency Office: Moretelle (Themba)",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
-            "Province": "Kwazulu-Natal",
+            "Province": "North-West",
             "Physical Address": "Stand No 4065 Mathibestadt",
             "E-mail": "",
             "Tel": "012 711 8927",
@@ -309,12 +309,12 @@
             ]
         },
         {
-            "Title": "Matlosana (Klerksdorp)",
+            "Title": "ANC Constituency Office: Matlosana (Klerksdorp)",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
-            "Province": "Kwazulu-Natal",
+            "Province": "North-West",
             "Physical Address": "51 Boom Street 216, 2nd Floor Klerksdorp",
             "E-mail": "",
             "Tel": "078 738 7191/ 018 462 8489",
@@ -331,12 +331,12 @@
             ]
         },
         {
-            "Title": "Tlokwe (Potchefstroom)",
+            "Title": "ANC Constituency Office: Tlokwe (Potchefstroom)",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
-            "Province": "Kwazulu-Natal",
+            "Province": "North-West",
             "Physical Address": "6481 Lekhele Str Ikageng T/Ship 2531",
             "E-mail": "",
             "Tel": "018 259 3363/ F: 018 295 0196",
@@ -353,12 +353,12 @@
             ]
         },
         {
-            "Title": "Ventersdorp",
+            "Title": "ANC Constituency Office: Ventersdorp",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
-            "Province": "Kwazulu-Natal",
+            "Province": "North-West",
             "Physical Address": "Carmichael Str Old Hotel Building 1st Floor",
             "E-mail": "",
             "Tel": "018 264 3314/2346",
@@ -375,12 +375,12 @@
             ]
         },
         {
-            "Title": "Maquassi Hills (Wolmaranstad)",
+            "Title": "ANC Constituency Office: Maquassi Hills (Wolmaranstad)",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
-            "Province": "Kwazulu-Natal",
+            "Province": "North-West",
             "Physical Address": "23 Broadbent Algane Property P.O.Box 649 Wolmaranstad",
             "E-mail": "",
             "Tel": "071 772 7476/ 018 596 1545",
@@ -397,12 +397,12 @@
             ]
         },
         {
-            "Title": "Kagisano (Ganyesa)",
+            "Title": "ANC Constituency Office: Kagisano (Ganyesa)",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
-            "Province": "Kwazulu-Natal",
+            "Province": "North-West",
             "Physical Address": "Building near post off. P.O.Box 1518 Ganyesa 8613",
             "E-mail": "",
             "Tel": "053 998 4068",
@@ -419,12 +419,12 @@
             ]
         },
         {
-            "Title": "Tosca (Molopo)",
+            "Title": "ANC Constituency Office: Tosca (Molopo)",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
-            "Province": "Kwazulu-Natal",
+            "Province": "North-West",
             "Physical Address": "18 Vryburg Road, Tosca",
             "E-mail": "",
             "Tel": "082 295 5155/ 053 933 0037",
@@ -441,12 +441,12 @@
             ]
         },
         {
-            "Title": "Lekwa Teemane (Bloemhof)",
+            "Title": "ANC Constituency Office: Lekwa Teemane (Bloemhof)",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
-            "Province": "Kwazulu-Natal",
+            "Province": "North-West",
             "Physical Address": "5B Mark Street, Bloemhof",
             "E-mail": "",
             "Tel": "073 229 9004/ 053 433 0683",
@@ -463,12 +463,12 @@
             ]
         },
         {
-            "Title": "Greater Taung (Taung 420)",
+            "Title": "ANC Constituency Office: Greater Taung (Taung 420)",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
-            "Province": "Kwazulu-Natal",
+            "Province": "North-West",
             "Physical Address": "93 Lesedi Bldng Taung Station 8580",
             "E-mail": "",
             "Tel": "053 994 1411",
@@ -485,12 +485,12 @@
             ]
         },
         {
-            "Title": "Greater Taung(Sekhing)",
+            "Title": "ANC Constituency Office: Greater Taung(Sekhing)",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
-            "Province": "Kwazulu-Natal",
+            "Province": "North-West",
             "Physical Address": "597 Block H Sekhing Village",
             "E-mail": "",
             "Tel": "073 843 9542/ 082 523 2755",
@@ -507,12 +507,12 @@
             ]
         },
         {
-            "Title": "Naledi (Vryburg)",
+            "Title": "ANC Constituency Office: Naledi (Vryburg)",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
-            "Province": "Kwazulu-Natal",
+            "Province": "North-West",
             "Physical Address": "Sanlam Centre Shop 23 P.O.Box 2949 Vryburg",
             "E-mail": "",
             "Tel": "053 927 0118/1053",
@@ -529,12 +529,12 @@
             ]
         },
         {
-            "Title": "Mamusa (Schweizer Reneke)",
+            "Title": "ANC Constituency Office: Mamusa (Schweizer Reneke)",
             "Source URL": "",
             "Source Note": "",
             "Party": "ANC",
             "Type": "office",
-            "Province": "Kwazulu-Natal",
+            "Province": "North-West",
             "Physical Address": "Shop no.4 Indian Centre Amalia Road",
             "E-mail": "",
             "Tel": "078 145 0527/ 053 963 2381",
@@ -551,12 +551,12 @@
             ]
         },
         {
-            "Title": "Vryburg",
+            "Title": "EFF Constituency Office: Vryburg",
             "Source URL": "",
             "Source Note": "",
             "Party": "EFF",
             "Type": "office",
-            "Province": "Kwazulu-Natal",
+            "Province": "North-West",
             "Physical Address": "61 Stella Street",
             "E-mail": "",
             "Tel": "061 452 9791",
@@ -573,12 +573,12 @@
             ]
         },
         {
-            "Title": "Rustenburg",
+            "Title": "EFF Constituency Office: Rustenburg",
             "Source URL": "",
             "Source Note": "",
             "Party": "EFF",
             "Type": "office",
-            "Province": "Kwazulu-Natal",
+            "Province": "North-West",
             "Physical Address": "Shop no. 1 Bethlehem Street",
             "E-mail": "",
             "Tel": "082 555 8281",
@@ -595,12 +595,12 @@
             ]
         },
         {
-            "Title": "Rustenburg",
+            "Title": "EFF Constituency Office: Rustenburg",
             "Source URL": "",
             "Source Note": "",
             "Party": "EFF",
             "Type": "office",
-            "Province": "Kwazulu-Natal",
+            "Province": "North-West",
             "Physical Address": "Shop no. 1 Bethlehem Street",
             "E-mail": "",
             "Tel": "082 555 8281",
@@ -617,12 +617,12 @@
             ]
         },
         {
-            "Title": "Mahikeng",
+            "Title": "EFF Constituency Office: Mahikeng",
             "Source URL": "",
             "Source Note": "",
             "Party": "EFF",
             "Type": "office",
-            "Province": "Kwazulu-Natal",
+            "Province": "North-West",
             "Physical Address": "Shop no. 10 Crystal Building",
             "E-mail": "",
             "Tel": "061 838 6135",
@@ -639,12 +639,12 @@
             ]
         },
         {
-            "Title": "Mahikeng",
+            "Title": "EFF Constituency Office: Mahikeng",
             "Source URL": "",
             "Source Note": "",
             "Party": "EFF",
             "Type": "office",
-            "Province": "Kwazulu-Natal",
+            "Province": "North-West",
             "Physical Address": "Shop no. 10 Crystal Building",
             "E-mail": "",
             "Tel": "078 332 8831",
@@ -661,12 +661,12 @@
             ]
         },
         {
-            "Title": "Klerksdorp",
+            "Title": "EFF Constituency Office: Klerksdorp",
             "Source URL": "",
             "Source Note": "",
             "Party": "EFF",
             "Type": "office",
-            "Province": "Kwazulu-Natal",
+            "Province": "North-West",
             "Physical Address": "Shop no. 207 Leasik Street",
             "E-mail": "",
             "Tel": "082 555 8480",
