@@ -1,0 +1,138 @@
+{
+    "offices": [
+        {
+            "Title": "EFF Constituency Office: Vryburg",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "EFF",
+            "Type": "office",
+            "Province": "North West",
+            "Physical Address": "61 Stella Street",
+            "E-mail": "",
+            "Tel": "061 452 9791",
+            "identifiers": {
+                "constituency-office/EFF/": ""
+            },
+            "People": [
+                {
+                    "Name": "",
+                    "Tel": "061 452 9791",
+                    "Email": "",
+                    "Position": ""
+                }
+            ]
+        },
+        {
+            "Title": "EFF Constituency Office: Rustenburg",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "EFF",
+            "Type": "office",
+            "Province": "North West",
+            "Physical Address": "Shop no. 1 Bethlehem Street",
+            "E-mail": "",
+            "Tel": "082 555 8281",
+            "identifiers": {
+                "constituency-office/EFF/": ""
+            },
+            "People": [
+                {
+                    "Name": "",
+                    "Tel": "082 555 8281",
+                    "Email": "",
+                    "Position": ""
+                }
+            ]
+        },
+        {
+            "Title": "EFF Constituency Office: Rustenburg",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "EFF",
+            "Type": "office",
+            "Province": "North West",
+            "Physical Address": "Shop no. 1 Bethlehem Street",
+            "E-mail": "",
+            "Tel": "082 555 8281",
+            "identifiers": {
+                "constituency-office/EFF/": ""
+            },
+            "People": [
+                {
+                    "Name": "",
+                    "Tel": "082 555 8281",
+                    "Email": "",
+                    "Position": ""
+                }
+            ]
+        },
+        {
+            "Title": "EFF Constituency Office: Mahikeng",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "EFF",
+            "Type": "office",
+            "Province": "North West",
+            "Physical Address": "Shop no. 10 Crystal Building",
+            "E-mail": "",
+            "Tel": "061 838 6135",
+            "identifiers": {
+                "constituency-office/EFF/": ""
+            },
+            "People": [
+                {
+                    "Name": "",
+                    "Tel": "061 838 6135",
+                    "Email": "",
+                    "Position": ""
+                }
+            ]
+        },
+        {
+            "Title": "EFF Constituency Office: Mahikeng",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "EFF",
+            "Type": "office",
+            "Province": "North West",
+            "Physical Address": "Shop no. 10 Crystal Building",
+            "E-mail": "",
+            "Tel": "078 332 8831",
+            "identifiers": {
+                "constituency-office/EFF/": ""
+            },
+            "People": [
+                {
+                    "Name": "",
+                    "Tel": "078 332 8831",
+                    "Email": "",
+                    "Position": ""
+                }
+            ]
+        },
+        {
+            "Title": "EFF Constituency Office: Klerksdorp",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "EFF",
+            "Type": "office",
+            "Province": "North West",
+            "Physical Address": "Shop no. 207 Leasik Street",
+            "E-mail": "",
+            "Tel": "082 555 8480",
+            "identifiers": {
+                "constituency-office/EFF/": ""
+            },
+            "People": [
+                {
+                    "Name": "",
+                    "Tel": "082 555 8480",
+                    "Email": "",
+                    "Position": ""
+                }
+            ]
+        }
+    ],
+    "start_date": "2022-08-01",
+    "end_date": "2022-07-31"
+}
