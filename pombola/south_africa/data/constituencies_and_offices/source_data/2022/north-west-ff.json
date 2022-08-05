@@ -1,0 +1,50 @@
+{
+    "offices": [
+        {
+            "Title": "FF Constituency Office: ",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "FF",
+            "Type": "office",
+            "Province": "North West",
+            "Physical Address": "256 Beyers Naude Rusternburg",
+            "E-mail": "cornetvt@vfplus.org.za",
+            "Tel": "018 484 1086",
+            "identifiers": {
+                "constituency-office/FF/": ""
+            },
+            "People": [
+                {
+                    "Name": "Cornet Van Tonder",
+                    "Tel": "018 484 1086",
+                    "Email": "cornetvt@vfplus.org.za",
+                    "Position": ""
+                }
+            ]
+        },
+        {
+            "Title": "FF Constituency Office: Buffelspark",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "FF",
+            "Type": "office",
+            "Province": "North West",
+            "Physical Address": "Office 14, Flamwood Klerksdorp",
+            "E-mail": "cornetvt@vfplus.org.za",
+            "Tel": "018 484 1086",
+            "identifiers": {
+                "constituency-office/FF/": ""
+            },
+            "People": [
+                {
+                    "Name": "Cornet Van Tonder",
+                    "Tel": "018 484 1086",
+                    "Email": "cornetvt@vfplus.org.za",
+                    "Position": ""
+                }
+            ]
+        }
+    ],
+    "start_date": "2022-08-01",
+    "end_date": "2022-07-31"
+}

@@ -1,0 +1,28 @@
+{
+    "offices": [
+        {
+            "Title": "ATM Constituency Office: ",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "ATM",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "Suite 501, Chatter House 75 Crompton Street, Pinetown",
+            "E-mail": "",
+            "Tel": "083 691 4630",
+            "identifiers": {
+                "constituency-office/ATM/": ""
+            },
+            "People": [
+                {
+                    "Name": "Gugu Xulu",
+                    "Tel": "083 691 4630",
+                    "Email": "",
+                    "Position": "Administrator"
+                }
+            ]
+        }
+    ],
+    "start_date": "2022-08-01",
+    "end_date": "2022-07-31"
+}

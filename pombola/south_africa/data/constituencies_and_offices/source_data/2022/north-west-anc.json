@@ -1,0 +1,239 @@
+{
+    "offices": [
+        {
+            "Title": "ANC Constituency Office: Mafikeng",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "ANC",
+            "Type": "office",
+            "Province": "North West",
+            "Physical Address": "09 Victoria Street, Build It Building",
+            "E-mail": "",
+            "Tel": "082 455 0230/0183814221",
+            "identifiers": {
+                "constituency-office/ANC/": ""
+            },
+            "People": [
+                {
+                    "Name": "Malebo Nkoliswa",
+                    "Tel": "082 455 0230/0183814221",
+                    "Email": "",
+                    "Position": "Adminstrator"
+                }
+            ]
+        },
+        {
+            "Title": "ANC Constituency Office: Ramotshere (Zeerust)",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "ANC",
+            "Type": "office",
+            "Province": "North West",
+            "Physical Address": "Maritz & Coetzee, Zeerust",
+            "E-mail": "",
+            "Tel": "078 945 0318/ 018 642 1535",
+            "identifiers": {
+                "constituency-office/ANC/": ""
+            },
+            "People": [
+                {
+                    "Name": "Tiny Rakgodi",
+                    "Tel": "078 945 0318/ 018 642 1535",
+                    "Email": "",
+                    "Position": "Adminstrator"
+                }
+            ]
+        },
+        {
+            "Title": "ANC Constituency Office: Ditsobotla (Lichtenburg)",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "ANC",
+            "Type": "office",
+            "Province": "North West",
+            "Physical Address": "54 Nelson Mandela Street, Old Bankun Bldng Lichtenburg",
+            "E-mail": "",
+            "Tel": "076 993 1939/ 018 632 0857",
+            "identifiers": {
+                "constituency-office/ANC/": ""
+            },
+            "People": [
+                {
+                    "Name": "Tlamelo Mancwe",
+                    "Tel": "076 993 1939/ 018 632 0857",
+                    "Email": "",
+                    "Position": "Adminstrator"
+                }
+            ]
+        },
+        {
+            "Title": "ANC Constituency Office: Tswaing (Delaryville)",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "ANC",
+            "Type": "office",
+            "Province": "North West",
+            "Physical Address": "23 Gen Delarey Contact Point Delaryville",
+            "E-mail": "",
+            "Tel": "073 073 7859/ 018 948 0744/1570",
+            "identifiers": {
+                "constituency-office/ANC/": ""
+            },
+            "People": [
+                {
+                    "Name": "Mpho Kgalapa",
+                    "Tel": "073 073 7859/ 018 948 0744/1570",
+                    "Email": "",
+                    "Position": "Adminstrator"
+                }
+            ]
+        },
+        {
+            "Title": "ANC Constituency Office: Ratlou (Setlagole)",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "ANC",
+            "Type": "office",
+            "Province": "North West",
+            "Physical Address": "Setlagole Shopping Mall",
+            "E-mail": "",
+            "Tel": "073 555 0553/ 018 100 0027",
+            "identifiers": {
+                "constituency-office/ANC/": ""
+            },
+            "People": [
+                {
+                    "Name": "Lenjone Gaboutlwelwe",
+                    "Tel": "073 555 0553/ 018 100 0027",
+                    "Email": "",
+                    "Position": "Adminstrator"
+                }
+            ]
+        },
+        {
+            "Title": "ANC Constituency Office: Rustenburg",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "ANC",
+            "Type": "office",
+            "Province": "North West",
+            "Physical Address": "111 Chruch Street, Rustenburg 0300",
+            "E-mail": "",
+            "Tel": "072 765 8325/ 014 592 3537",
+            "identifiers": {
+                "constituency-office/ANC/": ""
+            },
+            "People": [
+                {
+                    "Name": "Kgomotso Mthembu",
+                    "Tel": "072 765 8325/ 014 592 3537",
+                    "Email": "",
+                    "Position": "Adminstrator"
+                }
+            ]
+        },
+        {
+            "Title": "ANC Constituency Office: Marikana",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "ANC",
+            "Type": "office",
+            "Province": "North West",
+            "Physical Address": "Shop no.08 Marikana Mall",
+            "E-mail": "",
+            "Tel": "076 942 1736",
+            "identifiers": {
+                "constituency-office/ANC/": ""
+            },
+            "People": [
+                {
+                    "Name": "Sammy Lobelo",
+                    "Tel": "076 942 1736",
+                    "Email": "",
+                    "Position": "Adminstrator"
+                }
+            ]
+        },
+        {
+            "Title": "ANC Constituency Office: Kgetleng (Swaartruggens)",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "ANC",
+            "Type": "office",
+            "Province": "North West",
+            "Physical Address": "3 Kort Street, Swaartruggens",
+            "E-mail": "",
+            "Tel": "072 690 8086/ 014 544 0066",
+            "identifiers": {
+                "constituency-office/ANC/": ""
+            },
+            "People": [
+                {
+                    "Name": "Potso Makone",
+                    "Tel": "072 690 8086/ 014 544 0066",
+                    "Email": "",
+                    "Position": "Adminstrator"
+                }
+            ]
+        },
+        {
+            "Title": "ANC Constituency Office: Madibeng (Brits)",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "ANC",
+            "Type": "office",
+            "Province": "North West",
+            "Physical Address": "13 Murry Ave, Brits",
+            "E-mail": "",
+            "Tel": "078 482 8807/ 012 252 5294",
+            "identifiers": {
+                "constituency-office/ANC/": ""
+            },
+            "People": [
+                {
+                    "Name": "Dan Kgasi",
+                    "Tel": "078 482 8807/ 012 252 5294",
+                    "Email": "",
+                    "Position": "Adminstrator"
+                }
+            ]
+        },
+        {
+            "Title": "ANC Constituency Office: Moses Kotane (Mogwase)",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "ANC",
+            "Type": "office",
+            "Province": "North West",
+            "Physical Address": "Moses Kotane (Mogwase)",
+            "E-mail": "",
+            "Tel": "084 438 0406/ 014 555 6301",
+            "identifiers": {
+                "constituency-office/ANC/": ""
+            },
+            "People": [
+                {
+                    "Name": "Annie Molefe",
+                    "Tel": "084 438 0406/ 014 555 6301",
+                    "Email": "",
+                    "Position": "Adminstrator"
+                }
+            ]
+        },
+        {
+            "Title": "ANC Constituency Office: Moses Kotane (Madikwe)",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "ANC",
+            "Type": "office",
+            "Province": "North West",
+            "Physical Address": "Shop no.7 Madikwe Shopping Centre",
+            "E-mail": "",
+            "Tel": "014 553 2332/ F: 014 553 2333",
+            "identifiers": {
+                "constituency-office/ANC/": ""
+            },
+            "People": [
+                {
+                    "Name": "",
+                    "Tel": "014 553 2332/ F: 014 553 2333"

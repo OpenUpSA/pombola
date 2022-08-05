@@ -1,0 +1,28 @@
+{
+    "offices": [
+        {
+            "Title": "ACDP Constituency Office: ",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "ACDP",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "108 Bougainville Street Zevopix Building, Office Mtubatuba",
+            "E-mail": "nk.zikhali43@gmail.com",
+            "Tel": "071 4415 339/072 552 2252",
+            "identifiers": {
+                "constituency-office/ACDP/": ""
+            },
+            "People": [
+                {
+                    "Name": "Thembelihle Zikhali",
+                    "Tel": "071 4415 339/072 552 2252",
+                    "Email": "nk.zikhali43@gmail.com",
+                    "Position": "Administrator"
+                }
+            ]
+        }
+    ],
+    "start_date": "2022-08-01",
+    "end_date": "2022-07-31"
+}

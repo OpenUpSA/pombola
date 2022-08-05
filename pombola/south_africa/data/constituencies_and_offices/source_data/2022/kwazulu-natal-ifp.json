@@ -1,0 +1,248 @@
+{
+    "offices": [
+        {
+            "Title": "IFP Constituency Office: ",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "IFP",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "2 King Edward Street, Dundee, 3000",
+            "E-mail": "mthethwanomvula@gmail.com",
+            "Tel": "071 734 4190/034 212 1756",
+            "identifiers": {
+                "constituency-office/IFP/": ""
+            },
+            "People": [
+                {
+                    "Name": "Nomvula Mthethwa",
+                    "Tel": "071 734 4190/034 212 1756",
+                    "Email": "mthethwanomvula@gmail.com",
+                    "Position": "Administrator"
+                }
+            ]
+        },
+        {
+            "Title": "IFP Constituency Office: ",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "IFP",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "NO 224F Murchiston Street, Ladysmith, 3370",
+            "E-mail": "",
+            "Tel": "073 012 9482/034 312 8905",
+            "identifiers": {
+                "constituency-office/IFP/": ""
+            },
+            "People": [
+                {
+                    "Name": "Bongiwe Mdlalose",
+                    "Tel": "073 012 9482/034 312 8905",
+                    "Email": "",
+                    "Position": "Administrator"
+                }
+            ]
+        },
+        {
+            "Title": "IFP Constituency Office: ",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "IFP",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "250 Jabu Ndlovu Street, PMB, 3251",
+            "E-mail": "",
+            "Tel": "071 284 7218/ 076 340 7118",
+            "identifiers": {
+                "constituency-office/IFP/": ""
+            },
+            "People": [
+                {
+                    "Name": "Ms. M Mnguni",
+                    "Tel": "071 284 7218/ 076 340 7118",
+                    "Email": "",
+                    "Position": "Administrator"
+                }
+            ]
+        },
+        {
+            "Title": "IFP Constituency Office: ",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "IFP",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "No. 2A Durban Club Place, Durban",
+            "E-mail": "",
+            "Tel": "031 365 1350",
+            "identifiers": {
+                "constituency-office/IFP/": ""
+            },
+            "People": [
+                {
+                    "Name": "Gjina Zulu",
+                    "Tel": "031 365 1350",
+                    "Email": "",
+                    "Position": "Administrator"
+                }
+            ]
+        },
+        {
+            "Title": "IFP Constituency Office: ",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "IFP",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "200 Florence Nightingale road, Westcliff, Chatsworth",
+            "E-mail": "",
+            "Tel": "074 458 9804",
+            "identifiers": {
+                "constituency-office/IFP/": ""
+            },
+            "People": [
+                {
+                    "Name": "Selvan Govender",
+                    "Tel": "074 458 9804",
+                    "Email": "",
+                    "Position": "Administrator"
+                }
+            ]
+        },
+        {
+            "Title": "IFP Constituency Office: ",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "IFP",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "Temple Chambers Suite 7 37 Moss Street, Verulam",
+            "E-mail": "",
+            "Tel": "073 583 8585/031 365 1300",
+            "identifiers": {
+                "constituency-office/IFP/": ""
+            },
+            "People": [
+                {
+                    "Name": "Zama Sithole",
+                    "Tel": "073 583 8585/031 365 1300",
+                    "Email": "",
+                    "Position": "Administrator"
+                }
+            ]
+        },
+        {
+            "Title": "IFP Constituency Office: ",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "IFP",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "No.1 Garfield House, 44 Bisset Street, Port Shepstone, 4240",
+            "E-mail": "",
+            "Tel": "039 682 0770",
+            "identifiers": {
+                "constituency-office/IFP/": ""
+            },
+            "People": [
+                {
+                    "Name": "",
+                    "Tel": "039 682 0770",
+                    "Email": "",
+                    "Position": ""
+                }
+            ]
+        },
+        {
+            "Title": "IFP Constituency Office: ",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "IFP",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "IFP Constituency Office, Margaret Road, Ixopo",
+            "E-mail": "",
+            "Tel": "",
+            "identifiers": {
+                "constituency-office/IFP/": ""
+            },
+            "People": [
+                {
+                    "Name": "",
+                    "Tel": "",
+                    "Email": "",
+                    "Position": ""
+                }
+            ]
+        },
+        {
+            "Title": "IFP Constituency Office: ",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "IFP",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "Office no. 14, Ithala Building, Princess Magogo Street, Ulundi",
+            "E-mail": "",
+            "Tel": "076 557 8096/074 259 0820",
+            "identifiers": {
+                "constituency-office/IFP/": ""
+            },
+            "People": [
+                {
+                    "Name": "Nolwazi Mbatha",
+                    "Tel": "076 557 8096/074 259 0820",
+                    "Email": "",
+                    "Position": "Administrator"
+                }
+            ]
+        },
+        {
+            "Title": "IFP Constituency Office: ",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "IFP",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "Smax Building, Main Road, Jozini Umkhanyakude",
+            "E-mail": "",
+            "Tel": "035 572 1008",
+            "identifiers": {
+                "constituency-office/IFP/": ""
+            },
+            "People": [
+                {
+                    "Name": "Sindi Nkosi",
+                    "Tel": "035 572 1008",
+                    "Email": "",
+                    "Position": "Administrator"
+                }
+            ]
+        },
+        {
+            "Title": "IFP Constituency Office: ",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "IFP",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "121 Mahatma Ghandi Street, KwaDukuza, 4450",
+            "E-mail": "",
+            "Tel": "032 551 6813",
+            "identifiers": {
+                "constituency-office/IFP/": ""
+            },
+            "People": [
+                {
+                    "Name": "",
+                    "Tel": "032 551 6813",
+                    "Email": "",
+                    "Position": ""
+                }
+            ]
+        }
+    ],
+    "start_date": "2022-08-01",
+    "end_date": "2022-07-31"
+}

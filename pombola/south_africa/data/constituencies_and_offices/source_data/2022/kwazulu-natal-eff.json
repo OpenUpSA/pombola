@@ -1,0 +1,160 @@
+{
+    "offices": [
+        {
+            "Title": "EFF Constituency Office: ",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "EFF",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "EFF KZN PRrovincial Office, 86 Bulwer Road, Glenwood, Durban, 4001",
+            "E-mail": "moodleyd@kznlegislature.gov.za",
+            "Tel": "079 494 9940/033 355 7074",
+            "identifiers": {
+                "constituency-office/EFF/": ""
+            },
+            "People": [
+                {
+                    "Name": "Dees Moodley",
+                    "Tel": "079 494 9940/033 355 7074",
+                    "Email": "moodleyd@kznlegislature.gov.za",
+                    "Position": "Administrator"
+                }
+            ]
+        },
+        {
+            "Title": "EFF Constituency Office: ",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "EFF",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "EFF Amajuba Regional Office Shop 61 & 62 Allen Street, Newcastle, 2940",
+            "E-mail": "moodleyd@kznlegislature.gov.za",
+            "Tel": "079 494 9940/033 355 7074",
+            "identifiers": {
+                "constituency-office/EFF/": ""
+            },
+            "People": [
+                {
+                    "Name": "Dees Moodley",
+                    "Tel": "079 494 9940/033 355 7074",
+                    "Email": "moodleyd@kznlegislature.gov.za",
+                    "Position": "Administrator"
+                }
+            ]
+        },
+        {
+            "Title": "EFF Constituency Office: ",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "EFF",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "EFF UMKHANYAKUDE REGIONAL OFFICE SHOP 22C MKUZE PLAZA OLD MAIN ROAD MKUZE, 3965",
+            "E-mail": "moodleyd@kznlegislature.gov.za",
+            "Tel": "079 494 9940/033 355 7074",
+            "identifiers": {
+                "constituency-office/EFF/": ""
+            },
+            "People": [
+                {
+                    "Name": "Dees Moodley",
+                    "Tel": "079 494 9940/033 355 7074",
+                    "Email": "moodleyd@kznlegislature.gov.za",
+                    "Position": "Administrator"
+                }
+            ]
+        },
+        {
+            "Title": "EFF Constituency Office: ",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "EFF",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "EFF HARRY GWALA REGIONAL OFFICE SHOP 15 DE BRUYN PLAZA UMZIMKHULU, 3297",
+            "E-mail": "moodleyd@kznlegislature.gov.za",
+            "Tel": "079 494 9940/033 355 7074",
+            "identifiers": {
+                "constituency-office/EFF/": ""
+            },
+            "People": [
+                {
+                    "Name": "Dees Moodley",
+                    "Tel": "079 494 9940/033 355 7074",
+                    "Email": "moodleyd@kznlegislature.gov.za",
+                    "Position": "Administrator"
+                }
+            ]
+        },
+        {
+            "Title": "EFF Constituency Office: ",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "EFF",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "EFF UMGUNGUNDLOVU REGIONAL OFFICE 95 BOOM STREET PIETERMARITZBURG, 3200",
+            "E-mail": "moodleyd@kznlegislature.gov.za",
+            "Tel": "079 494 9940/033 355 7074",
+            "identifiers": {
+                "constituency-office/EFF/": ""
+            },
+            "People": [
+                {
+                    "Name": "Dees Moodley",
+                    "Tel": "079 494 9940/033 355 7074",
+                    "Email": "moodleyd@kznlegislature.gov.za",
+                    "Position": "Administrator"
+                }
+            ]
+        },
+        {
+            "Title": "EFF Constituency Office: ",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "EFF",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "EFF UMZINYATHI AND AMAJUBA REGIONAL OFFICE 48 WILSON STREET DUNDEE, 3000",
+            "E-mail": "moodleyd@kznlegislature.gov.za",
+            "Tel": "079 494 9940/033 355 7074",
+            "identifiers": {
+                "constituency-office/EFF/": ""
+            },
+            "People": [
+                {
+                    "Name": "Dees Moodley",
+                    "Tel": "079 494 9940/033 355 7074",
+                    "Email": "moodleyd@kznlegislature.gov.za",
+                    "Position": "Administrator"
+                }
+            ]
+        },
+        {
+            "Title": "EFF Constituency Office: ",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "EFF",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "EFF ZULULAND REGIONAL OFFICE 6 VAN RIEBEECK STRET VRYHEID, 3100",
+            "E-mail": "moodleyd@kznlegislature.gov.za",
+            "Tel": "079 494 9940/033 355 7074",
+            "identifiers": {
+                "constituency-office/EFF/": ""
+            },
+            "People": [
+                {
+                    "Name": "Dees Moodley",
+                    "Tel": "079 494 9940/033 355 7074",
+                    "Email": "moodleyd@kznlegislature.gov.za",
+                    "Position": "Administrator"
+                }
+            ]
+        }
+    ],
+    "start_date": "2022-08-01",
+    "end_date": "2022-07-31"
+}

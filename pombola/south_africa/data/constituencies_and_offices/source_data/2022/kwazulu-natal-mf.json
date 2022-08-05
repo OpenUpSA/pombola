@@ -1,0 +1,28 @@
+{
+    "offices": [
+        {
+            "Title": "Minority Front Constituency Office: ",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "Minority Front",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "76 Trisula Avenue Arena PARK Chatsworth 4092",
+            "E-mail": "",
+            "Tel": "033 355 7638",
+            "identifiers": {
+                "constituency-office/Minority Front/": ""
+            },
+            "People": [
+                {
+                    "Name": "Priyanka Nunkumar",
+                    "Tel": "033 355 7638",
+                    "Email": "",
+                    "Position": "Administrator"
+                }
+            ]
+        }
+    ],
+    "start_date": "2022-08-01",
+    "end_date": "2022-07-31"
+}

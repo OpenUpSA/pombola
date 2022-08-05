@@ -1,0 +1,50 @@
+{
+    "offices": [
+        {
+            "Title": "DA Constituency Office: ",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "DA",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "Umgungundlovu East, Pietermaritzburg, 3201",
+            "E-mail": "",
+            "Tel": "072 240 7061/033 355 7700/7753",
+            "identifiers": {
+                "constituency-office/DA/": ""
+            },
+            "People": [
+                {
+                    "Name": "Nobuhle Dlamini",
+                    "Tel": "072 240 7061/033 355 7700/7753",
+                    "Email": "",
+                    "Position": "Administrator"
+                }
+            ]
+        },
+        {
+            "Title": "DA Constituency Office: ",
+            "Source URL": "",
+            "Source Note": "",
+            "Party": "DA",
+            "Type": "office",
+            "Province": "Kwazulu-Natal",
+            "Physical Address": "1 Scott Street, Port Shepstone, 4240",
+            "E-mail": "dlaminib@kznleg.gov.za",
+            "Tel": "072 240 7061",
+            "identifiers": {
+                "constituency-office/DA/": ""
+            },
+            "People": [
+                {
+                    "Name": "Nobuhle Dlamini",
+                    "Tel": "072 240 7061",
+                    "Email": "dlaminib@kznleg.gov.za",
+                    "Position": "PA/Assistant"
+                }
+            ]
+        }
+    ],
+    "start_date": "2022-08-01",
+    "end_date": "2022-07-31"
+}
