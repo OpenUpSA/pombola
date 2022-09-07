@@ -77,6 +77,7 @@ def get_queryset_for_members_download(organisation):
         .prefetch_contacts_with_kind('twitter')
         .prefetch_contacts_with_kind('facebook')
         .prefetch_contacts_with_kind('linkedin')
+        .prefetch_contacts_with_kind('instagram')
         .prefetch_related("alternative_names",)
     )
 
