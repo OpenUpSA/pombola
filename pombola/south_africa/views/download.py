@@ -46,6 +46,8 @@ def person_row_generator(persons):
             ", ".join([contact.value for contact in person.facebook_contacts]),
             # LinkedIn
             ", ".join([contact.value for contact in person.linkedin_contacts]),
+            # Instagram
+            ", ".join([contact.value for contact in person.instagram_contacts]),
         )
 
 
