@@ -361,6 +361,7 @@ class SAPersonDetail(PersonSpeakerMappingsMixin, PersonDetail):
         context['linkedin_contacts'] = self.list_contacts_values(('linkedin',))
         context['youtube_contacts'] = self.list_contacts_values(('youtube',))
         context['whoswhosa_contacts'] = self.list_contacts_values(('whos-who-sa',))
+        context['instagram_contacts'] = self.list_contacts_values(('instagram',))
         # The email attribute of the person might also be duplicated
         # in a contact of type email, so create a set of email
         # addresses:
