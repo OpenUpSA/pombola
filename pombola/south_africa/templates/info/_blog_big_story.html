@@ -1,0 +1,22 @@
+<!-- BIG STORY -->
+<div class="big-story">
+    <div class="image-box">
+      {% comment %} <div class="image-box-inner" style="background-image: url(https://pa.org.za{{ post.featured_image_file.file.url }})">
+        <a href="{{ post.get_absolute_url }}"></a>
+      </div> {% endcomment %}
+      <div class="image-box-inner" style="background-image: url(https://picsum.photos/800/450?random={{post.id}})">
+        <a href="{{ post.get_absolute_url }}"></a>
+      </div>
+    </div>
+    <h3 class="mt-4"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+    <div class="blog-post-excerpt">
+      {{ post.content_as_cleaned_html|safe|truncatewords_html:50 }}
+    </div>
+    <div class="blog-post-date">
+      {{ post.publication_date|date }} ({{ post.publication_date|timesince }} ago)
+      {% if settings.DISQUS_SHORTNAME %}
+        &mdash;
+        <a href="{{ post.get_absolute_url }}#disqus_thread">Comments</a>
+      {% endif %}
+    </div>
+</div>

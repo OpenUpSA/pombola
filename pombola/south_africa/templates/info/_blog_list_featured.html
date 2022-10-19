@@ -1,0 +1,62 @@
+<div class="row featured-stories d-none d-lg-block mb-4">
+    <div class="col">
+        <div class="featured-container">
+            <div class="featured2 featured-block">
+                {% with posts_in_cat_featured.1 as post %}
+                    <div class="image-box-inner" style="background-image: url(https://picsum.photos/800/450?random={{post.id}})"></div>
+                    {% comment %} <div class="image-box-inner" style="background-image: url(https://pa.org.za{{ post.featured_image_file.file.url }})"></div> {% endcomment %}
+                    <div class="featured-post-title-container">
+                        <div class="featured-post-category">
+                            <a href="{{ post.categories.0.url }}">{{ post.categories.0.name }}</a>
+                        </div>
+                        <div class="featured-post-title">
+                            <a href="{{ post.url }}">{{ post.title }}</a>
+                        </div>
+                    </div>
+                {% endwith %}
+            </div>
+            <div class="featured3 featured-block">
+                {% with posts_in_cat_featured.2 as post %}
+                    <div class="image-box-inner" style="background-image: url(https://picsum.photos/800/450?random={{post.id}})"></div>
+                    {% comment %} <div class="image-box-inner" style="background-image: url(https://pa.org.za{{ post.featured_image_file.file.url }})"></div> {% endcomment %}
+                    <div class="featured-post-title-container">
+                        {% comment %} <div class="featured-post-category">
+                            <a href="{{ post.category.url }}">{{ post.category.name }}</a>
+                        </div> {% endcomment %}
+                        <div class="featured-post-title">
+                            <a href="{{ post.url }}">{{ post.title }}</a>
+                        </div>
+                    </div>
+                {% endwith %}
+            </div>
+            <div class="featured4 featured-block">
+                {% with posts_in_cat_featured.3 as post %}
+                    <div class="image-box-inner" style="background-image: url(https://picsum.photos/800/450?random={{post.id}})"></div>
+                    {% comment %} <div class="image-box-inner" style="background-image: url(https://pa.org.za{{ post.featured_image_file.file.url }})"></div> {% endcomment %}
+                    <div class="featured-post-title-container">
+                        {% comment %} <div class="featured-post-category">
+                            <a href="{{ post.category.url }}">{{ post.category.name }}</a>
+                        </div> {% endcomment %}
+                        <div class="featured-post-title">
+                            <a href="{{ post.url }}">{{ post.title }}</a>
+                        </div>
+                    </div>
+                {% endwith %}
+            </div>
+            <div class="featured1 featured-block">
+                {% with posts_in_cat_featured.0 as post %}
+                    <div class="image-box-inner" style="background-image: url(https://picsum.photos/800/450?random={{post.id}})"></div>
+                    {% comment %} <div class="image-box-inner" style="background-image: url(https://pa.org.za{{ post.featured_image_file.file.url }})"></div> {% endcomment %}
+                    <div class="featured-post-title-container">
+                        {% comment %} <div class="featured-post-category">
+                            <a href="{{ post.category.url }}">{{ post.category.name }}</a>
+                        </div> {% endcomment %}
+                        <div class="featured-post-title">
+                            <a href="{{ post.url }}">{{ post.title }}</a>
+                        </div>
+                    </div>
+                {% endwith %}
+            </div>
+        </div>
+    </div>
+</div>

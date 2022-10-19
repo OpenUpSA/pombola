@@ -1,0 +1,31 @@
+{% load get_from_key %}
+
+<div class="sidebar">
+
+    <h2>Recent {% if category %}&ldquo;{{ category.name }}&rdquo;{% endif %} posts</h2>
+
+    <ul>
+      {% for post in recent_posts|slice:":5" %}
+        <li><a href="{% url 'info_blog' slug=post.slug %}">{{ post.title }}</a></li>
+      {% empty %}
+        <li>There are no recent posts{% if category %} in &ldquo;{{ category.name }}&rdquo;{% endif %}.</li>
+      {% endfor %}
+    </ul>
+
+    {% if some_popular_posts %}
+      <h2>Popular posts</h2>
+
+      <ul>
+        {% for post in popular_recent_posts|slice:":5" %}
+          <li><a href="{% url 'info_blog' slug=post.slug %}">{{ post.title }}</a></li>
+        {% empty %}
+          <li>No recent popular posts found.</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+</div>
+
+<ul class="social-links-list">
+  <li><a href="{% url 'info_blog_feed' %}" class="rss-social-icon">RSS</a></li>
+</ul>

@@ -13,38 +13,80 @@
       <link href="http://{{ settings.DISQUS_SHORTNAME }}.disqus.com/" rel="prefetch" />
     <![endif]-->
   {% endif %}
+  <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=631f0d73a6e54600124688ec&product=inline-share-buttons" async="async"></script>
+
 {% endblock%}
 
 {% block open_graph %}{% include 'info/_blog_open_graph.html' %}{% endblock %}
 
 {% block content %}
 
+<style>
+  @media only all and (min-width: 640px) {
+    #page .wrapper, #breadcrumb .wrapper {
+      max-width: 1200px !important;
+    }
+  }
+</style>
+
 {% include "disqus_javascript.html" %}
 
-<div class="layout-major-minor blog-post">
-  <div class="major-column">
-  <h1>{{ object.title }}</h1>
+<div class="row blog-post">
 
-  <p class="meta">{{ object.publication_date|date }} ({{ object.publication_date|timesince }} ago)</p>
+  <div class="col-12 col-lg-8">
 
-  <div class="featured-image">
-    <a href="{{ object.featured_image_file.file.url }}" data-fancybox="gallery">
-      <img src="{{ object.featured_image_file.file.url }}"/>
-    </a>
+    {% if object.categories.count %}
+
+      <ul class="post-categories">
+
+        {% for cat in object.categories.all %}
+
+          <li class="post-category"><a href="/blog/category/{{ cat.slug }}" >{{ cat.name }}</a></li>
+
+        {% endfor %}
+
+      </ul>
+
+    {% endif %}
+
+
+      <h1>{{ object.title }}</h1>
+
+      <div class="row mb-3">
+        <div class="col">
+          <div class="blog-post-date"><strong>{{ object.publication_date|date }}</strong> ({{ object.publication_date|timesince }} ago)</div>
+        </div>
+        <div class="col-md-4">
+          <div class="sharethis-inline-share-buttons"></div>
+        </div>
+      </div>
+
+   
+      {% comment %} <a href="{{ object.featured_image_file.file.url }}" data-fancybox="gallery">
+        <img src="https://pa.org.za{{ object.featured_image_file.file.url }}"/>
+      </a> {% endcomment %}
+      <a href="{{ object.featured_image_file.file.url }}" data-fancybox="gallery">
+        <img src="https://picsum.photos/800/450?random={{post.id}}"/>
+      </a>
+
+
+      <div class="blog-post-content">{{ object.content_as_html|safe }}</div>
+      
+
+      {% include 'disqus_comments.html' %}
+    
+
+
   </div>
 
-  {{ object.content_as_html|safe }}
-
-  {% include "info/_blog_tags.html" %}
-
-  {% include 'disqus_comments.html' %}
-
-    </div>
-    <div class="minor-column">
-      {% include "info/_blog_sidebar.html"%}
-
-    </div>
+  <!-- SIDEBAR-->
+  <div class="col-12 col-lg-4">
+    {% include "info/_blog_tags.html" %}
+    {% include "info/_blog_sidebar.html"%}
   </div>
+
+</div>
+
 {% endblock %}
 
 {% block js_end_of_body %}

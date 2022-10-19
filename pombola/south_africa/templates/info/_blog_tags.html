@@ -1,6 +1,9 @@
 {% if object.tags.count %}
+  <div class="category-header category-is--tags mb-4">
+    STORY TAGGED WITH
+  </div>
 
-  <ul class="unstyled infopage-tag-list">
+  <ul class="infopage-tag-list mb-4">
 
     {% for tag in object.tags.all %}
 
@@ -9,8 +12,5 @@
     {% endfor %}
 
   </ul>
-
-  <br clear="both" />
-  <br clear="both" />
 
 {% endif %}
