@@ -106,7 +106,7 @@
       <!-- THE WEEK AHEAD -->
       <div class="blog-list-category mb-5">
 
-        <div class="category-header category-is--the-week-parliament">
+        <div class="category-header category-is--week-parliament">
           <div class="row">
             <div class="col"><h4><a href="/blog/category/week-parliament">The Week Ahead</a></h4></div>
             <div class="col-auto"><a href="/blog/category/week-parliament" class="link">View More</a></div>
@@ -117,14 +117,18 @@
           <div class="col-12 col-md-6">
             {% if posts_in_cat_week_parliament|length > 0 %}
               {% with posts_in_cat_week_parliament.0 as post %}
-                {% include "info/_blog_big_story.html" %}
+                {% with cat="week-parliament" count=5 %}
+                  {% include "info/_blog_big_story.html" %}
+                {% endwith %}
               {% endwith %}
             {% endif %}
           </div>
 
           <div class="col-12 col-md-6">
             {% for post in posts_in_cat_week_parliament|slice:"1:" %}
-              {% include "info/_blog_small_story.html" %}
+              {% with cat="week-parliament" count=5 %}
+                {% include "info/_blog_small_story.html" %}
+              {% endwith %}
             {% endfor %}
           </div>
         </div>
@@ -136,21 +140,28 @@
       <div class="blog-list-category mb-5">
 
         <div class="category-header category-is--mp-corner">
-          Know Your Representatives
+          <div class="row">
+            <div class="col"><h4><a href="/blog/category/mp-corner">Know Your Representatives</a></h4></div>
+            <div class="col-auto"><a href="/blog/category/mp-corner" class="link">View More</a></div>
+          </div>
         </div>
   
         <div class="row mt-4">
           <div class="col-12 col-md-6">
             {% if posts_in_cat_mp_corner|length > 0 %}
               {% with posts_in_cat_mp_corner.0 as post %}
-                {% include "info/_blog_big_story.html" %}
+                {% with cat="mp-corner" count=1 %}
+                  {% include "info/_blog_big_story.html" %}
+                {% endwith %}
               {% endwith %}
             {% endif %}
           </div>
   
           <div class="col-12 col-md-6">
             {% for post in posts_in_cat_mp_corner|slice:"1:" %}
-              {% include "info/_blog_small_story.html" %}
+              {% with cat="mp-corner" count=1 %}
+                {% include "info/_blog_small_story.html" %}
+              {% endwith %}
             {% endfor %}
           </div>
         </div>
@@ -162,21 +173,29 @@
       <div class="blog-list-category mb-5">
 
         <div class="category-header category-is--interviews-research">
-          Interviews and Research
+          <div class="row">
+            <div class="col"><h4><a href="/blog/category/interviews-research">Interviews and Research</a></h4></div>
+            <div class="col-auto"><a href="/blog/category/interviews-research" class="link">View More</a></div>
+          </div>
+          
         </div>
   
         <div class="row mt-4">
           <div class="col-12 col-md-6">
             {% if posts_in_cat_interviews_research|length > 0 %}
               {% with posts_in_cat_interviews_research.0 as post %}
-                {% include "info/_blog_big_story.html" %}
+                {% with cat="interviews-research" count=5 %}
+                  {% include "info/_blog_big_story.html" %}
+                {% endwith %}
               {% endwith %}
             {% endif %}
           </div>
   
           <div class="col-12 col-md-6">
             {% for post in posts_in_cat_interviews_research|slice:"1:" %}
-              {% include "info/_blog_small_story.html" %}
+              {% with cat="interviews-research" count=5 %}
+                {% include "info/_blog_small_story.html" %}
+              {% endwith %}
             {% endfor %}
           </div>
         </div>
@@ -188,21 +207,29 @@
       <div class="blog-list-category mb-5">
 
         <div class="category-header category-is--legislation">
-          Policy and Legislation
+          <div class="row">
+            <div class="col"><h4><a href="/blog/category/legislation">Policy and Legislation</a></h4></div>
+            <div class="col-auto"><a href="/blog/category/legislation" class="link">View More</a></div>
+          </div>
+          
         </div>
   
         <div class="row mt-4">
           <div class="col-12 col-md-6">
             {% if posts_in_cat_legislation|length > 0 %}
               {% with posts_in_cat_legislation.0 as post %}
-                {% include "info/_blog_big_story.html" %}
+                {% with cat="legislation" count=5 %}
+                  {% include "info/_blog_big_story.html" %}
+                {% endwith %}
               {% endwith %}
             {% endif %}
           </div>
   
           <div class="col-12 col-md-6">
             {% for post in posts_in_cat_legislation|slice:"1:" %}
-              {% include "info/_blog_small_story.html" %}
+              {% with cat="legislation" count=5 %}
+                {% include "info/_blog_small_story.html" %}
+              {% endwith %}
             {% endfor %}
           </div>
         </div>
@@ -214,21 +241,29 @@
       <div class="blog-list-category mb-5">
 
         <div class="category-header category-is--understanding-government">
-          Understanding Government
+          <div class="row">
+            <div class="col"><h4><a href="/blog/category/understanding-government">Understanding Government</a></h4></div>
+            <div class="col-auto"><a href="/blog/category/understanding-government" class="link">View More</a></div>
+          </div>
+          
         </div>
   
         <div class="row mt-4">
           <div class="col-12 col-md-6">
             {% if posts_in_cat_understanding_government|length > 0 %}
               {% with posts_in_cat_understanding_government.0 as post %}
-                {% include "info/_blog_big_story.html" %}
+                {% with cat="understanding-government" count=5 %}
+                  {% include "info/_blog_big_story.html" %}
+                {% endwith %}
               {% endwith %}
             {% endif %}
           </div>
   
           <div class="col-12 col-md-6">
             {% for post in posts_in_cat_understanding_government|slice:"1:" %}
-              {% include "info/_blog_small_story.html" %}
+              {% with cat="understanding-government" count=5 %}
+                {% include "info/_blog_small_story.html" %}
+              {% endwith %}
             {% endfor %}
           </div>
         </div>

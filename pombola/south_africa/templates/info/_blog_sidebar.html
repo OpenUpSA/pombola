@@ -1,4 +1,5 @@
 {% load get_from_key %}
+{% load random_numbers %}
 <div class="blog-list-category mb-5">
 
   <div class="row">
@@ -9,7 +10,7 @@
         Recent {% if category %}&ldquo;{{ category.name }}&rdquo;{% endif %} Stories
       </div>
       {% for post in recent_posts|slice:":5" %}
-        {% include "info/_blog_small_story.html" %}
+        {% include "info/_blog_sidebar_story.html" %}
       {% empty %}
         <div>There are no recent posts{% if category %} in &ldquo;{{ category.name }}&rdquo;{% endif %}.</div>
       {% endfor %}

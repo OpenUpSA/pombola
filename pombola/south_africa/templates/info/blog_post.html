@@ -15,6 +15,22 @@
   {% endif %}
   <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=631f0d73a6e54600124688ec&product=inline-share-buttons" async="async"></script>
 
+  <!-- open_graph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="{{object.title}}" />
+  {% comment %} <meta property="og:description" content="DESCRIPTION OF PAGE CONTENT" /> {% endcomment %}
+  {% comment %} <meta property="og:image" content="/static/images/blog-images/{{cat}}-{%random_int 1 5 %}.jpg" /> {% endcomment %}
+  <meta property="og:url" content="https://pa.org.za/blog/{{object.slug}}" />
+  <meta property="og:site_name" content="People's Assembly" />
+
+  <!-- TWITTER -->
+  <meta name="twitter:title" content="{{object.title}}">
+  {% comment %} <meta name="twitter:description" content="DESCRIPTION OF PAGE CONTENT"> {% endcomment %}
+  {% comment %} <meta name="twitter:image" content="LINK TO IMAGE"> {% endcomment %}
+  <meta name="twitter:site" content="@PeoplesAssem_SA">
+  <meta name="twitter:creator" content="@PeoplesAssem_SA">
+
+
 {% endblock%}
 
 {% block open_graph %}{% include 'info/_blog_open_graph.html' %}{% endblock %}
@@ -40,9 +56,9 @@
       <ul class="post-categories">
 
         {% for cat in object.categories.all %}
-
-          <li class="post-category"><a href="/blog/category/{{ cat.slug }}" >{{ cat.name }}</a></li>
-
+          {% if cat.slug != 'featured' %}
+            <li class="post-category featured-category cat-bg-{{cat.slug}}" style="padding: 0.2em 0.5em"><a class="text-white" href="/blog/category/{{ cat.slug }}" >{{ cat.name }}</a></li>
+          {% endif %}
         {% endfor %}
 
       </ul>
@@ -52,7 +68,7 @@
 
       <h1>{{ object.title }}</h1>
 
-      <div class="row mb-3">
+      <div class="row mb-4">
         <div class="col">
           <div class="blog-post-date"><strong>{{ object.publication_date|date }}</strong> ({{ object.publication_date|timesince }} ago)</div>
         </div>
@@ -62,15 +78,17 @@
       </div>
 
    
-      {% comment %} <a href="{{ object.featured_image_file.file.url }}" data-fancybox="gallery">
-        <img src="https://pa.org.za{{ object.featured_image_file.file.url }}"/>
-      </a> {% endcomment %}
-      <a href="{{ object.featured_image_file.file.url }}" data-fancybox="gallery">
-        <img src="https://picsum.photos/800/450?random={{post.id}}"/>
-      </a>
-
-
-      <div class="blog-post-content">{{ object.content_as_html|safe }}</div>
+      <div class="blog-post-content">
+        
+        <div class="featured-image">
+          <a href="{{ object.featured_image_file.file.url }}" data-fancybox="gallery">
+            <img src="{{ object.featured_image_file.file.url }}"/>
+          </a>
+        </div>
+        
+        {{ object.content_as_html|safe }}
+      
+      </div>
       
 
       {% include 'disqus_comments.html' %}

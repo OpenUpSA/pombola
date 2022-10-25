@@ -1,10 +1,10 @@
 <!-- BIG STORY -->
+{% load content_props %}
+{% load random_numbers %}
+
 <div class="big-story">
     <div class="image-box">
-      {% comment %} <div class="image-box-inner" style="background-image: url(https://pa.org.za{{ post.featured_image_file.file.url }})">
-        <a href="{{ post.get_absolute_url }}"></a>
-      </div> {% endcomment %}
-      <div class="image-box-inner" style="background-image: url(https://picsum.photos/800/450?random={{post.id}})">
+      <div class="image-box-inner" style="background-image: url('/static/images/blog-images/{{cat}}-{%random_int 1 5 %}.jpg')">
         <a href="{{ post.get_absolute_url }}"></a>
       </div>
     </div>

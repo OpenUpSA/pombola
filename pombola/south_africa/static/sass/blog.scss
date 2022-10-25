@@ -11,6 +11,96 @@
 
 // }
 
+$cat-week-parliament: #F79256;
+$cat-mp-corner: #F8B262;
+$cat-interviews-research: #7DCFB6;
+$cat-legislation: #00B2CA;
+$understanding-government: #1D4E89;
+
+
+.cat-bg-week-parliament{
+  background-color: $cat-week-parliament !important;
+}
+
+.cat-bg-mp-corner{
+  background-color: $cat-mp-corner !important;
+}
+
+.cat-bg-interviews-research{
+  background-color: $cat-interviews-research !important;
+}
+
+.cat-bg-legislation{
+  background-color: $cat-legislation !important;
+}
+
+.cat-bg-understanding-government{
+  background-color: $understanding-government !important;
+}
+
+.cat-color-week-parliament{
+  color: $cat-week-parliament !important;
+}
+
+.cat-color-mp-corner{
+  color: $cat-mp-corner !important;
+}
+
+.cat-color-interviews-research{
+  color: $cat-interviews-research !important;
+}
+
+.cat-color-legislation{
+  color: $cat-legislation !important;
+}
+
+.cat-color-understanding-government{
+  color: $understanding-government !important;
+}
+
+.category-is--week-parliament {
+  border-color: $cat-week-parliament !important;
+}
+
+.category-is--week-parliament a {
+  color: $cat-week-parliament !important;
+}
+
+.category-is--mp-corner {
+  border-color: $cat-mp-corner !important;
+}
+
+.category-is--mp-corner a {
+  color: $cat-mp-corner !important;
+}
+
+.category-is--interviews-research {
+  border-color: $cat-interviews-research !important;
+}
+
+.category-is--interviews-research a {
+  color: $cat-interviews-research !important;
+}
+
+.category-is--legislation {
+  border-color: $cat-legislation !important;
+}
+
+.category-is--legislation a {
+  color: $cat-legislation !important;
+}
+
+.category-is--understanding-government {
+  border-color: $understanding-government !important;
+}
+
+.category-is--understanding-government a {
+  color: $understanding-government !important;
+}
+
+
+
+
 .category-header {
   background: #eee;
   border-left: 6px solid #000;
@@ -21,9 +111,7 @@
   border-radius: 5px;
 }
 
-// .category-header h4 {
-//   padding-top: 0.2em;
-// }
+
 
 .infopage-category-summary {
   padding: 1.5em;
@@ -41,19 +129,6 @@
 
 .category-header a.link {
   font-size: 0.8em;
-}
-
-.category-is--the-week-parliament {
-  border-color: #C90000;
-}
-
-.category-is--the-week-parliament a {
-  color: #C90000;
-}
-
-.category-is--impressions {
-  border-color: #0081C9;
-  color: #0081C9;
 }
 
 .blog-list-category h3 a {
@@ -93,6 +168,7 @@
   transition: transform .5s;
   overflow: hidden;
   border-radius: 5px;
+  background-color: #999;
 }
 
 .blog-list-category .big-story .image-box-inner,
@@ -128,6 +204,7 @@
   position: relative;
   overflow: hidden;
   border-radius: 5px;
+  background-color: #999;
 }
 
 .blog-list-category .blog-post-date {
@@ -209,6 +286,7 @@
 }
 
 
+
 /*** FEATURED ***/
 
 .featured-container {
@@ -266,17 +344,21 @@
     color: #fff;
   }
 
-  .featured-post-category {
-    font-size: 12px;
-    text-transform: uppercase;
-    font-weight: bold;
-    margin-bottom: 0.5em;
-  }
 
   .featured-post-title {
     font-size: 20px;
     line-height: 24px;
     font-weight: bold;
   }
+
+  .featured-category {
+    display: inline-block;
+    padding: 0.2em 0.5em;
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+  }
+  
 
 }

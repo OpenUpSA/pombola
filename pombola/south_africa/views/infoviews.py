@@ -25,12 +25,6 @@ class BlogMixin(ContextMixin):
 
         context['all_posts'] = InfoPage.objects.filter(kind=InfoPage.KIND_BLOG).order_by("-publication_date")
         
-        # for post in context['all_posts']:
-        #     print(post.categories)
-        
-        # context['posts_in_cat_week_parliament'] = [d for d in context['all_posts'] if 'week-parliament' in d['categories']]
-
-
         context['posts_in_cat_week_parliament'] = InfoPage.objects.filter(categories__slug__contains='week-parliament').order_by("-publication_date")[:6]
         context['posts_in_cat_mp_corner'] = InfoPage.objects.filter(categories__slug__contains='mp-corner').order_by("-publication_date")[:6]
         context['posts_in_cat_interviews_research'] = InfoPage.objects.filter(categories__slug__contains='interviews-research').order_by("-publication_date")[:6]
@@ -42,16 +36,6 @@ class BlogMixin(ContextMixin):
         context['recent_posts'] = InfoPage.objects \
             .filter(kind=InfoPage.KIND_BLOG) \
             .order_by("-publication_date")
-
-
-        # context['all_posts'] = InfoPage.objects.filter(kind=InfoPage.KIND_BLOG).order_by("-publication_date")
-
-        # context['posts_in_cat_week_parliament'] = list(filter(lambda d: d['categories'] in ['week-parliament'], context['all_posts']))
-        # context['posts_in_cat_impressions'] = list(filter(lambda d: d['categories'] in ['impressions'], context['all_posts']))
-        # context['posts_in_cat_featured'] = list(filter(lambda d: d['categories'] in ['featured'], context['all_posts']))
-
-        # context['recent_posts'] = context['all_posts']
-
 
 
         context['some_popular_posts'] = viewcounts = ViewCount.objects.filter(
