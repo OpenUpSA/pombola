@@ -4,7 +4,6 @@
 {% load pagination_tags %}
 {% load content_props %}
 
-
 {% block title %}
   {% if categories %}
     {{ categories|join_blog_post_titles }}
@@ -19,62 +18,280 @@
 {% endblock%}
 
 
+
+
 {% block content %}
 
-<div class="layout-major-minor blog-post blog-list">
-  <div class="major-column">
+<style>
+  @media only all and (min-width: 640px) {
+    #page .wrapper, #breadcrumb .wrapper {
+      max-width: 1200px !important;
+    }
+  }
+</style>
+
+{% if not categories and not tags %}
+
+  {% with posts_in_cat_featured as post %}
     
+  {% endwith %}
 
-    <h1>
+  {% include "info/_blog_list_featured.html" %}
+
+{% endif %}
+
+
+<div class="row blog-list">
+
+  <!-- CONTENT -->
+  <div class="col-12 col-lg-8">
+
+    <!-- CATEGORY VIEW -->
+
     {% if categories %}
-      {{ categories|join_blog_post_titles }}
-    {% endif %}
-    {% if tags %}
-      tagged {{ tags|join_blog_post_titles }}
-    {% endif %}
-  </h1>
 
-  {% if categories and categories|length == 1 and categories.0.summary %}
-    <div class="infopage-category-summary">
-      {{ categories.0.summary }}
-    </div>
-  {% endif %}
+    <!-- CATEGORY START -->
+    <div class="blog-list-category mb-5">
 
-
-  {% for object in object_list %}
-
-    <div class="blog-in-a-list">
-      <div class="blog-thumbnail">
-        <a href="{{ object.get_absolute_url }}">
-              <img src="{{ object.featured_image_file.file.url }}"/>
-        </a>
+      <div class="category-header mb-4">
+        <div class="row">
+          <div class="col"><h4>
+            {% for category in categories %}
+              <a class="category-is--{{category.slug}}" href="/blog/category/{{category.slug}}">{{category.name}}</a>{% if categories|length > 1 %},{% endif %}
+            {% endfor %}
+          </h4></div>
+        </div>
       </div>
-      <div class="blog-content">
-        <h2><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h2>
+      
+      {% for post in object_list %}
+        {% include "info/_blog_list_story.html" %}
+      {% endfor %}
+
+      {% paginate %}
+
+    </div><!-- END BLOG-LIST CATEGORY -->
+
+    <!--TAG VIEW -->
+
+    {% elif tags %}
+
+    <!-- TAGS START -->
+    <div class="blog-list-category mb-5">
+
+      <div class="category-header mb-4">
+        <div class="row">
+          <div class="col"><h4>
+            {% for tag in tags %}
+              <a class="category-is--{{ctag.slug}}" href="/blog/tag/{{tag.slug}}">{{tag.name}}</a>{% if tags|length > 1 %},{% endif %}
+            {% endfor %}
+          </h4></div>
+        </div>
+      </div>
+      
+      {% for post in object_list %}
+        {% include "info/_blog_list_story.html" %}
+      {% endfor %}
+
+      {% paginate %}
+      
+
+    </div><!-- END BLOG-LIST CATEGORY -->
+
+
+
+
+
+    {% else %}
+
+      <!-- THE WEEK AHEAD -->
+      <div class="blog-list-category mb-5">
+
+        <div class="category-header category-is--week-parliament">
+          <div class="row">
+            <div class="col"><h4><a href="/blog/category/week-parliament">The Week Ahead</a></h4></div>
+            <div class="col-auto"><a href="/blog/category/week-parliament" class="link">View More</a></div>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-12 col-md-6">
+            {% if posts_in_cat_week_parliament|length > 0 %}
+              {% with posts_in_cat_week_parliament.0 as post %}
+                {% with cat="week-parliament" count=5 %}
+                  {% include "info/_blog_big_story.html" %}
+                {% endwith %}
+              {% endwith %}
+            {% endif %}
+          </div>
+
+          <div class="col-12 col-md-6">
+            {% for post in posts_in_cat_week_parliament|slice:"1:" %}
+              {% with cat="week-parliament" count=5 %}
+                {% include "info/_blog_small_story.html" %}
+              {% endwith %}
+            {% endfor %}
+          </div>
+        </div>
+
+      </div>
+      <!-- END THE WEEK AHEAD -->
+
+      <!-- KNOW YOUR REPRESENTATIVE -->
+      <div class="blog-list-category mb-5">
+
+        <div class="category-header category-is--mp-corner">
+          <div class="row">
+            <div class="col"><h4><a href="/blog/category/mp-corner">Know Your Representatives</a></h4></div>
+            <div class="col-auto"><a href="/blog/category/mp-corner" class="link">View More</a></div>
+          </div>
+        </div>
+  
+        <div class="row mt-4">
+          <div class="col-12 col-md-6">
+            {% if posts_in_cat_mp_corner|length > 0 %}
+              {% with posts_in_cat_mp_corner.0 as post %}
+                {% with cat="mp-corner" count=1 %}
+                  {% include "info/_blog_big_story.html" %}
+                {% endwith %}
+              {% endwith %}
+            {% endif %}
+          </div>
+  
+          <div class="col-12 col-md-6">
+            {% for post in posts_in_cat_mp_corner|slice:"1:" %}
+              {% with cat="mp-corner" count=1 %}
+                {% include "info/_blog_small_story.html" %}
+              {% endwith %}
+            {% endfor %}
+          </div>
+        </div>
+
+      </div>
+      <!-- END BLOG-LIST CATEGORY -->
+
+      <!-- INTERVIEWS AND RESEARCH -->
+      <div class="blog-list-category mb-5">
+
+        <div class="category-header category-is--interviews-research">
+          <div class="row">
+            <div class="col"><h4><a href="/blog/category/interviews-research">Interviews and Research</a></h4></div>
+            <div class="col-auto"><a href="/blog/category/interviews-research" class="link">View More</a></div>
+          </div>
           
-        <p class="meta">
-          {{ object.publication_date|date }} ({{ object.publication_date|timesince }} ago)
-          {% if settings.DISQUS_SHORTNAME %}
-            &mdash;
-            <a href="{{ object.get_absolute_url }}#disqus_thread">Comments</a>
-          {% endif %}
-        </p>
+        </div>
+  
+        <div class="row mt-4">
+          <div class="col-12 col-md-6">
+            {% if posts_in_cat_interviews_research|length > 0 %}
+              {% with posts_in_cat_interviews_research.0 as post %}
+                {% with cat="interviews-research" count=5 %}
+                  {% include "info/_blog_big_story.html" %}
+                {% endwith %}
+              {% endwith %}
+            {% endif %}
+          </div>
+  
+          <div class="col-12 col-md-6">
+            {% for post in posts_in_cat_interviews_research|slice:"1:" %}
+              {% with cat="interviews-research" count=5 %}
+                {% include "info/_blog_small_story.html" %}
+              {% endwith %}
+            {% endfor %}
+          </div>
+        </div>
 
-        {{ object.content_as_cleaned_html|safe|truncatewords_html:50 }}
-
-        <p><a href="{{ object.get_absolute_url }}">Read more &hellip;</a></p>
       </div>
-    </div>
+      <!-- END INTERVIEWS AND RESEARCH -->
 
-  {% endfor %}
+      <!-- POLICY AND LEGISLATION -->
+      <div class="blog-list-category mb-5">
 
-  {% paginate %}
+        <div class="category-header category-is--legislation">
+          <div class="row">
+            <div class="col"><h4><a href="/blog/category/legislation">Policy and Legislation</a></h4></div>
+            <div class="col-auto"><a href="/blog/category/legislation" class="link">View More</a></div>
+          </div>
+          
+        </div>
+  
+        <div class="row mt-4">
+          <div class="col-12 col-md-6">
+            {% if posts_in_cat_legislation|length > 0 %}
+              {% with posts_in_cat_legislation.0 as post %}
+                {% with cat="legislation" count=5 %}
+                  {% include "info/_blog_big_story.html" %}
+                {% endwith %}
+              {% endwith %}
+            {% endif %}
+          </div>
+  
+          <div class="col-12 col-md-6">
+            {% for post in posts_in_cat_legislation|slice:"1:" %}
+              {% with cat="legislation" count=5 %}
+                {% include "info/_blog_small_story.html" %}
+              {% endwith %}
+            {% endfor %}
+          </div>
+        </div>
+
+      </div>
+      <!-- END BLOG-LIST CATEGORY -->
+
+      <!-- UNDERSTANDING GOVERNMENT -->
+      <div class="blog-list-category mb-5">
+
+        <div class="category-header category-is--understanding-government">
+          <div class="row">
+            <div class="col"><h4><a href="/blog/category/understanding-government">Understanding Government</a></h4></div>
+            <div class="col-auto"><a href="/blog/category/understanding-government" class="link">View More</a></div>
+          </div>
+          
+        </div>
+  
+        <div class="row mt-4">
+          <div class="col-12 col-md-6">
+            {% if posts_in_cat_understanding_government|length > 0 %}
+              {% with posts_in_cat_understanding_government.0 as post %}
+                {% with cat="understanding-government" count=5 %}
+                  {% include "info/_blog_big_story.html" %}
+                {% endwith %}
+              {% endwith %}
+            {% endif %}
+          </div>
+  
+          <div class="col-12 col-md-6">
+            {% for post in posts_in_cat_understanding_government|slice:"1:" %}
+              {% with cat="understanding-government" count=5 %}
+                {% include "info/_blog_small_story.html" %}
+              {% endwith %}
+            {% endfor %}
+          </div>
+        </div>
+        
+      </div>
+      <!-- END BLOG-LIST CATEGORY -->
+
+    {% endif %}
 
   </div>
-  <div class="minor-column">
+
+  <!-- SIDEBAR-->
+  <div class="col-12 col-lg-4">
+
+    {% if categories %}
+      <div class="infopage-category-summary">
+        {% for category in categories %}
+          {% if category.summary %}
+          <h4 class="text-uppercase mb-2">About {{category.name}}</h4>
+          <div class="mb-3">{{ category.summary }}</div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
 
     {% include "info/_blog_sidebar.html"%}
-
   </div>
 </div>
+
+
 {% endblock %}

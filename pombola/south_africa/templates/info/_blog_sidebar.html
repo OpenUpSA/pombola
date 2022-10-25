@@ -1,31 +1,42 @@
 {% load get_from_key %}
+{% load random_numbers %}
+<div class="blog-list-category mb-5">
 
-<div class="sidebar">
+  <div class="row">
 
-    <h2>Recent {% if category %}&ldquo;{{ category.name }}&rdquo;{% endif %} posts</h2>
+    <div class="col-12 col-md-6 col-lg-12">  
 
-    <ul>
+      <div class="category-header category-is--recent-updates mb-4">
+        Recent {% if category %}&ldquo;{{ category.name }}&rdquo;{% endif %} Stories
+      </div>
       {% for post in recent_posts|slice:":5" %}
-        <li><a href="{% url 'info_blog' slug=post.slug %}">{{ post.title }}</a></li>
+        {% include "info/_blog_sidebar_story.html" %}
       {% empty %}
-        <li>There are no recent posts{% if category %} in &ldquo;{{ category.name }}&rdquo;{% endif %}.</li>
+        <div>There are no recent posts{% if category %} in &ldquo;{{ category.name }}&rdquo;{% endif %}.</div>
       {% endfor %}
-    </ul>
+
+    </div>
 
     {% if some_popular_posts %}
-      <h2>Popular posts</h2>
+    <div class="col-12 col-md-6 col-lg-12">
 
-      <ul>
+      <div class="blog-list-category mb-5">
+
+        <div class="category-header category-is--popular-stories mb-4">
+          Popular {% if category %}&ldquo;{{ category.name }}&rdquo;{% endif %} Stories
+        </div>
+
         {% for post in popular_recent_posts|slice:":5" %}
-          <li><a href="{% url 'info_blog' slug=post.slug %}">{{ post.title }}</a></li>
+          {% include "info/_blog_small_story.html" %}
         {% empty %}
-          <li>No recent popular posts found.</li>
+            <div>There are no recent posts{% if category %} in &ldquo;{{ category.name }}&rdquo;{% endif %}.</div>
         {% endfor %}
-      </ul>
+
+      </div>
+
+    </div>
     {% endif %}
 
-</div>
+  </div>
 
-<ul class="social-links-list">
-  <li><a href="{% url 'info_blog_feed' %}" class="rss-social-icon">RSS</a></li>
-</ul>
+</div>

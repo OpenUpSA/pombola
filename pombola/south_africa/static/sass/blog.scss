@@ -1,0 +1,364 @@
+// @media only all and (min-width: 640px) {
+//   #page .wrapper, #breadcrumb .wrapper,
+//   #site-header .wrapper,
+//   #main-menu .wrapper,
+//   #site-footer .wrapper,
+//   .wrapper
+//   {
+//     width: unset;
+//     max-width: 1200px !important;
+//   }
+
+// }
+
+$cat-week-parliament: #F79256;
+$cat-mp-corner: #F8B262;
+$cat-interviews-research: #7DCFB6;
+$cat-legislation: #00B2CA;
+$understanding-government: #1D4E89;
+
+
+.cat-bg-week-parliament{
+  background-color: $cat-week-parliament !important;
+}
+
+.cat-bg-mp-corner{
+  background-color: $cat-mp-corner !important;
+}
+
+.cat-bg-interviews-research{
+  background-color: $cat-interviews-research !important;
+}
+
+.cat-bg-legislation{
+  background-color: $cat-legislation !important;
+}
+
+.cat-bg-understanding-government{
+  background-color: $understanding-government !important;
+}
+
+.cat-color-week-parliament{
+  color: $cat-week-parliament !important;
+}
+
+.cat-color-mp-corner{
+  color: $cat-mp-corner !important;
+}
+
+.cat-color-interviews-research{
+  color: $cat-interviews-research !important;
+}
+
+.cat-color-legislation{
+  color: $cat-legislation !important;
+}
+
+.cat-color-understanding-government{
+  color: $understanding-government !important;
+}
+
+.category-is--week-parliament {
+  border-color: $cat-week-parliament !important;
+}
+
+.category-is--week-parliament a {
+  color: $cat-week-parliament !important;
+}
+
+.category-is--mp-corner {
+  border-color: $cat-mp-corner !important;
+}
+
+.category-is--mp-corner a {
+  color: $cat-mp-corner !important;
+}
+
+.category-is--interviews-research {
+  border-color: $cat-interviews-research !important;
+}
+
+.category-is--interviews-research a {
+  color: $cat-interviews-research !important;
+}
+
+.category-is--legislation {
+  border-color: $cat-legislation !important;
+}
+
+.category-is--legislation a {
+  color: $cat-legislation !important;
+}
+
+.category-is--understanding-government {
+  border-color: $understanding-government !important;
+}
+
+.category-is--understanding-government a {
+  color: $understanding-government !important;
+}
+
+
+
+
+.category-header {
+  background: #eee;
+  border-left: 6px solid #000;
+  text-transform: uppercase;
+  padding: 0.5em 1em 0.3em;
+  font-size: 1em;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+
+
+.infopage-category-summary {
+  padding: 1.5em;
+  left: unset;
+}
+
+
+.infopage-category-summary p {
+  margin-bottom: 0
+}
+
+.category-header a {
+  text-decoration: none;
+}
+
+.category-header a.link {
+  font-size: 0.8em;
+}
+
+.blog-list-category h3 a {
+  color: #333;
+  text-decoration: none;
+}
+
+.blog-list-category h3 a:hover {
+  color: #666;
+}
+
+.blog-list-category .small-story {
+  margin-bottom: 1.5em;
+}
+
+.blog-list-category .small-story .small-story-text {
+  position: relative;
+  height: 100%;
+  padding: 0;
+}
+
+.blog-list-category .small-story h3 {
+  font-size: 16px;
+}
+
+.blog-list-category .big-story h3 {
+  font-size: 24px;
+}
+
+.blog-list-category .list-story h3 {
+  font-size: 20px !important;
+}
+
+.blog-list-category .big-story .image-box {
+  aspect-ratio: 16 / 9;
+  position: relative;
+  transition: transform .5s;
+  overflow: hidden;
+  border-radius: 5px;
+  background-color: #999;
+}
+
+.blog-list-category .big-story .image-box-inner,
+.blog-list-category .small-story .image-box-inner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-size: cover;
+  background-position: center center;
+}
+
+.blog-list-category .big-story .image-box a,
+.blog-list-category .small-story .image-box a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.blog-list-category .big-story .image-box .image-box-inner,
+.blog-list-category .small-story .image-box .image-box-inner {
+  transition: transform .5s;
+}
+
+.blog-list-category .big-story .image-box:hover .image-box-inner,
+.blog-list-category .small-story .image-box:hover .image-box-inner {
+  transform: scale(1.2);
+}
+
+.blog-list-category .small-story .image-box {
+  aspect-ratio: 1 / 1;
+  position: relative;
+  overflow: hidden;
+  border-radius: 5px;
+  background-color: #999;
+}
+
+.blog-list-category .blog-post-date {
+  margin-top: 0.8em;
+  font-size: 10px;
+  color: #666;
+}
+
+.blog-list-category .big-story .blog-post-date {
+  margin-top: 1.5em;
+}
+
+.blog-list-category .blog-post-date strong {
+  font-size: 12px;
+}
+
+.blog-list-category .big-story .blog-post-excerpt {
+  color: #999;
+  font-size: 0.9em; 
+}
+
+.blog-post h1 {
+  font-size: 48px;
+}
+
+.blog-post .post-categories {
+  overflow: hidden;
+  margin: 2em 0;
+  padding: 0;
+}
+
+.blog-post .post-categories .post-category {
+  float: left;
+  list-style: none;
+  margin-right: 1em;
+}
+
+.blog-post .post-categories .post-category a {
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.blog-post .blog-post-date {
+  font-size: 12px;
+  color: #666;
+  padding-top: 0.7em;
+}
+
+.blog-post .blog-post-date strong {
+  font-size: 13px;
+}
+
+.blog-post .blog-post-content {
+  margin: 1em 0;
+  color: #666;
+}
+
+.blog-post .blog-post-content,
+.blog-post .blog-post-content p {
+  font-size: 1.1em;
+}
+
+.infopage-tag-list {
+  overflow: hidden;
+  padding: 0;
+}
+
+.infopage-tag-list li {
+  background: #eee;
+  padding: 0.5em;
+  float: left; 
+  margin: 0.5em 1em 0 0;
+}
+
+.infopage-tag-list li a {
+  text-decoration: none;
+}
+
+
+
+/*** FEATURED ***/
+
+.featured-container {
+  display: grid; 
+  height: 400px;
+  grid-template-columns: 1fr 1fr 1fr 1fr; 
+  grid-template-rows: 1fr 1fr; 
+  gap: 5px 5px; 
+  grid-template-areas: 
+    "featured1 featured1 featured2 featured2"
+    "featured1 featured1 featured3 featured4"; 
+}
+.featured2 { grid-area: featured2; background: #eee; }
+.featured3 { grid-area: featured3; background: #eee; }
+.featured4 { grid-area: featured4; background: #eee; }
+.featured1 { grid-area: featured1; background: #eee; }
+
+
+.featured-block {
+  position: relative;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.featured-block .image-box-inner {
+  transition: transform .5s;
+}
+
+.featured-block .image-box-inner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-size: cover;
+  background-position: center center;
+  background-color: rgba(0, 0, 0, 0.3);
+  background-blend-mode: soft-light;
+  
+}
+
+.featured-block:hover .image-box-inner {
+  transform: scale(1.2);
+}
+
+.featured-block .featured-post-title-container {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  padding: 1em;
+  
+  a {
+    text-decoration: none;
+    color: #fff;
+  }
+
+
+  .featured-post-title {
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: bold;
+  }
+
+  .featured-category {
+    display: inline-block;
+    padding: 0.2em 0.5em;
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+  }
+  
+
+}

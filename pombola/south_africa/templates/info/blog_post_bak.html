@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load pipeline %}
+
+{% block title %}
+    {{ object.title }}
+{% endblock %}
+
+{% block extra_head_meta %}
+  {# Prefetch DNS for when the Disqus Javascript is loaded #}
+  {% if settings.DISQUS_SHORTNAME %}
+    <link href="//{{ settings.DISQUS_SHORTNAME }}.disqus.com" rel="dns-prefetch" />
+    <!--[if IE 9]>
+      <link href="http://{{ settings.DISQUS_SHORTNAME }}.disqus.com/" rel="prefetch" />
+    <![endif]-->
+  {% endif %}
+{% endblock%}
+
+{% block open_graph %}{% include 'info/_blog_open_graph.html' %}{% endblock %}
+
+{% block content %}
+
+{% include "disqus_javascript.html" %}
+
+<div class="layout-major-minor blog-post">
+  <div class="major-column">
+  <h1>{{ object.title }}</h1>
+
+  <p class="meta">{{ object.publication_date|date }} ({{ object.publication_date|timesince }} ago)</p>
+
+  <div class="featured-image">
+    <a href="{{ object.featured_image_file.file.url }}" data-fancybox="gallery">
+      <img src="{{ object.featured_image_file.file.url }}"/>
+    </a>
+  </div>
+
+  {{ object.content_as_html|safe }}
+
+  {% include "info/_blog_tags.html" %}
+
+  {% include 'disqus_comments.html' %}
+
+    </div>
+    <div class="minor-column">
+      {% include "info/_blog_sidebar.html"%}
+
+    </div>
+  </div>
+{% endblock %}
+
+{% block js_end_of_body %}
+  {{ block.super }}
+  {% javascript 'invoke-fancybox' %}
+{% endblock %}

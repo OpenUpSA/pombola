@@ -1,0 +1,107 @@
+{% load random_numbers %}
+<div class="row featured-stories d-none d-lg-block mb-4">
+    <div class="col">
+        <div class="featured-container">
+            <div class="featured2 featured-block">
+                {% with posts_in_cat_featured.1 as post %}
+                    {% for cat in post.categories.all %}
+                        {% if cat.slug != 'featured' %}
+                            <div class="image-box-inner" style="background-image: url('/static/images/blog-images/{{cat.slug}}-{%random_int 1 5 %}.jpg')">
+                                <a href="{{ post.get_absolute_url }}"></a>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    <div class="featured-post-title-container">
+                        {% if post.categories.count %}
+                            {% for cat in post.categories.all %}
+                                {% if cat.slug != 'featured' %}
+                                    <div class="featured-category cat-bg-{{cat.slug}}">
+                                        <a href="/blog/category/{{ cat.slug }}">{{ cat.name }}</a>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        <div class="featured-post-title">
+                            <a href="{{ post.url }}">{{ post.title }}</a>
+                        </div>
+                    </div>
+                {% endwith %}
+            </div>
+            <div class="featured3 featured-block">
+                {% with posts_in_cat_featured.2 as post %}
+                    {% for cat in post.categories.all %}
+                        {% if cat.slug != 'featured' %}
+                            <div class="image-box-inner" style="background-image: url('/static/images/blog-images/{{cat.slug}}-{%random_int 1 5 %}.jpg')">
+                                <a href="{{ post.get_absolute_url }}"></a>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    <div class="featured-post-title-container">
+                        {% if post.categories.count %}
+                            {% for cat in post.categories.all %}
+                                {% if cat.slug != 'featured' %}
+                                    <div class="featured-category cat-bg-{{cat.slug}}">
+                                        <a href="/blog/category/{{ cat.slug }}">{{ cat.name }}</a>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        <div class="featured-post-title">
+                            <a href="{{ post.url }}">{{ post.title }}</a>
+                        </div>
+                    </div>
+                {% endwith %}
+            </div>
+            <div class="featured4 featured-block">
+                {% with posts_in_cat_featured.3 as post %}
+                    {% for cat in post.categories.all %}
+                        {% if cat.slug != 'featured' %}
+                            <div class="image-box-inner" style="background-image: url('/static/images/blog-images/{{cat.slug}}-{%random_int 1 5 %}.jpg')">
+                                <a href="{{ post.get_absolute_url }}"></a>
+                            </div>
+                        {% endif %}
+                     {% endfor %}
+                    <div class="featured-post-title-container">
+                        {% if post.categories.count %}
+                            {% for cat in post.categories.all %}
+                                {% if cat.slug != 'featured' %}
+                                    <div class="featured-category cat-bg-{{cat.slug}}">
+                                        <a href="/blog/category/{{ cat.slug }}">{{ cat.name }}</a>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        <div class="featured-post-title">
+                            <a href="{{ post.url }}">{{ post.title }}</a>
+                        </div>
+                    </div>
+                {% endwith %}
+            </div>
+            <div class="featured1 featured-block">
+                {% with posts_in_cat_featured.0 as post %}
+                    {% for cat in post.categories.all %}
+                        {% if cat.slug != 'featured' %}
+                            <div class="image-box-inner" style="background-image: url('/static/images/blog-images/{{cat.slug}}-{%random_int 1 5 %}.jpg')">
+                                <a href="{{ post.get_absolute_url }}"></a>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    <div class="featured-post-title-container">
+                        {% if post.categories.count %}
+                            {% for cat in post.categories.all %}
+                                {% if cat.slug != 'featured' %}
+                                    <div class="featured-category cat-bg-{{cat.slug}}">
+                                        <a href="/blog/category/{{ cat.slug }}">{{ cat.name }}</a>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        <div class="featured-post-title">
+                            <a href="{{ post.url }}">{{ post.title }}</a>
+                        </div>
+                    </div>
+                {% endwith %}
+            </div>
+        </div>
+    </div>
+</div>

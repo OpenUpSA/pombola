@@ -1,0 +1,30 @@
+<!-- SMALL STORY -->
+{% load content_props %}
+{% load random_numbers %}
+<div class="small-story">
+    <div class="row">
+      <div class="col-3">
+        <div class="image-box">
+          {% for cat in post.categories.all %}
+              {% if cat.slug != 'featured' %}
+                <div class="image-box-inner" style="background-image: url('/static/images/blog-images/{{cat.slug}}-{%random_int 1 5 %}.jpg')">
+                  <a href="{{ post.get_absolute_url }}"></a>
+                </div>
+              {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      <div class="col-9">
+        <div class="small-story-text">
+          <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+          <div class="blog-post-date">
+            {{ post.publication_date|date }} ({{ post.publication_date|timesince }} ago)
+            {% if settings.DISQUS_SHORTNAME %}
+              &mdash;
+              <a href="{{ post.get_absolute_url }}#disqus_thread">Comments</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<!-- BIG STORY -->
+{% load content_props %}
+{% load random_numbers %}
+
+<div class="big-story">
+    <div class="image-box">
+      <div class="image-box-inner" style="background-image: url('/static/images/blog-images/{{cat}}-{%random_int 1 5 %}.jpg')">
+        <a href="{{ post.get_absolute_url }}"></a>
+      </div>
+    </div>
+    <h3 class="mt-4"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+    <div class="blog-post-excerpt">
+      {{ post.content_as_cleaned_html|safe|truncatewords_html:50 }}
+    </div>
+    <div class="blog-post-date">
+      {{ post.publication_date|date }} ({{ post.publication_date|timesince }} ago)
+      {% if settings.DISQUS_SHORTNAME %}
+        &mdash;
+        <a href="{{ post.get_absolute_url }}#disqus_thread">Comments</a>
+      {% endif %}
+    </div>
+</div>

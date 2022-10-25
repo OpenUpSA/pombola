@@ -10,6 +10,7 @@ from pombola.south_africa.views import (SAHomeView, SAMembersView,
     SAPersonAppearanceView,
     SAOrganisationDetailSubPeople, SAOrganisationDetailSubParty,
     SAGeocoderView,
+    SAInfoBlogList,
     SAInfoBlogView,
     )
 from pombola.core.urls import (
@@ -260,6 +261,7 @@ urlpatterns += (
     # NOTE - you still need to create an InfoPage with the slug 'newsletter' for this not to 404.
     url(r'^info/newsletter', SANewsletterPage.as_view(), {'slug': 'newsletter'}, name='info_page_newsletter'),
     url(r'^blog/(?P<slug>[\w\-]+)$', SAInfoBlogView.as_view(), name='info_blog'),
+    url(r'^blog/$', SAInfoBlogList.as_view(), name='info_blog_list'),
 )
 
 
