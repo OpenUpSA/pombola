@@ -362,3 +362,111 @@ $understanding-government: #1D4E89;
   
 
 }
+
+@media screen and (max-width: 600px) {
+  .featured-image {
+    float: unset !important; 
+    margin: 1em 0em !important; 
+    width: 100% !important;
+  
+    img {
+        width: 100% !important;
+        display: block !important;
+    }
+  }
+}
+
+
+/* Blog styles */
+.blog-post {
+  ul,
+  p {
+      font-size: 0.9rem;
+  }
+  img {
+      max-width: 100%;
+  }
+}
+
+.blog-list {
+  .blog-in-a-list {
+      background: #efefef;
+      border-bottom: 1px solid #d2d2ce;
+      margin-bottom: 2em;
+      overflow: hidden;
+      border-radius: 5px;
+
+      .blog-thumbnail {
+          float: left;
+          width: 40%;
+      }
+
+
+
+      .blog-content {
+          float: right;
+          width: 60%;
+          padding: 1em;
+
+          h2 a {
+              text-decoration: none;
+          }
+
+      }
+
+  }
+}
+
+
+.featured-image {
+  float: left; 
+  margin: 0 1em 1em 0; 
+  max-width: 250px;
+
+  img {
+      width: 100%;
+      display: block;
+  }
+}
+
+
+@media screen and (max-width: 600px) {
+  .blog-list {
+      .blog-in-a-list {
+          .blog-thumbnail {
+              float: unset;
+              width: 100%;
+          }
+
+          .blog-content {
+              float: unset;
+              width: 100%;
+          }
+      }
+  }
+
+  
+  .blog-post .blog-post-date {
+    text-align: center;
+    margin-bottom: 1em;
+  }
+
+  .sharethis-inline-share-buttons {
+    margin: 1em 0;
+  }
+
+  .blog-post h1 {
+    text-align: center;
+  }
+
+  .blog-post .blog-post-content {
+    margin-bottom: 2em !important;
+  }
+
+  .disqus-comments-box {
+    margin: 1em 0;
+  }
+
+
+
+}
