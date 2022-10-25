@@ -20,8 +20,7 @@ class SAHomeView(HomeView):
         articles_for_front_page = \
             InfoPage.objects.filter(
                 categories__slug__in=(
-                    'week-parliament',
-                    'impressions'
+                    'featured'
                 )
             ).order_by('-publication_date')
 
