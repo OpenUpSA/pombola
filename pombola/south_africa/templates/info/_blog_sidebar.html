@@ -27,7 +27,7 @@
         </div>
 
         {% for post in popular_recent_posts|slice:":5" %}
-          {% include "info/_blog_small_story.html" %}
+          {% include "info/_blog_sidebar_story.html" %}
         {% empty %}
             <div>There are no recent posts{% if category %} in &ldquo;{{ category.name }}&rdquo;{% endif %}.</div>
         {% endfor %}
