@@ -6,7 +6,7 @@
       <div class="col-3">
         <div class="image-box">
           {% if cat == 'mp-corner' %}
-            <div class="image-box-inner" style="background-image: url({{ object.featured_image_file.file.url }})">
+            <div class="image-box-inner" style="background-image: url({{ post.featured_image_file.file.url }})">
               <a href="{{ post.get_absolute_url }}"></a>
             </div>
           {% else %}
@@ -14,7 +14,6 @@
               <a href="{{ post.get_absolute_url }}"></a>
             </div>
           {% endif %}
-        </div>
         </div>
       </div>
       <div class="col-9">

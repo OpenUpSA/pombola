@@ -28,7 +28,7 @@ class BlogMixin(ContextMixin):
         context['posts_in_cat_week_parliament'] = InfoPage.objects.filter(categories__slug__contains='week-parliament').order_by("-publication_date")[:6]
         context['posts_in_cat_mp_corner'] = InfoPage.objects.filter(categories__slug__contains='mp-corner').order_by("-publication_date")[:6]
         context['posts_in_cat_interviews_research'] = InfoPage.objects.filter(categories__slug__contains='interviews-research').order_by("-publication_date")[:6]
-        context['posts_in_cat_policy_legislation'] = InfoPage.objects.filter(categories__slug__contains='legislation').order_by("-publication_date")[:6]
+        context['posts_in_cat_legislation'] = InfoPage.objects.filter(categories__slug__contains='legislation').order_by("-publication_date")[:6]
         context['posts_in_cat_understanding_government'] = InfoPage.objects.filter(categories__slug__contains='understanding-government').order_by("-publication_date")[:6]
         
         context['posts_in_cat_featured'] = InfoPage.objects.filter(categories__slug__contains='featured').order_by("-publication_date")
