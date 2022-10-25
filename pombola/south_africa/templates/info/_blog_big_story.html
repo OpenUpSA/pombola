@@ -4,9 +4,15 @@
 
 <div class="big-story">
     <div class="image-box">
-      <div class="image-box-inner" style="background-image: url('/static/images/blog-images/{{cat}}-{%random_int 1 5 %}.jpg')">
-        <a href="{{ post.get_absolute_url }}"></a>
-      </div>
+      {% if cat == 'mp-corner' %}
+        <div class="image-box-inner" style="background-image: url({{ object.featured_image_file.file.url }})">
+          <a href="{{ post.get_absolute_url }}"></a>
+        </div>
+      {% else %}
+        <div class="image-box-inner" style="background-image: url('/static/images/blog-images/{{cat}}-{%random_int 1 5 %}.jpg')">
+          <a href="{{ post.get_absolute_url }}"></a>
+        </div>
+      {% endif %}
     </div>
     <h3 class="mt-4"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
     <div class="blog-post-excerpt">
