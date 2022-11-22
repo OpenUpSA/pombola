@@ -56,91 +56,58 @@ class InterestScraper(object):
         """
         return string.replace(string.replace(lxml.etree.tostring(el), '&#160;', ' '), '&#173;', '-')
 
-    def scrape_pdf(self):
 
-        pdfdata = open(self.input, 'r').read()
-        xmldata = scraperwiki.pdftoxml(pdfdata)
+    def fix_known_mps_shares_overlap(self, html):
+        """
+        Fix known problem areas where the MP name overlap with the shares next section and does not correctly tableize it
+        """
 
-        self.data = []
-        namecount = 0
-        sectioncount = -1
-        intable = False
-        currentsection = ''
-        count = 0
+        html =  html.replace('<p><strong>4.5BAPELA KOPENG OBED AFRICAN NATIONAL CONGRESS SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>','<p><strong>4.5 BAPELA KOPENG OBED ANC </strong></p><p><strong>SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>')
 
-        # Fontspecs are used to determine what content we're looking at.
-        # These ids appear in the first content page when parsing the document.
-        # Some years have more and different ids than others.
-        # Setting the correct values is a trial and error apporach.
-        # These ids can be obtained by running:
-        # `./scrape_interests_pdf.py --input <filename>.pdf --print-font-ids=True`
+        html =  html.replace('<p><strong>4.209 PILANE-MAJAKE MAKGATHATSO CHANA ANC SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>','<p><strong>4.209 PILANE-MAJAKE MAKGATHATSO CHANA ANC </strong></p><p><strong>SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>')
 
-        font_id_1 = '3'
-        font_id_2 = '4'
-        font_id_3 = '5'
+        html =  html.replace('<p><strong>3.1HENDRICKS MOGAMAD GANIEF EBRAHIM AL JAMA-AH SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts)</strong></p>','<p><strong>3.1 HENDRICKS MOGAMAD GANIEF EBRAHIM AL JAMA-AH</strong></p><p><strong>SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>')
 
-        root = lxml.etree.fromstring(xmldata.encode('utf8'))
-        pages = list(root)
+        html =  html.replace('<p><strong>4.223 SISULU LINDIWE NONCEBA AFRICAN NATIONAL CONGRESS SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>','<p><strong>4.223 SISULU LINDIWE NONCEBA ANC</strong></p><p><strong>SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>')
 
-        for page in pages:
-            for el in list(page):
-                element_text = ''
-                count = count + 1
-                if el.tag == "text":
-                    text_element = self.strip_bold(re.match(
-                        '(?s)<text.*?>(.*?)</text>', self.replace_character_codes(el)).group(1))
-                    if el.attrib['font'] == font_id_1:
-                        # found a new MP
-                        if len(self.data) == namecount:
-                            self.data.append({})
+        html =  html.replace('<p><strong>7.4BARA MBULELO RICHMOND DEMOCRATIC ALLIANCE SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>','<p><strong>7.4 BARA MBULELO RICHMOND DA</strong></p><p><strong>SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>')
 
-                        self.data[namecount]['mp'] = text_element
-                        namecount = namecount + 1
+        html =  html.replace('<p><strong>4.174 MUTHAMBI AZWIHANGWISI FAITH ANC SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>','<p><strong>4.174 MUTHAMBI AZWIHANGWISI FAITH ANC </strong></p><p><strong>SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>')
 
-                    elif el.attrib['font'] == font_id_2 and re.match('[0-9]+[.] ([A-Z]+)', text_element):
+        html =  html.replace('<p><strong>7.56 MASIPA NOKO PHINEAS DEMOCRATIC ALLIANCE SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts)</strong></p>','<p><strong>7.56 MASIPA NOKO PHINEAS DA </strong></p><p><strong>SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>')
 
-                        # found new section
-                        if text_element == '1. SHARES AND OTHER FINANCIAL INTERESTS':
-                            sectioncount = sectioncount + 1
-                        intable = False
+        html =  html.replace('<p><strong>7.86 TARABELLA-MARCHESI NOMSA INNOCENCIA DA SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>','<p><strong>7.86 TARABELLA-MARCHESI NOMSA </strong></p><p><strong>SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>')
 
-                        currentsection = re.match(
-                            '[0-9]{1,2}[.] (.*)', text_element).group(1)
-                        self.data[namecount-1][currentsection] = {}
+        html =  html.replace('<p><strong>4.115 MASEKO-JELE NOMATHEMBA HENDRIETTA ANC SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>','<p><strong>4.115 MASEKO-JELE NOMATHEMBA HENDRIETTA ANC </strong></p><p><strong>SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>')
 
-                    elif currentsection != '':
-                        if text_element == 'Nothing to disclose.':
-                            self.data[namecount -
-                                      1][currentsection] = text_element
-                        elif not intable and el.attrib['font'] == font_id_3:
-                            curtable = {}
-                            intable = True
-                            haverows = False
-                            curtable[el.attrib['left']] = text_element
-                            self.data[namecount-1][currentsection] = []
-                            self.data[namecount-1][currentsection].append({})
-                        elif intable and not haverows and text_element == ' ':
-                            haverows = True
-                        # Check this: we've stripped off the bold element
-                        elif intable and not haverows and not re.match('(?s)<b.*?>(.*?)</b>', text_element) and el.attrib['font'] == font_id_3:
-                            haverows = True
-                        elif intable and not haverows:
-                            curtable[el.attrib['left']] = text_element
-                        elif intable and haverows and text_element == ' ':
-                            if len(self.data[namecount-1][currentsection][len(self.data[namecount-1][currentsection])-1]) > 0:
-                                self.data[namecount -
-                                          1][currentsection].append({})
-                        elif intable and haverows:
-                            if curtable[el.attrib['left']] in self.data[namecount-1][currentsection][len(self.data[namecount-1][currentsection])-1]:
-                                if self.data[namecount-1][currentsection][len(self.data[namecount-1][currentsection])-1][curtable[el.attrib['left']]][-1] == ' ':
-                                    self.data[namecount-1][currentsection][len(self.data[namecount-1][currentsection])-1][curtable[el.attrib['left']]] = self.data[namecount-1][currentsection][len(
-                                        self.data[namecount-1][currentsection])-1][curtable[el.attrib['left']]] + text_element
-                                else:
-                                    self.data[namecount-1][currentsection][len(self.data[namecount-1][currentsection])-1][curtable[el.attrib['left']]] = self.data[namecount-1][currentsection][len(
-                                        self.data[namecount-1][currentsection])-1][curtable[el.attrib['left']]] + ' ' + text_element
-                            else:
-                                self.data[namecount-1][currentsection][len(
-                                    self.data[namecount-1][currentsection])-1][curtable[el.attrib['left']]] = text_element
+        html =  html.replace('<p><strong>8.20 MASHABELA NGWANAMAKWETLE RENEILOE EFF SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>','<p><strong>8.20 MASHABELA NGWANAMAKWETLE RENEILOE EFF </strong></p><p><strong>SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>')
+
+        html =  html.replace('<p><strong>4.143 MKHWANAZI JABULILE CYNTHIA NIGHTINGALE ANC SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>','<p><strong>4.143 MKHWANAZI JABULILE CYNTHIA NIGHTINGALE ANC </strong></p><p><strong>SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>')
+
+        html =  html.replace('<p><strong>4.112 MAPISA-NQAKULA NOSIVIWE NOLUTHANDO ANC SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>','<p><strong>4.112 MAPISA-NQAKULA NOSIVIWE NOLUTHANDO ANC </strong></p><p><strong>SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>')
+
+        html =  html.replace('<p><strong>4.114 MAREKWA GOBONAMANG PRUDENCE ANC SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>','<p><strong>4.114 MAREKWA GOBONAMANG PRUDENCE ANC </strong></p><p><strong>SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>')
+
+        html = html.replace(unichr(252), 'u')
+
+        html =  html.replace('<p><strong>7.41 Kruger Hendrik Christiaan Crafford Democratic Alliance SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts)</strong></p>','<p><strong>7.41 KRUGER HENDRIK CHRISTIAAN CRAFFORD DA </strong></p><p><strong>SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>')
+
+        html =  html.replace('<p><strong>7.92 WALTERS THOMAS CHARLES RAVENSCROFT DA SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>','<p><strong>7.92 WALTERS THOMAS CHARLES RAVENSCROFT DA </strong></p><p><strong>SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>')
+
+        html =  html.replace('<p><strong>7.24 GONDWE MIMMY MARTHA DEMOCRATIC ALLIANCE SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>','<p><strong>7.24 GONDWE MIMMY MARTHA DA </strong></p><p><strong>SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>')
+
+        html =  html.replace('<p><strong>4.96 MAKHUBELA -MASHELE LUSIZO SHARON ANC SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>','<p><strong>4.96 MAKHUBELA-MASHELE LUSIZO SHARON ANC </strong></p><p><strong>SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>')
+
+        html =  html.replace('<p><strong>7.82 SPIES ELEANORE ROCHELLE JACQUELENE DA SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts)</strong></p>','<p><strong>7.82 SPIES ELEANORE ROCHELLE JACQUELENE DA </strong></p><p><strong>SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>')
+
+
+
+
+
+
+        
+        return html
+    
 
     def extract_content_from_document(self, doc_file_path):
         """ Extract content from a .docx file and return a (text, html) tuple.
@@ -160,6 +127,7 @@ class InterestScraper(object):
         Reads the contents of multiple small files and merges it into one big file.
         """
         # self.logger.info("Reading and merging html files from {}".format(file_path))
+        # self.logger.info("Reading and merging html files from {}".format(file_path))
         main_html = ""
 
         files = os.listdir(file_path)
@@ -178,7 +146,7 @@ class InterestScraper(object):
         # self.logger.info("Finished reading and merging html {} dir".format(processed_files))
         return main_html
 
-    @cachetools.func.ttl_cache(maxsize=100000, ttl=1000 * 6000)
+    # @cachetools.func.ttl_cache(maxsize=100000, ttl=1000 * 6000)
     def get_soup(self, html):
         return BeautifulSoup(html, 'html.parser')
 
@@ -193,12 +161,16 @@ class InterestScraper(object):
                 if child_div and child_div.name == "img":
                     child_tag.decompose()
 
+            
+
         return soup
 
     def parse_html_generated_from_doc(self, html):
         """
             Parse the HTML to get the text.
         """
+       
+
         CATEGORIES = {
             "SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts)": "SHARES AND OTHER FINANCIAL INTERESTS",
             "REMUNERATED EMPLOYMENT OUTSIDE PARLIAMENT": "REMUNERATED EMPLOYMENT OUTSIDE PARLIAMENT",
@@ -230,6 +202,7 @@ class InterestScraper(object):
         self.data = []
         self.all_sections = {}
         in_table = False
+        self.section = ''
 
         start_time = time.time()
         soup = self.get_soup(html)
@@ -263,14 +236,19 @@ class InterestScraper(object):
                 if any(s for s in ['EFF'] if s in div_text):
                     continue
                 table = div
+
+                # Table parsing is wrong - there are no TH tags
+
                 if table is not None:
                     if in_table:
                         # table continuation over a page break found, process it
+                        print('overlap')
                         table_tr = table.find_all('tr')
                         for tr in list(table_tr):
                             section_content = {}
                             for n, inner_tr in list(enumerate(tr.find_all('th'))):
                                 if not n > len(table_headers) - 1:
+                                    print(table_headers[n])
                                     section_content[table_headers[n]] = str(
                                         inner_tr.text.encode('utf-8').strip())
                             if any("nothing to disclose" in s.lower() for s in section_content.values()):
@@ -291,6 +269,7 @@ class InterestScraper(object):
                                 category_entries = "Nothing to disclose"
                             else:
                                 category_entries.append(section_content)
+                            print(category_entries)
 
                     if self.section not in single_mp_interests[self.mp]:
                         single_mp_interests[self.mp][self.section] = {}
@@ -313,23 +292,21 @@ class InterestScraper(object):
             },
                 outfile, indent=1)
 
-    def print_font_ids(self):
-        pdfdata = open(self.input, 'r').read()
-        xmldata = scraperwiki.pdftoxml(pdfdata).encode('utf8')
-        root = lxml.etree.fromstring(xmldata)
-        pages = list(root)
-
-        # Font ids we need are specified on first page that have interests.
-        page_index = 1
-
-        for el in list(pages[page_index]):
-            if el.tag == "fontspec":
-                print(el.items())
-
     def write_html_to_file(self, html_str):
+
+       
+        # html_str_fixed_headers = self.fix_table_headers(html_str)
+        html_str_fixed = self.fix_known_mps_shares_overlap(html_str)
+
+        
+
+
         with open("main_html_file.html", 'w') as outfile:
-            outfile.write(html_str.encode('utf-8'))
+            outfile.write(html_str_fixed.encode('utf-8'))
             # self.logger.info("Wrote html to %s" % self.output)
+
+        return html_str_fixed
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
@@ -350,14 +327,11 @@ if __name__ == "__main__":
         scraper.print_font_ids()
         exit()
 
-    # Not Applicapable to 2019 and 2020
-    # scraper.scrape_pdf()
-
     # Read and parse the word doc
     master_html = scraper.read_and_merge_html(file_path="docx_files")
     # write master_html to file
-    scraper.write_html_to_file(master_html)
+    html_str_fixed = scraper.write_html_to_file(master_html)
     start_time = time.time()
     print("--- %s seconds ---" % (time.time() - start_time))
-    scraper.parse_html_generated_from_doc(master_html)
+    scraper.parse_html_generated_from_doc(html_str_fixed)
     scraper.write_results()
