@@ -158,7 +158,10 @@
         <div>
           <div>
             <div class="mp-block" style="padding-right: 0em;">
-              <h3 class="mp-block__title">Political party:</h3>
+
+              {% if object.parties_and_coalitions %}
+                <h3 class="mp-block__title">Political party:</h3>
+              {% endif %}
                 {% for party in object.parties_and_coalitions %}
                   <a href="{{ party.get_absolute_url }}" {% for identifier in party.identifiers.all %}
                     data-identifier-{{ identifier.scheme }}="{{ identifier.identifier }}" {%endfor%}
@@ -178,6 +181,7 @@
                   </a>
                 {% empty %}
                 {% if former_parties %}
+                <h3 class="mp-block__title">Former party:</h3>
                 {% for party in former_parties %}
                   <a href="{{ party.get_absolute_url }}" {% for identifier in party.identifiers.all %}
                     data-identifier-{{ identifier.scheme }}="{{ identifier.identifier }}" {%endfor%}
