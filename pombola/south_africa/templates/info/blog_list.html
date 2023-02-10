@@ -278,6 +278,16 @@
   <!-- SIDEBAR-->
   <div class="col-12 col-lg-4">
 
+    
+    <select class="category-select">
+      <option value="0">Go to category</option>
+      {% for category in all_categories %}
+        <option value="{{category.slug}}">{{category.name}}</option>
+      {% endfor %}
+
+    </select>
+    
+
     {% if categories %}
       <div class="infopage-category-summary">
         {% for category in categories %}
@@ -293,5 +303,21 @@
   </div>
 </div>
 
+<script>
+
+  const selectElement = document.querySelector('.category-select');
+
+  selectElement.addEventListener('change', (event) => {
+
+    // go to link
+    window.location.href = "/blog/category/" + event.target.value;
+
+
+
+
+
+  });
+
+</script>
 
 {% endblock %}
