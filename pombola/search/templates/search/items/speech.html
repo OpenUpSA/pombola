@@ -1,8 +1,25 @@
-<li class="search-results-item search-results-speech-item">
+{% load highlight %}
+{% if result.object %}
 
-    <section>
+<!-- MISC -->
+<li class="search-result">
+  <div class="row">
+    <div class="col-auto">
+          <div class="search-image-thumbnail" style="background-image: url({% static 'images/hansard-90x90.jpg' %})">
+              <a href="{{ object.get_absolute_url }}"></a>
+          </div>
+    </div>
+    <div class="col">
+      <div class="listing-content">
         <h3><a href="{{ result.object.get_absolute_url }}">{{ result.object.section|default:"Result" }}</a></h3>
-        <p>{{ result.highlighted.0|safe }}</p>
-    </section>
-
+        <div class="listing-excerpt my-3">
+            <p>{{ result.highlighted.0|safe }}</p>
+        </div>
+        
+      </div>
+    </div>
+  </div>
 </li>
+
+{% endif %}
+
