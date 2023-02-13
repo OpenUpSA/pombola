@@ -75,7 +75,7 @@
 
 .inline-search-box {
   width: auto;
-  max-width: 640px;
+  // max-width: 640px;
   margin-bottom: 1em;
   @include clearfix();
 
@@ -140,6 +140,10 @@
   padding: 1em;
   background-color: $colour_lighter_grey;
   margin-top: 1em;
+
+  label {
+    margin-bottom: 0.3em;
+  }
 
   .radio-button-columns {
     display: block;

@@ -26,22 +26,6 @@
 
     <form method="get" action="." class="global-search-form">
 
-      {% block alternative_search_section %}
-        {% if settings.COUNTRY_APP == 'south_africa' %}
-          <p>
-            Alternatively search
-
-            {% if settings.COUNTRY_APP == 'south_africa' %}
-              {% block alternative_search %}
-                <a href="{% url "core_geocoder_search" %}">for a location</a>
-              {% endblock %}
-            {% endif %}
-
-            instead.
-          </p>
-        {% endif %}
-      {% endblock %}
-
         <div class="search-section-box">
 
           {% block search_form %}
@@ -51,49 +35,66 @@
                 <input type="submit" value="Search" class="button">
             </div>
 
-          {% if settings.COUNTRY_APP == 'south_africa' %}
-            <h4>Advanced search</h4>
-          {% else %}
-            <a href="#advanced-search-options" class="js-hide-reveal-link open-advanced-search">Advanced search</a>
-          {% endif %}
-
             <div class="advanced-search-options js-update-results-trigger {% if settings.COUNTRY_APP != 'south_africa' %} js-hide-reveal{% endif %}" id="advanced-search-options">
-
-                <div class="search-category-controls">
-                  {% for search_section, title, selected in form_options %}
-                    <div class="radio-button-columns">
-                        <label>
-                            <input type="radio" name="section" value="{{ search_section }}"{% if selected %} checked{% endif %}>
-                            {{ title }}
-                        </label>
-                    </div>
-                  {% endfor %}
+              <div class="row justify-content-center align-items-center g-2">
+                <div class="col-2">
+                  <label><strong>FILTER BY</strong></label>
+                  <select name="section" class="w-100 p-1">
+                    {% for search_section, title, selected in form_options %}
+                      <option value="{{ search_section }}"{% if selected %} selected{% endif %}>{{ title }}</option>
+                    {% endfor %}
+                  </select>
                 </div>
-
-                <div class="search-order-by-controls">
-                    <label for="search-results-order">Order by</label>
-                    <select name="order" id="search-results-order">
-                        <option value="relevance"{% if order == 'relevance' %} selected{% endif %}>Relevance</option>
-                        <option value="date"{% if order == 'date' %} selected{% endif %}>Date</option>
-                    </select>
+                <div class="col-2">
+                  <label><strong>ORDER BY</strong></label>
+                  <select name="order" id="search-results-order" class="w-100 p-1">
+                    <option value="relevance" {% if order == 'relevance' %} selected{% endif %}>Relevance</option>
+                    <option value="date" {% if order == 'date' %} selected{% endif %}>Date</option>
+                  </select>
                 </div>
-
-              {% if settings.COUNTRY_APP == 'south_africa' %}
-                <div class="search-range-controls">
-                    <h4>Limit to date range</h4>
-                    <label for="search-range-start">Start date</label>
-                    <input type="text" name="start" id="search-range-start" value="{{ search_start_date_range }}" placeholder="YYYY-MM-DD" class="datepicker">
-                    <label for="search-range-end">End date</label>
+                <div class="col-5">
+                  <label><strong>DATE RANGE (START TO END)</strong></label>
+                  <div>
+                    <input type="text" name="start" id="search-range-start" value="{{ search_start_date_range }}" placeholder="YYYY-MM-DD" class="datepicker" style="width:45%">
                     <input type="text" name="end" id="search-range-end" value="{{ search_end_date_range }}" placeholder="YYYY-MM-DD" class="datepicker">
+                  </div>
                 </div>
-              {% endif %}
+                <div class="col-3">
+                  <button type="submit" class="button js-update-results-button w-100">Update results</button>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col">
+                  {% block alternative_search_section %}
+                      <span>  
+                      Alternatively search
 
-              <button type="submit" class="button js-update-results-button">Update results</button>
+                        {% if settings.COUNTRY_APP == 'south_africa' %}
+                          {% block alternative_search %}
+                            <a href="{% url "core_geocoder_search" %}">for a location</a>
+                          {% endblock %}
+                        {% endif %}
+
+                        instead.
+                      </span>
+                  {% endblock %}
+                </div>
+              </div>
+            </div>
+
+
+            
+
+
+               
+
+             
+              
 
             </div>
           {% endblock %}
 
-        </div>
+        
 
     </form>
     <div class="global-search-results">
