@@ -1,4 +1,46 @@
-<li class="search-results-item search-results-speech-item">
+{% load highlight %}
+{% if result.object %}
+
+<!-- MISC -->
+<li class="search-result">
+  <div class="row">
+    <div class="col-auto">
+          <div class="search-image-thumbnail" style="background-image: url({% static 'images/hansard-90x90.jpg' %})">
+              <a href="{{ object.get_absolute_url }}"></a>
+          </div>
+    </div>
+    <div class="col">
+      <div class="listing-content">
+        {% if result.object.section.get_ancestors %}
+          <h3>
+              <span class="meta">
+              {{ result.object.section.get_ancestors.0.title }}&nbsp;&gt;&nbsp;
+                {% for section in result.object.section.get_ancestors %}
+                  {% if not forloop.first %}
+                      {{ section.title }}
+                      {% if not forloop.last %}&nbsp;&gt;&nbsp;{% endif %}
+                  {% endif %}
+                {% endfor %}
+              </span>
+          </h3>
+        {% endif %}
+        <div class="listing-excerpt my-3">
+          <p>
+            <a href="{% url 'speeches:section-view' result.object.section.get_path %}#s{{ result.object.id }}">
+              <span class="speech-name">{{ result.object.speaker }}:</span>
+              <span class="speech-description">{{ result.highlighted.0|safe }}</span>
+            </a>
+          </p>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</li>
+
+{% endif %}
+
+{% comment %} <li class="search-results-item search-results-speech-item">
   {% if result.object.section.get_ancestors %}
     <h3>
         <span class="meta">
@@ -16,4 +58,5 @@
         <span class="speech-name">{{ result.object.speaker }}:</span>
         <span class="speech-description">{{ result.highlighted.0|safe }}</span>
     </a>
-</li>
+</li> {% endcomment %}
+
