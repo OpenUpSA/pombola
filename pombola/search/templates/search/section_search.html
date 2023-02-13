@@ -14,7 +14,7 @@
 {% block search_results %}
 
   <h2>{{ section_title }}</h2>
-  <ul class="unstyled-list">
+  <ul class="unstyled-list search-listing">
   {% for result in page_obj %}
     {% include 'search/search_results_item.html' %}
   {% empty %}

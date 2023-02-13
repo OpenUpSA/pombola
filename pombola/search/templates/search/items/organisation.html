@@ -1,26 +1,33 @@
 {% load staticfiles %}
 {% load thumbnail %}
 
-<li class="search-results-item search-results-{{ object.css_class }}-item{% if not object.show_active %} inactive{% endif %}">
 
-  {% thumbnail object.primary_image "90x90" crop="center" as im %}
-    <a href="{{ object.get_absolute_url }}" class="search-image-thumbnail">
-      <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>
-    </a>
-  {% empty %}
-    <a href="{{ object.get_absolute_url }}" class="search-image-thumbnail">
-      <img src="{% static 'images/organisation-90x90.jpg' %}" />
-    </a>
-  {% endthumbnail %}
+<!-- ORGANISATION -->
+<li class="search-result">
+    <div class="row">
+      <div class="col-auto">
+        {% thumbnail object.primary_image "90x90" crop="center" as im %}
+            <div class="search-image-thumbnail" style="background-image: url({{ im.url }})">
+                <a href="{{ object.get_absolute_url }}"></a>
+            </div>
+        {% empty %}
+            <div class="search-image-thumbnail" style="background-image: url({% static 'images/organisation-90x90.jpg' %})">
+                <a href="{{ object.get_absolute_url }}"></a>
+            </div>
+        {% endthumbnail %}
+      </div>
+      <div class="col">
+        <div class="listing-content">
+          <h3><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></h3>
+          <div class="listing-excerpt my-3">
+            <div class="kind">{{ object.kind.name }}</div>
 
-  <section class="search-result-body">
-    <h3><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></h3>
-
-    <div class="kind">{{ object.kind.name }}</div>
-
-    {% if object.num_position_holders %}
-      <p class="meta">{{ object.num_position_holders }} related positions</p>
-    {% endif %}
-  </section>
-
+            {% if object.num_position_holders %}
+              <p class="meta">{{ object.num_position_holders }} related positions</p>
+            {% endif %}
+          </div>
+          
+        </div>
+      </div>
+    </div>
 </li>

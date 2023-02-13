@@ -1,5 +1,5 @@
 
-<ul class="listing">
+<ul class="listing search-listing">
 {% for result in page.object_list %}
     {% include 'search/search_results_item.html' with object=result.object %}
 {% empty %}
