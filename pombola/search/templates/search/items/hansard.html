@@ -7,11 +7,26 @@
    https://github.com/mysociety/pombola/issues/1424
 {% endcomment %}
 {% if result.object %}
-<li class="search-results-item search-results-hansard-item">
 
-  <h3><a href="{{ result.object.get_absolute_url }}">{{ result.object.sitting.name }}</a></h3>
-
-  <p>{% highlight result.object.content with query %}</p>
-
+<!-- ORGANISATION -->
+<li class="search-result">
+  <div class="row">
+    <div class="col-auto">
+          <div class="search-image-thumbnail" style="background-image: url({% static 'images/hansard-90x90.jpg' %})">
+              <a href="{{ object.get_absolute_url }}"></a>
+          </div>
+    </div>
+    <div class="col">
+      <div class="listing-content">
+        <h3><a href="{{ result.object.get_absolute_url }}">{{ result.object.sitting.name }}</a></h3>
+        <div class="listing-excerpt my-3">
+          <p>{% highlight result.object.content with query %}</p>
+        </div>
+        
+      </div>
+    </div>
+  </div>
 </li>
+
 {% endif %}
+
