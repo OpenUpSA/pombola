@@ -1,16 +1,12 @@
-{% load thumbnail %}
+{% load staticfiles %}
 
 <!-- BLOG -->
 <li class="search-result">
   <div class="row">
     <div class="col-auto">
-      {% thumbnail object.primary_image "90x90" crop="center" as im %}
-            <div class="search-image-thumbnail" style="background-image: url({{ im.url }})">
-                <a href="{{ object.get_absolute_url }}"></a>
-            </div>
-        {% empty %}
-            <div class="search-image-thumbnail"></div>
-        {% endthumbnail %}
+      <div class="search-image-thumbnail" style="background-image: url({% static 'images/blog-90x90.jpg' %})">
+        <a href="{{ object.get_absolute_url }}"></a>
+      </div>
     </div>
     <div class="col">
       <div class="listing-content">
