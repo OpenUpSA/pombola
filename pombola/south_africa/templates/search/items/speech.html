@@ -22,7 +22,6 @@
       <div class="listing-content">
         {% if result.object.section.get_ancestors %}
           <h3>
-              {{ result.object.section.get_ancestors.0.title }}&nbsp;&gt;&nbsp;
                 {% for section in result.object.section.get_ancestors %}
                   {% if not forloop.first %}
                       {{ section.title }}
@@ -30,6 +29,7 @@
                   {% endif %}
                 {% endfor %}
           </h3>
+          {{ result.object.section.get_ancestors.0.title }}
         {% endif %}
         <div class="listing-excerpt my-3">
           <p>
