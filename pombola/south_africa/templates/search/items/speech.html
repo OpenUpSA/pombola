@@ -42,10 +42,10 @@
           </h3>
         {% endif %}
         <div class="listing-excerpt my-3">
-          <p class="meta">
+          {% comment %} <p class="meta">
               <span class="speech-name">{{ result.object.speaker }}:</span>
               <span class="speech-description">{{ result.highlighted.0|safe }}</span>
-          </p>
+          </p> {% endcomment %}
         </div>
         
       </div>
