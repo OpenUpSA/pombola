@@ -1,12 +1,8 @@
-{% comment %} {% load highlight %} {% endcomment %}
-
 <!-- MISC -->
-{% comment %} <li class="search-result">
+<li class="search-result">
   <div class="row">
     <div class="col-auto">
-          <div class="search-image-thumbnail" style="background-image: url({% static 'images/hansard-90x90.jpg' %})">
-              <a href="{{ object.get_absolute_url }}"></a>
-          </div>
+          <div class="search-image-thumbnail" style="background-image: url({% static 'images/hansard-90x90.jpg' %})"></div>
     </div>
     <div class="col">
       <div class="listing-content">
@@ -35,10 +31,10 @@
       </div>
     </div>
   </div>
-</li> {% endcomment %}
+</li>
 
 
-<li class="search-results-item search-results-speech-item">
+{% comment %} <li class="search-results-item search-results-speech-item">
   {% if result.object.section.get_ancestors %}
     <h3>
         <span class="meta">
@@ -57,4 +53,4 @@
         <span class="speech-description">{{ result.highlighted.0|safe }}</span>
     </a>
 </li>
-
+ {% endcomment %}
