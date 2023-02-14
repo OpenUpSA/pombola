@@ -4,13 +4,24 @@
 <li class="search-result">
   <div class="row">
     <div class="col-auto">
-      <div class="search-image-thumbnail" style="background-image: url({% static 'images/hansard-90x90.jpg' %})"></div>
+      {% if result.object.section.get_ancestors %}
+        {% if result.object.section.get_ancestors.0.title == 'Hansard' %}
+          <div class="search-image-thumbnail" style="background-image: url({% static 'images/hansard-90x90.jpg' %})"></div>
+        {% elif result.object.section.get_ancestors.0.title == 'Committee Minutes' %}
+          <div class="search-image-thumbnail" style="background-image: url({% static 'images/committee-90x90.jpg' %})"></div>
+        {% elif result.object.section.get_ancestors.0.title == 'Questions' %}
+          <div class="search-image-thumbnail" style="background-image: url({% static 'images/questions-90x90.jpg' %})"></div>
+        {% else %}
+          <div class="search-image-thumbnail" style="background-image: url({% static 'images/hansard-90x90.jpg' %})"></div>
+        {% endif %}
+      {% else %}
+        <div class="search-image-thumbnail" style="background-image: url({% static 'images/hansard-90x90.jpg' %})"></div>
+      {% endif %}
   </div>
     <div class="col">
       <div class="listing-content">
         {% if result.object.section.get_ancestors %}
           <h3>
-              <span class="meta">
               {{ result.object.section.get_ancestors.0.title }}&nbsp;&gt;&nbsp;
                 {% for section in result.object.section.get_ancestors %}
                   {% if not forloop.first %}
@@ -18,12 +29,11 @@
                       {% if not forloop.last %}&nbsp;&gt;&nbsp;{% endif %}
                   {% endif %}
                 {% endfor %}
-              </span>
           </h3>
         {% endif %}
         <div class="listing-excerpt my-3">
           <p>
-            <a href="{% url 'speeches:section-view' result.object.section.get_path %}#s{{ result.object.id }}">
+            <a className="" href="{% url 'speeches:section-view' result.object.section.get_path %}#s{{ result.object.id }}">
               <span class="speech-name">{{ result.object.speaker }}:</span>
               <span class="speech-description">{{ result.highlighted.0|safe }}</span>
             </a>
