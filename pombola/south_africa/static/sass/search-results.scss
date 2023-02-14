@@ -30,13 +30,30 @@
     }
 
     .search-result-type {
-        font-size: 10px;
+        font-size: 7px;
+        letter-spacing: 1px;
+        border-radius: 3px;
         font-weight: bold;
         display: inline-block;
-        background-color: #007b5a;
+        background-color: #333;
         color: #fff;
-        padding: 0.2em 0.6em;
+        padding: 0.2em 0.6em 0.1em;
         text-transform: uppercase;
         margin-bottom: 0.3em;
+        opacity: 0.8;
     }
+
+    .search-result-type-hansard {
+        background-color: #e65543;
+    }
+
+    .search-result-type-questions {
+        background-color: #fcb514;
+    }
+
+    .search-result-type-committee {
+        background-color: #007b5a;
+    }
+
+
 }

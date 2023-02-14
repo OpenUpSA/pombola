@@ -21,7 +21,15 @@
     <div class="col">
       <div class="listing-content">
         {% if result.object.section.get_ancestors %}
-          <span class="search-result-type">{{ result.object.section.get_ancestors.0.title }}</span>
+
+        {% if result.object.section.get_ancestors.0.title == 'Hansard' %}
+          <span class="search-result-type search-result-type-hansard">{{ result.object.section.get_ancestors.0.title }}</span>
+        {% elif result.object.section.get_ancestors.0.title == 'Committee Minutes' %}
+          <span class="search-result-type search-result-type-committee">{{ result.object.section.get_ancestors.0.title }}</span>
+        {% elif result.object.section.get_ancestors.0.title == 'Questions' %}
+          <span class="search-result-type search-result-type-questions">{{ result.object.section.get_ancestors.0.title }}</span>
+        {% endif %}
+        
           <h3>
                 {% for section in result.object.section.get_ancestors %}
                   {% if not forloop.first %}
