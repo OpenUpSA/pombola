@@ -23,10 +23,18 @@
         position: relative;
         width: 90px;
         height: 90px;
-        background-color: #eee;
     }
 
     .listing-excerpt {
         color: #999;
+    }
+
+    .search-result-type {
+        font-size: 10px;
+        font-weight: bold;
+        display: inline-block;
+        background-color: #007b5a;
+        color: #fff;
+        padding: 0.2em;
     }
 }
