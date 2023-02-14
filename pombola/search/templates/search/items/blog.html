@@ -1,4 +1,30 @@
-<li class="search-results-item search-results-blog-item{% if not object.show_active %} inactive{% endif %}">
+{% load thumbnail %}
+
+<!-- BLOG -->
+<li class="search-result">
+  <div class="row">
+    <div class="col-auto">
+      {% thumbnail object.primary_image "90x90" crop="center" as im %}
+            <div class="search-image-thumbnail" style="background-image: url({{ im.url }})">
+                <a href="{{ object.get_absolute_url }}"></a>
+            </div>
+        {% empty %}
+            <div class="search-image-thumbnail"></div>
+        {% endthumbnail %}
+    </div>
+    <div class="col">
+      <div class="listing-content">
+        <span class="search-result-type search-result-type-blog">Blog</span>
+        <h3><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></h3>
+        <div class="listing-excerpt my-3">
+          <p><span class="search-type-label--metadata">{{ object.publication_date|date:"dS F Y" }}</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</li>
+
+{% comment %} <li class="search-results-item search-results-blog-item{% if not object.show_active %} inactive{% endif %}">
 
   <section>
     <h3><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></h3>
@@ -8,4 +34,5 @@
 
   </section>
 
-</li>
+</li> {% endcomment %}
+
