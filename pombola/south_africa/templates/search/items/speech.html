@@ -31,20 +31,22 @@
         {% endif %}
         
           <h3>
+              <a href="{% url 'speeches:section-view' result.object.section.get_path %}#s{{ result.object.id }}">
                 {% for section in result.object.section.get_ancestors %}
                   {% if not forloop.first %}
                       {{ section.title }}
                       {% if not forloop.last %}&nbsp;&gt;&nbsp;{% endif %}
                   {% endif %}
                 {% endfor %}
+              </a>
           </h3>
         {% endif %}
         <div class="listing-excerpt my-3">
           <p>
-            <a className="" href="{% url 'speeches:section-view' result.object.section.get_path %}#s{{ result.object.id }}">
+            <pre>            
               <span class="speech-name">{{ result.object.speaker }}:</span>
               <span class="speech-description">{{ result.highlighted.0|safe }}</span>
-            </a>
+            </pre>
           </p>
         </div>
         
