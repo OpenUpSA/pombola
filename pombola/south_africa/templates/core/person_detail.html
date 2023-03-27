@@ -47,7 +47,6 @@
 {% endblock object_tagline %}
 
 {% block socials %}
-{% if person.is_current_member_of_national_assembly or person.is_current_member_of_prov_legislature %}
   {% if twitter_contacts or facebook_contacts or whoswhosa_contacts or youtube_contacts or linkedin_contacts or instagram_contacts %}
     <div class="mp-socials">
       <p class="mp-socials__title">
@@ -148,7 +147,6 @@
 
     </div>
   {% endif %}
-{% endif %}
 {% endblock socials %}
 
 {% block subcontent %}
