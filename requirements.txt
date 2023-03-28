@@ -133,7 +133,7 @@ django-subdomain-instances==3.0.2
 django-tastypie==0.12.1
 html5lib==0.999
 kombu==3.0.24
-mechanize==0.2.5
+mechanize==0.4.6
 mimeparse==0.1.3
 mock==1.3.0
 nose==1.3.4
