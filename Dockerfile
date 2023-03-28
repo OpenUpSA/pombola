@@ -1,4 +1,4 @@
-FROM python:2-stretch
+FROM python:3-stretch
 
 ENV PYTHONUNBUFFERED 1
 ENV COUNTRY_APP=south_africa
