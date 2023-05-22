@@ -56,7 +56,7 @@ lxml==4.9.1
 # useful as a reference.
 django-markitup==3.7.0
 
-requests==2.20.0
+requests==2.31.0
 elasticsearch==1.9.0
 django-haystack==2.8.1
 # Required (but not a declared requirement) of elasticsearch
