@@ -13,11 +13,7 @@
       }[cssSelector]
       e.preventDefault();
       window.open(url, label + ' window', windowFeatures);
-      ga('send', 'event', {
-        'eventCategory': cssSelector.substring(1),
-        'eventAction': 'click',
-        'eventLabel': label
-      });
+      gtag('event', cssSelector.substring(1), {'click': label})
     });
   });
 })();

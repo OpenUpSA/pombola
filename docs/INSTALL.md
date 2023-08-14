@@ -176,7 +176,7 @@ dokku config:set pombola \
     TWITTER_USERNAME=PeoplesAssem_SA \
     ELASTICSEARCH_URL=elasticsearch.example.com:9200 \
     DATABASE_URL=postgres://pombola:...@db.example.com/pombola \
-    GOOGLE_ANALYTICS_ACCOUNT=UA-47810266-1 \
+    GOOGLE_ANALYTICS_ACCOUNT=G-RK0Z57HMF6 \
     DISQUS_SHORTNAME=peoplesassembly \
     FACEBOOK_APP_ID=... \
     PMG_COMMITTEE_USER=... \

@@ -12,12 +12,8 @@ $(function() {
     $moreButton.on('click', function(){
       $(this).nextAll().show();
       $(this).remove();
-      if (typeof ga === 'function') {
-        ga('send', {
-          hitType: 'event',
-          eventCategory: 'rep-locator-read-more-button',
-          eventAction: 'click'
-        });
+      if (typeof gtag === 'function') {
+        gtag('event', 'rep-locator-read-more-button', {'action': 'click'})
       }
     });
     return $moreButton;
