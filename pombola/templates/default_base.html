@@ -64,14 +64,7 @@
                 google_recaptcha_site_key: '{{ settings.GOOGLE_RECAPTCHA_SITE_KEY }}'
             };
         </script>
-        <script async src="https://www.googletagmanager.com/gtag/js?id={{ settings.GOOGLE_ANALYTICS_ID }}"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-      
-          gtag('config', '{{ settings.GOOGLE_ANALYTICS_ID }}');
-        </script>
+        
 
         {% load pipeline %}
 
@@ -86,6 +79,14 @@
         {% block extra_headers %}{% endblock %}
 
     </head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ settings.GOOGLE_ANALYTICS_ID }}"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', '{{ settings.GOOGLE_ANALYTICS_ID }}');
+    </script>
     <body {% block body_attributes %}{% endblock %}>
 
         {% block header %}
