@@ -3,6 +3,10 @@ FROM python:2-stretch
 ENV PYTHONUNBUFFERED 1
 ENV COUNTRY_APP=south_africa
 
+RUN echo "deb http://archive.debian.org/debian/ stretch main" > /etc/apt/sources.list \
+    && echo "deb http://archive.debian.org/debian-security stretch/updates main" >> /etc/apt/sources.list \
+    && apt-get -o Acquire::Check-Valid-Until=false update
+
 RUN apt-get update && \
     apt-get install -y antiword \
                        binutils \

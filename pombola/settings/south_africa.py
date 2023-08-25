@@ -26,7 +26,7 @@ ENABLED_FEATURES = make_enabled_features(INSTALLED_APPS, ALL_OPTIONAL_APPS)
 PIPELINE['STYLESHEETS'].update(COUNTRY_CSS)
 PIPELINE['JAVASCRIPT'].update(COUNTRY_JS)
 
-EXCLUDE_FROM_SEARCH = ('places', 'info_pages');
+EXCLUDE_FROM_SEARCH = ('places', 'info_pages')
 
 pmg_api_cache_dir = os.environ.get('PMG_API_CACHE_DIR', 'pmg_api_cache')
 PMG_API_CACHE_PATH = os.path.join(data_dir, pmg_api_cache_dir)
@@ -44,3 +44,6 @@ CACHES['pmg_api'] = {
         },
     'TIMEOUT': 60*60*24,
 }
+
+
+GOOGLE_ANALYTICS_ID = 'G-RK0Z57HMF6'
