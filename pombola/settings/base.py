@@ -724,6 +724,7 @@ if os.environ.get("SENTRY_DSN"):
         integrations=[DjangoIntegration()],
         before_send=before_send,
         traces_sample_rate=os.environ.get("SENTRY_TRACES_SAMPLE_RATE", 0.01),
+        profiles_sample_rate=os.environ.get("SENTRY_PROFILES_SAMPLE_RATE", 1),
         # Associate users to errors
         send_default_pii=True
     )
