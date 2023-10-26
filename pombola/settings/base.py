@@ -1,3 +1,4 @@
+import dj_database_url
 import os
 import re
 
@@ -13,7 +14,8 @@ import socket
 IN_TEST_MODE = False
 
 # Work out where we are to set up the paths correctly and load config
-base_dir = os.path.abspath( os.path.join( os.path.split(__file__)[0], '..', '..' ) )
+base_dir = os.path.abspath(os.path.join(
+    os.path.split(__file__)[0], '..', '..'))
 
 # data_dir. If it's specified absolutely, respect it.
 # Otherwise assume it's relative to base_dir
@@ -21,7 +23,7 @@ conf_data_dir = os.environ.get('POMBOLA_DATADIR', 'data')
 if os.path.isabs(conf_data_dir):
     data_dir = conf_data_dir
 else:
-    data_dir = os.path.abspath( os.path.join( base_dir, conf_data_dir ) )
+    data_dir = os.path.abspath(os.path.join(base_dir, conf_data_dir))
 
 if os.environ.get("DJANGO_DEBUG", "false").lower() == "true":
     DEBUG = True
@@ -91,7 +93,6 @@ MANAGERS = ((
     os.environ.get("MANAGERS_EMAIL", "managers@example.com")
 ),)
 
-import dj_database_url
 
 db_config = dj_database_url.config()
 db_config["ATOMIC_REQUESTS"] = True
@@ -148,7 +149,7 @@ STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = os.path.normpath( os.path.join(data_dir, 'collected_static/') )
+STATIC_ROOT = os.path.normpath(os.path.join(data_dir, 'collected_static/'))
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -159,7 +160,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join( base_dir, "web/static/" ),
+    os.path.join(base_dir, "web/static/"),
 )
 
 # List of finder classes that know how to find static files in
@@ -192,11 +193,11 @@ CACHES = {
     },
 }
 
-CACHE_MIDDLEWARE_ALIAS='dummy'
+CACHE_MIDDLEWARE_ALIAS = 'dummy'
 if DEBUG:
     CACHE_MIDDLEWARE_SECONDS = 0
 else:
-    CACHE_MIDDLEWARE_SECONDS = 60 * 20 # twenty minutes
+    CACHE_MIDDLEWARE_SECONDS = 60 * 20  # twenty minutes
 CACHE_MIDDLEWARE_KEY_PREFIX = "pombola"
 
 # Always use the TemporaryFileUploadHandler as it allows us to access the
@@ -208,7 +209,8 @@ FILE_UPLOAD_HANDLERS = (
 )
 
 MIDDLEWARE_CLASSES = (
-    'django.middleware.gzip.GZipMiddleware', # first in list so it is able to act last on response
+    # first in list so it is able to act last on response
+    'django.middleware.gzip.GZipMiddleware',
 )
 
 if os.environ.get("DJANGO_DEBUG_TOOLBAR", "false").lower() == "true":
@@ -249,7 +251,7 @@ LOGGING = {
             '()': 'django.utils.log.CallbackFilter',
             'callback': skip_unreadable_post,
         },
-     },
+    },
     'handlers': {
         'mail_admins': {
             'filters': ['require_debug_false', 'skip_unreadable_posts'],
@@ -286,7 +288,7 @@ LOGGING = {
 }
 
 # Configure the Hansard app
-HANSARD_CACHE = os.path.join( base_dir, "../hansard_cache" )
+HANSARD_CACHE = os.path.join(base_dir, "../hansard_cache")
 
 # The name of a Twitter account related to this website. This will be used to
 # pull in the latest tweets on the homepage and in the share on twitter links.
@@ -295,18 +297,18 @@ TWITTER_USERNAME = os.environ.get("TWITTER_USERNAME", None)
 TWITTER_WIDGET_ID = os.environ.get("TWITTER_WIDGET_ID", None)
 
 # pagination related settings
-PAGINATION_DEFAULT_PAGINATION      = 10
-PAGINATION_DEFAULT_WINDOW          = 2
-PAGINATION_DEFAULT_ORPHANS         = 2
+PAGINATION_DEFAULT_PAGINATION = 10
+PAGINATION_DEFAULT_WINDOW = 2
+PAGINATION_DEFAULT_ORPHANS = 2
 PAGINATION_INVALID_PAGE_RAISES_404 = True
 
 
 # haystack config - interface to search engine
 HAYSTACK_CONNECTIONS = {
-    #'default': {
+    # 'default': {
     #    'ENGINE': 'xapian_backend.XapianEngine',
     #    'PATH': os.path.join( data_dir, 'pombola_xapian' ),
-        #'PATH': os.path.join(os.path.dirname(__file__), 'xapian_index'),
+    # 'PATH': os.path.join(os.path.dirname(__file__), 'xapian_index'),
     # },
     'default': {
         'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
@@ -332,11 +334,11 @@ HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 # Admin autocomplete
 AJAX_LOOKUP_CHANNELS = {
-    'person_name'       : ('pombola.core.lookups', 'PersonLookup'),
-    'organisation_name' : dict(model='core.organisation', search_field='name'),
-    'place_name'        : dict(model='core.place', search_field='name'),
-    'title_name'        : dict(model='core.positiontitle', search_field='name'),
-    'sayit_section'     : dict(model='speeches.section', search_field='heading'),
+    'person_name': ('pombola.core.lookups', 'PersonLookup'),
+    'organisation_name': dict(model='core.organisation', search_field='name'),
+    'place_name': dict(model='core.place', search_field='name'),
+    'title_name': dict(model='core.positiontitle', search_field='name'),
+    'sayit_section': dict(model='speeches.section', search_field='heading'),
 }
 
 # misc settings
@@ -345,7 +347,8 @@ GOOGLE_ANALYTICS_ACCOUNT = os.environ.get('GOOGLE_ANALYTICS_ACCOUNT', None)
 GOOGLE_SITE_VERIFICATION = os.environ.get('GOOGLE_SITE_VERIFICATION', None)
 
 # Markitup settings
-MARKITUP_FILTER = ('markdown.markdown', {'safe_mode': True, 'extensions':['tables']})
+MARKITUP_FILTER = ('markdown.markdown', {
+                   'safe_mode': True, 'extensions': ['tables']})
 MARKITUP_SET = 'markitup/sets/markdown'
 JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js'
 
@@ -354,7 +357,7 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 NOSE_ARGS = ['--with-doctest', '--with-yanc']
 
 # For the disqus comments
-DISQUS_SHORTNAME       = os.environ.get( 'DISQUS_SHORTNAME', None )
+DISQUS_SHORTNAME = os.environ.get('DISQUS_SHORTNAME', None)
 # At some point we should deprecate this. For now it defaults to true so that
 # no entry in the config does the right thing.
 DISQUS_USE_IDENTIFIERS = os.environ.get('DISQUS_USE_IDENTIFIERS', True)
@@ -375,12 +378,12 @@ BLOG_RSS_FEED = os.environ.get('BLOG_RSS_FEED', None)
 THUMBNAIL_DEBUG = True
 
 # ZA Hansard settings
-HANSARD_CACHE   = os.path.join( data_dir, 'hansard_cache' )
-COMMITTEE_CACHE = os.path.join( HANSARD_CACHE, 'committee' )
-ANSWER_CACHE    = os.path.join( HANSARD_CACHE, 'answers' )
-QUESTION_CACHE  = os.path.join( HANSARD_CACHE, 'questions' )
-ANSWER_JSON_CACHE = os.path.join( HANSARD_CACHE, 'answers_json' )
-QUESTION_JSON_CACHE = os.path.join( HANSARD_CACHE, 'questions_json' )
+HANSARD_CACHE = os.path.join(data_dir, 'hansard_cache')
+COMMITTEE_CACHE = os.path.join(HANSARD_CACHE, 'committee')
+ANSWER_CACHE = os.path.join(HANSARD_CACHE, 'answers')
+QUESTION_CACHE = os.path.join(HANSARD_CACHE, 'questions')
+ANSWER_JSON_CACHE = os.path.join(HANSARD_CACHE, 'answers_json')
+QUESTION_JSON_CACHE = os.path.join(HANSARD_CACHE, 'questions_json')
 
 PMG_COMMITTEE_USER = os.environ.get("PMG_COMMITTEE_USER", "")
 PMG_COMMITTEE_PASS = os.environ.get("PMG_COMMITTEE_PASS", "")
@@ -467,8 +470,8 @@ INSTALLED_APPS = (
 
     'rest_framework',
 
-    
-    
+
+
 )
 if os.environ.get("DJANGO_DEBUG_TOOLBAR", "true").lower() == "true":
     INSTALLED_APPS += ("debug_toolbar",)
@@ -492,7 +495,8 @@ def make_enabled_features(installed_apps, all_optional_apps):
     result = {}
     for key in all_optional_apps:
         key = re.sub(r'^pombola\.', '', key)
-        result[key] = ('pombola.' + key in installed_apps) or (key in installed_apps)
+        result[key] = (
+            'pombola.' + key in installed_apps) or (key in installed_apps)
     return result
 
 
@@ -501,7 +505,7 @@ def make_enabled_features(installed_apps, all_optional_apps):
 # PIPELINE_ENABLED = True
 
 PIPELINE = {
-    'COMPILERS' : ("pipeline_compass.compass.CompassCompiler",),
+    'COMPILERS': ("pipeline_compass.compass.CompassCompiler",),
     'CSS_COMPRESSOR': "pombola.pipeline.compressor.LoggingYUICompressor",
     'JS_COMPRESSOR': "pombola.pipeline.compressor.LoggingYUICompressor",
     'YUI_BINARY': "/usr/bin/env yui-compressor",
@@ -688,13 +692,16 @@ SHELL_PLUS_APP_PREFIXES = {
     "place_data": "place_data",
 }
 
-GOOGLE_MAPS_GEOCODING_API_KEY = os.environ.get("GOOGLE_MAPS_GEOCODING_API_KEY", "")
+GOOGLE_MAPS_GEOCODING_API_KEY = os.environ.get(
+    "GOOGLE_MAPS_GEOCODING_API_KEY", "")
 
 GOOGLE_RECAPTCHA_SITE_KEY = os.environ.get("GOOGLE_RECAPTCHA_SITE_KEY", "")
 GOOGLE_RECAPTCHA_SECRET_KEY = os.environ.get("GOOGLE_RECAPTCHA_SECRET_KEY", "")
 
+
 def show_toolbar(request):
     return os.environ.get("DJANGO_DEBUG_TOOLBAR", "false").lower() == "true"
+
 
 DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': show_toolbar,
@@ -711,20 +718,13 @@ if os.environ.get("SENTRY_DSN"):
     import sentry_sdk
     from sentry_sdk.integrations.django import DjangoIntegration
 
-    def before_send(event, hint):
-        """Don't log sorl.thumbnail.base errors in Sentry."""
-        if 'log_record' in hint:
-            if hint['log_record'].message == 'missing file_ argument in get_thumbnail()':
-                return None
-        return event
-
     sentry_sdk.init(
         dsn=os.environ.get("SENTRY_DSN"),
         environment=os.environ.get("ENVIRONMENT"),
         integrations=[DjangoIntegration()],
-        before_send=before_send,
         traces_sample_rate=os.environ.get("SENTRY_TRACES_SAMPLE_RATE", 0.01),
-        profiles_sample_rate=os.environ.get("SENTRY_PROFILES_SAMPLE_RATE", 1),
+        profiles_sample_rate=os.environ.get(
+            "SENTRY_PROFILES_SAMPLE_RATE", 1.0),
         # Associate users to errors
         send_default_pii=True
     )
