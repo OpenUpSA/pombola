@@ -721,8 +721,7 @@ if os.environ.get("SENTRY_DSN"):
     sentry_sdk.init(
         dsn=os.environ.get("SENTRY_DSN"),
         environment=os.environ.get("ENVIRONMENT"),
-        integrations=[DjangoIntegration()],
-        traces_sample_rate=os.environ.get("SENTRY_TRACES_SAMPLE_RATE", 0.01),
+        traces_sample_rate=os.environ.get("SENTRY_TRACES_SAMPLE_RATE", 1.0),
         profiles_sample_rate=os.environ.get(
             "SENTRY_PROFILES_SAMPLE_RATE", 1.0),
         # Associate users to errors
