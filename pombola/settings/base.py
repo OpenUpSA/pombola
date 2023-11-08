@@ -720,8 +720,8 @@ CONSTANCE_CONFIG = {
 if os.environ.get("SENTRY_DSN"):
     sentry_sdk.init(
         dsn=os.environ.get("SENTRY_DSN"),
+        integrations=[DjangoIntegration()],
         environment=os.environ.get("ENVIRONMENT"),
         traces_sample_rate=os.environ.get("SENTRY_TRACES_SAMPLE_RATE", 1.0),
-        profiles_sample_rate=os.environ.get(
-            "SENTRY_PROFILES_SAMPLE_RATE", 1.0),
+        profiles_sample_rate=1.0
     )
