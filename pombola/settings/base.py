@@ -11,6 +11,9 @@ from pombola.hansard.constants import NAME_SET_INTERSECTION_MATCH
 
 import socket
 
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
 IN_TEST_MODE = False
 
 # Work out where we are to set up the paths correctly and load config
@@ -715,15 +718,10 @@ CONSTANCE_CONFIG = {
 
 # Sentry
 if os.environ.get("SENTRY_DSN"):
-    import sentry_sdk
-    from sentry_sdk.integrations.django import DjangoIntegration
-
     sentry_sdk.init(
         dsn=os.environ.get("SENTRY_DSN"),
         environment=os.environ.get("ENVIRONMENT"),
         traces_sample_rate=os.environ.get("SENTRY_TRACES_SAMPLE_RATE", 1.0),
         profiles_sample_rate=os.environ.get(
             "SENTRY_PROFILES_SAMPLE_RATE", 1.0),
-        # Associate users to errors
-        send_default_pii=True
     )
