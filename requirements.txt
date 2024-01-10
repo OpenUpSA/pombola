@@ -205,5 +205,5 @@ zipstream==1.1.4
 xlrd==1.2.0
 
 # Sentry
-sentry-sdk[django]==1.32.0
+sentry-sdk[django]==1.39.2
 
