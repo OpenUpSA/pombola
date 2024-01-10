@@ -9,7 +9,7 @@ from django.template.defaultfilters import slugify
 from pombola.core.logging_filters import skip_unreadable_post
 from pombola.hansard.constants import NAME_SET_INTERSECTION_MATCH
 
-import socket
+from corsheaders.defaults import default_headers
 
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
@@ -220,6 +220,7 @@ if os.environ.get("DJANGO_DEBUG_TOOLBAR", "false").lower() == "true":
     MIDDLEWARE_CLASSES += ("debug_toolbar.middleware.DebugToolbarMiddleware",)
 
 MIDDLEWARE_CLASSES += (
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -231,6 +232,8 @@ MIDDLEWARE_CLASSES += (
     'mapit.middleware.ViewExceptionMiddleware',
     'django.middleware.security.SecurityMiddleware',
 )
+
+CORS_ALLOW_HEADERS = default_headers + ("HTTP_AUTHORIZATION", "SENTRY-TRACE")
 
 ROOT_URLCONF = 'pombola.urls'
 
@@ -417,6 +420,7 @@ BREADCRUMB_URL_NAME_MAPPINGS = {
 INFO_POSTS_PER_LIST_PAGE = 10
 
 INSTALLED_APPS = (
+    'corsheaders',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
