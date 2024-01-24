@@ -44,6 +44,3 @@ CACHES['pmg_api'] = {
         },
     'TIMEOUT': 60*60*24,
 }
-
-
-GOOGLE_ANALYTICS_ID = 'G-RK0Z57HMF6'

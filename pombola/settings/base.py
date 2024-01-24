@@ -346,6 +346,7 @@ AJAX_LOOKUP_CHANNELS = {
 # misc settings
 HTTPLIB2_CACHE_DIR = os.path.join(data_dir, "httplib2_cache")
 GOOGLE_ANALYTICS_ACCOUNT = os.environ.get("GOOGLE_ANALYTICS_ACCOUNT", None)
+GOOGLE_ANALYTICS_ID = os.environ.get("GOOGLE_ANALYTICS_ID", None)
 GOOGLE_SITE_VERIFICATION = os.environ.get("GOOGLE_SITE_VERIFICATION", None)
 
 # Markitup settings
