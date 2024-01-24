@@ -25,6 +25,7 @@ services:
       - GOOGLE_RECAPTCHA_SECRET_KEY
       - ENVIRONMENT=development
       - SENTRY_DSN=https://36d69cae4d76e0452f3fbdbb5019a279@o242378.ingest.sentry.io/5246237
+      - GOOGLE_ANALYTICS_ID=G-T25P07Y7G2
     ports:
       - "8000:8000"
     command: bin/wait-for-deps.sh python manage.py runserver 0.0.0.0:8000

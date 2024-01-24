@@ -8,6 +8,7 @@ def add_settings( request ):
         'settings': {
             'STAGING':                      settings.STAGING,
             'GOOGLE_ANALYTICS_ACCOUNT':     settings.GOOGLE_ANALYTICS_ACCOUNT,
+            'GOOGLE_ANALYTICS_ID':          settings.GOOGLE_ANALYTICS_ID,
             'POLLDADDY_WIDGET_ID':          settings.POLLDADDY_WIDGET_ID,
             'DISQUS_SHORTNAME':             settings.DISQUS_SHORTNAME,
             'DISQUS_USE_IDENTIFIERS':       settings.DISQUS_USE_IDENTIFIERS,
