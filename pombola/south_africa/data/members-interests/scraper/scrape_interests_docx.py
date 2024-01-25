@@ -1,16 +1,11 @@
 import argparse
 import json
 import os
-import pprint
 import string
 import re
 import time
 import logging
-
-import cachetools.func
-
 import mammoth
-import scraperwiki
 
 from bs4 import BeautifulSoup
 import lxml.etree
@@ -88,7 +83,7 @@ class InterestScraper(object):
 
         html =  html.replace('<p><strong>4.114 MAREKWA GOBONAMANG PRUDENCE ANC SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>','<p><strong>4.114 MAREKWA GOBONAMANG PRUDENCE ANC </strong></p><p><strong>SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>')
 
-        html = html.replace(unichr(252), 'u')
+        html = html.replace(chr(252), 'u')
 
         html =  html.replace('<p><strong>7.41 Kruger Hendrik Christiaan Crafford Democratic Alliance SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts)</strong></p>','<p><strong>7.41 KRUGER HENDRIK CHRISTIAAN CRAFFORD DA </strong></p><p><strong>SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>')
 
@@ -300,9 +295,8 @@ class InterestScraper(object):
 
         
 
-
         with open("main_html_file.html", 'w') as outfile:
-            outfile.write(html_str_fixed.encode('utf-8'))
+            outfile.write(html_str_fixed)
             # self.logger.info("Wrote html to %s" % self.output)
 
         return html_str_fixed
