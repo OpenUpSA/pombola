@@ -14,12 +14,11 @@ To prepare the file:
 Run the script with the necessary arguments, e.g.
 `python scrape_interests_docx.py --input ./docx_files/ --output ../2021.json --year 2021 --source https://static.pmg.org.za/Register_of_Members_Interests_2021.pdf`
 
-This will combine documents into a single HTML file `main_html_file.html`, this is to make the data easier to scrape
+This will combine documents into a single HTML file `main_html_file.html`
 
-Run the script `html_to_json.py` to scrape the HTML and compile into an easy to work with JSON file
+Run the Jupyter script `membersinterest.ipynb` making sure to update the input file name. The output should be `register.json`
 
-The output should be `register.json`
-
+Copy `register.json` to the `members-interests`` directory and rename it to the corresponding year
 
 ## Conversion script
 
