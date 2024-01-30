@@ -11,8 +11,17 @@ To prepare the file:
 2. Open the files in Google Docs and download each in `.docx` format
 3. Store the these files in `./docx_files/`
 
+Create an environment and install dependencies using
+```
+virtualenv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
 Run the script with the necessary arguments, e.g.
-`python scrape_interests_docx.py --input ./docx_files/ --output ../2021.json --year 2021 --source https://static.pmg.org.za/Register_of_Members_Interests_2021.pdf`
+```
+python scrape_interests_docx.py --input ./docx_files/ --output ../2021.json --year 2021 --source https://static.pmg.org.za/Register_of_Members_Interests_2021.pdf
+```
 
 This will combine documents into a single HTML file `main_html_file.html`
 
