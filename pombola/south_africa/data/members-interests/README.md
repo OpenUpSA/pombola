@@ -39,7 +39,7 @@ to entries in the database and to put it in the format that the
 is highly specific to the above JSON files and the MP entries in the database
 at the time of writing (3 Dec 2013).
 
-You can run the script like this. This must be run from insided a docker dev environment.
+You can run the script like this:
 
     cd pombola/south_africa/data/members-interests/
     ./convert_to_import_json.py 2010.json > 2010_for_import.json
