@@ -1,0 +1,651 @@
+[
+    {
+        "category": {
+            "name": "BENEFITS",
+            "sort_order": 7
+        },
+        "entries": [
+            {
+                "Description of Benefit": "n/a",
+                "Source": "n/a"
+            }
+        ],
+        "person": {
+            "slug": "pravin-gordhan"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": ""
+        }
+    },
+    {
+        "category": {
+            "name": "CONSULTANCIES OR RETAINERSHIPS",
+            "sort_order": 4
+        },
+        "entries": [
+            {
+                "Name of Organisation": "n/a",
+                "Type of Business Activity": "n/a",
+                "Value of any Benefits derived": "n/a"
+            }
+        ],
+        "person": {
+            "slug": "pravin-gordhan"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": ""
+        }
+    },
+    {
+        "category": {
+            "name": "CONTRACTS",
+            "sort_order": 11
+        },
+        "entries": [
+            {
+                "Details of Contract and Management thereof": "n/a",
+                "Name of State  Entity": "n/a",
+                "Period of Contract": "None",
+                "Value of  Contract": "n/a"
+            }
+        ],
+        "person": {
+            "slug": "pravin-gordhan"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": ""
+        }
+    },
+    {
+        "category": {
+            "name": "DIRECTORSHIP AND PARTNERSHIPS",
+            "sort_order": 3
+        },
+        "entries": [
+            {
+                "Directorship/Partnership in any Corporate Body": "n/a",
+                "Type of Business Activity": "n/a"
+            }
+        ],
+        "person": {
+            "slug": "pravin-gordhan"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": ""
+        }
+    },
+    {
+        "category": {
+            "name": "GIFTS AND HOSPITALITY",
+            "sort_order": 6
+        },
+        "entries": [
+            {
+                "Description": "Book: Joining the Dots (Courtesy)",
+                "Source": "Johnathan Ball Publisher",
+                "Value": "R260"
+            },
+            {
+                "Description": "Chocolates plus Bottle of  Wine (Rupert Syrah)(Season Greetings)",
+                "Source": "Chinese Ambassador - Season Greetings",
+                "Value": "R650"
+            },
+            {
+                "Description": "Flowers (Birthday)",
+                "Source": "Portia Derby - CEO of  Transnet",
+                "Value": "R350"
+            },
+            {
+                "Description": "Small square glass stand  with the 2020 Investment  Association Logo(Meeting with Investment  Association)",
+                "Source": "Ralph Layman- Chairman  of 2020 InvestmentAssociation",
+                "Value": "R300"
+            },
+            {
+                "Description": "Small model SAA Aircraft (Official: Resumption of  SAA Flights)",
+                "Source": "Prof John Lamola -CHairperson of SAA",
+                "Value": "R400"
+            },
+            {
+                "Description": "Brief History of Equality  (Thomas Piketty Book)",
+                "Source": "Danie Markovits Author",
+                "Value": "R500"
+            },
+            {
+                "Description": "(Unkown)",
+                "Source": "",
+                "Value": ""
+            },
+            {
+                "Description": "Bottle of Wine and a wine  bag(Nelson Mandla AGM  Meeting)",
+                "Source": "Denise van Huyssteen  CEO of Nelson Mandla  Business Chamber",
+                "Value": "R1161,09"
+            },
+            {
+                "Description": "RGS Chess Masters(Courtesy)",
+                "Source": "Johnathan Ball Publisher",
+                "Value": "R 200"
+            }
+        ],
+        "person": {
+            "slug": "pravin-gordhan"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": ""
+        }
+    },
+    {
+        "category": {
+            "name": "LAND AND PROPERTY",
+            "sort_order": 9
+        },
+        "entries": [
+            {
+                "Description of Property": "Flat",
+                "Extent of the Property": "About R 3 Million",
+                "Location-Area": "Durban"
+            }
+        ],
+        "person": {
+            "slug": "pravin-gordhan"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": ""
+        }
+    },
+    {
+        "category": {
+            "name": "PENSIONS",
+            "sort_order": 10
+        },
+        "entries": [
+            {
+                "Public/Private": "Political Office Bearers Pension Fund",
+                "Source": "GEPF"
+            }
+        ],
+        "person": {
+            "slug": "pravin-gordhan"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": ""
+        }
+    },
+    {
+        "category": {
+            "name": "REMUNERATED EMPLOYMENT OUTSIDE PARLIAMENT",
+            "sort_order": 2
+        },
+        "entries": [
+            {
+                "Name of Employer": "n/a",
+                "Type of Business": "n/a"
+            }
+        ],
+        "person": {
+            "slug": "pravin-gordhan"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": ""
+        }
+    },
+    {
+        "category": {
+            "name": "SHARES AND OTHER FINANCIAL INTERESTS",
+            "sort_order": 1
+        },
+        "entries": [
+            {
+                "Name of Company": "Mr Price GroupLTD",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "14,073.15",
+                "Number of Shares": "65"
+            },
+            {
+                "Name of Company": "ThungelaResources LTD",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "1, 103.34",
+                "Number of Shares": "6"
+            },
+            {
+                "Name of Company": "ReinetInvestments S.C.A",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "18, 026.80",
+                "Number of Shares": "55"
+            },
+            {
+                "Name of Company": "Sasol Limited",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "12, 425.00",
+                "Number of Shares": "35"
+            },
+            {
+                "Name of Company": "ABSA Bank",
+                "Nature": "Preference Shares",
+                "Nominal Value": "453, 900.00",
+                "Number of Shares": "510"
+            },
+            {
+                "Name of Company": "Firstrand LTD",
+                "Nature": "Preference Shares",
+                "Nominal Value": "212, 058.00",
+                "Number of Shares": "2,200"
+            },
+            {
+                "Name of Company": "Standard BankGroup",
+                "Nature": "Preference Shares",
+                "Nominal Value": "203, 500.00",
+                "Number of Shares": "2,200"
+            },
+            {
+                "Name of Company": "PSG Group",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "25,868.70",
+                "Number of Shares": "270"
+            },
+            {
+                "Name of Company": "Rand Merchant Inv  HLDGS Ltd",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "62,628.00",
+                "Number of Shares": "1,200"
+            },
+            {
+                "Name of Company": "Standard BankGroup",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "63,749.00",
+                "Number of Shares": "350"
+            },
+            {
+                "Name of Company": "The Spar Group",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "50,913.00",
+                "Number of Shares": "300"
+            },
+            {
+                "Name of Company": "Vodacom Group",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "40,000.00",
+                "Number of Shares": "250"
+            },
+            {
+                "Name of Company": "GrowthPoint Prop",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "88, 320.00",
+                "Number of Shares": "6,000"
+            },
+            {
+                "Name of Company": "Hyprop Inv LTD",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "70, 000.00",
+                "Number of Shares": "2,000"
+            },
+            {
+                "Name of Company": "Stor - Age Prop  Reit LTB",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "44, 340.00",
+                "Number of Shares": "3,000"
+            },
+            {
+                "Name of Company": "Vukile PropertyFund LTD",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "33,744.00",
+                "Number of Shares": "2,400"
+            },
+            {
+                "Name of Company": "SATRIX NASDAQ",
+                "Nature": "Exhange Traded  Fund",
+                "Nominal Value": "286,350.00",
+                "Number of Shares": "2,300"
+            },
+            {
+                "Name of Company": "Sygnia Itrix MSCI  US",
+                "Nature": "Exhange Traded  Funds",
+                "Nominal Value": "379, 500.00",
+                "Number of Shares": "6,000"
+            },
+            {
+                "Name of Company": "BID Corporation  LTD",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "79, 505.00",
+                "Number of Shares": "250"
+            },
+            {
+                "Name of Company": "Reinet Investment  S C A",
+                "Nature": "150",
+                "Nominal Value": "49, 164.00",
+                "Number of Shares": "Ordinary Shares"
+            },
+            {
+                "Name of Company": "Shoprite Holdings  LTD",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "94,664.00",
+                "Number of Shares": "400"
+            },
+            {
+                "Name of Company": "Sasol",
+                "Nature": "Oridnary Shares",
+                "Nominal Value": "35, 500.00",
+                "Number of Shares": "100"
+            },
+            {
+                "Name of Company": "WoolworthsHoldings",
+                "Nature": "Oridnary Shares",
+                "Nominal Value": "28, 890.00",
+                "Number of Shares": "500"
+            },
+            {
+                "Name of Company": "BHP GroupLimited",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "102, 528.00",
+                "Number of Shares": "180"
+            },
+            {
+                "Name of Company": "Mediclinic Int PLC",
+                "Nature": "Oridnary Shares",
+                "Nominal Value": "24, 178.00",
+                "Number of Shares": "350"
+            },
+            {
+                "Name of Company": "Mr Price Group",
+                "Nature": "Oridnary Shares",
+                "Nominal Value": "28, 146.30",
+                "Number of Shares": "450"
+            },
+            {
+                "Name of Company": "MTN Group LTD",
+                "Nature": "Ordinary Group",
+                "Nominal Value": "85, 500.00",
+                "Number of Shares": "450"
+            },
+            {
+                "Name of Company": "Prosus N.V",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "131,300.40",
+                "Number of Shares": "165"
+            },
+            {
+                "Name of Company": "Compagnie FinRichemont OPT",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "550.00",
+                "Number of Shares": "500"
+            },
+            {
+                "Name of Company": "Sygnia ItrixEurostoxx50",
+                "Nature": "Exhange Traded  Funds",
+                "Nominal Value": "256,800.00",
+                "Number of Shares": "4,000"
+            },
+            {
+                "Name of Company": "Anglo American  LC",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "77,815.45",
+                "Number of Shares": "101"
+            },
+            {
+                "Name of Company": "Anheuser- Busch  Ibev SA NV",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "62,162.10",
+                "Number of Shares": "70"
+            },
+            {
+                "Name of Company": "AVI Ltd",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "18, 025.00",
+                "Number of Shares": "250"
+            },
+            {
+                "Name of Company": "Capitec BankHolings",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "23, 415.00",
+                "Number of Shares": "10"
+            },
+            {
+                "Name of Company": "Mondi PLC",
+                "Nature": "Oridnary Shares",
+                "Nominal Value": "20, 405.00",
+                "Number of Shares": "70"
+            },
+            {
+                "Name of Company": "Naspers LTD",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "49, 923.60",
+                "Number of Shares": "30"
+            },
+            {
+                "Name of Company": "Remgro LTD",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "52,437.00",
+                "Number of Shares": "350"
+            },
+            {
+                "Name of Company": "Vodacom Group",
+                "Nature": "Oridnary Shares",
+                "Nominal Value": "40, 000.00",
+                "Number of Shares": "250"
+            },
+            {
+                "Name of Company": "ABSA GroupLimited",
+                "Nature": "Oridnary Shares",
+                "Nominal Value": "57, 132.00",
+                "Number of Shares": "300"
+            },
+            {
+                "Name of Company": "AspenPharmacareHLDGS",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "19, 863.00",
+                "Number of Shares": "100"
+            },
+            {
+                "Name of Company": "British American  TOB PLC",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "30, 835.50",
+                "Number of Shares": "50"
+            },
+            {
+                "Name of Company": "Bidvest LTD",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "67, 110.00",
+                "Number of Shares": "300"
+            },
+            {
+                "Name of Company": "Firstrand LTD",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "92,964.00",
+                "Number of Shares": "1,200"
+            },
+            {
+                "Name of Company": "Nedbank Group",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "39, 621.90",
+                "Number of Shares": "170"
+            },
+            {
+                "Name of Company": "Compagnie FinRichemont",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "47,280.00",
+                "Number of Shares": "250"
+            },
+            {
+                "Name of Company": "AspenPharmacareHLDGS",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "12, 910.95",
+                "Number of Shares": "65"
+            },
+            {
+                "Name of Company": "BHP GroupLimited",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "29,049.60",
+                "Number of Shares": "51"
+            },
+            {
+                "Name of Company": "British American  Tob PLC",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "18, 501.30",
+                "Number of Shares": "30"
+            },
+            {
+                "Name of Company": "Bidvest Ltd",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "16, 777.50",
+                "Number of Shares": "75"
+            },
+            {
+                "Name of Company": "Firstrand Ltd",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "28,741.37",
+                "Number of Shares": "371"
+            },
+            {
+                "Name of Company": "Mediclinic In PLC",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "13,816.00",
+                "Number of Shares": "200"
+            },
+            {
+                "Name of Company": "Pick n Pay Stores",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "13 063, 63",
+                "Number of Shares": "243"
+            },
+            {
+                "Name of Company": "Prosus N V",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "7,957.60",
+                "Number of Shares": "10"
+            },
+            {
+                "Name of Company": "Remgro LTD",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "12,435.60",
+                "Number of Shares": "83"
+            },
+            {
+                "Name of Company": "Shoprite Holdings",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "15, 382.90",
+                "Number of Shares": "65"
+            },
+            {
+                "Name of Company": "Woolworths",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "11, 556.00",
+                "Number of Shares": "200"
+            },
+            {
+                "Name of Company": "Holdings",
+                "Nature": "",
+                "Nominal Value": "",
+                "Number of Shares": ""
+            },
+            {
+                "Name of Company": "Quilter PLC",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "19, 306.00",
+                "Number of Shares": "700"
+            },
+            {
+                "Name of Company": "Sanlam Limited",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "72, 200.00",
+                "Number of Shares": "1,000"
+            },
+            {
+                "Name of Company": "MTN Group LTD",
+                "Nature": "Ordinary Shares",
+                "Nominal Value": "35, 150.00",
+                "Number of Shares": "185"
+            }
+        ],
+        "person": {
+            "slug": "pravin-gordhan"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": ""
+        }
+    },
+    {
+        "category": {
+            "name": "SPONSORSHIPS",
+            "sort_order": 5
+        },
+        "entries": [
+            {
+                "Description of Assistance/Sponsorship": "n/a",
+                "Extent": "n/a",
+                "Source of Sponsorship": "n/a"
+            },
+            {
+                "Description of Assistance/Sponsorship": "n/a",
+                "Extent": "n/a",
+                "Source of Sponsorship": "n/a"
+            }
+        ],
+        "person": {
+            "slug": "pravin-gordhan"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": ""
+        }
+    },
+    {
+        "category": {
+            "name": "TRAVEL",
+            "sort_order": 8
+        },
+        "entries": [
+            {
+                "Description of Journey": "n/a",
+                "Sponsor": "n/a"
+            }
+        ],
+        "person": {
+            "slug": "pravin-gordhan"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": ""
+        }
+    },
+    {
+        "category": {
+            "name": "TRUSTS",
+            "sort_order": 12
+        },
+        "entries": [
+            {
+                "Details of benefits derived": "n/a",
+                "Name of Trust": "None",
+                "Registration Number": "n/a",
+                "Trustee/Beneficiary": "n/a"
+            }
+        ],
+        "person": {
+            "slug": "pravin-gordhan"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": ""
+        }
+    }
+]
