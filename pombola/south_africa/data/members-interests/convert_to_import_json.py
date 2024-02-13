@@ -38,7 +38,7 @@ class Converter(object):
 
     # Change this to True to enable little bits of helper code for finding new
     # slug corrections:
-    finding_slug_corrections = False
+    finding_slug_corrections = True
 
     slug_corrections = {
         "albert-theo-fritz": "albert-fritz",
@@ -661,10 +661,8 @@ class Converter(object):
 
     def mp_to_person_slug(self, mp):
         # NOTE: 2020 no longer has the party in the name and the names are rearranged
-        slug = slugify(mp)
-        surname = slug.split("-")[:1]
-        other_names = slug.split("-")[1:][:-1]
-        slug = "-".join(other_names + surname)
+        name = re.sub(r'(.*?) (.*)', r'\2 \1', mp.rsplit(' ', 1)[0])
+        slug = slugify(name)
 
         # Check if there is a known correction for this slug
         slug = self.slug_corrections.get(slug, slug)
