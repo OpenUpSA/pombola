@@ -42,15 +42,14 @@ at the time of writing (3 Dec 2013).
 You can run the script like this:
 
     cd pombola/south_africa/data/members-interests/
-    ./convert_to_import_json.py 2010.json > 2010_for_import.json
-    ./convert_to_import_json.py 2011.json > 2011_for_import.json
-    ./convert_to_import_json.py 2012.json > 2012_for_import.json
-    ./convert_to_import_json.py 2013.json > 2013_for_import.json
-    ./convert_to_import_json.py 2014.json > 2014_for_import.json
-    ./convert_to_import_json.py 2015.json > 2015_for_import.json
-    ./convert_to_import_json.py 2016.json > 2016_for_import.json
-    ./convert_to_import_json.py 2017.json > 2017_for_import.json
-    ./convert_to_import_json.py 2018.json > 2018_for_import.json
+    ./convert_to_import_json.py 2022.json > 2022_for_import.json
+
+This will require a production or equivalent data for the persons table to filter against.
+You can either run the script in prod or build a local database instance like so:
+
+`dokku postgres:export pombola > dumpitydump.dump`
+
+`pg_restore -U pombola -d pombola dumpitydumplol.dump`
 
 When processing new data you may well need to add more entries to the
 `slug_corrections` attribute. Change the `finding_slug_corrections` to `True`
