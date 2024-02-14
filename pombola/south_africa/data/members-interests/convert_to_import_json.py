@@ -36,6 +36,8 @@ class Converter(object):
         "\" \"",
     ]
 
+    parties = ["ACDP", "AIC", "AL JAMA-AH", "ANC", "ATM", "COPE", "DA", "EFF", "FF PLUS", "GOOD", "IFP", "NFP", "PAC", "UDM"]
+    unique_case_surname = ["BODLANI MOTSHIDI", "LE GOFF", "MAZZONE MICHAEL", "MC GLUWA", "VAN ZYL", "NTLANGWINI LOUW", "DE BRUYN", "DENNER JORDAAN", "DU TOIT", "VAN STADEN"]
     # Change this to True to enable little bits of helper code for finding new
     # slug corrections:
     finding_slug_corrections = True
@@ -661,8 +663,16 @@ class Converter(object):
 
     def mp_to_person_slug(self, mp):
         # NOTE: 2020 no longer has the party in the name and the names are rearranged
-        name = re.sub(r'(.*?) (.*)', r'\2 \1', mp.rsplit(' ', 1)[0])
-        slug = slugify(name)
+        pattern = r'\b(?:{})\b'.format('|'.join(map(re.escape, self.parties)))
+        name_only = re.sub(pattern, '', mp)
+        # special case surnames
+        for surname in self.unique_case_surname:
+            if name_only.startswith(surname):
+                name_ordered = re.sub(r'^(\w+\b\s+\w+\b)\s+(.*)$', r'\2 \1', name_only)
+                break
+            else:
+                name_ordered = re.sub(r'(.*?) (.*)', r'\2 \1', name_only)
+        slug = slugify(name_ordered)
 
         # Check if there is a known correction for this slug
         slug = self.slug_corrections.get(slug, slug)
