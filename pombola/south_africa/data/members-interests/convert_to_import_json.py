@@ -36,11 +36,12 @@ class Converter(object):
         "\" \"",
     ]
 
-    parties = ["ACDP", "AIC", "AL JAMA-AH", "ANC", "ATM", "COPE", "DA", "EFF", "FF PLUS", "GOOD", "IFP", "NFP", "PAC", "UDM"]
-    unique_case_surname = ["ABRAHAM NTANTISO", "BODLANI MOTSHIDI", "LE GOFF", "MAZZONE MICHAEL", "MC GLUWA", "VAN ZYL", "NTLANGWINI LOUW", "DE BRUYN", "DENNER JORDAAN", "DU TOIT", "VAN STADEN"]
     # Change this to True to enable little bits of helper code for finding new
     # slug corrections:
-    finding_slug_corrections = True
+    finding_slug_corrections = False
+
+    parties = ["ACDP", "AIC", "AL JAMA-AH", "ANC", "ATM", "COPE", "DA", "EFF", "FF PLUS", "GOOD", "IFP", "NFP", "PAC", "UDM"]
+    unique_case_surname = ["ABRAHAM NTANTISO", "BODLANI MOTSHIDI", "LE GOFF", "MAZZONE MICHAEL", "MC GLUWA", "VAN ZYL", "NTLANGWINI LOUW", "DE BRUYN", "DENNER JORDAAN", "DU TOIT", "VAN STADEN"]
 
     slug_corrections = {
         "albert-theo-fritz": "albert-fritz",
@@ -611,6 +612,15 @@ class Converter(object):
         "inkosi-bhekizizwe-nivard-luthuli":"bhekizizwe-nivard-luthuli",
         "christopher-mzwakhe-sibisi":"christopher-howard-mzwakhe-sibisi",
         "nqabayomzi-lawrence-saziso-kwankwa":"nqabayomzi-lawrence-kwankwa",
+        # 2023
+        "portia-tebogo-mamorobela":"tebogo-portia-mamorobela",
+        "shipokosa-paulus-mashatile":"shipokosa-paul-mashatile",
+        "humphrey-mdumzeli-zondelele-mmemezi":"humphrey-mmemezi",
+        "motalane-dewet-monakedi":"motalane-monakedi",
+        "maropene-lydia-ramokgopa":"maropene-ramokgopa",
+        "mpho-parks-tau":"mpho-parks-franklyn-tau",
+        "mbulelo-jonathan-magwala":"mbulelelo-jonathan-magwala",
+        "mzwanele-manyi":"mzwanele-jimmy-manyi",
         # Garbage entries
         "control-flag-ict": None,
     }
