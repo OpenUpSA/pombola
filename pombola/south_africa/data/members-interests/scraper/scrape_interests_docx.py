@@ -209,8 +209,9 @@ class InterestScraper(object):
         table_headers = []
         category_entries = []
         for div in main_div.findChildren(recursive=False):
-            div_text = str(div.get_text().encode("utf-8").strip())
-            if re.match('[0-9]+[.][0-9]', div_text):
+            div_text = str(div.get_text().strip())
+            pattern = r'^\d+\.\d+'
+            if bool(re.match(pattern, div_text)):
                 # in 2020, the MP's name is in the div with the number example 1.2GALO MANDLENKOSI PHILLIP
                 # This is the mp name
                 strip_content_number = ''.join([i for i in div_text if not i.isdigit()]).replace('.', '')
@@ -232,8 +233,7 @@ class InterestScraper(object):
                     continue
                 table = div
 
-                # Table parsing is wrong - there are no TH tags
-
+                # Table parsing is wrong - there are no TH tagsmp)
                 if table is not None:
                     if in_table:
                         # table continuation over a page break found, process it
