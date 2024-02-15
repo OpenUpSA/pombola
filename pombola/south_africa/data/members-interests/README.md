@@ -7,11 +7,11 @@ There are several files in this directory:
 The scraper currently scrapes `.docx` files.
 To prepare the file:
 
-1. Split the `PDF` into seperate files small enough to open in Google Docs. [PDF Arranger](https://github.com/pdfarranger/pdfarranger) works well 
-2. Open the files in Google Docs and download each in `.docx` format
-3. Store the these files in `./docx_files/`
+1. Split the `PDF` into seperate files small enough to open in Google Drive. [PDF Arranger](https://github.com/pdfarranger/pdfarranger) works well 
+2. Open the files in Google Drive and download each in `.docx` format
+3. Store the these files in `./pombola/south_africa/data/members-interests/scraper/docx_files/`
 
-Create an environment and install dependencies using
+Create an environment and install dependencies in the `./pombola/south_africa/data/members-interests/scraper` directory:
 ```
 virtualenv venv
 source venv/bin/activate
