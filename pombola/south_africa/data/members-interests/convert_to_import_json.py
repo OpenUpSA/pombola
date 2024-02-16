@@ -551,7 +551,7 @@ class Converter(object):
         "bhekokwakhe-cele": "bhekokwakhe-hamilton-cele",
         "lydia-sindisiwa-chikunga":"lydia-sindisiwe-chikunga",
         "nkosazana-clarice-dlamini-zuma":"nkosazana-dlamini-zuma",
-        #"thamsanqa-simon-dodovu":"thamsanqa-dodovu",
+        "thamsanqa-simon-dodovu":"china-dodovu",
         "zoliswa-albertina-kota-mpeko":"zoliswa-albertina-kota-fredericks",
         "nocawe-nocawa-mafu":"nocawe-noncedo-mafu",
         "supra-ramoeletsi-mahumapelo":"supra-mahumapelo",
@@ -586,10 +586,10 @@ class Converter(object):
         "willem-stephanus-aucamp":"willem-abraham-stephanus-aucamp",
         "motshidi-tsholofelo-katlego-bodlani":"tsholofelo-katlego-motshidi",
         "timothy-brauteseth":"timothy-james-brauteseth",
-        #"samantha-graham-mare":"samantha-jane-graham",
+        "samantha-jane-graham-mare": "samantha-jane-graham",
         "christian-hans-hunsinger":"christian-hans-heinrich-hunsinger",
         "haseenabanu-ismail":"haseena-ismail",
-        #"dennis-joseph":,
+        "dennis-joseph":"denis-joseph",
         "karabo-khakhau":"karabo-lerato-khakhau",
         "hendrik-christiaan-kruger":"hendrik-christiaan-crafford-kruger",
         "michael-natasha-wendy-anita-mazzone":"natasha-wendy-anita-michael",
@@ -598,7 +598,7 @@ class Converter(object):
         "adrian-roos":"adrian-christopher-roos",
         "eleanore-jacquelene-spies":"eleanore-rochelle-jacquelene-spies",
         "annerie-magdalena-weber":"annerie-maria-magdalena-weber",
-        #"mishack-makosini-chabangu":"makosini-chabangu",
+        "makosini-mishack-chabangu":"makosini-chabangu",
         "phiwaba-madokwe":"piaba-madokwe",
         "washington-isaac-mafanya":"washington-tseko-isaac-mafanya",
         "omphile-maotwe":"omphile-mankoba-confidence-maotwe",
@@ -741,6 +741,10 @@ class Converter(object):
     def mp_to_person_slug(self, mp):
         # NOTE: 2020 no longer has the party in the name and the names are rearranged
         pattern = r'\b(?:{})\b'.format('|'.join(map(re.escape, self.parties)))
+
+        if (mp == "ABRAHAM NTANTISOPHOEBE NOXOLO ANC"):
+            mp = "ABRAHAM NTANTISO PHOEBE NOXOLO ANC"
+
         name_only = re.sub(pattern, '', mp)
         # special case surnames
         for surname in self.unique_case_surname:

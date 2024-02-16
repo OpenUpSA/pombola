@@ -14069,6 +14069,274 @@
         "entries": [
             {
                 "Description of Benefit": "",
+                "Source": "None"
+            }
+        ],
+        "person": {
+            "slug": "china-dodovu"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "CONSULTANCIES OR RETAINERSHIPS",
+            "sort_order": 4
+        },
+        "entries": [
+            {
+                "Name of Organisation": "n/a",
+                "Type of Business Activity": "",
+                "Value of any Benefits derived": ""
+            }
+        ],
+        "person": {
+            "slug": "china-dodovu"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "CONTRACTS",
+            "sort_order": 11
+        },
+        "entries": [
+            {
+                "Details of Contract and Management thereof": "",
+                "Name of State  Entity": "",
+                "Period of Contract": "None",
+                "Value of  Contract": ""
+            }
+        ],
+        "person": {
+            "slug": "china-dodovu"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "DIRECTORSHIP AND PARTNERSHIPS",
+            "sort_order": 3
+        },
+        "entries": [
+            {
+                "Directorship/Partnership in any Corporate Body": "Majestic Heights Management",
+                "Type of Business Activity": "Close Corporation"
+            },
+            {
+                "Directorship/Partnership in any Corporate Body": "Central Bridge Trading",
+                "Type of Business Activity": "Close Corporation"
+            },
+            {
+                "Directorship/Partnership in any Corporate Body": "AIM27",
+                "Type of Business Activity": "NPO"
+            },
+            {
+                "Directorship/Partnership in any Corporate Body": "Rebangwe Social Housing Association",
+                "Type of Business Activity": "Section 21 Company"
+            }
+        ],
+        "person": {
+            "slug": "china-dodovu"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "GIFTS AND HOSPITALITY",
+            "sort_order": 6
+        },
+        "entries": [
+            {
+                "Description": "None",
+                "Source": "",
+                "Value": ""
+            }
+        ],
+        "person": {
+            "slug": "china-dodovu"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "LAND AND PROPERTY",
+            "sort_order": 9
+        },
+        "entries": [
+            {
+                "Description of Property": "House",
+                "Extent of the Property": "HOMEOWNERSHIP",
+                "Location-Area": "38 Malherbe street,Lahoo KLERKSDORP"
+            }
+        ],
+        "person": {
+            "slug": "china-dodovu"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "PENSIONS",
+            "sort_order": 10
+        },
+        "entries": [
+            {
+                "Public/Private": "",
+                "Source": "None"
+            }
+        ],
+        "person": {
+            "slug": "china-dodovu"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "REMUNERATED EMPLOYMENT OUTSIDE PARLIAMENT",
+            "sort_order": 2
+        },
+        "entries": [
+            {
+                "Name of Employer": "n/a",
+                "Type of Business": ""
+            }
+        ],
+        "person": {
+            "slug": "china-dodovu"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "SHARES AND OTHER FINANCIAL INTERESTS",
+            "sort_order": 1
+        },
+        "entries": [
+            {
+                "Name of Company": "None",
+                "Nature": "",
+                "Nominal Value": "",
+                "Number of Shares": ""
+            },
+            {
+                "Name of Company": "None",
+                "Nature": "None",
+                "Nominal Value": "None",
+                "Number of Shares": "None"
+            }
+        ],
+        "person": {
+            "slug": "china-dodovu"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "SPONSORSHIPS",
+            "sort_order": 5
+        },
+        "entries": [
+            {
+                "Description of Assistance/Sponsorship": "",
+                "Extent": "",
+                "Source of Sponsorship": "None"
+            }
+        ],
+        "person": {
+            "slug": "china-dodovu"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "TRAVEL",
+            "sort_order": 8
+        },
+        "entries": [
+            {
+                "Description of Journey": "",
+                "Sponsor": "None"
+            }
+        ],
+        "person": {
+            "slug": "china-dodovu"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "TRUSTS",
+            "sort_order": 12
+        },
+        "entries": [
+            {
+                "Details of benefits derived": "",
+                "Name of Trust": "none",
+                "Registration Number": "",
+                "Trustee/Beneficiary": ""
+            }
+        ],
+        "person": {
+            "slug": "china-dodovu"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "BENEFITS",
+            "sort_order": 7
+        },
+        "entries": [
+            {
+                "Description of Benefit": "",
                 "Source": "Nothing to disclose"
             }
         ],
@@ -18392,6 +18660,261 @@
         ],
         "person": {
             "slug": "delmaine-chesley-christians"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "BENEFITS",
+            "sort_order": 7
+        },
+        "entries": [
+            {
+                "Description of Benefit": "",
+                "Source": "Nothing to disclose"
+            }
+        ],
+        "person": {
+            "slug": "denis-joseph"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "CONSULTANCIES OR RETAINERSHIPS",
+            "sort_order": 4
+        },
+        "entries": [
+            {
+                "Name of Organisation": "Nothing to disclose",
+                "Type of Business Activity": "",
+                "Value of any Benefits derived": ""
+            }
+        ],
+        "person": {
+            "slug": "denis-joseph"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "CONTRACTS",
+            "sort_order": 11
+        },
+        "entries": [
+            {
+                "Details of Contract and Management thereof": "",
+                "Name of State  Entity": "",
+                "Period of Contract": "Nothing to disclose",
+                "Value of  Contract": ""
+            }
+        ],
+        "person": {
+            "slug": "denis-joseph"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "DIRECTORSHIP AND PARTNERSHIPS",
+            "sort_order": 3
+        },
+        "entries": [
+            {
+                "Directorship/Partnership in any Corporate Body": "Nothing to disclose",
+                "Type of Business Activity": ""
+            }
+        ],
+        "person": {
+            "slug": "denis-joseph"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "GIFTS AND HOSPITALITY",
+            "sort_order": 6
+        },
+        "entries": [
+            {
+                "Description": "Nothing to disclose",
+                "Source": "",
+                "Value": ""
+            }
+        ],
+        "person": {
+            "slug": "denis-joseph"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "LAND AND PROPERTY",
+            "sort_order": 9
+        },
+        "entries": [
+            {
+                "Description of Property": "Residential",
+                "Extent of the Property": "548 square meters",
+                "Location-Area": "Retreat, Cape Town,  Western Cape"
+            },
+            {
+                "Description of Property": "Residential",
+                "Extent of the Property": "769 square meters",
+                "Location-Area": "Stilbaai, Western Cape"
+            }
+        ],
+        "person": {
+            "slug": "denis-joseph"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "PENSIONS",
+            "sort_order": 10
+        },
+        "entries": [
+            {
+                "Public/Private": "Private",
+                "Source": "Liberty Life"
+            }
+        ],
+        "person": {
+            "slug": "denis-joseph"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "REMUNERATED EMPLOYMENT OUTSIDE PARLIAMENT",
+            "sort_order": 2
+        },
+        "entries": [
+            {
+                "Name of Employer": "Nothing to disclose",
+                "Type of Business": ""
+            }
+        ],
+        "person": {
+            "slug": "denis-joseph"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "SHARES AND OTHER FINANCIAL INTERESTS",
+            "sort_order": 1
+        },
+        "entries": [
+            {
+                "Name of Company": "Nothing to disclose",
+                "Nature": "",
+                "Nominal Value": "",
+                "Number of Shares": ""
+            }
+        ],
+        "person": {
+            "slug": "denis-joseph"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "SPONSORSHIPS",
+            "sort_order": 5
+        },
+        "entries": [
+            {
+                "Description of Assistance/Sponsorship": "",
+                "Extent": "",
+                "Source of Sponsorship": "Nothing to disclose"
+            }
+        ],
+        "person": {
+            "slug": "denis-joseph"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "TRAVEL",
+            "sort_order": 8
+        },
+        "entries": [
+            {
+                "Description of Journey": "",
+                "Sponsor": "Nothing to disclose"
+            }
+        ],
+        "person": {
+            "slug": "denis-joseph"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "TRUSTS",
+            "sort_order": 12
+        },
+        "entries": [
+            {
+                "Details of benefits derived": "",
+                "Name of Trust": "Nothing to disclose",
+                "Registration Number": "",
+                "Trustee/Beneficiary": ""
+            }
+        ],
+        "person": {
+            "slug": "denis-joseph"
         },
         "release": {
             "date": "2022-12-31",
@@ -50286,6 +50809,256 @@
         ],
         "person": {
             "slug": "makhotso-magdeline-sotyu"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "BENEFITS",
+            "sort_order": 7
+        },
+        "entries": [
+            {
+                "Description of Benefit": "",
+                "Source": "Nothing to disclose"
+            }
+        ],
+        "person": {
+            "slug": "makosini-chabangu"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "CONSULTANCIES OR RETAINERSHIPS",
+            "sort_order": 4
+        },
+        "entries": [
+            {
+                "Name of Organisation": "Nothing to disclose",
+                "Type of Business Activity": "",
+                "Value of any Benefits derived": ""
+            }
+        ],
+        "person": {
+            "slug": "makosini-chabangu"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "CONTRACTS",
+            "sort_order": 11
+        },
+        "entries": [
+            {
+                "Details of Contract and Management thereof": "",
+                "Name of State  Entity": "",
+                "Period of Contract": "Nothing to disclose",
+                "Value of  Contract": ""
+            }
+        ],
+        "person": {
+            "slug": "makosini-chabangu"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "DIRECTORSHIP AND PARTNERSHIPS",
+            "sort_order": 3
+        },
+        "entries": [
+            {
+                "Directorship/Partnership in any Corporate Body": "Nothing to disclose",
+                "Type of Business Activity": ""
+            }
+        ],
+        "person": {
+            "slug": "makosini-chabangu"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "GIFTS AND HOSPITALITY",
+            "sort_order": 6
+        },
+        "entries": [
+            {
+                "Description": "Nothing to disclose",
+                "Source": "",
+                "Value": ""
+            }
+        ],
+        "person": {
+            "slug": "makosini-chabangu"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "LAND AND PROPERTY",
+            "sort_order": 9
+        },
+        "entries": [
+            {
+                "Description of Property": "Residential",
+                "Extent of the Property": "2.538 square metres",
+                "Location-Area": "Namahadi Village, Free  State"
+            }
+        ],
+        "person": {
+            "slug": "makosini-chabangu"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "PENSIONS",
+            "sort_order": 10
+        },
+        "entries": [
+            {
+                "Public/Private": "",
+                "Source": "Nothing to disclose"
+            }
+        ],
+        "person": {
+            "slug": "makosini-chabangu"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "REMUNERATED EMPLOYMENT OUTSIDE PARLIAMENT",
+            "sort_order": 2
+        },
+        "entries": [
+            {
+                "Name of Employer": "Nothing to disclose",
+                "Type of Business": ""
+            }
+        ],
+        "person": {
+            "slug": "makosini-chabangu"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "SHARES AND OTHER FINANCIAL INTERESTS",
+            "sort_order": 1
+        },
+        "entries": [
+            {
+                "Name of Company": "not applicaa",
+                "Nature": "",
+                "Nominal Value": "",
+                "Number of Shares": ""
+            }
+        ],
+        "person": {
+            "slug": "makosini-chabangu"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "SPONSORSHIPS",
+            "sort_order": 5
+        },
+        "entries": [
+            {
+                "Description of Assistance/Sponsorship": "",
+                "Extent": "",
+                "Source of Sponsorship": "Nothing to disclose"
+            }
+        ],
+        "person": {
+            "slug": "makosini-chabangu"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "TRAVEL",
+            "sort_order": 8
+        },
+        "entries": [
+            {
+                "Description of Journey": "",
+                "Sponsor": "Nothing to disclose"
+            }
+        ],
+        "person": {
+            "slug": "makosini-chabangu"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "TRUSTS",
+            "sort_order": 12
+        },
+        "entries": [
+            {
+                "Details of benefits derived": "",
+                "Name of Trust": "Nothing to disclose",
+                "Registration Number": "",
+                "Trustee/Beneficiary": ""
+            }
+        ],
+        "person": {
+            "slug": "makosini-chabangu"
         },
         "release": {
             "date": "2022-12-31",
@@ -91429,6 +92202,277 @@
         ],
         "person": {
             "slug": "sakhumzi-stoffels-somyo"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "BENEFITS",
+            "sort_order": 7
+        },
+        "entries": [
+            {
+                "Description of Benefit": "",
+                "Source": "Nothing to disclose"
+            }
+        ],
+        "person": {
+            "slug": "samantha-jane-graham"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "CONSULTANCIES OR RETAINERSHIPS",
+            "sort_order": 4
+        },
+        "entries": [
+            {
+                "Name of Organisation": "Nothing to disclose",
+                "Type of Business Activity": "",
+                "Value of any Benefits derived": ""
+            }
+        ],
+        "person": {
+            "slug": "samantha-jane-graham"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "CONTRACTS",
+            "sort_order": 11
+        },
+        "entries": [
+            {
+                "Details of Contract and Management thereof": "",
+                "Name of State  Entity": "",
+                "Period of Contract": "Nothing to disclose",
+                "Value of  Contract": ""
+            }
+        ],
+        "person": {
+            "slug": "samantha-jane-graham"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "DIRECTORSHIP AND PARTNERSHIPS",
+            "sort_order": 3
+        },
+        "entries": [
+            {
+                "Directorship/Partnership in any Corporate Body": "Vista GRT",
+                "Type of Business Activity": "NPO (Deregistration Process)"
+            },
+            {
+                "Directorship/Partnership in any Corporate Body": "Zelpy 1097",
+                "Type of Business Activity": "Final Deregistration"
+            },
+            {
+                "Directorship/Partnership in any Corporate Body": "The Owl House Foundation",
+                "Type of Business Activity": "NPO"
+            },
+            {
+                "Directorship/Partnership in any Corporate Body": "Entrepreneurial Business Services",
+                "Type of Business Activity": "Final Deregistration"
+            },
+            {
+                "Directorship/Partnership in any Corporate Body": "Spyline Tracing Agency",
+                "Type of Business Activity": "Final Deregistration"
+            }
+        ],
+        "person": {
+            "slug": "samantha-jane-graham"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "GIFTS AND HOSPITALITY",
+            "sort_order": 6
+        },
+        "entries": [
+            {
+                "Description": "Nothing to disclose",
+                "Source": "",
+                "Value": ""
+            }
+        ],
+        "person": {
+            "slug": "samantha-jane-graham"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "LAND AND PROPERTY",
+            "sort_order": 9
+        },
+        "entries": [
+            {
+                "Description of Property": "House (belongs to ex husband as per divorce  agreement but remains in  both names)",
+                "Extent of the Property": "10 000 square meters",
+                "Location-Area": "Aberdeen, Eastern Cape"
+            },
+            {
+                "Description of Property": "House",
+                "Extent of the Property": "625 square meters",
+                "Location-Area": "Graaff-Reinet"
+            }
+        ],
+        "person": {
+            "slug": "samantha-jane-graham"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "PENSIONS",
+            "sort_order": 10
+        },
+        "entries": [
+            {
+                "Public/Private": "",
+                "Source": "Nothing to disclose"
+            }
+        ],
+        "person": {
+            "slug": "samantha-jane-graham"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "REMUNERATED EMPLOYMENT OUTSIDE PARLIAMENT",
+            "sort_order": 2
+        },
+        "entries": [
+            {
+                "Name of Employer": "Nothing to disclose",
+                "Type of Business": ""
+            }
+        ],
+        "person": {
+            "slug": "samantha-jane-graham"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "SHARES AND OTHER FINANCIAL INTERESTS",
+            "sort_order": 1
+        },
+        "entries": [
+            {
+                "Name of Company": "Nothing to disclose",
+                "Nature": "",
+                "Nominal Value": "",
+                "Number of Shares": ""
+            }
+        ],
+        "person": {
+            "slug": "samantha-jane-graham"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "SPONSORSHIPS",
+            "sort_order": 5
+        },
+        "entries": [
+            {
+                "Description of Assistance/Sponsorship": "",
+                "Extent": "",
+                "Source of Sponsorship": "Nothing to disclose"
+            }
+        ],
+        "person": {
+            "slug": "samantha-jane-graham"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "TRAVEL",
+            "sort_order": 8
+        },
+        "entries": [
+            {
+                "Description of Journey": "",
+                "Sponsor": "Nothing to disclose"
+            }
+        ],
+        "person": {
+            "slug": "samantha-jane-graham"
+        },
+        "release": {
+            "date": "2022-12-31",
+            "name": "Parliament Register of Members' Interests 2022",
+            "source_url": "https://www.parliament.gov.za/storage/app/media/Register%20of%20Members%20Interests/Register_of_Members_Interests_2022.pdf"
+        }
+    },
+    {
+        "category": {
+            "name": "TRUSTS",
+            "sort_order": 12
+        },
+        "entries": [
+            {
+                "Details of benefits derived": "No benefits",
+                "Name of Trust": "The Giant Flag Trust",
+                "Registration Number": "IT 61/2012",
+                "Trustee/Beneficiary": "Trustee"
+            }
+        ],
+        "person": {
+            "slug": "samantha-jane-graham"
         },
         "release": {
             "date": "2022-12-31",
