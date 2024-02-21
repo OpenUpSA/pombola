@@ -28,3 +28,4 @@ tmp/
 !/data/.gitkeep
 .vagrant/
 .ruby-version
+docx_files/

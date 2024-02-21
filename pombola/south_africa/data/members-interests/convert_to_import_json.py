@@ -40,6 +40,9 @@ class Converter(object):
     # slug corrections:
     finding_slug_corrections = False
 
+    parties = ["ACDP", "AIC", "AL JAMA-AH", "ANC", "ATM", "COPE", "DA", "EFF", "FF PLUS", "GOOD", "IFP", "NFP", "PAC", "UDM"]
+    unique_case_surname = ["ABRAHAM NTANTISO", "BODLANI MOTSHIDI", "LE GOFF", "MAZZONE MICHAEL", "MC GLUWA", "VAN ZYL", "NTLANGWINI LOUW", "DE BRUYN", "DENNER JORDAAN", "DU TOIT", "VAN STADEN"]
+
     slug_corrections = {
         "albert-theo-fritz": "albert-fritz",
         "albertinah-nomathuli-luthuli": "a-n-luthuli",
@@ -542,6 +545,82 @@ class Converter(object):
         "lawrence-edward-mcdonald":"lawrence-edward-mc-donald",
         "mbuyiseni-ndlozi":"mbuyiseni-quintin-ndlozi",
         "siviwe-democratic-gwarube":"siviwe-gwarube",
+        # 2022
+        "phoebe-noxolo-abraham-ntantiso":"noxolo-abraham-ntantiso",
+        "norbert-sfiso-buthelezi": "sfiso-norbert-buthelezi",
+        "bhekokwakhe-cele": "bhekokwakhe-hamilton-cele",
+        "lydia-sindisiwa-chikunga":"lydia-sindisiwe-chikunga",
+        "nkosazana-clarice-dlamini-zuma":"nkosazana-dlamini-zuma",
+        "thamsanqa-simon-dodovu":"china-dodovu",
+        "zoliswa-albertina-kota-mpeko":"zoliswa-albertina-kota-fredericks",
+        "nocawe-nocawa-mafu":"nocawe-noncedo-mafu",
+        "supra-ramoeletsi-mahumapelo":"supra-mahumapelo",
+        "pemmy-pamela-majodina":"pemmy-majodina",
+        "ponani-petunia-makhubele-marilele":"ponani-petunia-makhubele",
+        "sampson-makwetla":"sampson-phathakge-makwetla",
+        "christopher-malematja":"cristopher-nakampe-malematja",
+        "samson-gwede-mantashe":"gwede-mantashe",
+        "kwati-mashego-dlamini":"kwati-candith-mashego-dlamini",
+        "tshililo-micheal-masutha":"tshililo-michael-masutha",
+        "simphiwe-nomvula-mbatha":"simphiwe-gcwele-nomvula-mbatha",
+        "edward-mchunu":"es-mchunu",
+        "thembeka-buyisile-mchunu":"thembeka-vuyisile-buyisile-mchunu",
+        "matshidiso-morwa-mfikoe":"matshidiso-morwa-annastinah-mfikoe",
+        "jabulile-nightingale-mkhwanazi":"jabulile-cynthia-nightingale-mkhwanazi",
+        "kenneth-mosimanegare-mmoiemang":"mosimanegare-kenneth-mmoiemang",
+        "pogiso-modise":"phillip-matsapole-pogiso-modise",
+        "linda-nelie-moss":"linda-nellie-moss",
+        "kgoshigadi-madipoane-refiloe-moremadi-mothapo":"madipoane-refiloe-moremadi-mothapo",
+        "thembisile-phemelele-nkadimeng":"thembisile-nkadimeng",
+        "khumbudzo-silence-ntshavheni":"khumbudzo-phophi-silence-ntshavheni",
+        "itumeleng-vutha-ntsube":"itumeleng-ntsube",
+        "grace-naledi-pandor":"grace-naledi-mandisa-pandor",
+        "anthony-mankwana-papo":"mankwana-christinah-mohale",
+        "ntaoleng-peacock":"ntaoleng-patricia-peacock",
+        "bhekiziwe-abram-radebe":"bhekiziswe-abram-radebe",
+        "matodzi-mirriam-ramadwa":"ms-ramadwa-matodzi-mirriam",
+        "mthenjwa-amos-zondi":"mthenjwa-amon-zondi",
+        "mosebenze-joseph-zwane":"mosebenzi-joseph-zwane",
+        "alexandra-amelia-abrahams":"alexandra-lilian-amelia-abrahams",
+        "wendy-alexander":"wendy-robyn-alexander",
+        "willem-stephanus-aucamp":"willem-abraham-stephanus-aucamp",
+        "motshidi-tsholofelo-katlego-bodlani":"tsholofelo-katlego-motshidi",
+        "timothy-brauteseth":"timothy-james-brauteseth",
+        "samantha-jane-graham-mare": "samantha-jane-graham",
+        "christian-hans-hunsinger":"christian-hans-heinrich-hunsinger",
+        "haseenabanu-ismail":"haseena-ismail",
+        "dennis-joseph":"denis-joseph",
+        "karabo-khakhau":"karabo-lerato-khakhau",
+        "hendrik-christiaan-kruger":"hendrik-christiaan-crafford-kruger",
+        "michael-natasha-wendy-anita-mazzone":"natasha-wendy-anita-michael",
+        "tsepo-winson-mhlongo":"tsepo-winston-mhlongo",
+        "nicholas-george-myburgh":"nicholas-georg-myburgh",
+        "adrian-roos":"adrian-christopher-roos",
+        "eleanore-jacquelene-spies":"eleanore-rochelle-jacquelene-spies",
+        "annerie-magdalena-weber":"annerie-maria-magdalena-weber",
+        "makosini-mishack-chabangu":"makosini-chabangu",
+        "phiwaba-madokwe":"piaba-madokwe",
+        "washington-isaac-mafanya":"washington-tseko-isaac-mafanya",
+        "omphile-maotwe":"omphile-mankoba-confidence-maotwe",
+        "ciliesta-shoana-motsepe":"ciliesta-catherine-shoana-motsepe",
+        "louw-elsabe-natasha-ntlangwini":"elsabe-natasha-louw",
+        "jordaan-heloise-denner":"heloise-denner",
+        "brett-herron":"brett-norton-herron",
+        "inkosi-elphas-mfakazeleni-buthelezi":"elphas-mfakazeleni-buthelezi",
+        "inkosi-russel-nsikayezwe-cebekhulu":"russel-nsikayezwe-cebekhulu",
+        "nhlanhla-mzungezwa-hadebe":"nhlanhla-hadebe",
+        "inkosi-bhekizizwe-nivard-luthuli":"bhekizizwe-nivard-luthuli",
+        "christopher-mzwakhe-sibisi":"christopher-howard-mzwakhe-sibisi",
+        "nqabayomzi-lawrence-saziso-kwankwa":"nqabayomzi-lawrence-kwankwa",
+        # 2023
+        "portia-tebogo-mamorobela":"tebogo-portia-mamorobela",
+        "shipokosa-paulus-mashatile":"shipokosa-paul-mashatile",
+        "humphrey-mdumzeli-zondelele-mmemezi":"humphrey-mmemezi",
+        "motalane-dewet-monakedi":"motalane-monakedi",
+        "maropene-lydia-ramokgopa":"maropene-ramokgopa",
+        "mpho-parks-tau":"mpho-parks-franklyn-tau",
+        "mbulelo-jonathan-magwala":"mbulelelo-jonathan-magwala",
+        "mzwanele-manyi":"mzwanele-jimmy-manyi",
         # Garbage entries
         "control-flag-ict": None,
     }
@@ -661,10 +740,20 @@ class Converter(object):
 
     def mp_to_person_slug(self, mp):
         # NOTE: 2020 no longer has the party in the name and the names are rearranged
-        slug = slugify(mp)
-        surname = slug.split("-")[:1]
-        other_names = slug.split("-")[1:][:-1]
-        slug = "-".join(other_names + surname)
+        pattern = r'\b(?:{})\b'.format('|'.join(map(re.escape, self.parties)))
+
+        if (mp == "ABRAHAM NTANTISOPHOEBE NOXOLO ANC"):
+            mp = "ABRAHAM NTANTISO PHOEBE NOXOLO ANC"
+
+        name_only = re.sub(pattern, '', mp)
+        # special case surnames
+        for surname in self.unique_case_surname:
+            if name_only.startswith(surname):
+                name_ordered = re.sub(r'^(\w+\b\s+\w+\b)\s+(.*)$', r'\2 \1', name_only)
+                break
+            else:
+                name_ordered = re.sub(r'(.*?) (.*)', r'\2 \1', name_only)
+        slug = slugify(name_ordered)
 
         # Check if there is a known correction for this slug
         slug = self.slug_corrections.get(slug, slug)
@@ -678,7 +767,7 @@ class Converter(object):
             return person.slug
         except Person.DoesNotExist:
             try:
-                name_base = re.findall(r'(.*?), (.*)', mp.replace('-', ','))
+                name_base = re.findall(r'(.*?) (.*)', mp.replace('-', ','))
                 if name_base:
                     name_parts = name_base[0]
                     person = Person.objects.get(Q(slug__contains=slugify(name_parts[0])) & Q(slug__contains=slugify(name_parts[1])))

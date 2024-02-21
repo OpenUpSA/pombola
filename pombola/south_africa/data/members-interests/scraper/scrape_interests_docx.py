@@ -1,16 +1,11 @@
 import argparse
 import json
 import os
-import pprint
 import string
 import re
 import time
 import logging
-
-import cachetools.func
-
 import mammoth
-import scraperwiki
 
 from bs4 import BeautifulSoup
 import lxml.etree
@@ -40,7 +35,6 @@ class InterestScraper(object):
         self.output = args.output
         self.year = args.year
         self.source = args.source
-        # self.logger = Logger(args.log_file).initialize_logger()
 
     def strip_bold(self, text):
         if re.match('(?s)<b.*?>(.*?)</b>', text):
@@ -88,7 +82,7 @@ class InterestScraper(object):
 
         html =  html.replace('<p><strong>4.114 MAREKWA GOBONAMANG PRUDENCE ANC SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>','<p><strong>4.114 MAREKWA GOBONAMANG PRUDENCE ANC </strong></p><p><strong>SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>')
 
-        html = html.replace(unichr(252), 'u')
+        html = html.replace(chr(252), 'u')
 
         html =  html.replace('<p><strong>7.41 Kruger Hendrik Christiaan Crafford Democratic Alliance SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts)</strong></p>','<p><strong>7.41 KRUGER HENDRIK CHRISTIAAN CRAFFORD DA </strong></p><p><strong>SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts) </strong></p>')
 
@@ -161,15 +155,12 @@ class InterestScraper(object):
                 if child_div and child_div.name == "img":
                     child_tag.decompose()
 
-            
-
         return soup
 
     def parse_html_generated_from_doc(self, html):
         """
             Parse the HTML to get the text.
         """
-       
 
         CATEGORIES = {
             "SHARES AND OTHER FINANCIAL INTERESTS (Family and other trusts)": "SHARES AND OTHER FINANCIAL INTERESTS",
@@ -214,8 +205,9 @@ class InterestScraper(object):
         table_headers = []
         category_entries = []
         for div in main_div.findChildren(recursive=False):
-            div_text = str(div.get_text().encode("utf-8").strip())
-            if re.match('[0-9]+[.][0-9]', div_text):
+            div_text = str(div.get_text().strip())
+            pattern = r'^\d+\.\d+'
+            if bool(re.match(pattern, div_text)):
                 # in 2020, the MP's name is in the div with the number example 1.2GALO MANDLENKOSI PHILLIP
                 # This is the mp name
                 strip_content_number = ''.join([i for i in div_text if not i.isdigit()]).replace('.', '')
@@ -237,22 +229,21 @@ class InterestScraper(object):
                     continue
                 table = div
 
-                # Table parsing is wrong - there are no TH tags
-
+                # Table parsing is wrong - there are no TH tagsmp)
                 if table is not None:
                     if in_table:
                         # table continuation over a page break found, process it
-                        print('overlap')
                         table_tr = table.find_all('tr')
                         for tr in list(table_tr):
                             section_content = {}
                             for n, inner_tr in list(enumerate(tr.find_all('th'))):
                                 if not n > len(table_headers) - 1:
-                                    print(table_headers[n])
+                                    #print(table_headers[n])
                                     section_content[table_headers[n]] = str(
                                         inner_tr.text.encode('utf-8').strip())
                             if any("nothing to disclose" in s.lower() for s in section_content.values()):
-                                category_entries = "Nothing to disclose"
+                                #category_entries = "Nothing to disclose"
+                                category_entries = []
                             else:
                                 category_entries.append(section_content)
                     else:
@@ -266,10 +257,10 @@ class InterestScraper(object):
                                     section_content[table_headers[n]] = str(
                                         inner_tr.text.encode('utf-8').strip())
                             if any("nothing to disclose" in s.lower() for s in section_content.values()):
-                                category_entries = "Nothing to disclose"
+                                #category_entries = "Nothing to disclose"
+                                category_entries = []
                             else:
                                 category_entries.append(section_content)
-                            print(category_entries)
 
                     if self.section not in single_mp_interests[self.mp]:
                         single_mp_interests[self.mp][self.section] = {}
@@ -293,17 +284,11 @@ class InterestScraper(object):
                 outfile, indent=1)
 
     def write_html_to_file(self, html_str):
-
-       
         # html_str_fixed_headers = self.fix_table_headers(html_str)
         html_str_fixed = self.fix_known_mps_shares_overlap(html_str)
 
-        
-
-
         with open("main_html_file.html", 'w') as outfile:
-            outfile.write(html_str_fixed.encode('utf-8'))
-            # self.logger.info("Wrote html to %s" % self.output)
+            outfile.write(html_str_fixed)
 
         return html_str_fixed
 
@@ -334,4 +319,6 @@ if __name__ == "__main__":
     start_time = time.time()
     print("--- %s seconds ---" % (time.time() - start_time))
     scraper.parse_html_generated_from_doc(html_str_fixed)
-    scraper.write_results()
+    # scraper.write_results() seems to be scraping the HTML into a JSON file
+    # We already have a script to do that (convert_to_import_json.py)
+    # scraper.write_results()
