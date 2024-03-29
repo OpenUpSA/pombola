@@ -390,6 +390,36 @@ class PersonQuerySet(models.query.GeoQuerySet):
                 to_attr="active_party_positions",
             )
         )
+    
+    # Prefetch current positions
+    def prefetch_current_positions(self):
+        """
+        Prefetch current positions.
+        """
+        current_positions = Position.objects.currently_active().order_by('-pk').select_related('title', 'organisation')
+
+        return self.prefetch_related(
+            Prefetch(
+                "position_set",
+                queryset=current_positions,
+                to_attr="current_positions",
+            )
+        )
+    
+    # Prefetch previous positions
+    def prefetch_previous_positions(self):
+        """
+        Prefetch previous positions.
+        """
+        previous_positions = Position.objects.previous().order_by('-pk').select_related('title', 'organisation')
+
+        return self.prefetch_related(
+            Prefetch(
+                "position_set",
+                queryset=previous_positions,
+                to_attr="previous_positions",
+            )
+        )
 
 class PersonManager(ManagerBase):
     def get_queryset(self):
