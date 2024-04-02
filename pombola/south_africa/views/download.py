@@ -28,7 +28,6 @@ def person_row_generator(persons):
     email addresses and party memberships.
     """
     for person in persons:
-        email = get_email_addresses_for_person(person)
         yield (
             # Name
             person.name,
@@ -48,6 +47,16 @@ def person_row_generator(persons):
             ", ".join([contact.value for contact in person.linkedin_contacts]),
             # Instagram
             ", ".join([contact.value for contact in person.instagram_contacts]),
+            # Current Positions, ignore NoneType
+            ", ".join(
+                "%s at %s" % ( position.title.name if position.title else "???", position.organisation.name if position.organisation else "???")
+                for position in person.position_set.currently_active()
+            ),
+            # Former Positions
+            ", ".join(
+                "%s at %s" % ( position.title.name if position.title else "???", position.organisation.name if position.organisation else "???")
+                for position in person.position_set.previous()
+            ),
         )
 
 
@@ -78,6 +87,8 @@ def get_queryset_for_members_download(organisation):
         .prefetch_contacts_with_kind('facebook')
         .prefetch_contacts_with_kind('linkedin')
         .prefetch_contacts_with_kind('instagram')
+        .prefetch_current_positions()
+        .prefetch_previous_positions()
         .prefetch_related("alternative_names",)
     )
 
