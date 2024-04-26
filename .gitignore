@@ -29,3 +29,7 @@ tmp/
 .vagrant/
 .ruby-version
 docx_files/
+
+*.dump
+*.sql
+*.tar

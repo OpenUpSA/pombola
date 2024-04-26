@@ -7,6 +7,8 @@ For detailed background about the project as of 2018 please see
 [docs/BACKGROUND.md](docs/BACKGROUND.md). For an overview of the system see
 [docs/OVERVIEW.md](docs/OVERVIEW.md).
 
+Note: Depends on `postgres-9.6-postgis-2.3`
+
 
 ## Installing
 
