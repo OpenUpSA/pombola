@@ -40,6 +40,8 @@ services:
       - POSTGRES_DB=pombola
     volumes:
       - db-data:/var/lib/postgresql/data
+    ports:
+      - 5321:5432
 
   elasticsearch:
     image: elasticsearch:1
