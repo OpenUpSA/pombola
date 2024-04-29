@@ -255,11 +255,6 @@ LOGGING = {
         },
     },
     "handlers": {
-        "mail_admins": {
-            "filters": ["require_debug_false", "skip_unreadable_posts"],
-            "level": "DEBUG" if DEBUG else "ERROR",
-            "class": "django.utils.log.AdminEmailHandler",
-        },
         "stream_to_stderr": {
             "level": "DEBUG" if DEBUG else "WARN",
             "class": "logging.StreamHandler",
@@ -269,11 +264,6 @@ LOGGING = {
         "django": {
             "handlers": ["stream_to_stderr"],
             "level": "DEBUG" if DEBUG else "INFO",
-            "propagate": True,
-        },
-        "django.request": {
-            "handlers": ["mail_admins"],
-            "level": "DEBUG" if DEBUG else "ERROR",
             "propagate": True,
         },
         "elasticsearch": {
