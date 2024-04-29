@@ -169,7 +169,7 @@ enum34==1.1.10
 funcsigs==1.0.2
 future==0.18.3
 futures==3.3.0
-idna==2.7
+idna==3.7
 ipaddress==1.0.23
 libsass==0.20.1
 ndg-httpsclient==0.5.1
