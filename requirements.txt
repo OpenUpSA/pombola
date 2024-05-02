@@ -124,7 +124,7 @@ anyjson==0.3.3
 audioread==1.0.3
 billiard==3.3.0.19
 bleach==3.3.0
-celery==3.1.17
+celery==5.2.2
 chardet==2.3.0
 cssselect==0.9.1
 django-bleach==0.5.2
