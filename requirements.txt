@@ -132,7 +132,7 @@ django-celery==3.1.16
 django-qmethod==0.0.3
 django-subdomain-instances==3.0.2
 django-tastypie==0.12.1
-html5lib==0.999
+html5lib==0.999999999
 kombu==3.0.24
 mechanize==0.4.6
 mimeparse==0.1.3
