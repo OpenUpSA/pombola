@@ -93,7 +93,7 @@ class WriteInPublic(object):
             'person__popolo_uri': person_popolo_uri,
         }
         try:
-            response = requests.get(url, params=params)
+            response = requests.get(url, params=params, verify=False)
             if response.status_code == 404:
                 return []
             response.raise_for_status()
