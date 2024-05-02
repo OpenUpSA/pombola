@@ -191,11 +191,11 @@ class ScorecardInlineAdmin(GenericTabularInline):
 class PersonAdmin(StricterSlugFieldMixin, admin.ModelAdmin):
     prepopulated_fields = {"slug": ["legal_name"]}
     inlines = [
-        ImageAdminInline,
         AlternativePersonNameInlineAdmin,
         PositionInlineAdmin,
         ContactInlineAdmin,
         InformationSourceInlineAdmin,
+        ImageAdminInline,
         ScorecardInlineAdmin,
         IdentifierInlineAdmin,
         ]
