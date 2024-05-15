@@ -64,7 +64,7 @@ class WriteInPublic(object):
             'persons': person_uris,
         }
         try:
-            response = requests.post(url, json=payload, params=params)
+            response = requests.post(url, json=payload, params=params, verify=False)
             response.raise_for_status()
             return response
         except requests.exceptions.RequestException as err:
@@ -78,7 +78,7 @@ class WriteInPublic(object):
             'api_key': self.api_key,
         }
         try:
-            response = requests.get(url, params=params)
+            response = requests.get(url, params=params, verify=False)
             response.raise_for_status()
             return Message(response.json(), adapter=self.adapter)
         except requests.exceptions.RequestException as err:
@@ -123,7 +123,7 @@ class WriteInPublic(object):
         }
         params.update(filters)
         try:
-            response = requests.get(url, params=params)
+            response = requests.get(url, params=params, verify=False)
             if response.status_code == 404:
                 return []
             response.raise_for_status()
