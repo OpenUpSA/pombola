@@ -1,5 +1,5 @@
 """
-Imports ZA provincial and national election candidates using the 2019
+Imports ZA provincial and national election candidates using the 2024
 IEC spreadsheet format.
 """
 
@@ -46,7 +46,7 @@ for candidates_csv in csv_files:
         csv = unicodecsv.DictReader(csvfile)
         [candidates.append(row) for row in csv]
 
-parties_csv = "pombola/south_africa/data/elections/2024/new_parties.csv"
+parties_csv = "pombola/south_africa/data/elections/2024/parties.csv"
 party_mapping = {}
 with open(parties_csv, "rb") as csvfile:
     csv = unicodecsv.DictReader(csvfile)
