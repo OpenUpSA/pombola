@@ -5,7 +5,7 @@ from django.core.management.base import BaseCommand, CommandError
 from pombola.core.models import Organisation, OrganisationKind
 
 
-parties_csv = "pombola/south_africa/data/elections/2024/new_parties.csv"
+parties_csv = "pombola/south_africa/data/elections/2024/old_parties.csv"
 
 
 class Command(BaseCommand):
