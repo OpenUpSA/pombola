@@ -37,7 +37,7 @@ YEAR = "2019"
 COMMIT = False
 
 csv_files = [
-    'provincial-candidates.csv'
+    'national-candidates.csv'
 ]
 
 candidates = []
@@ -258,7 +258,7 @@ def add_new_person(
 
     if not COMMIT:
         print "would create new entry"
-        return
+        # return
 
     print "creating"
     # get the list to add the person to
