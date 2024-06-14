@@ -114,7 +114,7 @@ def get_party(partyname):
             party_to_object[partyname] = party
             return party_to_object[partyname]
     except ObjectDoesNotExist:
-        print(f"Organization with slug '{party_slug}' does not exist.")
+        print("Organization with slug '{}' does not exist.".format(party_slug))
         pass
 
     return None
