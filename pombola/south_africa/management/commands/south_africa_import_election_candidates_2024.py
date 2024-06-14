@@ -20,6 +20,7 @@ from django.core.management.base import BaseCommand
 from django.db.models import Q
 from django.db.utils import IntegrityError
 from django.utils.text import slugify
+from django.core.exceptions import ObjectDoesNotExist
 
 from django_date_extensions.fields import ApproximateDate
 
@@ -105,14 +106,18 @@ def get_party(partyname):
 
     party_slug = party_mapping.get(partyname)
     if not party_slug:
-        return False
+        return None
 
-    party = Organisation.objects.get(slug=party_slug)
-    if party:
-        party_to_object[partyname] = party
-        return party_to_object[partyname]
-    else:
-        return False
+    try:
+        party = Organisation.objects.get(slug=party_slug)
+        if party:
+            party_to_object[partyname] = party
+            return party_to_object[partyname]
+    except ObjectDoesNotExist:
+        print(f"Organization with slug '{party_slug}' does not exist.")
+        pass
+
+    return None
 
 
 def save_match(
