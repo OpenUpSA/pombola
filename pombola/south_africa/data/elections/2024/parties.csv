@@ -1,26 +1,4 @@
 slug,name,name_in_candidates_file
-free-dems,Free Democrats (FREE DEMS),FREE DEMOCRATS
-cope,Congress of the People (COPE),CONGRESS OF THE PEOPLE
-ff,"Freedom Front + (Vryheidsfront Plus, FF+)",VRYHEIDSFRONT PLUS
-acdp,African Christian Democratic Party (ACDP),AFRICAN CHRISTIAN DEMOCRATIC PARTY
-da,Democratic Alliance (DA),DEMOCRATIC ALLIANCE
-ifp,Inkatha Freedom Party (IFP),INKATHA FREEDOM PARTY
-nfp,National Freedom Party (NFP),NATIONAL FREEDOM PARTY
-atm,African Transformation Movement (ATM),AFRICAN TRANSFORMATION MOVEMENT
-apc,African People's Convention (APC),AFRICAN PEOPLE'S CONVENTION
-eff,Economic Freedom Fighters (EFF),ECONOMIC FREEDOM FIGHTERS
-good,Good,GOOD
-dlc,Democratic Liberal Congress (DLC),DEMOCRATIC LIBERAL CONGRESS
-acm,African Content Movement (ACM),AFRICAN CONTENT MOVEMENT
-aic,African Independent Congress (AIC),AFRICAN INDEPENDENT CONGRESS
-pac,Pan Africanist Congress of Azania (PAC),PAN AFRICANIST CONGRESS OF AZANIA
-udm,United Democratic Movement (UDM),UNITED DEMOCRATIC MOVEMENT
-azapo,Azanian People's Organisation (AZAPO),AZANIAN PEOPLE'S ORGANISATION
-al-jama-ah,Al Jama-Ah,AL JAMA-AH
-pa,Patriotic Alliance (PA),PATRIOTIC ALLIANCE
-anc,African National Congress (ANC),AFRICAN NATIONAL CONGRESS
-f4sd,Forum for Service Delivery (F4SD),FORUM 4 SERVICE DELIVERY
-slug,name,name_in_candidates_file
 hope4sa,#Hope4SA,#HOPE4SA
 abc,Abantu Batho Congress,ABANTU BATHO CONGRESS
 al,Able Leadership,ABLE LEADERSHIP
@@ -52,3 +30,43 @@ mk,Umkhonto Wesizwe,UMKHONTO WESIZWE
 uat,United Africans Transformation,UNITED AFRICANS TRANSFORMATION
 uim,United Independent Movement,UNITED INDEPENDENT MOVEMENT
 xiluva,Xiluva,XILUVA
+free-dems,Free Democrats (FREE DEMS),FREE DEMOCRATS
+cope,Congress of the People (COPE),CONGRESS OF THE PEOPLE
+ff,"Freedom Front + (Vryheidsfront Plus, FF+)",VRYHEIDSFRONT PLUS
+acdp,African Christian Democratic Party (ACDP),AFRICAN CHRISTIAN DEMOCRATIC PARTY
+da,Democratic Alliance (DA),DEMOCRATIC ALLIANCE
+ifp,Inkatha Freedom Party (IFP),INKATHA FREEDOM PARTY
+nfp,National Freedom Party (NFP),NATIONAL FREEDOM PARTY
+atm,African Transformation Movement (ATM),AFRICAN TRANSFORMATION MOVEMENT
+apc,African People's Convention (APC),AFRICAN PEOPLE'S CONVENTION
+eff,Economic Freedom Fighters (EFF),ECONOMIC FREEDOM FIGHTERS
+good,Good,GOOD
+dlc,Democratic Liberal Congress (DLC),DEMOCRATIC LIBERAL CONGRESS
+acm,African Content Movement (ACM),AFRICAN CONTENT MOVEMENT
+aic,African Independent Congress (AIC),AFRICAN INDEPENDENT CONGRESS
+pac,Pan Africanist Congress of Azania (PAC),PAN AFRICANIST CONGRESS OF AZANIA
+udm,United Democratic Movement (UDM),UNITED DEMOCRATIC MOVEMENT
+azapo,Azanian People's Organisation (AZAPO),AZANIAN PEOPLE'S ORGANISATION
+al-jama-ah,Al Jama-Ah,AL JAMA-AH
+pa,Patriotic Alliance (PA),PATRIOTIC ALLIANCE
+anc,African National Congress (ANC),AFRICAN NATIONAL CONGRESS
+f4sd,Forum for Service Delivery (F4SD),FORUM 4 SERVICE DELIVERY
+aipo,African Independent People's Organisation,AFRICAN INDEPENDENT PEOPLE'S ORGANISATION
+apf,African People First,AFRICAN PEOPLE FIRST
+asa,Arise South Africa,ARISE SOUTH AFRICA
+azpr,Azania Peaceful Revolution,AZANIA PEACEFUL REVOLUTION
+bigsa,Basic Income Grant SA,BASIC INCOME GRANT SA
+bpm,Batho Pele Movement,BATHO PELE MOVEMENT
+bpsa,Bolsheviks Party of South Africa,BOLSHEVIKS PARTY OF SOUTH AFRICA
+ind,Independent,INDEPENDENT
+isanco,Independent South African National Civic Organisation,INDEPENDENT SOUTH AFRICAN NATIONAL CIVIC ORGANISATION
+jep,Justice and Employment Party,JUSTICE AND EMPLOYMENT PARTY
+kpa,Komani Progress Action,KOMANI PROGRESS ACTION
+lp,Land Party,LAND PARTY
+nip,National Independent Party,NATIONAL INDEPENDENT PARTY
+od,Operation Dudula,OPERATION DUDULA
+pfp,People's Freedom Party,PEOPLE'S FREEDOM PARTY
+spp,Sindawonyi Progressive Party,SINDAWONYE PROGRESSIVE PARTY
+sada,Socialist Agenda of Dispossessed Africans,SOCIALIST AGENDA OF DISPOSSESSED AFRICANS
+sameba,South African Maintenance and Estate Beneficiaries Association,SOUTH AFRICAN MAINTENANCE AND ESTATE BENEFICIARIES ASSOCIATION
+saypp,South African Youth Power Party,SOUTH AFRICAN YOUTH POWER PARTY
