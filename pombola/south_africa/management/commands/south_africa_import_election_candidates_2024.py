@@ -5,6 +5,7 @@ IEC spreadsheet format.
 
 import re
 import sys
+import argparse
 import unicodecsv
 import string
 import datetime
@@ -36,9 +37,14 @@ position_to_object = {}
 YEAR = "2019"
 COMMIT = False
 
-csv_files = [
-    'test-run.csv'
-]
+parser = argparse.ArgumentParser(description='Process some CSV files.')
+parser.add_argument('csv_files', nargs='+', help='List of CSV files to process')
+
+# Parse the arguments
+args = parser.parse_args()
+
+# Use the csv_files from the arguments
+csv_files = args.csv_files
 
 candidates = []
 
