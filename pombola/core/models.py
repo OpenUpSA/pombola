@@ -215,9 +215,6 @@ class Identifier(ModelBase):
     def __unicode__(self):
         return '"%s%s"' % (self.scheme, self.identifier)
 
-    class Meta:
-        unique_together = ('scheme', 'identifier')
-
 
 class IdentifierMixin(object):
 
