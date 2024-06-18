@@ -37,7 +37,7 @@ YEAR = "2019"
 COMMIT = False
 
 csv_files = [
-    'provincial-candidates.csv'
+    'regional-candidates.csv'
 ]
 
 candidates = []
