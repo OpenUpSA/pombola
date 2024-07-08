@@ -688,3 +688,5 @@ if os.environ.get("SENTRY_DSN"):
         profiles_sample_rate=os.environ.get("SENTRY_PROFILES_SAMPLE_RATE", 1.0),
         send_default_pii=True,
     )
+
+DATA_UPLOAD_MAX_NUMBER_FIELDS=None
