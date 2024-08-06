@@ -19,7 +19,7 @@
     <form action="{% url "core_search" %}">
         <div class="inline-search-box people-list-inline-search">
             <label for="id_q" class="inline-search-box__label">Find a person by name</label>
-            <input id="id_q" name="q" class="search-autocomplete-name" type="text" value="{{ query }}" placeholder="e.g. Thandi Modise" data-source="/search/autocomplete/?model=person">
+            <input id="id_q" name="q" class="search-autocomplete-name" type="text" value="{{ query }}" placeholder="Search" data-source="/search/autocomplete/?model=person">
             <input type="hidden" name="section" value="persons">
             <input type="submit" value="Search" class="button">
         </div>
