@@ -1,4 +1,5 @@
 User-agent: *
+Crawl-delay: 120
 
 {% if staging %}
 # This is a staging server, so we ask all search engines not to index it.
@@ -8,3 +9,4 @@ Disallow: /
 Disallow: /feedback
 Disallow: /admin
 Disallow: /county-performance
+
