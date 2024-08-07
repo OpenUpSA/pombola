@@ -344,7 +344,7 @@ class SAPersonDetail(PersonSpeakerMappingsMixin, PersonDetail):
 
                         return_data.append(
                             {
-                                'year': f"{year}",
+                                'year': year,
                                 'attended': attendance,
                                 'total': meeting_count,
                                 'percentage': percentage,
