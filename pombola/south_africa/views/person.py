@@ -318,31 +318,57 @@ class SAPersonDetail(PersonSpeakerMappingsMixin, PersonDetail):
             return 'minister'
         else:
             return 'mp'
-
+    
     def get_attendance_stats(self, attendance_by_year):
         sorted_keys = sorted(attendance_by_year.keys(), reverse=True)
         return_data = []
-        # year, attended, total, percentage, position
+        split_date = "2024-06-01"  
+
         for year in sorted_keys:
             year_dict = attendance_by_year[year]
-            for position in sorted(year_dict.keys()):
-                attendance = sum((year_dict[position][x] for x in year_dict[position] if x in self.present_values))
-                meeting_count = sum((year_dict[position][x] for x in year_dict[position]))
-                if meeting_count == 0:
-                    # To avoid a division by zero for zero minister attendance
-                    percentage = 0
-                else:
-                    percentage = 100 * attendance / meeting_count
+            if year == 2024:
+                before_split = {}
+                after_split = {}
+                for position in year_dict.keys():
+                    before_split[position] = {k: v for k, v in year_dict[position].items() if k < split_date}
+                    after_split[position] = {k: v for k, v in year_dict[position].items() if k >= split_date}
+                
+                for split_period, data in [("before", before_split), ("after", after_split)]:
+                    for position in sorted(data.keys()):
+                        attendance = sum((data[position][x] for x in data[position] if x in self.present_values))
+                        meeting_count = sum((data[position][x] for x in data[position]))
+                        if meeting_count == 0:
+                            percentage = 0
+                        else:
+                            percentage = 100 * attendance / meeting_count
 
-                return_data.append(
-                    {
-                        'year': year,
-                        'attended': attendance,
-                        'total': meeting_count,
-                        'percentage': percentage,
-                        'position': position if position == 'mp' else 'minister/deputy',
-                    }
-                )
+                        return_data.append(
+                            {
+                                'year': year,
+                                'attended': attendance,
+                                'total': meeting_count,
+                                'percentage': percentage,
+                                'position': position if position == 'mp' else 'minister/deputy',
+                            }
+                        )
+            else:
+                for position in sorted(year_dict.keys()):
+                    attendance = sum((year_dict[position][x] for x in year_dict[position] if x in self.present_values))
+                    meeting_count = sum((year_dict[position][x] for x in year_dict[position]))
+                    if meeting_count == 0:
+                        percentage = 0
+                    else:
+                        percentage = 100 * attendance / meeting_count
+
+                    return_data.append(
+                        {
+                            'year': year,
+                            'attended': attendance,
+                            'total': meeting_count,
+                            'percentage': percentage,
+                            'position': position if position == 'mp' else 'minister/deputy',
+                        }
+                    )
 
         return return_data
 
