@@ -415,7 +415,7 @@
   </div>
   <div style="padding-top: 3em;">
     {% block plenary_appearances %}
-    {% if hansard.count or question.count or committee.count %}
+    
     <h2 class="mp-subheading">Politician Activity</h2>
     <div>
       {% if attendance %}
@@ -639,7 +639,7 @@
         </div>
       </section>
     </div>
-    {% endif %}
+    
     {% endblock %}
   <div>
     {% if object.interests_register_entries.exists %}
