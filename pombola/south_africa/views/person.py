@@ -7,6 +7,7 @@ import re
 import requests
 import urllib
 import datetime
+import pytz
 
 from .constants import API_REQUESTS_TIMEOUT
 from urlparse import urlsplit
@@ -244,6 +245,7 @@ class SAPersonDetail(PersonSpeakerMappingsMixin, PersonDetail):
             return {}
 
         attendance_by_year = {}
+        split_date = datetime.datetime(2024, 6, 1, tzinfo=pytz.utc)  # Ensure split_date is timezone-aware
 
         years = sorted(set(dateutil.parser.parse(x['meeting']['date']).year for x in data), reverse=True)
         minister_positions_by_year = self.get_active_minister_positions(years)
@@ -253,28 +255,41 @@ class SAPersonDetail(PersonSpeakerMappingsMixin, PersonDetail):
                 # Don't count alternate member attendances
                 continue
             attendance = x['attendance']
-            meeting_date = dateutil.parser.parse(x['meeting']['date'])
+            meeting_date = dateutil.parser.parse(x['meeting']['date']).astimezone(pytz.utc)  # Ensure meeting_date is timezone-aware
             year = meeting_date.year
 
-            minister_at_date = self.active_position_at_date(minister_positions_by_year[year], meeting_date)
+            if year == 2024:
+                split_key = 'before' if meeting_date < split_date else 'after'
+                split_year = "{}_{}".format(year, split_key)
+            else:
+                split_year = str(year)
+
+            base_year = year if year != 2024 else 2024  # Use 2024 as the base year for splitting
+            minister_at_date = self.active_position_at_date(minister_positions_by_year[base_year], meeting_date)
             position = 'minister' if minister_at_date else 'mp'
 
-            year_dict = attendance_by_year.setdefault(year, {})
+            year_dict = attendance_by_year.setdefault(split_year, {})
             position_dict = year_dict.setdefault(position, {})
             position_dict.setdefault(attendance, 0)
             position_dict[attendance] += 1
 
         # Add zero minister attendance if person was active minister during a year,
-        # but no reocrds was returned for that year.
-        for year, positions in minister_positions_by_year.iteritems():
+        # but no records were returned for that year.
+        for year, positions in minister_positions_by_year.items():
             if positions:
                 # There were active minister positions
-                if 'minister' not in attendance_by_year[year].keys():
+                if year == 2024:
+                    for split_key in ['before', 'after']:
+                        split_year = "{}_{}".format(year, split_key)
+                        if 'minister' not in attendance_by_year.get(split_year, {}).keys():
+                            # No minister attendance recorded
+                            attendance_by_year.setdefault(split_year, {})['minister'] = {'P': 0}
+                elif 'minister' not in attendance_by_year.get(str(year), {}).keys():
                     # No minister attendance recorded
-                    attendance_by_year[year]['minister'] = {'P': 0}
+                    attendance_by_year[str(year)]['minister'] = {'P': 0}
 
         return attendance_by_year
-
+    
     def get_meetings_attended(self, data, limit=None):
         api_url_re = r'/committee-meeting/(\d+)/'
         meeting_url_template = 'https://pmg.org.za/committee-meeting/{}/'
@@ -322,53 +337,29 @@ class SAPersonDetail(PersonSpeakerMappingsMixin, PersonDetail):
     def get_attendance_stats(self, attendance_by_year):
         sorted_keys = sorted(attendance_by_year.keys(), reverse=True)
         return_data = []
-        split_date = "2024-06-01"  
 
         for year in sorted_keys:
             year_dict = attendance_by_year[year]
-            if year == 2024:
-                before_split = {}
-                after_split = {}
-                for position in year_dict.keys():
-                    before_split[position] = {k: v for k, v in year_dict[position].items() if k < split_date}
-                    after_split[position] = {k: v for k, v in year_dict[position].items() if k >= split_date}
+
+            for position in sorted(year_dict.keys()):
+                attendance = sum((year_dict[position][x] for x in year_dict[position] if x in self.present_values))
+                meeting_count = sum((year_dict[position][x] for x in year_dict[position]))
+                if meeting_count == 0:
+                    percentage = 0
+                else:
+                    percentage = 100 * attendance / meeting_count
+
+                year_label = year.replace('_before', ' (6th Parliament)').replace('_after', ' (7th Parliament)')
                 
-                for split_period, data in [("before", before_split), ("after", after_split)]:
-                    for position in sorted(data.keys()):
-                        attendance = sum((data[position][x] for x in data[position] if x in self.present_values))
-                        meeting_count = sum((data[position][x] for x in data[position]))
-                        if meeting_count == 0:
-                            percentage = 0
-                        else:
-                            percentage = 100 * attendance / meeting_count
-
-                        return_data.append(
-                            {
-                                'year': year,
-                                'attended': attendance,
-                                'total': meeting_count,
-                                'percentage': percentage,
-                                'position': position if position == 'mp' else 'minister/deputy',
-                            }
-                        )
-            else:
-                for position in sorted(year_dict.keys()):
-                    attendance = sum((year_dict[position][x] for x in year_dict[position] if x in self.present_values))
-                    meeting_count = sum((year_dict[position][x] for x in year_dict[position]))
-                    if meeting_count == 0:
-                        percentage = 0
-                    else:
-                        percentage = 100 * attendance / meeting_count
-
-                    return_data.append(
-                        {
-                            'year': year,
-                            'attended': attendance,
-                            'total': meeting_count,
-                            'percentage': percentage,
-                            'position': position if position == 'mp' else 'minister/deputy',
-                        }
-                    )
+                return_data.append(
+                    {
+                        'year': year_label,
+                        'attended': attendance,
+                        'total': meeting_count,
+                        'percentage': percentage,
+                        'position': position if position == 'mp' else 'minister/deputy',
+                    }
+                )
 
         return return_data
 
