@@ -14,6 +14,8 @@ from corsheaders.defaults import default_headers
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
+from urlparse import urlparse
+
 IN_TEST_MODE = False
 
 # Work out where we are to set up the paths correctly and load config
@@ -294,7 +296,6 @@ PAGINATION_DEFAULT_WINDOW = 2
 PAGINATION_DEFAULT_ORPHANS = 2
 PAGINATION_INVALID_PAGE_RAISES_404 = True
 
-
 # haystack config - interface to search engine
 HAYSTACK_CONNECTIONS = {
     # 'default': {
@@ -305,6 +306,7 @@ HAYSTACK_CONNECTIONS = {
     "default": {
         "ENGINE": "haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine",
         "URL": os.environ.get("ELASTICSEARCH_URL"),
+        "PORT": urlparse(os.environ.get("ELASTICSEARCH_URL")).port,
         "INDEX_NAME": os.environ.get("ELASTICSEARCH_INDEX", "pombola"),
         "EXCLUDED_INDEXES": [],
         "TIMEOUT": int(os.environ.get("ELASTICSEARCH_TIMEOUT", 10)),
