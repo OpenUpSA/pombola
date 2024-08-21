@@ -34,11 +34,11 @@ This WriteInPublic instance used to get contacts from EveryPolitician but EveryP
 ## Using a local instance of WriteInPublic
 
 - Clone https://github.com/mysociety/writeinpublic
-- If you're running PA on port 8000, change the port on which WriteInPublic will run in the `docker-compose.yml` file.
-- Run `docker-compose up`
+- If you're running PA on port 8000, change the port on which WriteInPublic will run in the `docker compose.yml` file.
+- Run `docker compose up`
 - Enable your PA container to connect to your localhost by following one of the answers in [this question](https://stackoverflow.com/questions/24319662/from-inside-of-a-docker-container-how-do-i-connect-to-the-localhost-of-the-mach) or:
   - Run `export DOCKERHOST=$(ifconfig | grep -E "([0-9]{1,3}\.){3}[0-9]{1,3}" | grep -v 127.0.0.1 | awk '{ print $2 }' | cut -f2 -d: | head -n1)`
-  - Add the following under the `app` service in your PA `docker-compose.yml` file:
+  - Add the following under the `app` service in your PA `docker compose.yml` file:
    ```
      extra_hosts:
     - "dockerhost:$DOCKERHOST"

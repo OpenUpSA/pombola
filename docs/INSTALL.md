@@ -4,12 +4,12 @@ Pombola is mostly a standard Django project.
 
 We use docker to make development, test and production as similar as possible.
 
-In development, we use docker-compose.
+In development, we use docker compose.
 
 In production, we use dokku. Dokku manages environment variables for
 configuration and secrets, and proxies requests to the container IP.
 
-If you'd like to run this in another way, use the docker-compose.yml file as the
+If you'd like to run this in another way, use the docker compose.yml file as the
 entrypoint to understand the environment and dependencies of this app.
 
 ## Where to put the code and data
@@ -32,28 +32,28 @@ git clone https://github.com/OpenUpSA/pombola.git
 Run migrations
 
 ```
-docker-compose run --rm app python manage.py migrate
+docker compose run --rm app python manage.py migrate
 ```
 
 Load [demo data](#demo-data) for easy dev setup. (See also [loading a production database dump](#production-data-dumps).)
 
 ```
-docker-compose run --rm app python manage.py loaddata demodata.json
+docker compose run --rm app python manage.py loaddata demodata.json
 ```
 
 Load WriteInPublic fixtures - these will let you draft messages but not send them, just to enable trying out the write-to flows locally. Change the slugs and keys to the sandbox ones to send actual messages from your dev environment. 
 
-    docker-compose run --rm app python manage.py loaddata writeinpublic.json
+    docker compose run --rm app python manage.py loaddata writeinpublic.json
 Start the app, DB and search index:
 
 ```
-docker-compose up
+docker compose up
 ```
 
 Build the search index:
 
 ```
-docker-compose run --rm app python manage.py rebuild_index
+docker compose run --rm app python manage.py rebuild_index
 ```
 
 Now you can visit the site at [http://localhost:8000](http://localhost:8000)
@@ -63,13 +63,13 @@ Now you can visit the site at [http://localhost:8000](http://localhost:8000)
 Delete the DB, media files and search index to start afresh:
 
 ```
-docker-compose down --volumes
+docker compose down --volumes
 ```
 
-To enable [Django debug toolbar](https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#getting-the-code), set the `DJANGO_DEBUG_TOOLBAR` environment variable to `true`. For example, run `docker-compose` with:
+To enable [Django debug toolbar](https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#getting-the-code), set the `DJANGO_DEBUG_TOOLBAR` environment variable to `true`. For example, run `docker compose` with:
 
 ```
-DJANGO_DEBUG_TOOLBAR=true docker-compose up
+DJANGO_DEBUG_TOOLBAR=true docker compose up
 ```
 
 ### Demo data
@@ -84,10 +84,10 @@ Remember to create or update fixtures when:
 
 ### How to add demodata
 
-- Delete all data in the database `docker-compose run --rm app python manage.py flush`
-- Load demodata `docker-compose run --rm app python manage.py loaddata demodata.json`
+- Delete all data in the database `docker compose run --rm app python manage.py flush`
+- Load demodata `docker compose run --rm app python manage.py loaddata demodata.json`
 - Edit the data in the admin dashboard
-- Dump the data into demodata.json ` docker-compose run --rm app python manage.py dumpdata --indent 2 > pombola/core/fixtures/demodata.json`
+- Dump the data into demodata.json ` docker compose run --rm app python manage.py dumpdata --indent 2 > pombola/core/fixtures/demodata.json`
 - Git diff - do the changes look sensible?
 
 ### Production data dumps
@@ -99,8 +99,8 @@ download a production database dump and load it locally using the following:
 Load the schema and data:
 
 ```
-zcat pg-dump_schema.sql.gz | docker-compose run --rm db psql postgres://pombola:pombola@db/pombola
-zcat pg-dump_data.sql.gz | docker-compose run --rm db psql postgres://pombola:pombola@db/pombola
+zcat pg-dump_schema.sql.gz | docker compose run --rm db psql postgres://pombola:pombola@db/pombola
+zcat pg-dump_data.sql.gz | docker compose run --rm db psql postgres://pombola:pombola@db/pombola
 ```
 
 
