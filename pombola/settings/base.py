@@ -13,6 +13,7 @@ from corsheaders.defaults import default_headers
 
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
+from sentry_sdk.integrations.celery import CeleryIntegration
 
 from urlparse import urlparse
 
@@ -324,7 +325,13 @@ if os.environ.get("ELASTICSEARCH_PASSWORD"):
     }
 
 
-HAYSTACK_SIGNAL_PROCESSOR = "haystack.signals.RealtimeSignalProcessor"
+# HAYSTACK_SIGNAL_PROCESSOR = "haystack.signals.RealtimeSignalProcessor"
+HAYSTACK_SIGNAL_PROCESSOR = "celery_haystack.signals.CelerySignalProcessor"
+CELERY_HAYSTACK_TRANSACTION_SAFE = True
+CELERY_HAYSTACK_DEFAULT_ALIAS = None
+CELERY_HAYSTACK_RETRY_DELAY = 5 * 60
+CELERY_HAYSTACK_MAX_RETRIES = 1
+CELERY_HAYSTACK_DEFAULT_TASK = "celery_haystack.tasks.CeleryHaystackSignalHandler"
 
 # Admin autocomplete
 AJAX_LOOKUP_CHANNELS = {
@@ -436,6 +443,7 @@ INSTALLED_APPS = (
     # Pombola templates do {% load thumbnail %}
     "easy_thumbnails",
     "sorl.thumbnail",
+    "celery_haystack",
     "haystack",
     "slug_helpers",
     "info",
@@ -683,12 +691,12 @@ CONSTANCE_CONFIG = {
 if os.environ.get("SENTRY_DSN"):
     sentry_sdk.init(
         dsn=os.environ.get("SENTRY_DSN"),
-        enable_tracing=True,
-        integrations=[DjangoIntegration()],
+        #enable_tracing=True,
+        integrations=[DjangoIntegration(), CeleryIntegration()],
         environment=os.environ.get("ENVIRONMENT"),
-        traces_sample_rate=os.environ.get("SENTRY_TRACES_SAMPLE_RATE", 1.0),
-        profiles_sample_rate=os.environ.get("SENTRY_PROFILES_SAMPLE_RATE", 1.0),
+        #traces_sample_rate=os.environ.get("SENTRY_TRACES_SAMPLE_RATE", 1.0),
+        #profiles_sample_rate=os.environ.get("SENTRY_PROFILES_SAMPLE_RATE", 1.0),
         send_default_pii=True,
     )
 
-DATA_UPLOAD_MAX_NUMBER_FIELDS=None
+DATA_UPLOAD_MAX_NUMBER_FIELDS = None
