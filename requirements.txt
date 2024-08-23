@@ -124,16 +124,18 @@ anyjson==0.3.3
 audioread==1.0.3
 billiard==3.3.0.19
 bleach==3.3.0
-celery==3.1.17
+django-appconf==1.0.2
+celery==3.1.25
+celery-haystack==0.10
+kombu==3.0.37
 chardet==2.3.0
 cssselect==0.9.1
 django-bleach==0.5.2
-django-celery==3.1.16
+django-celery==3.1.17
 django-qmethod==0.0.3
 django-subdomain-instances==3.0.2
 django-tastypie==0.12.1
 html5lib==0.999
-kombu==3.0.24
 mechanize==0.4.6
 mimeparse==0.1.3
 mock==1.3.0
@@ -206,5 +208,6 @@ zipstream==1.1.4
 xlrd==1.2.0
 
 # Sentry
-sentry-sdk[django]==1.39.2
+#sentry-sdk[django]==1.39.2
+sentry-sdk==0.14.3
 

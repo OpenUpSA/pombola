@@ -1,6 +1,7 @@
 from django.conf import settings
 
 from haystack import indexes
+from celery_haystack.indexes import CelerySearchIndex
 
 from pombola.core import models as core_models
 
@@ -16,7 +17,7 @@ from pombola.core import models as core_models
 # Note - these indexes could be specified in the individual apps, which might
 # well be cleaner.
 
-class BaseIndex(indexes.SearchIndex):
+class BaseIndex(CelerySearchIndex):
     text = indexes.CharField(document=True, use_template=True)
 
 class PersonIndex(BaseIndex, indexes.Indexable):
