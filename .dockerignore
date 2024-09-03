@@ -4,3 +4,7 @@ data
 *.dump
 *.sql
 *.tar
+*.DS_Store
+*.tar
+*.dump
+

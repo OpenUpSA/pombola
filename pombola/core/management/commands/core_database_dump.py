@@ -50,7 +50,8 @@ class Command(BaseCommand):
             'popolo_name_resolver_entityname',
             'writeinpublic_configuration',
             'za_hansard_sourceparsinglog',
-            'za_hansard_questionparsingerror'
+            'za_hansard_questionparsingerror',
+            'constance_config'
         ])
         tables_to_dump = [
             t for t in tables if t not in tables_to_ignore
