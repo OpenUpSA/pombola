@@ -20,8 +20,7 @@ dynamic data such as the search indexes, uploaded images, various caches etc.
 These extra directories are by default put inside the `data/` directory, although
 this can be modified using the `DATA_DIR` configuration variable.
 
-Development
------------
+## Development
 
 The code is available via github: https://github.com/OpenUpSA/pombola
 
@@ -41,9 +40,10 @@ Load [demo data](#demo-data) for easy dev setup. (See also [loading a production
 docker compose run --rm app python manage.py loaddata demodata.json
 ```
 
-Load WriteInPublic fixtures - these will let you draft messages but not send them, just to enable trying out the write-to flows locally. Change the slugs and keys to the sandbox ones to send actual messages from your dev environment. 
+Load WriteInPublic fixtures - these will let you draft messages but not send them, just to enable trying out the write-to flows locally. Change the slugs and keys to the sandbox ones to send actual messages from your dev environment.
 
     docker compose run --rm app python manage.py loaddata writeinpublic.json
+
 Start the app, DB and search index:
 
 ```
@@ -58,7 +58,7 @@ docker compose run --rm app python manage.py rebuild_index
 
 Now you can visit the site at [http://localhost:8000](http://localhost:8000)
 
------
+---
 
 Delete the DB, media files and search index to start afresh:
 
@@ -103,9 +103,7 @@ zcat pg-dump_schema.sql.gz | docker compose run --rm db psql postgres://pombola:
 zcat pg-dump_data.sql.gz | docker compose run --rm db psql postgres://pombola:pombola@db/pombola
 ```
 
-
-Production deployment
----------------------
+## Production deployment
 
 ### Elasticsearch
 
@@ -157,7 +155,6 @@ Do a test run:
 You need to get a PMG API key for a user that is confirmed (`user.confirmed_at` needs to be set) and has either the `editor` role or is subscribed to all of the premium committees. You can get the authentication key from https://api.pmg.org.za/user/ after you have logged in.
 
 This key is needed by the [`za_hansard_pmg_api_scraper` command](https://github.com/OpenUpSA/pombola/blob/efcfaf05916ca2cb838a6b570109cae91545905a/pombola/za_hansard/management/commands/za_hansard_pmg_api_scraper.py#L82) that imports committee meetings appearances.
-
 
 ### Create and configure the app
 
@@ -234,6 +231,8 @@ Use the keys that you get to set the `GOOGLE_RECAPTCHA_SITE_KEY`
 and `GOOGLE_RECAPTCHA_SECRET_KEY` environment variables.
 
 ### Cron jobs
+
+Note that `app.json` schedules these jobs with Dokku in production.
 
 Cron jobs should only output to stdout or stderr if something went wrong and
 needs an operator's attention. We use `bin/run_management_command_capture_stdout`
