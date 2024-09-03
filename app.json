@@ -6,28 +6,28 @@
   },
   "cron": [
     {
-      "command": "0 0 * * 1",
-      "schedule": "bin/output-on-error bin/backup-data-dir.bash"
+      "schedule": "0 0 * * 1",
+      "command": "bin/output-on-error bin/backup-data-dir.bash"
     },
     {
-      "command": "0 1 * * *",
-      "schedule": "bin/output-on-error ./manage.py core_list_malformed_slugs"
+      "schedule": "0 1 * * *",
+      "command": "bin/output-on-error ./manage.py core_list_malformed_slugs"
     },
     {
-      "command": "30 1 * * *",
-      "schedule": "bin/output-on-error ./manage.py core_database_dump /data/media_root/dumps/pg-dump && bin/output-on-error gzip -9 -f /data/media_root/dumps/pg-dump_schema.sql /data/media_root/dumps/pg-dump_data.sql"
+      "schedule": "30 1 * * *",
+      "command": "bin/output-on-error ./manage.py core_database_dump /data/media_root/dumps/pg-dump && bin/output-on-error gzip -9 -f /data/media_root/dumps/pg-dump_schema.sql /data/media_root/dumps/pg-dump_data.sql"
     },
     {
-      "command": "10 2 * * *",
-      "schedule": "bin/output-on-error bin/update_za_hansard.bash"
+      "schedule": "10 2 * * *",
+      "command": "bin/output-on-error bin/update_za_hansard.bash"
     },
     {
-      "command": "0 5 * * *",
-      "schedule": "bin/output-on-error python manage.py core_export_to_popolo_json /data/media_root/popolo_json http://www.pa.org.za"
+      "schedule": "0 5 * * *",
+      "command": "bin/output-on-error python manage.py core_export_to_popolo_json /data/media_root/popolo_json http://www.pa.org.za"
     },
     {
-      "command": "30 5 * * *",
-      "schedule": "bin/output-on-error python manage.py core_export_to_popolo_json --pombola /data/media_root/popolo_json http://www.pa.org.za"
+      "schedule": "30 5 * * *",
+      "command": "bin/output-on-error python manage.py core_export_to_popolo_json --pombola /data/media_root/popolo_json http://www.pa.org.za"
     }
   ]
 }
