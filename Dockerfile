@@ -28,6 +28,8 @@ RUN apt-get update && \
                        awscli
 
 RUN mkdir /app
+RUN mkdir -p /var/celerybeat
+
 COPY requirements.txt /app/
 RUN pip install -r /app/requirements.txt
 
