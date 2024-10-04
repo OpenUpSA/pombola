@@ -14,6 +14,7 @@ from corsheaders.defaults import default_headers
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.celery import CeleryIntegration
+import djcelery
 
 from urlparse import urlparse
 
@@ -460,6 +461,7 @@ INSTALLED_APPS = (
     "django_nose",
     "django_extensions",
     "rest_framework",
+    "djcelery"
 )
 if os.environ.get("DJANGO_DEBUG_TOOLBAR", "true").lower() == "true":
     INSTALLED_APPS += ("debug_toolbar",)
@@ -700,3 +702,11 @@ if os.environ.get("SENTRY_DSN"):
     )
 
 DATA_UPLOAD_MAX_NUMBER_FIELDS = None
+
+# Celery application definition
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL")
+CELERY_RESULT_BACKEND = os.environ.get("CELERY_BROKER_URL")
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+djcelery.setup_loader()
