@@ -38,7 +38,7 @@ django-registration-defaults==0.3
 ### Pombola dependencies
 sorl-thumbnail==12.4.1
 django-date-extensions==3.0
-django-ajax-selects==1.4.2
+django-ajax-selects==1.9.1
 django-autocomplete-light==2.3.3
 django-slug-helpers==0.0.3
 django-file-archive==0.0.2
