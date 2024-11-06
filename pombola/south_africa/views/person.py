@@ -362,7 +362,7 @@ class SAPersonDetail(PersonSpeakerMappingsMixin, PersonDetail):
                 )
 
         # 2024 is split for 6th and 7th parliament. This puts 7th parliament before 6th in the list.
-        if return_data[0]['year'] == '2024 (6th Parliament)':
+        if 1 < len(return_data) and return_data[0]['year'] == '2024 (6th Parliament)':
             return_data.insert(1, return_data.pop(0))
 
         return return_data
