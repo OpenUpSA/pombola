@@ -153,7 +153,7 @@ class SAPersonDetail(PersonSpeakerMappingsMixin, PersonDetail):
             position__in=former_party_memberships).distinct()
 
     def store_or_get_pmg_member_id(self, scheme='za.org.pmg.api/member'):
-        identifier = self.object.get_identifier(scheme)
+        identifier = self.object.get_identifiers(scheme)[0]
 
         if not identifier:
             # First find the id of the person
