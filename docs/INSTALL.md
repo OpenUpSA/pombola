@@ -105,6 +105,14 @@ zcat pg-dump_data.sql.gz | docker compose run --rm db psql postgres://pombola:po
 
 ## Production deployment
 
+pa.org.za is currently deployed on `pmg-aws1.pmg.org.za`. Use git push to deploy.
+
+```
+git remote add dokku-prod dokku@pmg-aws1.pmg.org.za:pa-prod
+git push dokku-prod master
+```
+
+
 ### Elasticsearch
 
 Deploy Elasticsearch 1 based on the [0.90 in dokku instructions](https://github.com/OpenUpSA/elasticsearch-0.90)
