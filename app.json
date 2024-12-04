@@ -29,5 +29,16 @@
       "schedule": "30 5 * * *",
       "command": "bin/output-on-error python manage.py core_export_to_popolo_json --pombola /data/media_root/popolo_json http://www.pa.org.za"
     }
-  ]
+  ],
+  "healthchecks": {
+    "web": [
+      {
+        "type": "startup",
+        "name": "web check",
+        "description": "Checking if web responds",
+        "path": "/",
+        "attempts": 3
+      }
+    ]
+  }
 }
