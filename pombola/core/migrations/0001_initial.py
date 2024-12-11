@@ -7,7 +7,7 @@ import pombola.core.models
 import markitup.fields
 import django.contrib.gis.db.models.fields
 
-import images.models
+import pombola.core.images.models
 
 
 class Migration(migrations.Migration):
@@ -118,7 +118,7 @@ class Migration(migrations.Migration):
             options={
                 'ordering': ['slug'],
             },
-            bases=(models.Model, images.models.HasImageMixin, pombola.core.models.IdentifierMixin),
+            bases=(models.Model, pombola.core.images.models.HasImageMixin, pombola.core.models.IdentifierMixin),
         ),
         migrations.CreateModel(
             name='OrganisationKind',
@@ -209,7 +209,7 @@ class Migration(migrations.Migration):
             options={
                 'ordering': ['sort_name'],
             },
-            bases=(images.models.HasImageMixin, models.Model, pombola.core.models.IdentifierMixin),
+            bases=(pombola.core.images.models.HasImageMixin, models.Model, pombola.core.models.IdentifierMixin),
         ),
         migrations.CreateModel(
             name='Place',

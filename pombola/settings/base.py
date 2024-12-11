@@ -436,7 +436,6 @@ INSTALLED_APPS = (
     "pipeline",
     "mapit",
     "popolo",
-    "images",
     # easy_thumbnails is required by SayIt; it needs to be in
     # INSTALLED_APPS so that its table is created so that we can
     # create SayIt speakers. It should be after sorl.thumbnails so

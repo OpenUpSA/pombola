@@ -31,7 +31,7 @@ from markitup.fields import MarkupField
 from django_date_extensions.fields import ApproximateDateField, ApproximateDate
 
 from slug_helpers.models import validate_slug_not_redirecting
-from images.models import HasImageMixin, Image
+from pombola.core.images.models import HasImageMixin, Image
 
 from pombola.tasks.models import Task
 
