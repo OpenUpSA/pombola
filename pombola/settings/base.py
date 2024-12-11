@@ -142,11 +142,6 @@ MEDIA_ROOT = os.path.normpath(os.path.join(data_dir, "media_root/"))
 # All uploaded files world-readable
 FILE_UPLOAD_PERMISSIONS = 0o644  # 'rw-r--r--'
 
-# URL that handles the media served from MEDIA_ROOT. Make sure to use a
-# trailing slash.
-# Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = "/media_root/"
-
 # Use django-pipeline for handling static files
 STATICFILES_STORAGE = "pipeline.storage.PipelineCachedStorage"
 
@@ -460,10 +455,26 @@ INSTALLED_APPS = (
     "django_nose",
     "django_extensions",
     "rest_framework",
-    "djcelery"
+    "djcelery",
 )
+
 if os.environ.get("DJANGO_DEBUG_TOOLBAR", "true").lower() == "true":
     INSTALLED_APPS += ("debug_toolbar",)
+
+
+if os.environ.get("AWS_STORAGE_BUCKET_NAME"):
+    STATIC_HOST = os.environ.get("STATIC_HOST", "static.pa.org.za")
+    INSTALLED_APPS += ("storages",)
+    AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
+    AWS_S3_REGION_NAME = 'af-south-1'
+    AWS_S3_CUSTOM_DOMAIN = STATIC_HOST
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    MEDIA_URL = '//{}/'.format(AWS_S3_CUSTOM_DOMAIN)
+else:
+    # URL that handles the media served from MEDIA_ROOT. Make sure to use a
+    # trailing slash.
+    # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
+    MEDIA_URL = "/media_root/"
 
 
 def insert_after(sequence, existing_item, item_to_put_after):
