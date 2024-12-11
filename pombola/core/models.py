@@ -1972,7 +1972,7 @@ def raw_query_with_prefetch(query_model, query, params, fields_prefetches):
 
 class OrganisationHistory(ModelBase):
     old_organisation = models.ForeignKey('Organisation', null=False, related_name='org_history_old')
-    new_organisation = models.ForeignKey('Organisation', null=False, related_name='org_history_new')
+    new_organisation = models.ForeignKey('Organisation', null=False, related_name='org_history_new', default=0)
     date_changed = DateField(null=False)
 
     class Meta:
