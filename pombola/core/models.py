@@ -43,6 +43,7 @@ from mapit import models as mapit_models
 from pombola.country import significant_positions_filter
 
 date_help_text = "Format: '2011-12-31', '31 Jan 2011', 'Jan 2011' or '2011' or 'future'"
+date_help_text_non_future = "Format: '2011-12-31' or '31 Jan 2011'"
 
 def validate_person_slug(slug):
     return validate_slug_not_redirecting('core', 'Person', slug)
@@ -513,8 +514,8 @@ class Person(ModelBase, HasImageMixin, ScorecardMixin, IdentifierMixin):
         validators=[validate_person_slug],
     )
     gender = models.CharField(max_length=20, blank=True, help_text="this is typically, but not restricted to, 'male' or 'female'")
-    date_of_birth = ApproximateDateField(blank=True, help_text=date_help_text)
-    date_of_death = ApproximateDateField(blank=True, help_text=date_help_text)
+    date_of_birth = ApproximateDateField(blank=True, help_text=date_help_text_non_future)
+    date_of_death = ApproximateDateField(blank=True, help_text=date_help_text_non_future)
     # religion
     # tribe
     summary = MarkupField(blank=True, default='')
