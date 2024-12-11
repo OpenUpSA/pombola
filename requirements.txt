@@ -181,7 +181,7 @@ pycparser==2.20
 pyOpenSSL==20.0.0
 uk-postcode-utils==1.1
 unicode-slugify==0.1.1
-waitress==1.4.4
+waitress==3.0.1
 
 
 #necessary to process unicode csv files for ZA elections data
