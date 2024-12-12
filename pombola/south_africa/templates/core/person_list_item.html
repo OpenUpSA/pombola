@@ -1,20 +1,25 @@
 {% load staticfiles %}
 {% load thumbnail %}
 {% load za_people_display %}
+{% load safe_image %}
 
 <a href="{{ object.get_absolute_url }}">
-    {% thumbnail object.primary_image "58x78" crop="center" as im %}
-      {% if lazy_load_images %}
-        <img src="{% static 'images/person-58x78.jpg' %}"
-             data-src="{{ im.url }}"
-             width="{{ im.width }}"
-             height="{{ im.height }}"
-             alt="{{ object.name }}"
-             loading="lazy">
-             
-        <noscript><img src="{{ im.url }}" alt="{{ object.name }}" width="{{ im.width }}" height="{{ im.height }}" loading="lazy"/></noscript>
+    {% thumbnail object.primary_image "58x78" crop="center" convert="RGBA" as im %}
+      {% if im|safe_image_width %}
+        {% if lazy_load_images %}
+          <img src="{% static 'images/person-58x78.jpg' %}"
+              data-src="{{ im.url }}"
+              width="{{ im.width }}"
+              height="{{ im.height }}"
+              alt="{{ object.name }}"
+              loading="lazy">
+              
+          <noscript><img src="{{ im.url }}" alt="{{ object.name }}" width="{{ im.width }}" height="{{ im.height }}" loading="lazy"/></noscript>
+        {% else %}
+          <img src="{{ im.url }}" alt="{{ object.name }}" width="{{ im.width }}" height="{{ im.height }}" loading="lazy"/>
+        {% endif %}
       {% else %}
-        <img src="{{ im.url }}" alt="{{ object.name }}" width="{{ im.width }}" height="{{ im.height }}" loading="lazy"/>
+        <img src="{% static 'images/person-58x78.jpg' %}" height="58" width="58" loading="lazy"/>
       {% endif %}
     {% empty %}
       <img src="{% static 'images/person-58x78.jpg' %}" height="58" width="58" loading="lazy"/>

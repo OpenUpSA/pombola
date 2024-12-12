@@ -374,6 +374,7 @@ POLLDADDY_WIDGET_ID = os.environ.get("POLLDADDY_WIDGET_ID", None)
 BLOG_RSS_FEED = os.environ.get("BLOG_RSS_FEED", None)
 
 THUMBNAIL_DEBUG = True
+THUMBNAIL_FORMAT = 'PNG'
 
 # ZA Hansard settings
 HANSARD_CACHE = os.path.join(data_dir, "hansard_cache")
