@@ -31,7 +31,7 @@ from markitup.fields import MarkupField
 from django_date_extensions.fields import ApproximateDateField, ApproximateDate
 
 from slug_helpers.models import validate_slug_not_redirecting
-from images.models import HasImageMixin, Image
+from pombola.core.images.models import HasImageMixin, Image
 
 from pombola.tasks.models import Task
 
@@ -1973,7 +1973,7 @@ def raw_query_with_prefetch(query_model, query, params, fields_prefetches):
 
 class OrganisationHistory(ModelBase):
     old_organisation = models.ForeignKey('Organisation', null=False, related_name='org_history_old')
-    new_organisation = models.ForeignKey('Organisation', null=False, related_name='org_history_new')
+    new_organisation = models.ForeignKey('Organisation', null=False, related_name='org_history_new', default=0)
     date_changed = DateField(null=False)
 
     class Meta:

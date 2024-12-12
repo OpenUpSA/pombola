@@ -17,7 +17,7 @@ import urllib
 
 from django.core.files.base import ContentFile
 from pombola.core import models
-from pombola.images.models import Image
+from pombola.core.images.models import Image
 
 
 constituency_kind = models.PlaceKind.objects.get(slug="constituency")

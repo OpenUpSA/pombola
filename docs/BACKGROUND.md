@@ -79,7 +79,6 @@ into packages that can be installed from PyPI. This is because:
 
 Some examples of this are:
 
-* https://github.com/mysociety/django-images
 * https://github.com/mysociety/django-info-pages
 * https://github.com/mysociety/django-slug-helpers
 
