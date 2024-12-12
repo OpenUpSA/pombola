@@ -228,6 +228,7 @@ MIDDLEWARE_CLASSES += (
     "pagination.middleware.PaginationMiddleware",
     "mapit.middleware.ViewExceptionMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    "pombola.middleware.AddServerDetailsMiddleware",
 )
 
 CORS_ALLOW_HEADERS = default_headers + ("HTTP_AUTHORIZATION", "SENTRY-TRACE")

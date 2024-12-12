@@ -1,4 +1,6 @@
 from instances.models import Instance
+import socket
+from django.utils.deprecation import MiddlewareMixin
 
 class FakeInstanceMiddleware:
     """
@@ -12,3 +14,10 @@ class FakeInstanceMiddleware:
         # speeches to any users of the site at the moment, so force
         # that no user of the site is regarded as its owner.
         request.is_user_instance = False
+
+# Which server behind load balancer served the request
+class AddServerDetailsMiddleware(MiddlewareMixin):
+    def process_response(self, request, response):
+        server_hostname = socket.gethostname()
+        response['X-Server'] = server_hostname
+        return response
