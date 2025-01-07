@@ -105,11 +105,13 @@ zcat pg-dump_data.sql.gz | docker compose run --rm db psql postgres://pombola:po
 
 ## Production deployment
 
-pa.org.za is currently deployed on `pmg-aws1.pmg.org.za`. Use git push to deploy.
+pa.org.za is currently deployed on `pmg-aws2.pmg.org.za` and `pmg-aws3.pmg.org.za`. Use git push to deploy.
 
 ```
-git remote add dokku-prod dokku@pmg-aws1.pmg.org.za:pa-prod
-git push dokku-prod master
+git remote add dokku-prod-2 dokku@pmg-aws2.pmg.org.za:pa-prod
+git remote add dokku-prod-3 dokku@pmg-aws3.pmg.org.za:pa-prod
+git push dokku-prod-2 master
+git push dokku-prod-3 master
 ```
 
 
