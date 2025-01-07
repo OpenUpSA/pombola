@@ -769,8 +769,9 @@ class Converter(object):
             person = Person.objects.get(slug=slug)
             return person.slug
         except Person.DoesNotExist:
-            print(f"Slug not found: {slug}. Please find matching slug and add it to slug_corrections.")
+            print("Slug not found: {0}. Please find matching slug and add it to slug_corrections.".format(slug))
             return None
+
 
 
     def produce_json(self):
