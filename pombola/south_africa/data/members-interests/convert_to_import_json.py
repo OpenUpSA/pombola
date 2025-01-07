@@ -621,8 +621,12 @@ class Converter(object):
         "mpho-parks-tau":"mpho-parks-franklyn-tau",
         "mbulelo-jonathan-magwala":"mbulelelo-jonathan-magwala",
         "mzwanele-manyi":"mzwanele-jimmy-manyi",
+        # 2024
+        "reverend-kenneth-raselabe-joseph-meshoe": "kenneth-raselabe-joseph-meshoe",
+        
         # Garbage entries
         "control-flag-ict": None,
+        
     }
 
     category_sort_orders = {
@@ -739,14 +743,13 @@ class Converter(object):
             # break # just for during dev
 
     def mp_to_person_slug(self, mp):
-        # NOTE: 2020 no longer has the party in the name and the names are rearranged
         pattern = r'\b(?:{})\b'.format('|'.join(map(re.escape, self.parties)))
 
-        if (mp == "ABRAHAM NTANTISOPHOEBE NOXOLO ANC"):
+        if mp == "ABRAHAM NTANTISOPHOEBE NOXOLO ANC":
             mp = "ABRAHAM NTANTISO PHOEBE NOXOLO ANC"
 
         name_only = re.sub(pattern, '', mp)
-        # special case surnames
+        # Special case surnames
         for surname in self.unique_case_surname:
             if name_only.startswith(surname):
                 name_ordered = re.sub(r'^(\w+\b\s+\w+\b)\s+(.*)$', r'\2 \1', name_only)
@@ -755,10 +758,10 @@ class Converter(object):
                 name_ordered = re.sub(r'(.*?) (.*)', r'\2 \1', name_only)
         slug = slugify(name_ordered)
 
-        # Check if there is a known correction for this slug
+        # Check for a known correction
         slug = self.slug_corrections.get(slug, slug)
 
-        # Sometimes we know we can't resolve the person
+        # Handle unresolved slugs gracefully
         if slug is None:
             return None
 
@@ -766,32 +769,9 @@ class Converter(object):
             person = Person.objects.get(slug=slug)
             return person.slug
         except Person.DoesNotExist:
-            try:
-                name_base = re.findall(r'(.*?) (.*)', mp.replace('-', ','))
-                if name_base:
-                    name_parts = name_base[0]
-                    person = Person.objects.get(Q(slug__contains=slugify(name_parts[0])) & Q(slug__contains=slugify(name_parts[1])))
-                    return person.slug
-                else:
-                    return None
-            except Person.DoesNotExist:
-                last_name = mp.split(' ')[-1]
+            print(f"Slug not found: {slug}. Please find matching slug and add it to slug_corrections.")
+            return None
 
-                possible_persons = Person.objects.filter(
-                    legal_name__icontains=last_name)
-
-                if self.finding_slug_corrections and possible_persons.count() == 1:
-                    possible_slug = possible_persons.all()[0].slug
-                    self.slug_corrections[slug] = possible_slug
-                    return possible_slug
-
-                for person in possible_persons:
-                    print('perhaps: "{0}": "{1}",'.format(slug, person.slug))
-                else:
-                    print("no possible matches for {0}".format(slug))
-
-                raise Exception(
-                    "Slug {0} not found, please find matching slug and add it to the slug_corrections".format(slug))
 
     def produce_json(self):
         data = self.groupings
