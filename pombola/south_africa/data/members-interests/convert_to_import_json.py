@@ -703,7 +703,6 @@ class Converter(object):
         "constance-mosimane": "constance-kedibone-kelekegile-mosimane", 
         "constance-n-mkhonto": "constance-nonhlanhla-mkhonto", 
         "constance-tebogo-modise": "tebogo-modise", 
-        "control-flag-ict": null, 
         "cornelius-petrus-vf-mulder": "cornelius-petrus-mulder", 
         "cq-madlopha": "celiwe-qhamkile-madlopha", 
         "crosby-mpozo-moni": "crosby-mpoxo-moni", 
