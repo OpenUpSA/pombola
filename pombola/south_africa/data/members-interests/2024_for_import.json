@@ -89499,16 +89499,3 @@
         }
     }
 ]
-
-
-
-#### COPY THIS TO slug_corrections and s/null/None/ :) ####
-
-
-
-{
-    "control-flag-ict": null
-}
-
-
-
