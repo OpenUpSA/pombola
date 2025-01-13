@@ -1,15 +1,23 @@
 # ZA Members' Interests Data
 
-There are several files in this directory:
+## Prepping and importing member's interests
 
-## DOCX scraper
+Importing member's interests is a multistep process.
 
-The scraper currently scrapes `.docx` files.
-To prepare the file:
+### Obtain register PDF
 
-1. Split the `PDF` into seperate files small enough to open in Google Drive. [PDF Arranger](https://github.com/pdfarranger/pdfarranger) works well 
-2. Open the files in Google Drive and download each in `.docx` format
-3. Store the these files in `./pombola/south_africa/data/members-interests/scraper/docx_files/`
+Get the latest register `PDF` from [parliament](https://www.parliament.gov.za/register-members-Interests).
+
+### Trim PDF
+
+Use [PDF Arranger](https://github.com/pdfarranger/pdfarranger) to remove cover and contents pages to have a final `PDF` that is just the register.
+
+### Convert PDF to DOCX
+
+Previously we used `Google Docs` to convert the `PDF` to `DOCX`. This was very cumbersome and meant working in batches of 80 pages at a time.
+A workable and faster third-party solution is [ilovepdf.com](https://www.ilovepdf.com/pdf_to_word).
+
+### Convert DOCX to HTML
 
 Create an environment and install dependencies in the `./pombola/south_africa/data/members-interests/scraper` directory:
 ```
@@ -18,67 +26,43 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Run the script with the necessary arguments, e.g.
+Use the first cell of `./scraper/docx_to_html_to_json.ipynb` to convert the `DOCX` to `HTML` with Mammoth.
+
+### Convert to JSON
+
+Run the other cells in the notebook to convert it to a workable `json` file.
+
+### Copy to server
+
+The next steps need to be run on the server as it uses the production database.
+
+### Convert to importable json file
+
 ```
-python scrape_interests_docx.py --input ./docx_files/ --output ../2021.json --year 2021 --source https://static.pmg.org.za/Register_of_Members_Interests_2021.pdf
+cd pombola/south_africa/data/members-interests/
+./convert_to_import_json.py 2024.json > 2024_for_import.json
 ```
-
-This will combine documents into a single HTML file `main_html_file.html`
-
-Run the Jupyter script `membersinterest.ipynb` making sure to update the input file name. The output should be `register.json`
-
-Copy `register.json` to the `members-interests` directory and rename it to the corresponding year
-
-## Conversion script
-
-    convert_to_import_json.py
-
-This script takes the raw data and processes it to clean it up, to match the mp
-to entries in the database and to put it in the format that the
-`interests_register_import_from_json` management command expects. This script
-is highly specific to the above JSON files and the MP entries in the database
-at the time of writing (3 Dec 2013).
-
-You can run the script like this:
-
-    cd pombola/south_africa/data/members-interests/
-    ./convert_to_import_json.py 2022.json > 2022_for_import.json
-
-This will require a production or equivalent data for the persons table to filter against.
-You can either run the script in prod or build a local database instance like so:
-
-`dokku postgres:export pombola > dumpitydump.dump`
-
-`pg_restore -U pombola -d pombola dumpitydumplol.dump`
 
 When processing new data you may well need to add more entries to the
 `slug_corrections` attribute. Change the `finding_slug_corrections` to `True`
 to enable some code that'll help you do that. Change it back to False when done.
 
-## Final importable data
-
-    2010_for_import.json
-    2011_for_import.json
-    2012_for_import.json
-    2013_for_import.json
-    2014_for_import.json
-    2015_for_import.json
-    2016_for_import.json
-    2017_for_import.json
-    2018_for_import.json
-
-This is the output of the above conversion script. It is committed for ease of
-adding to the database, and as looking at the diffs is an easy way to see the
-results of changes to the conversion script.
+### Import final json file
 
 To load this data into the database, you can run the management command:
 (if there are already some entries you should delete them all using the admin)
 
-    ./manage.py interests_register_import_from_json pombola/south_africa/data/members-interests/2010_for_import.json
-    ./manage.py interests_register_import_from_json pombola/south_africa/data/members-interests/2011_for_import.json
-    ./manage.py interests_register_import_from_json pombola/south_africa/data/members-interests/2012_for_import.json
-    ./manage.py interests_register_import_from_json pombola/south_africa/data/members-interests/2013_for_import.json
-    ./manage.py interests_register_import_from_json pombola/south_africa/data/members-interests/2014_for_import.json
-    ./manage.py interests_register_import_from_json pombola/south_africa/data/members-interests/2015_for_import.json
-    ./manage.py interests_register_import_from_json pombola/south_africa/data/members-interests/2016_for_import.json
-    ./manage.py interests_register_import_from_json pombola/south_africa/data/members-interests/2017_for_import.json
+```
+./manage.py interests_register_import_from_json pombola/south_africa/data/members-interests/2024_for_import.json
+```
+
+## Some useful notes for possible issues
+
+- name, surname and title orders may change from year to year. Please see 
+`/pombola/south_africa/data/members-interests/convert_to_import_json.py` lines 1325 and 1328 to tweak this if need be: `name_ordered = re.sub(r'^(\w+\b\s+\w+\b)\s+(.*)$', r'\2 \1', name_only)` where `\2 \1` determines the order.
+
+- If the list of missing slugs is long, export existing slugs from Metbase and use ChatGPT to suggest matches. Confirm with PMG before importing.
+
+- Section names might change, this would need to be changed in the convert script to match the `json` file.
+
+- Regex patterns might also change and if there are broken entries or overlaps in the `json` file, make sure the patterns and sections are correct.
