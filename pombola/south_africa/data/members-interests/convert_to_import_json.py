@@ -1206,13 +1206,13 @@ class Converter(object):
         "CONSULTANCIES OR RETAINERSHIPS": 4,
         "SPONSORSHIPS": 5,
         "GIFTS AND HOSPITALITY": 6,
-        "BENEFITS": 7,
+        "BENEFITS AND INTERESTS FREE LOANS": 7,
         "TRAVEL": 8,
-        "LAND AND PROPERTY": 9,
+        "OWNERSHIP IN LAND AND PROPERTY": 9,
         "PENSIONS": 10,
-        "CONTRACTS": 11,
-        "TRUSTS": 12,
-        "ENCUMBERANCES": 13,
+        "RENTED PROPERTY": 11,
+        "INCOME GENERATING ASSETS": 12,
+        "TRUSTS": 13
     }
 
     def __init__(self, filename):
