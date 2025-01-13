@@ -168,10 +168,10 @@ class Converter(object):
         # Special case surnames
         for surname in self.unique_case_surname:
             if name_only.startswith(surname):
-                name_ordered = re.sub(r'^(\w+\b\s+\w+\b)\s+(.*)$', r'\2 \1', name_only)
+                name_ordered = re.sub(r'^(\w+\b\s+\w+\b)\s+(.*)$', r'\1 \2', name_only)
                 break
             else:
-                name_ordered = re.sub(r'(.*?) (.*)', r'\2 \1', name_only)
+                name_ordered = re.sub(r'(.*?) (.*)', r'\1 \2', name_only)
         slug = slugify(name_ordered)
 
         # Check for a known correction
