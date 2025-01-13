@@ -164,7 +164,7 @@ class Converter(object):
     def mp_to_person_slug(self, mp):
         # pattern = r'\b(?:{})\b'.format('|'.join(map(re.escape, self.parties)))
 
-        name_only = re.sub(mp)
+        name_only = mp
         # Special case surnames
         for surname in self.unique_case_surname:
             if name_only.startswith(surname):
