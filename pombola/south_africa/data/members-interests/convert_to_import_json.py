@@ -38,7 +38,7 @@ class Converter(object):
 
     # Change this to True to enable little bits of helper code for finding new
     # slug corrections:
-    finding_slug_corrections = True
+    finding_slug_corrections = False
 
     parties = ["ACDP", "AIC", "AL JAMA-AH", "ANC", "ATM", "COPE", "DA", "EFF", "FF PLUS", "GOOD", "IFP", "NFP", "PAC", "UDM"]
     unique_case_surname = ["ABRAHAM NTANTISO", "BODLANI MOTSHIDI", "LE GOFF", "MAZZONE MICHAEL", "MC GLUWA", "VAN ZYL", "NTLANGWINI LOUW", "DE BRUYN", "DENNER JORDAAN", "DU TOIT", "VAN STADEN"]
