@@ -8,7 +8,7 @@ from django.utils.html import escape
 from ajax_select import make_ajax_form
 from ajax_select.admin import AjaxSelectAdmin
 
-from images.admin import ImageAdminInline
+from pombola.core.images.admin import ImageAdminInline
 from slug_helpers.admin import StricterSlugFieldMixin
 
 from pombola.core import models

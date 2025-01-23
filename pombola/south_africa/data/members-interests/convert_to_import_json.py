@@ -38,7 +38,7 @@ class Converter(object):
 
     # Change this to True to enable little bits of helper code for finding new
     # slug corrections:
-    finding_slug_corrections = False
+    finding_slug_corrections = True
 
     parties = ["ACDP", "AIC", "AL JAMA-AH", "ANC", "ATM", "COPE", "DA", "EFF", "FF PLUS", "GOOD", "IFP", "NFP", "PAC", "UDM"]
     unique_case_surname = ["ABRAHAM NTANTISO", "BODLANI MOTSHIDI", "LE GOFF", "MAZZONE MICHAEL", "MC GLUWA", "VAN ZYL", "NTLANGWINI LOUW", "DE BRUYN", "DENNER JORDAAN", "DU TOIT", "VAN STADEN"]
@@ -156,23 +156,22 @@ class Converter(object):
         "zamathembu-ngcobo":"zamathembu-nokuthula-ngcobo",
         # Garbage entries
         "control-flag-ict": None
-        
     }
 
     category_sort_orders = {
         "SHARES AND OTHER FINANCIAL INTERESTS": 1,
-        "REMUNERATED EMPLOYMENT OUTSIDE PARLIAMENT": 2,
-        "DIRECTORSHIP AND PARTNERSHIPS": 3,
-        "CONSULTANCIES OR RETAINERSHIPS": 4,
+        "REMUNERATED EMPLOYMENT OR WORK OUTSIDE OF PARLIAMENT": 2,
+        "DIRECTORSHIPS AND PARTNERSHIPS": 3,
+        "CONSULTANCIES AND RETAINERSHIPS": 4,
         "SPONSORSHIPS": 5,
         "GIFTS AND HOSPITALITY": 6,
-        "BENEFITS": 7,
+        "BENEFITS AND INTERESTS FREE LOANS": 7,
         "TRAVEL": 8,
-        "LAND AND PROPERTY": 9,
+        "OWNERSHIP IN LAND AND PROPERTY": 9,
         "PENSIONS": 10,
-        "CONTRACTS": 11,
-        "TRUSTS": 12,
-        "ENCUMBERANCES": 13,
+        "RENTED PROPERTY": 11,
+        "INCOME GENERATING ASSETS": 12,
+        "TRUSTS": 13
     }
 
     def __init__(self, filename):
@@ -273,19 +272,16 @@ class Converter(object):
             # break # just for during dev
 
     def mp_to_person_slug(self, mp):
-        pattern = r'\b(?:{})\b'.format('|'.join(map(re.escape, self.parties)))
+        # pattern = r'\b(?:{})\b'.format('|'.join(map(re.escape, self.parties)))
 
-        if mp == "ABRAHAM NTANTISOPHOEBE NOXOLO ANC":
-            mp = "ABRAHAM NTANTISO PHOEBE NOXOLO ANC"
-
-        name_only = re.sub(pattern, '', mp)
+        name_only = mp
         # Special case surnames
         for surname in self.unique_case_surname:
             if name_only.startswith(surname):
-                name_ordered = re.sub(r'^(\w+\b\s+\w+\b)\s+(.*)$', r'\2 \1', name_only)
+                name_ordered = re.sub(r'^(\w+\b\s+\w+\b)\s+(.*)$', r'\1 \2', name_only)
                 break
             else:
-                name_ordered = re.sub(r'(.*?) (.*)', r'\2 \1', name_only)
+                name_ordered = re.sub(r'(.*?) (.*)', r'\1 \2', name_only)
         slug = slugify(name_ordered)
 
         # Check for a known correction

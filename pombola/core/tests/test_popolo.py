@@ -8,7 +8,7 @@ from django_date_extensions.fields import ApproximateDate
 
 from mapit.models import Generation, Area, Type
 
-from images.models import Image
+from pombola.core.images.models import Image
 
 from pombola.core import models
 from pombola.core.popolo import get_popolo_data
