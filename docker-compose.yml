@@ -31,7 +31,7 @@ services:
     command: bin/wait-for-deps.sh python manage.py runserver 0.0.0.0:8000
 
   db:
-    image: postgis/postgis:12-3.4
+    image: postgis/postgis:13-3.5
     environment:
       - POSTGRES_USER=pombola
       - POSTGRES_PASSWORD=pombola
