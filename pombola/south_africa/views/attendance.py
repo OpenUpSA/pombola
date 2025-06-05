@@ -4,7 +4,7 @@ import dateutil
 import json
 import requests
 import datetime
-from urlparse import urlsplit
+from urllib.parse import urlsplit
 from collections import defaultdict
 
 from .constants import API_REQUESTS_TIMEOUT
@@ -14,7 +14,7 @@ from django.views.generic import TemplateView
 from django.shortcuts import get_object_or_404
 
 from pombola.core.models import Position, Person
-from person import SAPersonDetail
+from .person import SAPersonDetail
 
 
 class SAMpAttendanceView(TemplateView):
