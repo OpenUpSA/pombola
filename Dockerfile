@@ -1,11 +1,7 @@
-FROM python:2-stretch
+FROM python:3.9.22-bookworm
 
 ENV PYTHONUNBUFFERED 1
 ENV COUNTRY_APP=south_africa
-
-RUN echo "deb http://archive.debian.org/debian/ stretch main" > /etc/apt/sources.list \
-    && echo "deb http://archive.debian.org/debian-security stretch/updates main" >> /etc/apt/sources.list \
-    && apt-get -o Acquire::Check-Valid-Until=false update
 
 RUN apt-get update && \
     apt-get install -y antiword \
@@ -17,11 +13,10 @@ RUN apt-get update && \
                        libxslt1-dev \
                        libproj-dev \
                        gdal-bin \
+                       libgdal-dev \
                        poppler-utils \
-                       python-dev \
-                       python-gdal \
                        ruby-bundler \
-                       ruby2.3-dev \
+                       ruby-dev \
                        yui-compressor \
                        zlib1g-dev \
                        postgresql-client \
