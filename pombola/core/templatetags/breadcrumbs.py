@@ -21,7 +21,7 @@ from django.utils.safestring import mark_safe
 from django.core.urlresolvers import resolve, Resolver404
 from django.conf import settings
 import re
-from urlparse import urlparse
+from urllib.parse import urlparse
 
 register = Library()
 

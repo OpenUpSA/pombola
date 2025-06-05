@@ -34,7 +34,7 @@ if __name__ == "__main__":
 
     if run_default_tests(sys.argv):
         settings_module = 'pombola.settings.tests'
-        print "Warning: we recommend running tests with ./run-tests instead"
+        print("Warning: we recommend running tests with ./run-tests instead")
     else:
         settings_module = "pombola.settings.south_africa"
 

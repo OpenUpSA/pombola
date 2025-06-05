@@ -16,7 +16,7 @@ from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.celery import CeleryIntegration
 import djcelery
 
-from urlparse import urlparse
+from urllib.parse import urlparse
 
 IN_TEST_MODE = False
 

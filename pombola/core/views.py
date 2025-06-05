@@ -15,7 +15,7 @@ import string
 import sys
 import subprocess
 import unicodecsv as csv
-from urlparse import urlsplit, urlunsplit, urljoin
+from urllib.parse import urlsplit, urlunsplit, urljoin
 from os.path import dirname
 
 import django
@@ -769,7 +769,7 @@ class VersionView(View):
                 cwd=dirname(__file__),
             ).strip()
             result['git_version'] = git_version
-        except OSError, subprocess.CalledProcessError:
+        except (OSError, subprocess.CalledProcessError):
             pass
         return HttpResponse(
             json.dumps(result), content_type='application/json'
