@@ -5,25 +5,24 @@ ENV COUNTRY_APP=south_africa
 
 RUN echo "deb http://deb.debian.org/debian bullseye main" > /etc/apt/sources.list.d/bullseye.list && \
     apt-get update && \
-    apt-get install -y \
-        ruby2.7-dev \
-        antiword \
-        binutils \
-        libffi-dev \
-        libjpeg-dev \
-        libpq-dev \
-        libxml2-dev \
-        libxslt1-dev \
-        libproj-dev \
-        gdal-bin \
-        libgdal-dev \
-        poppler-utils \
-        yui-compressor \
-        zlib1g-dev \
-        postgresql-client \
-        awscli \
-        wget \
-        gnupg2 && \
+    apt-get install -y antiword \
+            binutils \
+            libffi-dev \
+            libjpeg-dev \
+            libpq-dev \
+            libxml2-dev \
+            libxslt1-dev \
+            libproj-dev \
+            gdal-bin \
+            libgdal-dev \
+            poppler-utils \
+            ruby2.7 \
+            ruby2.7-dev \
+            yui-compressor \
+            zlib1g-dev \
+            postgresql-client \
+            awscli \
+            wget && \
     ln -sf /usr/bin/ruby2.7 /usr/bin/ruby && \
     ln -sf /usr/bin/gem2.7 /usr/bin/gem
 
