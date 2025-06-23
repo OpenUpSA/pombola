@@ -5,19 +5,7 @@
     <div class="row">
       <div class="col-3">
         <div class="image-box">
-          {% for cat in post.categories.all %}
-              {% if cat.slug != 'featured' %}
-                {% if cat.slug == 'mp-corner' %}
-                  <div class="image-box-inner" style="background-image: url({{ post.featured_image_file.file.url }})">
-                    <a href="{{ post.get_absolute_url }}"></a>
-                  </div>
-                {% else %}
-                  <div class="image-box-inner" style="background-image: url('/static/images/blog-images/{{cat.slug}}-{%random_int 1 5 %}.jpg')">
-                    <a href="{{ post.get_absolute_url }}"></a>
-                  </div>
-                {% endif %}
-              {% endif %}
-          {% endfor %}
+          <img class="image-box-inner" src="{{post.featured_image_file.file.url}}" onerror="this.style.display='none'" />
         </div>
       </div>
       <div class="col-9">
