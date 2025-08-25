@@ -1,0 +1,166 @@
+{
+  "offices": [
+    {
+      "Title": "IFP Office 1",
+      "Party": "IFP",
+      "Type": "office",
+      "Province": "Kwazulu-Natal",
+      "Physical Address": "80 Parthenon Street, Gem City, Tab Centre, 1st Floor, Suite 3, Phoenix",
+      "Tel": "076 808 0830/031 350 3285",
+      "Source URL": "CSV import 2025",
+      "Source Note": "",
+      "People": [
+        {
+          "Name": "Adelice Mponeng Moutloali",
+          "Position": "Administrator",
+          "Tel": "076 808 0830/031 350 3285"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/ifp/": "ifp-1"
+      }
+    },
+    {
+      "Title": "IFP Office 2",
+      "Party": "IFP",
+      "Type": "office",
+      "Province": "Kwazulu-Natal",
+      "Physical Address": "IFP Pongola,52 Piet Retief Road, Pongola, 3170",
+      "Tel": "0344133890",
+      "Source URL": "CSV import 2025",
+      "Source Note": "",
+      "People": [
+        {
+          "Name": "Simangele Zandile Masuku",
+          "Position": "Administrator",
+          "Tel": "0344133890"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/ifp/": "ifp-2"
+      }
+    },
+    {
+      "Title": "IFP Office 3",
+      "Party": "IFP",
+      "Type": "office",
+      "Province": "Kwazulu-Natal",
+      "Physical Address": "Isitolo Esikhulu Shopping Centre, Nongoma Main Road, Nongoma 3950",
+      "Tel": "090358313457",
+      "Source URL": "CSV import 2025",
+      "Source Note": "",
+      "People": [
+        {
+          "Name": "Ndwandwe Lihle Sindisiwe",
+          "Position": "Administrator",
+          "Tel": "090358313457"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/ifp/": "ifp-3"
+      }
+    },
+    {
+      "Title": "IFP Office 4",
+      "Party": "IFP",
+      "Type": "office",
+      "Province": "Kwazulu-Natal",
+      "Physical Address": "224F Murchison Street Ladysmith, 3370",
+      "Tel": "0717930789",
+      "Source URL": "CSV import 2025",
+      "Source Note": "",
+      "People": [
+        {
+          "Name": "Nomonde Mntambo",
+          "Position": "Administrator",
+          "Tel": "0717930789"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/ifp/": "ifp-4"
+      }
+    },
+    {
+      "Title": "IFP Office 5",
+      "Party": "IFP",
+      "Type": "office",
+      "Province": "Gauteng",
+      "Physical Address": "3rd Floor, 132 Mansion House, Cnr Albertina Sisulu and Von Brandis Road, JHB",
+      "Tel": "0109001991/0737752158",
+      "Source URL": "CSV import 2025",
+      "Source Note": "",
+      "People": [
+        {
+          "Name": "Bayiphiwe Simelane",
+          "Position": "Administrator",
+          "Tel": "0109001991/0737752158"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/ifp/": "ifp-5"
+      }
+    },
+    {
+      "Title": "IFP Office 6",
+      "Party": "IFP",
+      "Type": "office",
+      "Province": "Kwazulu-Natal",
+      "Physical Address": "P451 Rd, Empembeni Area Hlabisa, 3937",
+      "Tel": "0313503225",
+      "Source URL": "CSV import 2025",
+      "Source Note": "",
+      "People": [
+        {
+          "Name": "Nhlanzeko Mzwandile Mhlongo",
+          "Position": "Administrator",
+          "Tel": "0313503225"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/ifp/": "ifp-6"
+      }
+    },
+    {
+      "Title": "IFP Office 7",
+      "Party": "IFP",
+      "Type": "office",
+      "Province": "Kwazulu-Natal",
+      "Physical Address": "Gar Field House, 44 Biset Port Shepstone, 4240",
+      "Tel": "0313503151",
+      "Source URL": "CSV import 2025",
+      "Source Note": "",
+      "People": [
+        {
+          "Name": "Azile Njenjani",
+          "Position": "Administrator",
+          "Tel": "0313503151"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/ifp/": "ifp-7"
+      }
+    },
+    {
+      "Title": "IFP Office 8",
+      "Party": "IFP",
+      "Type": "office",
+      "Province": "Kwazulu-Natal",
+      "Physical Address": "10 Union Street, Edward Pharmacy Building, Empangeni 3880",
+      "Tel": "0357924751",
+      "Source URL": "CSV import 2025",
+      "Source Note": "",
+      "People": [
+        {
+          "Name": "Sithembiso Muzi Xulu",
+          "Position": "Administrator",
+          "Tel": "0357924751"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/ifp/": "ifp-8"
+      }
+    }
+  ],
+  "start_date": "2025-01-01",
+  "end_date": "future"
+}
