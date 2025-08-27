@@ -1,0 +1,100 @@
+{
+  "offices": [
+    {
+      "Title": "BOSA Constituency Office: Sandton Constituency Office",
+      "Party": "BOSA",
+      "Type": "office",
+      "Province": "Gauteng",
+      "Physical Address": "67 Parklane Sandton",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-27",
+      "People": [
+        {
+          "Name": "Dr Mmusi Maimane",
+          "Position": "Member"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/bosa/": "sandton-constituency-office"
+      }
+    },
+    {
+      "Title": "BOSA Constituency Office: Sandton Constituency Office",
+      "Party": "BOSA",
+      "Type": "office",
+      "Province": "Gauteng",
+      "Physical Address": "68 Parklane Sandton",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-27",
+      "People": [
+        {
+          "Name": "Mrs Nobuntu Hlazo-Webster",
+          "Position": "Member"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/bosa/": "sandton-constituency-office"
+      }
+    },
+    {
+      "Title": "BOSA Constituency Office: Sandton Constituency Office",
+      "Party": "BOSA",
+      "Type": "office",
+      "Province": "Gauteng",
+      "Physical Address": "69 Parklane Sandton",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-27",
+      "People": [
+        {
+          "Name": "Mrs Ayanda Allie",
+          "Position": "Member"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/bosa/": "sandton-constituency-office"
+      }
+    },
+    {
+      "Title": "BOSA Constituency Office: Sandton Constituency Office",
+      "Party": "BOSA",
+      "Type": "office",
+      "Province": "Gauteng",
+      "Physical Address": "70 Parklane Sandton",
+      "E-mail": "tania@bosa.org.za",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-27",
+      "People": [
+        {
+          "Name": "Tanie Coenraad",
+          "Position": "NA",
+          "Email": "tania@bosa.org.za"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/bosa/": "sandton-constituency-office"
+      }
+    },
+    {
+      "Title": "BOSA Constituency Office: Sandton Constituency Office",
+      "Party": "BOSA",
+      "Type": "office",
+      "Province": "Gauteng",
+      "Physical Address": "71 Parklane Sandton",
+      "E-mail": "lerato@bosa.org.za",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-27",
+      "People": [
+        {
+          "Name": "Mrs Lerato Madisa",
+          "Position": "GPL",
+          "Email": "lerato@bosa.org.za"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/bosa/": "sandton-constituency-office"
+      }
+    }
+  ],
+  "start_date": "2025-01-01",
+  "end_date": "future"
+}
