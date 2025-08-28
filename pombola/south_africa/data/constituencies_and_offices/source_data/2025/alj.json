@@ -1,0 +1,256 @@
+{
+  "offices": [
+    {
+      "Title": "AL-JAMA-AH Constituency Office: alj-kzn-office",
+      "Party": "AL-JAMA-AH",
+      "Type": "office",
+      "Province": "Kwazulu-Natal",
+      "Physical Address": "Lot 290 Main Road, Umzinto KZN",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-28",
+      "People": [
+        {
+          "Name": "Shameemah Salie"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/al-jama-ah/": "al-jama-ah-1"
+      }
+    },
+    {
+      "Title": "AL-JAMA-AH Constituency Office: alj-kzn-office",
+      "Party": "AL-JAMA-AH",
+      "Type": "office",
+      "Province": "Kwazulu-Natal",
+      "Physical Address": "Lot 290 Main Road, Umzinto KZN",
+      "Tel": "719538844",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-28",
+      "People": [
+        {
+          "Name": "Adelle Pillay",
+          "Tel": "719538844"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/al-jama-ah/": "al-jama-ah-2"
+      }
+    },
+    {
+      "Title": "AL-JAMA-AH Constituency Office: alj-fs-office",
+      "Party": "AL-JAMA-AH",
+      "Type": "office",
+      "Province": "Free State",
+      "Physical Address": "08B Mampoi Road, Letshalemakude, Mokodumela, Qwa Qwa, Free State",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-28",
+      "People": [
+        {
+          "Name": "Shameemah Salie"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/al-jama-ah/": "al-jama-ah-3"
+      }
+    },
+    {
+      "Title": "AL-JAMA-AH Constituency Office: alj-fs-office",
+      "Party": "AL-JAMA-AH",
+      "Type": "office",
+      "Province": "Free State",
+      "Physical Address": "08B Mampoi Road, Letshalemakude, Mokodumela, Qwa Qwa, Free State",
+      "Tel": "782029832",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-28",
+      "People": [
+        {
+          "Name": "Ibrahim Mpolompo",
+          "Tel": "782029832"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/al-jama-ah/": "al-jama-ah-4"
+      }
+    },
+    {
+      "Title": "AL-JAMA-AH Constituency Office: alj-wc-office",
+      "Party": "AL-JAMA-AH",
+      "Type": "office",
+      "Province": "Western Cape",
+      "Physical Address": "1st Floor Howard Centre, Pinelands Western Cape",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-28",
+      "People": [
+        {
+          "Name": "Shameemah Salie"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/al-jama-ah/": "al-jama-ah-5"
+      }
+    },
+    {
+      "Title": "AL-JAMA-AH Constituency Office: alj-wc-office",
+      "Party": "AL-JAMA-AH",
+      "Type": "office",
+      "Province": "Western Cape",
+      "Physical Address": "1st Floor Howard Centre, Pinelands Western Cape",
+      "Tel": "685060491",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-28",
+      "People": [
+        {
+          "Name": "Gafsa Samodien",
+          "Tel": "685060491"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/al-jama-ah/": "al-jama-ah-6"
+      }
+    },
+    {
+      "Title": "AL-JAMA-AH Constituency Office: alj-wc-office",
+      "Party": "AL-JAMA-AH",
+      "Type": "office",
+      "Province": "Western Cape",
+      "Physical Address": "164 Oystercatcher Road, Pelican Park, Western Cape",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-28",
+      "People": [
+        {
+          "Name": "Shameemah Salie"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/al-jama-ah/": "al-jama-ah-7"
+      }
+    },
+    {
+      "Title": "AL-JAMA-AH Constituency Office: alj-wc-office",
+      "Party": "AL-JAMA-AH",
+      "Type": "office",
+      "Province": "Western Cape",
+      "Physical Address": "164 Oystercatcher Road, Pelican Park, Western Cape",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-28",
+      "People": [
+        {
+          "Name": "Ghairoennisaa Hendricks"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/al-jama-ah/": "al-jama-ah-8"
+      }
+    },
+    {
+      "Title": "AL-JAMA-AH Constituency Office: alj-wc-office",
+      "Party": "AL-JAMA-AH",
+      "Type": "office",
+      "Province": "Western Cape",
+      "Physical Address": "Masjied Al Najaar, Corner of Klip and Buck Road, Lotus River, Western Cape",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-28",
+      "People": [
+        {
+          "Name": "Shameemah Salie"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/al-jama-ah/": "al-jama-ah-9"
+      }
+    },
+    {
+      "Title": "AL-JAMA-AH Constituency Office: alj-wc-office",
+      "Party": "AL-JAMA-AH",
+      "Type": "office",
+      "Province": "Western Cape",
+      "Physical Address": "Masjied Al Najaar, Corner of Klip and Buck Road, Lotus River, Western Cape",
+      "Tel": "628113753",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-28",
+      "People": [
+        {
+          "Name": "Raihaan Pietersen",
+          "Tel": "628113753"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/al-jama-ah/": "al-jama-ah-10"
+      }
+    },
+    {
+      "Title": "AL-JAMA-AH Constituency Office: alj-gauteng-office",
+      "Party": "AL-JAMA-AH",
+      "Type": "office",
+      "Province": "Gauteng",
+      "Physical Address": "Shop 14 Signet Village 82 Gemsbok Avenue, Lenasia, Ext 1, Johannesburg",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-28",
+      "People": [
+        {
+          "Name": "Shameemah Salie"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/al-jama-ah/": "al-jama-ah-11"
+      }
+    },
+    {
+      "Title": "AL-JAMA-AH Constituency Office: alj-gauteng-office",
+      "Party": "AL-JAMA-AH",
+      "Type": "office",
+      "Province": "Gauteng",
+      "Physical Address": "Shop 14 Signet Village 82 Gemsbok Avenue, Lenasia, Ext 1, Johannesburg",
+      "Tel": "828051368",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-28",
+      "People": [
+        {
+          "Name": "Imraan Moosa",
+          "Tel": "828051368"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/al-jama-ah/": "al-jama-ah-12"
+      }
+    },
+    {
+      "Title": "AL-JAMA-AH Constituency Office: alj-wc-office",
+      "Party": "AL-JAMA-AH",
+      "Type": "office",
+      "Province": "Western Cape",
+      "Physical Address": "Shop 1 566 Lansdowne Road, Lansdowne Western Cape",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-28",
+      "People": [
+        {
+          "Name": "Shameemah Salie"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/al-jama-ah/": "al-jama-ah-13"
+      }
+    },
+    {
+      "Title": "AL-JAMA-AH Constituency Office: alj-wc-office",
+      "Party": "AL-JAMA-AH",
+      "Type": "office",
+      "Province": "Western Cape",
+      "Physical Address": "Shop 1 566 Lansdowne Road, Lansdowne Western Cape",
+      "Tel": "686427022",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-28",
+      "People": [
+        {
+          "Name": "Fazielah Kamish",
+          "Tel": "686427022"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/al-jama-ah/": "al-jama-ah-14"
+      }
+    }
+  ],
+  "start_date": "2025-01-01",
+  "end_date": "future"
+}

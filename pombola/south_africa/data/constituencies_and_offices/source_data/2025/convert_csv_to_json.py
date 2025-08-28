@@ -59,6 +59,7 @@ KNOWN_PARTIES = {
     'GOOD': 'good',
     'NCC': 'ncc',
     'RISE': 'rise',
+    'AL-JAMA-AH': 'al-jama-ah'
 }
 
 def validate_party(party_name):
