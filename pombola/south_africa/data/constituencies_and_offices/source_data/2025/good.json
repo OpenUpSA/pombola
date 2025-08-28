@@ -1,0 +1,61 @@
+{
+  "offices": [
+    {
+      "Title": "GOOD Constituency Office: Mitchell's Plain Office",
+      "Party": "GOOD",
+      "Type": "office",
+      "Province": "Western Cape",
+      "Physical Address": "Section 19 & 20, 7th Avenue, Symphony Walk and Harmony Square, Town Centre, Mitchells Plain",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-28",
+      "People": [
+        {
+          "Name": "Patricia de Lille"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/good/": "good-1"
+      }
+    },
+    {
+      "Title": "GOOD Constituency Office: Mitchell's Plain Office",
+      "Party": "GOOD",
+      "Type": "office",
+      "Province": "Western Cape",
+      "Physical Address": "Section 19 & 20, 7th Avenue, Symphony Walk and Harmony Square, Town Centre, Mitchells Plain",
+      "Tel": "698738583",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-28",
+      "People": [
+        {
+          "Name": "Peter Hoffman",
+          "Tel": "698738583"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/good/": "good-2"
+      }
+    },
+    {
+      "Title": "GOOD Constituency Office: Mitchell's Plain Office",
+      "Party": "GOOD",
+      "Type": "office",
+      "Province": "Western Cape",
+      "Physical Address": "Section 19 & 20, 7th Avenue, Symphony Walk and Harmony Square, Town Centre, Mitchells Plain",
+      "Tel": "604477401",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-28",
+      "People": [
+        {
+          "Name": "Tessa Hartzenberg",
+          "Tel": "604477401"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/good/": "good-3"
+      }
+    }
+  ],
+  "start_date": "2025-01-01",
+  "end_date": "future"
+}

@@ -55,7 +55,10 @@ KNOWN_PARTIES = {
     'COPE': 'cope',
     'UDM': 'udm',
     'PAC': 'pac',
-    'AZAPO': 'azapo'
+    'AZAPO': 'azapo',
+    'GOOD': 'good',
+    'NCC': 'ncc',
+    'RISE': 'rise',
 }
 
 def validate_party(party_name):
