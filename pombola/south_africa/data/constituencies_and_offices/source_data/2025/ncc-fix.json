@@ -1,0 +1,44 @@
+{
+  "offices": [
+    {
+      "Title": "NCC Constituency Office: NNC Office",
+      "Party": "NCC",
+      "Type": "office",
+      "Province": "Northern Cape",
+      "Physical Address": "16 New Main Road, NUM Building, 2nd Floor, Kimberly 8301",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-28",
+      "People": [
+        {
+          "Name": "Fadiel Adams"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/ncc/": "ncc-1"
+      }
+    },
+    {
+      "Title": "NCC Constituency Office: NNC Office",
+      "Party": "NCC",
+      "Type": "office",
+      "Province": "Northern Cape",
+      "Physical Address": "16 New Main Road, NUM Building, 2nd Floor, Kimberly 8301",
+      "E-mail": "northchair@nationalcolouredcongress.org.za",
+      "Tel": "610732931",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-28",
+      "People": [
+        {
+          "Name": "Waaqia Jaffer",
+          "Email": "northchair@nationalcolouredcongress.org.za",
+          "Tel": "610732931"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/ncc/": "ncc-2"
+      }
+    }
+  ],
+  "start_date": "2025-01-01",
+  "end_date": "future"
+}
