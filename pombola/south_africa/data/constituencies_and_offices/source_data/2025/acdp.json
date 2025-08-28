@@ -1,0 +1,225 @@
+{
+  "offices": [
+    {
+      "Title": "ACDP Constituency Office: Cape Town Office",
+      "Party": "ACDP",
+      "Type": "office",
+      "Province": "Western Cape",
+      "Physical Address": "Kiosk 40, Varesa Centre, Strand Street, Botshabelo 9781",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-28",
+      "People": [
+        {
+          "Name": "Steve Swart"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/acdp/": "acdp-1"
+      }
+    },
+    {
+      "Title": "ACDP Constituency Office: Cape Town Office",
+      "Party": "ACDP",
+      "Type": "office",
+      "Province": "Western Cape",
+      "Physical Address": "Kiosk 40, Varesa Centre, Strand Street, Botshabelo 9782",
+      "E-mail": "mmabungane@parliament.gov.za",
+      "Tel": "021 403 3536/083 252 4161",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-28",
+      "People": [
+        {
+          "Name": "Mongezi Mabungani",
+          "Email": "mmabungane@parliament.gov.za",
+          "Tel": "021 403 3536/083 252 4161"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/acdp/": "acdp-1"
+      }
+    },
+    {
+      "Title": "ACDP Constituency Office: Kuilsriver Office",
+      "Party": "ACDP",
+      "Type": "office",
+      "Province": "Western Cape",
+      "Physical Address": "Unit 2, First Floor, 3 Grove Street, Oakdene, Kuilsriver, 7580",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-28",
+      "People": [
+        {
+          "Name": "Steve Swart"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/acdp/": "acdp-2"
+      }
+    },
+    {
+      "Title": "ACDP Constituency Office: Kuilsriver Office",
+      "Party": "ACDP",
+      "Type": "office",
+      "Province": "Western Cape",
+      "Physical Address": "Unit 2, First Floor, 3 Grove Street, Oakdene, Kuilsriver, 7581",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-28",
+      "identifiers": {
+        "constituency-office/acdp/": "acdp-2"
+      }
+    },
+    {
+      "Title": "ACDP Constituency Office: Vosloorus",
+      "Party": "ACDP",
+      "Type": "office",
+      "Province": "Gauteng",
+      "Physical Address": "Office 1, 6499, Sam Sekoati Ave, Marimba Gardens, Vosloorus, 1475.",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-28",
+      "People": [
+        {
+          "Name": "Dr Kenneth Meshoe"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/acdp/": "acdp-3"
+      }
+    },
+    {
+      "Title": "ACDP Constituency Office: Vosloorus",
+      "Party": "ACDP",
+      "Type": "office",
+      "Province": "Gauteng",
+      "Physical Address": "Office 1, 6499, Sam Sekoati Ave, Marimba Gardens, Vosloorus, 1475.",
+      "E-mail": "slepelle@gmail.com",
+      "Tel": "079 342 9007",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-28",
+      "People": [
+        {
+          "Name": "Sifiso Ngwenya",
+          "Email": "slepelle@gmail.com",
+          "Tel": "079 342 9007"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/acdp/": "acdp-3"
+      }
+    },
+    {
+      "Title": "ACDP Constituency Office: KZN Office",
+      "Party": "ACDP",
+      "Type": "office",
+      "Province": "Kwazulu-Natal",
+      "Physical Address": "Office 2, Unit U 2 A&B, Zevopix Builidng, Ptn 2 of Lot 108, Matubatuba",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-28",
+      "People": [
+        {
+          "Name": "Dr Kenneth Meshoe"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/acdp/": "acdp-4"
+      }
+    },
+    {
+      "Title": "ACDP Constituency Office: KZN Office",
+      "Party": "ACDP",
+      "Type": "office",
+      "Province": "Kwazulu-Natal",
+      "Physical Address": "Office 2, Unit U 2 A&B, Zevopix Builidng, Ptn 2 of Lot 108, Matubatuba",
+      "E-mail": "khayoemanqele@gmail.com",
+      "Tel": "073 219 5915",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-28",
+      "People": [
+        {
+          "Name": "Khayelihle Manqele",
+          "Email": "khayoemanqele@gmail.com",
+          "Tel": "073 219 5915"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/acdp/": "acdp-4"
+      }
+    },
+    {
+      "Title": "ACDP Constituency Office: Mpumalanga Office",
+      "Party": "ACDP",
+      "Type": "office",
+      "Province": "Mpumalanga",
+      "Physical Address": "T1088, Tekatakho Kabokweni, 1245",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-28",
+      "People": [
+        {
+          "Name": "Wayne Thring"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/acdp/": "acdp-5"
+      }
+    },
+    {
+      "Title": "ACDP Constituency Office: Mpumalanga Office",
+      "Party": "ACDP",
+      "Type": "office",
+      "Province": "Mpumalanga",
+      "Physical Address": "T1088, Tekatakho Kabokweni, 1246",
+      "E-mail": "sontomthethwamabuza@gmail.com",
+      "Tel": "791596997",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-28",
+      "People": [
+        {
+          "Name": "Sonto Mthethwa",
+          "Email": "sontomthethwamabuza@gmail.com",
+          "Tel": "791596997"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/acdp/": "acdp-5"
+      }
+    },
+    {
+      "Title": "ACDP Constituency Office: Pinetown Office",
+      "Party": "ACDP",
+      "Type": "office",
+      "Province": "Kwazulu-Natal",
+      "Physical Address": "Ferris Centre, 54 Pegasus Road Marianridge, Pinetown",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-28",
+      "People": [
+        {
+          "Name": "Wayne Thring"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/acdp/": "acdp-6"
+      }
+    },
+    {
+      "Title": "ACDP Constituency Office: Pinetown Office",
+      "Party": "ACDP",
+      "Type": "office",
+      "Province": "Kwazulu-Natal",
+      "Physical Address": "Ferris Centre, 54 Pegasus Road Marianridge, Pinetown",
+      "E-mail": "gladyspayne11@gmail.com",
+      "Tel": "072 995 1788",
+      "Source URL": "CSV import 2025",
+      "Source Note": "Imported from CSV on 2025-08-28",
+      "People": [
+        {
+          "Name": "Faith Payne",
+          "Email": "gladyspayne11@gmail.com",
+          "Tel": "072 995 1788"
+        }
+      ],
+      "identifiers": {
+        "constituency-office/acdp/": "acdp-6"
+      }
+    }
+  ],
+  "start_date": "2025-01-01",
+  "end_date": "future"
+}
