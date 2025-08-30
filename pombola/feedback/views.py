@@ -5,8 +5,8 @@ from django.views.decorators.csrf import csrf_protect
 
 from pombola.core.recaptcha import recaptcha_client
 
-from models import Feedback
-from forms import FeedbackForm
+from .models import Feedback
+from .forms import FeedbackForm
 
 import re
 
