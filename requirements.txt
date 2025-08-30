@@ -2,7 +2,7 @@
 #
 # more details: http://www.pip-installer.org/en/latest/requirements.html
 
-gunicorn==19.9.0
+gunicorn==22.0.0
 gevent==1.4.0
 greenlet==0.4.15
 psycogreen==1.0.1
