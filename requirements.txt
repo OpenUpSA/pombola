@@ -119,7 +119,7 @@ pygeocoder==1.2.5
 # mysociety-Django-Select2==4.3.2.2
 -e git+https://github.com/mysociety/django-select2@28c9bf981017d83836390b264a0fa8dd246e6a07#egg=Django-Select2
 Shapely==1.5.0
-WebOb==1.4
+WebOb==1.8.8
 amqp==1.4.6
 anyjson==0.3.3
 audioread==1.0.3
