@@ -154,6 +154,20 @@ class Converter(object):
         "willem-stephanus-aucamp":"willem-abraham-stephanus-aucamp",
         "windy-timotheus-plaatjies":"windy-timotheus-david-plaatjies",
         "zamathembu-ngcobo":"zamathembu-nokuthula-ngcobo",
+        "shela-polly-boshielo":"shela-paulina-boshielo",
+        "sisipho-palomina-jama":"sisipho-palomino-jama",
+        "dorries-eunice-mpapane-dlakude":"dorris-eunice-dlakude",
+        "nobuntu-lindumusa-hlazo-webster":"nobuntu-lindumusa-webster",
+        "natasha-wendy-anita-mazzone":"natasha-wendy-anita-michael",
+        "naledi-nokukhanya-chirwa-mpungose":"naledi-nokukhanya-chirwa",
+        "ntombovuyo-veronica-mente-nkuna":"ntombovuyo-veronica-nqweniso",
+        "nontando-judith-nolutshungu":"nontando-nolutshungu",
+        "heloise-denner-jordaan":"heloise-denner",
+        "hendrik-van-den-berg":"hendrik-jacobus-van-den-berg",
+        "sibongiseni-sibongiseni-majola":"jerome-sibongiseni-majola",
+        "pinky-pearlgene-mngadi":"pinky-pearlgene-ncube",
+        "marlon-vivienne-daniels":"marlon-daniels",
+        "general-bantubonke-harrington-holomisa":"bantubonke-harrington-holomisa",
         # Garbage entries
         "control-flag-ict": None
     }
