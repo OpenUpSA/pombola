@@ -169,7 +169,8 @@ class Converter(object):
         "marlon-vivienne-daniels":"marlon-daniels",
         "general-bantubonke-harrington-holomisa":"bantubonke-harrington-holomisa",
         # Garbage entries
-        "control-flag-ict": None
+        "control-flag-ict": None,
+        "strongremunerated-employment-or-work-outside-of-parliamentstrong": None
     }
 
     category_sort_orders = {
