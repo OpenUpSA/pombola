@@ -255,7 +255,13 @@ urlpatterns += (
     # We want to override the location search view, so that we can
     # redirect straight to the results page if there's a unique result
     # returned.
-    url(r'^search/location/$', SAGeocoderView.as_view(), name='core_geocoder_search'),
+    url(
+      r'^search/location/$',
+        RedirectView.as_view(
+          url='https://constituency-offices.pa.org.za/',
+          permanent=False),
+      name='core_geocoder_search'
+    ),
 
     # Catch the newsletter info page to change the template used so that the signup form is injected.
     # NOTE - you still need to create an InfoPage with the slug 'newsletter' for this not to 404.
