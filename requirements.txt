@@ -123,13 +123,12 @@ WebOb==1.4
 audioread==1.0.3
 bleach==3.3.0
 django-appconf==1.0.2
-celery==3.1.25
+celery==4.4.7
 celery-haystack==0.10
-kombu==3.0.37
+kombu==4.6.11
 chardet==3.0.4
 cssselect==0.9.1
 django-bleach==0.5.2
-django-celery==3.3.1
 django-qmethod==0.0.3
 django-subdomain-instances==3.0.2
 django-tastypie==0.12.1

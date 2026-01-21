@@ -71,7 +71,7 @@ services:
     volumes:
       - ./data:/app-data
       - .:/app
-    command: bin/wait-for-deps.sh celery -A Pombola worker
+    command: bin/wait-for-deps.sh celery -A pombola worker
     depends_on:
       - db
       - elasticsearch
