@@ -2,7 +2,7 @@ from __future__ import division
 
 import calendar
 import datetime
-from functools import partial
+from functools import partial, reduce
 import re
 import itertools
 import random

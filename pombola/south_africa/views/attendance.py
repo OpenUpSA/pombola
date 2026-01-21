@@ -302,18 +302,18 @@ class SAMpAttendanceView(TemplateView):
                     aggregate_total = aggregate_present = 0
 
                     for summary in attendance_summary:
-                        total = sum(v for v in summary['attendance'].itervalues())
+                        total = sum(v for v in summary['attendance'].values())
 
                         present = sum(
-                            v for k, v in summary['attendance'].iteritems()
+                            v for k, v in summary['attendance'].items()
                             if k in present_codes)
 
                         arrive_late = sum(
-                            v for k, v in summary['attendance'].iteritems()
+                            v for k, v in summary['attendance'].items()
                             if k in arrive_late_codes)
 
                         depart_early = sum(
-                            v for k, v in summary['attendance'].iteritems()
+                            v for k, v in summary['attendance'].items()
                             if k in depart_early_codes)
 
                         aggregate_total += total
@@ -344,7 +344,7 @@ class SAMpAttendanceView(TemplateView):
                     # No aggregates are calculated
                     for summary in attendance_summary:
                         present = sum(
-                            v for k, v in summary['attendance'].iteritems()
+                            v for k, v in summary['attendance'].items()
                             if k in present_codes)
                         context['attendance_data'].append({
                                 "name": summary['member']['name'],
