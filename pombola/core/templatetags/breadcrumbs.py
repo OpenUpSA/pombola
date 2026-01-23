@@ -132,7 +132,7 @@ def escape_link_text_for_html(s):
     >>> escape_link_text_for_html(u'a unicode snowman \u2603 and a hot beverage \u2615')
     'a unicode snowman &#9731; and a hot beverage &#9749;'
     """
-    return escape(s).encode('ascii', 'xmlcharrefreplace')
+    return escape(s).encode('ascii', 'xmlcharrefreplace').decode('ascii')
 
 @register.filter
 def breadcrumbs(url):
