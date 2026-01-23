@@ -66,6 +66,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "pombola.core.context_processors.add_settings",
                 "pombola.core.context_processors.site_processor",
+                "pombola.core.context_processors.deployment_info",
                 "constance.context_processors.config",
             ],
             "debug": DEBUG,

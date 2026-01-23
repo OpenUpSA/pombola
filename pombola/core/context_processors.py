@@ -1,3 +1,5 @@
+import os
+import subprocess
 from django.conf import settings
 from django.contrib.sites.models import Site
 
@@ -31,3 +33,24 @@ def add_settings( request ):
 
 def site_processor(request):
     return {'site': Site.objects.get_current()}
+
+
+def deployment_info(request):
+    hostname = os.environ.get('HOSTNAME', 'unknown')
+
+    git_commit = 'unknown'
+    try:
+        git_commit = subprocess.check_output(
+            ['git', 'rev-parse', '--short', 'HEAD'],
+            stderr=subprocess.DEVNULL,
+            timeout=1
+        ).decode('utf-8').strip()
+    except:
+        pass
+
+    return {
+        'deployment': {
+            'hostname': hostname,
+            'git_commit': git_commit,
+        }
+    }
