@@ -36,21 +36,12 @@ def site_processor(request):
 
 
 def deployment_info(request):
-    hostname = os.environ.get('HOSTNAME', 'unknown')
-
-    git_commit = 'unknown'
-    try:
-        git_commit = subprocess.check_output(
-            ['git', 'rev-parse', '--short', 'HEAD'],
-            stderr=subprocess.DEVNULL,
-            timeout=1
-        ).decode('utf-8').strip()
-    except:
-        pass
+    server_name = os.environ.get('SERVER_NAME', 'unknown')
+    git_commit = os.environ.get('GIT_REV', 'unknown')
 
     return {
         'deployment': {
-            'hostname': hostname,
+            'server_name': server_name,
             'git_commit': git_commit,
         }
     }
