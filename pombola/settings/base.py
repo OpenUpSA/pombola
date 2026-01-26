@@ -143,7 +143,7 @@ MEDIA_ROOT = os.path.normpath(os.path.join(data_dir, "media_root/"))
 FILE_UPLOAD_PERMISSIONS = 0o644  # 'rw-r--r--'
 
 # Use django-pipeline for handling static files
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
