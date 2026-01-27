@@ -2,36 +2,36 @@
 
 {% with org=position.organisation %}
   <p class="text-link__text">
-    {{ position.title }}
+    {{ position.title.name }}
     {% if org %}
       {% if 'election-list' in org.slug %}
         {% with year=position.start_date.year|stringformat:"s" province=org.slug|get_place_slug %}
           {% if 'provincial' in org.slug %}
             at
             <a href="{% url "sa-election-candidates-provincial-party" election_year=year party_name=org.slug|get_party_slug province_name=province %}">
-              {{org}}
+              {{ org.name }}
             </a>
           {% elif 'national' in org.slug %}
             at
             <a href="{% url "sa-election-candidates-national-party" election_year=year party_name=org.slug|get_party_slug %}">
-              {{org}}
+              {{ org.name }}
             </a>
           {% elif province %}
             at
             <a href="{% url "sa-election-candidates-national-province-party" election_year=year party_name=org.slug|get_party_slug province_name=province %}">
-              {{org}}
+              {{ org.name }}
             </a>
           {% else %}
             at
             <a href="{% url "organisation" slug=org.slug %}">
-              {{ org }}
+              {{ org.name }}
             </a>
           {% endif %}
         {% endwith %}
       {% else %}
         at
         <a href="{% url "organisation" slug=org.slug %}">
-          {{ org }}
+          {{ org.name }}
         </a>
       {% endif %}
     {% endif %}
