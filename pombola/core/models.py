@@ -952,6 +952,9 @@ class Organisation(ModelBase, HasImageMixin, IdentifierMixin):
     def __unicode__(self):
         return "%s (%s)" % (self.name, self.kind)
 
+    def __str__(self):
+        return "%s (%s)" % (self.name, self.kind)
+
     @models.permalink
     def get_absolute_url(self):
         return ('organisation', [self.slug])
@@ -1110,6 +1113,12 @@ class Place(ModelBase, HasImageMixin, ScorecardMixin, BudgetsMixin, IdentifierMi
         return self.kind.name
 
     def __unicode__(self):
+        session_suffix = ""
+        if self.parliamentary_session:
+            session_suffix += " " + str(self.parliamentary_session.short_date_range())
+        return "%s (%s%s)" % (self.name, self.kind, session_suffix)
+
+    def __str__(self):
         session_suffix = ""
         if self.parliamentary_session:
             session_suffix += " " + str(self.parliamentary_session.short_date_range())
@@ -1390,6 +1399,9 @@ class PositionTitle(ModelBase):
     objects = ManagerBase()
 
     def __unicode__(self):
+        return self.name
+
+    def __str__(self):
         return self.name
 
     @models.permalink
@@ -1792,6 +1804,16 @@ class Position(ModelBase, IdentifierMixin):
         super(Position, self).save(*args, **kwargs)
 
     def __unicode__(self):
+        title = self.title or '???'
+
+        if self.organisation:
+            organisation = self.organisation.name
+        else:
+            organisation = '???'
+
+        return "%s (%s at %s)" % ( self.person.legal_name, title, organisation)
+
+    def __str__(self):
         title = self.title or '???'
 
         if self.organisation:
