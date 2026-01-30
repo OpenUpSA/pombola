@@ -2,7 +2,7 @@ from __future__ import division
 
 import calendar
 import datetime
-from functools import partial
+from functools import partial, reduce
 import re
 import itertools
 import random
@@ -268,6 +268,9 @@ class ContactKind(ModelBase):
     def __unicode__(self):
         return self.name
 
+    def __str__(self):
+        return self.name
+
     class Meta:
        ordering = ["slug"]
 
@@ -451,7 +454,7 @@ class PersonManager(ManagerBase):
             try:
                 person_id = int(identifier)
             except ValueError:
-                raise self.model.DoesNotExist, "Person matching query does not exist."
+                raise self.model.DoesNotExist("Person matching query does not exist.")
             return self.get(pk=person_id)
 
     def get_featured(self):
@@ -842,6 +845,9 @@ class OrganisationKind(ModelBase):
     def __unicode__(self):
         return self.name
 
+    def __str__(self):
+        return self.name
+
     class Meta:
        ordering = ["slug"]
 
@@ -952,6 +958,9 @@ class Organisation(ModelBase, HasImageMixin, IdentifierMixin):
     def __unicode__(self):
         return "%s (%s)" % (self.name, self.kind)
 
+    def __str__(self):
+        return "%s (%s)" % (self.name, self.kind)
+
     @models.permalink
     def get_absolute_url(self):
         return ('organisation', [self.slug])
@@ -1036,6 +1045,9 @@ class PlaceKind(ModelBase):
     def __unicode__(self):
         return self.name
 
+    def __str__(self):
+        return self.name
+
     class Meta:
        ordering = ["slug"]
 
@@ -1110,6 +1122,12 @@ class Place(ModelBase, HasImageMixin, ScorecardMixin, BudgetsMixin, IdentifierMi
         return self.kind.name
 
     def __unicode__(self):
+        session_suffix = ""
+        if self.parliamentary_session:
+            session_suffix += " " + str(self.parliamentary_session.short_date_range())
+        return "%s (%s%s)" % (self.name, self.kind, session_suffix)
+
+    def __str__(self):
         session_suffix = ""
         if self.parliamentary_session:
             session_suffix += " " + str(self.parliamentary_session.short_date_range())
@@ -1390,6 +1408,9 @@ class PositionTitle(ModelBase):
     objects = ManagerBase()
 
     def __unicode__(self):
+        return self.name
+
+    def __str__(self):
         return self.name
 
     @models.permalink
@@ -1801,6 +1822,16 @@ class Position(ModelBase, IdentifierMixin):
 
         return "%s (%s at %s)" % ( self.person.legal_name, title, organisation)
 
+    def __str__(self):
+        title = self.title or '???'
+
+        if self.organisation:
+            organisation = self.organisation.name
+        else:
+            organisation = '???'
+
+        return "%s (%s at %s)" % ( self.person.legal_name, title, organisation)
+
     class Meta:
         ordering = ['-sorting_end_date', '-sorting_start_date']
 
@@ -1826,6 +1857,9 @@ class ParliamentarySession(ModelBase):
 
     def __unicode__(self):
         return unicode(self.name)
+
+    def __str__(self):
+        return self.name
 
     def covers_date(self, d):
         return (d >= self.start_date) and (d <= self.end_date)
@@ -1946,7 +1980,7 @@ def raw_query_with_prefetch(query_model, query, params, fields_prefetches):
     }
     for f in fields:
         if f not in name_to_field:
-            raise Exception, "{0} was not a ForeignKey field".format(f)
+            raise Exception("{0} was not a ForeignKey field".format(f))
     # Find all IDs for each field:
     field_ids = defaultdict(set)
     for o in objects:

@@ -23,9 +23,11 @@ this can be modified using the `DATA_DIR` configuration variable.
 ## Development
 
 The code is available via github: https://github.com/OpenUpSA/pombola
+Clone and build:
 
 ```
-git clone https://github.com/OpenUpSA/pombola.git
+git clone https://github.com/OpenUpSA/pombola.git && cd pombola
+docker compose build
 ```
 
 Run migrations

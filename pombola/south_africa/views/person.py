@@ -10,7 +10,7 @@ import datetime
 import pytz
 
 from .constants import API_REQUESTS_TIMEOUT
-from urlparse import urlsplit
+from urllib.parse import urlsplit
 
 from django.contrib.contenttypes.models import ContentType
 from django.core.cache import caches

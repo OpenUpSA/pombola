@@ -1,3 +1,5 @@
+import os
+import subprocess
 from django.conf import settings
 from django.contrib.sites.models import Site
 
@@ -31,3 +33,15 @@ def add_settings( request ):
 
 def site_processor(request):
     return {'site': Site.objects.get_current()}
+
+
+def deployment_info(request):
+    server_name = os.environ.get('SERVER_NAME', 'unknown')
+    git_commit = os.environ.get('GIT_REV', 'unknown')
+
+    return {
+        'deployment': {
+            'server_name': server_name,
+            'git_commit': git_commit,
+        }
+    }

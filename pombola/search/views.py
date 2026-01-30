@@ -1,7 +1,7 @@
 from datetime import datetime
 import re
 import sys
-import simplejson
+import json
 import logging
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -508,6 +508,6 @@ def autocomplete(request):
 
     # send back the results as JSON
     return HttpResponse(
-        simplejson.dumps(response_data),
+        json.dumps(response_data),
         content_type='application/json',
     )

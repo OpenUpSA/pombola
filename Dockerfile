@@ -1,31 +1,32 @@
-FROM python:2-stretch
+FROM python:3.9.22-bookworm
 
 ENV PYTHONUNBUFFERED 1
 ENV COUNTRY_APP=south_africa
 
-RUN echo "deb http://archive.debian.org/debian/ stretch main" > /etc/apt/sources.list \
-    && echo "deb http://archive.debian.org/debian-security stretch/updates main" >> /etc/apt/sources.list \
-    && apt-get -o Acquire::Check-Valid-Until=false update
-
-RUN apt-get update && \
+RUN echo "deb http://deb.debian.org/debian bullseye main" > /etc/apt/sources.list.d/bullseye.list && \
+    apt-get update && \
     apt-get install -y antiword \
-                       binutils \
-                       libffi-dev \
-                       libjpeg-dev \
-                       libpq-dev \
-                       libxml2-dev \
-                       libxslt1-dev \
-                       libproj-dev \
-                       gdal-bin \
-                       poppler-utils \
-                       python-dev \
-                       python-gdal \
-                       ruby-bundler \
-                       ruby2.3-dev \
-                       yui-compressor \
-                       zlib1g-dev \
-                       postgresql-client \
-                       awscli
+            binutils \
+            libffi-dev \
+            libjpeg-dev \
+            libpq-dev \
+            libxml2-dev \
+            libxslt1-dev \
+            libproj-dev \
+            gdal-bin \
+            libgdal-dev \
+            poppler-utils \
+            ruby2.7 \
+            ruby2.7-dev \
+            yui-compressor \
+            zlib1g-dev \
+            postgresql-client \
+            awscli \
+            wget && \
+    ln -sf /usr/bin/ruby2.7 /usr/bin/ruby && \
+    ln -sf /usr/bin/gem2.7 /usr/bin/gem
+
+RUN gem install bundler
 
 RUN mkdir /app
 RUN mkdir -p /var/celerybeat
@@ -34,8 +35,6 @@ COPY requirements.txt /app/
 RUN pip install -r /app/requirements.txt
 
 COPY . /app/
-# Set WORKDIR after installing, so that src dir isn't created then overwritten
-# by development mount
 WORKDIR /app
 
 RUN bundle install

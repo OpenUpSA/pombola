@@ -14,9 +14,8 @@ from corsheaders.defaults import default_headers
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.celery import CeleryIntegration
-import djcelery
 
-from urlparse import urlparse
+from urllib.parse import urlparse
 
 IN_TEST_MODE = False
 
@@ -67,6 +66,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "pombola.core.context_processors.add_settings",
                 "pombola.core.context_processors.site_processor",
+                "pombola.core.context_processors.deployment_info",
                 "constance.context_processors.config",
             ],
             "debug": DEBUG,
@@ -143,7 +143,7 @@ MEDIA_ROOT = os.path.normpath(os.path.join(data_dir, "media_root/"))
 FILE_UPLOAD_PERMISSIONS = 0o644  # 'rw-r--r--'
 
 # Use django-pipeline for handling static files
-STATICFILES_STORAGE = "pipeline.storage.PipelineCachedStorage"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
@@ -218,6 +218,7 @@ if os.environ.get("DJANGO_DEBUG_TOOLBAR", "false").lower() == "true":
 
 MIDDLEWARE_CLASSES += (
     "corsheaders.middleware.CorsMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.middleware.cache.UpdateCacheMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -446,6 +447,7 @@ INSTALLED_APPS = (
     "info",
     "pombola.tasks",
     "pombola.core",
+    "pombola.core.images",
     "pombola.feedback",
     "pombola.scorecards",
     "pombola.search",
@@ -457,7 +459,6 @@ INSTALLED_APPS = (
     "django_nose",
     "django_extensions",
     "rest_framework",
-    "djcelery",
 )
 
 if os.environ.get("DJANGO_DEBUG_TOOLBAR", "true").lower() == "true":
@@ -507,8 +508,8 @@ def make_enabled_features(installed_apps, all_optional_apps):
 
 PIPELINE = {
     "COMPILERS": ("pipeline_compass.compass.CompassCompiler",),
-    "CSS_COMPRESSOR": "pombola.pipeline.compressor.LoggingYUICompressor",
-    "JS_COMPRESSOR": "pombola.pipeline.compressor.LoggingYUICompressor",
+    "CSS_COMPRESSOR": None, # "pombola.pipeline.compressor.LoggingYUICompressor",
+    "JS_COMPRESSOR": None, # "pombola.pipeline.compressor.LoggingYUICompressor",
     "YUI_BINARY": "/usr/bin/env yui-compressor",
     "DISABLE_WRAPPER": True,
 }
@@ -721,4 +722,3 @@ CELERY_RESULT_BACKEND = os.environ.get("CELERY_BROKER_URL")
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_SERIALIZER = 'json'
-djcelery.setup_loader()

@@ -5,7 +5,7 @@ class LoggingYUICompressor(YUICompressor):
   def compress_js(self, js):
       try:
           return super(LoggingYUICompressor, self).compress_js(js)
-      except Exception, e:
+      except Exception as e:
           print("Error in the following content (this might be a bundle and not a source file):\n")
           print(js)
           raise e
@@ -13,7 +13,7 @@ class LoggingYUICompressor(YUICompressor):
   def compress_css(self, css):
       try:
           return super(LoggingYUICompressor, self).compress_css(css)
-      except Exception, e:
+      except Exception as e:
           print("Error in the following content (this might be a bundle and not a source file):\n")
           print(css)
           raise e
