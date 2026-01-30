@@ -268,6 +268,9 @@ class ContactKind(ModelBase):
     def __unicode__(self):
         return self.name
 
+    def __str__(self):
+        return self.name
+
     class Meta:
        ordering = ["slug"]
 
@@ -842,6 +845,9 @@ class OrganisationKind(ModelBase):
     def __unicode__(self):
         return self.name
 
+    def __str__(self):
+        return self.name
+
     class Meta:
        ordering = ["slug"]
 
@@ -1037,6 +1043,9 @@ class PlaceKind(ModelBase):
     objects = ManagerBase()
 
     def __unicode__(self):
+        return self.name
+
+    def __str__(self):
         return self.name
 
     class Meta:
@@ -1848,6 +1857,9 @@ class ParliamentarySession(ModelBase):
 
     def __unicode__(self):
         return unicode(self.name)
+
+    def __str__(self):
+        return self.name
 
     def covers_date(self, d):
         return (d >= self.start_date) and (d <= self.end_date)
