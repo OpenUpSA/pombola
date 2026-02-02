@@ -5,12 +5,11 @@ import json
 import logging
 import re
 import requests
-import urllib
 import datetime
 import pytz
 
 from .constants import API_REQUESTS_TIMEOUT
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, quote
 
 from django.contrib.contenttypes.models import ContentType
 from django.core.cache import caches
@@ -160,7 +159,7 @@ class SAPersonDetail(PersonSpeakerMappingsMixin, PersonDetail):
 
         if not identifier:
             # First find the id of the person
-            pa_link = urllib.quote(
+            pa_link = quote(
                 "https://www.pa.org.za/person/{}/".format(self.object.slug))
 
             url_fmt = "https://api.pmg.org.za/member/?filter[pa_link]={}"
