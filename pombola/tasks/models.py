@@ -13,7 +13,7 @@ class TaskCategory(models.Model):
     priority = models.PositiveIntegerField(default=0)
 
 
-    def __unicode__(self):
+    def __str__(self):
         return self.slug
 
 
