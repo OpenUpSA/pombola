@@ -15,10 +15,10 @@
           {% endblock %}
         </div>
         {% if object.primary_image %}
-          {% thumbnail file_=object.primary_image geometry="100x100" crop="center" as sm %}
+          {% thumbnail object.primary_image "100x100" crop="center" as sm %}
             <img src="{{ sm.url }}" class="mp-image"
           {% endthumbnail %}
-          {% thumbnail file_=object.primary_image geometry="210x210" crop="center" as lg %}
+          {% thumbnail object.primary_image "210x210" crop="center" as lg %}
               srcset="{{ lg.url }} 640w"
           {% endthumbnail %}
         {% else %}
