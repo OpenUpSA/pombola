@@ -71,8 +71,8 @@ class Slide(models.Model):
 
     objects = SlideQuerySet.as_manager()
 
-    def __unicode__(self):
-        return u"Slide of '{0}'".format( self.content_object )
+    def __str__(self):
+        return "Slide of '{0}'".format( self.content_object )
 
     @property
     def template_class(self):
@@ -108,7 +108,7 @@ class ImageContent(models.Model):
     description = models.CharField(max_length=250, blank=True)
     url = models.URLField()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.caption
 
     class Meta(object):
@@ -123,7 +123,7 @@ class QuoteContent(models.Model):
     attribution = models.CharField(max_length=300)
     url = models.URLField()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.quote
 
     class Meta(object):

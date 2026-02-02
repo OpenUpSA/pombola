@@ -724,7 +724,7 @@ class Person(ModelBase, HasImageMixin, ScorecardMixin, IdentifierMixin):
         """Return list of constituencies that this person is currently an aspirant for"""
         return Place.objects.filter(position__in=self.aspirant_positions())
 
-    def __unicode__(self):
+    def __str__(self):
         return self.legal_name
 
     @models.permalink
