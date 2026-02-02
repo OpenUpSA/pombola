@@ -27,7 +27,7 @@ class Category(CreateSlugOnSaveIfNeededModel):
 
     sort_order = models.IntegerField()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta(object):
@@ -40,7 +40,7 @@ class Release(CreateSlugOnSaveIfNeededModel):
     slug = models.SlugField(unique=True)
     date = models.DateField()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta(object):
@@ -54,8 +54,8 @@ class Entry(models.Model):
 
     sort_order = models.IntegerField()
 
-    def __unicode__(self):
-        return u'Entry for {0} in {1} ({2})'.format(self.person, self.category, self.release)
+    def __str__(self):
+        return 'Entry for {0} in {1} ({2})'.format(self.person, self.category, self.release)
 
     class Meta(object):
         ordering = ('person__legal_name', '-release__date', 'category__sort_order', 'category__name', 'sort_order')
@@ -67,6 +67,6 @@ class EntryLineItem(models.Model):
     key       = models.CharField(max_length=240)
     value     = models.TextField()
 
-    def __unicode__(self):
-        return u"{0}: {1}".format(self.key, self.value)
+    def __str__(self):
+        return "{0}: {1}".format(self.key, self.value)
 
