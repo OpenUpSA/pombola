@@ -105,7 +105,7 @@ django-debug-toolbar==1.11.1
 django-extensions==1.7.4
 
 # Constance
-django-constance[database]==2.0
+django-constance[database]==2.9.1
 
 ## votematch
 django-model-utils==2.3.1
