@@ -14,16 +14,17 @@
           {% block object_tagline %}
           {% endblock %}
         </div>
-        {% thumbnail object.primary_image "100x100" crop="center" as sm %}
-        <img src="{{ sm.url }}" class="mp-image"
-          {% empty %}
-            <img src="{{STATIC_URL}}images/{{object.css_class}}-210x210.jpg" class="mp-image"
+        {% if object.primary_image %}
+          {% thumbnail object.primary_image "100x100" crop="center" as sm %}
+            <img src="{{ sm.url }}" class="mp-image"
           {% endthumbnail %}
           {% thumbnail object.primary_image "210x210" crop="center" as lg %}
               srcset="{{ lg.url }} 640w"
-          {% empty %}
-              srcset="{{STATIC_URL}}images/{{object.css_class}}-210x210.jpg"
           {% endthumbnail %}
+        {% else %}
+          <img src="{{STATIC_URL}}images/{{object.css_class}}-210x210.jpg" class="mp-image"
+              srcset="{{STATIC_URL}}images/{{object.css_class}}-210x210.jpg"
+        {% endif %}
           alt="{{ object.name }}">
       </div>
 
