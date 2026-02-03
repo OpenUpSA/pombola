@@ -1,5 +1,5 @@
 import csv
-import StringIO
+from io import StringIO
 
 from django.contrib.gis.db.models import Collect
 from django.core.management.base import BaseCommand
@@ -86,7 +86,7 @@ class Command(BaseCommand):
             rows.append(row)
 
 
-        csv_output = StringIO.StringIO()
+        csv_output = StringIO()
         writer = csv.DictWriter( csv_output, fieldnames )
 
         fieldname_dict = {}

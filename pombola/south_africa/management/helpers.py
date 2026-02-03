@@ -7,7 +7,7 @@ import os
 import re
 import requests
 import time
-import urllib
+from urllib.parse import quote
 
 from django.conf import settings
 from django.db.models import Q
@@ -75,7 +75,7 @@ def geocode(address_string, geocode_cache=None, verbose=True):
     url_template = \
         'https://maps.googleapis.com/maps/api/geocode/json?address={address}&bounds={w},{s}|{e},{n}&key={key}'
     url = url_template.format(
-        address=urllib.quote(address_string.encode('UTF-8')),
+        address=quote(address_string.encode('UTF-8')),
         w=settings.MAP_BOUNDING_BOX_WEST,
         s=settings.MAP_BOUNDING_BOX_SOUTH,
         e=settings.MAP_BOUNDING_BOX_EAST,

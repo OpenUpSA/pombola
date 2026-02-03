@@ -3,7 +3,7 @@ import slumber
 import json
 import datetime
 from collections import defaultdict
-from urlparse import urljoin
+from urllib.parse import urljoin
 
 from django.db.models import Prefetch
 from django.core.urlresolvers import reverse
