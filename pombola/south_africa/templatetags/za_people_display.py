@@ -17,10 +17,10 @@ def should_display_place(organisation):
 def should_display_position(organisation, position_title):
     should_display = True
 
-    if organisation.slug in MEMBER_ORGS and unicode(position_title) in (u'Member',):
+    if organisation.slug in MEMBER_ORGS and str(position_title) in ('Member',):
         should_display = False
 
-    if 'ncop' == organisation.slug and unicode(position_title) in (u'Delegate',):
+    if 'ncop' == organisation.slug and str(position_title) in ('Delegate',):
         should_display = False
 
     return should_display
