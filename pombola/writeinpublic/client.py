@@ -68,7 +68,7 @@ class WriteInPublic(object):
             response.raise_for_status()
             return response
         except requests.exceptions.RequestException as err:
-            raise self.WriteInPublicException(unicode(err))
+            raise self.WriteInPublicException(str(err))
 
     def get_message(self, message_id):
         url = '{url}/api/v1/message/{message_id}/'.format(url=self.url, message_id=message_id)
@@ -82,7 +82,7 @@ class WriteInPublic(object):
             response.raise_for_status()
             return Message(response.json(), adapter=self.adapter)
         except requests.exceptions.RequestException as err:
-            raise self.WriteInPublicException(unicode(err))
+            raise self.WriteInPublicException(str(err))
 
     def get_messages(self, person_popolo_uri):
         url = '{url}/api/v1/instance/{instance_id}/messages/'.format(url=self.url, instance_id=self.instance_id)
@@ -100,7 +100,7 @@ class WriteInPublic(object):
             messages = response.json()['objects']
             return [Message(m, adapter=self.adapter) for m in messages]
         except requests.exceptions.RequestException as err:
-            raise self.WriteInPublicException(unicode(err))
+            raise self.WriteInPublicException(str(err))
 
     def get_person_is_contactable(self, person):
         filters = {
@@ -129,4 +129,4 @@ class WriteInPublic(object):
             response.raise_for_status()
             return response.json()['objects']
         except requests.exceptions.RequestException as err:
-            raise self.WriteInPublicException(unicode(err))
+            raise self.WriteInPublicException(str(err))
