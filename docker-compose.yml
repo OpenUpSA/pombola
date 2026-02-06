@@ -42,14 +42,13 @@ services:
       - 5321:5432
 
   elasticsearch:
-    image: elasticsearch:1
+    image: elasticsearch:2.4.6
     volumes:
       - es-data:/usr/share/elasticsearch/data
     environment:
-      - ES_MIN_MEM=2g
-      - ES_MAX_MEM=4g
+      - "ES_JAVA_OPTS=-Xms2g -Xmx4g"
     ports:
-      - 9200
+      - 9200:9200
 
   cerebro:
     image: lmenezes/cerebro
