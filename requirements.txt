@@ -145,7 +145,7 @@ argparse==1.1
 # Other things presumably installed as dependencies of stuff above
 python-mimeparse==0.1.4
 approx-dates==0.0.1
-cryptography==3.2.1
+cryptography==42.0.4
 easy-thumbnails==2.6
 enum34==1.1.10
 funcsigs==1.0.2
