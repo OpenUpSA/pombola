@@ -66,6 +66,18 @@ RUN sed -i 's|from django.contrib.staticfiles.templatetags.staticfiles import st
 RUN sed -i 's/from django.template.base import TOKEN_BLOCK/from django.template.base import TokenType; TOKEN_BLOCK = TokenType.BLOCK/' \
     /src/mysociety-django-pagination/pagination/templatetags/pagination_tags.py
 
+# PaginationMiddleware, add new middleware
+RUN echo 'from django.utils.deprecation import MiddlewareMixin' > /src/mysociety-django-pagination/pagination/middleware.py && \
+    echo 'def get_page(self, suffix):' >> /src/mysociety-django-pagination/pagination/middleware.py && \
+    echo '    try:' >> /src/mysociety-django-pagination/pagination/middleware.py && \
+    echo '        key = "page%s" % suffix' >> /src/mysociety-django-pagination/pagination/middleware.py && \
+    echo '        return int(self.GET.get(key) or self.POST.get(key))' >> /src/mysociety-django-pagination/pagination/middleware.py && \
+    echo '    except (KeyError, ValueError, TypeError):' >> /src/mysociety-django-pagination/pagination/middleware.py && \
+    echo '        return 1' >> /src/mysociety-django-pagination/pagination/middleware.py && \
+    echo 'class PaginationMiddleware(MiddlewareMixin):' >> /src/mysociety-django-pagination/pagination/middleware.py && \
+    echo '    def process_request(self, request):' >> /src/mysociety-django-pagination/pagination/middleware.py && \
+    echo '        request.__class__.page = get_page' >> /src/mysociety-django-pagination/pagination/middleware.py
+
 COPY . /app/
 WORKDIR /app
 
