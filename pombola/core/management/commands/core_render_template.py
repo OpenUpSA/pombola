@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.core.management.base import LabelCommand
 from django.template.loader import render_to_string
-from django.template import RequestContext
 from django.http import HttpRequest
 
 class Command(LabelCommand):
@@ -21,6 +20,5 @@ class Command(LabelCommand):
             "SERVER_NAME": host_to_use,
             "SERVER_PORT": 80,
         }
-        request_context = RequestContext(request)
 
-        print render_to_string(template_path, {}, request_context).encode('utf-8')
+        print(render_to_string(template_path, {}, request=request))

@@ -6,7 +6,7 @@ from collections import defaultdict
 from urlparse import urljoin
 
 from django.db.models import Prefetch
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 from mapit.views.areas import area
 

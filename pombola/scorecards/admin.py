@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib import admin
-from django.shortcuts import render_to_response
-from django.template import RequestContext
+from django.shortcuts import render
 
 from pombola.scorecards import models
 from slug_helpers.admin import StricterSlugFieldMixin
@@ -45,20 +44,17 @@ class EntryAdmin(admin.ModelAdmin):
         else:
             results = None    
             
-        return render_to_response(
+        return render(
+            request,
             'admin/scorecards/data/upload_csv.html',
             {
                 'form': form,
                 'results': results,
             },
-            context_instance=RequestContext(
-                request,
-                current_app=self.admin_site.name,
-            ),            
         )
     
     def get_urls(self):
-        from django.conf.urls import url
+        from django.urls import re_path as url
         urls = super(EntryAdmin, self).get_urls()
         my_urls = [
             url(

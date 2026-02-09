@@ -1,6 +1,5 @@
 from django.conf import settings
 from django.shortcuts import render
-from django.template import RequestContext
 from django.views.decorators.csrf import csrf_protect
 
 from pombola.core.recaptcha import recaptcha_client

@@ -27,7 +27,7 @@ class Category(CreateSlugOnSaveIfNeededModel):
 
     sort_order = models.IntegerField()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta(object):
@@ -40,7 +40,7 @@ class Release(CreateSlugOnSaveIfNeededModel):
     slug = models.SlugField(unique=True)
     date = models.DateField()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta(object):
@@ -48,13 +48,13 @@ class Release(CreateSlugOnSaveIfNeededModel):
 
 
 class Entry(models.Model):
-    person   = models.ForeignKey(Person, related_name="interests_register_entries")
-    category = models.ForeignKey(Category, related_name="entries")
-    release  = models.ForeignKey(Release, related_name="entries")
+    person   = models.ForeignKey(Person, related_name="interests_register_entries", on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, related_name="entries", on_delete=models.CASCADE)
+    release  = models.ForeignKey(Release, related_name="entries", on_delete=models.CASCADE)
 
     sort_order = models.IntegerField()
 
-    def __unicode__(self):
+    def __str__(self):
         return u'Entry for {0} in {1} ({2})'.format(self.person, self.category, self.release)
 
     class Meta(object):
@@ -63,10 +63,10 @@ class Entry(models.Model):
 
 
 class EntryLineItem(models.Model):
-    entry     = models.ForeignKey(Entry, related_name="line_items")
+    entry     = models.ForeignKey(Entry, related_name="line_items", on_delete=models.CASCADE)
     key       = models.CharField(max_length=240)
     value     = models.TextField()
 
-    def __unicode__(self):
+    def __str__(self):
         return u"{0}: {1}".format(self.key, self.value)
 

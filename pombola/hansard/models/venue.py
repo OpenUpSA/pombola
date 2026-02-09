@@ -14,5 +14,5 @@ class Venue(HansardModelBase):
         app_label = 'hansard'
         ordering = [ 'slug' ]
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name

@@ -2,7 +2,7 @@ from instances.models import Instance
 import socket
 from django.utils.deprecation import MiddlewareMixin
 
-class FakeInstanceMiddleware:
+class FakeInstanceMiddleware(MiddlewareMixin):
     """
     We don't really use instances, as we're embedding sayit as an app. It
     should really be factored out, but for now, just use the default one

@@ -4,7 +4,7 @@ import re
 from django.test.client import Client
 import unittest
 from django.utils.text import slugify
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.core.management import call_command
 
 from pombola.core.models import Person

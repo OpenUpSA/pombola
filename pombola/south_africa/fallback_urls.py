@@ -1,4 +1,4 @@
-from django.conf.urls import include, url
+from django.urls import include, re_path as url
 
 from pombola.south_africa.views import (
     SectionRedirect, OldSpeechRedirect,
@@ -52,5 +52,5 @@ fallback_sayit_patterns = [
 ]
 
 urlpatterns += [
-    url(r'', include(fallback_sayit_patterns, namespace='sayit', app_name='speeches')),
+    url(r'', include(fallback_sayit_patterns, namespace='sayit')),
 ]

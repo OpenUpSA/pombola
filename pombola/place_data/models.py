@@ -1,5 +1,3 @@
-from __future__ import division
-
 from django.db import models
 
 from pombola.core import models as core_models
@@ -10,7 +8,7 @@ from pombola.core import models as core_models
 # more general stuff at the bottom of this file.
 
 class Entry(models.Model):
-    place = models.OneToOneField(core_models.Place, related_name='placedata')
+    place = models.OneToOneField(core_models.Place, related_name='placedata', on_delete=models.CASCADE)
 
     population_male = models.PositiveIntegerField()
     population_female = models.PositiveIntegerField()

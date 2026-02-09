@@ -11,7 +11,7 @@ class Project(models.Model):
 
     cdf_index = models.IntegerField(unique=True)
 
-    constituency = models.ForeignKey(Place)
+    constituency = models.ForeignKey(Place, on_delete=models.CASCADE)
 
     project_name = models.CharField(max_length=400)
     location_name = models.CharField(max_length=400)

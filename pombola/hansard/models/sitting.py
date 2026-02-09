@@ -1,7 +1,7 @@
 import re
 
 from django.db import models
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 from pombola.hansard.models.base import HansardModelBase
 from pombola.hansard.models import Source, Venue
@@ -16,7 +16,7 @@ class Sitting(HansardModelBase):
     end_date = models.DateField(blank=True, null=True)
     end_time = models.TimeField(blank=True, null=True)
     
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def get_absolute_url(self):

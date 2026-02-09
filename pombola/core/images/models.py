@@ -1,11 +1,6 @@
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
-try:
-    from django.contrib.contenttypes.fields import GenericForeignKey
-except ImportError:
-    # This fallback import is the version that was deprecated in
-    # Django 1.7 and is removed in 1.9:
-    from django.contrib.contenttypes.generic import GenericForeignKey
+from django.contrib.contenttypes.fields import GenericForeignKey
 
 from sorl.thumbnail import ImageField
 
@@ -16,7 +11,7 @@ class Image(models.Model):
         db_table = 'images_image'
 
     # link to other objects using the ContentType system
-    content_type   = models.ForeignKey(ContentType)
+    content_type   = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id      = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 

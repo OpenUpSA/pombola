@@ -2,11 +2,10 @@ import datetime
 
 from django.contrib import admin
 from django.utils.decorators import method_decorator
-from django.conf.urls import url
+from django.urls import re_path as url
 from django.contrib.admin.views.decorators import staff_member_required
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.shortcuts  import render, redirect
-from django.template   import RequestContext
 
 from slug_helpers.admin import StricterSlugFieldMixin
 

@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.urls import re_path as url
 from pombola.hansard.views import (
     IndexView,
     person_summary,
@@ -6,6 +6,7 @@ from pombola.hansard.views import (
     SittingView,
     )
 
+app_name = 'hansard'
 
 urlpatterns = [
     url( r'^$', IndexView.as_view(), name="index" ),

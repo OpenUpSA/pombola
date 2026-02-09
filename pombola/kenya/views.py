@@ -7,7 +7,7 @@ import json
 import math
 import sys
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.http import HttpResponse
 from django.views.generic.base import View, TemplateView, RedirectView
 from django.views.generic.edit import FormView

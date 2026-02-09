@@ -208,15 +208,15 @@ FILE_UPLOAD_HANDLERS = (
     "django.core.files.uploadhandler.TemporaryFileUploadHandler",
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     # first in list so it is able to act last on response
     "django.middleware.gzip.GZipMiddleware",
 )
 
 if os.environ.get("DJANGO_DEBUG_TOOLBAR", "false").lower() == "true":
-    MIDDLEWARE_CLASSES += ("debug_toolbar.middleware.DebugToolbarMiddleware",)
+    MIDDLEWARE += ("debug_toolbar.middleware.DebugToolbarMiddleware",)
 
-MIDDLEWARE_CLASSES += (
+MIDDLEWARE += (
     "corsheaders.middleware.CorsMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.middleware.cache.UpdateCacheMiddleware",
@@ -426,7 +426,8 @@ INSTALLED_APPS = (
     "constance.backends.database",
     "constance",
     "pombola.admin_additions",
-    "autocomplete_light",
+    "dal",
+    "dal_select2",
     "django.contrib.admin",
     "django.contrib.admindocs",
     "ajax_select",

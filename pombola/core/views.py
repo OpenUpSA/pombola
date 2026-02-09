@@ -19,12 +19,11 @@ from urllib.parse import urlsplit, urlunsplit, urljoin
 from os.path import dirname
 
 import django
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db.models import Count
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts  import render, get_object_or_404, redirect
-from django.template   import RequestContext
 from django.views.decorators.cache import cache_control, never_cache
 from django.views.generic import ListView, DetailView, TemplateView
 from django.views.generic.detail import SingleObjectMixin

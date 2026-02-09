@@ -4,7 +4,7 @@ import requests_mock
 from mock import Mock
 
 from django.test import TestCase
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils.dateparse import parse_datetime
 from django.forms import ModelMultipleChoiceField, ModelChoiceField
 from django.test.utils import override_settings

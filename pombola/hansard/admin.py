@@ -1,16 +1,15 @@
 from ajax_select import make_ajax_form
 
 from django.contrib import admin, messages
-from django.conf.urls import url
+from django.urls import re_path as url
 from django.contrib.admin.views.decorators import staff_member_required
-from django.shortcuts import redirect, render_to_response
-from django.template import RequestContext
+from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 
 import models
 
 # from django.contrib.gis import db
-# from django.core.urlresolvers import reverse
+# from django.urls import reverse
 # from django.contrib.contenttypes.admin import GenericTabularInline
 # from django import forms
 #

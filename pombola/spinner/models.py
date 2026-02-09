@@ -65,13 +65,13 @@ class Slide(models.Model):
     is_active = models.BooleanField(default=True)
 
     # link to other objects using the ContentType system
-    content_type   = models.ForeignKey(ContentType)
+    content_type   = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id      = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 
     objects = SlideQuerySet.as_manager()
 
-    def __unicode__(self):
+    def __str__(self):
         return u"Slide of '{0}'".format( self.content_object )
 
     @property
@@ -108,7 +108,7 @@ class ImageContent(models.Model):
     description = models.CharField(max_length=250, blank=True)
     url = models.URLField()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.caption
 
     class Meta(object):
@@ -123,7 +123,7 @@ class QuoteContent(models.Model):
     attribution = models.CharField(max_length=300)
     url = models.URLField()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.quote
 
     class Meta(object):

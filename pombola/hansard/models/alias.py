@@ -45,7 +45,7 @@ class Alias(HansardModelBase):
     
     objects = AliasQuerySet.as_manager()
 
-    def __unicode__(self):
+    def __str__(self):
         string = self.alias
         if self.person:
             string += " (aka %s)" % self.person.name

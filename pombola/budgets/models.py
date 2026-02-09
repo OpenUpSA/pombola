@@ -24,7 +24,7 @@ class BudgetSession(models.Model):
     date_start = ApproximateDateField(blank=True)
     date_end = ApproximateDateField(blank=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return u'%s' % self.name
 
     class Meta():
@@ -37,7 +37,7 @@ class Budget(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     # link to other objects using the ContentType system
-    content_type = models.ForeignKey(ContentType)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 
@@ -47,7 +47,7 @@ class Budget(models.Model):
     )
 
     # A budget has to belong to a budget session
-    budget_session = models.ForeignKey(BudgetSession, null=True)
+    budget_session = models.ForeignKey(BudgetSession, null=True, on_delete=models.SET_NULL)
 
     # A name for this budget.
     name = models.CharField(
@@ -72,7 +72,7 @@ class Budget(models.Model):
     source_url = models.URLField(blank=True)
     source_name = models.CharField(max_length=200, blank=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return u'%s (%s)' % (self.name, self.budget_session)
 
     class Meta():
