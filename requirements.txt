@@ -8,6 +8,7 @@ greenlet==0.4.17
 psycogreen==1.0.1
 
 setuptools==75.8.0
+six==1.17.0
 
 ### General useful bits
 py-bcrypt==0.4

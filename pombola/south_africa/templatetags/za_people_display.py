@@ -6,14 +6,14 @@ NO_PLACE_ORGS = ('parliament', 'national-assembly', )
 MEMBER_ORGS = ('parliament', 'national-assembly', )
 
 
-@register.assignment_tag()
+@register.simple_tag()
 def should_display_place(organisation):
     if not organisation:
         return True
     return organisation.slug not in NO_PLACE_ORGS
 
 
-@register.assignment_tag()
+@register.simple_tag()
 def should_display_position(organisation, position_title):
     should_display = True
 

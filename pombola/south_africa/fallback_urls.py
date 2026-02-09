@@ -52,5 +52,5 @@ fallback_sayit_patterns = [
 ]
 
 urlpatterns += [
-    url(r'', include(fallback_sayit_patterns, namespace='sayit')),
+    url(r'', include((fallback_sayit_patterns, 'sayit'), namespace='sayit')),
 ]
