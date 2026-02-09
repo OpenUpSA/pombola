@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('act_title', models.CharField(max_length=256, null=True, blank=True)),
                 ('act_source_url', models.URLField(unique=True, null=True, blank=True)),
                 ('date', models.DateField()),
-                ('parliamentary_session', models.ForeignKey(to='core.ParliamentarySession', on_delete=models.CASCADE),
+                ('parliamentary_session', models.ForeignKey(to='core.ParliamentarySession', on_delete=models.CASCADE)),
                 ('sponsor', models.ForeignKey(related_name='bills_sponsored', to='core.Person', on_delete=models.CASCADE)),
             ],
             options={

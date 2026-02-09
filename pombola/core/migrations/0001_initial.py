@@ -49,7 +49,7 @@ class Migration(migrations.Migration):
                 ('note', models.TextField(help_text=b'publicly visible, use to clarify contact detail', blank=True)),
                 ('source', models.CharField(default=b'', help_text=b'where did this contact detail come from', max_length=500, blank=True)),
                 ('object_id', models.PositiveIntegerField()),
-                ('content_type', models.ForeignKey(to='contenttypes.ContentType', on_delete=models.CASCADE),
+                ('content_type', models.ForeignKey(to='contenttypes.ContentType', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ['content_type', 'object_id', 'kind'],
@@ -95,7 +95,7 @@ class Migration(migrations.Migration):
                 ('note', models.TextField(blank=True)),
                 ('entered', models.BooleanField(default=False, help_text=b'has the information in this source been entered into this system?')),
                 ('object_id', models.PositiveIntegerField()),
-                ('content_type', models.ForeignKey(to='contenttypes.ContentType', on_delete=models.CASCADE),
+                ('content_type', models.ForeignKey(to='contenttypes.ContentType', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ['content_type', 'object_id', 'source'],
@@ -172,7 +172,7 @@ class Migration(migrations.Migration):
                 ('mapit_generation', models.PositiveIntegerField(help_text=b'The MapIt generation with boundaries for this session', null=True, blank=True)),
                 ('name', models.CharField(unique=True, max_length=200)),
                 ('slug', models.SlugField(help_text=b'specify manually', unique=True, max_length=200)),
-                ('house', models.ForeignKey(to='core.Organisation', on_delete=models.CASCADE),
+                ('house', models.ForeignKey(to='core.Organisation', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ['start_date'],
@@ -262,7 +262,7 @@ class Migration(migrations.Migration):
                 ('sorting_start_date_high', models.CharField(default=b'', max_length=10)),
                 ('sorting_end_date_high', models.CharField(default=b'', max_length=10)),
                 ('organisation', models.ForeignKey(blank=True, to='core.Organisation', null=True, on_delete=models.CASCADE)),
-                ('person', models.ForeignKey(to='core.Person', on_delete=models.CASCADE),
+                ('person', models.ForeignKey(to='core.Person', on_delete=models.CASCADE)),
                 ('place', models.ForeignKey(blank=True, to='core.Place', help_text=b'use if needed to identify the position - eg add constituency for a politician', null=True, on_delete=models.CASCADE)),
             ],
             options={

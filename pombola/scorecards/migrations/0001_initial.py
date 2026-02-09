@@ -49,8 +49,8 @@ class Migration(migrations.Migration):
                 ('source_name', models.CharField(max_length=200, blank=True)),
                 ('_equivalent_remark_rendered', models.TextField(editable=False, blank=True)),
                 ('_extended_remark_rendered', models.TextField(editable=False, blank=True)),
-                ('category', models.ForeignKey(to='scorecards.Category', on_delete=models.CASCADE),
-                ('content_type', models.ForeignKey(to='contenttypes.ContentType', on_delete=models.CASCADE),
+                ('category', models.ForeignKey(to='scorecards.Category', on_delete=models.CASCADE)),
+                ('content_type', models.ForeignKey(to='contenttypes.ContentType', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ('-date', 'category'),

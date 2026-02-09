@@ -64,7 +64,7 @@ class Migration(migrations.Migration):
                 ('created', model_utils.fields.AutoCreatedField(default=django.utils.timezone.now, verbose_name='created', editable=False)),
                 ('modified', model_utils.fields.AutoLastModifiedField(default=django.utils.timezone.now, verbose_name='modified', editable=False)),
                 ('agreement', models.IntegerField(choices=[(-2, b'strongly disagree'), (-1, b'disagree'), (0, b'neutral'), (1, b'agree'), (2, b'strongly agree')])),
-                ('party', models.ForeignKey(to='votematch.Party', on_delete=models.CASCADE),
+                ('party', models.ForeignKey(to='votematch.Party', on_delete=models.CASCADE)),
             ],
             options={
                 'abstract': False,
@@ -78,7 +78,7 @@ class Migration(migrations.Migration):
                 ('created', model_utils.fields.AutoCreatedField(default=django.utils.timezone.now, verbose_name='created', editable=False)),
                 ('modified', model_utils.fields.AutoLastModifiedField(default=django.utils.timezone.now, verbose_name='modified', editable=False)),
                 ('text', models.TextField()),
-                ('quiz', models.ForeignKey(to='votematch.Quiz', on_delete=models.CASCADE),
+                ('quiz', models.ForeignKey(to='votematch.Quiz', on_delete=models.CASCADE)),
             ],
             options={
                 'abstract': False,
@@ -94,7 +94,7 @@ class Migration(migrations.Migration):
                 ('token', models.TextField(default=pombola.votematch.models.generate_token, unique=True)),
                 ('age', models.PositiveIntegerField(null=True, blank=True)),
                 ('expected_result', models.ForeignKey(blank=True, to='votematch.Party', null=True, on_delete=models.CASCADE)),
-                ('quiz', models.ForeignKey(to='votematch.Quiz', on_delete=models.CASCADE),
+                ('quiz', models.ForeignKey(to='votematch.Quiz', on_delete=models.CASCADE)),
             ],
             options={
                 'abstract': False,
