@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='parliamentarysession',
             name='house',
-            field=models.ForeignKey(blank=True, to='core.Organisation', null=True),
+            field=models.ForeignKey(blank=True, to='core.Organisation', null=True, on_delete=models.CASCADE),
         ),
     ]

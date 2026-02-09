@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
                 ('comment', models.CharField(max_length=2000)),
                 ('status', models.CharField(default=b'pending', max_length=20, choices=[(b'pending', b'Pending'), (b'rejected', b'Rejected'), (b'applied', b'Applied'), (b'non-actionable', b'Non-actionable'), (b'spammy', b'Possible Spam')])),
                 ('response', models.TextField(blank=True)),
-                ('user', models.ForeignKey(blank=True, to=settings.AUTH_USER_MODEL, null=True)),
+                ('user', models.ForeignKey(blank=True, to=settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ['created'],

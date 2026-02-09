@@ -102,7 +102,7 @@ class Migration(migrations.Migration):
                 ('askedby', models.TextField()),
                 ('last_sayit_import', models.DateTimeField(null=True, blank=True)),
                 ('answer', models.ForeignKey(
-                    related_name='question', to='za_hansard.Answer', null=True)),
+                    related_name='question', to='za_hansard.Answer', null=True, on_delete=models.CASCADE)),
             ],
             options={
             },
@@ -183,7 +183,7 @@ class Migration(migrations.Migration):
             model_name='pmgcommitteeappearance',
             name='report',
             field=models.ForeignKey(
-                related_name='appearances', to='za_hansard.PMGCommitteeReport', null=True),
+                related_name='appearances', to='za_hansard.PMGCommitteeReport', null=True, on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AlterUniqueTogether(

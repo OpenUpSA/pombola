@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='identifier',
             name='content_type',
-            field=models.ForeignKey(related_name='pombola_identifier_set', to='contenttypes.ContentType'),
+            field=models.ForeignKey(related_name='pombola_identifier_set', to='contenttypes.ContentType', on_delete=models.CASCADE),
             preserve_default=True,
         ),
     ]

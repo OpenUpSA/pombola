@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('updated', models.DateTimeField(default=datetime.datetime.now, auto_now=True)),
                 ('alias', models.CharField(unique=True, max_length=200)),
                 ('ignored', models.BooleanField(default=False)),
-                ('person', models.ForeignKey(blank=True, to='core.Person', null=True)),
+                ('person', models.ForeignKey(blank=True, to='core.Person', null=True, on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ['alias'],
@@ -108,7 +108,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='entry',
             name='speaker',
-            field=models.ForeignKey(related_name='hansard_entries', blank=True, to='core.Person', null=True),
+            field=models.ForeignKey(related_name='hansard_entries', blank=True, to='core.Person', null=True, on_delete=models.CASCADE),
             preserve_default=True,
         ),
     ]
