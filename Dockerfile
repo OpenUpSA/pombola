@@ -4,6 +4,7 @@ ENV PYTHONUNBUFFERED 1
 ENV COUNTRY_APP=south_africa
 
 RUN echo "deb http://deb.debian.org/debian bullseye main" > /etc/apt/sources.list.d/bullseye.list && \
+    rm -rf /var/lib/apt/lists/* && \
     apt-get update && \
     apt-get install -y antiword \
             binutils \
@@ -33,6 +34,10 @@ RUN mkdir -p /var/celerybeat
 
 COPY requirements.txt /app/
 RUN pip install -r /app/requirements.txt
+
+# Patch django-slug-helpers for Django 3.2 compatibility (add on_delete to ForeignKey)
+RUN sed -i 's/models.ForeignKey(ContentType)/models.ForeignKey(ContentType, on_delete=models.CASCADE)/' \
+    /usr/local/lib/python3.9/site-packages/slug_helpers/models.py
 
 COPY . /app/
 WORKDIR /app
