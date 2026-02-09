@@ -173,7 +173,7 @@ class ModelBase(models.Model):
        abstract = True
 
 
-class ManagerBase(models.GeoManager):
+class ManagerBase(models.Manager):
     def update_or_create(self, filter_attrs, attrs):
         """Given unique look-up attributes, and extra data attributes, either
         updates the entry referred to if it exists, or creates it if it doesn't.
@@ -328,7 +328,7 @@ class InformationSource(ModelBase):
        ordering = ["content_type", "object_id", "source"]
 
 
-class PersonQuerySet(models.query.GeoQuerySet):
+class PersonQuerySet(models.QuerySet):
     def is_politician(self, when=None):
         # FIXME - Don't like the look of this, rather a big subquery.
         return self.filter(position__in=Position.objects.all().current_politician_positions(when))
@@ -859,7 +859,7 @@ COMMITTEE_GROUP_SLUGS_CASE_WHEN = Case(
     ]
 )
 
-class OrganisationQuerySet(models.query.GeoQuerySet):
+class OrganisationQuerySet(models.QuerySet):
     def order_by_house_then_by(self, *args):
         """
         Order the organisation queryset according to the list of committee houses,
@@ -1054,7 +1054,7 @@ class PlaceKind(ModelBase):
             return sessions
 
 
-class PlaceQuerySet(models.query.GeoQuerySet):
+class PlaceQuerySet(models.QuerySet):
     def constituencies(self):
         return self.filter(kind__slug='constituency')
 
@@ -1415,7 +1415,7 @@ class PositionTitle(ModelBase):
        ordering = ["slug"]
 
 
-class PositionQuerySet(models.query.GeoQuerySet):
+class PositionQuerySet(models.QuerySet):
     def currently_active(self, when=None):
         """Filter on start and end dates to limit to currently active positions"""
 

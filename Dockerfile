@@ -35,7 +35,7 @@ RUN mkdir -p /var/celerybeat
 COPY requirements.txt /app/
 RUN pip install -r /app/requirements.txt
 
-# Patch django-slug-helpers for Django 3.2 compatibility (add on_delete to ForeignKey)
+# Monkey patch django-slug-helpers by adding on_delete to ForeignKeys for Django 3.2 compatibility
 RUN sed -i 's/models.ForeignKey(ContentType)/models.ForeignKey(ContentType, on_delete=models.CASCADE)/' \
     /usr/local/lib/python3.9/site-packages/slug_helpers/models.py
 
