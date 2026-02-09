@@ -44,13 +44,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='task',
             name='category',
-            field=models.ForeignKey(to='tasks.TaskCategory'),
+            field=models.ForeignKey(to='tasks.TaskCategory', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='task',
             name='content_type',
-            field=models.ForeignKey(to='contenttypes.ContentType'),
+            field=models.ForeignKey(to='contenttypes.ContentType', on_delete=models.CASCADE),
             preserve_default=True,
         ),
     ]

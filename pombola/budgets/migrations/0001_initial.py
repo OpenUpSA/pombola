@@ -52,13 +52,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='budget',
             name='budget_session',
-            field=models.ForeignKey(to='budgets.BudgetSession', null=True),
+            field=models.ForeignKey(to='budgets.BudgetSession', null=True, on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='budget',
             name='content_type',
-            field=models.ForeignKey(to='contenttypes.ContentType'),
+            field=models.ForeignKey(to='contenttypes.ContentType', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AlterUniqueTogether(

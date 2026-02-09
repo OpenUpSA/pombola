@@ -46,7 +46,7 @@ class Migration(migrations.Migration):
                 ('sort_order', models.IntegerField()),
                 ('is_active', models.BooleanField(default=True)),
                 ('object_id', models.PositiveIntegerField()),
-                ('content_type', models.ForeignKey(to='contenttypes.ContentType')),
+                ('content_type', models.ForeignKey(to='contenttypes.ContentType'), on_delete=models.CASCADE),
             ],
             options={
                 'ordering': ('sort_order', 'id'),

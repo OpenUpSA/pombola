@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
                 ('total_cost', models.FloatField()),
                 ('first_funding_year', models.IntegerField(null=True, blank=True)),
                 ('location', django.contrib.gis.db.models.fields.PointField(srid=4326)),
-                ('constituency', models.ForeignKey(to='core.Place')),
+                ('constituency', models.ForeignKey(to='core.Place'), on_delete=models.CASCADE),
             ],
             options={
                 'ordering': ['-total_cost'],
