@@ -1,10 +1,10 @@
-from haystack.backends.elasticsearch2_backend import (
-    Elasticsearch2SearchBackend,
-    Elasticsearch2SearchEngine,
+from haystack.backends.elasticsearch7_backend import (
+    Elasticsearch7SearchBackend,
+    Elasticsearch7SearchEngine,
     )
 
 
-class ZAElasticBackend(Elasticsearch2SearchBackend):
+class ZAElasticBackend(Elasticsearch7SearchBackend):
     def __init__(self, connection_alias, **connection_options):
         super().__init__(
             connection_alias, **connection_options)
@@ -21,7 +21,7 @@ class ZAElasticBackend(Elasticsearch2SearchBackend):
 
         analyzers['folding'] = {
             "tokenizer": "standard",
-            "filter": ["standard", "lowercase", "stop", "snowball", "asciifolding"],
+            "filter": ["lowercase", "stop", "snowball", "asciifolding"],
             }
 
     def build_schema(self, fields):
@@ -31,7 +31,7 @@ class ZAElasticBackend(Elasticsearch2SearchBackend):
         for field_name, field_class in fields.items():
             field_mapping = mapping[field_class.index_fieldname]
 
-            if field_mapping['type'] == 'string' and field_class.indexed:
+            if field_mapping['type'] == 'text' and field_class.indexed:
                 if not hasattr(field_class, 'facet_for') and \
                         not field_class.field_type in('ngram', 'edge_ngram'):
                     field_mapping["analyzer"] = "folding"
@@ -41,6 +41,6 @@ class ZAElasticBackend(Elasticsearch2SearchBackend):
         return (content_field_name, mapping)
 
 
-class ZAElasticSearchEngine(Elasticsearch2SearchEngine):
+class ZAElasticSearchEngine(Elasticsearch7SearchEngine):
     """Subclass to use the new subclassed backend"""
     backend = ZAElasticBackend

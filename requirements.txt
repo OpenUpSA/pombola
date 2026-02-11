@@ -64,7 +64,7 @@ lxml==4.9.1
 django-markitup==4.1.0
 
 requests==2.27.1
-elasticsearch==2.4.1
+elasticsearch>=7.0.0,<8.0.0
 django-haystack==3.2.1
 # Required (but not a declared requirement) of elasticsearch
 urllib3==1.26.20
