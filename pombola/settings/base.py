@@ -509,6 +509,7 @@ def make_enabled_features(installed_apps, all_optional_apps):
 
 PIPELINE = {
     "COMPILERS": ("pipeline_compass.compass.CompassCompiler",),
+    "COMPASS_ARGUMENTS": ["-I", os.path.join(base_dir, "pombola", "core", "static", "sass")],
     "CSS_COMPRESSOR": None, # "pombola.pipeline.compressor.LoggingYUICompressor",
     "JS_COMPRESSOR": None, # "pombola.pipeline.compressor.LoggingYUICompressor",
     "YUI_BINARY": "/usr/bin/env yui-compressor",
