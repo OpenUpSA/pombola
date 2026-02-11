@@ -49,6 +49,8 @@ class HomeView(TemplateView):
 
         context = super(HomeView, self).get_context_data(**kwargs)
 
+        context['object'] = None
+
         before, after = (self.request.GET.get(k) for k in ('before', 'after'))
         current_slug = before or after
 
