@@ -303,7 +303,7 @@ HAYSTACK_CONNECTIONS = {
     # 'PATH': os.path.join(os.path.dirname(__file__), 'xapian_index'),
     # },
     "default": {
-        "ENGINE": "haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine",
+        "ENGINE": "haystack.backends.elasticsearch2_backend.Elasticsearch2SearchEngine",
         "URL": os.environ.get("ELASTICSEARCH_URL"),
         "PORT": urlparse(os.environ.get("ELASTICSEARCH_URL")).port,
         "INDEX_NAME": os.environ.get("ELASTICSEARCH_INDEX", "pombola"),

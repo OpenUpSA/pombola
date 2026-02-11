@@ -1,12 +1,12 @@
-from haystack.backends.elasticsearch_backend import (
-    ElasticsearchSearchBackend,
-    ElasticsearchSearchEngine,
+from haystack.backends.elasticsearch2_backend import (
+    Elasticsearch2SearchBackend,
+    Elasticsearch2SearchEngine,
     )
 
 
-class ZAElasticBackend(ElasticsearchSearchBackend):
+class ZAElasticBackend(Elasticsearch2SearchBackend):
     def __init__(self, connection_alias, **connection_options):
-        super(ZAElasticBackend, self).__init__(
+        super().__init__(
             connection_alias, **connection_options)
 
         analyzers = self.DEFAULT_SETTINGS['settings']['analysis']['analyzer']
@@ -25,7 +25,7 @@ class ZAElasticBackend(ElasticsearchSearchBackend):
             }
 
     def build_schema(self, fields):
-        content_field_name, mapping = super(ZAElasticBackend, self).build_schema(fields)
+        content_field_name, mapping = super().build_schema(fields)
 
         # Change all the mappings that were 'snowball' to 'folding'
         for field_name, field_class in fields.items():
@@ -41,6 +41,6 @@ class ZAElasticBackend(ElasticsearchSearchBackend):
         return (content_field_name, mapping)
 
 
-class ZAElasticSearchEngine(ElasticsearchSearchEngine):
+class ZAElasticSearchEngine(Elasticsearch2SearchEngine):
     """Subclass to use the new subclassed backend"""
     backend = ZAElasticBackend
