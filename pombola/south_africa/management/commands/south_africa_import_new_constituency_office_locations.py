@@ -14,7 +14,7 @@ on constituency offices to have the correct location.
 import csv
 import os.path
 import re
-from StringIO import StringIO
+from io import BytesIO
 
 from PIL import Image as PillowImage
 
@@ -139,11 +139,11 @@ class Command(BaseCommand):
                         )
                     continue
                 except Image.DoesNotExist:
-                    print "Adding new image to {}.".format(org.slug)
+                    print("Adding new image to {}.".format(org.slug))
 
                 if photo_url:
                     response = requests.get(photo_url)
-                    extension = get_image_extension(StringIO(response.content))
+                    extension = get_image_extension(BytesIO(response.content))
 
                     if extension is None:
                         continue
@@ -152,7 +152,7 @@ class Command(BaseCommand):
 
                     desired_storage_path = os.path.join(storage_path, image_filename)
 
-                    storage_filename = storage.save(desired_storage_path, StringIO(response.content))
+                    storage_filename = storage.save(desired_storage_path, BytesIO(response.content))
 
                     image = Image(
                         content_object=org,

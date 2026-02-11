@@ -1,5 +1,5 @@
 import csv
-import StringIO
+from io import StringIO
 
 from django.core.management.base import BaseCommand
 
@@ -41,7 +41,7 @@ class Command(BaseCommand):
 
             politician_data.append(data)
         
-        csv_output = StringIO.StringIO()
+        csv_output = StringIO()
         csv_fieldnames =  [ 'Name', 'Constituency' ] + sorted( list(scorecard_field_names_set) )
         writer = csv.DictWriter( csv_output, csv_fieldnames )
         

@@ -1,8 +1,7 @@
 import re
 import requests
 import requests_cache
-import urllib
-import urlparse
+from urllib.parse import urlsplit, urlunsplit, quote
 
 from utils import add_membership, idFactory, PROVINCES
 
@@ -13,11 +12,11 @@ def fix_url(url):
     # The path component of the URLs in the current South African
     # Popolo JSON have Unicode characters that need to be UTF-8
     # encoded and percent-escaped:
-    parts = urlparse.urlsplit(url)
-    fixed_path = urllib.quote(parts.path.encode('UTF-8'))
+    parts = urlsplit(url)
+    fixed_path = quote(parts.path.encode('UTF-8'))
     parts = list(parts)
     parts[2] = fixed_path
-    url = urlparse.urlunsplit(parts)
+    url = urlunsplit(parts)
     # A hash in the URL is really actually not.
     url = url.replace('#', '%23')
     return url

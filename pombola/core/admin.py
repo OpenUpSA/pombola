@@ -29,7 +29,7 @@ class ContentTypeModelAdmin(admin.ModelAdmin):
         if obj.content_object:
             return create_admin_link_for(
                 obj.content_object,
-                unicode(obj.content_object)
+                str(obj.content_object)
             )
         return ''
 
@@ -83,6 +83,12 @@ class ContactInlineAdmin(GenericTabularInline):
             'widget': forms.Textarea(attrs={'rows':2, 'cols':20}),
             },
     }
+
+    def get_queryset(self, request):
+        queryset = super(ContactInlineAdmin, self).get_queryset(request)
+        if queryset is None:
+            return self.model.objects.none()
+        return queryset.select_related('kind')
 
 
 @admin.register(models.Identifier)
@@ -177,7 +183,9 @@ class PositionInlineAdmin(admin.TabularInline):
 
     def get_queryset(self, request):
         queryset = super(PositionInlineAdmin, self).get_queryset(request)
-        return queryset.select_related('person', 'organisation', 'title')
+        if queryset is None:
+            return self.model.objects.none()
+        return queryset.select_related('person', 'organisation', 'title', 'place')
 
 class ScorecardInlineAdmin(GenericTabularInline):
     model = scorecard_models.Entry
@@ -202,6 +210,19 @@ class PersonAdmin(StricterSlugFieldMixin, admin.ModelAdmin):
     list_display = ['slug', 'name', 'date_of_birth']
     list_filter = ['can_be_featured']
     search_fields = ['legal_name']
+
+    def get_queryset(self, request):
+        qs = super(PersonAdmin, self).get_queryset(request)
+        return qs.prefetch_related(
+            'alternative_names',
+            'position_set__organisation',
+            'position_set__person',
+            'position_set__title',
+            'position_set__place',
+            'contacts',
+            'images',
+            'identifiers',
+        )
 
 
 @admin.register(models.Place)

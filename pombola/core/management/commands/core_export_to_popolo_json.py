@@ -4,7 +4,7 @@
 import json
 from optparse import make_option
 from os.path import exists, isdir, join
-import urlparse
+from urllib.parse import urlparse
 
 from pombola.core.popolo import get_popolo_data
 
@@ -31,7 +31,7 @@ class Command(BaseCommand):
         if not (exists(output_directory) and isdir(output_directory)):
             message = "'{0}' was not a directory"
             raise CommandError(message.format(output_directory))
-        parsed_url = urlparse.urlparse(pombola_url)
+        parsed_url = urlparse(pombola_url)
         if not parsed_url.netloc:
             message = "The Pombola URL must begin http:// or https://"
             raise CommandError(message)

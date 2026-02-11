@@ -142,7 +142,7 @@ class SAMpAttendanceView(TemplateView):
         for position in active_minister_positions:
             ministers[position.person.slug].append(position)
 
-        minister_slugs = ministers.keys()
+        minister_slugs = list(ministers.keys())
 
         minister_attendance = []
         mp_attendance = []

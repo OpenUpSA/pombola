@@ -30,8 +30,7 @@ from __future__ import unicode_literals, print_function
 import re
 import sys
 import csv
-from urllib import unquote
-from urlparse import urlsplit
+from urllib.parse import unquote, urlsplit
 from django.core.management.base import LabelCommand
 
 class Command(LabelCommand):

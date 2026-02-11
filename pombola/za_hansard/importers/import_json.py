@@ -1,7 +1,7 @@
 from datetime import datetime
 import json
 import re
-from urlparse import urlsplit
+from urllib.parse import urlsplit
 
 from pombola.za_hansard.importers.import_base import ImportZAMixin
 from speeches.importers.import_base import ImporterBase

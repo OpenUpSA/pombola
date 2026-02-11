@@ -3,8 +3,8 @@ from __future__ import division
 import re
 import os
 from datetime import date, time
-from StringIO import StringIO
-from urlparse import urlparse
+from io import StringIO
+from urllib.parse import urlparse
 from collections import OrderedDict
 from datetime import datetime
 

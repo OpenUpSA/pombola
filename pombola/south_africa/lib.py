@@ -1,9 +1,9 @@
-import urlparse
+from urllib.parse import urlparse, urlunparse
 
 def make_pa_url(pombola_object, base_url):
-    parsed_url = list(urlparse.urlparse(base_url))
+    parsed_url = list(urlparse(base_url))
     parsed_url[2] = pombola_object.get_absolute_url()
-    return urlparse.urlunparse(parsed_url)
+    return urlunparse(parsed_url)
 
 def add_extra_popolo_data_for_person(person, popolo_object, base_url):
     popolo_object['pa_url'] = make_pa_url(person, base_url)

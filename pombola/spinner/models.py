@@ -72,7 +72,7 @@ class Slide(models.Model):
     objects = SlideQuerySet.as_manager()
 
     def __str__(self):
-        return u"Slide of '{0}'".format( self.content_object )
+        return "Slide of '{0}'".format( self.content_object )
 
     @property
     def template_class(self):

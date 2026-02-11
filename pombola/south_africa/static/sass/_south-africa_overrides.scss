@@ -3877,6 +3877,10 @@ ul.attendance__notes {
 }
 
 .mp-attendance {
+    #page {
+        min-height: calc(100vh - 500px);
+    }
+
     #warning-notice {
         background-color: #e23d28;
         color: #fff;

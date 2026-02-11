@@ -17,7 +17,7 @@ import re
 import datetime
 import parsedatetime as pdt
 from warnings import warn
-from urlparse import urlsplit, urlunsplit
+from urllib.parse import urlsplit, urlunsplit
 
 from BeautifulSoup import BeautifulSoup, BeautifulStoneSoup
 
