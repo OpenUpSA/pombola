@@ -39,7 +39,9 @@ class SAMembersInterestsIndex(TemplateView):
             context[key] = 'all'
             if key == 'release':
                 # Default to latest release
-                context[key] = context['releases'].first().slug
+                latest_release = context['releases'].first()
+                if latest_release:
+                    context[key] = latest_release.slug
             if key in self.request.GET:
                 context[key] = self.request.GET[key]
 
