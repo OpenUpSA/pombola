@@ -65,6 +65,11 @@
 
 {% block branding %}
     <h1 id="site-name">{% trans 'Pombola administration' %}</h1>
+    {% if deployment %}
+    <p style="font-size: 0.7em; color: #999; margin: 0;">
+      {{ deployment.server_name }} | {{ deployment.git_commit }}
+    </p>
+    {% endif %}
 {% endblock %}
 
 {% block nav-global %}
