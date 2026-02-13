@@ -6,6 +6,7 @@ from django.urls import re_path as url
 from django.contrib.admin.views.decorators import staff_member_required
 from django.urls import reverse
 from django.shortcuts  import render, redirect
+from django.utils.safestring import mark_safe
 
 from slug_helpers.admin import StricterSlugFieldMixin
 
@@ -20,7 +21,7 @@ def create_admin_url_for(obj):
 
 def create_admin_link_for(obj, link_text):
     url = create_admin_url_for( obj )
-    return u'<a href="%s">%s</a>' % ( url, link_text )
+    return mark_safe(u'<a href="%s">%s</a>' % ( url, link_text ))
 
 
 @admin.register(models.Task)
@@ -32,7 +33,6 @@ class TaskAdmin(admin.ModelAdmin):
     
     def show_foreign(self, obj):
         return create_admin_link_for( obj.content_object, str(obj.content_object) )
-    show_foreign.allow_tags = True
 
     def get_urls(self):
         urls = super(TaskAdmin, self).get_urls()
