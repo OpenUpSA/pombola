@@ -237,9 +237,9 @@ class PlaceAdmin(StricterSlugFieldMixin, admin.ModelAdmin):
     def get_field_queryset(self, db, db_field, request):
         if db_field.name == 'parent_place':
             fields = ('kind', 'organisation', 'parliamentary_session')
-            return db_field.rel.to.objects.select_related(*fields)
+            return db_field.remote_field.model.objects.select_related(*fields)
         elif db_field.name == 'organisation':
-            return db_field.rel.to.objects.select_related('kind')
+            return db_field.remote_field.model.objects.select_related('kind')
         return None
 
     def get_queryset(self, request):

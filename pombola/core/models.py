@@ -1934,7 +1934,7 @@ def raw_query_with_prefetch(query_model, query, params, fields_prefetches):
     fields = [f for f, _ in fields_prefetches]
     # Check that each field is really a ForeignKey, and get the mode it refers to:
     name_to_field = {
-        f.name: f.rel.to for f in query_model._meta.fields
+        f.name: f.remote_field.model for f in query_model._meta.fields
         if f.get_internal_type() == 'ForeignKey'
     }
     for f in fields:
