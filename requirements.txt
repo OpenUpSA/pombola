@@ -5,8 +5,12 @@
 gunicorn==19.9.0
 gevent==20.12.1
 greenlet==0.4.17
+zope.interface==5.5.2
+zope.event==4.6
 psycogreen==1.0.1
+
 setuptools==75.8.0
+six==1.17.0
 
 ### General useful bits
 py-bcrypt==0.4
