@@ -44,7 +44,7 @@ class SearchBaseView(TemplateView):
             'persons': {
                 'model': models.Person,
                 'title': 'People',
-                'exclude': {'hidden': True},
+                'exclude': {'hidden': 'true'},
             },
             'position_titles': {
                 'model': models.PositionTitle,
@@ -184,7 +184,7 @@ class SearchBaseView(TemplateView):
         for top_hit_id in top_hits_ids:
             sqs = sqs.exclude(id=top_hit_id)
         sqs = sqs. \
-            exclude(hidden=True). \
+            exclude(hidden='true'). \
             filter(content=self.generate_fuzzy_query_object(self.query)). \
             highlight()
 
@@ -455,7 +455,7 @@ def autocomplete(request):
             sqs = sqs.filter_and(
                 name_auto__startswith = sqs.query.clean( bit )
             )
-        sqs = sqs.exclude(hidden=False)
+        sqs = sqs.exclude(hidden='false')
 
         # If we have a kind then filter on that too
         model_kind = request.GET.get('model', None)
