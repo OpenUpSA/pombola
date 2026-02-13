@@ -71,10 +71,10 @@ urlpatterns += (
 )
 
 # SayIt - speeches
-#if settings.ENABLED_FEATURES['speeches']:
-#    urlpatterns += (
-#        url(r'^speeches/', include('speeches.urls', namespace='speeches', app_name='speeches-default')),
-#    )
+if settings.ENABLED_FEATURES['speeches']:
+    urlpatterns += (
+        url(r'^speeches/', include('speeches.urls', namespace='speeches')),
+    )
 
 # Hansard pages
 if settings.ENABLED_FEATURES['hansard']:
