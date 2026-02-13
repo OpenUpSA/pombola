@@ -51,7 +51,7 @@ django-autocomplete-light==2.3.3
 django-slug-helpers==0.0.3
 -e git+https://github.com/michaelglenister/django-file-archive@e394d4b7ef8bcbb607e62ec306ae215770b6d118#egg=django-file-archive
 # django-info-pages
--e git+https://github.com/michaelglenister/django-info-pages@b3ccca4#egg=django-info-pages
+-e git+https://github.com/michaelglenister/django-info-pages@77b39a437c79da227276f5211e846850c34c9881#egg=django-info-pages
 
 Markdown==2.6.11
 
