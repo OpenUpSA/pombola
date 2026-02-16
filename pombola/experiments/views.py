@@ -3,7 +3,7 @@ from random import randint, choice
 import re
 import sys
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils.http import urlquote
 from django.views.generic.base import RedirectView
 

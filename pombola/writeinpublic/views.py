@@ -6,7 +6,7 @@ from django.http import Http404
 from django.conf import settings
 from django.utils.decorators import method_decorator
 from django.contrib import messages
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 import logging
 

@@ -3,7 +3,7 @@ from model_utils.models import TimeStampedModel
 from markitup.fields import MarkupField
 from random import choice
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 agreement_choices = (
     (-2, 'strongly disagree'),
@@ -23,7 +23,7 @@ class Quiz(TimeStampedModel):
     name = models.TextField(unique=True)
     slug = models.SlugField(max_length=200, unique=True, help_text="created from name")
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
     
     def get_absolute_url(self):
@@ -35,22 +35,22 @@ class Quiz(TimeStampedModel):
 
 class Statement(TimeStampedModel):
     """ eg 'Cannabis SHOULD be legalised' """
-    quiz = models.ForeignKey('Quiz')
+    quiz = models.ForeignKey('Quiz', on_delete=models.CASCADE)
     text = models.TextField()
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s (%s)" % ( self.text, self.quiz )
 
 
 class Party(TimeStampedModel):
     """ eg 'Mitt Romney' or 'Lib Dems' """
-    quiz = models.ForeignKey('Quiz')
+    quiz = models.ForeignKey('Quiz', on_delete=models.CASCADE)
     name = models.TextField()
 
     url = models.URLField(blank=True, null=True)
     summary = MarkupField(blank=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s (%s)" % ( self.name, self.quiz )
 
     class Meta:
@@ -59,26 +59,26 @@ class Party(TimeStampedModel):
 
 class Stance(TimeStampedModel):
     """eg 'LibDems' <strongly agree> with 'Cannabis should be legalised' """
-    statement = models.ForeignKey('Statement')
-    party = models.ForeignKey('Party')
+    statement = models.ForeignKey('Statement', on_delete=models.CASCADE)
+    party = models.ForeignKey('Party', on_delete=models.CASCADE)
     agreement = models.IntegerField(choices=agreement_choices)
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s - %s - %s" % ( self.party.name, self.get_agreement_display(), self.statement.text )
 
 
 class Submission(TimeStampedModel):
     """ a single submission of answers for the quiz, and some demographic data """
-    quiz            = models.ForeignKey('Quiz')    
+    quiz            = models.ForeignKey('Quiz', on_delete=models.CASCADE)    
 
     # TODO - there is no handling of token conflicts. There probably should be.
     token           = models.TextField(default=generate_token, unique=True)
 
     # demographic fields
     age             = models.PositiveIntegerField(blank=True, null=True)
-    expected_result = models.ForeignKey('Party', blank=True, null=True)
+    expected_result = models.ForeignKey('Party', blank=True, null=True, on_delete=models.SET_NULL)
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s (%s)" % ( self.token, self.quiz )
     
     def get_absolute_url(self):
@@ -94,11 +94,11 @@ class Submission(TimeStampedModel):
 
 class Answer(TimeStampedModel):
     """A visitor's agreement with a given statement"""
-    submission = models.ForeignKey('Submission')
-    statement  = models.ForeignKey('Statement')
+    submission = models.ForeignKey('Submission', on_delete=models.CASCADE)
+    statement  = models.ForeignKey('Statement', on_delete=models.CASCADE)
     agreement  = models.IntegerField(choices=agreement_choices)
     
-    def __unicode__(self):
+    def __str__(self):
         return "%s - %s - %s" % ( self.submission, self.get_agreement_display(), self.statement.text )
     
      

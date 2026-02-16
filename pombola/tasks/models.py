@@ -25,11 +25,11 @@ class TaskCategory(models.Model):
 class Task(models.Model):
 
     # link to other objects using the ContentType system
-    content_type   = models.ForeignKey(ContentType)
+    content_type   = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id      = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 
-    category      = models.ForeignKey(TaskCategory)
+    category      = models.ForeignKey(TaskCategory, on_delete=models.CASCADE)
 
     created       = models.DateTimeField(auto_now_add=True)
     defer_until   = models.DateTimeField(auto_now_add=True)
@@ -45,7 +45,7 @@ class Task(models.Model):
             self.priority = self.category.priority
 
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s for %s" % ( self.category.slug, self.content_object )
 
 

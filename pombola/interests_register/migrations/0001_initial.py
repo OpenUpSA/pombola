@@ -30,8 +30,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('sort_order', models.IntegerField()),
-                ('category', models.ForeignKey(related_name='entries', to='interests_register.Category')),
-                ('person', models.ForeignKey(related_name='interests_register_entries', to='core.Person')),
+                ('category', models.ForeignKey(related_name='entries', to='interests_register.Category', on_delete=models.CASCADE)),
+                ('person', models.ForeignKey(related_name='interests_register_entries', to='core.Person', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ('person__legal_name', '-release__date', 'category__sort_order', 'category__name', 'sort_order'),
@@ -45,7 +45,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('key', models.CharField(max_length=240)),
                 ('value', models.TextField()),
-                ('entry', models.ForeignKey(related_name='line_items', to='interests_register.Entry')),
+                ('entry', models.ForeignKey(related_name='line_items', to='interests_register.Entry', on_delete=models.CASCADE)),
             ],
             options={
             },
@@ -67,7 +67,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='entry',
             name='release',
-            field=models.ForeignKey(related_name='entries', to='interests_register.Release'),
+            field=models.ForeignKey(related_name='entries', to='interests_register.Release', on_delete=models.CASCADE),
             preserve_default=True,
         ),
     ]

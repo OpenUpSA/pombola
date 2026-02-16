@@ -208,15 +208,15 @@ FILE_UPLOAD_HANDLERS = (
     "django.core.files.uploadhandler.TemporaryFileUploadHandler",
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     # first in list so it is able to act last on response
     "django.middleware.gzip.GZipMiddleware",
 )
 
 if os.environ.get("DJANGO_DEBUG_TOOLBAR", "false").lower() == "true":
-    MIDDLEWARE_CLASSES += ("debug_toolbar.middleware.DebugToolbarMiddleware",)
+    MIDDLEWARE += ("debug_toolbar.middleware.DebugToolbarMiddleware",)
 
-MIDDLEWARE_CLASSES += (
+MIDDLEWARE += (
     "corsheaders.middleware.CorsMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.middleware.cache.UpdateCacheMiddleware",
@@ -303,7 +303,7 @@ HAYSTACK_CONNECTIONS = {
     # 'PATH': os.path.join(os.path.dirname(__file__), 'xapian_index'),
     # },
     "default": {
-        "ENGINE": "haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine",
+        "ENGINE": "haystack.backends.elasticsearch7_backend.Elasticsearch7SearchEngine",
         "URL": os.environ.get("ELASTICSEARCH_URL"),
         "PORT": urlparse(os.environ.get("ELASTICSEARCH_URL")).port,
         "INDEX_NAME": os.environ.get("ELASTICSEARCH_INDEX", "pombola"),
@@ -426,7 +426,8 @@ INSTALLED_APPS = (
     "constance.backends.database",
     "constance",
     "pombola.admin_additions",
-    "autocomplete_light",
+    "dal",
+    "dal_select2",
     "django.contrib.admin",
     "django.contrib.admindocs",
     "ajax_select",
@@ -508,6 +509,7 @@ def make_enabled_features(installed_apps, all_optional_apps):
 
 PIPELINE = {
     "COMPILERS": ("pipeline_compass.compass.CompassCompiler",),
+    "COMPASS_ARGUMENTS": ["-I", os.path.join(base_dir, "pombola", "core", "static", "sass")],
     "CSS_COMPRESSOR": None, # "pombola.pipeline.compressor.LoggingYUICompressor",
     "JS_COMPRESSOR": None, # "pombola.pipeline.compressor.LoggingYUICompressor",
     "YUI_BINARY": "/usr/bin/env yui-compressor",

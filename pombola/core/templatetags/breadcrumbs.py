@@ -18,7 +18,7 @@ from django.template import Library
 from django.utils.html import escape
 from django.utils.http import urlquote
 from django.utils.safestring import mark_safe
-from django.core.urlresolvers import resolve, Resolver404
+from django.urls import resolve, Resolver404
 from django.conf import settings
 import re
 from urllib.parse import urlparse

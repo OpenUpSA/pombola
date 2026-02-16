@@ -29,6 +29,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='sourceparsinglog',
             name='source',
-            field=models.ForeignKey(to='za_hansard.Source'),
+            field=models.ForeignKey(to='za_hansard.Source', on_delete=models.CASCADE),
         ),
     ]

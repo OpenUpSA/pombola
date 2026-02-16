@@ -2,7 +2,7 @@ from datetime import date
 import unittest
 
 from django.conf import settings
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django_webtest import WebTest
 from django.test.utils import override_settings
 from django.test import TestCase, RequestFactory

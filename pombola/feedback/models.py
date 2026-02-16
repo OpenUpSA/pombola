@@ -11,7 +11,7 @@ class Feedback(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-    user    = models.ForeignKey( User, blank=True, null=True )
+    user    = models.ForeignKey( User, blank=True, null=True, on_delete=models.SET_NULL )
     email   = models.EmailField( blank=True, help_text="Please let us have your email address so that we can get back to you." )
     url     = models.URLField( blank=True )
     comment = models.CharField(max_length=2000)
@@ -30,7 +30,7 @@ class Feedback(models.Model):
     
     response = models.TextField( blank=True )
 
-    def __unicode__(self):
+    def __str__(self):
         return self.comment[:100]
     
     class Meta:

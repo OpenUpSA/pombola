@@ -1,9 +1,10 @@
-from django.conf.urls import url
+from django.urls import re_path as url
 from django.views.generic import TemplateView
 from django.views.decorators.cache import never_cache
 
 from . import views
 
+app_name = 'writeinpublic'
 
 write_message_wizard = views.WriteInPublicNewMessage.as_view(url_name='writeinpublic:writeinpublic-new-message-step')
 

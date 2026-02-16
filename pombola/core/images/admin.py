@@ -1,10 +1,6 @@
 from django.contrib import admin
-try:
-    from django.contrib.contenttypes.admin import GenericTabularInline
-except ImportError:
-    # This fallback import is the version that was deprecated in
-    # Django 1.7 and is removed in 1.9:
-    from django.contrib.contenttypes.generic import GenericTabularInline
+from django.contrib.contenttypes.admin import GenericTabularInline
+from django.utils.safestring import mark_safe
 
 
 from sorl.thumbnail import get_thumbnail
@@ -20,10 +16,9 @@ class ImageAdmin(AdminImageMixin, admin.ModelAdmin):
     def thumbnail(self, obj):
         if obj.image:
             im = get_thumbnail(obj.image, '100x100')
-            return '<img src="%s" />' % ( im.url )
+            return mark_safe('<img src="%s" />' % ( im.url ))
         else:
             return "NO IMAGE FOUND"
-    thumbnail.allow_tags = True
 
 
 class ImageAdminInline(AdminImageMixin, GenericTabularInline):

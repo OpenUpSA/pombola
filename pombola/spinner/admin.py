@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.safestring import mark_safe
 
 from sorl.thumbnail import get_thumbnail
 from sorl.thumbnail.admin import AdminImageMixin
@@ -20,10 +21,9 @@ class ImageContentAdmin(AdminImageMixin, admin.ModelAdmin):
     def thumbnail(self, obj):
         if obj.image:
             im = get_thumbnail(obj.image, '100x100')
-            return '<img src="%s" />' % ( im.url )
+            return mark_safe('<img src="%s" />' % ( im.url ))
         else:
             return "NO IMAGE FOUND"
-    thumbnail.allow_tags = True
 
 
 @admin.register(models.QuoteContent)

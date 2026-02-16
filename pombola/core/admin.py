@@ -4,6 +4,7 @@ from django.contrib.admin.models import LogEntry
 from django.contrib.gis import db
 from django.contrib.contenttypes.admin import GenericTabularInline
 from django.utils.html import escape
+from django.utils.safestring import mark_safe
 
 from ajax_select import make_ajax_form
 from ajax_select.admin import AjaxSelectAdmin
@@ -17,10 +18,10 @@ from pombola.scorecards import models as scorecard_models
 admin.site.register(models.ParliamentarySession)
 
 def create_admin_link_for(obj, link_text):
-    return u'<a href="{url}">{link_text}</a>'.format(
+    return mark_safe(u'<a href="{url}">{link_text}</a>'.format(
         url=obj.get_admin_url(),
         link_text=escape(link_text)
-    )
+    ))
 
 
 class ContentTypeModelAdmin(admin.ModelAdmin):
@@ -33,7 +34,6 @@ class ContentTypeModelAdmin(admin.ModelAdmin):
             )
         return ''
 
-    show_foreign.allow_tags = True
 
 
 @admin.register(models.ContactKind)
@@ -133,27 +133,23 @@ class PositionAdmin(AjaxSelectAdmin):
 
     def show_person(self, obj):
         return create_admin_link_for(obj.person, obj.person.name)
-    show_person.allow_tags = True
 
     def show_organisation(self, obj):
         if obj.organisation:
             return create_admin_link_for(obj.organisation, obj.organisation.name)
         return ''
-    show_organisation.allow_tags = True
 
     def show_place(self, obj):
         return (
             create_admin_link_for(obj.place, obj.place.name)
-            if obj.place else "&mdash;"
+            if obj.place else mark_safe("&mdash;")
             )
-    show_place.allow_tags = True
 
     def show_title(self, obj):
         return (
             create_admin_link_for(obj.title, obj.title.name)
-            if obj.title else "&mdash;"
+            if obj.title else mark_safe("&mdash;")
             )
-    show_title.allow_tags = True
 
 
 class PositionInlineAdmin(admin.TabularInline):
@@ -241,9 +237,9 @@ class PlaceAdmin(StricterSlugFieldMixin, admin.ModelAdmin):
     def get_field_queryset(self, db, db_field, request):
         if db_field.name == 'parent_place':
             fields = ('kind', 'organisation', 'parliamentary_session')
-            return db_field.rel.to.objects.select_related(*fields)
+            return db_field.remote_field.model.objects.select_related(*fields)
         elif db_field.name == 'organisation':
-            return db_field.rel.to.objects.select_related('kind')
+            return db_field.remote_field.model.objects.select_related('kind')
         return None
 
     def get_queryset(self, request):
@@ -257,7 +253,6 @@ class PlaceAdmin(StricterSlugFieldMixin, admin.ModelAdmin):
                 obj.organisation, obj.organisation.name)
         else:
             return '-'
-    show_organisation.allow_tags = True
 
 
 class PlaceInlineAdmin(admin.TabularInline):

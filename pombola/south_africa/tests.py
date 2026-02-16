@@ -20,7 +20,7 @@ from django.test.utils import override_settings
 
 from django.core.cache import caches
 
-from django.core.urlresolvers import reverse, resolve
+from django.urls import reverse, resolve
 from django.core.management import call_command
 from django_date_extensions.fields import ApproximateDate
 from django_webtest import WebTest

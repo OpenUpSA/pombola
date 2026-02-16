@@ -2,7 +2,7 @@ import os
 import re
 
 from django.conf import settings
-from django.conf.urls import include, url
+from django.urls import include, re_path as url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -38,7 +38,7 @@ if settings.ENABLED_FEATURES['hansard']:
         EntryViewSet, SittingViewSet, SourceViewSet, VenueViewSet
     )
     api_router.register(r'hansard/entries', EntryViewSet)
-    api_router.register(r'hansard/sittings', SittingViewSet, base_name='sitting')
+    api_router.register(r'hansard/sittings', SittingViewSet, basename='sitting')
     api_router.register(r'hansard/sources', SourceViewSet)
     api_router.register(r'hansard/venues', VenueViewSet)
 
@@ -51,8 +51,7 @@ from ajax_select import urls as ajax_select_urls
 urlpatterns += (
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/lookups/', include(ajax_select_urls)),
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^autocomplete_light/', include('autocomplete_light.urls')),
+    url(r'^admin/', admin.site.urls),
 )
 
 # mapit
@@ -72,15 +71,15 @@ urlpatterns += (
 )
 
 # SayIt - speeches
-#if settings.ENABLED_FEATURES['speeches']:
-#    urlpatterns += (
-#        url(r'^speeches/', include('speeches.urls', namespace='speeches', app_name='speeches-default')),
-#    )
+if settings.ENABLED_FEATURES['speeches']:
+    urlpatterns += (
+        url(r'^speeches/', include('speeches.urls', namespace='speeches')),
+    )
 
 # Hansard pages
 if settings.ENABLED_FEATURES['hansard']:
     urlpatterns += (
-        url(r'^hansard/', include('pombola.hansard.urls', namespace='hansard', app_name='hansard')),
+        url(r'^hansard/', include('pombola.hansard.urls', namespace='hansard')),
     )
 
 # Project pages
@@ -147,7 +146,7 @@ if settings.ENABLED_FEATURES['votematch']:
 # bills
 if settings.ENABLED_FEATURES['bills']:
     urlpatterns += (
-        url(r'^bills/', include('pombola.bills.urls', namespace='bills', app_name='bills')),
+        url(r'^bills/', include('pombola.bills.urls', namespace='bills')),
     )
 
 

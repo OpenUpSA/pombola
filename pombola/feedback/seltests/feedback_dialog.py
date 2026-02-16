@@ -1,6 +1,6 @@
 import time
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from pombola.testing.selenium import PombolaSeleniumTestCase
 
 from pombola.feedback.models import Feedback

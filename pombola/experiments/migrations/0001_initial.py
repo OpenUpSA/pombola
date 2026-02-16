@@ -41,7 +41,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='event',
             name='experiment',
-            field=models.ForeignKey(to='experiments.Experiment'),
+            field=models.ForeignKey(to='experiments.Experiment', on_delete=models.CASCADE),
             preserve_default=True,
         ),
     ]

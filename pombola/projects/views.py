@@ -1,4 +1,3 @@
-from django.template import RequestContext
 from django.shortcuts import render, get_object_or_404
 
 import pombola.core.models

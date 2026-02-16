@@ -48,9 +48,9 @@ class Release(CreateSlugOnSaveIfNeededModel):
 
 
 class Entry(models.Model):
-    person   = models.ForeignKey(Person, related_name="interests_register_entries")
-    category = models.ForeignKey(Category, related_name="entries")
-    release  = models.ForeignKey(Release, related_name="entries")
+    person   = models.ForeignKey(Person, related_name="interests_register_entries", on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, related_name="entries", on_delete=models.CASCADE)
+    release  = models.ForeignKey(Release, related_name="entries", on_delete=models.CASCADE)
 
     sort_order = models.IntegerField()
 
@@ -63,7 +63,7 @@ class Entry(models.Model):
 
 
 class EntryLineItem(models.Model):
-    entry     = models.ForeignKey(Entry, related_name="line_items")
+    entry     = models.ForeignKey(Entry, related_name="line_items", on_delete=models.CASCADE)
     key       = models.CharField(max_length=240)
     value     = models.TextField()
 

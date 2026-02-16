@@ -6,7 +6,7 @@ import sys
 
 from django.contrib.contenttypes.models import ContentType
 from django.core.management.base import BaseCommand, CommandError
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db import transaction
 
 from slug_helpers.models import SlugRedirect

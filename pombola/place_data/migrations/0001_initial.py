@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
                 ('registered_voters_proportion_rank', models.PositiveIntegerField(null=True)),
                 ('youth_voters_proportion', models.DecimalField(null=True, max_digits=4, decimal_places=3)),
                 ('youth_voters_proportion_rank', models.PositiveIntegerField(null=True)),
-                ('place', models.OneToOneField(related_name='placedata', to='core.Place')),
+                ('place', models.OneToOneField(related_name='placedata', to='core.Place', on_delete=models.CASCADE)),
             ],
             options={
             },

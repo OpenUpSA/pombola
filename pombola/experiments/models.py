@@ -8,7 +8,7 @@ class Experiment(models.Model):
     name = models.CharField(max_length=300)
     description = models.TextField(blank=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     @property
@@ -20,7 +20,7 @@ class Experiment(models.Model):
 
 class Event(models.Model):
     """A model to represent an event as part of an experiment, e.g. a button click"""
-    experiment = models.ForeignKey('Experiment')
+    experiment = models.ForeignKey('Experiment', on_delete=models.CASCADE)
     user_key = models.CharField(
         max_length=512,
         help_text='An identifier for a user, e.g. based on the session key')

@@ -3,7 +3,7 @@ from django.template import loader
 
 register = template.Library()
 
-@register.assignment_tag()
+@register.simple_tag()
 def section_prev_next_links(section, *args):
 
     context = {

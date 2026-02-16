@@ -7,7 +7,7 @@ from django import forms
 from django.contrib.gis.db.models import Collect
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import D
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.http import Http404
 from django.shortcuts import redirect
 from django.utils.http import urlquote

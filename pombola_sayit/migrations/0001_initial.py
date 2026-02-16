@@ -16,8 +16,8 @@ class Migration(migrations.Migration):
             name='PombolaSayItJoin',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('pombola_person', models.OneToOneField(related_name='sayit_link', to='core.Person')),
-                ('sayit_speaker', models.OneToOneField(related_name='pombola_link', to='speeches.Speaker')),
+                ('pombola_person', models.OneToOneField(related_name='sayit_link', to='core.Person', on_delete=models.CASCADE)),
+                ('sayit_speaker', models.OneToOneField(related_name='pombola_link', to='speeches.Speaker', on_delete=models.CASCADE)),
             ],
             options={
             },

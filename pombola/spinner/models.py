@@ -65,7 +65,7 @@ class Slide(models.Model):
     is_active = models.BooleanField(default=True)
 
     # link to other objects using the ContentType system
-    content_type   = models.ForeignKey(ContentType)
+    content_type   = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id      = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 

@@ -1,5 +1,5 @@
 {% load thumbnail %}
-{% load staticfiles %}
+{% load static %}
 
 {% thumbnail object.primary_image "90x90" crop="center" as im %}
   <a href="{{ object.get_absolute_url }}">

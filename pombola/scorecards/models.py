@@ -21,7 +21,7 @@ class Category(models.Model):
     synopsis    = models.CharField( max_length=200 )
     description = MarkupField()
     
-    def __unicode__(self):
+    def __str__(self):
         return self.name
     
     class Meta():
@@ -33,10 +33,10 @@ class Entry(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-    category = models.ForeignKey(Category)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     # link to other objects using the ContentType system
-    content_type   = models.ForeignKey(ContentType)
+    content_type   = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id      = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 
@@ -93,7 +93,7 @@ class Entry(models.Model):
         verbose_name_plural = 'entries'
     
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s for %s (%s)' % (self.category, self.content_object, self.date)
 
     def score_as_word(self):

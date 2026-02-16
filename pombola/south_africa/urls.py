@@ -1,6 +1,6 @@
 import copy
 
-from django.conf.urls import include, url
+from django.urls import include, re_path as url
 from django.views.generic.base import RedirectView, TemplateView
 
 from pombola.south_africa import views
@@ -303,8 +303,8 @@ urlpatterns += (
         kwargs={'configuration_slug': 'south-africa-committees'},
         name='organisation_messages',
     ),
-    url(r'^write-committees/', include('pombola.writeinpublic.urls', namespace='writeinpublic-committees', app_name='writeinpublic'), kwargs={'configuration_slug': 'south-africa-committees', 'app_name': 'Write to a committee'}),
-    url(r'^write/', include('pombola.writeinpublic.urls', namespace='writeinpublic-mps', app_name='writeinpublic'), kwargs={'configuration_slug': 'south-africa-assembly', 'app_name': 'Write to my MP'}),
+    url(r'^write-committees/', include('pombola.writeinpublic.urls', namespace='writeinpublic-committees'), kwargs={'configuration_slug': 'south-africa-committees', 'app_name': 'Write to a committee'}),
+    url(r'^write/', include('pombola.writeinpublic.urls', namespace='writeinpublic-mps'), kwargs={'configuration_slug': 'south-africa-assembly', 'app_name': 'Write to my MP'}),
 )
 
 urlpatterns += (

@@ -18,12 +18,12 @@ class Bill(models.Model):
     act_source_url = models.URLField(unique=True, blank=True, null=True)
 
     date = models.DateField()
-    parliamentary_session = models.ForeignKey('core.ParliamentarySession')
-    sponsor = models.ForeignKey('core.Person', related_name="bills_sponsored")
+    parliamentary_session = models.ForeignKey('core.ParliamentarySession', on_delete=models.CASCADE)
+    sponsor = models.ForeignKey('core.Person', related_name="bills_sponsored", on_delete=models.CASCADE)
 
     objects = BillQuerySet.as_manager()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     class Meta:

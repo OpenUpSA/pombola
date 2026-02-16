@@ -83,7 +83,7 @@ class Source(models.Model):
     class Meta:
         ordering = ['-date', 'document_name']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.document_name
 
     def delete(self):
@@ -286,7 +286,7 @@ class Answer (models.Model):
     # the PMG API.
     pmg_api_url = models.URLField(max_length=1000, blank=True, null=True)
 
-    term = models.ForeignKey(ParliamentaryTerm, null=False)
+    term = models.ForeignKey(ParliamentaryTerm, null=False, on_delete=models.CASCADE)
 
     class Meta:
         unique_together = (
@@ -453,7 +453,7 @@ class Question(models.Model):
     pmg_api_source_file_url = models.URLField(
         max_length=1000, blank=True, null=True)
 
-    term = models.ForeignKey(ParliamentaryTerm, null=False)
+    term = models.ForeignKey(ParliamentaryTerm, null=False, on_delete=models.CASCADE)
 
 
     class Meta:
@@ -474,7 +474,7 @@ class QuestionParsingError(models.Model):
     error_type = models.CharField(max_length=20, null=False)
     error_message = models.TextField(null=False)
 
-    def __unicode__(self):
+    def __str__(self):
         return u'%s' % (self.error_message)
 
     class Meta():

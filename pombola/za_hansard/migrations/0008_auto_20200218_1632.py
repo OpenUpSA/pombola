@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='question',
             name='term',
-            field=models.ForeignKey(to='south_africa.ParliamentaryTerm'),
+            field=models.ForeignKey(to='south_africa.ParliamentaryTerm', on_delete=models.CASCADE),
         ),
     ]

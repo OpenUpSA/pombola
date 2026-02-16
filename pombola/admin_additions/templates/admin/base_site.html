@@ -1,6 +1,6 @@
 {% extends "admin/base.html" %}
 {% load i18n %}
-{% load staticfiles %}
+{% load static %}
 {% load pipeline %}
 
 {% block extrastyle %}
@@ -59,15 +59,20 @@
     </script>
     {% endif %}
 
-    {% include 'autocomplete_light/static.html' %}
-
 {% endblock %}
 
 {% block title %}{{ title }} | {% trans 'Pombola site admin' %}{% endblock %}
 
 {% block branding %}
     <h1 id="site-name">{% trans 'Pombola administration' %}</h1>
+    {% if deployment %}
+    <p style="font-size: 0.7em; color: #999; margin: 0;">
+      {{ deployment.server_name }} | {{ deployment.git_commit }}
+    </p>
+    {% endif %}
 {% endblock %}
+
+{% block nav-sidebar %}{% endblock %}
 
 {% block nav-global %}
     {% include 'staging_header.html' %}

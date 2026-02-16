@@ -1,5 +1,3 @@
-from __future__ import division
-
 import calendar
 import datetime
 from functools import partial, reduce
@@ -9,7 +7,7 @@ import random
 from collections import defaultdict
 
 from django.core import exceptions
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.core.validators import MinValueValidator
 
 from django.db.models import Q, Prefetch, Case, When
@@ -175,7 +173,7 @@ class ModelBase(models.Model):
        abstract = True
 
 
-class ManagerBase(models.GeoManager):
+class ManagerBase(models.Manager):
     def update_or_create(self, filter_attrs, attrs):
         """Given unique look-up attributes, and extra data attributes, either
         updates the entry referred to if it exists, or creates it if it doesn't.
@@ -206,14 +204,14 @@ class Identifier(ModelBase):
     identifier = models.CharField(max_length=500)
 
     content_type = models.ForeignKey(
-        ContentType, related_name='pombola_identifier_set'
+        ContentType, on_delete=models.CASCADE, related_name='pombola_identifier_set'
     )
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 
     objects = ManagerBase()
 
-    def __unicode__(self):
+    def __str__(self):
         return '"%s%s"' % (self.scheme, self.identifier)
 
 
@@ -265,9 +263,6 @@ class ContactKind(ModelBase):
 
     objects = ManagerBase()
 
-    def __unicode__(self):
-        return self.name
-
     def __str__(self):
         return self.name
 
@@ -276,7 +271,7 @@ class ContactKind(ModelBase):
 
 
 class Contact(ModelBase):
-    kind = models.ForeignKey('ContactKind')
+    kind = models.ForeignKey('ContactKind', on_delete=models.CASCADE)
     value = models.TextField()
     note = models.TextField(blank=True, help_text="publicly visible, use to clarify contact detail")
     source = models.CharField(max_length=500, blank=True, default='', help_text="where did this contact detail come from")
@@ -284,7 +279,7 @@ class Contact(ModelBase):
     preferred = models.BooleanField(help_text="Should this contact detail be listed before others of the same type?")
 
     # link to other objects using the ContentType system
-    content_type = models.ForeignKey(ContentType)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 
@@ -292,7 +287,7 @@ class Contact(ModelBase):
 
     objects = ManagerBase()
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s (%s for %s)" % (self.value, self.kind, self.content_object)
 
     def generate_tasks(self):
@@ -318,7 +313,7 @@ class InformationSource(ModelBase):
     entered = models.BooleanField(default=False, help_text="has the information in this source been entered into this system?")
 
     # link to other objects using the ContentType system
-    content_type = models.ForeignKey(ContentType)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 
@@ -326,14 +321,14 @@ class InformationSource(ModelBase):
 
     objects = ManagerBase()
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s: %s" % (self.source, self.content_object)
 
     class Meta:
        ordering = ["content_type", "object_id", "source"]
 
 
-class PersonQuerySet(models.query.GeoQuerySet):
+class PersonQuerySet(models.QuerySet):
     def is_politician(self, when=None):
         # FIXME - Don't like the look of this, rather a big subquery.
         return self.filter(position__in=Position.objects.all().current_politician_positions(when))
@@ -727,9 +722,8 @@ class Person(ModelBase, HasImageMixin, ScorecardMixin, IdentifierMixin):
     def __str__(self):
         return self.legal_name
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('person', [self.slug])
+        return reverse('person', args=[self.slug])
 
     def generate_tasks(self):
         """Generate tasks for missing contact details etc"""
@@ -800,7 +794,7 @@ post_init.connect(update_sort_name, Person)
 
 
 class AlternativePersonName(ModelBase):
-    person = models.ForeignKey(Person, related_name='alternative_names')
+    person = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='alternative_names')
     alternative_name = models.CharField(max_length=300)
     name_to_use = models.BooleanField(default=False)
 
@@ -823,7 +817,7 @@ class AlternativePersonName(ModelBase):
 
     objects = ManagerBase()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.alternative_name + (" [*]" if self.name_to_use else "")
 
     def get_admin_url(self):
@@ -842,18 +836,14 @@ class OrganisationKind(ModelBase):
 
     objects = ManagerBase()
 
-    def __unicode__(self):
-        return self.name
-
     def __str__(self):
         return self.name
 
     class Meta:
        ordering = ["slug"]
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('organisation_kind', (self.slug,))
+        return reverse('organisation_kind', args=[self.slug])
 
 
 COMMITTEE_GROUP_SLUGS = [
@@ -869,7 +859,7 @@ COMMITTEE_GROUP_SLUGS_CASE_WHEN = Case(
     ]
 )
 
-class OrganisationQuerySet(models.query.GeoQuerySet):
+class OrganisationQuerySet(models.QuerySet):
     def order_by_house_then_by(self, *args):
         """
         Order the organisation queryset according to the list of committee houses,
@@ -932,7 +922,7 @@ class Organisation(ModelBase, HasImageMixin, IdentifierMixin):
         validators=[validate_organisation_slug],
     )
     summary = MarkupField(blank=True, default='')
-    kind = models.ForeignKey('OrganisationKind')
+    kind = models.ForeignKey('OrganisationKind', on_delete=models.CASCADE)
     started = ApproximateDateField(blank=True, help_text=date_help_text)
     ended = ApproximateDateField(blank=True, help_text=date_help_text)
 
@@ -955,15 +945,11 @@ class Organisation(ModelBase, HasImageMixin, IdentifierMixin):
     images = GenericRelation(Image)
     informationsources = GenericRelation(InformationSource)
 
-    def __unicode__(self):
-        return "%s (%s)" % (self.name, self.kind)
-
     def __str__(self):
         return "%s (%s)" % (self.name, self.kind)
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('organisation', [self.slug])
+        return reverse('organisation', args=[self.slug])
 
     class Meta:
        ordering = ["name"]
@@ -1042,9 +1028,6 @@ class PlaceKind(ModelBase):
 
     objects = ManagerBase()
 
-    def __unicode__(self):
-        return self.name
-
     def __str__(self):
         return self.name
 
@@ -1071,7 +1054,7 @@ class PlaceKind(ModelBase):
             return sessions
 
 
-class PlaceQuerySet(models.query.GeoQuerySet):
+class PlaceQuerySet(models.QuerySet):
     def constituencies(self):
         return self.filter(kind__slug='constituency')
 
@@ -1095,15 +1078,15 @@ class Place(ModelBase, HasImageMixin, ScorecardMixin, BudgetsMixin, IdentifierMi
         help_text="created from name",
         validators=[validate_place_slug],
     )
-    kind = models.ForeignKey('PlaceKind')
+    kind = models.ForeignKey('PlaceKind', on_delete=models.CASCADE)
     summary = MarkupField(blank=True, default='')
     shape_url = models.URLField(blank=True)
     location = models.PointField(null=True, blank=True)
-    organisation = models.ForeignKey('Organisation', null=True, blank=True, help_text="use if the place uniquely belongs to an organisation - eg a field office" )
-    parliamentary_session = models.ForeignKey('ParliamentarySession', null=True, blank=True)
+    organisation = models.ForeignKey('Organisation', on_delete=models.SET_NULL, null=True, blank=True, help_text="use if the place uniquely belongs to an organisation - eg a field office" )
+    parliamentary_session = models.ForeignKey('ParliamentarySession', on_delete=models.SET_NULL, null=True, blank=True)
 
-    mapit_area = models.ForeignKey( mapit_models.Area, null=True, blank=True )
-    parent_place = models.ForeignKey('self', blank=True, null=True, related_name='child_places')
+    mapit_area = models.ForeignKey( mapit_models.Area, on_delete=models.SET_NULL, null=True, blank=True )
+    parent_place = models.ForeignKey('self', on_delete=models.SET_NULL, blank=True, null=True, related_name='child_places')
 
     fields_to_whitespace_normalize = ['name']
 
@@ -1120,12 +1103,6 @@ class Place(ModelBase, HasImageMixin, ScorecardMixin, BudgetsMixin, IdentifierMi
     @property
     def extra_autocomplete_data(self):
         return self.kind.name
-
-    def __unicode__(self):
-        session_suffix = ""
-        if self.parliamentary_session:
-            session_suffix += " " + str(self.parliamentary_session.short_date_range())
-        return "%s (%s%s)" % (self.name, self.kind, session_suffix)
 
     def __str__(self):
         session_suffix = ""
@@ -1228,9 +1205,8 @@ class Place(ModelBase, HasImageMixin, ScorecardMixin, BudgetsMixin, IdentifierMi
             v.sort(key=lambda e: e.name)
         return dict(results)
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('place', [self.slug])
+        return reverse('place', args=[self.slug])
 
     class Meta:
        ordering = ["slug"]
@@ -1407,15 +1383,11 @@ class PositionTitle(ModelBase):
 
     objects = ManagerBase()
 
-    def __unicode__(self):
-        return self.name
-
     def __str__(self):
         return self.name
 
-    @models.permalink
     def get_absolute_url(self):
-        return ('position_pt', [self.slug])
+        return reverse('position_pt', args=[self.slug])
 
     def organisations(self):
         """
@@ -1443,7 +1415,7 @@ class PositionTitle(ModelBase):
        ordering = ["slug"]
 
 
-class PositionQuerySet(models.query.GeoQuerySet):
+class PositionQuerySet(models.QuerySet):
     def currently_active(self, when=None):
         """Filter on start and end dates to limit to currently active positions"""
 
@@ -1606,10 +1578,10 @@ class Position(ModelBase, IdentifierMixin):
         ('other', 'Anything else'),
     )
 
-    person = models.ForeignKey('Person')
-    organisation = models.ForeignKey('Organisation', null=True, blank=True)
-    place = models.ForeignKey('Place', null=True, blank=True, help_text="use if needed to identify the position - eg add constituency for a politician" )
-    title = models.ForeignKey('PositionTitle', null=True, blank=True)
+    person = models.ForeignKey('Person', on_delete=models.CASCADE)
+    organisation = models.ForeignKey('Organisation', on_delete=models.SET_NULL, null=True, blank=True)
+    place = models.ForeignKey('Place', on_delete=models.SET_NULL, null=True, blank=True, help_text="use if needed to identify the position - eg add constituency for a politician" )
+    title = models.ForeignKey('PositionTitle', on_delete=models.SET_NULL, null=True, blank=True)
     subtitle = models.CharField(max_length=200, blank=True, default='')
     category = models.CharField(max_length=20, choices=category_choices, default='other', help_text="What sort of position was this?")
     note = models.CharField(max_length=300, blank=True, default='')
@@ -1812,16 +1784,6 @@ class Position(ModelBase, IdentifierMixin):
         self._set_sorting_dates()
         super(Position, self).save(*args, **kwargs)
 
-    def __unicode__(self):
-        title = self.title or '???'
-
-        if self.organisation:
-            organisation = self.organisation.name
-        else:
-            organisation = '???'
-
-        return "%s (%s at %s)" % ( self.person.legal_name, title, organisation)
-
     def __str__(self):
         title = self.title or '???'
 
@@ -1838,8 +1800,8 @@ class Position(ModelBase, IdentifierMixin):
 class ParliamentarySession(ModelBase):
     start_date = DateField(blank=True, null=True)
     end_date = DateField(blank=True, null=True)
-    house = models.ForeignKey('Organisation', blank=True, null=True)
-    position_title = models.ForeignKey('PositionTitle', blank=True, null=True)
+    house = models.ForeignKey('Organisation', on_delete=models.SET_NULL, blank=True, null=True)
+    position_title = models.ForeignKey('PositionTitle', on_delete=models.SET_NULL, blank=True, null=True)
     # It's not clear whether this field is a good idea or not - it
     # suggests that boundaries won't change within a
     # ParliamentarySession.  This assumption might well be untrue.
@@ -1854,9 +1816,6 @@ class ParliamentarySession(ModelBase):
 
     def __repr__(self):
         return "<ParliamentarySession: %s>" % (self.name,)
-
-    def __unicode__(self):
-        return unicode(self.name)
 
     def __str__(self):
         return self.name
@@ -1939,9 +1898,9 @@ class OrganisationRelationshipKind(ModelBase):
 
 class OrganisationRelationship(ModelBase):
     """Represents a relationship between two organisations"""
-    organisation_a = models.ForeignKey(Organisation, related_name='org_rels_as_a')
-    organisation_b = models.ForeignKey(Organisation, related_name='org_rels_as_b')
-    kind = models.ForeignKey(OrganisationRelationshipKind)
+    organisation_a = models.ForeignKey(Organisation, on_delete=models.CASCADE, related_name='org_rels_as_a')
+    organisation_b = models.ForeignKey(Organisation, on_delete=models.CASCADE, related_name='org_rels_as_b')
+    kind = models.ForeignKey(OrganisationRelationshipKind, on_delete=models.CASCADE)
 
 
 def raw_query_with_prefetch(query_model, query, params, fields_prefetches):
@@ -1975,7 +1934,7 @@ def raw_query_with_prefetch(query_model, query, params, fields_prefetches):
     fields = [f for f, _ in fields_prefetches]
     # Check that each field is really a ForeignKey, and get the mode it refers to:
     name_to_field = {
-        f.name: f.rel.to for f in query_model._meta.fields
+        f.name: f.remote_field.model for f in query_model._meta.fields
         if f.get_internal_type() == 'ForeignKey'
     }
     for f in fields:
@@ -2006,8 +1965,8 @@ def raw_query_with_prefetch(query_model, query, params, fields_prefetches):
 
 
 class OrganisationHistory(ModelBase):
-    old_organisation = models.ForeignKey('Organisation', null=False, related_name='org_history_old')
-    new_organisation = models.ForeignKey('Organisation', null=False, related_name='org_history_new', default=0)
+    old_organisation = models.ForeignKey('Organisation', on_delete=models.CASCADE, null=False, related_name='org_history_old')
+    new_organisation = models.ForeignKey('Organisation', on_delete=models.CASCADE, null=False, related_name='org_history_new', default=0)
     date_changed = DateField(null=False)
 
     class Meta:

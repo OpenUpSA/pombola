@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='parliamentarysession',
             name='position_title',
-            field=models.ForeignKey(blank=True, to='core.PositionTitle', null=True),
+            field=models.ForeignKey(blank=True, to='core.PositionTitle', null=True, on_delete=models.CASCADE),
         ),
     ]

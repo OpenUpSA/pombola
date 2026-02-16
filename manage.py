@@ -16,7 +16,7 @@ def run_default_tests(command_line_args):
     except IndexError:
         return False
 
-    parser = CommandParser(None, usage="%(prog)s subcommand [options] [args]", add_help=False)
+    parser = CommandParser(usage="%(prog)s subcommand [options] [args]", add_help=False)
     parser.add_argument('--settings')
     parser.add_argument('--pythonpath')
     parser.add_argument('args', nargs='*')

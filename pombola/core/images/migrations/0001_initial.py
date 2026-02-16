@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('image', sorl.thumbnail.fields.ImageField(upload_to=b'images')),
                 ('source', models.CharField(max_length=400)),
                 ('is_primary', models.BooleanField(default=False)),
-                ('content_type', models.ForeignKey(to='contenttypes.ContentType')),
+                ('content_type', models.ForeignKey(to='contenttypes.ContentType', on_delete=models.CASCADE)),
             ],
         ),
     ]
