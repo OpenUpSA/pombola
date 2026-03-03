@@ -6,8 +6,6 @@ from django.contrib.contenttypes.admin import GenericTabularInline
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
 
-from ajax_select import make_ajax_form
-from ajax_select.admin import AjaxSelectAdmin
 
 from pombola.core.images.admin import ImageAdminInline
 from slug_helpers.admin import StricterSlugFieldMixin
@@ -106,7 +104,7 @@ class IdentifierInlineAdmin(GenericTabularInline):
 
 
 @admin.register(models.Position)
-class PositionAdmin(AjaxSelectAdmin):
+class PositionAdmin(admin.ModelAdmin):
     list_display = [
         'id',
         'show_person',
@@ -120,16 +118,7 @@ class PositionAdmin(AjaxSelectAdmin):
     list_filter = ['title__name']
     inlines = [InformationSourceInlineAdmin]
     readonly_fields = ['sorting_start_date', 'sorting_end_date']
-
-    form = make_ajax_form(
-        models.Position,
-        {
-            'organisation': 'organisation_name',
-            'place': 'place_name',
-            'person': 'person_name',
-            'title': 'title_name',
-        }
-    )
+    autocomplete_fields = ['person', 'organisation', 'place', 'title']
 
     def show_person(self, obj):
         return create_admin_link_for(obj.person, obj.person.name)
@@ -154,7 +143,7 @@ class PositionAdmin(AjaxSelectAdmin):
 
 class PositionInlineAdmin(admin.TabularInline):
     model = models.Position
-    extra = 3  # do not set to zero as the autocomplete does not work in inlines
+    extra = 3
     can_delete = True
     fields = [
         'person',
@@ -166,16 +155,20 @@ class PositionInlineAdmin(admin.TabularInline):
         'start_date',
         'end_date',
         ]
-    form = make_ajax_form(
-        models.Position,
-        {
-            'organisation': 'organisation_name',
-            'place': 'place_name',
-            'person': 'person_name',
-            'title': 'title_name',
-        },
-    )
+    autocomplete_fields = ['person', 'organisation', 'place', 'title']
     ordering = ('-category', 'organisation__name', '-start_date')
+    def get_formset(self, request, obj=None, **kwargs):
+        formset = super().get_formset(request, obj, **kwargs)
+        for field_name in self.autocomplete_fields:
+            if field_name in formset.form.base_fields:
+                widget = formset.form.base_fields[field_name].widget
+                # Hide edit/change icons next to autocomplete Select2 widgets
+                widget.can_change_related = False
+                widget.can_add_related = False
+                # Hide delete icons for place and title
+                if field_name in ('place', 'title'):
+                    widget.can_delete_related = False
+        return formset
 
     def get_queryset(self, request):
         queryset = super(PositionInlineAdmin, self).get_queryset(request)
