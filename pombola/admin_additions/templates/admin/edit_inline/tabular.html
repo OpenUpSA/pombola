@@ -71,11 +71,18 @@
 <script type="text/javascript">
 
 (function($) {
-  $("#{{ inline_admin_formset.formset.prefix }}-group .tabular.inline-related tbody tr").tabularFormset({
+  var selector = "#{{ inline_admin_formset.formset.prefix }}-group .tabular.inline-related tbody:first > tr.form-row";
+  $(selector).tabularFormset(selector, {
     prefix: "{{ inline_admin_formset.formset.prefix }}",
     adminStaticPrefix: '{% static "admin/" %}',
     addText: "{% blocktrans with inline_admin_formset.opts.verbose_name|title as verbose_name %}Add another {{ verbose_name }}{% endblocktrans %}",
-    deleteText: "{% trans 'Remove' %}"
+    deleteText: "{% trans 'Remove' %}",
+    added: function(row) {
+      // Reinitialize ajax-select autocomplete widgets on newly added inline rows
+      if (window.jQuery) {
+        window.jQuery(window).trigger('init-autocomplete');
+      }
+    }
   });
 })(django.jQuery);
 </script>
