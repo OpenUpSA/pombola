@@ -151,9 +151,13 @@ class SearchBaseView(TemplateView):
     # This applies the 'fuzzy' query string modifier to queries which
     # entirely contain [a-zA-Z0-9 ] characters. See:
     # https://www.elastic.co/guide/en/elasticsearch/reference/0.90/query-dsl-query-string-query.html
+    # Exact matches are boosted so they rank above fuzzy-only matches.
     def generate_fuzzy_query_object(self, query_string):
         if re.match("^[a-z0-9 ]*$", query_string, re.IGNORECASE):
-            query_string = ' '.join(word + '~1' for word in query_string.split(' '))
+            parts = []
+            for word in query_string.split(' '):
+                parts.append('(%s^3 OR %s~1)' % (word, word))
+            query_string = ' '.join(parts)
             query_object = Raw(query_string)
         else:
             query_object = AutoQuery(query_string)

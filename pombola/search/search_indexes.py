@@ -23,8 +23,6 @@ class BaseIndex(CelerySearchIndex):
 class PersonIndex(BaseIndex, indexes.Indexable):
     name_auto = indexes.EdgeNgramField(model_attr='name')
     hidden = indexes.BooleanField(model_attr='hidden')
-    # Boost person results so they rank above hansards/speeches
-    text = indexes.CharField(document=True, use_template=True, boost=1.5)
 
     def get_model(self):
         return core_models.Person
