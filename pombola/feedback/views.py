@@ -40,7 +40,7 @@ def add(request):
             if re.search('\A\s*<\w+>', form.cleaned_data['comment']):
                 feedback.status = 'spammy'
 
-            if request.user.is_authenticated():
+            if request.user.is_authenticated:
                 feedback.user = request.user
 
             if submit_was_success:

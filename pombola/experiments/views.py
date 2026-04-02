@@ -75,7 +75,7 @@ class ExperimentViewDataMixin(object):
         feedback.comment = comment_prefix + ' ' + comment
         feedback.email = email
         feedback.url = self.request.build_absolute_uri()
-        if self.request.user.is_authenticated():
+        if self.request.user.is_authenticated:
             feedback.user = self.request.user
         feedback.save()
 
