@@ -376,6 +376,7 @@ BLOG_RSS_FEED = os.environ.get("BLOG_RSS_FEED", None)
 
 THUMBNAIL_DEBUG = True
 THUMBNAIL_FORMAT = 'PNG'
+THUMBNAIL_ENGINE = 'pombola.core.thumbnail_engine.SafePilEngine'
 
 # ZA Hansard settings
 HANSARD_CACHE = os.path.join(data_dir, "hansard_cache")
