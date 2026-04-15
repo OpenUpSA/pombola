@@ -8,6 +8,7 @@ import requests
 import datetime
 import pytz
 
+from django.conf import settings
 from .constants import API_REQUESTS_TIMEOUT
 from urllib.parse import urlsplit, quote
 
@@ -443,5 +444,14 @@ class SAPersonDetail(PersonSpeakerMappingsMixin, PersonDetail):
             except AttendanceAPIDown:
                 context['attendance'] = context['latest_meetings_attended'] = \
                     'UNAVAILABLE'
+
+        # NocoDB configuration for constituency offices
+        context['nocodb_config'] = {
+            'apiUrl': getattr(settings, 'NOCODB_API_URL', ''),
+            'apiToken': getattr(settings, 'NOCODB_API_TOKEN', ''),
+            'baseId': getattr(settings, 'NOCODB_BASE_ID', ''),
+            'officeTableId': getattr(settings, 'NOCODB_OFFICE_TABLE_ID', ''),
+            'mpTableId': getattr(settings, 'NOCODB_MP_TABLE_ID', ''),
+        }
 
         return context

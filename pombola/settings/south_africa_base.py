@@ -1,3 +1,4 @@
+import os
 from .apps import *  # noqa
 from pombola.settings.base import default_js_extra_content, default_stylesheet_extra_content
 
@@ -162,3 +163,10 @@ COUNTRY_JS = {
 INFO_PAGES_ALLOW_RAW_HTML = True
 
 PAGINATION_DEFAULT_WINDOW = 3
+
+# NocoDB Configuration for Constituency Offices
+NOCODB_API_URL = os.environ.get('NOCODB_API_URL', 'https://nocodb.openup.org.za/')
+NOCODB_API_TOKEN = os.environ.get('NOCODB_API_TOKEN', '')
+NOCODB_BASE_ID = os.environ.get('NOCODB_BASE_ID', 'pbmq87kae0tr24f')
+NOCODB_OFFICE_TABLE_ID = os.environ.get('NOCODB_OFFICE_TABLE_ID', 'm1hqpzsv838uxmt')
+NOCODB_MP_TABLE_ID = os.environ.get('NOCODB_MP_TABLE_ID', 'm9krkszagav1st3')
