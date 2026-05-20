@@ -14,437 +14,368 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
      crossorigin=""></script>
-
 <script>
 // NocoDB Configuration for Constituency Offices
 const NOCODB_CONFIG = {
-    apiUrl: '{{ nocodb_config.apiUrl }}',
-    apiToken: '{{ nocodb_config.apiToken }}',
-    baseId: '{{ nocodb_config.baseId }}',
-    officeTableId: '{{ nocodb_config.officeTableId }}',
-    mpTableId: '{{ nocodb_config.mpTableId }}'
+  apiUrl: '{{ nocodb_config.apiUrl }}',
+  apiToken: '{{ nocodb_config.apiToken }}',
+  baseId: '{{ nocodb_config.baseId }}',
+  officeTableId: '{{ nocodb_config.officeTableId }}',
+  mpTableId: '{{ nocodb_config.mpTableId }}'
 };
 
 /**
  * Parse latitude and longitude from various string formats
  */
 function parseLatLon(latlonString) {
-    if (!latlonString) return { latitude: null, longitude: null };
-    
-    const cleaned = latlonString.toString().trim();
-    
-    // Try comma-separated values
-    if (cleaned.includes(',')) {
-        const parts = cleaned.split(',');
-        if (parts.length >= 2) {
-            const lat = parseFloat(parts[0].trim());
-            const lon = parseFloat(parts[1].trim());
-            if (!isNaN(lat) && !isNaN(lon)) {
-                return { latitude: lat, longitude: lon };
-            }
-        }
+  if (!latlonString) return { latitude: null, longitude: null };
+  const cleaned = latlonString.toString().trim();
+
+  // Try comma-separated values
+  if (cleaned.includes(',')) {
+    const parts = cleaned.split(',');
+    if (parts.length >= 2) {
+      const lat = parseFloat(parts[0].trim());
+      const lon = parseFloat(parts[1].trim());
+      if (!isNaN(lat) && !isNaN(lon)) {
+        return { latitude: lat, longitude: lon };
+      }
     }
-    
-    // Try space-separated values
-    if (cleaned.includes(' ')) {
-        const parts = cleaned.split(/\s+/);
-        if (parts.length >= 2) {
-            const lat = parseFloat(parts[0]);
-            const lon = parseFloat(parts[1]);
-            if (!isNaN(lat) && !isNaN(lon)) {
-                return { latitude: lat, longitude: lon };
-            }
-        }
+  }
+
+  // Try space-separated values
+  if (cleaned.includes(' ')) {
+    const parts = cleaned.split(/\s+/);
+    if (parts.length >= 2) {
+      const lat = parseFloat(parts[0]);
+      const lon = parseFloat(parts[1]);
+      if (!isNaN(lat) && !isNaN(lon)) {
+        return { latitude: lat, longitude: lon };
+      }
     }
-    
-    return { latitude: null, longitude: null };
+  }
+
+  // Try to extract numbers from "POINT (lon lat)" or similar
+  const pointMatch = cleaned.match(/(-?\d+\.\d+)\s*,?\s*(-?\d+\.\d+)/);
+  if (pointMatch) {
+    const a = parseFloat(pointMatch[1]);
+    const b = parseFloat(pointMatch[2]);
+    if (!isNaN(a) && !isNaN(b)) {
+      // Heuristic: if first number looks like longitude (outside -90..90) swap
+      if (Math.abs(a) > 90 && Math.abs(b) <= 90) {
+        return { latitude: b, longitude: a };
+      }
+      return { latitude: a, longitude: b };
+    }
+  }
+
+  return { latitude: null, longitude: null };
 }
 
 /**
  * Transform raw NocoDB data to office object
  */
 function transformOfficeData(item) {
-    let latitude = null;
-    let longitude = null;
-    
-    if (item.Latlon) {
-        const coords = parseLatLon(item.Latlon);
-        latitude = coords.latitude;
-        longitude = coords.longitude;
-    }
+  let latitude = null;
+  let longitude = null;
+  const latlonField = item.Latlon || item.latlon || item['Lat/Lon'] || item['LatLon'];
+  if (latlonField) {
+    const coords = parseLatLon(latlonField);
+    latitude = coords.latitude;
+    longitude = coords.longitude;
+  }
 
-    // Log the raw item to see field names
-    console.log('Raw office item:', item);
+  // Log the raw item to see field names
+  console.log('Raw office item:', item);
 
-    // Extract MP Select ID - it might be an object or a direct value
-    let mpSelectId = null;
-    const mpSelectField = item['MP Select'] || item.MPSelect || item.mpSelect;
-    if (mpSelectField) {
-        // If it's an object with an Id property, use that
-        if (typeof mpSelectField === 'object' && mpSelectField.Id) {
-            mpSelectId = mpSelectField.Id;
-        } else if (typeof mpSelectField === 'object' && mpSelectField.id) {
-            mpSelectId = mpSelectField.id;
-        } else {
-            // Otherwise assume it's the ID itself
-            mpSelectId = mpSelectField;
-        }
-    }
-
-    return {
-        id: item.Id || item.id,
-        name: item.PcoName || item.pcoName || 'Unknown Office',
-        latitude: latitude,
-        longitude: longitude,
-        address: item.Address || 'No address provided',
-        part: item.Part || '',
-        province: item.Province || '',
-        mp: item['MP Name'] || item.MPName || item.MP || '',
-        mpSelect: mpSelectId,  // Now contains just the ID
-        mpSelectRaw: mpSelectField,  // Keep raw value for debugging
-        paLink: item.PaLink || item.paLink || '',
-        administratorDetails: item.AdministratorDetails || '',
-        adminPerson: item.AdminPerson || '',
-        adminPhone: item.AdminPhone || '',
-        adminEmail: item.AdminEmail || ''
-    };
-}
-
-/**
- * Fetch MP by PA.org.za link
- */
-async function fetchMPByPaLink(paUrl) {
-    const headers = {
-        'xc-token': NOCODB_CONFIG.apiToken,
-        'Content-Type': 'application/json'
-    };
-
-    const normalizeUrl = (url) => {
-        if (!url) return '';
-        return url.trim().toLowerCase().replace(/\/+$/, '');
-    };
-
-    const normalizedSearchUrl = normalizeUrl(paUrl);
-    
-    // Fetch ALL MPs with pagination
-    let allMPs = [];
-    let offset = 0;
-    const pageSize = 1000; // Larger page size to reduce requests
-    
-   
-    
-    while (true) {
-        const url = `${NOCODB_CONFIG.apiUrl}api/v1/db/data/noco/${NOCODB_CONFIG.baseId}/${NOCODB_CONFIG.mpTableId}?offset=${offset}&limit=${pageSize}`;
-        
-        console.log(`Fetching page at offset ${offset}...`);
-        
-        const response = await fetch(url, { headers, method: 'GET' });
-        
-        if (!response.ok) {
-            const errorText = await response.text();
-            console.error('MP API Error Response:', errorText);
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        const mps = data.list || data.records || [];
-        allMPs = allMPs.concat(mps);
-        
-        console.log(`Fetched ${mps.length} MPs, total so far: ${allMPs.length}`);
-        
-        // Check if we have more pages
-        if (!data.pageInfo || mps.length < pageSize) {
-            console.log('No more pages to fetch');
-            break;
-        }
-        
-        offset += pageSize;
-    }
-    
-    
-    
-    // Find the MP with matching PaLink
-    const mp = allMPs.find(mp => {
-        const mpPaLink = normalizeUrl(mp.PaLink || mp.paLink || '');
-        return mpPaLink === normalizedSearchUrl;
-    });
-    
-    if (mp) {
-        console.log('Found MP by PaLink:', mp);
+  // Extract MP Select ID - it might be an object or a direct value
+  let mpSelectId = null;
+  const mpSelectField = item['MP Select'] || item.MPSelect || item.mpSelect;
+  if (mpSelectField) {
+    if (typeof mpSelectField === 'object' && (mpSelectField.Id || mpSelectField.id)) {
+      mpSelectId = mpSelectField.Id || mpSelectField.id;
     } else {
-        console.log('No MP found with matching PaLink');
+      mpSelectId = mpSelectField;
     }
-    
-    return mp;
+  }
+
+  return {
+    id: item.Id || item.id || null,
+    // keep null if name missing so we can conditionally render it
+    name: item.PcoName || item.pcoName || item.Name || null,
+    latitude: latitude,
+    longitude: longitude,
+    address: item.Address || item.address || null,
+    part: item.Part || item.part || '',
+    province: item.Province || item.province || '',
+    mp: item['MP Name'] || item.MPName || item.MP || '',
+    mpSelect: mpSelectId,
+    mpSelectRaw: mpSelectField,
+    paLink: item.PaLink || item.paLink || '',
+    administratorDetails: item.AdministratorDetails || item.administratorDetails || '',
+    adminPerson: item.AdminPerson || item.adminPerson || null,
+    adminPhone: item.AdminPhone || item.adminPhone || null,
+    adminEmail: item.AdminEmail || item.adminEmail || null
+  };
 }
 
-/**
- * Fetch all offices with pagination
- */
-async function fetchAllOffices() {
-    const headers = {
-        'xc-token': NOCODB_CONFIG.apiToken,
-        'Content-Type': 'application/json'
-    };
-
-    let allRows = [];
-    let offset = 0;
-    const pageSize = 100;
-
-    while (true) {
-        // Use v1 API with table ID
-        const url = `${NOCODB_CONFIG.apiUrl}api/v1/db/data/noco/${NOCODB_CONFIG.baseId}/${NOCODB_CONFIG.officeTableId}?offset=${offset}&limit=${pageSize}`;
-        
-       
-        
-        const response = await fetch(url, { headers, method: 'GET' });
-        
-        
-        
-        if (!response.ok) {
-            const errorText = await response.text();
-            console.error('Office API Error Response:', errorText);
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        
-        const rows = data.list || data.records || [];
-        allRows = allRows.concat(rows);
-
-        // Check if we have more pages
-        if (!data.pageInfo || rows.length < pageSize) {
-            break;
-        }
-        offset += pageSize;
-    }
-
-    return allRows.map(transformOfficeData);
-}
-
-/**
- * Filter offices by MP Select (link to MP)
- */
-function filterByMPId(offices, mpId) {
-    if (!mpId) {
-        console.log('No MP ID provided for filtering');
-        return [];
-    }
-    
-    
-    const filtered = offices.filter(office => {
-        // MP Select field links to the MP table - check the ID
-        const officeMpSelect = office.mpSelect;
-        console.log('Office:', office.name, 'MP Select:', officeMpSelect, 'MP Select Raw:', office.mpSelectRaw, 'Comparing to MP ID:', mpId, 'Match:', officeMpSelect == mpId);
-        return officeMpSelect == mpId; // Use == to handle string/number comparison
-    });
-    
-    console.log('Filtered offices count:', filtered.length);
-    return filtered;
+function hasCoords(o) {
+  return o && typeof o.latitude === 'number' && !isNaN(o.latitude) && typeof o.longitude === 'number' && !isNaN(o.longitude);
 }
 
 /**
  * Display constituency offices
  */
 function displayConstituencyOffices(offices) {
-    const container = document.getElementById('constituency-offices-container');
-    
-    if (!container) {
-        console.error('Container #constituency-offices-container not found!');
-        return;
-    }
-    
-    console.log('Displaying offices:', offices.length, 'offices');
-    
-    if (offices.length === 0) {
-        container.innerHTML = '<p style="display: block; width: 100%; margin-bottom: 1em; padding: 0.8em; border-radius: 0.3em; background-color: rgba(0, 0, 0, 0.05);">No constituency offices found for this MP.</p>';
-        return;
+  const container = document.getElementById('constituency-offices-container');
+  if (!container) {
+    console.error('Container #constituency-offices-container not found!');
+    return;
+  }
+
+  console.log('Displaying offices:', offices.length, 'offices');
+  if (!offices || offices.length === 0) {
+    container.innerHTML = '<p style="display: block; width: 100%; margin-bottom: 1em; padding: 0.8em; border-radius: 0.3em; background-color: rgba(0, 0, 0, 0.05);">No constituency offices found for this MP.</p>';
+    return;
+  }
+
+  const officesWithCoords = offices.filter(hasCoords);
+
+  let html = '<div class="mp-offices">';
+
+  // Combined map for multiple geocoded offices
+  if (officesWithCoords.length > 1) {
+    html += `
+      <div class="office-card mb-3" style="background: #f8f9fa; border-radius: 4px; overflow: hidden;">
+        <div class="p-3">
+          <h4 style="margin-top: 0; margin-bottom: 1rem; color: #333; font-weight: 600;">Constituency offices map</h4>
+          <div id="offices-map" style="height: 350px; width: 100%; border-radius: 4px;"></div>
+        </div>
+      </div>
+    `;
+  }
+
+  offices.forEach((office, index) => {
+    const mapId = `office-map-${index}`;
+    html += `<div class="office-card mb-3" style="background: #f8f9fa; border-radius: 4px; overflow: hidden;">
+          <div class="p-3">`;
+
+    // Name (conditional)
+    if (office.name) {
+      html += `<h4 class="office-name" style="margin-top: 0; margin-bottom: 1rem; color: #333; font-weight: 600;">${office.name}</h4>`;
     }
 
-    let html = '<div class="mp-offices">';
-    
-    offices.forEach((office, index) => {
-        const mapId = `office-map-${index}`;
-        
-        html += `
-            <div class="office-card mb-3" style="background: #f8f9fa; border-radius: 4px; overflow: hidden;">
-                <div class="p-3">
-                    <h4 class="office-name" style="margin-top: 0; margin-bottom: 1rem; color: #333; font-weight: 600;">${office.name}</h4>
-                    
-                    <div class="office-details" style="margin-bottom: 1rem;">
-                        ${office.address ? `
-                            <div style="margin-bottom: 0.5rem;">
-                                <strong>Address:</strong><br>
-                                ${office.address}${office.province ? `, ${office.province}` : ''}
-                            </div>
-                        ` : ''}
-                        
-                        ${office.adminPerson ? `
-                            <div style="margin-bottom: 0.5rem;">
-                                <strong>Contact Person:</strong> ${office.adminPerson}
-                            </div>
-                        ` : ''}
-                        
-                        ${office.adminPhone ? `
-                            <div style="margin-bottom: 0.5rem;">
-                                <strong>Phone:</strong> <a href="tel:${office.adminPhone}">${office.adminPhone}</a>
-                            </div>
-                        ` : ''}
-                        
-                        ${office.adminEmail ? `
-                            <div style="margin-bottom: 0.5rem;">
-                                <strong>Email:</strong> <a href="mailto:${office.adminEmail}">${office.adminEmail}</a>
-                            </div>
-                        ` : ''}
-                    </div>
-                    
-                    ${office.latitude && office.longitude ? `
-                        <div id="${mapId}" style="height: 300px; width: 100%; border-radius: 4px;"></div>
-                    ` : ''}
-                </div>
-            </div>
-        `;
-    });
-    
-    html += '</div>';
-    container.innerHTML = html;
-    
-    // Initialize maps after DOM is updated
-    offices.forEach((office, index) => {
-        if (office.latitude && office.longitude) {
-            const mapId = `office-map-${index}`;
-            setTimeout(() => {
-                try {
-                    const map = L.map(mapId).setView([office.latitude, office.longitude], 13);
-                    
-                    // Use CartoDB tiles which don't require referer
-                    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-                        subdomains: 'abcd',
-                        maxZoom: 20
-                    }).addTo(map);
-                    
-                    const marker = L.marker([office.latitude, office.longitude]).addTo(map);
-                    
-                    let popupContent = `<strong>${office.name}</strong>`;
-                    if (office.address) {
-                        popupContent += `<br>${office.address}`;
-                    }
-                    marker.bindPopup(popupContent);
-                } catch (error) {
-                    console.error('Error initializing map for office:', office.name, error);
-                }
-            }, 100);
+    html += `<div class="office-details" style="margin-bottom: 1rem;">`;
+
+    if (office.address) {
+      html += `<div style="margin-bottom: 0.5rem;"><strong>Address:</strong><br>${office.address}${office.province ? `, ${office.province}` : ''}</div>`;
+    }
+    if (office.adminPerson) {
+      html += `<div style="margin-bottom: 0.5rem;"><strong>Contact Person:</strong> ${office.adminPerson}</div>`;
+    }
+    if (office.adminPhone) {
+      html += `<div style="margin-bottom: 0.5rem;"><strong>Phone:</strong> <a href="tel:${office.adminPhone}">${office.adminPhone}</a></div>`;
+    }
+    if (office.adminEmail) {
+      html += `<div style="margin-bottom: 0.5rem;"><strong>Email:</strong> <a href="mailto:${office.adminEmail}">${office.adminEmail}</a></div>`;
+    }
+
+    html += `</div>`;
+
+    // Per-office map only when there's exactly one geocoded office (or none combined above)
+    if (hasCoords(office) && officesWithCoords.length <= 1) {
+      html += `<div id="${mapId}" style="height: 300px; width: 100%; border-radius: 4px;"></div>`;
+    }
+
+    html += `   </div>
+          </div>`;
+  });
+
+  html += '</div>';
+  container.innerHTML = html;
+
+  // Initialize maps after DOM is updated
+  try {
+    if (officesWithCoords.length > 1) {
+      const combinedMapEl = document.getElementById('offices-map');
+      if (combinedMapEl) {
+        const combinedMap = L.map('offices-map', { scrollWheelZoom: false });
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+          subdomains: 'abcd',
+          maxZoom: 20
+        }).addTo(combinedMap);
+
+        const bounds = [];
+        officesWithCoords.forEach(office => {
+          const latlng = [office.latitude, office.longitude];
+          const marker = L.marker(latlng).addTo(combinedMap);
+          let popupContent = '';
+          if (office.name) popupContent += `<strong>${office.name}</strong>`;
+          if (office.address) popupContent += `<br>${office.address}`;
+          marker.bindPopup(popupContent || 'Constituency office');
+          bounds.push(latlng);
+        });
+
+        if (bounds.length === 1) {
+          combinedMap.setView(bounds[0], 13);
+        } else if (bounds.length > 1) {
+          combinedMap.fitBounds(bounds, { padding: [40, 40] });
         }
-    });
+      }
+    } else {
+      // Single-office maps
+      offices.forEach((office, index) => {
+        if (hasCoords(office)) {
+          const mapId = `office-map-${index}`;
+          setTimeout(() => {
+            try {
+              const mapEl = document.getElementById(mapId);
+              if (!mapEl) return;
+              const map = L.map(mapId).setView([office.latitude, office.longitude], 13);
+              L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+                subdomains: 'abcd',
+                maxZoom: 20
+              }).addTo(map);
+              const marker = L.marker([office.latitude, office.longitude]).addTo(map);
+              let popupContent = '';
+              if (office.name) popupContent += `<strong>${office.name}</strong>`;
+              if (office.address) popupContent += `<br>${office.address}`;
+              marker.bindPopup(popupContent || 'Constituency office');
+            } catch (err) {
+              console.error('Error initializing per-office map', err);
+            }
+          }, 100);
+        }
+      });
+    }
+  } catch (err) {
+    console.error('Error initializing maps:', err);
+  }
 }
 
 /**
  * Fetch office by ID
  */
 async function fetchOfficeById(officeId) {
-    const headers = {
-        'xc-token': NOCODB_CONFIG.apiToken,
-        'Content-Type': 'application/json'
-    };
+  const headers = {
+    'xc-token': NOCODB_CONFIG.apiToken,
+    'Content-Type': 'application/json'
+  };
 
-    try {
-        // NocoDB v1 API endpoint: /api/v1/db/data/noco/{baseId}/{tableId}/{rowId}
-        const url = `${NOCODB_CONFIG.apiUrl}api/v1/db/data/noco/${NOCODB_CONFIG.baseId}/${NOCODB_CONFIG.officeTableId}/${officeId}`;
-        console.log('Fetching office by ID:', officeId, 'URL:', url);
-        
-        const response = await fetch(url, { headers });
-        
-        if (!response.ok) {
-            console.error('Failed to fetch office:', response.status, response.statusText);
-            const errorText = await response.text();
-            console.error('Error response:', errorText);
-            return null;
-        }
-        
-        const data = await response.json();
-        console.log('Office data received:', data);
-        
-        // v1 API returns the record directly
-        return transformOfficeData(data);
-    } catch (error) {
-        console.error('Error fetching office by ID:', error);
-        return null;
+  try {
+    const url = `${NOCODB_CONFIG.apiUrl}api/v1/db/data/noco/${NOCODB_CONFIG.baseId}/${NOCODB_CONFIG.officeTableId}/${officeId}`;
+    console.log('Fetching office by ID:', officeId, 'URL:', url);
+    const response = await fetch(url, { headers });
+    if (!response.ok) {
+      console.error('Failed to fetch office:', response.status, response.statusText);
+      const errorText = await response.text();
+      console.error('Error response:', errorText);
+      return null;
     }
+    const data = await response.json();
+    console.log('Office data received:', data);
+    return transformOfficeData(data);
+  } catch (error) {
+    console.error('Error fetching office by ID:', error);
+    return null;
+  }
+}
+
+/**
+ * Fetch MP by PA.org.za link
+ */
+async function fetchMPByPaLink(paUrl) {
+  const headers = {
+    'xc-token': NOCODB_CONFIG.apiToken,
+    'Content-Type': 'application/json'
+  };
+
+  const normalizeUrl = (url) => {
+    if (!url) return '';
+    return url.trim().toLowerCase().replace(/\/+$/, '');
+  };
+
+  const normalizedSearchUrl = normalizeUrl(paUrl);
+
+  let allMPs = [];
+  let offset = 0;
+  const pageSize = 1000;
+
+  while (true) {
+    const url = `${NOCODB_CONFIG.apiUrl}api/v1/db/data/noco/${NOCODB_CONFIG.baseId}/${NOCODB_CONFIG.mpTableId}?offset=${offset}&limit=${pageSize}`;
+    console.log(`Fetching page at offset ${offset}...`);
+    const response = await fetch(url, { headers, method: 'GET' });
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('MP API Error Response:', errorText);
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    const mps = data.list || data.records || [];
+    allMPs = allMPs.concat(mps);
+    console.log(`Fetched ${mps.length} MPs, total so far: ${allMPs.length}`);
+    if (!data.pageInfo || mps.length < pageSize) break;
+    offset += pageSize;
+  }
+
+  const mp = allMPs.find(mp => {
+    const mpPaLink = normalizeUrl(mp.PaLink || mp.paLink || mp.palink || '');
+    return mpPaLink === normalizedSearchUrl;
+  });
+  if (mp) console.log('Found MP by PaLink:', mp);
+  else console.log('No MP found with matching PaLink');
+  return mp;
 }
 
 /**
  * Load constituency offices for current MP
  */
 async function loadConstituencyOffices(paUrl) {
-    const container = document.getElementById('constituency-offices-container');
-    
-    if (!container || !paUrl) return;
-    
-    try {
-        container.innerHTML = '<p>Loading constituency offices...</p>';
-        
-        // Step 1: Find the MP by PaLink
-        const mp = await fetchMPByPaLink(paUrl);
-        
-        if (!mp) {
-            console.log('MP not found in NocoDB - showing no offices message');
-            displayConstituencyOffices([]);
-            return;
-        }
-        
-        console.log('MP found:', mp);
-        
-        // Step 2: Check if MP has Offices field with office ID(s)
-        const officesField = mp.Offices || mp.offices;
-        console.log('MP Offices field:', officesField);
-        
-        if (!officesField) {
-            console.log('No offices linked to this MP');
-            displayConstituencyOffices([]);
-            return;
-        }
-        
-        // Step 3: Extract office ID(s) - could be a single ID or object with Id property
-        let officeIds = [];
-        if (typeof officesField === 'object' && officesField.Id) {
-            officeIds = [officesField.Id];
-        } else if (typeof officesField === 'object' && officesField.id) {
-            officeIds = [officesField.id];
-        } else if (Array.isArray(officesField)) {
-            officeIds = officesField.map(o => o.Id || o.id || o).filter(Boolean);
-        } else {
-            officeIds = [officesField];
-        }
-        
-        console.log('Office IDs to fetch:', officeIds);
-        
-        // Step 4: Fetch each office by ID
-        const offices = await Promise.all(
-            officeIds.map(id => fetchOfficeById(id))
-        );
-        
-        const validOffices = offices.filter(Boolean);
-        console.log('Valid offices fetched:', validOffices);
-        
-        displayConstituencyOffices(validOffices);
-        
-    } catch (error) {
-        console.error('Error loading constituency offices:', error);
-        container.innerHTML = '<p class="error" style="color: #721c24; background: #f8d7da; padding: 10px; border-radius: 4px;">Failed to load constituency office details. Please try again later.</p>';
+  const container = document.getElementById('constituency-offices-container');
+  if (!container || !paUrl) return;
+  try {
+    container.innerHTML = '<p>Loading constituency offices...</p>';
+    const mp = await fetchMPByPaLink(paUrl);
+    if (!mp) {
+      console.log('MP not found in NocoDB - showing no offices message');
+      displayConstituencyOffices([]);
+      return;
     }
+    console.log('MP found:', mp);
+    const officesField = mp.Offices || mp.offices || mp.officesList;
+    console.log('MP Offices field:', officesField);
+    if (!officesField) {
+      console.log('No offices linked to this MP');
+      displayConstituencyOffices([]);
+      return;
+    }
+    let officeIds = [];
+    if (typeof officesField === 'object' && !Array.isArray(officesField)) {
+      // single linked object
+      officeIds = [officesField.Id || officesField.id || officesField];
+    } else if (Array.isArray(officesField)) {
+      officeIds = officesField.map(o => (o && (o.Id || o.id)) || o).filter(Boolean);
+    } else {
+      officeIds = [officesField];
+    }
+    console.log('Office IDs to fetch:', officeIds);
+    const offices = await Promise.all(officeIds.map(id => fetchOfficeById(id)));
+    const validOffices = offices.filter(Boolean);
+    console.log('Valid offices fetched:', validOffices);
+    displayConstituencyOffices(validOffices);
+  } catch (error) {
+    console.error('Error loading constituency offices:', error);
+    container.innerHTML = '<p class="error" style="color: #721c24; background: #f8d7da; padding: 10px; border-radius: 4px;">Failed to load constituency office details. Please try again later.</p>';
+  }
 }
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
-    // const paUrl = 'https://www.pa.org.za/person/nobuhle-pamela-nkabane/'; // TESTING OVERRIDE 
-    const paUrl = window.location.href;
-
-    console.log('Looking for offices with PaLink:', paUrl);
-    
-    if (paUrl) {
-        loadConstituencyOffices(paUrl);
-    }
+  const paUrl = window.location.href;
+  console.log('Looking for offices with PaLink:', paUrl);
+  if (paUrl) loadConstituencyOffices(paUrl);
 });
 </script>
 {% endblock %}
