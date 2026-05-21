@@ -222,7 +222,6 @@ function displayConstituencyOffices(offices) {
     // and only for offices that actually have details
     if (hasCoords(office) && officesWithCoords.length <= 1 && hasDetails(office)) {
       html += `<div id="${mapId}" style="height: 300px; width: 100%; border-radius: 4px;"></div>`;
-      html += `<p style="margin-top:0.5rem; font-size:0.9rem;"><a href="https://constituency-offices.pa.org.za/" target="_blank" rel="noopener noreferrer">View on Constituency Office Map</a></p>`;
     }
 
     html += `   </div>
@@ -239,7 +238,7 @@ function displayConstituencyOffices(offices) {
       if (combinedMapEl) {
         const combinedMap = L.map('offices-map', { scrollWheelZoom: false });
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-          attribution: '',
+          attribution: '<a href="https://constituency-offices.pa.org.za/" target="_blank" rel="noopener noreferrer">View on Constituency Office Map</a>',
           subdomains: 'abcd',
           maxZoom: 20
         }).addTo(combinedMap);
@@ -272,7 +271,7 @@ function displayConstituencyOffices(offices) {
               if (!mapEl) return;
               const map = L.map(mapId).setView([office.latitude, office.longitude], 13);
               L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-                attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+                attribution: '<a href="https://constituency-offices.pa.org.za/" target="_blank" rel="noopener noreferrer">View on Constituency Office Map</a>',
                 subdomains: 'abcd',
                 maxZoom: 20
               }).addTo(map);
