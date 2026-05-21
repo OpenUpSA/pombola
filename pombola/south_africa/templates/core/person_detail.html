@@ -106,6 +106,8 @@ function transformOfficeData(item) {
     latitude: latitude,
     longitude: longitude,
     address: item.Address || item.address || null,
+  // website/link field from NocoDB - use the Link column
+  website: item.Link || item.link || null,
     part: item.Part || item.part || '',
     province: item.Province || item.province || '',
     mp: item['MP Name'] || item.MPName || item.MP || '',
@@ -141,6 +143,30 @@ function displayConstituencyOffices(offices) {
 
   const officesWithCoords = offices.filter(hasCoords);
 
+  // Only render cards for offices that actually have textual/details to show
+  function hasDetails(office) {
+    return !!(
+      (office.name && office.name.toString().trim()) ||
+      (office.address && office.address.toString().trim()) ||
+      (office.adminPerson && office.adminPerson.toString().trim()) ||
+      (office.adminPhone && office.adminPhone.toString().trim()) ||
+      (office.adminEmail && office.adminEmail.toString().trim()) ||
+      (office.administratorDetails && office.administratorDetails.toString().trim()) ||
+      (office.part && office.part.toString().trim()) ||
+      (office.province && office.province.toString().trim()) ||
+      (office.mp && office.mp.toString().trim()) ||
+      (office.website && office.website.toString().trim())
+    );
+  }
+
+  const officesToRender = offices.filter(hasDetails);
+
+  // If there are no offices with details and none with coords, show empty message
+  if (officesToRender.length === 0 && officesWithCoords.length === 0) {
+    container.innerHTML = '<p style="display: block; width: 100%; margin-bottom: 1em; padding: 0.8em; border-radius: 0.3em; background-color: rgba(0, 0, 0, 0.05);">No constituency offices found for this MP.</p>';
+    return;
+  }
+
   let html = '<div class="mp-offices">';
 
   // Combined map for multiple geocoded offices
@@ -150,12 +176,14 @@ function displayConstituencyOffices(offices) {
         <div class="p-3">
           <h4 style="margin-top: 0; margin-bottom: 1rem; color: #333; font-weight: 600;">Constituency offices map</h4>
           <div id="offices-map" style="height: 350px; width: 100%; border-radius: 4px;"></div>
+          <p style="margin-top:0.75rem; font-size:0.9rem;"><a href="https://constituency-offices.pa.org.za/" target="_blank" rel="noopener noreferrer">View on Constituency Office Map</a></p>
         </div>
       </div>
     `;
   }
 
-  offices.forEach((office, index) => {
+  // Render cards only for offices that have details
+  officesToRender.forEach((office, index) => {
     const mapId = `office-map-${index}`;
     html += `<div class="office-card mb-3" style="background: #f8f9fa; border-radius: 4px; overflow: hidden;">
           <div class="p-3">`;
@@ -179,12 +207,22 @@ function displayConstituencyOffices(offices) {
     if (office.adminEmail) {
       html += `<div style="margin-bottom: 0.5rem;"><strong>Email:</strong> <a href="mailto:${office.adminEmail}">${office.adminEmail}</a></div>`;
     }
+    if (office.website) {
+      // Ensure URL has protocol
+      let href = office.website.toString().trim();
+      if (href && !href.match(/^https?:\/\//i)) {
+        href = 'http://' + href;
+      }
+      html += `<div style="margin-bottom: 0.5rem;"><strong>Website:</strong> <a href="${href}" target="_blank" rel="noopener noreferrer">${office.website}</a></div>`;
+    }
 
     html += `</div>`;
 
     // Per-office map only when there's exactly one geocoded office (or none combined above)
-    if (hasCoords(office) && officesWithCoords.length <= 1) {
+    // and only for offices that actually have details
+    if (hasCoords(office) && officesWithCoords.length <= 1 && hasDetails(office)) {
       html += `<div id="${mapId}" style="height: 300px; width: 100%; border-radius: 4px;"></div>`;
+      html += `<p style="margin-top:0.5rem; font-size:0.9rem;"><a href="https://constituency-offices.pa.org.za/" target="_blank" rel="noopener noreferrer">View on Constituency Office Map</a></p>`;
     }
 
     html += `   </div>
@@ -201,7 +239,7 @@ function displayConstituencyOffices(offices) {
       if (combinedMapEl) {
         const combinedMap = L.map('offices-map', { scrollWheelZoom: false });
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+          attribution: '',
           subdomains: 'abcd',
           maxZoom: 20
         }).addTo(combinedMap);
