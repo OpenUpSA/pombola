@@ -612,6 +612,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 {% endfor %}
             </div>
 
+            {% if person.is_current_member_of_national_assembly %}
             <h3 class="mp-block__title">Constituency Offices</h3>
             <div id="constituency-offices-container">
               <p>Loading constituency offices...</p>
@@ -631,6 +632,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </a>
               {% endfor %}
             </div>
+            {% endif %}
             {% endif %}
 
             <h3 class="mp-block__title">Contact Details:</h3>
