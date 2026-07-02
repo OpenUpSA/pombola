@@ -612,7 +612,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 {% endfor %}
             </div>
 
-            {% if person.is_current_member_of_national_assembly %}
+            {% if person.is_current_member_of_national_assembly_or_ncop %}
             <h3 class="mp-block__title">Constituency Offices</h3>
             <div id="constituency-offices-container">
               <p>Loading constituency offices...</p>
