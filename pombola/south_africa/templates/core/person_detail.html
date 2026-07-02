@@ -24,6 +24,10 @@ const NOCODB_CONFIG = {
   mpTableId: '{{ nocodb_config.mpTableId }}'
 };
 
+// Person context for fallback office searches
+const PERSON_NAME = '{{ object.name|escapejs }}';
+const PERSON_SLUG = '{{ object.slug|escapejs }}';
+
 /**
  * Parse latitude and longitude from various string formats
  */
@@ -322,44 +326,55 @@ async function fetchOfficeById(officeId) {
 }
 
 /**
- * Fetch MP by PA.org.za link
+ * Normalise a URL for comparison: trim, lowercase, strip trailing slashes
  */
-async function fetchMPByPaLink(paUrl) {
+function normalizePaUrl(url) {
+  if (!url) return '';
+  return url.toString().trim().toLowerCase().replace(/\/+$/, '');
+}
+
+/**
+ * Fetch all records from a NocoDB table with pagination.
+ * Returns an array of raw record objects.
+ */
+async function fetchAllNocoDBRecords(tableId) {
   const headers = {
     'xc-token': NOCODB_CONFIG.apiToken,
     'Content-Type': 'application/json'
   };
 
-  const normalizeUrl = (url) => {
-    if (!url) return '';
-    return url.trim().toLowerCase().replace(/\/+$/, '');
-  };
-
-  const normalizedSearchUrl = normalizeUrl(paUrl);
-
-  let allMPs = [];
+  let allRecords = [];
   let offset = 0;
   const pageSize = 1000;
 
   while (true) {
-    const url = `${NOCODB_CONFIG.apiUrl}api/v1/db/data/noco/${NOCODB_CONFIG.baseId}/${NOCODB_CONFIG.mpTableId}?offset=${offset}&limit=${pageSize}`;
-    console.log(`Fetching page at offset ${offset}...`);
+    const url = `${NOCODB_CONFIG.apiUrl}api/v1/db/data/noco/${NOCODB_CONFIG.baseId}/${tableId}?offset=${offset}&limit=${pageSize}`;
     const response = await fetch(url, { headers, method: 'GET' });
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('MP API Error Response:', errorText);
-      throw new Error(`HTTP error! status: ${response.status}`);
+      console.error(`NocoDB API error for table ${tableId}:`, response.status, errorText);
+      break;
     }
     const data = await response.json();
-    const mps = data.list || data.records || [];
-    allMPs = allMPs.concat(mps);
-    console.log(`Fetched ${mps.length} MPs, total so far: ${allMPs.length}`);
-    if (!data.pageInfo || mps.length < pageSize) break;
+    const records = data.list || data.records || [];
+    allRecords = allRecords.concat(records);
+    if (!data.pageInfo || records.length < pageSize) break;
     offset += pageSize;
   }
 
+  return allRecords;
+}
+
+/**
+ * Fetch MP by PA.org.za link
+ */
+async function fetchMPByPaLink(paUrl) {
+  const normalizedSearchUrl = normalizePaUrl(paUrl);
+
+  const allMPs = await fetchAllNocoDBRecords(NOCODB_CONFIG.mpTableId);
+
   const mp = allMPs.find(mp => {
-    const mpPaLink = normalizeUrl(mp.PaLink || mp.paLink || mp.palink || '');
+    const mpPaLink = normalizePaUrl(mp.PaLink || mp.paLink || mp.palink || '');
     return mpPaLink === normalizedSearchUrl;
   });
   if (mp) console.log('Found MP by PaLink:', mp);
@@ -368,41 +383,130 @@ async function fetchMPByPaLink(paUrl) {
 }
 
 /**
+ * Search the office table directly for offices whose PaLink matches
+ * the current person's page URL.  This is a parallel path to the
+ * MP → Offices link lookup and catches cases where an office is
+ * associated with a person but the MP record's Offices link field
+ * does not include it (e.g. when two MPs share an office).
+ */
+async function fetchOfficesByPaLink(paUrl) {
+  const normalizedSearchUrl = normalizePaUrl(paUrl);
+
+  const allOffices = await fetchAllNocoDBRecords(NOCODB_CONFIG.officeTableId);
+
+  const matching = allOffices.filter(office => {
+    const officePaLink = normalizePaUrl(office.PaLink || office.paLink || '');
+    return officePaLink === normalizedSearchUrl;
+  });
+
+  console.log(`Direct office search found ${matching.length} office(s) by PaLink`);
+  return matching;
+}
+
+/**
+ * Fallback: search the office table for offices whose "MP Name" field
+ * matches the current person's name.  This catches cases where the
+ * PaLink field is missing or points to a different person but the
+ * office is still associated with this person by name.
+ */
+async function fetchOfficesByMpName(personName) {
+  if (!personName) return [];
+
+  const normalizedName = personName.trim().toLowerCase();
+  const allOffices = await fetchAllNocoDBRecords(NOCODB_CONFIG.officeTableId);
+
+  const matching = allOffices.filter(office => {
+    const mpName = (office['MP Name'] || office.MPName || office.MP || '').toString().trim().toLowerCase();
+    return mpName && mpName === normalizedName;
+  });
+
+  console.log(`Direct office search found ${matching.length} office(s) by MP name`);
+  return matching;
+}
+
+/**
  * Load constituency offices for current MP
+ *
+ * Uses three parallel search paths and merges the results:
+ *  1. MP table → Offices link field  (primary path)
+ *  2. Office table → PaLink match    (catches shared offices)
+ *  3. Office table → MP Name match   (fallback when PaLink is missing/wrong)
  */
 async function loadConstituencyOffices(paUrl) {
   const container = document.getElementById('constituency-offices-container');
   if (!container || !paUrl) return;
   try {
     container.innerHTML = '<p>Loading constituency offices...</p>';
-    const mp = await fetchMPByPaLink(paUrl);
-    if (!mp) {
-      console.log('MP not found in NocoDB - showing no offices message');
-      displayConstituencyOffices([]);
-      return;
+
+    // Run all three searches in parallel; a failure in one path
+    // does not prevent the others from contributing results.
+    const [mpResult, directPaLinkResult, directNameResult] = await Promise.allSettled([
+      fetchMPByPaLink(paUrl),
+      fetchOfficesByPaLink(paUrl),
+      fetchOfficesByMpName(PERSON_NAME)
+    ]);
+
+    // Collect offices into a Map keyed by office ID for deduplication
+    const officesById = new Map();
+
+    // --- Path 1: MP → Offices link → fetch each office by ID ---
+    if (mpResult.status === 'fulfilled' && mpResult.value) {
+      const mp = mpResult.value;
+      console.log('MP found:', mp);
+      const officesField = mp.Offices || mp.offices || mp.officesList;
+      console.log('MP Offices field:', officesField);
+      if (officesField) {
+        let officeIds = [];
+        if (typeof officesField === 'object' && !Array.isArray(officesField)) {
+          // single linked object
+          officeIds = [officesField.Id || officesField.id || officesField];
+        } else if (Array.isArray(officesField)) {
+          officeIds = officesField.map(o => (o && (o.Id || o.id)) || o).filter(Boolean);
+        } else {
+          officeIds = [officesField];
+        }
+        console.log('Office IDs from MP link:', officeIds);
+        const fetched = await Promise.all(officeIds.map(id => fetchOfficeById(id)));
+        fetched.filter(Boolean).forEach(office => {
+          if (office.id) officesById.set(office.id, office);
+          else officesById.set(office, office); // fallback key if no id
+        });
+      } else {
+        console.log('No offices linked to this MP via Offices field');
+      }
+    } else if (mpResult.status === 'rejected') {
+      console.warn('MP lookup failed:', mpResult.reason);
     }
-    console.log('MP found:', mp);
-    const officesField = mp.Offices || mp.offices || mp.officesList;
-    console.log('MP Offices field:', officesField);
-    if (!officesField) {
-      console.log('No offices linked to this MP');
-      displayConstituencyOffices([]);
-      return;
-    }
-    let officeIds = [];
-    if (typeof officesField === 'object' && !Array.isArray(officesField)) {
-      // single linked object
-      officeIds = [officesField.Id || officesField.id || officesField];
-    } else if (Array.isArray(officesField)) {
-      officeIds = officesField.map(o => (o && (o.Id || o.id)) || o).filter(Boolean);
+
+    // --- Path 2: Office table → PaLink match ---
+    if (directPaLinkResult.status === 'fulfilled') {
+      directPaLinkResult.value.forEach(rawOffice => {
+        const office = transformOfficeData(rawOffice);
+        const key = office.id || ('palink-' + (rawOffice.Id || rawOffice.id));
+        if (!officesById.has(key)) {
+          officesById.set(key, office);
+        }
+      });
     } else {
-      officeIds = [officesField];
+      console.warn('Direct PaLink office search failed:', directPaLinkResult.reason);
     }
-    console.log('Office IDs to fetch:', officeIds);
-    const offices = await Promise.all(officeIds.map(id => fetchOfficeById(id)));
-    const validOffices = offices.filter(Boolean);
-    console.log('Valid offices fetched:', validOffices);
-    displayConstituencyOffices(validOffices);
+
+    // --- Path 3: Office table → MP Name match (fallback) ---
+    if (directNameResult.status === 'fulfilled') {
+      directNameResult.value.forEach(rawOffice => {
+        const office = transformOfficeData(rawOffice);
+        const key = office.id || ('name-' + (rawOffice.Id || rawOffice.id));
+        if (!officesById.has(key)) {
+          officesById.set(key, office);
+        }
+      });
+    } else {
+      console.warn('Direct MP name office search failed:', directNameResult.reason);
+    }
+
+    const allOffices = Array.from(officesById.values());
+    console.log('Total unique offices after merge:', allOffices.length);
+    displayConstituencyOffices(allOffices);
   } catch (error) {
     console.error('Error loading constituency offices:', error);
     container.innerHTML = '<p class="error" style="color: #721c24; background: #f8d7da; padding: 10px; border-radius: 4px;">Failed to load constituency office details. Please try again later.</p>';
