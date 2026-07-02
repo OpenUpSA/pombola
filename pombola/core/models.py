@@ -585,6 +585,17 @@ class Person(ModelBase, HasImageMixin, ScorecardMixin, IdentifierMixin):
         return self.position_set.national_assembly().currently_active().exists()
 
     @property
+    def is_current_member_of_ncop(self):
+        return self.position_set.ncop().currently_active().exists()
+
+    @property
+    def is_current_member_of_national_assembly_or_ncop(self):
+        return (
+            self.is_current_member_of_national_assembly or
+            self.is_current_member_of_ncop
+        )
+
+    @property
     def has_ever_been_member_of_national_assembly(self):
         return self.position_set.national_assembly().exists()
 
