@@ -169,6 +169,15 @@ class Converter(object):
         "pinky-pearlgene-mngadi":"pinky-pearlgene-ncube",
         "marlon-vivienne-daniels":"marlon-daniels",
         "general-bantubonke-harrington-holomisa":"bantubonke-harrington-holomisa",
+        # 2026 register
+        "ashley-qhoeke-sauls":"ashley-sauls",
+        "dianne-kohler":"dianne-kohler-barnard",
+        "dorries-eunice-mpapane":"dorris-eunice-dlakude",
+        "lindelwa-balungile-sapo":"lindelwa-sapo",
+        "mandla-muzi-christ-khoza":"muzi-khoza",
+        "seeng-mmabatho-nthabiseng-mokoena-zondi":"seeng-mmabatho-mokoena",
+        "tshehofatso-meagan-chauke-adonis":"tshehofatso-meagan-chauke",
+        "zamakhanyase-khanyase":"zama-khanyase",
         # Garbage entries
         "control-flag-ict": None,
         "strongremunerated-employment-or-work-outside-of-parliamentstrong": None
