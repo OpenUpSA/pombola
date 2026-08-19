@@ -227,7 +227,7 @@ class Converter(object):
                 # go through all entries stripping off extra whitespace from
                 # keys and values
                 for entry in entries:
-                    for key in entry.keys():
+                    for key in list(entry.keys()):
 
                         # correct common scraper heading error
                         key_to_use = key.strip()
