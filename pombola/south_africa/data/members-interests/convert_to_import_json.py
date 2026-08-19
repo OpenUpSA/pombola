@@ -4,6 +4,7 @@
 # format needed for import. Should do all cleanup of data and removal of
 # unneeded entries too.
 
+import argparse
 import json
 import os
 import re
@@ -36,8 +37,8 @@ class Converter(object):
         "\" \"",
     ]
 
-    # Change this to True to enable little bits of helper code for finding new
-    # slug corrections:
+    # Set to True (via --finding-slug-corrections) to enable little bits of
+    # helper code for finding new slug corrections:
     finding_slug_corrections = False
 
     parties = ["ACDP", "AIC", "AL JAMA-AH", "ANC", "ATM", "COPE", "DA", "EFF", "FF PLUS", "GOOD", "IFP", "NFP", "PAC", "UDM"]
@@ -189,8 +190,9 @@ class Converter(object):
         "TRUSTS": 13
     }
 
-    def __init__(self, filename):
+    def __init__(self, filename, finding_slug_corrections=False):
         self.filename = filename
+        self.finding_slug_corrections = finding_slug_corrections
         self.mp_count = {}
 
     def convert(self):
@@ -356,8 +358,35 @@ class Converter(object):
             return json.load(fh)
 
 
+def parse_args(argv=None):
+    parser = argparse.ArgumentParser(
+        description=(
+            "Take the JSON in the given file and convert it to the JSON format "
+            "needed for import."
+        )
+    )
+    parser.add_argument(
+        "filename",
+        help="JSON file produced by the members' interests scraper",
+    )
+    parser.add_argument(
+        "--finding-slug-corrections",
+        action="store_true",
+        help=(
+            "Enable helper output for finding new slug corrections: prints the "
+            "slug_corrections dict after the converted JSON"
+        ),
+    )
+    return parser.parse_args(argv)
+
+
 if __name__ == "__main__":
-    converter = Converter(sys.argv[1])
+    args = parse_args()
+
+    converter = Converter(
+        args.filename,
+        finding_slug_corrections=args.finding_slug_corrections,
+    )
     output = converter.convert()
     print(output)
 
