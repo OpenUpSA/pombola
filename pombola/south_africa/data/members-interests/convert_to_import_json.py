@@ -9,9 +9,9 @@ import json
 import os
 import re
 import sys
+from urllib.parse import unquote
 
 import django
-import urllib
 
 from django.db.models import Q
 from django.utils.text import slugify
@@ -209,7 +209,7 @@ class Converter(object):
         date = data['date']
 
         source_filename = re.sub(r'.*/(.*?)\.pdf', r'\1', source_url)
-        source_name = urllib.unquote(source_filename).replace('_', ' ').strip()
+        source_name = unquote(source_filename).replace('_', ' ').strip()
 
         self.release = {
             "name": "Parliament Register of Members' Interests " + year,
