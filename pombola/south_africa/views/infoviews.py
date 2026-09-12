@@ -3,8 +3,6 @@ from info.views import InfoBlogView, InfoPageView
 from django.views.generic import DetailView, ListView
 from django.views.generic.base import ContextMixin
 
-from pombola.core.views import CommentArchiveMixin
-
 from info.models import InfoPage, Category, Tag, ViewCount
 
 from django.conf import settings
@@ -98,5 +96,5 @@ class SAInfoBlogList(BlogMixin,ListView):
     paginate_by = settings.INFO_POSTS_PER_LIST_PAGE
     template_name = 'info/blog_list.html'
 
-class SAInfoBlogView(CommentArchiveMixin, InfoBlogView):
+class SAInfoBlogView(BlogMixin, InfoBlogView):
     pass
