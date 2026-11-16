@@ -38,6 +38,26 @@ def key_position_sort_last_name(position):
     )
 
 
+def first_position_per_person(positions):
+    """Return only the first position for each distinct person.
+
+    The position listing on an organisation page shows people, not
+    positions, and the template only renders details of the person, so
+    without this a person who holds more than one current position in the
+    organisation (for example an MPL who is also the Chief Whip) would be
+    listed once per position, looking like an exact duplicate.
+    """
+
+    result = []
+    seen_person_ids = set()
+    for position in positions:
+        if position.person_id in seen_person_ids:
+            continue
+        seen_person_ids.add(position.person_id)
+        result.append(position)
+    return result
+
+
 class SAOrganisationDetailView(CommentArchiveMixin, OrganisationDetailView):
     def get_context_data(self, **kwargs):
         context = super(SAOrganisationDetailView, self).get_context_data(**kwargs)
@@ -48,11 +68,13 @@ class SAOrganisationDetailView(CommentArchiveMixin, OrganisationDetailView):
         context['organisation_kind'] = self.object.kind
 
         # Sort the list of positions in an organisation by an approximation
-        # of their holder's last name.
-        context['positions'] = sorted(
+        # of their holder's last name, collapsing multiple current positions
+        # held by the same person (e.g. an MPL who is also the Chief Whip)
+        # down to a single entry so that each person is only listed once.
+        context['positions'] = first_position_per_person(sorted(
             context['positions'].currently_active(),
             key=key_position_sort_last_name,
-        )
+        ))
 
         paginator = Paginator(context['positions'], 20)
         page = self.request.GET.get('page')
