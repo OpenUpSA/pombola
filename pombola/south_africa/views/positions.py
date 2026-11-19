@@ -8,6 +8,8 @@ from pombola.core.models import Position
 from django.db.models import Q
 from django.views.generic import TemplateView
 
+from .organisations import first_position_per_person
+
 
 FIRST_ALPHABETIC_CHARACTER_RE = re.compile(r'(\w)', re.UNICODE)
 
@@ -33,6 +35,11 @@ class SAMembersView(TemplateView):
                 'person__alternative_names',
                 'person__images') \
             .order_by('person__sort_name')
+        # The template renders one entry per position but only shows the
+        # person, so a person with more than one matching current position
+        # (e.g. an NCOP delegate who is also a chairperson) would look like
+        # an exact duplicate - collapse to one position per person:
+        positions = first_position_per_person(positions)
         # It's easy to accidentally evaluate the lazy grouper and then
         # not be able to get at the positions, so turn them into lists
         # here:
